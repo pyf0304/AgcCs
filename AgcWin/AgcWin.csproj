@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6F39A70A-0594-4552-B777-F360BC2518AD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Agc_CsWin</RootNamespace>
+    <AssemblyName>Agc_CsV7Win</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>E:\Builder\AgcCsWinSetup2\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcWin\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcWin\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>0CFC7F0B3DD0D1B7AFD32A92DCDC4C42672BA428</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Agc_CsV7Win_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="clsGetExcelFromDataTableO2007">
+      <HintPath>E:\PublicLib\clsGetExcelFromDataTableO2007.dll</HintPath>
+    </Reference>
+    <Reference Include="CommFunc4Win">
+      <HintPath>E:\PublicLib\CommFunc4Win.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_Entity">
+      <HintPath>E:\PublicLib\GP\GeneralPlatform_Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="GP4WApi, Version=2022.12.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\PublicLib\GP\GP4WApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>E:\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+    <Reference Include="TzWinCtrlLib">
+      <HintPath>E:\PublicLib\TzWinCtrlLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommFunc\clsDropDownList.cs" />
+    <Compile Include="CommFunc\clsGeneCode_Local.cs" />
+    <Compile Include="CommFunc\clsIncludeFile.cs" />
+    <Compile Include="CommFunc\clsMSProject.cs" />
+    <Compile Include="CommFunc\clsMyConfig4AgcWin.cs" />
+    <Compile Include="CommFunc\clsPubClass4CM.cs" />
+    <Compile Include="CommFunc\clsPubFun.cs" />
+    <Compile Include="CommFunc\clsPubVar.cs" />
+    <Compile Include="CommFunc\MachineInfo.cs" />
+    <Compile Include="CommFunc\myCheckPrjFileState.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_QD_DGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_QD_DGV.Designer.cs">
+      <DependentUpon>frmFileResource_QD_DGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_QD_LV.Designer.cs">
+      <DependentUpon>frmFileResource_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm1\ResourceMan\frmFileResource_UI.Designer.cs">
+      <DependentUpon>frmFileResource_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\CodeMan\frmCMUserProject_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\CodeMan\frmCMUserProject_QD_LV.Designer.cs">
+      <DependentUpon>frmCMUserProject_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\CodeMan\frmCMUserProject_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\CodeMan\frmCMUserProject_UI.Designer.cs">
+      <DependentUpon>frmCMUserProject_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_QD_LV.designer.cs">
+      <DependentUpon>frmUserPrjGrant_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_SelectPrj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_SelectPrj.designer.cs">
+      <DependentUpon>frmUserPrjGrant_SelectPrj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\AuthorityManage\frmUserPrjGrant_UI.designer.cs">
+      <DependentUpon>frmUserPrjGrant_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\frmlogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\LogManage\frmTabCheckResult_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\LogManage\frmTabCheckResult_QD_LV.Designer.cs">
+      <DependentUpon>frmTabCheckResult_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\LogManage\frmTabCheckResult_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\LogManage\frmTabCheckResult_UI.Designer.cs">
+      <DependentUpon>frmTabCheckResult_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\MaintainPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\PrjInterface\frmViewInfo_GeneCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\PrjInterface\frmViewInfo_GeneCode.Designer.cs">
+      <DependentUpon>frmViewInfo_GeneCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV_Machine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV_Machine.Designer.cs">
+      <DependentUpon>frmUserCodePrjMainPath_QD_LV_Machine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV.Designer.cs">
+      <DependentUpon>frmUserCodePrjMainPath_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePath_QD_LV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePath_QD_LV.Designer.cs">
+      <DependentUpon>frmUserCodePath_QD_LV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmCopyCodePath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmCopyCodePath.Designer.cs">
+      <DependentUpon>frmCopyCodePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePrjMainPath_UI.Designer.cs">
+      <DependentUpon>frmUserCodePrjMainPath_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePath_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmUserCodePath_UI.Designer.cs">
+      <DependentUpon>frmUserCodePath_UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmWebServiceSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\SystemSet\frmWebServiceSet.Designer.cs">
+      <DependentUpon>frmWebServiceSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Table_Field\frmPrjTab_GeneCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Table_Field\frmPrjTab_GeneCode.Designer.cs">
+      <DependentUpon>frmPrjTab_GeneCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\ActionsModule.cs" />
+    <Compile Include="frm\Test\clsIncludeFile.cs" />
+    <Compile Include="frm\Test\clsMSProject.cs" />
+    <Compile Include="frm\Test\DefaultBindingMethodAttribute.cs" />
+    <Compile Include="frm\Test\DependencyBindings.cs" />
+    <Compile Include="frm\Test\DI.cs" />
+    <Compile Include="frm\Test\frmTestGCByIncludeTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frmTestGCByIncludeTab.Designer.cs">
+      <DependentUpon>frmTestGCByIncludeTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frmTestParseCsFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frmTestParseCsFile.Designer.cs">
+      <DependentUpon>frmTestParseCsFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frmTestTzWinCtrlLib.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frmTestTzWinCtrlLib.Designer.cs">
+      <DependentUpon>frmTestTzWinCtrlLib.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Table_Field\frmWebSrvClass_GeneCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Table_Field\frmWebSrvClass_GeneCode.Designer.cs">
+      <DependentUpon>frmWebSrvClass_GeneCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frmTestWebService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frmTestWebService.Designer.cs">
+      <DependentUpon>frmTestWebService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frm即时编译.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frm即时编译.Designer.cs">
+      <DependentUpon>frm即时编译.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frm建立界面结构树.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frm建立界面结构树.Designer.cs">
+      <DependentUpon>frm建立界面结构树.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frm扩展对象列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frm扩展对象列表.Designer.cs">
+      <DependentUpon>frm扩展对象列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frm获取对象属性列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frm获取对象属性列表.Designer.cs">
+      <DependentUpon>frm获取对象属性列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frm读取工程信息.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frm读取工程信息.Designer.cs">
+      <DependentUpon>frm读取工程信息.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\IActionsModule.cs" />
+    <Compile Include="frm\Test\IOutputWriter.cs" />
+    <Compile Include="frm\Test\IPlugin.cs" />
+    <Compile Include="frm\Test\IQuickAction.cs" />
+    <Compile Include="frm\Test\LightningDevelopmentHandle.cs" />
+    <Compile Include="CommFunc\MyParseCsFile.cs" />
+    <Compile Include="frm\UpdatePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\frmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\frmTest.Designer.cs">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\MdiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm1\ResourceMan\frmFileResource_QD_DGV.resx">
+      <DependentUpon>frmFileResource_QD_DGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm1\ResourceMan\frmFileResource_QD_LV.resx">
+      <DependentUpon>frmFileResource_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\CodeMan\frmCMUserProject_QD_LV.resx">
+      <DependentUpon>frmCMUserProject_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\AuthorityManage\frmUserPrjGrant_QD_LV.resx">
+      <DependentUpon>frmUserPrjGrant_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\AuthorityManage\frmUserPrjGrant_SelectPrj.resx">
+      <DependentUpon>frmUserPrjGrant_SelectPrj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\AuthorityManage\frmUserPrjGrant_UI.resx">
+      <DependentUpon>frmUserPrjGrant_UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\frmlogin.resx">
+      <DependentUpon>frmlogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\LogManage\frmTabCheckResult_QD_LV.resx">
+      <DependentUpon>frmTabCheckResult_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\MaintainPwd.resx">
+      <DependentUpon>MaintainPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\PrjInterface\frmViewInfo_GeneCode.resx">
+      <DependentUpon>frmViewInfo_GeneCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV_Machine.resx">
+      <DependentUpon>frmUserCodePrjMainPath_QD_LV_Machine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmUserCodePrjMainPath_QD_LV.resx">
+      <DependentUpon>frmUserCodePrjMainPath_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmUserCodePath_QD_LV.resx">
+      <DependentUpon>frmUserCodePath_QD_LV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmCopyCodePath.resx">
+      <DependentUpon>frmCopyCodePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmUserCodePrjMainPath_UI.resx">
+      <DependentUpon>frmUserCodePrjMainPath_UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmUserCodePath_UI.resx">
+      <DependentUpon>frmUserCodePath_UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\SystemSet\frmWebServiceSet.resx">
+      <DependentUpon>frmWebServiceSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Table_Field\frmPrjTab_GeneCode.resx">
+      <DependentUpon>frmPrjTab_GeneCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frmTestGCByIncludeTab.resx">
+      <DependentUpon>frmTestGCByIncludeTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frmTestParseCsFile.resx">
+      <DependentUpon>frmTestParseCsFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frmTestTzWinCtrlLib.resx">
+      <DependentUpon>frmTestTzWinCtrlLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Table_Field\frmWebSrvClass_GeneCode.resx">
+      <DependentUpon>frmWebSrvClass_GeneCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frmTestWebService.resx">
+      <DependentUpon>frmTestWebService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frm即时编译.resx">
+      <DependentUpon>frm即时编译.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frm建立界面结构树.resx">
+      <DependentUpon>frm建立界面结构树.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frm扩展对象列表.resx">
+      <DependentUpon>frm扩展对象列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frm获取对象属性列表.resx">
+      <DependentUpon>frm获取对象属性列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frm读取工程信息.resx">
+      <DependentUpon>frm读取工程信息.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\UpdatePassword.resx">
+      <DependentUpon>UpdatePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\frmTest.resx">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\MdiForm.resx">
+      <DependentUpon>MdiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Agc_CsV7Win_TemporaryKey.pfx" />
+    <None Include="appBak20200725.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="appBak4EnCrypt.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BaseClass2024\CSLexerV2\CMicroParserV2.csproj">
+      <Project>{54b6d13e-6d0e-405d-9b2d-1c69721f476d}</Project>
+      <Name>CMicroParserV2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AGC4WApi\AGC4WApi.csproj">
+      <Project>{a4a7b8ee-f496-4367-9486-b328584163f4}</Project>
+      <Name>AGC4WApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcBLLEx\AgcBLLEx.csproj">
+      <Project>{876edade-754a-48b4-9e5c-37ea7b9e684c}</Project>
+      <Name>AgcBLLEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5DE8E2B4-6932-4F71-BAC7-87221670C657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClassBL\AgcPureClassBL.csproj">
+      <Project>{948d0d10-e065-4f47-b386-ca4b41966b1e}</Project>
+      <Name>AgcPureClassBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClass\AgcPureClass.csproj">
+      <Project>{09e0ffbe-e7b7-4391-a176-1233811ef857}</Project>
+      <Name>AgcPureClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoGCLib\AutoGCLib.csproj">
+      <Project>{babcfa57-d8e6-49c6-b23f-2507445df4e2}</Project>
+      <Name>AutoGCLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeStruct\CodeStruct.csproj">
+      <Project>{6d47e144-bff2-4595-9a4c-9cb7e9550ef5}</Project>
+      <Name>CodeStruct</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

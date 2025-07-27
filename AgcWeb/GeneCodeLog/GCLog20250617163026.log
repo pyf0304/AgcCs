@@ -1,0 +1,10 @@
+﻿生成日期：20250617163026(当前工程Id:0005, 用户：pyf)
+错误：表Id:[00050641]，Cm项目Id:[000014]找不到相关对象！(intFindFailCount=2)(当前对象数:431)(AGC4WApi.clsPrjTabExWApi:GetObjExByTabId_CacheEx)生成表:[GCConstantPrjIdRela(00050641)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+针对表:00050559(GCVariable)
+错误：表Id:[00050640]，Cm项目Id:[000014]找不到相关对象！(intFindFailCount=2)(当前对象数:431)(AGC4WApi.clsPrjTabExWApi:GetObjExByTabId_CacheEx)生成表:[GCDefaConstants(00050640)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+针对表:00050311(Function4GeneCode)
+针对表:00050463(TabFeature)
+针对表:00050635(PrjTabAddi)
+针对表:00050019(PrjTabFld)
+针对表:00050639(vCmProjectPrjTab_Sim)
+共计生成文件数:0(共计表:8).

@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <BaseOutputPath>E:\TzAppData\AGCV2\AgcWA\bin</BaseOutputPath>
+    <BaseIntermediateOutputPath>E:\TzAppData\AGCV2\AgcWA\obj</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <Compile Remove="WebApi\J2EEModule\**" />
+    <Compile Remove="WebApi\NewsBulletin\**" />
+    <Content Remove="bin\**" />
+    <Content Remove="obj\**" />
+    <Content Remove="WebApi\J2EEModule\**" />
+    <Content Remove="WebApi\NewsBulletin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <EmbeddedResource Remove="WebApi\J2EEModule\**" />
+    <EmbeddedResource Remove="WebApi\NewsBulletin\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+    <None Remove="WebApi\J2EEModule\**" />
+    <None Remove="WebApi\NewsBulletin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\DataNodeApi2Controller.cs" />
+    <Compile Remove="Controllers\SW_PressurePointApiController.cs" />
+    <Compile Remove="WebApi4Gp\WebApiEx\ConvertObj.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.11.3" />
+    <PackageReference Include="JWT" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.19.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Svg" Version="3.4.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.6.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj" />
+    <ProjectReference Include="..\AgcBLLEx\AgcBLLEx.csproj" />
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj" />
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj" />
+    <ProjectReference Include="..\AutoGCLib\AutoGCLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GeneralPlatform_Business">
+      <HintPath>..\..\..\..\..\PublicLib\GP\GeneralPlatform_Business.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_BusinessEx">
+      <HintPath>..\..\..\..\..\PublicLib\GP\GeneralPlatform_BusinessEx.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_DAL">
+      <HintPath>..\..\..\..\..\PublicLib\GP\GeneralPlatform_DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_Entity">
+      <HintPath>..\..\..\..\..\PublicLib\GP\GeneralPlatform_Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="GP4WApi">
+      <HintPath>..\..\..\..\..\PublicLib\GP\GP4WApi.dll</HintPath>
+    </Reference>
+    <Reference Include="PubDataBase">
+      <HintPath>E:\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="TzPubFunction">
+      <HintPath>E:\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GeneCodeLog\" />
+    <Folder Include="WebApi4Gp\UserManage\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

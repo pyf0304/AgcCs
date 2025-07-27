@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function CPos(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        function GetObjPos(ATarget) {
+
+            var target = ATarget;
+
+            var pos = new CPos(target.offsetLeft, target.offsetTop);
+
+            var target = target.offsetParent;  //(1)
+
+            while (target) {
+
+                pos.x += target.offsetLeft;
+
+                pos.y += target.offsetTop;
+
+                target = target.offsetParent  //(2)
+
+            }
+
+            return pos;
+
+        }
+        function GetDivTop() {
+            var divScroll = document.getElementById("divScroll");
+            console.log(divScroll);
+            var pos = GetObjPos(divScroll);
+            console.log(pos);
+            var intclientHeight = document.body.clientHeight
+            var intavailHeight = window.screen.availHeight
+            var divHeight = intavailHeight - pos.y-80;
+            console.log("divHeight", divHeight);
+            divScroll.style.height = divHeight + 'px';
+            var intclientTop = divScroll.clientTop;
+            var intclientLeft = divScroll.clientLeft;
+            console.error('intclientTop', intclientTop);
+            console.error('intclientLeft', intclientLeft);
+
+            var lblbMsg = document.getElementById("lblMsg");
+            var strMsg = `clientTop:${divScroll.clientTop}<br/>`;
+            strMsg += `clientLeft:${divScroll.clientLeft}<br/>`;
+            lblbMsg.innerHTML = strMsg;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div id="divTop">top</div>
+        <div id="divMiddle">
+            <div style=" width:30%;float:left">left
+            <button style="height:25px;width:100px" onclick="GetDivTop()">获取层顶的位置信息</button>
+            <label id="lblMsg"></label></div>
+            <div style=" width:70%;float:right">right
+                <div id="divScroll" style="border:double; overflow:auto">
+                    上海师范大学<br />
+
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+                    上海师范大学<br />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

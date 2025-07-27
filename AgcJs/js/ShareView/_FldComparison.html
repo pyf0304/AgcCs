@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!--<link href="../../Content/bootstrap.css" rel="stylesheet" />-->
+    <!--<script src="../../scripts/jquery-3.4.1.min.js"></script>-->
+    <!--<script src="../../scripts/bootstrap.js"></script>-->
+    <!--<script src="/js/site.js" asp-append-version="true"></script>
+
+    <script data-main="/js/src/config" src="/scripts/require.js"></script>
+    <script src="../../scripts/popper.js"></script>-->
+    <script type="text/javascript">
+        function AddFldComparison() {
+            require(["clsfldcomparisonobj"], function (FldComparisonObj) {
+                ShowDialog_FC('Add');
+                //BindDdl();
+                FldComparisonObj.clsFldComparisonObj.BindTab();
+                //var objPage = new users.WApiUsers_QUDI_CacheEx();
+                FldComparisonObj.clsFldComparisonObj.btnAddNewRecord_Click();
+
+            });
+        }
+        function RefreshList() {
+            require(["clsfldcomparisonobj"], function (FldComparisonObj) {
+                FldComparisonObj.clsFldComparisonObj.BindTab();
+            });
+        }
+
+
+        function BindDdl() {
+            require(["clsfldcomparisonobj"], function (fldcomparisonobj) {
+                console.log("arrFldName:" + arrFldName);
+                fldcomparisonobj.clsFldComparisonObj.BindDdl_ComparisonOperator("ddlComparisonOperator");
+                fldcomparisonobj.clsFldComparisonObj.BindDdl_FldName("ddlFldName", arrFldName);
+
+                //var objPage = new users.WApiUsers_QUDI_CacheEx();
+                //objPage.btnAddNewRecord_Click();
+            });
+        }
+
+
+
+        /*
+     显示对话框
+*/
+        function ShowDialog_FC(pstrOp) {
+            strOp = pstrOp;
+            require(['jquery', 'bootstrap'], function ($) {
+                if (strOp === "Add") {
+                    $('#myModalLabel_FC').html('添加记录');
+                    //WApiUsers_QUDI_CacheEx.GetMaxStrId('#txtUserId');
+                }
+                else if (strOp === "Update") {
+                    $('#myModalLabel_FC').html('修改记录');
+                }
+                else if (strOp === "Detail") {
+                    $('#btnOKUpd_FC').hide();
+                    $('#myModalLabel_FC').html('详细信息');
+                }
+                $('#divEditRegion_FC').modal('show');
+            });
+        }
+        /*
+提交编辑
+*/
+        function mySubmit4FldComparison(pstrOp) {
+            //    alert("提交" + strOp);
+            require(["clsfldcomparisonobj"], function (FldComparisonObj) {
+                FldComparisonObj.clsFldComparisonObj.btnOKUpd_Click();
+                //            FldComparisonObj.clsFldComparisonObj.AddNewRecordSave();
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="mt-3" id="divUlLi">
+        <label class="h5">测试缓存-已经实现</label>
+        <div id="div2">
+            <div id="divList4FldComparisonObj" style="width:80%" class="float-left"></div>
+            <div style="width:20%" class="float-right">
+                <input type="button" onclick="AddFldComparison()" class="btn btn-outline-info" value="添加条件字段" />
+                <input type="button" onclick="RefreshList()" class="btn btn-outline-info" value="刷新列表" />
+
+            </div>
+        </div>
+        <div id="divTest"></div>
+
+        <div class="modal fade" id="divEditRegion_FC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_FC" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 800px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel_FC">模态框（Modal）标题</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tabwucUsers" name="tabwucUsers" style="width: 600px; padding: 1px; border:0px" class="table table-bordered table-hover">
+
+                            <tr>
+                                <td class="NameTD">
+                                    <Label id="lblFldName" name="lblFldName" class="col-form-label text-right" style="width:90px;">
+                                        字段号
+                                    </Label>
+                                </td>
+                                <td class="ValueTD">
+                                    <select id="ddlFldName" name="ddlFldName" class="form-control" style="width:200px;" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td class="NameTD">
+                                    <Label id="lblComparisonOperator" name="lblComparisonOperator" class="col-form-label text-right" style="width:90px;">
+                                        操作符
+                                    </Label>
+                                </td>
+                                <td class="ValueTD">
+                                    <select id="ddlComparisonOperator" name="ddlComparisonOperator" class="form-control" style="width:200px;" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td class="NameTD">
+                                    <Label id="lblFldValue" name="lblFldValue" class="col-form-label text-right" style="width:90px;">
+                                        字段值
+                                    </Label>
+                                </td>
+                                <td class="ValueTD">
+                                    <input id="txtFldValue" name="txtFldValue" class="form-control" style="width:200px;" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCancel_FC" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="btnOKUpd_FC" type="button" class="btn btn-primary" onclick="mySubmit4FldComparison()">添加</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <input id="hidOpType_FC" type="hidden" />
+        <input id="hidKeyId_FC" type="hidden" />
+    </div>
+
+    <script type="text/javascript">
+        //Js函数，用于界面的CRUD, 后备之用,可能后面派作用
+
+        /*
+         在数据表里删除记录的事件函数
+        */
+        function btnDelRecordInTab_Click(strKeyId) {
+            require(["clsfldcomparisonobj"], function (FldComparisonObj) {
+                if (strKeyId == "") {
+                    alert("请选择需要删除的记录！");
+                    return;
+                }
+                FldComparisonObj.clsFldComparisonObj.btnDelRecordInTab_Click(strKeyId);
+            });
+        }
+        /*
+     在数据表里修改记录
+        */
+        function btnUpdateRecordInTab_Click(strKeyId) {
+            require(["clsfldcomparisonobj"], function (FldComparisonObj) {
+                if (strKeyId == "") {
+                    alert("请选择需要修改的记录！");
+                    return;
+                }
+                ShowDialog_FC('Update');
+                FldComparisonObj.clsFldComparisonObj.btnUpdateRecordInTab_Click(strKeyId);
+            });
+        }
+
+        function AddDynamicPartialView() {
+
+            //@*//var strUrl = "@Url.Content("/SimplePrjSpa/Test/pager/")";
+            //    var strUrl = "@Url.Action(" / SimplePrjSpa / Test / _pager / ")";*@
+
+            //var strUrl: string = "/SimplePrjSpa/Test/pager.cshtml/";
+            //var strUrl: string = "pager/";
+            //var strUrl: string = "~/Pages/PubWebClass/pager.cshtml"
+            //var strUrl: string = "TestDynamicLst/";
+            $.ajax({
+                url: strUrl,
+                method: "GET",
+                dataType: "html",
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    $('#divTest').html(data);
+                },
+                error: (e) => {
+                    console.log(e);
+                    //var strErrMsg = decodeURIComponent(e.responseText)
+                    //errorCb(strErrMsg);
+                }
+            });
+        }
+
+        /*
+       隐藏对话框
+      (AutoGCLib.WA_ViewScript_TS4CSharp:Gen_WApi_JS_HideDialog)
+      */
+        function HideDialog_FC() {
+            require(['jquery', 'bootstrap'], function ($) {
+                $('#divEditRegion_FC').modal('hide');
+            });
+        }
+
+        window.onload = function () {
+            require(["/js/PubFun/clsPubFun.js"], function (pubfun) {
+                //var objPage = new pubfun.clsPubFun();
+                pubfun.clsPubFun.SetCommFun4BL;
+                //objPage.SetCommFun4BL();
+            });
+        }
+    </script>
+</body>
+</html>

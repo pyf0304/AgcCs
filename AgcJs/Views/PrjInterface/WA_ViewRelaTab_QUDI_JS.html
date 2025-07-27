@@ -1,0 +1,421 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>界面相关表CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+var strUrl_Session_SetString = "@Model.Url_Session_SetString";
+var strUrl_Session_GetString = "@Model.Url_Session_GetString";
+var strCurrPrjId = "@Model.CurrPrjId";
+
+ /*
+  动态添加编辑区域
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_AddDPV_Edit)
+ */
+function AddDPV_Edit(divName4Edit) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+viewrelatab.WA_ViewRelaTab_QUDI_JSEx.AddDPV_Edit(divName4Edit);
+});
+}
+
+ /*
+  动态添加分页区域
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_AddDPV_Pager)
+ */
+function AddDPV_Pager(divName4Pager) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+viewrelatab.WA_ViewRelaTab_QUDI_JSEx.AddDPV_Pager(divName4Pager);
+});
+}
+
+ /*
+  按钮单击,用于调用Js函数中btn_Click
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btn_Click)
+ */
+function btn_Click(strCommandName, strKeyId) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+viewrelatab.WA_ViewRelaTab_QUDI_JSEx.btn_Click(strCommandName, strKeyId);
+});
+}
+
+ /*
+  在数据表里删除记录的事件函数
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnDelRecordInTab_Click)
+ */
+function btnDelRecordInTab_Click(strKeyId) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+if (strKeyId == "")
+{
+alert("请选择需要删除的记录！");
+return;
+}
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.btnDelRecordInTab_Click(strKeyId);
+});
+}
+
+
+ /*
+  在数据表里详细记录信息的事件函数
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnDetailRecordInTab_Click)
+ */
+function btnDetailRecordInTab_Click(strKeyId) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+if (strKeyId == "")
+{
+alert("请选择需要详细信息的记录！");
+return;
+}
+ShowDialog('Detail');
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.btnDetailRecordInTab_Click(strKeyId);
+});
+}
+
+
+ /*
+  在数据表里选择记录信息的事件函数
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnSelectRecordInTab_Click)
+ */
+function btnSelectRecordInTab_Click(strKeyId) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+if (strKeyId == "")
+{
+alert("请选择需要详细信息的记录！");
+return;
+}
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.btnSelectRecordInTab_Click(strKeyId);
+});
+}
+
+
+ /*
+  在数据表里修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnUpdateRecordInTab_Click)
+ */
+function btnUpdateRecordInTab_Click(strKeyId) {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+    if (strKeyId == "")
+{
+alert("请选择需要修改的记录！");
+return;
+}
+ShowDialog('Update');
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+  objPage.btnUpdateRecordInTab_Click(strKeyId);
+});
+}
+
+
+ /*
+  单击数据列表中每行首列的复选框所引发的事件
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_ChkClick)
+ */
+function ChkClick(myThis)
+{
+require(["./WA_ViewRelaTab_QUDI_JSEx.js", "clscommonfunc4web"], function(viewrelatab, commonfunc) {
+var strId = myThis.id;
+var strKey = strId.substring(3);
+var arrKeys = commonfunc.arrSelectedKeys;
+if (myThis.checked == true) {
+if (arrKeys.indexOf(strKey) < 0)
+{
+arrKeys.push(strKey);
+}
+}
+else {
+var index = arrKeys.indexOf(strKey);
+if (index > -1)
+{
+arrKeys.splice(index, 1);
+}
+}
+var sstrKey = "";
+for (let strK of arrKeys)
+{
+sstrKey += `${ strK},`;
+}
+$('#spanResult').html(sstrKey);
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_ExpandDiv)
+ */
+         function ExpandDiv(divName) {
+//基于RequireJS来调用tzPubFun.ts中的函数OnlyShowDiv。
+require(["../js/TS/PubFun/tzPubFun"], function (pubfun) {
+      pubfun.OnlyShowDiv(divName, "function", "content");
+});
+}
+
+ /*
+  获取数据列表中的所选记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_GetAllCkechedKeys)
+ */
+function GetAllCkechedKeys(tabName)
+{
+var arrKeys = tabName.getElementsByTagName('chkInTab');
+alert(arrKeys.length.toString());
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_IndexPage)
+ */
+function IndexPage(intPageIndex)
+{
+console.log("跳转到" + intPageIndex + "页");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.IndexPage(intPageIndex);
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_JumpToPage)
+ */
+function JumpToPage()
+{
+var intCurrPageIndex = $('#input_number').val();
+var intPageIndex = Number(intCurrPageIndex);
+console.log("跳转到" + intPageIndex + "页");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.IndexPage(intPageIndex);
+});
+}
+
+ /*
+  提交编辑
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_mySubmit)
+ */
+function mySubmit(pstrOp) {  
+//    alert("提交" + strOp);
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+           objPage.btnOKUpd_Click();
+    });
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_NextPage)
+ */
+function NextPage()
+{
+var intCurrPageIndex = $('#hidCurrPageIndex').val();
+var intPageIndex = Number(intCurrPageIndex) + 1;
+console.log("跳转到" + intPageIndex + "页");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.IndexPage(intPageIndex);
+});
+}
+
+ /*
+  页面导入-在导入页面后运行的函数
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_Page_Load)
+ */
+window.onload = function() {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.Page_Load();
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_PageNum)
+ */
+function PageNum(intPageIndex)
+{
+console.log("跳转到" + intPageIndex + "页");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.IndexPage(intPageIndex);
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_PrevPage)
+ */
+function PrevPage()
+{
+var intCurrPageIndex = $('#hidCurrPageIndex').val();
+var intPageIndex = Number(intCurrPageIndex) - 1;
+console.log("跳转到" + intPageIndex + "页");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.IndexPage(intPageIndex);
+});
+}
+
+ /*
+  全选数据列表中的所有记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_SetAllCkechedKeys)
+ */
+function SetAllCkechedKeys(tabName)
+{
+var thisChk = event.target;
+require(["clscommonfunc4web"], function (commonfunc) { 
+console.log(tabName);
+console.log(thisChk);
+commonfunc.clsCommonFunc4Web.SetAllCkechedKeys(tabName, thisChk);
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_SortBy)
+ */
+function SortBy(strFldName)
+{
+console.log("按：" + strFldName + "排序");
+require(["./WA_ViewRelaTab_QUDI_JSEx.js"], function(viewrelatab) {
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.SortBy(strFldName);
+});
+}
+
+ /*
+  修改记录
+ (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_UpdateRecord)
+ */
+function UpdateRecord() {
+   require(["./WA_ViewRelaTab_QUDI_JSEx.js", "clscommonfunc4web"], function(viewrelatab, commonfunc) {
+var strKeyId = commonfunc.clsCommonFunc4Web.GetFirstCheckedKeyId();
+if (strKeyId == "") 
+{
+alert("请选择需要修改的记录！");
+return;
+}
+ShowDialog('Update');
+var objPage = new viewrelatab.WA_ViewRelaTab_QUDI_JSEx();
+objPage.ShowData(strKeyId);
+return true;
+});
+}
+    </script>
+</head>
+<body>
+<div id = "tabLayout" class = "tab_layout" 
+>
+<!-- 标题层 -->
+
+<div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px;">
+<Label id="lblViewTitle" name="lblViewTitle" class="h5">界面相关表CRUD
+</Label>
+<Label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width:250px;">
+</Label>
+</div>
+<!-- 查询层 -->
+
+<div id = "divQuery" class = "div_query"> 
+<table id="tabQuery" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblViewId_q" name="lblViewId_q" class="col-form-label text-right" style="width:80px;width:90px;">界面Id
+</Label>
+</td>
+<td>
+<select id="ddlViewId_q" name="ddlViewId_q" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblViewName_q" name="lblViewName_q" class="col-form-label text-right" style="width:80px;width:90px;">界面名称
+</Label>
+</td>
+<td>
+<input  id="txtViewName_q" name="txtViewName_q" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblViewCnName_q" name="lblViewCnName_q" class="col-form-label text-right" style="width:80px;width:90px;">视图中文名
+</Label>
+</td>
+<td>
+<input  id="txtViewCnName_q" name="txtViewCnName_q" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblINOUTTypeId_q" name="lblINOUTTypeId_q" class="col-form-label text-right" style="width:80px;width:90px;">INOUT类型ID
+</Label>
+</td>
+<td>
+<select id="ddlINOUTTypeId_q" name="ddlINOUTTypeId_q" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblViewTabTypeId_q" name="lblViewTabTypeId_q" class="col-form-label text-right" style="width:80px;width:90px;">界面表类型码
+</Label>
+</td>
+<td>
+<select id="ddlViewTabTypeId_q" name="ddlViewTabTypeId_q" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblTabId_q" name="lblTabId_q" class="col-form-label text-right" style="width:80px;width:90px;">表ID
+</Label>
+</td>
+<td>
+<select id="ddlTabId_q" name="ddlTabId_q" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblTabFunction_q" name="lblTabFunction_q" class="col-form-label text-right" style="width:80px;width:90px;">表功能说明
+</Label>
+</td>
+<td>
+<input  id="txtTabFunction_q" name="txtTabFunction_q" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+</table>
+</div>
+<!-- 功能区 -->
+
+<div id="divFunction" class="table table-bordered table-hover">
+<ul class="nav">
+<li class="nav-item">
+<Label id="lblViewRelaTabList" name="lblViewRelaTabList" class="col-form-label text-info" style="width:250px;">界面相关表列表
+</Label>
+</li>
+<li class="nav-item ml-3">
+<button  id="btnAddNewRecord" name="btnAddNewRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btnAddNewRecord_Click()">添加</button>
+</li>
+<li class="nav-item ml-3">
+<button  id="btnCopyRecord" name="btnCopyRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btnCopyRecord_Click()">复制记录</button>
+</li>
+<li class="nav-item ml-3">
+<button  id="btnUpdateRecord" name="btnUpdateRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btnUpdateRecord_Click()">修改</button>
+</li>
+<li class="nav-item ml-3">
+<button  id="btnDelRecord" name="btnDelRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btnDelRecord_Click()">删除</button>
+</li>
+</ul>
+</div>
+<!-- 列表层 -->
+<div id = "divList" class = "div_List" >
+<div id = "divDataLst" class = "div_List" >
+</div>
+<div id = "divPager" class = "pager" value="1" >
+</div>
+</div>
+<!-- 编辑层 -->
+<div id="divEdit" value="1"></div>
+</div>
+<input id="hidOpType" type="hidden" />
+<input id="hidKeyId" type="hidden" />
+<input id="hidUserId" type = "hidden" value = "@Model.seUserId" />
+<input id="hidUserId1" type = "hidden" value = "@strUserId1_Value" />
+<input id="hidCurrPageIndex" type = "hidden" value = "1" />
+<input id="hidSortvViewRelaTabBy" type = "hidden" value = "" />
+<script>
+AddDPV_Pager("divPager");
+</script>
+</body>
+</html>

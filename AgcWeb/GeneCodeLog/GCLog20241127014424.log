@@ -1,0 +1,6 @@
+﻿生成日期：20241127014424(当前工程Id:0005, 用户：pyf)
+针对表:00050157(vViewInfo)
+错误：目录：\AgcBLLEx不存在！请检查！生成表:[vViewInfo(00050157)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+针对表:00050006(ViewInfo)
+错误：目录：\AgcBLLEx不存在！请检查！生成表:[ViewInfo(00050006)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+共计生成文件数:0(共计表:2).

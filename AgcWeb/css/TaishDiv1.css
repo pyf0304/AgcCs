@@ -1,0 +1,42 @@
+﻿body
+{
+}
+
+
+
+div
+{
+	background-color: #CF9;
+	border: 1px solid #000;
+	text-align: center;
+	padding-top: 40px;
+	font-size: 20px;
+	font-family: "宋体";
+	font-weight: bold;
+	color: #F00;
+}
+
+#left
+{
+	height: 30px;
+	width: 100px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#right
+{
+	height: 30px;
+	width: 100px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#center
+{
+	height: 30px;
+	margin-left: 103px;
+	margin-right: 103px;
+}

@@ -1,0 +1,231 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>代码类型CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="/js/src/config" src="/scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_CodeType_EditEx.GetMaxStrId('#txtCodeTypeId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblCodeTypeId" name="lblCodeTypeId" class="col-form-label text-right" style="width:90px;">代码类型Id
+</Label>
+</td>
+<td>
+<input  id="txtCodeTypeId" name="txtCodeTypeId" class="form-control" style="width:100px;"/>
+</td>
+<td>
+<Label id="lblCodeTypeName" name="lblCodeTypeName" class="col-form-label text-right" style="width:90px;">代码类型名
+</Label>
+</td>
+<td>
+<input  id="txtCodeTypeName" name="txtCodeTypeName" class="form-control" style="width:100px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblCodeTypeENName" name="lblCodeTypeENName" class="col-form-label text-right" style="width:90px;">代码类型英文名
+</Label>
+</td>
+<td>
+<input  id="txtCodeTypeENName" name="txtCodeTypeENName" class="form-control" style="width:100px;"/>
+</td>
+<td>
+<Label id="lblFrontOrBack" name="lblFrontOrBack" class="col-form-label text-right" style="width:90px;">前台Or后台
+</Label>
+</td>
+<td>
+<input  id="txtFrontOrBack" name="txtFrontOrBack" class="form-control" style="width:100px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:100px;">
+<input type="checkbox"  id="chkIsWin" name="chkIsWin"Text = "是否Win应用"  ><label for="chkIsWin">是否Win应用</label></span>
+</td>
+<td>
+<span class="form-control"  style="width:100px;">
+<input type="checkbox"  id="chkIsMobileApp" name="chkIsMobileApp"Text = "是否移动终端应用"  ><label for="chkIsMobileApp">是否移动终端应用</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblOrderNum" name="lblOrderNum" class="col-form-label text-right" style="width:90px;">序号
+</Label>
+</td>
+<td>
+<input  id="txtOrderNum" name="txtOrderNum" class="form-control" style="width:100px;"/>
+<asp:CompareValidator id="ComValid_OrderNum" name="ComValid_OrderNum" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="txtOrderNum"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:100px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:100px;">
+<input type="checkbox"  id="chkIsDefaultOverride" name="chkIsDefaultOverride"Text = "是否默认覆盖"  ><label for="chkIsDefaultOverride">是否默认覆盖</label></span>
+</td>
+<td>
+<Label id="lblWinOrWeb" name="lblWinOrWeb" class="col-form-label text-right" style="width:90px;">WinOrWeb
+</Label>
+</td>
+<td>
+<input  id="txtWinOrWeb" name="txtWinOrWeb" class="form-control" style="width:100px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblCodeTypeSimName" name="lblCodeTypeSimName" class="col-form-label text-right" style="width:90px;">简称
+</Label>
+</td>
+<td>
+<input  id="txtCodeTypeSimName" name="txtCodeTypeSimName" class="form-control" style="width:100px;"/>
+</td>
+<td>
+<Label id="lblGroupName" name="lblGroupName" class="col-form-label text-right" style="width:90px;">组名
+</Label>
+</td>
+<td>
+<input  id="txtGroupName" name="txtGroupName" class="form-control" style="width:100px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblProgLangTypeId" name="lblProgLangTypeId" class="col-form-label text-right" style="width:90px;">编程语言类型Id
+</Label>
+</td>
+<td>
+<select id="ddlProgLangTypeId" name="ddlProgLangTypeId" class="form-control" style="width:100px;"></select>
+</td>
+<td>
+<Label id="lblRegionTypeId" name="lblRegionTypeId" class="col-form-label text-right" style="width:90px;">区域类型Id
+</Label>
+</td>
+<td>
+<select id="ddlRegionTypeId" name="ddlRegionTypeId" class="form-control" style="width:100px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblPrefix" name="lblPrefix" class="col-form-label text-right" style="width:90px;">前缀
+</Label>
+</td>
+<td>
+<input  id="txtPrefix" name="txtPrefix" class="form-control" style="width:100px;"/>
+</td>
+<td>
+<Label id="lblDependsOn" name="lblDependsOn" class="col-form-label text-right" style="width:90px;">依赖于
+</Label>
+</td>
+<td>
+<input  id="txtDependsOn" name="txtDependsOn" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblClassNameFormat" name="lblClassNameFormat" class="col-form-label text-right" style="width:90px;">类名格式
+</Label>
+</td>
+<td>
+<input  id="txtClassNameFormat" name="txtClassNameFormat" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsTableFldConst" name="chkIsTableFldConst"Text = "IsTableFldConst"  ><label for="chkIsTableFldConst">IsTableFldConst</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsPubApp4WinWeb" name="chkIsPubApp4WinWeb"Text = "IsPubApp4WinWeb"  ><label for="chkIsPubApp4WinWeb">IsPubApp4WinWeb</label></span>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsAspMvc" name="chkIsAspMvc"Text = "是否AspMvc"  ><label for="chkIsAspMvc">是否AspMvc</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsWebSrvAccess" name="chkIsWebSrvAccess"Text = "IsWebSrvAccess"  ><label for="chkIsWebSrvAccess">IsWebSrvAccess</label></span>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsDirByTabName" name="chkIsDirByTabName"Text = "是否用表名作为路径"  ><label for="chkIsDirByTabName">是否用表名作为路径</label></span>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

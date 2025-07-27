@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-3.5.1.min.js"></script>
+    <script src="../Scripts/umd/popper.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <p>Click the button:</p>
+        <button id="my-btn" type="button" class="btn btn-primary" data-placement="top" data-toggle="tooltip" title="Default tooltip">Click Me</button>
+        <button id="my-btn-pyf" type="button" class="btn btn-primary" data-placement="right" data-toggle="tooltip" title="Default tooltip">Click Me-right</button>
+        <button id="my-btn-pyf" type="button" class="btn btn-primary" data-placement="left" data-toggle="tooltip" title="Default tooltip">Click Me-left</button>
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+            Tooltip with HTML
+        </button>
+        <button id="btnDelRecord" name="btnDelRecord" class="btn btn-outline-success btn-sm text-nowrap" onclick="btn_Click('Delete')">删除</button>
+        <div class="btn-group" role="group" aria-label="Basic example" keyid="00006524" data-toggle="tooltip" data-placement="right" data-html="true" title="设置字段值/修改标题<br/>Id:btnSetNewCaption<br/>命令名:SetNewCaption<br/>调用: <br/>==>PrjTabFld"><input class="form-control" size="10" id="txtUpdUser_SetFldValue" type="text" ctrlid="txtUpdUser_SetFldValue" name="" style="width: 50px;"><input keyid="00006524" id="btnSetNewCaption" type="button" name="" class="btn btn-outline-info btn-sm text-nowrap " value="修改标题"></div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            // initilizing Tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Get the Tooltip
+            let btn_tooltip = $('#my-btn');
+
+            // Change Tooltip Text on mouse enter
+            btn_tooltip.mouseenter(function () {
+                btn_tooltip.attr('title', 'Default Tooltip').tooltip('dispose');
+                btn_tooltip.tooltip('show');
+            });
+
+            // Update Tooltip Text on click
+            btn_tooltip.click(function () {
+                btn_tooltip.attr('title', 'Modified Tooltip').tooltip('dispose');
+                btn_tooltip.tooltip('show');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿Post方法：
+var xml = new XMLHttpRequest();
+var url = "http://localhost:8900/project/checkInfo/222"; //接口url
+xml.open("POST", url, true);
+xml.setRequestHeader("Content-type", "application/json"); 
+xml.send('{"competerName": "xiaoming", "ipAddress": "123456"}'); //传入的数据
+————————————————
+版权声明：本文为CSDN博主「iwannbe_vv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/iwannbe_vv/article/details/122108205

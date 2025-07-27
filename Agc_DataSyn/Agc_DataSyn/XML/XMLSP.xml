@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StoredProcedures>
+	<StoredProcedure name="GetDaBaseTime">
+		<Parameters>
+			<Parameter name="@Format" size="1" datatype="VarChar" direction="spParamInput" isNullable="False" />
+			<Parameter name="@SysTime" size="10" datatype="VarChar" direction="spParamOutput" isNullable="False" />
+		</Parameters>
+	</StoredProcedure>
+	<StoredProcedure name="GetDaBaseToday">
+		<Parameters>
+			<Parameter name="@Format" size="1" datatype="VarChar" direction="spParamInput" isNullable="False" />
+			<Parameter name="@SysTime" size="10" datatype="VarChar" direction="spParamOutput" isNullable="False" />
+		</Parameters>
+	</StoredProcedure>
+</StoredProcedures>

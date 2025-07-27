@@ -1,0 +1,143 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>用户日志CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_UserLog_EditEx.GetMaxStrId('#txtmId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblUserId" name="lblUserId" class="col-form-label text-right" style="width:90px;">用户ID
+</Label>
+</td>
+<td>
+<input  id="txtUserId" name="txtUserId" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblLoginTime" name="lblLoginTime" class="col-form-label text-right" style="width:90px;">登陆时间
+</Label>
+</td>
+<td>
+<input  id="txtLoginTime" name="txtLoginTime" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblLoginDate" name="lblLoginDate" class="col-form-label text-right" style="width:90px;">登陆日期
+</Label>
+</td>
+<td>
+<input  id="txtLoginDate" name="txtLoginDate" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblUserIp" name="lblUserIp" class="col-form-label text-right" style="width:90px;">用户IP
+</Label>
+</td>
+<td>
+<input  id="txtUserIp" name="txtUserIp" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblObjectTable" name="lblObjectTable" class="col-form-label text-right" style="width:90px;">对象表
+</Label>
+</td>
+<td>
+<input  id="txtObjectTable" name="txtObjectTable" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblUsedValue" name="lblUsedValue" class="col-form-label text-right" style="width:90px;">使用值
+</Label>
+</td>
+<td>
+<input  id="txtUsedValue" name="txtUsedValue" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblOrderNum" name="lblOrderNum" class="col-form-label text-right" style="width:90px;">序号
+</Label>
+</td>
+<td>
+<input  id="txtOrderNum" name="txtOrderNum" class="form-control" style="width:200px;"/>
+<asp:CompareValidator id="ComValid_OrderNum" name="ComValid_OrderNum" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="txtOrderNum"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

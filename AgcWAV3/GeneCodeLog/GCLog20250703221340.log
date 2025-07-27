@@ -1,0 +1,4 @@
+﻿生成日期：20250703221340(当前工程Id:0005, 用户：pyf)
+针对表:00050641(GCConstantPrjIdRela)
+错误：缓存分类变量:[strPrjId]的长度:[6]不正确！(clsvPrjTab_SimWApi.GetObjLstCache)生成表:[GCConstantPrjIdRela(00050641)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+共计生成文件数:0(共计表:1).

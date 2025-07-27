@@ -1,0 +1,136 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>界面相关表CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_ViewRelaTab_EditEx.GetMaxStrId('#txtmId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblViewId" name="lblViewId" class="col-form-label text-right" style="width:90px;">界面Id
+</Label>
+</td>
+<td>
+<select id="ddlViewId" name="ddlViewId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblRegionId" name="lblRegionId" class="col-form-label text-right" style="width:90px;">区域Id
+</Label>
+</td>
+<td>
+<select id="ddlRegionId" name="ddlRegionId" class="form-control" style="width:200px;"></select>
+<asp:CompareValidator id="ComValid_RegionId" name="ComValid_RegionId" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="ddlRegionId"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblINOUTTypeId" name="lblINOUTTypeId" class="col-form-label text-right" style="width:90px;">INOUT类型ID
+</Label>
+</td>
+<td>
+<select id="ddlINOUTTypeId" name="ddlINOUTTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblViewTabTypeId" name="lblViewTabTypeId" class="col-form-label text-right" style="width:90px;">界面表类型码
+</Label>
+</td>
+<td>
+<select id="ddlViewTabTypeId" name="ddlViewTabTypeId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblTabId" name="lblTabId" class="col-form-label text-right" style="width:90px;">表ID
+</Label>
+</td>
+<td>
+<select id="ddlTabId" name="ddlTabId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblTabFunction" name="lblTabFunction" class="col-form-label text-right" style="width:90px;">表功能说明
+</Label>
+</td>
+<td>
+<input  id="txtTabFunction" name="txtTabFunction" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

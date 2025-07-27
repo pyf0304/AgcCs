@@ -1,0 +1,382 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sql数据源类型CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+    <script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+    <script type="text/javascript">
+        var strUrl_Session_SetString = "@Model.Url_Session_SetString";
+        var strUrl_Session_GetString = "@Model.Url_Session_GetString";
+        var strCurrPrjId = "@Model.CurrPrjId";
+
+        /*
+         动态添加编辑区域
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_AddDPV_Edit)
+        */
+        function AddDPV_Edit(divName4Edit) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                sqldstype.WA_SQLDSType_QUDI_JSEx.AddDPV_Edit(divName4Edit);
+            });
+        }
+
+        /*
+         动态添加分页区域
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_AddDPV_Pager)
+        */
+        function AddDPV_Pager(divName4Pager) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                sqldstype.WA_SQLDSType_QUDI_JSEx.AddDPV_Pager(divName4Pager);
+            });
+        }
+
+        /*
+         按钮单击,用于调用Js函数中btn_Click
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btn_Click)
+        */
+        function btn_Click(strCommandName, strKeyId) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                sqldstype.WA_SQLDSType_QUDI_JSEx.btn_Click(strCommandName, strKeyId);
+            });
+        }
+
+        /*
+         在数据表里删除记录的事件函数
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnDelRecordInTab_Click)
+        */
+        function btnDelRecordInTab_Click(strKeyId) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                if (strKeyId == "") {
+                    alert("请选择需要删除的记录！");
+                    return;
+                }
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.btnDelRecordInTab_Click(strKeyId);
+            });
+        }
+
+
+        /*
+         在数据表里详细记录信息的事件函数
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnDetailRecordInTab_Click)
+        */
+        function btnDetailRecordInTab_Click(strKeyId) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                if (strKeyId == "") {
+                    alert("请选择需要详细信息的记录！");
+                    return;
+                }
+                ShowDialog('Detail');
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.btnDetailRecordInTab_Click(strKeyId);
+            });
+        }
+
+
+        /*
+         在数据表里选择记录信息的事件函数
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnSelectRecordInTab_Click)
+        */
+        function btnSelectRecordInTab_Click(strKeyId) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                if (strKeyId == "") {
+                    alert("请选择需要详细信息的记录！");
+                    return;
+                }
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.btnSelectRecordInTab_Click(strKeyId);
+            });
+        }
+
+
+        /*
+         在数据表里修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_btnUpdateRecordInTab_Click)
+        */
+        function btnUpdateRecordInTab_Click(strKeyId) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                if (strKeyId == "") {
+                    alert("请选择需要修改的记录！");
+                    return;
+                }
+                ShowDialog('Update');
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.btnUpdateRecordInTab_Click(strKeyId);
+            });
+        }
+
+
+        /*
+         单击数据列表中每行首列的复选框所引发的事件
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_ChkClick)
+        */
+        function ChkClick(myThis) {
+            require(["./WA_SQLDSType_QUDI_JSEx.js", "clscommonfunc4web"], function (sqldstype, commonfunc) {
+                var strId = myThis.id;
+                var strKey = strId.substring(3);
+                var arrKeys = commonfunc.arrSelectedKeys;
+                if (myThis.checked == true) {
+                    if (arrKeys.indexOf(strKey) < 0) {
+                        arrKeys.push(strKey);
+                    }
+                }
+                else {
+                    var index = arrKeys.indexOf(strKey);
+                    if (index > -1) {
+                        arrKeys.splice(index, 1);
+                    }
+                }
+                var sstrKey = "";
+                for (let strK of arrKeys) {
+                    sstrKey += `${strK},`;
+                }
+                $('#spanResult').html(sstrKey);
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_ExpandDiv)
+        */
+        function ExpandDiv(divName) {
+            //基于RequireJS来调用tzPubFun.ts中的函数OnlyShowDiv。
+            require(["../js/TS/PubFun/tzPubFun"], function (pubfun) {
+                pubfun.OnlyShowDiv(divName, "function", "content");
+            });
+        }
+
+        /*
+         获取数据列表中的所选记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_GetAllCkechedKeys)
+        */
+        function GetAllCkechedKeys(tabName) {
+            var arrKeys = tabName.getElementsByTagName('chkInTab');
+            alert(arrKeys.length.toString());
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_IndexPage)
+        */
+        function IndexPage(intPageIndex) {
+            console.log("跳转到" + intPageIndex + "页");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.IndexPage(intPageIndex);
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_JumpToPage)
+        */
+        function JumpToPage() {
+            var intCurrPageIndex = $('#input_number').val();
+            var intPageIndex = Number(intCurrPageIndex);
+            console.log("跳转到" + intPageIndex + "页");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.IndexPage(intPageIndex);
+            });
+        }
+
+        /*
+         提交编辑
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_mySubmit)
+        */
+        function mySubmit(pstrOp) {
+            //    alert("提交" + strOp);
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.btnOKUpd_Click();
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_NextPage)
+        */
+        function NextPage() {
+            var intCurrPageIndex = $('#hidCurrPageIndex').val();
+            var intPageIndex = Number(intCurrPageIndex) + 1;
+            console.log("跳转到" + intPageIndex + "页");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.IndexPage(intPageIndex);
+            });
+        }
+
+        /*
+         页面导入-在导入页面后运行的函数
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_Page_Load)
+        */
+        window.onload = function () {
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.Page_Load();
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_PageNum)
+        */
+        function PageNum(intPageIndex) {
+            console.log("跳转到" + intPageIndex + "页");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.IndexPage(intPageIndex);
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_PrevPage)
+        */
+        function PrevPage() {
+            var intCurrPageIndex = $('#hidCurrPageIndex').val();
+            var intPageIndex = Number(intCurrPageIndex) - 1;
+            console.log("跳转到" + intPageIndex + "页");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.IndexPage(intPageIndex);
+            });
+        }
+
+        /*
+         全选数据列表中的所有记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_SetAllCkechedKeys)
+        */
+        function SetAllCkechedKeys(tabName) {
+            var thisChk = event.target;
+            require(["clscommonfunc4web"], function (commonfunc) {
+                console.log(tabName);
+                console.log(thisChk);
+                commonfunc.clsCommonFunc4Web.SetAllCkechedKeys(tabName, thisChk);
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_SortBy)
+        */
+        function SortBy(strFldName) {
+            console.log("按：" + strFldName + "排序");
+            require(["./WA_SQLDSType_QUDI_JSEx.js"], function (sqldstype) {
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.SortBy(strFldName);
+            });
+        }
+
+        /*
+         修改记录
+        (AutoGCLib.WA_ViewScript_JS4Html:Gen_WApi_JS_UpdateRecord)
+        */
+        function UpdateRecord() {
+            require(["./WA_SQLDSType_QUDI_JSEx.js", "clscommonfunc4web"], function (sqldstype, commonfunc) {
+                var strKeyId = commonfunc.clsCommonFunc4Web.GetFirstCheckedKeyId();
+                if (strKeyId == "") {
+                    alert("请选择需要修改的记录！");
+                    return;
+                }
+                ShowDialog('Update');
+                var objPage = new sqldstype.WA_SQLDSType_QUDI_JSEx();
+                objPage.ShowData(strKeyId);
+                return true;
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="tabLayout" class="tab_layout">
+        <!-- 标题层 -->
+
+        <div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px;">
+            <Label id="lblViewTitle" name="lblViewTitle" class="h5">
+                Sql数据源类型CRUD
+            </Label>
+            <Label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width:250px;">
+            </Label>
+        </div>
+        <!-- 查询层 -->
+
+        <div id="divQuery" class="div_query">
+            <table id="tabQuery" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+                <tr>
+                    <td>
+                        <Label id="lblSQLDSTypeId_q" name="lblSQLDSTypeId_q" class="col-form-label text-right" style="width:80px;width:90px;">
+                            数据源类型
+                        </Label>
+                    </td>
+                    <td>
+                        <input id="txtSQLDSTypeId_q" name="txtSQLDSTypeId_q" class="form-control" style="width:200px;" />
+                    </td>
+                    <td>
+                        <Label id="lblSqlDsTypeName_q" name="lblSqlDsTypeName_q" class="col-form-label text-right" style="width:80px;width:90px;">
+                            Sql数据源名
+                        </Label>
+                    </td>
+                    <td>
+                        <input id="txtSqlDsTypeName_q" name="txtSqlDsTypeName_q" class="form-control" style="width:200px;" />
+                    </td>
+                    <td>
+                        <Label id="lblSqlDsTypeENName_q" name="lblSqlDsTypeENName_q" class="col-form-label text-right" style="width:80px;width:90px;">
+                            Sql数据源英文名
+                        </Label>
+                    </td>
+                    <td>
+                        <input id="txtSqlDsTypeENName_q" name="txtSqlDsTypeENName_q" class="form-control" style="width:200px;" />
+                    </td>
+                    <td>
+                        <button type="submit" id="btnQuery" name="btnQuery" class="btn btn-outline-warning text-nowrap" onclick="btn_Click('Query')">查询</button>
+                    </td>
+                    <td>
+                        <button type="submit" id="btnExportExcel" name="btnExportExcel" class="btn btn-outline-warning text-nowrap" onclick="btn_Click('ExportExcel')">导出Excel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 功能区 -->
+
+        <div id="divFunction" class="table table-bordered table-hover">
+            <ul class="nav">
+                <li class="nav-item">
+                    <Label id="lblSQLDSTypeList" name="lblSQLDSTypeList" class="col-form-label text-info" style="width:250px;">
+                        Sql数据源类型列表
+                    </Label>
+                </li>
+                <li class="nav-item ml-3">
+                    <button id="btnAddNewRecord" name="btnAddNewRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btn_Click('Create')">添加</button>
+                </li>
+                <li class="nav-item ml-3">
+                    <button id="btnUpdateRecord" name="btnUpdateRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btn_Click('Update')">修改</button>
+                </li>
+                <li class="nav-item ml-3">
+                    <button id="btnDelRecord" name="btnDelRecord" class="btn btn-outline-info btn-sm text-nowrap" onclick="btn_Click('Delete')">删除</button>
+                </li>
+            </ul>
+        </div>
+        <!-- 列表层 -->
+        <div id="divList" class="div_List">
+            <div id="divDataLst" class="div_List">
+            </div>
+            <div id="divPager" class="pager" value="1">
+            </div>
+        </div>
+        <!-- 编辑层 -->
+        <div id="divEdit" value="1"></div>
+    </div>
+    <input id="hidOpType" type="hidden" />
+    <input id="hidKeyId" type="hidden" />
+    <input id="hidUserId" type="hidden" value="@Model.seUserId" />
+    <input id="hidUserId1" type="hidden" value="@strUserId1_Value" />
+    <input id="hidCurrPageIndex" type="hidden" value="1" />
+    <input id="hidSortSQLDSTypeBy" type="hidden" value="" />
+    <script>
+        AddDPV_Pager("divPager");
+        AddDPV_Edit("divEdit");
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+<%@ WebService Language="C#" CodeBehind="Srv_PrjTab.asmx.cs" Class="AGC.WebSrv.clsSrv_PrjTab" %>

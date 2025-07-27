@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script>
+        function GetSelectedValue() {
+            const objDiv = $(`#div1`);
+            //clsCommonFunc4Web.CheckControlExist(this.divName4Edit, "select", "ddlVarId");
+            const strId = "select[id ^= 'ddlVarId']";
+
+            const arrElem = objDiv.find(strId);
+            let objElem;
+            let intFind = -1;
+            for (let i = 0; i < arrElem.length; i++) {
+                objElem = arrElem[i];
+                if (objElem.id == "ddlVarId") {
+                    intFind = i;
+                    break;
+                }
+            }
+            if (intFind == -1) return "";
+            if (objElem == undefined) return "";
+            else {
+                //const strValue = objElem.getAttribute('value');
+                //alert(strValue);
+                const strValue2 = $('#ddlVarId option:selected').val()
+                alert(strValue2);
+                //const strValue3 = $('#div1').find('#ddlVarId2 option:selected').val()
+                //alert(strValue3);
+                const strValue4 = objDiv.find('#ddlVarId2 option:selected').val()
+                alert(strValue4);
+
+                console.error(strValue4);
+                if (strValue == undefined) return "";
+                else if (strValue == "0") return "";
+                else return strValue;
+            }
+
+        }
+        function SetSelectedValue() {
+
+
+            const objDiv = $(`#div1`);
+            //clsCommonFunc4Web.CheckControlExist(this.divName4Edit, "select", "ddlVarId");
+            const strId = "select[id ^= 'ddlVarId']";
+            //objDiv.find(strId).val(value);
+            const arrElem = objDiv.find(strId);
+            let objElem;
+            let intFind = -1;
+            for (let i = 0; i < arrElem.length; i++) {
+                objElem = arrElem[i];
+                if (objElem.id == "ddlVarId") {
+                    intFind = i;
+                    break;
+                }
+            }
+            if (intFind == -1) return;
+            if (objElem == undefined) return;
+            objElem.setAttribute("value", value);
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+
+        <select id="ddlVarId22">
+            <option value="0001">aaa3</option>
+            <option value="0002">aaa3</option>
+            <option value="0003">aaa3</option>
+
+        </select>
+        <select id="ddlVarId">
+            <option value="01">aaa</option>
+            <option value="02">aaa</option>
+            <option value="03">aaa</option>
+
+        </select>
+
+        <select id="ddlVarId2">
+            <option value="001">aaa2</option>
+            <option value="002">aaa2</option>
+            <option value="003">aaa2</option>
+
+        </select>
+        <button id="aa" onclick="GetSelectedValue()">获取VarId值</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script data-main="src/config" src="../scripts/require.js"></script>
+</head>
+<body>
+    <h1 id="msg">Home Page !</h1>
+    <input id="btn1" type="button" value="HelloWorld" onclick="HelloWorld()" />
+    <script>
+        function HelloWorld() {
+            //基于RequireJS来调用tzPubFun.ts中的函数OnlyShowDiv。
+            require(["./PubFun/jsPubFun.js"], function (pubfun) {
+                console.log('使用./PubFun/jsPubFun.js');
+                console.log(pubfun);
+                pubfun.HelloWorld();
+            });
+            require(["jspubfun"], function (pubfun) {
+                console.log('使用jspubfun');
+                console.log(pubfun);
+                pubfun.HelloWorld();
+            });
+
+        }
+    </script>
+</body>
+</html>  

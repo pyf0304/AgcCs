@@ -1,0 +1,1619 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>编辑区域字段-单元测试 </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+     <script>    
+//var strUrl1 = "@Url.Content("~/Test/_FldComparison/")";
+//console.log("strUrl1: " + strUrl1);
+//var strCurrRootUrl = "@Url.Content("~/")";
+//console.log("strCurrRootUrl:" + strCurrRootUrl);
+         function ExpandDiv(divName, bolIsAddFldComparison, divName4Edit) {
+//基于RequireJS来调用tzPubFun.ts中的函数OnlyShowDiv。
+require(["../../js/PubFun/tzPubFun.js"], function (pubfun) {
+      pubfun.OnlyShowDiv(divName, "function", "content");
+console.log("divName4Edit:(In WA_EditRegionFlds_UT_JS)" + divName4Edit);
+if (bolIsAddFldComparison == true)
+{
+AddDPV_FldComparison(divName4Edit);
+}
+});
+}
+function AddDPV_FldComparison(divName4Edit)
+{
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.AddDPV_FldComparison(divName4Edit);
+});
+}
+window.onload = function() {
+var hidDivName = document.getElementById("hidDivName");
+var divName = hidDivName.value;
+ExpandDiv(divName);
+GetFldNameLst();
+CreateCache();
+}
+function CallBakFldNameLst(myFldNameLst)
+{
+arrFldName = myFldNameLst.split(",");
+console.log(arrFldName);
+}
+function GetFldNameLst()
+{
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+var strKey = $("#txtInput").val();
+var bb = editregionflds.WA_EditRegionFlds_UT_JS.GetFldNameLst(CallBakFldNameLst);
+});
+}
+ function CreateCache() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+            var strKey = $("#txtInput").val();
+            var bb = editregionflds.WA_EditRegionFlds_UT_JS.CreateCache(strKey);
+            $("#lblPageStatusContent").attr("value", bb);// 布尔型
+        });
+    }
+  function ShowDialog(pstrOp) {
+            strOp = pstrOp;
+require(['jquery', 'bootstrap'], function($) {
+            if (strOp === "Add") {
+                $('#myModalLabel').html('添加记录');
+            }
+            else {
+                $('#myModalLabel').html('修改记录');
+            }
+            $('#divEditRegion').modal('show');
+});
+        }
+        function mySubmit(pstrOp) {  
+            alert("提交" + strOp);
+require(["wa_editregionflds_ut_js"], function(editregionflds) {
+            if (strOp == "Add")
+            {
+           editregionflds.WA_EditRegionFlds_UT_JS.btnAddNewRecord_Click();
+            }
+            else
+            {
+           editregionflds.WA_EditRegionFlds_UT_JS.btnUpdateRecord_Click()
+            }
+});
+        }
+ /// <summary>
+ /// 存在关键字记录?
+ /// </summary>
+function btnIsExist_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnIsExist_Click();
+});
+}
+ /// <summary>
+ /// 存在关键字记录?根据缓存中对象列表来判断
+ /// </summary>
+function btnIsExist_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnIsExist_Cache_Click();
+});
+}
+ /// <summary>
+ /// 存在条件记录?
+ /// </summary>
+function btnIsExistRecord_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnIsExistRecord_Click();
+});
+}
+ /// <summary>
+ /// 存在条件记录?根据缓存中的对象列表来判断
+ /// </summary>
+function btnIsExistRecord_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnIsExistRecord_Cache_Click();
+});
+}
+ /// <summary>
+ /// 获取条件记录数
+ /// </summary>
+function btnGetRecCountByCond_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetRecCountByCond_Click();
+});
+}
+ /// <summary>
+ /// 获取条件记录数
+ /// </summary>
+function btnGetRecCountByCond_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetRecCountByCond_Cache_Click();
+});
+}
+ /// <summary>
+ /// 添加记录
+ /// </summary>
+function btnAddNewRecord_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnAddNewRecord_Click();
+});
+}
+ /// <summary>
+ /// 添加记录(最大关键字)
+ /// </summary>
+function btnAddNewRecord4GetMaxStrId_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnAddNewRecord4GetMaxStrId_Click();
+});
+}
+ /// <summary>
+ /// 获取最大关键字值
+ /// </summary>
+function btnGetMaxStrId_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetMaxStrId_Click();
+});
+}
+ /// <summary>
+ /// 获取最大关键字值,根据前缀
+ /// </summary>
+function btnGetMaxStrIdByPrefix_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetMaxStrIdByPrefix_Click();
+});
+}
+ /// <summary>
+ /// 修改记录
+ /// </summary>
+function btnUpdateRecord_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnUpdateRecord_Click();
+});
+}
+ /// <summary>
+ /// 删除记录
+ /// </summary>
+function btnDelRecord_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnDelRecord_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字列表删除记录
+ /// </summary>
+function btnDelEditRegionFldss_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnDelEditRegionFldss_Click();
+});
+}
+ /// <summary>
+ /// 根据条件删除记录
+ /// </summary>
+function btnDelMultiRecordByCond_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnDelMultiRecordByCond_Click();
+});
+}
+ /// <summary>
+ /// 获取第一条满足条件的对象
+ /// </summary>
+function btnGetFirstObj_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetFirstObj_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字获取对象
+ /// </summary>
+function btnGetObjBymId_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjBymId_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字获取对象, 使用Js缓存
+ /// </summary>
+function btnGetObjBymId_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjBymId_Cache_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字获取对象, 使用WebApi缓存
+ /// </summary>
+function btnGetObjBymId_WA_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjBymId_WA_Cache_Click();
+});
+}
+ /// <summary>
+ /// 获取对象列表
+ /// </summary>
+function btnGetObjLst_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLst_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字列表获取对象列表
+ /// </summary>
+function btnGetObjLstByKeyLst_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByKeyLst_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字列表获取对象列表, 使用缓存
+ /// </summary>
+function btnGetObjLstByKeyLst_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByKeyLst_Cache_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字列表获取对象列表, 使用WebApi缓存
+ /// </summary>
+function btnGetObjLstByKeyLst_WA_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByKeyLst_WA_Cache_Click();
+});
+}
+ /// <summary>
+ /// 从缓存的对象列表中获取子集
+ /// </summary>
+function btnGetSubObjLst_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetSubObjLst_Cache_Click();
+});
+}
+ /// <summary>
+ /// 从WebApi缓存的对象列表中获取子集
+ /// </summary>
+function btnGetSubObjLst_WA_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetSubObjLst_WA_Cache_Click();
+});
+}
+ /// <summary>
+ /// 获取顶部对象列表
+ /// </summary>
+function btnGetTopObjLst_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetTopObjLst_Click();
+});
+}
+ /// <summary>
+ /// 获取分页对象列表
+ /// </summary>
+function btnGetObjLstByPager_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByPager_Click();
+});
+}
+ /// <summary>
+ /// 获取分页对象列表, 使用缓存
+ /// </summary>
+function btnGetObjLstByPager_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByPager_Cache_Click();
+});
+}
+ /// <summary>
+ /// 获取分页对象列表, 使用WebApi缓存
+ /// </summary>
+function btnGetObjLstByPager_WA_Cache_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByPager_WA_Cache_Click();
+});
+}
+ /// <summary>
+ /// 获取范围内的对象列表
+ /// </summary>
+function btnGetObjLstByRange_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetObjLstByRange_Click();
+});
+}
+ /// <summary>
+ /// 获取范围内的对象列表
+ /// </summary>
+function btnGetJSONObjLstByRange_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnGetJSONObjLstByRange_Click();
+});
+}
+ /// <summary>
+ /// 定义编辑区域的层
+ /// </summary>
+function btnDefDiv4EditRegion_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnDefDiv4EditRegion_Click();
+});
+}
+ /// <summary>
+ /// 根据关键字串来删除多条记录
+ /// </summary>
+function btnDelRecords_Click() {
+require(["../RegionManage/wa_editregionflds_ut_js.js"], function(editregionflds) {
+editregionflds.WA_EditRegionFlds_UT_JS.btnDelRecords_Click();
+});
+}
+    </script>
+</head>
+<body>
+<asp:HiddenField  id="hidDivName" runat = "server"  />
+<asp:HiddenField  id="hidFldComparisonObjLst" runat = "server"  />
+<div id = "tabLayout" class = "tab_layout" 
+runat = "server">
+<div id="divPageStatus" style="width: 100%; float: left; margin-bottom:5px;">
+        <hr />
+        <Label id="lblPageStatus" name="lblPageStatus" class="h6" style="width:100px;height:24px;">
+            页面状态:
+        </Label>
+        <Label id="lblPageStatusContent" name="lblPageStatusContent" class="text-secondary" style="width:600px;height:24px;">
+            缓存状态未知
+        </Label>
+    </div>
+
+<div id="divIsExist" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle1" name="lblTitle1" class="h6" style="width:700px;height:20px;">测试：1、存在关键字记录?(IsExist)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandIsExist" name="btnExpandIsExist" onclick="ExpandDiv('divIsExist');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup1" style="width: 100%; float: left">
+<div id="divParastrKeyId1" style="width: 100%; float: left">
+<Label id="lblParastrKeyId1" name="lblParastrKeyId1" style="width:200px;height:24px;">strKeyId
+</Label>
+<input  id="txtstrKeyId1" name="txtstrKeyId1" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison1">
+</div>
+</div>
+<div id="divResult1" style="width: 100%; float: left">
+<input type='button'  id="btnIsExist" name="btnIsExist" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnIsExist_Click()" value="1、存在关键字记录?"  />
+<Label id="lblResult1" name="lblResult1" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList1" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divIsExist_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle2" name="lblTitle2" class="h6" style="width:700px;height:20px;">测试：2、存在关键字记录?根据缓存中对象列表来判断(IsExist_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandIsExist_Cache" name="btnExpandIsExist_Cache" onclick="ExpandDiv('divIsExist_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup2" style="width: 100%; float: left">
+<div id="divParastrKeyId2" style="width: 100%; float: left">
+<Label id="lblParastrKeyId2" name="lblParastrKeyId2" style="width:200px;height:24px;">strKeyId
+</Label>
+<input  id="txtstrKeyId2" name="txtstrKeyId2" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison2">
+</div>
+</div>
+<div id="divResult2" style="width: 100%; float: left">
+<input type='button'  id="btnIsExist_Cache" name="btnIsExist_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnIsExist_Cache_Click()" value="2、存在关键字记录?根据缓存中对象列表来判断"  />
+<Label id="lblResult2" name="lblResult2" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList2" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divIsExistRecord" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle3" name="lblTitle3" class="h6" style="width:700px;height:20px;">测试：3、存在条件记录?(IsExistRecord)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandIsExistRecord" name="btnExpandIsExistRecord" onclick="ExpandDiv('divIsExistRecord');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup3" style="width: 100%; float: left">
+<div id="divParastrWhereCond3" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond3" name="lblParastrWhereCond3" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond3" name="txtstrWhereCond3" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison3">
+</div>
+</div>
+<div id="divResult3" style="width: 100%; float: left">
+<input type='button'  id="btnIsExistRecord" name="btnIsExistRecord" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnIsExistRecord_Click()" value="3、存在条件记录?"  />
+<Label id="lblResult3" name="lblResult3" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList3" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divIsExistRecord_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle4" name="lblTitle4" class="h6" style="width:700px;height:20px;">测试：4、存在条件记录?根据缓存中的对象列表来判断(IsExistRecord_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandIsExistRecord_Cache" name="btnExpandIsExistRecord_Cache" onclick="ExpandDiv('divIsExistRecord_Cache', true, 'divEditFldComparison4');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup4" style="width: 100%; float: left">
+<div id="divParaobjTabName_Cond4" style="width: 100%; float: left">
+<Label id="lblParaobjTabName_Cond4" name="lblParaobjTabName_Cond4" style="width:200px;height:24px;">objTabName_Cond
+</Label>
+<input  id="txtobjTabName_Cond4" name="txtobjTabName_Cond4" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison4">
+</div>
+</div>
+<div id="divResult4" style="width: 100%; float: left">
+<input type='button'  id="btnIsExistRecord_Cache" name="btnIsExistRecord_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnIsExistRecord_Cache_Click()" value="4、存在条件记录?根据缓存中的对象列表来判断"  />
+<Label id="lblResult4" name="lblResult4" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList4" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetRecCountByCond" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle5" name="lblTitle5" class="h6" style="width:700px;height:20px;">测试：5、获取条件记录数(GetRecCountByCond)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetRecCountByCond" name="btnExpandGetRecCountByCond" onclick="ExpandDiv('divGetRecCountByCond');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup5" style="width: 100%; float: left">
+<div id="divParastrWhereCond5" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond5" name="lblParastrWhereCond5" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond5" name="txtstrWhereCond5" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison5">
+</div>
+</div>
+<div id="divResult5" style="width: 100%; float: left">
+<input type='button'  id="btnGetRecCountByCond" name="btnGetRecCountByCond" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetRecCountByCond_Click()" value="5、获取条件记录数"  />
+<Label id="lblResult5" name="lblResult5" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList5" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetRecCountByCond_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle6" name="lblTitle6" class="h6" style="width:700px;height:20px;">测试：6、获取条件记录数(GetRecCountByCond_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetRecCountByCond_Cache" name="btnExpandGetRecCountByCond_Cache" onclick="ExpandDiv('divGetRecCountByCond_Cache', true, 'divEditFldComparison6');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup6" style="width: 100%; float: left">
+<div id="divParaobjTabName_Cond6" style="width: 100%; float: left">
+<Label id="lblParaobjTabName_Cond6" name="lblParaobjTabName_Cond6" style="width:200px;height:24px;">objTabName_Cond
+</Label>
+<input  id="txtobjTabName_Cond6" name="txtobjTabName_Cond6" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison6">
+</div>
+</div>
+<div id="divResult6" style="width: 100%; float: left">
+<input type='button'  id="btnGetRecCountByCond_Cache" name="btnGetRecCountByCond_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetRecCountByCond_Cache_Click()" value="6、获取条件记录数"  />
+<Label id="lblResult6" name="lblResult6" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList6" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divAddNewRecord" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle7" name="lblTitle7" class="h6" style="width:700px;height:20px;">测试：7、添加记录(AddNewRecord)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandAddNewRecord" name="btnExpandAddNewRecord" onclick="ExpandDiv('divAddNewRecord');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup7" style="width: 100%; float: left">
+<div id="divParastrFunction4CodeJSONObj7" style="width: 100%; float: left">
+<Label id="lblParastrFunction4CodeJSONObj7" name="lblParastrFunction4CodeJSONObj7" style="width:200px;height:24px;">strFunction4CodeJSONObj
+</Label>
+<input  id="txtstrFunction4CodeJSONObj7" name="txtstrFunction4CodeJSONObj7" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison7">
+</div>
+</div>
+<div id="divResult7" style="width: 100%; float: left">
+<input type='button'  id="btnAddNewRecord" name="btnAddNewRecord" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="ShowDialog('Add');" value="7、添加记录"  />
+<Label id="lblResult7" name="lblResult7" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList7" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divAddNewRecord4GetMaxStrId" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle8" name="lblTitle8" class="h6" style="width:700px;height:20px;">测试：8、添加记录(最大关键字)(AddNewRecord4GetMaxStrId)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandAddNewRecord4GetMaxStrId" name="btnExpandAddNewRecord4GetMaxStrId" onclick="ExpandDiv('divAddNewRecord4GetMaxStrId');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup8" style="width: 100%; float: left">
+<div id="divParastrFunction4CodeJSONObj8" style="width: 100%; float: left">
+<Label id="lblParastrFunction4CodeJSONObj8" name="lblParastrFunction4CodeJSONObj8" style="width:200px;height:24px;">strFunction4CodeJSONObj
+</Label>
+<input  id="txtstrFunction4CodeJSONObj8" name="txtstrFunction4CodeJSONObj8" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison8">
+</div>
+</div>
+<div id="divResult8" style="width: 100%; float: left">
+<input type='button'  id="btnAddNewRecord4GetMaxStrId" name="btnAddNewRecord4GetMaxStrId" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="ShowDialog('Add');" value="8、添加记录(最大关键字)"  />
+<Label id="lblResult8" name="lblResult8" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList8" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetMaxStrId" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle9" name="lblTitle9" class="h6" style="width:700px;height:20px;">测试：9、获取最大关键字值(GetMaxStrId)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetMaxStrId" name="btnExpandGetMaxStrId" onclick="ExpandDiv('divGetMaxStrId');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup9" style="width: 100%; float: left">
+<div id="divEditFldComparison9">
+</div>
+</div>
+<div id="divResult9" style="width: 100%; float: left">
+<input type='button'  id="btnGetMaxStrId" name="btnGetMaxStrId" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetMaxStrId_Click()" value="9、获取最大关键字值"  />
+<Label id="lblResult9" name="lblResult9" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList9" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetMaxStrIdByPrefix" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle10" name="lblTitle10" class="h6" style="width:700px;height:20px;">测试：10、获取最大关键字值,根据前缀(GetMaxStrIdByPrefix)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetMaxStrIdByPrefix" name="btnExpandGetMaxStrIdByPrefix" onclick="ExpandDiv('divGetMaxStrIdByPrefix');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup10" style="width: 100%; float: left">
+<div id="divParastrPrefix10" style="width: 100%; float: left">
+<Label id="lblParastrPrefix10" name="lblParastrPrefix10" style="width:200px;height:24px;">strPrefix
+</Label>
+<input  id="txtstrPrefix10" name="txtstrPrefix10" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison10">
+</div>
+</div>
+<div id="divResult10" style="width: 100%; float: left">
+<input type='button'  id="btnGetMaxStrIdByPrefix" name="btnGetMaxStrIdByPrefix" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetMaxStrIdByPrefix_Click()" value="10、获取最大关键字值,根据前缀"  />
+<Label id="lblResult10" name="lblResult10" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList10" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divUpdateRecord" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle11" name="lblTitle11" class="h6" style="width:700px;height:20px;">测试：11、修改记录(UpdateRecord)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandUpdateRecord" name="btnExpandUpdateRecord" onclick="ExpandDiv('divUpdateRecord');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup11" style="width: 100%; float: left">
+<div id="divEditFldComparison11">
+</div>
+</div>
+<div id="divResult11" style="width: 100%; float: left">
+<input type='button'  id="btnUpdateRecord" name="btnUpdateRecord" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="ShowDialog('Update');" value="11、修改记录"  />
+<Label id="lblResult11" name="lblResult11" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList11" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divDelRecord" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle12" name="lblTitle12" class="h6" style="width:700px;height:20px;">测试：12、删除记录(DelRecord)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandDelRecord" name="btnExpandDelRecord" onclick="ExpandDiv('divDelRecord');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup12" style="width: 100%; float: left">
+<div id="divParastrKeyId12" style="width: 100%; float: left">
+<Label id="lblParastrKeyId12" name="lblParastrKeyId12" style="width:200px;height:24px;">strKeyId
+</Label>
+<input  id="txtstrKeyId12" name="txtstrKeyId12" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison12">
+</div>
+</div>
+<div id="divResult12" style="width: 100%; float: left">
+<input type='button'  id="btnDelRecord" name="btnDelRecord" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnDelRecord_Click()" value="12、删除记录"  />
+<Label id="lblResult12" name="lblResult12" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList12" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divDelEditRegionFldss" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle13" name="lblTitle13" class="h6" style="width:700px;height:20px;">测试：13、根据关键字列表删除记录(Del[TabName]s)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandDelEditRegionFldss" name="btnExpandDelEditRegionFldss" onclick="ExpandDiv('divDelEditRegionFldss');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup13" style="width: 100%; float: left">
+<div id="divParaarrKeyId13" style="width: 100%; float: left">
+<Label id="lblParaarrKeyId13" name="lblParaarrKeyId13" style="width:200px;height:24px;">arrKeyId
+</Label>
+<input  id="txtarrKeyId13" name="txtarrKeyId13" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison13">
+</div>
+</div>
+<div id="divResult13" style="width: 100%; float: left">
+<input type='button'  id="btnDelEditRegionFldss" name="btnDelEditRegionFldss" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnDelEditRegionFldss_Click()" value="13、根据关键字列表删除记录"  />
+<Label id="lblResult13" name="lblResult13" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList13" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divDelMultiRecordByCond" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle14" name="lblTitle14" class="h6" style="width:700px;height:20px;">测试：14、根据条件删除记录(DelMultiRecordByCond)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandDelMultiRecordByCond" name="btnExpandDelMultiRecordByCond" onclick="ExpandDiv('divDelMultiRecordByCond');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup14" style="width: 100%; float: left">
+<div id="divParastrWhereCond14" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond14" name="lblParastrWhereCond14" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond14" name="txtstrWhereCond14" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison14">
+</div>
+</div>
+<div id="divResult14" style="width: 100%; float: left">
+<input type='button'  id="btnDelMultiRecordByCond" name="btnDelMultiRecordByCond" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnDelMultiRecordByCond_Click()" value="14、根据条件删除记录"  />
+<Label id="lblResult14" name="lblResult14" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList14" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetFirstObj" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle15" name="lblTitle15" class="h6" style="width:700px;height:20px;">测试：15、获取第一条满足条件的对象(GetFirstObj)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetFirstObj" name="btnExpandGetFirstObj" onclick="ExpandDiv('divGetFirstObj');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup15" style="width: 100%; float: left">
+<div id="divParastrWhereCond15" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond15" name="lblParastrWhereCond15" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond15" name="txtstrWhereCond15" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison15">
+</div>
+</div>
+<div id="divResult15" style="width: 100%; float: left">
+<input type='button'  id="btnGetFirstObj" name="btnGetFirstObj" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetFirstObj_Click()" value="15、获取第一条满足条件的对象"  />
+<Label id="lblResult15" name="lblResult15" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList15" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjBymId" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle16" name="lblTitle16" class="h6" style="width:700px;height:20px;">测试：16、根据关键字获取对象(GetObjBy[Key])
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjBymId" name="btnExpandGetObjBymId" onclick="ExpandDiv('divGetObjBymId');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup16" style="width: 100%; float: left">
+<div id="divParavarKeyId16" style="width: 100%; float: left">
+<Label id="lblParavarKeyId16" name="lblParavarKeyId16" style="width:200px;height:24px;">varKeyId
+</Label>
+<input  id="txtvarKeyId16" name="txtvarKeyId16" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison16">
+</div>
+</div>
+<div id="divResult16" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjBymId" name="btnGetObjBymId" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjBymId_Click()" value="16、根据关键字获取对象"  />
+<Label id="lblResult16" name="lblResult16" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList16" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjBymId_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle17" name="lblTitle17" class="h6" style="width:700px;height:20px;">测试：17、根据关键字获取对象, 使用Js缓存(GetObjBy[Key]_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjBymId_Cache" name="btnExpandGetObjBymId_Cache" onclick="ExpandDiv('divGetObjBymId_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup17" style="width: 100%; float: left">
+<div id="divParavarKeyId17" style="width: 100%; float: left">
+<Label id="lblParavarKeyId17" name="lblParavarKeyId17" style="width:200px;height:24px;">varKeyId
+</Label>
+<input  id="txtvarKeyId17" name="txtvarKeyId17" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison17">
+</div>
+</div>
+<div id="divResult17" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjBymId_Cache" name="btnGetObjBymId_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjBymId_Cache_Click()" value="17、根据关键字获取对象, 使用Js缓存"  />
+<Label id="lblResult17" name="lblResult17" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList17" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjBymId_WA_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle18" name="lblTitle18" class="h6" style="width:700px;height:20px;">测试：18、根据关键字获取对象, 使用WebApi缓存(GetObjBy[Key]_WA_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjBymId_WA_Cache" name="btnExpandGetObjBymId_WA_Cache" onclick="ExpandDiv('divGetObjBymId_WA_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup18" style="width: 100%; float: left">
+<div id="divParavarKeyId18" style="width: 100%; float: left">
+<Label id="lblParavarKeyId18" name="lblParavarKeyId18" style="width:200px;height:24px;">varKeyId
+</Label>
+<input  id="txtvarKeyId18" name="txtvarKeyId18" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison18">
+</div>
+</div>
+<div id="divResult18" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjBymId_WA_Cache" name="btnGetObjBymId_WA_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjBymId_WA_Cache_Click()" value="18、根据关键字获取对象, 使用WebApi缓存"  />
+<Label id="lblResult18" name="lblResult18" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList18" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLst" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle19" name="lblTitle19" class="h6" style="width:700px;height:20px;">测试：19、获取对象列表(GetObjLst)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLst" name="btnExpandGetObjLst" onclick="ExpandDiv('divGetObjLst');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup19" style="width: 100%; float: left">
+<div id="divParastrWhereCond19" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond19" name="lblParastrWhereCond19" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond19" name="txtstrWhereCond19" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison19">
+</div>
+</div>
+<div id="divResult19" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLst" name="btnGetObjLst" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLst_Click()" value="19、获取对象列表"  />
+<Label id="lblResult19" name="lblResult19" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList19" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByKeyLst" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle20" name="lblTitle20" class="h6" style="width:700px;height:20px;">测试：20、根据关键字列表获取对象列表(GetObjLstByKeyLst)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByKeyLst" name="btnExpandGetObjLstByKeyLst" onclick="ExpandDiv('divGetObjLstByKeyLst');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup20" style="width: 100%; float: left">
+<div id="divParaarrKeyId20" style="width: 100%; float: left">
+<Label id="lblParaarrKeyId20" name="lblParaarrKeyId20" style="width:200px;height:24px;">arrKeyId
+</Label>
+<input  id="txtarrKeyId20" name="txtarrKeyId20" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison20">
+</div>
+</div>
+<div id="divResult20" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByKeyLst" name="btnGetObjLstByKeyLst" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByKeyLst_Click()" value="20、根据关键字列表获取对象列表"  />
+<Label id="lblResult20" name="lblResult20" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList20" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByKeyLst_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle21" name="lblTitle21" class="h6" style="width:700px;height:20px;">测试：21、根据关键字列表获取对象列表, 使用缓存(GetObjLstByKeyLst_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByKeyLst_Cache" name="btnExpandGetObjLstByKeyLst_Cache" onclick="ExpandDiv('divGetObjLstByKeyLst_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup21" style="width: 100%; float: left">
+<div id="divParaarrKeyId21" style="width: 100%; float: left">
+<Label id="lblParaarrKeyId21" name="lblParaarrKeyId21" style="width:200px;height:24px;">arrKeyId
+</Label>
+<input  id="txtarrKeyId21" name="txtarrKeyId21" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison21">
+</div>
+</div>
+<div id="divResult21" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByKeyLst_Cache" name="btnGetObjLstByKeyLst_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByKeyLst_Cache_Click()" value="21、根据关键字列表获取对象列表, 使用缓存"  />
+<Label id="lblResult21" name="lblResult21" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList21" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByKeyLst_WA_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle22" name="lblTitle22" class="h6" style="width:700px;height:20px;">测试：22、根据关键字列表获取对象列表, 使用WebApi缓存(GetObjLstByKeyLst_WA_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByKeyLst_WA_Cache" name="btnExpandGetObjLstByKeyLst_WA_Cache" onclick="ExpandDiv('divGetObjLstByKeyLst_WA_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup22" style="width: 100%; float: left">
+<div id="divParaarrKeyId22" style="width: 100%; float: left">
+<Label id="lblParaarrKeyId22" name="lblParaarrKeyId22" style="width:200px;height:24px;">arrKeyId
+</Label>
+<input  id="txtarrKeyId22" name="txtarrKeyId22" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison22">
+</div>
+</div>
+<div id="divResult22" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByKeyLst_WA_Cache" name="btnGetObjLstByKeyLst_WA_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByKeyLst_WA_Cache_Click()" value="22、根据关键字列表获取对象列表, 使用WebApi缓存"  />
+<Label id="lblResult22" name="lblResult22" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList22" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetSubObjLst_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle23" name="lblTitle23" class="h6" style="width:700px;height:20px;">测试：23、从缓存的对象列表中获取子集(GetSubObjLst_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetSubObjLst_Cache" name="btnExpandGetSubObjLst_Cache" onclick="ExpandDiv('divGetSubObjLst_Cache', true, 'divEditFldComparison23');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup23" style="width: 100%; float: left">
+<div id="divParaobjTabName_Cond23" style="width: 100%; float: left">
+<Label id="lblParaobjTabName_Cond23" name="lblParaobjTabName_Cond23" style="width:200px;height:24px;">objTabName_Cond
+</Label>
+<input  id="txtobjTabName_Cond23" name="txtobjTabName_Cond23" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison23">
+</div>
+</div>
+<div id="divResult23" style="width: 100%; float: left">
+<input type='button'  id="btnGetSubObjLst_Cache" name="btnGetSubObjLst_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetSubObjLst_Cache_Click()" value="23、从缓存的对象列表中获取子集"  />
+<Label id="lblResult23" name="lblResult23" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList23" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetSubObjLst_WA_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle24" name="lblTitle24" class="h6" style="width:700px;height:20px;">测试：24、从WebApi缓存的对象列表中获取子集(GetSubObjLst_WA_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetSubObjLst_WA_Cache" name="btnExpandGetSubObjLst_WA_Cache" onclick="ExpandDiv('divGetSubObjLst_WA_Cache', true, 'divEditFldComparison24');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup24" style="width: 100%; float: left">
+<div id="divParaobjTabName_Cond24" style="width: 100%; float: left">
+<Label id="lblParaobjTabName_Cond24" name="lblParaobjTabName_Cond24" style="width:200px;height:24px;">objTabName_Cond
+</Label>
+<input  id="txtobjTabName_Cond24" name="txtobjTabName_Cond24" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison24">
+</div>
+</div>
+<div id="divResult24" style="width: 100%; float: left">
+<input type='button'  id="btnGetSubObjLst_WA_Cache" name="btnGetSubObjLst_WA_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetSubObjLst_WA_Cache_Click()" value="24、从WebApi缓存的对象列表中获取子集"  />
+<Label id="lblResult24" name="lblResult24" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList24" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetTopObjLst" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle25" name="lblTitle25" class="h6" style="width:700px;height:20px;">测试：25、获取顶部对象列表(GetTopObjLst)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetTopObjLst" name="btnExpandGetTopObjLst" onclick="ExpandDiv('divGetTopObjLst');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup25" style="width: 100%; float: left">
+<div id="divParaintTopSize25" style="width: 100%; float: left">
+<Label id="lblParaintTopSize25" name="lblParaintTopSize25" style="width:200px;height:24px;">intTopSize
+</Label>
+<input  id="txtintTopSize25" name="txtintTopSize25" style="width:400px;" value="3"/>
+</div>
+<div id="divParastrOrderBy25" style="width: 100%; float: left">
+<Label id="lblParastrOrderBy25" name="lblParastrOrderBy25" style="width:200px;height:24px;">strOrderBy
+</Label>
+<input  id="txtstrOrderBy25" name="txtstrOrderBy25" style="width:400px;" value="mId Asc"/>
+</div>
+<div id="divParastrWhereCond25" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond25" name="lblParastrWhereCond25" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond25" name="txtstrWhereCond25" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison25">
+</div>
+</div>
+<div id="divResult25" style="width: 100%; float: left">
+<input type='button'  id="btnGetTopObjLst" name="btnGetTopObjLst" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetTopObjLst_Click()" value="25、获取顶部对象列表"  />
+<Label id="lblResult25" name="lblResult25" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList25" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByPager" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle26" name="lblTitle26" class="h6" style="width:700px;height:20px;">测试：26、获取分页对象列表(GetObjLstByPager)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByPager" name="btnExpandGetObjLstByPager" onclick="ExpandDiv('divGetObjLstByPager');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup26" style="width: 100%; float: left">
+<div id="divParaintPageIndex26" style="width: 100%; float: left">
+<Label id="lblParaintPageIndex26" name="lblParaintPageIndex26" style="width:200px;height:24px;">intPageIndex
+</Label>
+<input  id="txtintPageIndex26" name="txtintPageIndex26" style="width:400px;" value="1"/>
+</div>
+<div id="divParaintPageSize26" style="width: 100%; float: left">
+<Label id="lblParaintPageSize26" name="lblParaintPageSize26" style="width:200px;height:24px;">intPageSize
+</Label>
+<input  id="txtintPageSize26" name="txtintPageSize26" style="width:400px;" value="5"/>
+</div>
+<div id="divParastrOrderBy26" style="width: 100%; float: left">
+<Label id="lblParastrOrderBy26" name="lblParastrOrderBy26" style="width:200px;height:24px;">strOrderBy
+</Label>
+<input  id="txtstrOrderBy26" name="txtstrOrderBy26" style="width:400px;" value="mId Asc"/>
+</div>
+<div id="divParastrWhereCond26" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond26" name="lblParastrWhereCond26" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond26" name="txtstrWhereCond26" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison26">
+</div>
+</div>
+<div id="divResult26" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByPager" name="btnGetObjLstByPager" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByPager_Click()" value="26、获取分页对象列表"  />
+<Label id="lblResult26" name="lblResult26" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList26" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByPager_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle27" name="lblTitle27" class="h6" style="width:700px;height:20px;">测试：27、获取分页对象列表, 使用缓存(GetObjLstByPager_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByPager_Cache" name="btnExpandGetObjLstByPager_Cache" onclick="ExpandDiv('divGetObjLstByPager_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup27" style="width: 100%; float: left">
+<div id="divParaintPageIndex27" style="width: 100%; float: left">
+<Label id="lblParaintPageIndex27" name="lblParaintPageIndex27" style="width:200px;height:24px;">intPageIndex
+</Label>
+<input  id="txtintPageIndex27" name="txtintPageIndex27" style="width:400px;" value="1"/>
+</div>
+<div id="divParaintPageSize27" style="width: 100%; float: left">
+<Label id="lblParaintPageSize27" name="lblParaintPageSize27" style="width:200px;height:24px;">intPageSize
+</Label>
+<input  id="txtintPageSize27" name="txtintPageSize27" style="width:400px;" value="5"/>
+</div>
+<div id="divParastrOrderBy27" style="width: 100%; float: left">
+<Label id="lblParastrOrderBy27" name="lblParastrOrderBy27" style="width:200px;height:24px;">strOrderBy
+</Label>
+<input  id="txtstrOrderBy27" name="txtstrOrderBy27" style="width:400px;" value="mId Asc"/>
+</div>
+<div id="divParastrWhereCond27" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond27" name="lblParastrWhereCond27" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond27" name="txtstrWhereCond27" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison27">
+</div>
+</div>
+<div id="divResult27" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByPager_Cache" name="btnGetObjLstByPager_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByPager_Cache_Click()" value="27、获取分页对象列表, 使用缓存"  />
+<Label id="lblResult27" name="lblResult27" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList27" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByPager_WA_Cache" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle28" name="lblTitle28" class="h6" style="width:700px;height:20px;">测试：28、获取分页对象列表, 使用WebApi缓存(GetObjLstByPager_WA_Cache)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByPager_WA_Cache" name="btnExpandGetObjLstByPager_WA_Cache" onclick="ExpandDiv('divGetObjLstByPager_WA_Cache');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup28" style="width: 100%; float: left">
+<div id="divParaintPageIndex28" style="width: 100%; float: left">
+<Label id="lblParaintPageIndex28" name="lblParaintPageIndex28" style="width:200px;height:24px;">intPageIndex
+</Label>
+<input  id="txtintPageIndex28" name="txtintPageIndex28" style="width:400px;" value="1"/>
+</div>
+<div id="divParaintPageSize28" style="width: 100%; float: left">
+<Label id="lblParaintPageSize28" name="lblParaintPageSize28" style="width:200px;height:24px;">intPageSize
+</Label>
+<input  id="txtintPageSize28" name="txtintPageSize28" style="width:400px;" value="5"/>
+</div>
+<div id="divParastrOrderBy28" style="width: 100%; float: left">
+<Label id="lblParastrOrderBy28" name="lblParastrOrderBy28" style="width:200px;height:24px;">strOrderBy
+</Label>
+<input  id="txtstrOrderBy28" name="txtstrOrderBy28" style="width:400px;" value="mId Asc"/>
+</div>
+<div id="divParastrWhereCond28" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond28" name="lblParastrWhereCond28" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond28" name="txtstrWhereCond28" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison28">
+</div>
+</div>
+<div id="divResult28" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByPager_WA_Cache" name="btnGetObjLstByPager_WA_Cache" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByPager_WA_Cache_Click()" value="28、获取分页对象列表, 使用WebApi缓存"  />
+<Label id="lblResult28" name="lblResult28" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList28" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<div id="divGetObjLstByRange" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle29" name="lblTitle29" class="h6" style="width:700px;height:20px;">测试：29、获取范围内的对象列表(GetObjLstByRange)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandGetObjLstByRange" name="btnExpandGetObjLstByRange" onclick="ExpandDiv('divGetObjLstByRange');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup29" style="width: 100%; float: left">
+<div id="divParastrOrderBy29" style="width: 100%; float: left">
+<Label id="lblParastrOrderBy29" name="lblParastrOrderBy29" style="width:200px;height:24px;">strOrderBy
+</Label>
+<input  id="txtstrOrderBy29" name="txtstrOrderBy29" style="width:400px;" value="mId Asc"/>
+</div>
+<div id="divParaintMaxNum29" style="width: 100%; float: left">
+<Label id="lblParaintMaxNum29" name="lblParaintMaxNum29" style="width:200px;height:24px;">intMaxNum
+</Label>
+<input  id="txtintMaxNum29" name="txtintMaxNum29" style="width:400px;" value="5"/>
+</div>
+<div id="divParaintMinNum29" style="width: 100%; float: left">
+<Label id="lblParaintMinNum29" name="lblParaintMinNum29" style="width:200px;height:24px;">intMinNum
+</Label>
+<input  id="txtintMinNum29" name="txtintMinNum29" style="width:400px;" value="2"/>
+</div>
+<div id="divParastrWhereCond29" style="width: 100%; float: left">
+<Label id="lblParastrWhereCond29" name="lblParastrWhereCond29" style="width:200px;height:24px;">strWhereCond
+</Label>
+<input  id="txtstrWhereCond29" name="txtstrWhereCond29" style="width:400px;" value="1=1"/>
+</div>
+<div id="divEditFldComparison29">
+</div>
+</div>
+<div id="divResult29" style="width: 100%; float: left">
+<input type='button'  id="btnGetObjLstByRange" name="btnGetObjLstByRange" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnGetObjLstByRange_Click()" value="29、获取范围内的对象列表"  />
+<Label id="lblResult29" name="lblResult29" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList29" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+
+<asp:Label id="lblMsg" name="lblMsg" Width="200px" Text="显示结果" runat="server" />
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+ <table style="width: 100%;">
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblRegionId" runat = "server" CssClass = "NameControl">区域Id</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtRegionId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblTabFldId" runat = "server" CssClass = "NameControl">表字段ID</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtTabFldId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblLabelCaption" runat = "server" CssClass = "NameControl">标签标题</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtLabelCaption" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblCtlTypeId" runat = "server" CssClass = "NameControl">控件类型号</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtCtlTypeId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDDLItemsOptionId" runat = "server" CssClass = "NameControl">下拉框列表选项ID</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDDLItemsOptionId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDS_TabId" runat = "server" CssClass = "NameControl">数据源表ID</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDS_TabId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDS_DataValueFieldId" runat = "server" CssClass = "NameControl">数据源值字段Id</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDS_DataValueFieldId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDS_DataTextFieldId" runat = "server" CssClass = "NameControl">数据源文本字段Id</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDS_DataTextFieldId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDS_CondStr" runat = "server" CssClass = "NameControl">数据源条件串</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDS_CondStr" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblDS_SQLStr" runat = "server" CssClass = "NameControl">数据源SQL串</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtDS_SQLStr" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblItemsString" runat = "server" CssClass = "NameControl">列表项串</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtItemsString" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblColSpan" runat = "server" CssClass = "NameControl">跨列数</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtColSpan" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblColIndex" runat = "server" CssClass = "NameControl">列序号</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtColIndex" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblWidth" runat = "server" CssClass = "NameControl">宽</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtWidth" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan='2'>
+<asp:CheckBox id = "chkIsMultiRow" runat = "server" Text = "是否多行" CssClass = "Check_Defa"></asp:CheckBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSeqNum" runat = "server" CssClass = "NameControl">字段序号</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSeqNum" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblINOUTTypeId" runat = "server" CssClass = "NameControl">INOUT类型ID</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtINOUTTypeId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan='2'>
+<asp:CheckBox id = "chkInUse" runat = "server" Text = "是否在用" CssClass = "Check_Defa"></asp:CheckBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblPrjId" runat = "server" CssClass = "NameControl">工程ID</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtPrjId" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblUpdUser" runat = "server" CssClass = "NameControl">修改者</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtUpdUser" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblUpdDate" runat = "server" CssClass = "NameControl">修改日期</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtUpdDate" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblMemo" runat = "server" CssClass = "NameControl">说明</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtMemo" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan='2'>
+<asp:CheckBox id = "chkIsSynchToServer" runat = "server" Text = "是否同步到Server" CssClass = "Check_Defa"></asp:CheckBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSynchToServerDate" runat = "server" CssClass = "NameControl">同步到Server日期</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSynchToServerDate" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSynchToServerUser" runat = "server" CssClass = "NameControl">同步到Server用户</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSynchToServerUser" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan='2'>
+<asp:CheckBox id = "chkIsSynchToClient" runat = "server" Text = "是否同步到Client" CssClass = "Check_Defa"></asp:CheckBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSynchToClientDate" runat = "server" CssClass = "NameControl">同步到Client库日期</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSynchToClientDate" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSynchToClientUser" runat = "server" CssClass = "NameControl">同步到Client库用户</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSynchToClientUser" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+<tr>
+<td class = "NameTD">
+<asp:Label id = "lblSynSource" runat = "server" CssClass = "NameControl">同步来源</asp:Label>
+</td>
+<td class = "ValueTD">
+<asp:TextBox id = "txtSynSource" runat = "server" CssClass = "ValueControl"></asp:TextBox>
+</td>
+<td></td>
+</tr>
+ </table>
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button type="button" class="btn btn-primary" onclick="mySubmit()">提交更改</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+
+<div id="divDelRecords" style="width: 100%; float: left; margin-bottom:5px;" class="function">
+<hr />
+<div style="width:100%; height:25px;" class="title">
+<div style="float:left; width:80%;">
+<Label id="lblTitle32" name="lblTitle32" class="h6" style="width:700px;height:20px;">测试：32、根据关键字串来删除多条记录(DelRecords)
+</Label>
+</div>
+<div style="float:right; width:20%;">
+<button  id="btnExpandDelRecords" name="btnExpandDelRecords" onclick="ExpandDiv('divDelRecords');">展开</button>
+</div>
+</div>
+<div style="width: 100%" class="content">
+<div id="divParaGroup32" style="width: 100%; float: left">
+<div id="divParastrKeyIdLst32" style="width: 100%; float: left">
+<Label id="lblParastrKeyIdLst32" name="lblParastrKeyIdLst32" style="width:200px;height:24px;">strKeyIdLst
+</Label>
+<input  id="txtstrKeyIdLst32" name="txtstrKeyIdLst32" style="width:400px;"/>
+</div>
+<div id="divEditFldComparison32">
+</div>
+</div>
+<div id="divResult32" style="width: 100%; float: left">
+<input type='button'  id="btnDelRecords" name="btnDelRecords" style="width:400px;" class="btn btn-outline-info btn-sm" onclick="btnDelRecords_Click()" value="32、根据关键字串来删除多条记录"  />
+<Label id="lblResult32" name="lblResult32" class="Content" style="width:600px;height:24px;">结果
+</Label>
+<div id="divList32" style="width: 100%; float: left">
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

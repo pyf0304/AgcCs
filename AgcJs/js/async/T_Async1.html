@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="T_Async1.js"></script>
+    <script src="T_AsyncByClass.js"></script>
+    <script>
+
+       async function t1() {
+            var aa = await resolveAfter2Seconds();
+            console.log(aa);
+            //alert(aa.toString());
+        }
+        function t2() {
+            //var aa = add1(10);
+            //console.log(aa);
+            add1(20).then(v => {
+                console.log(v);  // prints 60 after 2 seconds.
+                alert(v.toString());
+            });
+        }
+        function t3() {
+            //var aa = add1(10);
+            //console.log(aa);
+            let obj1 = new T_Async();
+            obj1.add1(20).then(v => {
+                console.log(v);  // prints 60 after 2 seconds.
+                alert(v.toString());
+            });
+        }
+        function t4() {            
+            T_Async.add2(20).then(v => {
+                console.log(v);  // prints 60 after 2 seconds.
+                alert(v.toString());
+            });
+        }
+    </script>
+</head>
+<body>
+    <input id="Button1" onclick="t1()" type="button" value="resolveAfter2Seconds" />
+    <input id="Button1" onclick="t2()" type="button" value="add1" />
+    <input id="Button1" onclick="t3()" type="button" value="add1-t3" />
+    <input id="Button1" onclick="t4()" type="button" value="add2-t4-类的静态方法" />
+
+</body>
+</html>

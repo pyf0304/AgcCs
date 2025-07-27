@@ -1,0 +1,170 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>DG区域字段CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_DGRegionFlds_EditEx.GetMaxStrId('#txtmId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsNeedSort" name="chkIsNeedSort"Text = "是否需要排序"  ><label for="chkIsNeedSort">是否需要排序</label></span>
+</td>
+<td>
+<Label id="lblColIndex" name="lblColIndex" class="col-form-label text-right" style="width:90px;">列序号
+</Label>
+</td>
+<td>
+<input  id="txtColIndex" name="txtColIndex" class="form-control" style="width:200px;"/>
+<asp:CompareValidator id="ComValid_ColIndex" name="ComValid_ColIndex" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="txtColIndex"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblColCaption" name="lblColCaption" class="col-form-label text-right" style="width:90px;">列标题
+</Label>
+</td>
+<td>
+<input  id="txtColCaption" name="txtColCaption" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsTransToChkBox" name="chkIsTransToChkBox"Text = "是否转换成CheckBox"  ><label for="chkIsTransToChkBox">是否转换成CheckBox</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblRegionId" name="lblRegionId" class="col-form-label text-right" style="width:90px;">区域Id
+</Label>
+</td>
+<td>
+<input  id="txtRegionId" name="txtRegionId" class="form-control" style="width:200px;"/>
+<asp:CompareValidator id="ComValid_RegionId" name="ComValid_RegionId" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="txtRegionId"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsVisible" name="chkIsVisible"Text = "是否显示"  ><label for="chkIsVisible">是否显示</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsFuncFld" name="chkIsFuncFld"Text = "是否功能字段"  ><label for="chkIsFuncFld">是否功能字段</label></span>
+</td>
+<td>
+<Label id="lblDgFuncTypeId" name="lblDgFuncTypeId" class="col-form-label text-right" style="width:90px;">Dg功能类型Id
+</Label>
+</td>
+<td>
+<select id="ddlDgFuncTypeId" name="ddlDgFuncTypeId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblCtlTypeId" name="lblCtlTypeId" class="col-form-label text-right" style="width:90px;">控件类型号
+</Label>
+</td>
+<td>
+<select id="ddlCtlTypeId" name="ddlCtlTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblTabFldId" name="lblTabFldId" class="col-form-label text-right" style="width:90px;">表字段ID
+</Label>
+</td>
+<td>
+<input  id="txtTabFldId" name="txtTabFldId" class="form-control" style="width:200px;"/>
+<asp:CompareValidator id="ComValid_TabFldId" name="ComValid_TabFldId" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="txtTabFldId"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

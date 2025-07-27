@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="main.js"></script>
+    <script type="module">
+
+        function myGetName() {
+            var strName = getName();
+            alert(strName);
+        }
+    </script>
+</head>
+<body>
+    <script type="module">
+        import { firstName, lastName, year } from './profile';
+        function myGetName1() {
+            var strName = firstName + ' ' + lastName;
+            alert(strName);
+        }
+    </script>
+    <input id="Button1" type="button" value="myGetName" onclick="myGetName1()" />
+
+
+</body>
+</html>

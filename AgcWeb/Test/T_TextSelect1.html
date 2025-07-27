@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./Scripts/bootstrap.min.js"></script>
+    <link href="./Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body onload="Init()">
+
+
+    <h2>动态提示的下拉框</h2>
+
+
+    <table>
+    <tr>
+    <td>请输入1或2或3或4或5进行测试：<br>
+    <input id="txtPlace" style="width:100px" onkeyup="SelectTip(0)">
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    <span id="aa">
+    <!-- 看不见的下拉框 -->
+    <select id="regSource" name="regSource" onchange="txtPlace.value=options[selectedIndex].text;">
+    <!-- 能看见的下拉框 -->
+    <!--  <select name="myselect" style="width:100px" size=10 οnchange="txtPlace.value=options[selectedIndex].text;" id="sq2" > -->
+    <option value="1">一飞冲天</option>
+    <option value="12">张三</option>
+    <option value="123">李四</option>
+    <option value="1234">赵六</option>
+    <option value="2">2</option>
+    <option value="23">23</option>
+    <option value="234">234</option>
+    <option value="2345">2345</option>
+    <option value="3">3</option>
+    <option value="34">34</option>
+    <option value="345">345</option>
+    <option value="3456">3456</option>
+    <option value="5">5</option>
+    <option value="51">51</option>
+    <option value="51w">51w</option>
+    <option value="51wi">51wi</option>
+    <option value="51win">51win</option>
+    <option value="51windows">51windows</option>
+    </select>
+    </span>
+
+    </td>
+    </tr>
+
+    </table>
+
+
+
+
+
+    <script language="javascript">
+    var TempArr = [];//存贮option
+
+    function Init() {
+        var SelectObj = document.getElementById("regSource");
+        /*先将数据存入数组*/
+        with (SelectObj)
+        for (i = 0; i < length; i++)TempArr[i] = [options[i].text, options[i].value]
+    }
+
+    function SelectTip(flag) {
+        //var TxtObj=document.myform.elements["txtPlace"]
+
+        var TxtObj = document.getElementById("txtPlace").value;
+        //var TxtObj="";
+        var SelectObj = document.getElementById("aa")
+        var Arr = []
+        with (SelectObj) {
+            var SelectHTML = innerHTML.match(/<[^>]*>/)[0]
+
+            //  var SelectHTML="<select name=regSource  onchange = txtPlace.value=options[selectedIndex].text; >" ;
+            for (i = 0; i < TempArr.length; i++)
+
+                if (TempArr[i][0].indexOf(TxtObj) == 0 || flag)//若找到以txt的内容开头的，添option。若flag为true,对下拉框初始化
+                    // if(TempArr[i][0].indexOf(TxtObj.value)==0||flag)//若找到以txt的内容开头的，添option。若flag为true,对下拉框初始化
+                    Arr[Arr.length] = "<option value='" + TempArr[i][1] + "'>" + TempArr[i][0] + "</option>"
+            innerHTML = SelectHTML + Arr.join() + "</SELECT>"
+        }
+    }
+    </script>
+</body>
+</html>

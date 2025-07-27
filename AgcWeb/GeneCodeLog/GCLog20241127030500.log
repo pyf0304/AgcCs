@@ -1,0 +1,4 @@
+﻿生成日期：20241127030500(当前工程Id:0005, 用户：pyf)
+针对表:00050631(ViewIdGCVariableRela)
+错误：(errid:BlEx000020)Copy表对象数据出错,Cm工程:AgcSpa后端, 应用:公共应用后台在机器:PYF-AI中对象为空，请检查！.(AGC4WApi.clsUserCodePrjMainPathExWApi:CopyToExByMachineName)生成表:[ViewIdGCVariableRela(00050631)]时.(System.Threading.ExecutionContext:RunInternal->System.Threading.ThreadHelper:ThreadStart_Context->Agc_CsWin.clsGeneCode_Local:GeneAllCheckedTableThreeLayer).
+共计生成文件数:0(共计表:1).

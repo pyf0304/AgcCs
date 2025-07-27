@@ -1,0 +1,206 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>工程表CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_PrjTab_EditEx.GetMaxStrId('#txtTabId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblTabId" name="lblTabId" class="col-form-label text-right" style="width:90px;">表ID
+</Label>
+</td>
+<td>
+<input  id="txtTabId" name="txtTabId" class="form-control" style="width:150px;"/>
+</td>
+<td>
+<Label id="lblParentClass" name="lblParentClass" class="col-form-label text-right" style="width:90px;">父类
+</Label>
+</td>
+<td>
+<input  id="txtParentClass" name="txtParentClass" class="form-control" style="width:150px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblTabName" name="lblTabName" class="col-form-label text-right" style="width:90px;">表名
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtTabName" name="txtTabName" class="form-control" style="width:150px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblTabCnName" name="lblTabCnName" class="col-form-label text-right" style="width:90px;">表中文名
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtTabCnName" name="txtTabCnName" class="form-control" style="width:150px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblFuncModuleAgcId" name="lblFuncModuleAgcId" class="col-form-label text-right" style="width:90px;">功能模块
+</Label>
+</td>
+<td ColSpan=3>
+<select id="ddlFuncModuleAgcId" name="ddlFuncModuleAgcId" class="form-control" style="width:400px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblKeyWord" name="lblKeyWord" class="col-form-label text-right" style="width:90px;">关键字
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtKeyWord" name="txtKeyWord" class="form-control" style="width:400px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblRelaTabId4View" name="lblRelaTabId4View" class="col-form-label text-right" style="width:90px;">视图的相关表
+</Label>
+</td>
+<td ColSpan=3>
+<select id="ddlRelaTabId4View" name="ddlRelaTabId4View" class="form-control" style="width:400px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblTabMainTypeId" name="lblTabMainTypeId" class="col-form-label text-right" style="width:90px;">表主类型
+</Label>
+</td>
+<td>
+<select id="ddlTabMainTypeId" name="ddlTabMainTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblTabTypeId" name="lblTabTypeId" class="col-form-label text-right" style="width:90px;">表类型Id
+</Label>
+</td>
+<td>
+<select id="ddlTabTypeId" name="ddlTabTypeId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblSQLDSTypeId" name="lblSQLDSTypeId" class="col-form-label text-right" style="width:90px;">数据源类型
+</Label>
+</td>
+<td>
+<select id="ddlSQLDSTypeId" name="ddlSQLDSTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblTabStateId" name="lblTabStateId" class="col-form-label text-right" style="width:90px;">表状态
+</Label>
+</td>
+<td>
+<select id="ddlTabStateId" name="ddlTabStateId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:400px;">
+<input type="checkbox"  id="chkIsReleToSqlTab" name="chkIsReleToSqlTab"Text = "是否与SQL表相关"  ><label for="chkIsReleToSqlTab">是否与SQL表相关</label></span>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsNeedGeneIndexer" name="chkIsNeedGeneIndexer"Text = "是否需要生成索引器"  ><label for="chkIsNeedGeneIndexer">是否需要生成索引器</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsUseCache" name="chkIsUseCache"Text = "是否使用Cache"  ><label for="chkIsUseCache">是否使用Cache</label></span>
+</td>
+<td>
+<Label id="lblCacheModeId" name="lblCacheModeId" class="col-form-label text-right" style="width:90px;">缓存方式Id
+</Label>
+</td>
+<td>
+<select id="ddlCacheModeId" name="ddlCacheModeId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblCacheClassifyField" name="lblCacheClassifyField" class="col-form-label text-right" style="width:90px;">缓存分类字段
+</Label>
+</td>
+<td>
+<select id="ddlCacheClassifyField" name="ddlCacheClassifyField" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:400px;"/>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

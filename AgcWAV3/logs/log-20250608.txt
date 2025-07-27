@@ -1,0 +1,140 @@
+2025-06-08 00:58:43.946 +08:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-06-08 00:58:45.256 +08:00 [DBG] Hosting starting
+2025-06-08 00:58:45.276 +08:00 [INF] User profile is available. Using 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-08 00:58:45.280 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-0ae6ee5c-666c-4814-bf11-f3714c4d815c.xml'.
+2025-06-08 00:58:45.302 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-64a7af79-5727-45bb-824e-510c5f12e37b.xml'.
+2025-06-08 00:58:45.311 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-a07b544e-71f7-4f4f-8f34-7f2a23058cd5.xml'.
+2025-06-08 00:58:45.321 +08:00 [DBG] Found key {0ae6ee5c-666c-4814-bf11-f3714c4d815c}.
+2025-06-08 00:58:45.325 +08:00 [DBG] Found key {64a7af79-5727-45bb-824e-510c5f12e37b}.
+2025-06-08 00:58:45.326 +08:00 [DBG] Found key {a07b544e-71f7-4f4f-8f34-7f2a23058cd5}.
+2025-06-08 00:58:45.329 +08:00 [DBG] Considering key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} with expiration date 2025-08-12 01:02:33Z as default key.
+2025-06-08 00:58:45.330 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-06-08 00:58:45.332 +08:00 [DBG] Decrypting secret element using Windows DPAPI.
+2025-06-08 00:58:45.334 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-06-08 00:58:45.337 +08:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2025-06-08 00:58:45.338 +08:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2025-06-08 00:58:45.340 +08:00 [DBG] Using key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} as the default key.
+2025-06-08 00:58:45.341 +08:00 [DBG] Key ring with default key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} was loaded during application startup.
+2025-06-08 00:58:45.503 +08:00 [INF] Now listening on: http://localhost:7109
+2025-06-08 00:58:45.504 +08:00 [INF] Now listening on: http://192.168.1.20:7109
+2025-06-08 00:58:45.504 +08:00 [DBG] Loaded hosting startup assembly AgcWAV3
+2025-06-08 00:58:45.505 +08:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-06-08 00:58:45.505 +08:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-06-08 00:58:45.506 +08:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-06-08 00:58:45.538 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-08 00:58:45.539 +08:00 [INF] Hosting environment: Development
+2025-06-08 00:58:45.540 +08:00 [INF] Content root path: E:\AspNet2024\AGCV2\AgcWAV3
+2025-06-08 00:58:45.541 +08:00 [DBG] Hosting started
+2025-06-08 00:58:45.781 +08:00 [DBG] Connection id "0HND5SI8DK2A6" received FIN.
+2025-06-08 00:58:45.781 +08:00 [DBG] Connection id "0HND5SI8DK2A7" received FIN.
+2025-06-08 00:58:45.782 +08:00 [DBG] Connection id "0HND5SI8DK2A6" accepted.
+2025-06-08 00:58:45.782 +08:00 [DBG] Connection id "0HND5SI8DK2A7" accepted.
+2025-06-08 00:58:45.793 +08:00 [DBG] Connection id "0HND5SI8DK2A6" started.
+2025-06-08 00:58:45.797 +08:00 [DBG] Connection id "0HND5SI8DK2A7" started.
+2025-06-08 00:58:45.885 +08:00 [DBG] Connection id "0HND5SI8DK2A7" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 00:58:45.885 +08:00 [DBG] Connection id "0HND5SI8DK2A6" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 00:58:45.887 +08:00 [DBG] Connection id "0HND5SI8DK2A7" disconnecting.
+2025-06-08 00:58:45.888 +08:00 [DBG] Connection id "0HND5SI8DK2A6" disconnecting.
+2025-06-08 00:58:45.890 +08:00 [DBG] Connection id "0HND5SI8DK2A6" stopped.
+2025-06-08 00:58:45.890 +08:00 [DBG] Connection id "0HND5SI8DK2A7" stopped.
+2025-06-08 00:58:45.954 +08:00 [DBG] Connection id "0HND5SI8DK2A8" accepted.
+2025-06-08 00:58:45.955 +08:00 [DBG] Connection id "0HND5SI8DK2A8" started.
+2025-06-08 00:58:45.956 +08:00 [DBG] Connection id "0HND5SI8DK2A9" accepted.
+2025-06-08 00:58:45.957 +08:00 [DBG] Connection id "0HND5SI8DK2A9" started.
+2025-06-08 00:58:45.973 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/swagger/index.html - null null
+2025-06-08 00:58:46.052 +08:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-06-08 00:58:46.144 +08:00 [DBG] No candidates found for the request path '/swagger/index.html'
+2025-06-08 00:58:46.145 +08:00 [DBG] Request did not match any endpoints
+2025-06-08 00:58:46.147 +08:00 [INF] 申请服务:Request GET /swagger/index.html
+2025-06-08 00:58:46.168 +08:00 [DBG] Response markup is scheduled to include Browser Link script injection.
+2025-06-08 00:58:46.169 +08:00 [DBG] Response markup is scheduled to include browser refresh script injection.
+2025-06-08 00:58:46.178 +08:00 [DBG] Response markup was updated to include Browser Link script injection.
+2025-06-08 00:58:46.180 +08:00 [DBG] Response markup was updated to include browser refresh script injection.
+2025-06-08 00:58:46.183 +08:00 [DBG] Connection id "0HND5SI8DK2A8" completed keep alive response.
+2025-06-08 00:58:46.185 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/swagger/index.html - 200 null text/html;charset=utf-8 215.6958ms
+2025-06-08 00:58:46.190 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/_vs/browserLink - null null
+2025-06-08 00:58:46.190 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-08 00:58:46.198 +08:00 [DBG] Connection id "0HND5SI8DK2A8" completed keep alive response.
+2025-06-08 00:58:46.200 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 9.8753ms
+2025-06-08 00:58:46.210 +08:00 [DBG] Connection id "0HND5SI8DK2A9" completed keep alive response.
+2025-06-08 00:58:46.211 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/_vs/browserLink - 200 null text/javascript; charset=UTF-8 21.7135ms
+2025-06-08 00:58:46.230 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/swagger/v1/swagger.json - null null
+2025-06-08 00:58:46.232 +08:00 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2025-06-08 00:58:46.233 +08:00 [DBG] Request did not match any endpoints
+2025-06-08 00:58:46.234 +08:00 [INF] 申请服务:Request GET /swagger/v1/swagger.json
+2025-06-08 00:58:46.291 +08:00 [DBG] Connection id "0HND5SI8DK2A9" completed keep alive response.
+2025-06-08 00:58:46.292 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 61.3585ms
+2025-06-08 10:44:15.110 +08:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-06-08 10:44:16.333 +08:00 [DBG] Hosting starting
+2025-06-08 10:44:16.348 +08:00 [INF] User profile is available. Using 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-08 10:44:16.351 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-0ae6ee5c-666c-4814-bf11-f3714c4d815c.xml'.
+2025-06-08 10:44:16.354 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-64a7af79-5727-45bb-824e-510c5f12e37b.xml'.
+2025-06-08 10:44:16.355 +08:00 [DBG] Reading data from file 'C:\Users\pyf\AppData\Local\ASP.NET\DataProtection-Keys\key-a07b544e-71f7-4f4f-8f34-7f2a23058cd5.xml'.
+2025-06-08 10:44:16.357 +08:00 [DBG] Found key {0ae6ee5c-666c-4814-bf11-f3714c4d815c}.
+2025-06-08 10:44:16.359 +08:00 [DBG] Found key {64a7af79-5727-45bb-824e-510c5f12e37b}.
+2025-06-08 10:44:16.360 +08:00 [DBG] Found key {a07b544e-71f7-4f4f-8f34-7f2a23058cd5}.
+2025-06-08 10:44:16.363 +08:00 [DBG] Considering key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} with expiration date 2025-08-12 01:02:33Z as default key.
+2025-06-08 10:44:16.364 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-06-08 10:44:16.366 +08:00 [DBG] Decrypting secret element using Windows DPAPI.
+2025-06-08 10:44:16.367 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-06-08 10:44:16.369 +08:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2025-06-08 10:44:16.370 +08:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2025-06-08 10:44:16.371 +08:00 [DBG] Using key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} as the default key.
+2025-06-08 10:44:16.372 +08:00 [DBG] Key ring with default key {0ae6ee5c-666c-4814-bf11-f3714c4d815c} was loaded during application startup.
+2025-06-08 10:44:16.517 +08:00 [INF] Now listening on: http://localhost:7109
+2025-06-08 10:44:16.517 +08:00 [INF] Now listening on: http://192.168.1.20:7109
+2025-06-08 10:44:16.518 +08:00 [DBG] Loaded hosting startup assembly AgcWAV3
+2025-06-08 10:44:16.519 +08:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-06-08 10:44:16.520 +08:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-06-08 10:44:16.520 +08:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-06-08 10:44:16.554 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-08 10:44:16.555 +08:00 [INF] Hosting environment: Development
+2025-06-08 10:44:16.556 +08:00 [INF] Content root path: E:\AspNet2024\AGCV2\AgcWAV3
+2025-06-08 10:44:16.557 +08:00 [DBG] Hosting started
+2025-06-08 10:44:16.915 +08:00 [DBG] Connection id "0HND66PEA796P" accepted.
+2025-06-08 10:44:16.915 +08:00 [DBG] Connection id "0HND66PEA796O" accepted.
+2025-06-08 10:44:16.917 +08:00 [DBG] Connection id "0HND66PEA796P" started.
+2025-06-08 10:44:16.917 +08:00 [DBG] Connection id "0HND66PEA796O" started.
+2025-06-08 10:44:16.933 +08:00 [DBG] Connection id "0HND66PEA796P" received FIN.
+2025-06-08 10:44:16.933 +08:00 [DBG] Connection id "0HND66PEA796O" received FIN.
+2025-06-08 10:44:16.940 +08:00 [DBG] Connection id "0HND66PEA796O" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 10:44:16.938 +08:00 [DBG] Connection id "0HND66PEA796P" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 10:44:16.941 +08:00 [DBG] Connection id "0HND66PEA796O" disconnecting.
+2025-06-08 10:44:16.945 +08:00 [DBG] Connection id "0HND66PEA796P" disconnecting.
+2025-06-08 10:44:16.947 +08:00 [DBG] Connection id "0HND66PEA796O" stopped.
+2025-06-08 10:44:16.948 +08:00 [DBG] Connection id "0HND66PEA796P" stopped.
+2025-06-08 10:44:17.073 +08:00 [DBG] Connection id "0HND66PEA796Q" accepted.
+2025-06-08 10:44:17.074 +08:00 [DBG] Connection id "0HND66PEA796Q" started.
+2025-06-08 10:44:17.074 +08:00 [DBG] Connection id "0HND66PEA796R" accepted.
+2025-06-08 10:44:17.077 +08:00 [DBG] Connection id "0HND66PEA796R" started.
+2025-06-08 10:44:17.090 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/swagger/index.html - null null
+2025-06-08 10:44:17.164 +08:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-06-08 10:44:17.256 +08:00 [DBG] No candidates found for the request path '/swagger/index.html'
+2025-06-08 10:44:17.256 +08:00 [DBG] Request did not match any endpoints
+2025-06-08 10:44:17.258 +08:00 [INF] 申请服务:Request GET /swagger/index.html
+2025-06-08 10:44:17.278 +08:00 [DBG] Response markup is scheduled to include Browser Link script injection.
+2025-06-08 10:44:17.283 +08:00 [DBG] Response markup is scheduled to include browser refresh script injection.
+2025-06-08 10:44:17.303 +08:00 [DBG] Response markup was updated to include Browser Link script injection.
+2025-06-08 10:44:17.305 +08:00 [DBG] Response markup was updated to include browser refresh script injection.
+2025-06-08 10:44:17.306 +08:00 [DBG] Connection id "0HND66PEA796Q" completed keep alive response.
+2025-06-08 10:44:17.311 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/swagger/index.html - 200 null text/html;charset=utf-8 222.4219ms
+2025-06-08 10:44:17.317 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/_vs/browserLink - null null
+2025-06-08 10:44:17.321 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-08 10:44:17.337 +08:00 [DBG] Connection id "0HND66PEA796Q" completed keep alive response.
+2025-06-08 10:44:17.338 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 17.4304ms
+2025-06-08 10:44:17.348 +08:00 [DBG] Connection id "0HND66PEA796R" completed keep alive response.
+2025-06-08 10:44:17.349 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.245ms
+2025-06-08 10:44:17.364 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:7109/swagger/v1/swagger.json - null null
+2025-06-08 10:44:17.367 +08:00 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2025-06-08 10:44:17.367 +08:00 [DBG] Request did not match any endpoints
+2025-06-08 10:44:17.368 +08:00 [INF] 申请服务:Request GET /swagger/v1/swagger.json
+2025-06-08 10:44:17.428 +08:00 [DBG] Connection id "0HND66PEA796R" completed keep alive response.
+2025-06-08 10:44:17.429 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:7109/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 64.3494ms
+2025-06-08 10:49:17.900 +08:00 [DBG] Connection id "0HND66PEA796Q" received FIN.
+2025-06-08 10:49:17.909 +08:00 [DBG] Connection id "0HND66PEA796R" received FIN.
+2025-06-08 10:49:17.918 +08:00 [DBG] Connection id "0HND66PEA796Q" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 10:49:17.927 +08:00 [DBG] Connection id "0HND66PEA796R" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-08 10:49:17.935 +08:00 [DBG] Connection id "0HND66PEA796Q" disconnecting.
+2025-06-08 10:49:17.944 +08:00 [DBG] Connection id "0HND66PEA796R" disconnecting.
+2025-06-08 10:49:17.946 +08:00 [DBG] Connection id "0HND66PEA796R" stopped.
+2025-06-08 10:49:17.950 +08:00 [DBG] Connection id "0HND66PEA796Q" stopped.

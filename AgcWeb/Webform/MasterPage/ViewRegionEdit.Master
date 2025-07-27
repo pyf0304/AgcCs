@@ -1,0 +1,114 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ViewRegionEdit.Master.cs"
+    Inherits="AGC.Webform.ViewRegionEdit" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script src="../../js/tzPubFun.js"></script>
+    <script>
+        function ClearTextById(txtCodeId) {
+            var txtCode1 = getObjByTagAndId("textarea", txtCodeId);
+            if (txtCode1 != null) {
+                txtCode1.value = "";
+            }
+        }
+    </script>
+
+    <script type="text/javascript" src="../../Scripts/jquery-3.6.0.min.js"></script>
+    <%--<script src="../../Scripts/umd/popper.js"></script>--%>
+    <script type="text/javascript" src="../../Scripts/bootstrap.min.js"></script>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-size: 0.875rem;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div id="divMenu">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <asp:Label ID="Label3" runat="server" CssClass="h5" Style="z-index: 103;" Width="140px">界面区域设计</asp:Label>
+                    </li>
+
+                   <%--       <li class="nav-item ml-3">
+                        <asp:Label ID="Label1" runat="server" BorderColor="#004040" CssClass="text-secondary">类型：</asp:Label>
+                    </li>--%>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblRegionTypeName" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">区域类型</asp:Label>
+                    </li>
+
+<%--                          <li class="nav-item ml-3">
+                        <asp:Label ID="Label4" runat="server" BorderColor="#004040" CssClass="text-secondary">应用：</asp:Label>
+                    </li>--%>
+                    <li class="nav-item ml-2">
+                        <asp:Label ID="lblApplicationTypeName" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">应用类型</asp:Label>
+                    </li>
+
+
+                    <li class="nav-item ml-3">
+                        <asp:Label ID="Label10" runat="server" BorderColor="#004040" CssClass="text-secondary">名称:</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblRegionName" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">区域名称</asp:Label>
+                    </li>
+                    
+                    <li class="nav-item ml-3">
+                        <asp:Label ID="Label1" runat="server" BorderColor="#004040" CssClass="text-secondary">表名:</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblTabName" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">表名</asp:Label>
+                    </li>
+
+                    <li class="nav-item ml-3">
+                        <asp:Label ID="Label2" runat="server" BorderColor="#004040" CssClass="text-secondary">总字段数:</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblFldCount" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">总字段数</asp:Label>
+                    </li>
+                    
+                    <li class="nav-item ml-3">
+                        <asp:Label ID="Label5" runat="server" BorderColor="#004040" CssClass="text-secondary">有用字段数:</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblFldCountInUse" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">有用字段数</asp:Label>
+                    </li>
+                       <li class="nav-item ml-3">
+                        <asp:Label ID="Label6" runat="server" BorderColor="#004040" CssClass="text-secondary">引用界面:</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblViewNameLst" runat="server" BorderColor="#004040" CssClass="ValueLabelH1">引用界面</asp:Label>
+                    </li>
+
+
+                    <li class="nav-item ml-3">
+                        <asp:Label ID="lblMsg_List" runat="server" CssClass="text-warning"></asp:Label>
+                    </li>
+                    <li class="nav-item ml-3">
+                        <%--           <asp:LinkButton ID="lbReturn" runat="server" CssClass="btn btn-outline-warning btn-sm" OnClick="lbReturn_Click">返回列表</asp:LinkButton>--%>
+
+                    </li>
+                </ul>
+
+
+
+
+            </div>
+            <div id="PlaceHolder">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>

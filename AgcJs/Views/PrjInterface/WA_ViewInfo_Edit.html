@@ -1,0 +1,235 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8" />
+<title>界面CRUD </title>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../../Css/site.css" rel="stylesheet" />
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+<script data-main="../../js/src/config" src="../../scripts/require.js"></script>
+<script type="text/javascript">
+
+ /*
+  隐藏对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_HideDialog)
+ */
+function HideDialog() {
+  require(['jquery', 'bootstrap'], function($) {
+      $('#divEditRegion').modal('hide');
+  });
+}
+
+ /*
+  显示对话框
+ (AutoGCLib.WA_ViewScript_Edit_JS4Html:Gen_WApi_JS_ShowDialog)
+ */
+function ShowDialog(pstrOp) {
+   strOp = pstrOp;
+   require(['jquery', 'bootstrap'], function($) {
+       if (strOp === "Add") {
+           $('#myModalLabel').html('添加记录');
+//WA_ViewInfo_EditEx.GetMaxStrId('#txtViewId');
+        }
+else if (strOp === "Update")
+{
+            $('#myModalLabel').html('修改记录');
+}
+else if (strOp === "Detail")
+{
+            $('#btnOKUpd').hide();
+            $('#myModalLabel').html('详细信息');
+}
+        $('#divEditRegion').modal('show');
+  });
+}
+    </script>
+</head>
+<body>
+<!-- 编辑层 -->
+
+ <div class="modal fade" id="divEditRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content" style="width: 800px;">
+ <div class="modal-header">
+ <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ </div>
+ <div class="modal-body">
+<table id="tabEdit" style="width: 70%; " class="table table-bordered table-hover table td table-sm">
+<tr>
+<td>
+<Label id="lblMainTabId" name="lblMainTabId" class="col-form-label text-right" style="width:90px;">主表ID
+</Label>
+</td>
+<td>
+<select id="ddlMainTabId" name="ddlMainTabId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblViewId" name="lblViewId" class="col-form-label text-right" style="width:90px;">界面ID
+</Label>
+</td>
+<td>
+<input  id="txtViewId" name="txtViewId" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblApplicationTypeId" name="lblApplicationTypeId" class="col-form-label text-right" style="width:90px;">应用类型
+</Label>
+</td>
+<td>
+<select id="ddlApplicationTypeId" name="ddlApplicationTypeId" class="form-control" style="width:200px;"></select>
+<asp:CompareValidator id="ComValid_ApplicationTypeId" name="ComValid_ApplicationTypeId" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="ddlApplicationTypeId"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+<td>
+<Label id="lblViewTypeCode" name="lblViewTypeCode" class="col-form-label text-right" style="width:90px;">界面类型
+</Label>
+</td>
+<td>
+<select id="ddlViewTypeCode" name="ddlViewTypeCode" class="form-control" style="width:200px;"></select>
+<asp:CompareValidator id="ComValid_ViewTypeCode" name="ComValid_ViewTypeCode" runat="server" CssClass="ErrMsg"
+ ErrorMessage="请输入整型数值!"
+ ControlToValidate="ddlViewTypeCode"
+ Type="Integer"
+ Operator="DataTypeCheck"
+ EnableClientScript="false">
+</asp:CompareValidator>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblFuncModuleAgcId" name="lblFuncModuleAgcId" class="col-form-label text-right" style="width:90px;">功能模块
+</Label>
+</td>
+<td>
+<select id="ddlFuncModuleAgcId" name="ddlFuncModuleAgcId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<span class="form-control"  style="width:150px;">
+<input type="checkbox"  id="chkIsUseCache4List" name="chkIsUseCache4List"Text = "是否使用缓存列表"  ><label for="chkIsUseCache4List">是否使用缓存列表</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblViewName" name="lblViewName" class="col-form-label text-right" style="width:90px;">界面名称
+</Label>
+</td>
+<td>
+<input  id="txtViewName" name="txtViewName" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblFileName" name="lblFileName" class="col-form-label text-right" style="width:90px;">文件名
+</Label>
+</td>
+<td>
+<input  id="txtFileName" name="txtFileName" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblViewCnName" name="lblViewCnName" class="col-form-label text-right" style="width:90px;">中文名
+</Label>
+</td>
+<td>
+<input  id="txtViewCnName" name="txtViewCnName" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<Label id="lblDefaMenuName" name="lblDefaMenuName" class="col-form-label text-right" style="width:90px;">缺省菜单名
+</Label>
+</td>
+<td>
+<input  id="txtDefaMenuName" name="txtDefaMenuName" class="form-control" style="width:200px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblFilePath" name="lblFilePath" class="col-form-label text-right" style="width:90px;">文件路径
+</Label>
+</td>
+<td>
+<input  id="txtFilePath" name="txtFilePath" class="form-control" style="width:200px;"/>
+</td>
+<td>
+<span class="form-control"  style="width:200px;">
+<input type="checkbox"  id="chkIsNeedSetExportFld" name="chkIsNeedSetExportFld"Text = "是否需要设置导出字段"  ><label for="chkIsNeedSetExportFld">是否需要设置导出字段</label></span>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblINSQLDSTypeId" name="lblINSQLDSTypeId" class="col-form-label text-right" style="width:90px;">输入数据源类型
+</Label>
+</td>
+<td>
+<select id="ddlINSQLDSTypeId" name="ddlINSQLDSTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblINRelaTabId" name="lblINRelaTabId" class="col-form-label text-right" style="width:90px;">输入数据源表ID
+</Label>
+</td>
+<td>
+<select id="ddlINRelaTabId" name="ddlINRelaTabId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblOUTSQLDSTypeId" name="lblOUTSQLDSTypeId" class="col-form-label text-right" style="width:90px;">输出数据源类型
+</Label>
+</td>
+<td>
+<select id="ddlOUTSQLDSTypeId" name="ddlOUTSQLDSTypeId" class="form-control" style="width:200px;"></select>
+</td>
+<td>
+<Label id="lblOUTRelaTabId" name="lblOUTRelaTabId" class="col-form-label text-right" style="width:90px;">输出数据源表ID
+</Label>
+</td>
+<td>
+<select id="ddlOUTRelaTabId" name="ddlOUTRelaTabId" class="form-control" style="width:200px;"></select>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblViewFunction" name="lblViewFunction" class="col-form-label text-right" style="width:90px;">界面功能
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtViewFunction" name="txtViewFunction" class="form-control" style="width:400px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblViewDetail" name="lblViewDetail" class="col-form-label text-right" style="width:90px;">界面说明
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtViewDetail" name="txtViewDetail" class="form-control" style="width:400px;"/>
+</td>
+</tr>
+<tr>
+<td>
+<Label id="lblMemo" name="lblMemo" class="col-form-label text-right" style="width:90px;">说明
+</Label>
+</td>
+<td ColSpan=3>
+<input  id="txtMemo" name="txtMemo" class="form-control" style="width:400px;"/>
+</td>
+</tr>
+</table>
+ </div>
+ <div class="modal-footer">
+ <button  id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+ <button  id="btnOKUpd" type="button" class="btn btn-primary" onclick="mySubmit()">添加</button>
+ </div>
+ </div>
+ <!-- /.modal-content -->
+ </div>
+ <!-- /.modal -->
+ </div>
+</body>
+</html>

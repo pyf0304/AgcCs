@@ -1,0 +1,122 @@
+﻿.btn
+{
+	border: 1px solid #7b9ebd;
+	margin: 0px;
+	padding-right: 3px;
+	padding-left: 3px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#cecfde);
+	cursor: hand;
+	color: black;
+	padding-top: 3px;
+	}
+.btn1_mouseout
+{
+	border-right: #7EBF4F 1px solid;
+	padding-right: 2px;
+	border-top: #7EBF4F 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#B3D997);
+	border-left: #7EBF4F 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #7EBF4F 1px solid;
+}
+.btn1_mouseover
+{
+	border-right: #7EBF4F 1px solid;
+	padding-right: 2px;
+	border-top: #7EBF4F 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#CAE4B6);
+	border-left: #7EBF4F 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #7EBF4F 1px solid;
+}
+.btn2
+{
+	padding: 2 4 0 4;
+	font-size: 13px;
+	background-color: #ece9d8;
+	border-width: 1;
+}
+.btn3_mouseout
+{
+	margin: 0px;
+	border-right: #2C59AA 1px solid;
+	padding-right: 2px;
+	border-top: #2C59AA 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+	border-left: #2C59AA 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #2C59AA 1px solid;
+	height: 23px;
+}
+.btn3_mouseover
+{
+	border-right: #2C59AA 1px solid;
+	padding-right: 2px;
+	border-top: #2C59AA 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#D7E7FA);
+	border-left: #2C59AA 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #2C59AA 1px solid;
+			height: 23px;
+}
+.btn3_mousedown
+{
+	border-right: #FFE400 1px solid;
+	padding-right: 2px;
+	border-top: #FFE400 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+	border-left: #FFE400 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #FFE400 1px solid;
+			height: 23px;
+}
+.btn3_mouseup
+{
+	border-right: #2C59AA 1px solid;
+	padding-right: 2px;
+	border-top: #2C59AA 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+	border-left: #2C59AA 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #2C59AA 1px solid;
+			height: 23px;
+}
+.btn_2k3
+{
+	border-right: #002D96 1px solid;
+	padding-right: 2px;
+	border-top: #002D96 1px solid;
+	padding-left: 2px;
+	font-size: 13px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FFFFFF, EndColorStr=#9DBCEA);
+	border-left: #002D96 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #002D96 1px solid;
+}
