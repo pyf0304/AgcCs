@@ -1,0 +1,9 @@
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\DynamicCompilerWinTests\obj\Debug\DynamicCompilerWinTests.csproj.AssemblyReference.cache
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\DynamicCompilerWinTests\obj\Debug\DynamicCompilerWinTests.csproj.CoreCompileInputs.cache
+E:\TzAppData\AGCV2\DynamicCompilerWinTests\bin\Debug\ApplicationInsights.config
+E:\TzAppData\AGCV2\DynamicCompilerWinTests\bin\Debug\DynamicCompilerWinTests.dll.config
+E:\TzAppData\AGCV2\DynamicCompilerWinTests\bin\Debug\DynamicCompilerWinTests.dll
+E:\TzAppData\AGCV2\DynamicCompilerWinTests\bin\Debug\DynamicCompilerWinTests.pdb
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\DynamicCompilerWinTests\obj\Debug\DynamicCompilerWinTests.csproj.CopyComplete
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\DynamicCompilerWinTests\obj\Debug\DynamicCompilerWinTests.dll
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\DynamicCompilerWinTests\obj\Debug\DynamicCompilerWinTests.pdb

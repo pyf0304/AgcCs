@@ -1,0 +1,11 @@
+E:\AspNet2024\AGCV2\CodeStruct\bin\Debug\netstandard2.0\CodeStruct.deps.json
+E:\AspNet2024\AGCV2\CodeStruct\bin\Debug\netstandard2.0\CodeStruct.dll
+E:\AspNet2024\AGCV2\CodeStruct\bin\Debug\netstandard2.0\CodeStruct.pdb
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.csproj.AssemblyReference.cache
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.GeneratedMSBuildEditorConfig.editorconfig
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.AssemblyInfoInputs.cache
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.AssemblyInfo.cs
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.csproj.CoreCompileInputs.cache
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.sourcelink.json
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.dll
+E:\AspNet2024\AGCV2\CodeStruct\obj\Debug\netstandard2.0\CodeStruct.pdb

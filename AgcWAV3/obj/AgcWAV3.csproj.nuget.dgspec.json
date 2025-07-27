@@ -1,0 +1,567 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\AspNet2024\\AGCV2\\AgcWAV3\\AgcWAV3.csproj": {}
+  },
+  "projects": {
+    "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj",
+        "projectName": "AgcBase",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj",
+        "projectName": "AgcBLLEx",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj",
+        "projectName": "AgcCommBase",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj",
+        "projectName": "AgcDAL",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj",
+        "projectName": "AgcEntity",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj",
+        "projectName": "AgcPureClassBL",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj",
+        "projectName": "AgcPureClass",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AgcWAV3\\AgcWAV3.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AgcWAV3\\AgcWAV3.csproj",
+        "projectName": "AgcWAV3",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AgcWAV3\\AgcWAV3.csproj",
+        "packagesPath": "C:\\Users\\pyf\\.nuget\\packages\\",
+        "outputPath": "E:\\AspNet2024\\AGCV2\\AgcWAV3\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pyf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AutoGCLib\\AutoGCLib.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AutoGCLib\\AutoGCLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            },
+            "JWT": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[2.19.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Svg": {
+              "target": "Package",
+              "version": "[3.4.7, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.Filters": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\AutoGCLib\\AutoGCLib.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\AutoGCLib\\AutoGCLib.csproj",
+        "projectName": "AutoGCLib",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\AutoGCLib\\AutoGCLib.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcDAL\\AgcDAL.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\CodeStruct\\CodeStruct.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\CodeStruct\\CodeStruct.csproj"
+              },
+              "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+                "projectPath": "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\CodeStruct\\CodeStruct.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\CodeStruct\\CodeStruct.csproj",
+        "projectName": "CodeStruct",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\CodeStruct\\CodeStruct.csproj",
+        "packagesPath": "C:\\Users\\pyf\\.nuget\\packages\\",
+        "outputPath": "E:\\AspNet2024\\AGCV2\\CodeStruct\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pyf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[4.14.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj",
+        "projectName": "PrjCommBase",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj",
+        "packagesPath": "C:\\Users\\pyf\\.nuget\\packages\\",
+        "outputPath": "E:\\AspNet2024\\AGCV2\\PrjCommBase\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pyf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj",
+        "projectName": "Tz.Functional2",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj",
+        "projectName": "TzAdvancedLib",
+        "projectPath": "E:\\AspNet2024\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}

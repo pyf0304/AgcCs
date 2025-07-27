@@ -1,0 +1,11 @@
+E:\AspNet2024\AGCV2\PrjCommBase\bin\Release\netstandard2.0\PrjCommBase.deps.json
+E:\AspNet2024\AGCV2\PrjCommBase\bin\Release\netstandard2.0\PrjCommBase.dll
+E:\AspNet2024\AGCV2\PrjCommBase\bin\Release\netstandard2.0\PrjCommBase.pdb
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.csproj.AssemblyReference.cache
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.GeneratedMSBuildEditorConfig.editorconfig
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.AssemblyInfoInputs.cache
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.AssemblyInfo.cs
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.csproj.CoreCompileInputs.cache
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.sourcelink.json
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.dll
+E:\AspNet2024\AGCV2\PrjCommBase\obj\Release\netstandard2.0\PrjCommBase.pdb

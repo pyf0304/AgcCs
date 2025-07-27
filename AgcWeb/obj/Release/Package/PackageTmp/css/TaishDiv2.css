@@ -1,0 +1,39 @@
+﻿body
+{
+}
+
+div.left
+{
+	width: 100px;
+	float: left;
+}
+
+div.center
+{
+		float: left;
+	text-align:center;
+	width: 400px;
+	/*margin: 0 auto;*/
+		margin-left: 183px;
+	margin-right: 103px;
+}
+
+div.right
+{
+	width: 200px;
+	float: right;
+	border: solid 1px #cccccc;
+	height: 30px;
+	overflow: hidden;
+	text-align: left;
+	/*top: 1px;*/
+	right: 0;
+	position: absolute;
+}
+
+div.line
+{
+	border-style: solid;
+	height: 30px;
+	width: 700px;
+}

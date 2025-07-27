@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/tr/html4/loose.dtd">
+<html>
+	<head runat="server">
+		<title>无标题文档</title>
+		<script language="javascript" type="text/javascript">
+function showthis(Tid)
+{
+var c=document.getElementsByTagName("table");
+var l=c.length;
+var i;
+for(i=0;i<l;i++)
+{
+str = c[i].id;
+str = str.substr(0,4);
+if(str=="menu")
+{
+if(c[i].id==Tid)
+if(c[i].style.display=="")
+c[i].style.display="none";
+else	
+c[i].style.display="";
+else c[i].style.display="none";
+}
+}
+}
+
+		</script>
+	</head>
+	<body leftmargin="0" topmargin="0" bgcolor="white">
+		<DIV align="center">
+			<CENTER>
+				<table borderColor="DarkGray" cellSpacing="0" cellPadding="0" width="94%" border="1" bgcolor="whitesmoke">
+					<TBODY>
+						<tr>
+							<td width="100%">
+								<A title="单击展开！" onclick='showthis("menu1");'><B>系统信息的基本维护</B></A></FONT>
+							</td>
+						</tr>
+					</TBODY>
+				</table>
+			</CENTER>
+		</DIV>
+		<table width="100%" border="0" id="menu1" style="DISPLAY:none">
+			<tr>
+				<td align="center" height="20"><a href="wfmUsers_QUDI.aspx" target="mainform">用户的维护</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmUserState_QUDI.aspx" target="mainform">用户状态维护</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmUserGroups_QUDI.aspx" target="mainform">组的维护</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmProjects_QUDI.aspx" target="mainform">工程的维护</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmPotenceFL_QUDI.aspx" target="mainform">权限分类维护</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmDepartments_QUDI.aspx" target="mainform">部门维护</a>
+				</td>
+			</tr>
+		</table>
+		<DIV align="center">
+			<CENTER>
+				<table borderColor="DarkGray" cellSpacing="0" cellPadding="0" width="94%" border="1" bgcolor="whitesmoke">
+					<TBODY>
+						<tr>
+							<td width="100%">
+								<A title="单击展开！" onclick='showthis("menu2");'><B>用户与组关系的维护</B></A></FONT>
+							</td>
+						</tr>
+					</TBODY>
+				</table>
+			</CENTER>
+		</DIV>
+		<table width="100%" border="0" id="menu2" style="DISPLAY:none">
+			<tr>
+				<td align="center"><a href="wfmSingleUserGroupRelation.aspx" target="mainform">个别用户的添加组</a></td>
+			</tr>
+			<tr>
+				<td align="center"><a href="wfmMultiUserGroupRelation.aspx" target="mainform">成批用户的添加组</a></td>
+			</tr>
+			<tr>
+				<td align="center"><a href="wfmGroupManage.aspx" target="mainform">组内用户的添加删除</a></td>
+			</tr>
+		</table>
+		<DIV align="center">
+			<CENTER>
+				<table borderColor="DarkGray" cellSpacing="0" cellPadding="0" width="94%" border="1" bgcolor="whitesmoke">
+					<TBODY>
+						<tr>
+							<td width="100%">
+								<A title="单击展开！" onclick='showthis("menu3");'><B>工程包含权限的维护</B></A></FONT>
+							</td>
+						</tr>
+					</TBODY>
+				</table>
+			</CENTER>
+		</DIV>
+		<table width="100%" border="0" id="menu3" style="DISPLAY:none">
+			<tr>
+				<td align="center" height="20"><a href="wfmPrjPotence_QUDI.aspx" target="mainform">工程包含权限地维护</a>
+				</td>
+			</tr>
+		</table>
+		<DIV align="center">
+			<CENTER>
+				<table borderColor="DarkGray" cellSpacing="0" cellPadding="0" width="94%" border="1" bgcolor="whitesmoke"
+					ID="Table3">
+					<TBODY>
+						<tr>
+							<td width="100%">
+								<A title="单击展开！" onclick='showthis("menu4");'><B>用户和组的权限分配</B></A></FONT>
+							</td>
+						</tr>
+					</TBODY>
+				</table>
+			</CENTER>
+		</DIV>
+		<table width="100%" border="0" id="menu4" style="DISPLAY:none">
+			<tr>
+				<td align="center" height="20"><a href="wfmManPotencesForSingleUserGroup.aspx" target="mainform">单(用户或组)权限分配</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" height="20"><a href="wfmManPotencesForMultiUserGroup.aspx" target="mainform">多(用户或组)权限分配</a>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

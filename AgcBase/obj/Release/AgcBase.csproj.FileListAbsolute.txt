@@ -1,0 +1,12 @@
+E:\TzAppData\AGCV2\AgcBase\bin\Release\AgcBase.dll
+E:\TzAppData\AGCV2\AgcBase\bin\Release\AgcBase.pdb
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcBase\obj\Release\AgcBase.csproj.AssemblyReference.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcBase\obj\Release\AgcBase.csproj.CoreCompileInputs.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcBase\obj\Release\AgcBase.dll
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcBase\obj\Release\AgcBase.pdb
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcBase\obj\Release\AgcBase.csproj.Up2Date
+E:\AspNet2024\AGCV2\AgcBase\obj\Release\AgcBase.csproj.AssemblyReference.cache
+E:\AspNet2024\AGCV2\AgcBase\obj\Release\AgcBase.csproj.CoreCompileInputs.cache
+E:\AspNet2024\AGCV2\AgcBase\obj\Release\AgcBase.csproj.Up2Date
+E:\AspNet2024\AGCV2\AgcBase\obj\Release\AgcBase.dll
+E:\AspNet2024\AGCV2\AgcBase\obj\Release\AgcBase.pdb

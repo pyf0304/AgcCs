@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main1Bak.Master.cs" Inherits="AGC.Webform.Main1Bak" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div id="divPageTop" style="width: 100%; height: 250px; text-align:center;">
+                <div style="width:100%; height:100px"></div>
+            <div style="width: 500px; height: 150px; text-align:left;  margin:0 auto;">
+                <asp:Label ID="Label8"  runat="server" Height="48px" Width="448px" Font-Size="XX-Large" Font-Names="华文细黑">上海泰泽</asp:Label>
+                <br />
+
+                <asp:Label ID="Label1" Style="z-index: 109; margin-left:50px" runat="server" Height="48px" Width="448px" Font-Size="XX-Large" Font-Names="华文新魏">自动生成代码2016版</asp:Label>
+                <br />
+
+                <asp:Label ID="Label5" runat="server" Font-Names="华文仿宋" ForeColor="#000040"
+                     Style="z-index: 109; margin-left: 80px; font-size:14px; line-height:20px" Width="300px">支持安卓手机App、苹果ISO App、SilverLight、JavaScript、Asp.Net等应用的代码自动生成。</asp:Label>
+                <br />
+            </div>
+                
+            </div>
+
+            <div style="width: 100%">
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+            <div id="divButtom" style="width: 100%">
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; text-align: right; height: 30px">
+                            <asp:Label ID="Label4"  runat="server" Height="4px" Width="70px" CssClass="text-secondary">版权所有：</asp:Label>
+
+                        </td>
+                        <td style="width: 50%; text-align: left">
+                            <asp:Label ID="Label2"  runat="server" Height="4px" Width="234px" CssClass="text-secondary"> 上海泰泽信息技术有限公司</asp:Label></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; text-align: right; height: 30px">
+                            <asp:Label ID="Label6"  runat="server" Height="4px" Width="70px" CssClass="text-secondary">联系信箱：</asp:Label></td>
+                        <td style="width: 50%; text-align: left">
+                            <asp:HyperLink ID="HyperLink1"  runat="server" Width="158px" NavigateUrl="mailto:pyf@shnu.edu.cn">pyf@shnu.edu.cn</asp:HyperLink></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; text-align: right; height: 30px">
+                            <asp:Label ID="Label7"  runat="server" Height="4px" Width="70px" CssClass="text-secondary">电话：</asp:Label></td>
+                        <td style="width: 50%; text-align: left">
+                            <asp:Label ID="Label3" 
+                                runat="server" Height="13px" Width="146px" CssClass="text-secondary">021-51580822</asp:Label></td>
+                    </tr>
+                   <%-- <tr>
+                        <td></td>
+                        <td>
+                            <asp:LinkButton ID="lbFileDown" Style="z-index: 1001;" runat="server" Width="64px" CssClass="LinkButton_Defa" OnClick="lbFileDown_Click">文件下载</asp:LinkButton></td>
+                    </tr>--%>
+                </table>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

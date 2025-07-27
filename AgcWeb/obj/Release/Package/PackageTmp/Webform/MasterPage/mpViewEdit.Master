@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mpViewEdit.master.cs"
+    Inherits="AGC.Webform.mpViewEdit" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script src="../../js/tzPubFun.js"></script>
+    <script>
+        function ClearTextById(txtCodeId) {
+            var txtCode1 = getObjByTagAndId("textarea", txtCodeId);
+            if (txtCode1 != null) {
+                txtCode1.value = "";
+            }
+        }
+    </script>
+    
+    <script type="text/javascript" src="../../Scripts/jquery-3.6.0.min.js"></script> 
+    <%--<script src="../../Scripts/umd/popper.js"></script>--%>
+    <script type="text/javascript" src="../../Scripts/bootstrap.min.js"></script>
+       <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-size: 0.875rem;
+        }
+    </style>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div id="divMenu">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                       <ul class="nav">
+                    <li class="nav-item">
+                                        <asp:Label ID="Label3" runat="server" CssClass="h5" Style="z-index: 103;"
+                                            Width="240px">界面管理->界面属性维护</asp:Label>
+                                      </li>
+
+                                <li class="nav-item ml-3">
+                        <asp:Label ID="Label4" runat="server" BorderColor="#004040" CssClass="text-secondary">CM工程：</asp:Label>
+                    </li>
+                    <li class="nav-item ml-1">
+                        <asp:Label ID="lblCmPrjName" runat="server" BorderColor="#004040" CssClass="text-primary">CM工程</asp:Label>
+                    </li>
+                    <li class="nav-item ml-2">
+                                        <asp:Label ID="Label10" runat="server" BorderColor="#004040" CssClass="text-secondary">界面名称：</asp:Label>
+                                       </li>
+                    <li class="nav-item ml-1">
+                                        <asp:Label ID="lblViewName" runat="server" BorderColor="#004040" CssClass="text-primary">添加相关界面区域</asp:Label>
+                                    </li>
+                    <li class="nav-item ml-2">
+                                        <asp:LinkButton ID="lbEditTab" runat="server" Visible="false" CssClass="btn btn-outline-warning btn-sm"
+                                            OnClick="lbEditTab_Click">编辑表</asp:LinkButton>
+                                      </li>
+                    <li class="nav-item ml-2">
+                                        <asp:LinkButton ID="lbEditView" runat="server" Visible="false" CssClass="btn btn-outline-warning btn-sm" OnClick="lbEditView_Click">编辑视图</asp:LinkButton>
+                                     </li>
+                    <li class="nav-item ml-2">
+                                        <asp:LinkButton ID="lbReturn" runat="server" CssClass="btn btn-outline-warning btn-sm" OnClick="lbReturn_Click">返回列表</asp:LinkButton>
+
+                                      </li>
+                    <li class="nav-item ml-1">
+                                        <asp:Label ID="lblMsg_List" runat="server" CssClass="text-warning"></asp:Label>
+                                      </li>
+                </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="7">
+                            <asp:Menu ID="Menu1" runat="server" OnMenuItemClick="Menu1_MenuItemClick" Orientation="Horizontal"
+                                Width="1200px" 
+                                BackColor="#B5C7DE" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="13px"
+                                ForeColor="#284E98" StaticSubMenuIndent="10px">
+                                <Items>
+                                    <asp:MenuItem Text="界面属性" Value="0"></asp:MenuItem>
+                                    <asp:MenuItem Text="区域列表" Value="1"></asp:MenuItem>
+                                    <asp:MenuItem Text="界面相关表" Value="ViewRelaTab"></asp:MenuItem>
+                                    <asp:MenuItem Text="界面引用文件" Value="ReferFiles"></asp:MenuItem>
+                                    <asp:MenuItem Text="查询区域" Value="2"></asp:MenuItem>
+                                    <asp:MenuItem Text="功能区域" Value="3"></asp:MenuItem>
+                                    <asp:MenuItem Text="功能字段区域" Value="4"></asp:MenuItem>
+                                    <asp:MenuItem Text="DG列表区域" Value="5"></asp:MenuItem>
+                                    <%--<asp:MenuItem Text="LV1列表区域" Value="5"></asp:MenuItem>--%>
+                                    <asp:MenuItem Text="编辑区域" Value="6"></asp:MenuItem>
+                                    <asp:MenuItem Text="详细区域" Value="DetailRegion"></asp:MenuItem>
+
+                                    <asp:MenuItem Text="导出区域" Value="7"></asp:MenuItem>
+                                    <asp:MenuItem Text="预览" Value="8"></asp:MenuItem>
+                                    <%--                                    <asp:MenuItem Text="生成-Web" Value="8"></asp:MenuItem>
+                                    <asp:MenuItem Text="生成-Win" Value="9"></asp:MenuItem>
+                                    <asp:MenuItem Text="生成-J" Value="10"></asp:MenuItem>
+                                    <asp:MenuItem Text="生成-安卓App" Value="11"></asp:MenuItem>
+                                    <asp:MenuItem Text="生成-AspMvc应用" Value="12"></asp:MenuItem>
+                                    <asp:MenuItem Text="生成-Spa应用Asp" Value="13"></asp:MenuItem>--%>
+                                    <asp:MenuItem Text="生成代码" Value="9"></asp:MenuItem>
+                                    <asp:MenuItem Text="测试Modal" Value="TestModal"></asp:MenuItem>
+
+                                </Items>
+                                <StaticSelectedStyle BackColor="#507CD1" />
+                                <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+                                <DynamicMenuStyle BackColor="#B5C7DE" />
+                                <DynamicSelectedStyle BackColor="#507CD1" />
+                                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+                            </asp:Menu>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div id="PlaceHolder">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="divHidden">
+            <asp:HiddenField ID="hidTabId4ReleView" runat="server" />
+            <asp:HiddenField ID="hidTabId4RelaTab" runat="server" />
+        </div>
+    </form>
+</body>
+</html>

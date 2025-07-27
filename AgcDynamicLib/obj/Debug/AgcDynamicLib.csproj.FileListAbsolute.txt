@@ -1,0 +1,8 @@
+C:\TzAppData\AGCV2\AgcDynamicLib\bin\Debug\AgcDynamicLib.dll.config
+C:\TzAppData\AGCV2\AgcDynamicLib\bin\Debug\AgcDynamicLib.dll
+C:\TzAppData\AGCV2\AgcDynamicLib\bin\Debug\AgcDynamicLib.pdb
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcDynamicLib\obj\Debug\AgcDynamicLib.csproj.AssemblyReference.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcDynamicLib\obj\Debug\AgcDynamicLib.csproj.CoreCompileInputs.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcDynamicLib\obj\Debug\AgcDynamicLib.csproj.CopyComplete
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcDynamicLib\obj\Debug\AgcDynamicLib.dll
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\AgcDynamicLib\obj\Debug\AgcDynamicLib.pdb

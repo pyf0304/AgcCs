@@ -1,0 +1,9 @@
+C:\TzAppData\AGCV2\DanamicCompilerWeb\bin\ApplicationInsights.config
+C:\TzAppData\AGCV2\DanamicCompilerWeb\bin\DanamicCompilerWeb.dll.config
+C:\TzAppData\AGCV2\DanamicCompilerWeb\bin\DanamicCompilerWeb.dll
+C:\TzAppData\AGCV2\DanamicCompilerWeb\bin\DanamicCompilerWeb.pdb
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\DanamicCompilerWeb\obj\Debug\DanamicCompilerWeb.csproj.AssemblyReference.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\DanamicCompilerWeb\obj\Debug\DanamicCompilerWeb.csproj.CoreCompileInputs.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\DanamicCompilerWeb\obj\Debug\DanamicCompilerWeb.csproj.CopyComplete
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\DanamicCompilerWeb\obj\Debug\DanamicCompilerWeb.dll
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\DanamicCompilerWeb\obj\Debug\DanamicCompilerWeb.pdb

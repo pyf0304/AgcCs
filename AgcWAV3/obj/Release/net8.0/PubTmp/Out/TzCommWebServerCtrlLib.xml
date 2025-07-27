@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TzCommWebServerCtrlLib</name>
+    </assembly>
+    <members>
+        <member name="T:TzCommWebServerCtrlLib.ConfirmButton">
+            <summary>
+            Summary description for ConfirmButton.
+            </summary>
+        </member>
+        <member name="T:TzCommWebServerCtrlLib.wccFileUpload">
+            <summary>
+            专门用于上传大文件
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.CtlTypeName">
+            <summary>
+            控件类型
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.vsFileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.JsAshxFileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.IsDispDiv">
+            <summary>
+            是否显示层（IsDispDiv）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.IsShowDiv">
+            <summary>
+            是否显示层(div)
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.RegionType">
+            <summary>
+            区域类型
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.UserId">
+            <summary>
+            当前用户Id
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.LogDir">
+            <summary>
+            日志目录
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_CaptionCss">
+            <summary>
+            Captionr的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_TextBoxCss">
+            <summary>
+            文本框的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_ButtonCss">
+            <summary>
+            命令按钮的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_CheckBoxCss">
+            <summary>
+            CheckBox的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_DropDownListCss">
+            <summary>
+            DropDownList的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFileUpload.wccfg_LinkButtonCss">
+            <summary>
+            LinkButton的Css
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccFileUpload.Reg_JsPubVarDef">
+            <summary>
+            公共变量定义
+            </summary>      
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccFileUpload.Reg_Jsfun_ReUpload">
+            <summary>
+            重新上传
+            </summary>     
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccFileUpload.Reg_JsCommand_Progress(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            注册Js命令—进度条
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.AddHref">
+            <summary>
+            添加记录的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.ApplyHref">
+            <summary>
+            申请任务的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.UserId">
+            <summary>
+            用户Id（UserId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.DispModeId">
+            <summary>
+            显示模式Id（DispModeId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.IsHaveAddPotence">
+            <summary>
+            是否有添加任务权限（IsHaveAddPotence）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.UserName">
+            <summary>
+            用户名（UserName）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonth.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccMonth.getDispContent(System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccMonth.setDispContent(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeek.DispModeId">
+            <summary>
+            显示模式Id（DispModeId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeek.AddHref">
+            <summary>
+            添加记录的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeek.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeek.Week">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeek.getDispContent(System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeek.setDispContent(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeek.setUser(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.mId">
+            <summary>
+            mId
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.RegionId">
+            <summary>
+            界面区域Id
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.CtlTypeName">
+            <summary>
+            控件类型
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.FldName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.IsDispDiv">
+            <summary>
+            是否显示层（IsDispDiv）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.IsShowDiv">
+            <summary>
+            是否显示层(div)
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.RegionType">
+            <summary>
+            区域类型
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_CaptionCss">
+            <summary>
+            Captionr的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_TextBoxCss">
+            <summary>
+            文本框的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_ButtonCss">
+            <summary>
+            命令按钮的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_CheckBoxCss">
+            <summary>
+            CheckBox的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_DropDownListCss">
+            <summary>
+            DropDownList的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccFieldGroup.wccfg_LinkButtonCss">
+            <summary>
+            LinkButton的Css
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.AddHref">
+            <summary>
+            添加记录的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.ApplyHref">
+            <summary>
+            申请任务的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.UserId">
+            <summary>
+            用户Id（UserId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.DispModeId">
+            <summary>
+            显示模式Id（DispModeId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.IsHaveAddPotence">
+            <summary>
+            是否有添加任务权限（IsHaveAddPotence）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.UserName">
+            <summary>
+            用户名（UserName）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccMonthV2.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccMonthV2.getDispContent(System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccMonthV2.setDispContent(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeekV2.DispModeId">
+            <summary>
+            显示模式Id（DispModeId）
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeekV2.AddHref">
+            <summary>
+            添加记录的超链接
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeekV2.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="P:TzCommWebServerCtrlLib.wccUserWeekV2.Week">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeekV2.getDispContent(System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeekV2.setDispContent(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="M:TzCommWebServerCtrlLib.wccUserWeekV2.setUser(System.String,System.String)">
+            <summary>
+            获取显示内容（DispContent）
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.ShowDirect">
+            <summary>
+            显示方向
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.WorkPage">
+            <summary>
+            工作页面，即处理该过程的aspx页面
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.WorkFlowId">
+            <summary>
+            工作流Id
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.IsShowReturn">
+            <summary>
+            是否显示[返回到]
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.IsShowEdit">
+            <summary>
+            是否显示[返回到]
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.PostId">
+            <summary>
+            岗位Id
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.ExamItemTypeId">
+            <summary>
+            考核项类型Id
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.ExamPhaseId">
+            <summary>
+            考核阶段Id
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.CheckRoleId">
+            <summary>
+            考核者角色
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.CheckedRoleId">
+            <summary>
+            被考核者角色
+            </summary>
+        </member>
+        <member name="P:WorkProcessShow.ProcessShow.OperateRole">
+            <summary>
+            操作角色
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5a+FGEmBEvA=",
+  "success": true,
+  "projectFilePath": "E:\\AspNet2024\\AGCV2\\PrjCommBase\\PrjCommBase.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pyf\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\pyf\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,383 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcWA\\AgcWA.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj",
+        "projectName": "AgcBase",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj",
+        "projectName": "AgcBLLEx",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj",
+        "projectName": "AgcCommBase",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj",
+        "projectName": "AgcDAL",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj",
+        "projectName": "AgcEntity",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj",
+        "projectName": "AgcPureClassBL",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj",
+        "projectName": "AgcPureClass",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcWA\\AgcWA.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcWA\\AgcWA.csproj",
+        "projectName": "AgcWA",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcWA\\AgcWA.csproj",
+        "packagesPath": "C:\\Users\\pyf\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcWA\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pyf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AutoGCLib\\AutoGCLib.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AutoGCLib\\AutoGCLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "JWT": {
+              "target": "Package",
+              "version": "[8.9.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.15, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[1.23.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.12.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Svg": {
+              "target": "Package",
+              "version": "[3.4.4, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "Swashbuckle.AspNetCore.Filters": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AutoGCLib\\AutoGCLib.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AutoGCLib\\AutoGCLib.csproj",
+        "projectName": "AutoGCLib",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AutoGCLib\\AutoGCLib.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBase\\AgcBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcBLLEx\\AgcBLLEx.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcCommBase\\AgcCommBase.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcDAL\\AgcDAL.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcEntity\\AgcEntity.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClassBL\\AgcPureClassBL.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\AgcPureClass\\AgcPureClass.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj"
+              },
+              "C:\\Users\\pyf\\OneDrive\\AspNet2011\\TzCommWebServerCtrlLib\\TzCommWebServerCtrlLib.csproj": {
+                "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\TzCommWebServerCtrlLib\\TzCommWebServerCtrlLib.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj",
+        "projectName": "Tz.Functional2",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\Tz.Functional2\\Tz.Functional2.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj",
+        "projectName": "TzAdvancedLib",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\AGCV2\\TzAdvancedLib\\TzAdvancedLib.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\pyf\\OneDrive\\AspNet2011\\TzCommWebServerCtrlLib\\TzCommWebServerCtrlLib.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\TzCommWebServerCtrlLib\\TzCommWebServerCtrlLib.csproj",
+        "projectName": "TzCommWebServerCtrlLib",
+        "projectPath": "C:\\Users\\pyf\\OneDrive\\AspNet2011\\TzCommWebServerCtrlLib\\TzCommWebServerCtrlLib.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}

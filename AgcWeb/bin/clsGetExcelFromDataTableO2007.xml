@@ -1,0 +1,564 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>clsGetExcelFromDataTableO2007</name>
+    </assembly>
+    <members>
+        <member name="T:GetExcelFromDataTable.clsGetExcelFromDataTable">
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.CheckColumnsNameIsExist(System.Data.DataTable,System.Collections.Generic.List{System.String})">
+            <summary>
+            检查字段名列表是否在DATATABLE中是否存在
+            </summary>
+            <param name="objDT">DataTable对象</param>
+            <param name="ColumnsNameInDataTable">需要检查</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.CheckColumnsNameIsExist(System.Data.DataTable,System.Collections.ArrayList)">
+            <summary>
+            检查字段名列表是否在DATATABLE中是否存在
+            </summary>
+            <param name="objDT">DataTable对象</param>
+            <param name="ColumnsNameInDataTable">需要检查</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTable(System.Data.DataTable,System.String[],System.String[],System.String)">
+            <summary>
+            把DataTable导成Excel文件．本函数有４个参数
+            参数1： 要导出的DataTable
+            参数2： 要到出的DataTable中列的名字（列名，不是中文名称）放在一个string 数组中. 申明数组样例：string[] ColumnNames = new string[5] {"XH","XM","XBMC","XYMC","ZYMC"};
+            参数3： 导出的Excel中第一行的中文名称数组．　申明数组样例：string[] Title = new string[5] {"学号","姓名","专业","学院","专业"};
+            参数4： 到出Excel后的存放路径和文件名（其中是路径＋文件名）　例如：@"D:\MyExcel.xls"
+            调用本函数样例：clsGetExcelFromDatatable.GetExcelFromDataTable(objDT,ColumnNames,Title,@"D:\haha.xls");
+            </summary>
+            <param name="objDT"></param>
+            <param name="ColumnsNameInDataTable"></param>
+            <param name="FirstRowChineseNames"></param>
+            <param name="SavePathAndName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTable2(System.Data.DataTable,System.String[],System.String[],System.String)">
+            <summary>
+            使用EXCEL对象来导出文件
+            </summary>
+            <param name="objDT"></param>
+            <param name="ColumnsNameInDataTable"></param>
+            <param name="FirstRowChineseNames"></param>
+            <param name="SavePathAndName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTable2_ArrayList(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String)">
+            <summary>
+            使用EXCEL对象来导出文件
+            </summary>
+            <param name="objDT"></param>
+            <param name="ColumnsNameInDataTable"></param>
+            <param name="FirstRowChineseNames"></param>
+            <param name="SavePathAndName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTable2_List(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            使用EXCEL对象来导出文件
+            </summary>
+            <param name="objDT"></param>
+            <param name="ColumnsNameInDataTable"></param>
+            <param name="FirstRowChineseNames"></param>
+            <param name="SavePathAndName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String)">
+            <summary>
+            通过EXCEL对象来导出Excel,通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String,System.String,System.String)">
+            <summary>
+            通过EXCEL对象来导出Excel,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strTitle">标题</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr2Bak201211101(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.IO.StringWriter)">
+            <summary>
+            把DataTable导出到StringWriter数据流中，字段分隔用'\t'
+            </summary>
+            <param name="objDT">数据源DataTable</param>
+            <param name="ColumnsNameInDataTable">从DataTable中选取的字段列表</param>
+            <param name="FirstRowChineseNames">首行的标题列表</param>
+            <param name="sw">StringWriter数据流</param>
+            <returns>是否成功？</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr_StringWriter(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String)">
+            <summary>
+            无须EXCEL对象， 把DataTable导出到StringWriter数据流中，字段分隔用'\t'
+            </summary>
+            <param name="objDT">数据源DataTable</param>
+            <param name="ColumnsNameInDataTable">从DataTable中选取的字段列表</param>
+            <param name="FirstRowChineseNames">首行的标题列表</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns>是否成功？</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArrAndArray(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String)">
+            <summary>
+            通过EXCEL对象，使用“自动化”将数据数组传输到工作表上的区域
+            </summary>
+            <param name="objDT">DataTable数据</param>
+            <param name="ColumnsNameInDataTable">需要导出的字段列名</param>
+            <param name="FirstRowChineseNames">导出EXCEL的标题行字段名</param>
+            <param name="SavePathAndName">保存的路径及文件名</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArrAndArray(System.Data.DataTable,System.Collections.ArrayList,System.Collections.ArrayList,System.String,System.String)">
+            <summary>
+            通过EXCEL对象，使用“自动化”将数据数组传输到工作表上的区域
+            </summary>
+            <param name="objDT">DataTable数据</param>
+            <param name="ColumnsNameInDataTable">需要导出的字段列名</param>
+            <param name="FirstRowChineseNames">导出EXCEL的标题行字段名</param>
+            <param name="SavePathAndName">保存的路径及文件名</param>
+            <param name="strTitle">标题行标题</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.TestExcel(System.String)">
+            <summary>
+            把DataTable导成Excel文件．本函数有４个参数
+            参数1： 要导出的DataTable
+            参数2： 要到出的DataTable中列的名字（列名，不是中文名称）放在一个string 数组中. 申明数组样例：string[] ColumnNames = new string[5] {"XH","XM","XBMC","XYMC","ZYMC"};
+            参数3： 导出的Excel中第一行的中文名称数组．　申明数组样例：string[] Title = new string[5] {"学号","姓名","专业","学院","专业"};
+            参数4： 到出Excel后的存放路径和文件名（其中是路径＋文件名）　例如：@"D:\MyExcel.xls"
+            调用本函数样例：clsGetExcelFromDatatable.GetExcelFromDataTable(objDT,ColumnNames,Title,@"D:\haha.xls");
+            </summary>
+            <param name="objDT"></param>
+            <param name="ColumnsNameInDataTable"></param>
+            <param name="FirstRowChineseNames"></param>
+            <param name="SavePathAndName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过EXCEL对象来导出Excel,通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String,System.String)">
+            <summary>
+            通过EXCEL对象来导出Excel,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strTitle">标题</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr2(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.IO.StringWriter)">
+            <summary>
+            把DataTable导出到StringWriter数据流中，字段分隔用'\t'
+            </summary>
+            <param name="objDT">数据源DataTable</param>
+            <param name="ColumnsNameInDataTable">从DataTable中选取的字段列表</param>
+            <param name="FirstRowChineseNames">首行的标题列表</param>
+            <param name="sw">StringWriter数据流</param>
+            <returns>是否成功？</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr_StringWriter(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            无须EXCEL对象， 把DataTable导出到StringWriter数据流中，字段分隔用'\t'
+            </summary>
+            <param name="objDT">数据源DataTable</param>
+            <param name="ColumnsNameInDataTable">从DataTable中选取的字段列表</param>
+            <param name="FirstRowChineseNames">首行的标题列表</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns>是否成功？</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArrAndArray(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过EXCEL对象，使用“自动化”将数据数组传输到工作表上的区域
+            </summary>
+            <param name="objDT">DataTable数据</param>
+            <param name="ColumnsNameInDataTable">需要导出的字段列名</param>
+            <param name="FirstRowChineseNames">导出EXCEL的标题行字段名</param>
+            <param name="SavePathAndName">保存的路径及文件名</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArrAndArray(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            通过EXCEL对象，使用“自动化”将数据数组传输到工作表上的区域
+            </summary>
+            <param name="objDT">DataTable数据</param>
+            <param name="ColumnsNameInDataTable">需要导出的字段列名</param>
+            <param name="FirstRowChineseNames">导出EXCEL的标题行字段名</param>
+            <param name="SavePathAndName">保存的路径及文件名</param>
+            <param name="strTitle">标题行标题</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr4Odbc(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过Odbc来导出Excel,不需要安装Excel，通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr4Odbc(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            通过Odbc来导出Excel,不需要安装Excel，,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr4OdbcExcel2007(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过Odbc来导出Excel,不需要安装Excel，通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetExcelFromDataTable.clsGetExcelFromDataTable.GetExcelFromDataTableByArr4OdbcExcel2007(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            通过Odbc来导出Excel,不需要安装Excel，,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:GetExcelFromDataTable.ExcelOperate">
+            <summary>
+            ExcelOperate 的摘要说明。Excel操作函数
+            </summary>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.Merge(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            合并单元格
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetFontSize(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Int32)">
+            <summary>
+            设置连续区域的字体大小
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="strStartCell">开始单元格</param>
+            <param name="strEndCell">结束单元格</param>
+            <param name="intFontSize">字体大小</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.xlLandscape(Microsoft.Office.Interop.Excel._Worksheet)">
+            <summary>
+            横向打印
+            </summary>
+            <param name="CurSheet"></param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.xlPortrait(Microsoft.Office.Interop.Excel._Worksheet)">
+            <summary>
+            纵向打印
+            </summary>
+            <param name="CurSheet"></param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.WriteCell(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            在指定单元格插入指定的值
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="Cell">单元格 如Cells[1,1]</param>
+            <param name="objValue">文本、数字等值</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.WriteRange(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Object)">
+            <summary>
+            在指定Range中插入指定的值
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="StartCell">开始单元格</param>
+            <param name="EndCell">结束单元格</param>
+            <param name="objValue">文本、数字等值</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.WriteAfterMerge(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Object)">
+            <summary>
+            合并单元格，并在合并后的单元格中插入指定的值
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="objValue">文本、数字等值</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetFormula(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.String)">
+            <summary>
+            为单元格设置公式
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objCell">单元格</param>
+            <param name="strFormula">公式</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.AutoWrapText(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            单元格自动换行
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetColor(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Drawing.Color)">
+            <summary>
+            设置整个连续区域的字体颜色
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="clrColor">颜色</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetBgColor(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Drawing.Color)">
+            <summary>
+            设置整个连续区域的单元格背景色
+            </summary>
+            <param name="CurSheet"></param>
+            <param name="objStartCell"></param>
+            <param name="objEndCell"></param>
+            <param name="clrColor"></param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetFontName(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.String)">
+            <summary>
+            设置连续区域的字体名称
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="fontname">字体名称 隶书、仿宋_GB2312等</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetBold(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            设置连续区域的字体为黑体
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetBorderAll(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            设置连续区域的边框：上下左右都为黑色连续边框
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetHAlignCenter(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            设置连续区域水平居中
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetHAlignLeft(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            设置连续区域水平居左
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetHAlignRight(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object)">
+            <summary>
+            设置连续区域水平居右
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetNumberFormat(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.String)">
+            <summary>
+            设置连续区域的显示格式
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="strNF">如"#,##0.00"的显示格式</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetColumnWidth(Microsoft.Office.Interop.Excel._Worksheet,System.String,System.Double)">
+            <summary>
+            设置列宽
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="strColID">列标识，如A代表第一列</param>
+            <param name="dblWidth">宽度</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetColumnWidth(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Double)">
+            <summary>
+            设置列宽
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="dblWidth">宽度</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SetRowHeight(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.Object,System.Double)">
+            <summary>
+            设置行高
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objStartCell">开始单元格</param>
+            <param name="objEndCell">结束单元格</param>
+            <param name="dblHeight">行高</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.AddHyperLink(Microsoft.Office.Interop.Excel._Worksheet,System.Object,System.String,System.String,System.String)">
+            <summary>
+            为单元格添加超级链接
+            </summary>
+            <param name="CurSheet">Worksheet</param>
+            <param name="objCell">单元格</param>
+            <param name="strAddress">链接地址</param>
+            <param name="strTip">屏幕提示</param>
+            <param name="strText">链接文本</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.Save(Microsoft.Office.Interop.Excel._Workbook,System.String)">
+            <summary>
+            另存为xls文件
+            </summary>
+            <param name="CurBook">Workbook</param>
+            <param name="strFilePath">文件路径</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SaveAs(Microsoft.Office.Interop.Excel._Workbook,System.String)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="CurBook">Workbook</param>
+            <param name="strFilePath">文件路径</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.SaveHtml(Microsoft.Office.Interop.Excel._Workbook,System.String)">
+            <summary>
+            另存为html文件
+            </summary>
+            <param name="CurBook">Workbook</param>
+            <param name="strFilePath">文件路径</param>
+        </member>
+        <member name="M:GetExcelFromDataTable.ExcelOperate.Dispose(Microsoft.Office.Interop.Excel._Worksheet,Microsoft.Office.Interop.Excel._Workbook,Microsoft.Office.Interop.Excel._Application)">
+            <summary>
+            释放内存
+            </summary>
+        </member>
+        <member name="T:GetAccessFromDataTable.clsGetAccessFromDataTable">
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+            <summary>
+            Class1 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.GetAccessFromDataTableByArr4OdbcAccess2007(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过Odbc来导出Access,不需要安装Access，通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.GetAccessFromDataTableByArr4OdbcAccess2007(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            通过Odbc来导出Access,不需要安装Access，,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.CheckColumnsNameIsExist(System.Data.DataTable,System.Collections.Generic.List{System.String})">
+            <summary>
+            检查字段名列表是否在DATATABLE中是否存在
+            </summary>
+            <param name="objDT">DataTable对象</param>
+            <param name="ColumnsNameInDataTable">需要检查</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.CheckColumnsNameIsExist(System.Data.DataTable,System.Collections.ArrayList)">
+            <summary>
+            检查字段名列表是否在DATATABLE中是否存在
+            </summary>
+            <param name="objDT">DataTable对象</param>
+            <param name="ColumnsNameInDataTable">需要检查</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.GetAccessFromDataTableByArr4Odbc(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            通过Odbc来导出Access,不需要安装Access，通过DataTable, 通过字段列表
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:GetAccessFromDataTable.clsGetAccessFromDataTable.GetAccessFromDataTableByArr4Odbc(System.Data.DataTable,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            通过Odbc来导出Access,不需要安装Access，,通过DataTable, 通过字段列表
+            潘以锋
+            修改日期：2008-12-31
+            </summary>
+            <param name="objDT">提供的DataTable</param>
+            <param name="ColumnsNameInDataTable">导出的列名</param>
+            <param name="FirstRowChineseNames">第一行的中文标题名称</param>
+            <param name="SavePathAndName">保存的路径文件名</param>
+            <param name="strSheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

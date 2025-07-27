@@ -1,0 +1,16 @@
+C:\TzAppData\AGCV2\TzAdvancedLib\bin\Release\TzAdvancedLib.dll
+C:\TzAppData\AGCV2\TzAdvancedLib\bin\Release\TzAdvancedLib.pdb
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.AssemblyReference.cache
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.CoreCompileInputs.cache
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.dll
+C:\Users\pyf\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.pdb
+E:\TzAppData\AGCV2\TzAdvancedLib\bin\Release\TzAdvancedLib.dll
+E:\TzAppData\AGCV2\TzAdvancedLib\bin\Release\TzAdvancedLib.pdb
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.AssemblyReference.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.CoreCompileInputs.cache
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.dll
+E:\OneDrive-personal\OneDrive\AspNet2011\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.pdb
+E:\AspNet2024\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.AssemblyReference.cache
+E:\AspNet2024\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.csproj.CoreCompileInputs.cache
+E:\AspNet2024\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.dll
+E:\AspNet2024\AGCV2\TzAdvancedLib\obj\Release\TzAdvancedLib.pdb

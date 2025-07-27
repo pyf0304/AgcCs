@@ -1,0 +1,7201 @@
+[
+  {
+    "ContainingType": "UserAdmin.Controllers.accountController",
+    "Method": "info",
+    "RelativePath": "api/account/info",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.accountController",
+    "Method": "Login",
+    "RelativePath": "api/account/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Comm.PubFun.LoginParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.accountController",
+    "Method": "logout",
+    "RelativePath": "api/account/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.accountController",
+    "Method": "permmenu",
+    "RelativePath": "api/account/permmenu",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "GetCaptcha",
+    "RelativePath": "api/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "captchaImg",
+    "RelativePath": "api/admin/captchaImg",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "width",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "height",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "captchaImg2",
+    "RelativePath": "api/admin/captchaImg2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "width",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "height",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "GenerateCaptchaImage",
+    "RelativePath": "api/admin/GenerateCaptchaImage",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "width",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "height",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "GetCaptchaImage",
+    "RelativePath": "api/admin/GetCaptchaImage",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "Login",
+    "RelativePath": "api/admin/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Comm.PubFun.LoginParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "LoginBak",
+    "RelativePath": "api/admin/loginBak",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Comm.PubFun.LoginParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserAdmin.Controllers.adminController",
+    "Method": "test",
+    "RelativePath": "api/admin/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Divided",
+    "RelativePath": "api/MyCalc2/Divided",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Minus",
+    "RelativePath": "api/MyCalc2/Minus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Multiply",
+    "RelativePath": "api/MyCalc2/Multiply",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Plus",
+    "RelativePath": "api/MyCalc2/Plus/{a},{b}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Plus2",
+    "RelativePath": "api/MyCalc2/Plus2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Plus3",
+    "RelativePath": "api/MyCalc2/Plus3",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Test",
+    "RelativePath": "api/MyCalc2/Test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGCWA.Controllers.MyCalc2Controller",
+    "Method": "Test2",
+    "RelativePath": "api/MyCalc2/Test2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserCodePrjMainPathExApiController",
+    "Method": "DelRecordEx",
+    "RelativePath": "api/UserCodePrjMainPathExApi/DelRecordEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserCodePrjMainPathId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserCodePrjMainPathExApiController",
+    "Method": "SetGCPath",
+    "RelativePath": "api/UserCodePrjMainPathExApi/SetGCPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strMachineName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserCodePrjMainPathExApiController",
+    "Method": "SetMinCmPrjIdAppTypeId",
+    "RelativePath": "api/UserCodePrjMainPathExApi/SetMinCmPrjIdAppTypeId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "GeneCode",
+    "RelativePath": "AutoGeneCodeApi/GeneCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCPara",
+        "Type": "AgcCommBase.clsGCPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AgcCommBase.clsGCResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "GeneCode4Feature",
+    "RelativePath": "AutoGeneCodeApi/GeneCode4Feature",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCPara",
+        "Type": "AgcCommBase.clsGCPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AgcCommBase.clsGCResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "GeneCode4Func",
+    "RelativePath": "AutoGeneCodeApi/GeneCode4Func",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCPara",
+        "Type": "AgcCommBase.clsGCPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AgcCommBase.clsGCResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "GeneCode4SelfCreateWs",
+    "RelativePath": "AutoGeneCodeApi/GeneCode4SelfCreateWs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCPara",
+        "Type": "AgcCommBase.clsGCPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "GenNewTabInSQL",
+    "RelativePath": "AutoGeneCodeApi/GenNewTabInSQL",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "Plus",
+    "RelativePath": "AutoGeneCodeApi/Plus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.AutoGeneCodeApiController",
+    "Method": "ReFresh4GC",
+    "RelativePath": "AutoGeneCodeApi/ReFresh4GC",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ButtonStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ButtonStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objButtonStyle",
+        "Type": "AGC.Entity.clsButtonStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ButtonTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ButtonTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objButtonTab",
+        "Type": "AGC.Entity.clsButtonTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CacheModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CacheModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCacheMode",
+        "Type": "AGC.Entity.clsCacheModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CacheUseStateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CacheUseStateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCacheUseState",
+        "Type": "AGC.Entity.clsCacheUseStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CharEncodingExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CharEncodingExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCharEncoding",
+        "Type": "AGC.Entity.clsCharEncodingEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CheckStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CheckStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCheckStyle",
+        "Type": "AGC.Entity.clsCheckStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMClassExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMClassExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMClass",
+        "Type": "AGC.Entity.clsCMClassEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFeatureExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFeatureExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFeature",
+        "Type": "AGC.Entity.clsCMFeatureEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFeatureRequirementExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFeatureRequirementExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFeatureRequirement",
+        "Type": "AGC.Entity.clsCMFeatureRequirementEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFeatureTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFeatureTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFeatureType",
+        "Type": "AGC.Entity.clsCMFeatureTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFuncParaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFuncParaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFuncPara",
+        "Type": "AGC.Entity.clsCMFuncParaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFuncParaRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFuncParaRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFuncParaRela",
+        "Type": "AGC.Entity.clsCMFuncParaRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFunctionExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFunctionExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFunction",
+        "Type": "AGC.Entity.clsCMFunctionEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMFunctionKeyWordExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMFunctionKeyWordExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMFunctionKeyWord",
+        "Type": "AGC.Entity.clsCMFunctionKeyWordEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectAppRelaExApiController",
+    "Method": "DelCmProjectApp",
+    "RelativePath": "CMProjectAppRelaExApi/DelCmProjectApp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intApplicationTypeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectAppRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMProjectAppRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMProjectAppRela",
+        "Type": "AGC.Entity.clsCMProjectAppRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMProjectExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMProject",
+        "Type": "AGC.Entity.clsCMProjectEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectPrjTabExApiController",
+    "Method": "CreateRela",
+    "RelativePath": "CMProjectPrjTabExApi/CreateRela",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectPrjTabExApiController",
+    "Method": "DelRela",
+    "RelativePath": "CMProjectPrjTabExApi/DelRela",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMProjectPrjTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMProjectPrjTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMProjectPrjTab",
+        "Type": "AGC.Entity.clsCmProjectPrjTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMRequirementExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMRequirementExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMRequirement",
+        "Type": "AGC.Entity.clsCMRequirementEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMRequirementTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMRequirementTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMRequirementType",
+        "Type": "AGC.Entity.clsCMRequirementTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CMUserProjectExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CMUserProjectExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCMUserProject",
+        "Type": "AGC.Entity.clsCMUserProjectEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CodeFunctionExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CodeFunctionExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCodeFunction",
+        "Type": "AGC.Entity.clsCodeFunctionEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CodeLocationExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CodeLocationExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCodeLocation",
+        "Type": "AGC.Entity.clsCodeLocationEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CodeParaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CodeParaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCodePara",
+        "Type": "AGC.Entity.clsCodeParaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CodeSegmentExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CodeSegmentExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCodeSegment",
+        "Type": "AGC.Entity.clsCodeSegmentEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CollegeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CollegeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCollege",
+        "Type": "AGC.Entity.clsCollegeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CommonDataNodeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CommonDataNodeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCommonDataNode",
+        "Type": "AGC.Entity.clsCommonDataNodeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ConstraintFieldsExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ConstraintFieldsExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objConstraintFields",
+        "Type": "AGC.Entity.clsConstraintFieldsEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ConstraintTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ConstraintTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objConstraintType",
+        "Type": "AGC.Entity.clsConstraintTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.CtlTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "CtlTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objCtlTypeAbbr",
+        "Type": "AGC.Entity.clsCtlTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataBaseModuleRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DataBaseModuleRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDataBaseModuleRela",
+        "Type": "AGC.Entity.clsDataBaseModuleRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataGridStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DataGridStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDataGridStyle",
+        "Type": "AGC.Entity.clsDataGridStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeDirectMapExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DataNodeDirectMapExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDataNodeDirectMap",
+        "Type": "AGC.Entity.clsDataNodeDirectMapEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "CheckDataNode",
+    "RelativePath": "DataNodeExApi/CheckDataNode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "CheckDataNodeByPrjId",
+    "RelativePath": "DataNodeExApi/CheckDataNodeByPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "DelDataNodesExBak",
+    "RelativePath": "DataNodeExApi/DelDataNodesExBak",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "arrDnFuncMapId",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "DelRecordEx",
+    "RelativePath": "DataNodeExApi/DelRecordEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "GetConnectedNode",
+    "RelativePath": "DataNodeExApi/GetConnectedNode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strStartNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "GetConnectedNode_Prev",
+    "RelativePath": "DataNodeExApi/GetConnectedNode_Prev",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strEndNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "GetConnectedNodeByTabId",
+    "RelativePath": "DataNodeExApi/GetConnectedNodeByTabId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "GetGraphPath",
+    "RelativePath": "DataNodeExApi/GetGraphPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strStartNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strEndNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "GetStandardDataNodeName",
+    "RelativePath": "DataNodeExApi/GetStandardDataNodeName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lngDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "ImportNode4KeyAndName",
+    "RelativePath": "DataNodeExApi/ImportNode4KeyAndName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "ImportSameSourceBy4KeyNode",
+    "RelativePath": "DataNodeExApi/ImportSameSourceBy4KeyNode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeExApiController",
+    "Method": "SetAllStandardDataNodeName",
+    "RelativePath": "DataNodeExApi/SetAllStandardDataNodeName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataNodeTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DataNodeTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDataNodeType",
+        "Type": "AGC.Entity.clsDataNodeTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DataTypeAbbrExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DataTypeAbbrExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDataTypeAbbr",
+        "Type": "AGC.Entity.clsDataTypeAbbrEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DDLItemsOptionExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DDLItemsOptionExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDDLItemsOption",
+        "Type": "AGC.Entity.clsDDLItemsOptionEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DepartmentInfoExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DepartmentInfoExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDepartmentInfo",
+        "Type": "AGC.Entity.clsDepartmentInfoEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DgFuncTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DgFuncTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDgFuncType",
+        "Type": "AGC.Entity.clsDgFuncTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DGRegionFldsExApiController",
+    "Method": "AdjustSequenceNumber",
+    "RelativePath": "DGRegionFldsExApi/AdjustSequenceNumber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDirect",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DGRegionFldsExApiController",
+    "Method": "CheckRegionFldsUp",
+    "RelativePath": "DGRegionFldsExApi/CheckRegionFldsUp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DGRegionFldsExApiController",
+    "Method": "ImportExtendFld",
+    "RelativePath": "DGRegionFldsExApi/ImportExtendFld",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DGRegionFldsExApiController",
+    "Method": "ImportRelaFlds",
+    "RelativePath": "DGRegionFldsExApi/ImportRelaFlds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DGRegionFldsExApiController",
+    "Method": "ReOrder",
+    "RelativePath": "DGRegionFldsExApi/ReOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Dict4GCExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Dict4GCExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDict4GC",
+        "Type": "AGC.Entity.clsDict4GCEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DictType4GCExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DictType4GCExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDictType4GC",
+        "Type": "AGC.Entity.clsDictType4GCEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "CheckDnFuncMapByPrjId",
+    "RelativePath": "DnFuncMapExApi/CheckDnFuncMapByPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "DelDnFuncMapsEx",
+    "RelativePath": "DnFuncMapExApi/DelDnFuncMapsEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "arrDnFuncMapId",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "DelRecordEx",
+    "RelativePath": "DnFuncMapExApi/DelRecordEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDnFuncMapId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetFldIdLstByTabIdCache",
+    "RelativePath": "DnFuncMapExApi/GetFldIdLstByTabIdCache",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetGraphPath",
+    "RelativePath": "DnFuncMapExApi/GetGraphPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strStartNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strEndNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetObjLstByPagerNoCache",
+    "RelativePath": "DnFuncMapExApi/GetObjLstByPagerNoCache",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPagerPara",
+        "Type": "com.taishsoft.common.stuPagerPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetRecCountByCondNoCache",
+    "RelativePath": "DnFuncMapExApi/GetRecCountByCondNoCache",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetRingEdgeLst",
+    "RelativePath": "DnFuncMapExApi/GetRingEdgeLst",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFuncMapExApiController",
+    "Method": "GetRingNodeLst",
+    "RelativePath": "DnFuncMapExApi/GetRingNodeLst",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnFunctionExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DnFunctionExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDnFunction",
+        "Type": "AGC.Entity.clsDnFunctionEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnMappingModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DnMappingModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDnMappingMode",
+        "Type": "AGC.Entity.clsDnMappingModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "AutoCreatePath",
+    "RelativePath": "DnPathExApi/AutoCreatePath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "CalcDnPathEdgeNum",
+    "RelativePath": "DnPathExApi/CalcDnPathEdgeNum",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "CheckDnPath",
+    "RelativePath": "DnPathExApi/CheckDnPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDnPathId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "CheckDnPathDuplicate",
+    "RelativePath": "DnPathExApi/CheckDnPathDuplicate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "CreateDnPath",
+    "RelativePath": "DnPathExApi/CreateDnPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strStartNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strEndNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "DelDnPath",
+    "RelativePath": "DnPathExApi/DelDnPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDnPathId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "DelDnPathDuplicate",
+    "RelativePath": "DnPathExApi/DelDnPathDuplicate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DnPathExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDnPath",
+        "Type": "AGC.Entity.clsDnPathEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DnPathFuncMapRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DnPathFuncMapRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDnPathFuncMapRela",
+        "Type": "AGC.Entity.clsDnPathFuncMapRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.DropDownLstStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "DropDownLstStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objDropDownLstStyle",
+        "Type": "AGC.Entity.clsDropDownLstStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.EditRegionFldsExApiController",
+    "Method": "AdjustSequenceNumber",
+    "RelativePath": "EditRegionFldsExApi/AdjustSequenceNumber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDirect",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.EditRegionFldsExApiController",
+    "Method": "CheckRegionFldsUp",
+    "RelativePath": "EditRegionFldsExApi/CheckRegionFldsUp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.EditRegionFldsExApiController",
+    "Method": "ImportRelaFlds",
+    "RelativePath": "EditRegionFldsExApi/ImportRelaFlds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.EditRegionFldsExApiController",
+    "Method": "ReOrder",
+    "RelativePath": "EditRegionFldsExApi/ReOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ErrorIdManageExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ErrorIdManageExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objErrorIdManage",
+        "Type": "AGC.Entity.clsErrorIdManageEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ErrorInformationExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ErrorInformationExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objErrorInformation",
+        "Type": "AGC.Entity.clsErrorInformationEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ErrorLevelExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ErrorLevelExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objErrorLevel",
+        "Type": "AGC.Entity.clsErrorLevelEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.EventTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "EventTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objEventTab",
+        "Type": "AGC.Entity.clsEventTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FeatureButtonRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FeatureButtonRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFeatureButtonRela",
+        "Type": "AGC.Entity.clsFeatureButtonRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FeatureFieldTypeRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FeatureFieldTypeRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFeatureFieldTypeRela",
+        "Type": "AGC.Entity.clsFeatureFieldTypeRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FeatureFuncRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FeatureFuncRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFeatureFuncRela",
+        "Type": "AGC.Entity.clsFeatureFuncRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FeatureImplementationExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FeatureImplementationExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFeatureImplementation",
+        "Type": "AGC.Entity.clsFeatureImplementationEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTab4CodeConvExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FieldTab4CodeConvExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFieldTab4CodeConv",
+        "Type": "AGC.Entity.clsFieldTab4CodeConvEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTab4RootFldExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FieldTab4RootFldExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFieldTab4RootFld",
+        "Type": "AGC.Entity.clsFieldTab4RootFldEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTabExApiController",
+    "Method": "AddNewRec",
+    "RelativePath": "FieldTabExApi/AddNewRec",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCaption",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strDataTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intFldLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "intFldPrecision",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "bolIsNull",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUpdUser",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTabExApiController",
+    "Method": "CopyToPrjTab",
+    "RelativePath": "FieldTabExApi/CopyToPrjTab",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "myData",
+        "Type": "AGC.WebApi.clsCopyToPrjTab",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FieldTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFieldTab",
+        "Type": "AGC.Entity.clsFieldTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTabExApiController",
+    "Method": "ImportFldToFieldTab",
+    "RelativePath": "FieldTabExApi/ImportFldToFieldTab",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCaption",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTypeName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intFldLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "intFldPrecision",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "bolIsNull",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUpdUser",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTabExApiController",
+    "Method": "UpdateTabNumForFldId",
+    "RelativePath": "FieldTabExApi/UpdateTabNumForFldId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FieldTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FieldTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFieldType",
+        "Type": "AGC.Entity.clsFieldTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FileResExcludePathExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FileResExcludePathExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFileResExcludePath",
+        "Type": "AGC.Entity.clsFileResExcludePathEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FileResourceExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FileResourceExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFileResource",
+        "Type": "AGC.Entity.clsFileResourceEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FldOperationTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FldOperationTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFldOperationType",
+        "Type": "AGC.Entity.clsFldOperationTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FldStateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FldStateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFldState",
+        "Type": "AGC.Entity.clsFldStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vPrjTab4GeneCodeExApiController",
+    "Method": "fn_getObjLstByUserIdBak",
+    "RelativePath": "fn_getObjLstByUserIdBak",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intApplicationTypeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FrontAndBack4AppTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FrontAndBack4AppTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFrontAndBack4AppType",
+        "Type": "AGC.Entity.clsFrontAndBack4AppTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FuncGCTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FuncGCTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFuncGCType",
+        "Type": "AGC.Entity.clsFuncGCTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FuncInOutRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FuncInOutRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFuncInOutRela",
+        "Type": "AGC.Entity.clsFuncInOutRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FuncMapModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FuncMapModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFuncMapMode",
+        "Type": "AGC.Entity.clsFuncMapModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FuncModule_AgcExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FuncModule_AgcExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFuncModule_Agc",
+        "Type": "AGC.Entity.clsFuncModule_AgcEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FuncPara4CodeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FuncPara4CodeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFuncPara4Code",
+        "Type": "AGC.Entity.clsFuncPara4CodeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Function4CodeExApiController",
+    "Method": "CalcFunctionSignature",
+    "RelativePath": "Function4CodeExApi/CalcFunctionSignature",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFuncId4Code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Function4CodeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Function4CodeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFunction4Code",
+        "Type": "AGC.Entity.clsFunction4CodeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Function4CodeExApiController",
+    "Method": "GeneCode4Class",
+    "RelativePath": "Function4CodeExApi/GeneCode4Class",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strClassName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCodeTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Function4CodeExApiController",
+    "Method": "GeneCodeV2",
+    "RelativePath": "Function4CodeExApi/GeneCodeV2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWorkFlowId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strFuncId4Code",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCodeTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Function4GeneCodeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Function4GeneCodeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFunction4GeneCode",
+        "Type": "AGC.Entity.clsFunction4GeneCodeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FunctionTemplateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FunctionTemplateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFunctionTemplate",
+        "Type": "AGC.Entity.clsFunctionTemplateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FunctionTemplateRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FunctionTemplateRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFunctionTemplateRela",
+        "Type": "AGC.Entity.clsFunctionTemplateRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.FunctionTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "FunctionTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objFunctionType",
+        "Type": "AGC.Entity.clsFunctionTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCContainerTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GCContainerTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCContainerType",
+        "Type": "AGC.Entity.clsGCContainerTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCKeyIdGetModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GCKeyIdGetModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCKeyIdGetMode",
+        "Type": "AGC.Entity.clsGCKeyIdGetModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCPathExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GCPathExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCPath",
+        "Type": "AGC.Entity.clsGCPathEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCVariableExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GCVariableExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCVariable",
+        "Type": "AGC.Entity.clsGCVariableEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCVariablePrjIdRelaExApiController",
+    "Method": "UpdFldIdByPrjId",
+    "RelativePath": "GCVariablePrjIdRelaExApi/UpdFldIdByPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCVariablePrjIdRelaExApiController",
+    "Method": "UpdFldIdByVarId",
+    "RelativePath": "GCVariablePrjIdRelaExApi/UpdFldIdByVarId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strVarId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GCVariableTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GCVariableTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGCVariableType",
+        "Type": "AGC.Entity.clsGCVariableTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.GenCtlStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "GenCtlStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objGenCtlStyle",
+        "Type": "AGC.Entity.clsGenCtlStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.TranslateApiController",
+    "Method": "GetFieldCnNameByFieldName",
+    "RelativePath": "GetFieldCnNameByFieldName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strFieldName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApi.vWebSrvClass4GeneCodeExApiController",
+    "Method": "GetObjLstByUserIdAndCondition",
+    "RelativePath": "GetObjLstByUserIdAndCondition",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.InOutTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "InOutTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objInOutType",
+        "Type": "AGC.Entity.clsInOutTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.LabelStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "LabelStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objLabelStyle",
+        "Type": "AGC.Entity.clsLabelStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Log4CreateView4SqlExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Log4CreateView4SqlExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objLog4CreateView4Sql",
+        "Type": "AGC.Entity.clsLog4CreateView4SqlEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Log4GC_WebSrvClassExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Log4GC_WebSrvClassExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objLog4GC_WebSrvClass",
+        "Type": "AGC.Entity.clsLog4GC_WebSrvClassEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "Divided",
+    "RelativePath": "LoginApi/Divided",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "GetObjLstByUserLoginByPrjId",
+    "RelativePath": "LoginApi/GetObjLstByUserLoginByPrjId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "GetObjLstByUserLoginByPrjIdBak",
+    "RelativePath": "LoginApi/GetObjLstByUserLoginByPrjIdBak",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "GetUserIdByLoginName",
+    "RelativePath": "LoginApi/GetUserIdByLoginName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "Minus",
+    "RelativePath": "LoginApi/Minus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "Multiply",
+    "RelativePath": "LoginApi/Multiply",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "Plus",
+    "RelativePath": "LoginApi/Plus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "Plus2",
+    "RelativePath": "LoginApi/Plus2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "test",
+    "RelativePath": "LoginApi/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "UserLogin",
+    "RelativePath": "LoginApi/UserLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objLoginPara",
+        "Type": "com.taishsoft.common.stuLoginPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "UserLogin2",
+    "RelativePath": "LoginApi/UserLogin2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "UserLoginByPrjId",
+    "RelativePath": "LoginApi/UserLoginByPrjId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.LoginApiController",
+    "Method": "UserLoginWithEffectiveDate",
+    "RelativePath": "LoginApi/UserLoginWithEffectiveDate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strEffectiveDate",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.MethodModifierExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "MethodModifierExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objMethodModifier",
+        "Type": "AGC.Entity.clsMethodModifierEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "PostTodoItem",
+    "RelativePath": "MyCalcApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "todoItem",
+        "Type": "AgcWA.Controllers.TodoItem",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AgcWA.Controllers.TodoItem",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Divided",
+    "RelativePath": "MyCalcApi/Divided",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Minus",
+    "RelativePath": "MyCalcApi/Minus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Multiply",
+    "RelativePath": "MyCalcApi/Multiply",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Plus",
+    "RelativePath": "MyCalcApi/Plus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Plus2",
+    "RelativePath": "MyCalcApi/Plus2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "Test",
+    "RelativePath": "MyCalcApi/Test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "TestException",
+    "RelativePath": "MyCalcApi/TestException",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rb",
+        "Type": "AgcWA.Controllers.myObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AgcWA.Controllers.MyCalcApiController",
+    "Method": "TestJSON",
+    "RelativePath": "MyCalcApi/TestJSON",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rb",
+        "Type": "AgcWA.Controllers.myObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApi.PageDispModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PageDispModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPageDispMode",
+        "Type": "AGC.Entity.clsPageDispModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrimaryTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrimaryTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrimaryType",
+        "Type": "AGC.Entity.clsPrimaryTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjDataBaseExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjDataBaseExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjDataBase",
+        "Type": "AGC.Entity.clsPrjDataBaseEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjFeatureExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjFeatureExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjFeature",
+        "Type": "AGC.Entity.clsPrjFeatureEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjFeatureTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjFeatureTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjFeatureType",
+        "Type": "AGC.Entity.clsPrjFeatureTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjFileStateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjFileStateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjFileState",
+        "Type": "AGC.Entity.clsPrjFileStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjFuncTemplateRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjFuncTemplateRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjFuncTemplateRela",
+        "Type": "AGC.Entity.clsPrjFuncTemplateRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjProcessTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjProcessTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjProcessType",
+        "Type": "AGC.Entity.clsPrjProcessTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "AlterTab4AddField",
+    "RelativePath": "PrjTabExApi/AlterTab4AddField",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "AlterTab4DropColumn",
+    "RelativePath": "PrjTabExApi/AlterTab4DropColumn",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strColumn_Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "AlterTab4UpdateField",
+    "RelativePath": "PrjTabExApi/AlterTab4UpdateField",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "CheckTabFlds",
+    "RelativePath": "PrjTabExApi/CheckTabFlds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "CopyPrjTabInSameProject",
+    "RelativePath": "PrjTabExApi/CopyPrjTabInSameProject",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strSouPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strSouCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strSouTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "DelRecordEx",
+    "RelativePath": "PrjTabExApi/DelRecordEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetObjExLstByPrjIdEx",
+    "RelativePath": "PrjTabExApi/GetObjExLstByPrjIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetObjLstByPagerEx",
+    "RelativePath": "PrjTabExApi/GetObjLstByPagerEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPagerPara",
+        "Type": "com.taishsoft.common.stuPagerPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetPrimaryTypeHtmlInfo",
+    "RelativePath": "PrjTabExApi/GetPrimaryTypeHtmlInfo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetRelaTabIdByViewTabId",
+    "RelativePath": "PrjTabExApi/GetRelaTabIdByViewTabId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetRelaViewTabIdByTabId",
+    "RelativePath": "PrjTabExApi/GetRelaViewTabIdByTabId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetRelaViewTabIdLstByTabId",
+    "RelativePath": "PrjTabExApi/GetRelaViewTabIdLstByTabId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "GetTabRecNum",
+    "RelativePath": "PrjTabExApi/GetTabRecNum",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "ImportSqlTab",
+    "RelativePath": "PrjTabExApi/ImportSqlTab",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "myData",
+        "Type": "AGC.WebApi.clsImportSqlTab",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "IsAppiedInViewList",
+    "RelativePath": "PrjTabExApi/IsAppiedInViewList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "IsAppiedInViewList4CmPrjId",
+    "RelativePath": "PrjTabExApi/IsAppiedInViewList4CmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "IsExistTabNameInCommonTable",
+    "RelativePath": "PrjTabExApi/IsExistTabNameInCommonTable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "p_Init_Log4GeneTabCode",
+    "RelativePath": "PrjTabExApi/p_Init_Log4GeneTabCode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "SetFldOrderNum4ViewByRelaTabId",
+    "RelativePath": "PrjTabExApi/SetFldOrderNum4ViewByRelaTabId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "SetIsShare",
+    "RelativePath": "PrjTabExApi/SetIsShare",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "bolIsShare",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "SetPrjTabFldNullBySQLTab",
+    "RelativePath": "PrjTabExApi/SetPrjTabFldNullBySQLTab",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjTabExApiController",
+    "Method": "SetUpdDate",
+    "RelativePath": "PrjTabExApi/SetUpdDate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.PrjUserCharEncodingRelaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "PrjUserCharEncodingRelaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPrjUserCharEncodingRela",
+        "Type": "AGC.Entity.clsPrjUserCharEncodingRelaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ProgLangTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ProgLangTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objProgLangType",
+        "Type": "AGC.Entity.clsProgLangTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ProjectDatabaseRelExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ProjectDatabaseRelExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objProjectDatabaseRel",
+        "Type": "AGC.Entity.clsProjectDatabaseRelEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.PubDataBaseApiController",
+    "Method": "DateTime_GetDataBaseDateTime",
+    "RelativePath": "PubDataBaseApi/DateTime_GetDataBaseDateTime",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.PubDataBaseApiController",
+    "Method": "DateTime_GetDataBaseDateTime14",
+    "RelativePath": "PubDataBaseApi/DateTime_GetDataBaseDateTime14",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.PubDataBaseApiController",
+    "Method": "GetDataTable",
+    "RelativePath": "PubDataBaseApi/GetDataTable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intRecNum",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOrderBy",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.PubDataBaseApiController",
+    "Method": "GetFieldValue",
+    "RelativePath": "PubDataBaseApi/GetFieldValue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhere",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QryRegionFldsExApiController",
+    "Method": "AdjustSequenceNumber",
+    "RelativePath": "QryRegionFldsExApi/AdjustSequenceNumber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDirect",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lngMid",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QryRegionFldsExApiController",
+    "Method": "CheckRegionFldsUp",
+    "RelativePath": "QryRegionFldsExApi/CheckRegionFldsUp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QryRegionFldsExApiController",
+    "Method": "ImportRelaFlds",
+    "RelativePath": "QryRegionFldsExApi/ImportRelaFlds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QryRegionFldsExApiController",
+    "Method": "ReOrder",
+    "RelativePath": "QryRegionFldsExApi/ReOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strRegionId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QryRegionFldsExApiController",
+    "Method": "SetNotInUse",
+    "RelativePath": "QryRegionFldsExApi/SetNotInUse",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.QueryOptionExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "QueryOptionExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQueryOption",
+        "Type": "AGC.Entity.clsQueryOptionEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "Divided",
+    "RelativePath": "QxRoleMenusExApi/Divided",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "GetObjLstByRoleIdsEx",
+    "RelativePath": "QxRoleMenusExApi/GetObjLstByRoleIdsEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objRoleMenuByRoleIdsPara",
+        "Type": "GeneralPlatform.Entity.stuRoleMenuByRoleIdsPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "GetObjLstEx",
+    "RelativePath": "QxRoleMenusExApi/GetObjLstEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objRoleMenuPara",
+        "Type": "GeneralPlatform.Entity.stuRoleMenuPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "Minus",
+    "RelativePath": "QxRoleMenusExApi/Minus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "Multiply",
+    "RelativePath": "QxRoleMenusExApi/Multiply",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "Plus",
+    "RelativePath": "QxRoleMenusExApi/Plus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxRoleMenusExApiController",
+    "Method": "Plus2",
+    "RelativePath": "QxRoleMenusExApi/Plus2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "AddNewRecord",
+    "RelativePath": "QxUserStateApi/AddNewRecord",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserStateEN",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "AddNewRecordWithMaxId",
+    "RelativePath": "QxUserStateApi/AddNewRecordWithMaxId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserStateEN",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "AddNewRecordWithReturnKey",
+    "RelativePath": "QxUserStateApi/AddNewRecordWithReturnKey",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserStateEN",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "DelQxUserStates",
+    "RelativePath": "QxUserStateApi/DelQxUserStates",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "arrUserStateId",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "DelQxUserStatesByCond",
+    "RelativePath": "QxUserStateApi/DelQxUserStatesByCond",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "DelRecord",
+    "RelativePath": "QxUserStateApi/DelRecord",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "DelRecords",
+    "RelativePath": "QxUserStateApi/DelRecords",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strKeyIdLst",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetFirstID",
+    "RelativePath": "QxUserStateApi/GetFirstID",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetFirstObj",
+    "RelativePath": "QxUserStateApi/GetFirstObj",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetFldValue",
+    "RelativePath": "QxUserStateApi/GetFldValue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetMaxStrId",
+    "RelativePath": "QxUserStateApi/GetMaxStrId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjByUserStateId",
+    "RelativePath": "QxUserStateApi/GetObjByUserStateId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserStateId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjByUserStateIdCache",
+    "RelativePath": "QxUserStateApi/GetObjByUserStateId_Cache",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserStateId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjLst",
+    "RelativePath": "QxUserStateApi/GetObjLst",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjLstCache",
+    "RelativePath": "QxUserStateApi/GetObjLst_Cache",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjLstByPager",
+    "RelativePath": "QxUserStateApi/GetObjLstByPager",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objPagerPara",
+        "Type": "com.taishsoft.common.stuPagerPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjLstByUserStateIdLst",
+    "RelativePath": "QxUserStateApi/GetObjLstByUserStateIdLst",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "arrUserStateId",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetObjLstByUserStateIdLstCache",
+    "RelativePath": "QxUserStateApi/GetObjLstByUserStateIdLst_Cache",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "arrUserStateId",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetRecCountByCond",
+    "RelativePath": "QxUserStateApi/GetRecCountByCond",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetSubObjLstCache",
+    "RelativePath": "QxUserStateApi/GetSubObjLst_Cache",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserState_Cond",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "GetTopObjLst",
+    "RelativePath": "QxUserStateApi/GetTopObjLst",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTopPara",
+        "Type": "com.taishsoft.common.stuTopPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "IsExist",
+    "RelativePath": "QxUserStateApi/IsExist",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserStateId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "IsExistRecord",
+    "RelativePath": "QxUserStateApi/IsExistRecord",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "SetFldValue",
+    "RelativePath": "QxUserStateApi/SetFldValue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strValue",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "UpdateRecord",
+    "RelativePath": "QxUserStateApi/UpdateRecord",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserStateEN",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.QxUserStateApiController",
+    "Method": "UpdateWithCondition",
+    "RelativePath": "QxUserStateApi/UpdateWithCondition",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objQxUserStateEN",
+        "Type": "GeneralPlatform.Entity.clsQxUserStateEN",
+        "IsRequired": true
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ReferFilesExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ReferFilesExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objReferFiles",
+        "Type": "AGC.Entity.clsReferFilesEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ReferFileTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ReferFileTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objReferFileType",
+        "Type": "AGC.Entity.clsReferFileTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.RegionTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "RegionTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objRegionType",
+        "Type": "AGC.Entity.clsRegionTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SelfDefDataTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SelfDefDataTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSelfDefDataType",
+        "Type": "AGC.Entity.clsSelfDefDataTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SoftStructureExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SoftStructureExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSoftStructure",
+        "Type": "AGC.Entity.clsSoftStructureEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SortTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SortTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSortType",
+        "Type": "AGC.Entity.clsSortTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "DateTime_GetDataBaseDateTime",
+    "RelativePath": "SqlApi/DateTime_GetDataBaseDateTime",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "DateTime_GetDataBaseDateTime14",
+    "RelativePath": "SqlApi/DateTime_GetDataBaseDateTime14",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "GetColumnObjList",
+    "RelativePath": "SqlApi/GetColumnObjList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "GetDataTable",
+    "RelativePath": "SqlApi/GetDataTable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "intRecNum",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOrderBy",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "GetDataTableByKey",
+    "RelativePath": "SqlApi/GetDataTableByKey",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strKeyFldName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strKeyValue",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "bolIsNumurable",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "GetTableAndViewsByCond",
+    "RelativePath": "SqlApi/GetTableAndViewsByCond",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strWhereCond",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApiEx.SqlApiController",
+    "Method": "IsExistTable",
+    "RelativePath": "SqlApi/IsExistTable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCurrPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SQLDSTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SQLDSTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSQLDSType",
+        "Type": "AGC.Entity.clsSQLDSTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "CreateView4Sql",
+    "RelativePath": "SqlViewExApi/CreateView4Sql",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strSqlViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "bolIsTry",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SqlViewExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSqlView",
+        "Type": "AGC.Entity.clsSqlViewEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "FieldAnalysis",
+    "RelativePath": "SqlViewExApi/FieldAnalysis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strSqlViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "GeneSqlView",
+    "RelativePath": "SqlViewExApi/GeneSqlView",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strSqlViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "ImportSqlViewBySqlViewName",
+    "RelativePath": "SqlViewExApi/ImportSqlViewBySqlViewName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strSqlViewName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewExApiController",
+    "Method": "ImportSqlViewFromSqlServer",
+    "RelativePath": "SqlViewExApi/ImportSqlViewFromSqlServer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strSqlViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewFldExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SqlViewFldExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSqlViewFld",
+        "Type": "AGC.Entity.clsSqlViewFldEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SqlViewRelaTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SqlViewRelaTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSqlViewRelaTab",
+        "Type": "AGC.Entity.clsSqlViewRelaTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "Plus",
+    "RelativePath": "Student",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "Delete",
+    "RelativePath": "Student/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "GetByDept",
+    "RelativePath": "Student/GetByDept/{dept}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dept",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AGCWA.PubFun.Student, AgcWAV3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "Get",
+    "RelativePath": "Student/GetId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AGCWA.PubFun.Student",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "GetObjLst",
+    "RelativePath": "Student/GetObjLst",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AGCWA.PubFun.Student, AgcWAV3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "GetObjLst2",
+    "RelativePath": "Student/GetObjLst2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AGCWA.PubFun.Student, AgcWAV3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "Post",
+    "RelativePath": "Student/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "student",
+        "Type": "AGCWA.PubFun.Student",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.StudentController",
+    "Method": "Put",
+    "RelativePath": "Student/Put",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "student",
+        "Type": "AGCWA.PubFun.Student",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApi.SysDefaValNameExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SysDefaValNameExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSysDefaValName",
+        "Type": "AGC.Entity.clsSysDefaValNameEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.SysLogExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "SysLogExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objSysLog",
+        "Type": "AGC.Entity.clsSysLogEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGCWA.PubFun.SystemApiController",
+    "Method": "Login",
+    "RelativePath": "SystemApi/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginRequest",
+        "Type": "Comm.PubFun.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AGCWA.PubFun.HttpResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabCheckErrorTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabCheckErrorTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabCheckErrorType",
+        "Type": "AGC.Entity.clsTabCheckErrorTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabCheckLogExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabCheckLogExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabCheckLog",
+        "Type": "AGC.Entity.clsTabCheckLogEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabCheckResultExApiController",
+    "Method": "DeleteErrorResult",
+    "RelativePath": "TabCheckResultExApi/DeleteErrorResult",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strTabCheckErrorTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strFldId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabCheckResultExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabCheckResultExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabCheckResult",
+        "Type": "AGC.Entity.clsTabCheckResultEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabCheckStatusExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabCheckStatusExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabCheckStatus",
+        "Type": "AGC.Entity.clsTabCheckStatusEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabRelationExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabRelationExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabRelation",
+        "Type": "AGC.Entity.clsTabRelationEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabStateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabStateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabState",
+        "Type": "AGC.Entity.clsTabStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TabTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TabTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTabType",
+        "Type": "AGC.Entity.clsTabTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.Template1ExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "Template1ExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTemplate1",
+        "Type": "AGC.Entity.clsTemplate1EN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.TestIsRelaToSqlTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "TestIsRelaToSqlTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objTestIsRelaToSqlTab",
+        "Type": "AGC.Entity.clsTestIsRelaToSqlTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.tz_CommKeyWordsExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "tz_CommKeyWordsExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objtz_CommKeyWords",
+        "Type": "AGC.Entity.clstz_CommKeyWordsEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserCodePathExApiController",
+    "Method": "RemoveReduplicateRec",
+    "RelativePath": "UserCodePathExApi/RemoveReduplicateRec",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserCodePathExApiController",
+    "Method": "SetGCPath",
+    "RelativePath": "UserCodePathExApi/SetGCPath",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strMachineName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.UserCodePrjMainPath_MachineNameExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UserCodePrjMainPath_MachineNameExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUserCodePrjMainPath_MachineName",
+        "Type": "AGC.Entity.clsUserCodePrjMainPath_MachineNameEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserDefaPrjDataBaseExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UserDefaPrjDataBaseExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUserDefaPrjDataBase",
+        "Type": "AGC.Entity.clsUserDefaPrjDataBaseEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserDefaPrjDataBaseExApiController",
+    "Method": "SetPrjDataBaseIdByPrjIdAndUserId",
+    "RelativePath": "UserDefaPrjDataBaseExApi/SetPrjDataBaseIdByPrjIdAndUserId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserDefaValue_LocalExApiController",
+    "Method": "getUserDefaValue",
+    "RelativePath": "UserDefaValue_LocalExApi/getUserDefaValue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCurrSelPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strDefaValName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserDefaValue_LocalExApiController",
+    "Method": "setUserDefaValue",
+    "RelativePath": "UserDefaValue_LocalExApi/setUserDefaValue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCurrPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCurrSelPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strDefaValName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserDefaValue",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserLogExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UserLogExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUserLog",
+        "Type": "AGC.Entity.clsUserLogEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UserRolesExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UserRolesExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUserRoles",
+        "Type": "AGC.Entity.clsUserRolesEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UsersExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UsersExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUsers",
+        "Type": "AGC.Entity.clsUsersEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.UseStateExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "UseStateExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objUseState",
+        "Type": "AGC.Entity.clsUseStateEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ValueGivingModeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ValueGivingModeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objValueGivingMode",
+        "Type": "AGC.Entity.clsValueGivingModeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDataNode_SimExApiController",
+    "Method": "GetObjByDataNodeIdEx",
+    "RelativePath": "vDataNode_SimExApi/GetObjByDataNodeIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDataNode_SimExApiController",
+    "Method": "GetObjLstByTabIdEx",
+    "RelativePath": "vDataNode_SimExApi/GetObjLstByTabIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strTabId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDnFuncMap_SimExApiController",
+    "Method": "GetObjByDnFuncMapIdEx",
+    "RelativePath": "vDnFuncMap_SimExApi/GetObjByDnFuncMapIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strDnFuncMapId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDnFuncMap_SimExApiController",
+    "Method": "GetObjByInOutDataNodeIdEx",
+    "RelativePath": "vDnFuncMap_SimExApi/GetObjByInOutDataNodeIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strInDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOutDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDnFuncMap_SimExApiController",
+    "Method": "GetObjLstByInDataNodeIdEx",
+    "RelativePath": "vDnFuncMap_SimExApi/GetObjLstByInDataNodeIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strInDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vDnFuncMap_SimExApiController",
+    "Method": "GetObjLstByOutDataNodeIdEx",
+    "RelativePath": "vDnFuncMap_SimExApi/GetObjLstByOutDataNodeIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strOutDataNodeId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vFieldTab_Sim3ExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vFieldTab_Sim3ExApi/GetObjLstByCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vFieldTab_Sim3ExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vFieldTab_Sim3ExApi/GetObjLstByCmPrjIdByCond",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vFieldTab_SimExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vFieldTab_SimExApi/GetObjLstByCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vFunction4Code_SimExApiController",
+    "Method": "GetObjByFuncId4CodeEx",
+    "RelativePath": "vFunction4Code_SimExApi/GetObjByFuncId4CodeEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFuncId4Code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vFunction4GeneCode_SimExApiController",
+    "Method": "GetObjByFuncId4GCEx",
+    "RelativePath": "vFunction4GeneCode_SimExApi/GetObjByFuncId4GCEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFuncId4GC",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewDesignExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewDesignExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewDesign",
+        "Type": "AGC.Entity.clsViewDesignEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewDgInfoExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewDgInfoExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewDgInfo",
+        "Type": "AGC.Entity.clsViewDgInfoEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewGroupExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewGroupExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewGroup",
+        "Type": "AGC.Entity.clsViewGroupEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewIdGCVariableRelaExApiController",
+    "Method": "GetViewVar",
+    "RelativePath": "ViewIdGCVariableRelaExApi/GetViewVar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewIdGCVariableRelaExApiController",
+    "Method": "GetViewVarAllByCmPrjId",
+    "RelativePath": "ViewIdGCVariableRelaExApi/GetViewVarAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewImplementationExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewImplementationExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewImplementation",
+        "Type": "AGC.Entity.clsViewImplementationEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoCmPrjIdRelaExApiController",
+    "Method": "CreateRela",
+    "RelativePath": "ViewInfoCmPrjIdRelaExApi/CreateRela",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoCmPrjIdRelaExApiController",
+    "Method": "DelRela",
+    "RelativePath": "ViewInfoCmPrjIdRelaExApi/DelRela",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "CheckRegionFlds",
+    "RelativePath": "ViewInfoExApi/CheckRegionFlds",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjDataBaseId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUpdUser",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "DelRecordEx",
+    "RelativePath": "ViewInfoExApi/DelRecordEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "ImportRegionAndFlds1",
+    "RelativePath": "ViewInfoExApi/ImportRegionAndFlds1",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strRegionTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strOpUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strRegionName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "SetCmPrjId",
+    "RelativePath": "ViewInfoExApi/SetCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "SetViewUpdDate",
+    "RelativePath": "ViewInfoExApi/SetViewUpdDate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strViewId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewInfoExApiController",
+    "Method": "SynchInfoFromPrjTab",
+    "RelativePath": "ViewInfoExApi/SynchInfoFromPrjTab",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewMasterExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewMasterExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewMaster",
+        "Type": "AGC.Entity.clsViewMasterEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewRelaTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewRelaTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewRelaTab",
+        "Type": "AGC.Entity.clsViewRelaTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewStyleExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewStyleExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewStyle",
+        "Type": "AGC.Entity.clsViewStyleEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewTabTypeExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewTabTypeExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewTabType",
+        "Type": "AGC.Entity.clsViewTabTypeEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.ViewTypeCodeTabExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "ViewTypeCodeTabExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objViewTypeCodeTab",
+        "Type": "AGC.Entity.clsViewTypeCodeTabEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vPrjTab_SimExApiController",
+    "Method": "GetObjExLstByPrjIdEx",
+    "RelativePath": "vPrjTab_SimExApi/GetObjExLstByPrjIdEx",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vPrjTabFld_SimExApiController",
+    "Method": "getObjLstByFldIdAndFldType",
+    "RelativePath": "vPrjTabFld_SimExApi/getObjLstByFldIdAndFldType",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strFldId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strFldTypeId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vPrjTabKeyFldV2ExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vPrjTabKeyFldV2ExApi/GetObjLstByCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "Divided",
+    "RelativePath": "vQxRoleMenusExApi/Divided",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "GetObjLstByRoleIdsEx",
+    "RelativePath": "vQxRoleMenusExApi/GetObjLstByRoleIdsEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objRoleMenuByRoleIdsPara",
+        "Type": "GeneralPlatform.Entity.stuRoleMenuByRoleIdsPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "GetObjLstByUserLoginByPrjId",
+    "RelativePath": "vQxRoleMenusExApi/GetObjLstByUserLoginByPrjId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "GetObjLstByUserLoginByPrjIdBak",
+    "RelativePath": "vQxRoleMenusExApi/GetObjLstByUserLoginByPrjIdBak",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "GetObjLstEx",
+    "RelativePath": "vQxRoleMenusExApi/GetObjLstEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objRoleMenuPara",
+        "Type": "GeneralPlatform.Entity.stuRoleMenuPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "GetUserIdByLoginName",
+    "RelativePath": "vQxRoleMenusExApi/GetUserIdByLoginName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "Minus",
+    "RelativePath": "vQxRoleMenusExApi/Minus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "Multiply",
+    "RelativePath": "vQxRoleMenusExApi/Multiply",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "Plus",
+    "RelativePath": "vQxRoleMenusExApi/Plus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "Plus2",
+    "RelativePath": "vQxRoleMenusExApi/Plus2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "UserLogin2",
+    "RelativePath": "vQxRoleMenusExApi/UserLogin2",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "UserLoginByPrjId",
+    "RelativePath": "vQxRoleMenusExApi/UserLoginByPrjId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GeneralPlatform.WebApi.vQxRoleMenusExApiController",
+    "Method": "UserLoginWithEffectiveDate",
+    "RelativePath": "vQxRoleMenusExApi/UserLoginWithEffectiveDate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strLoginName",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "strUserPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strEffectiveDate",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vTabFeature_SimExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vTabFeature_SimExApi/GetObjLstByCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.vTabFeatureFlds_SimExApiController",
+    "Method": "GetObjLstByCmPrjId",
+    "RelativePath": "vTabFeatureFlds_SimExApi/GetObjLstByCmPrjId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strCmPrjId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strCondition",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.WebSrvFuncParaExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "WebSrvFuncParaExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objWebSrvFuncPara",
+        "Type": "AGC.Entity.clsWebSrvFuncParaEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.WebSrvFunctionsExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "WebSrvFunctionsExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objWebSrvFunctions",
+        "Type": "AGC.Entity.clsWebSrvFunctionsEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.XzMajorExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "XzMajorExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objXzMajor",
+        "Type": "AGC.Entity.clsXzMajorEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AGC.WebApi.XzSchoolExApiController",
+    "Method": "EditRecordEx",
+    "RelativePath": "XzSchoolExApi/EditRecordEx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objXzSchool",
+        "Type": "AGC.Entity.clsXzSchoolEN",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

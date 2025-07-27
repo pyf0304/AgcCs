@@ -1,0 +1,293 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+TestBootStrap51
+</name>
+</assembly>
+<members>
+<member name="T:TestBootStrap51.My.MyWebExtension">
+ <summary>
+ 用于定义 Web 项目的“我的命名空间”中可用属性的模块。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:TestBootStrap51.My.MyWebExtension.Computer">
+ <summary>
+ 返回有关主机算机的信息。
+ </summary>
+</member>
+<member name="P:TestBootStrap51.My.MyWebExtension.User">
+ <summary>
+ 返回当前 Web 用户的信息。
+ </summary>
+</member>
+<member name="P:TestBootStrap51.My.MyWebExtension.Request">
+ <summary>
+ 返回 Request 对象。
+ </summary>
+</member>
+<member name="P:TestBootStrap51.My.MyWebExtension.Response">
+ <summary>
+ 返回 Response 对象。
+ </summary>
+</member>
+<member name="P:TestBootStrap51.My.MyWebExtension.Log">
+ <summary>
+ 返回 Asp 日志对象。
+ </summary>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._form2">
+<summary>
+form2 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox8">
+<summary>
+CheckBox8 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox7">
+<summary>
+CheckBox7 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox1">
+<summary>
+CheckBox1 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox5">
+<summary>
+CheckBox5 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox6">
+<summary>
+CheckBox6 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox4">
+<summary>
+CheckBox4 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox3">
+<summary>
+CheckBox3 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._CheckBox2">
+<summary>
+CheckBox2 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._DropDownList1">
+<summary>
+DropDownList1 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._TextBox1">
+<summary>
+TextBox1 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._TextBox3">
+<summary>
+TextBox3 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._TextBox4">
+<summary>
+TextBox4 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._TextBox5">
+<summary>
+TextBox5 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._TextBox2">
+<summary>
+TextBox2 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button1">
+<summary>
+Button1 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button2">
+<summary>
+Button2 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button3">
+<summary>
+Button3 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button10">
+<summary>
+Button10 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button4">
+<summary>
+Button4 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button11">
+<summary>
+Button11 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button5">
+<summary>
+Button5 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button6">
+<summary>
+Button6 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button7">
+<summary>
+Button7 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button8">
+<summary>
+Button8 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button9">
+<summary>
+Button9 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button12">
+<summary>
+Button12 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+<member name="F:TestBootStrap51.T_BootStrap2._Button13">
+<summary>
+Button13 控件。
+</summary>
+<remarks>
+自动生成的字段。
+若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+</remarks>
+</member>
+</members>
+</doc>

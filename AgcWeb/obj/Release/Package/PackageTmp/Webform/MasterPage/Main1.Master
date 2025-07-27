@@ -1,0 +1,53 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main1.master.cs" Inherits="AGC.Webform.Main1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>自动生成代码2016版</title>
+    
+    <link href="../../css/indexPage.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../Scripts/jquery-3.6.0.min.js"></script>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../Scripts/bootstrap.min.js"></script>
+    <style type="text/css">
+        body {
+            font-size: 0.875rem;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div class="top" style="width: 100%;">
+                <span>上海泰泽</span>
+                <br />
+
+                <span style="margin-left: 50px">自动生成代码2016版</span>
+                <br />
+
+                <span class="txtMore">&nbsp;&nbsp;&nbsp;&nbsp;支持安卓手机App、苹果ISOApp、SilverLight、JavaScript、Asp.Net等应用的代码自动生成。</span>
+                <br />
+            </div>
+
+            <div class="content">
+                <div class="bg"></div>
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+            <div class="bottom">
+                <span>版权所有：上海泰泽信息技术有限公司</span>
+                <span>联系信箱：<a href="mailto:pyf@shnu.edu.cn">pyf@shnu.edu.cn</a></span>
+                <span>电话：13917217410</span>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

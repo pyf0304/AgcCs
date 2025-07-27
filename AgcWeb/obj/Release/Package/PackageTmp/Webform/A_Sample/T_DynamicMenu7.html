@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--<script src="jquery-3.1.1.js" charset="utf-8"></script>-->
+    <script src="../../Scripts/jquery-3.6.0.min.js"></script>
+    <script src="../../Scripts/jquery.ui.position.js"></script>
+    <!--    <script src="contextMenu/jquery.ui.position.min.js" type="text/javascript"></script>-->
+    <script src="../../Scripts/jquery.contextMenu.js"></script>
+    <!--<script src="contextMenu/jquery.contextMenu.js" type="text/javascript"></script>-->
+    <!--<link href="contextMenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />-->
+    <link href="../../Content/jquery.contextMenu.css" rel="stylesheet" />
+</head>
+<body>
+    <button id="btn1" class="context-menu-one">按钮1</button>
+    <button id="btn2" class="context-menu-one">按钮2</button>
+    <div id="div_group">
+        <button id="btn3" class="list-group-item">按钮3</button>
+        <button id="btn4" class="list-group-item">按钮4</button>
+    </div>
+    <script type="text/javascript">
+        document.oncontextmenu = function (e) {
+            e = e || event;
+
+            var tag = e.target || e.srcElement;
+            console.log(tag.id);
+            //alert(tag.innerHTML);
+            //return false;
+        }
+        $.contextMenu('html5');
+        //分组树节点右键菜单事件绑定
+        $.contextMenu({
+            selector: '#div_group .list-group-item',
+            onContextMenu: function (e) {
+                var obj = e.target;//鼠标点击的目标
+            /*然后对鼠标点击的目标进行一些特定的操作*/
+                console.log("onContextMenu:");
+                console.log(obj);
+                return true;//返回true则显示小菜单，返回false则不显示小菜单
+
+            },
+            callback: function (key, options) {
+                console.log("点击了：" + key);
+                console.log(options);
+            },
+            items: {
+                "rename": {
+                    name: "重命名",
+                    icon: "edit",
+                    callback: function (itemKey, opt, rootMenu, originalEvent) {
+                        console.log(itemKey);
+                        console.log(opt);
+                        console.log(rootMenu);
+                        console.log(originalEvent);
+
+                        var href = $('.list-group-item.node-div_group.context-menu-active a').attr('href');
+                        var groupNodeId = href.slice(1, href.length);
+                        top.dialog({
+                            id: 'groupRename',
+                            url: '${root}/group/toGroupRename.do?seq=' + groupNodeId,
+                            width: 300,
+                            height: 220,
+                            title: '重命名',
+                            onclose: function () {
+                                reloadPage();
+                            }
+                        }).showModal();
+                    }
+                },
+                "addRootNode": {
+                    name: "新增根级节点",
+                    icon: "add",
+                    callback: function (itemKey, opt, rootMenu, originalEvent) {
+                        top.dialog({
+                            id: 'groupNodeAdd',
+                            url: '${root}/group/toAddRootNode.do',
+                            width: 300,
+                            height: 220,
+                            title: '新增根级节点',
+                            onclose: function () {
+                                reloadPage();
+                            }
+                        }).showModal();
+                    }
+                },
+                "addChildNote": {
+                    name: "新增子级节点",
+                    icon: "add",
+                    callback: function (itemKey, opt, rootMenu, originalEvent) {
+                        var href = $('.list-group-item.node-div_group.context-menu-active a').attr('href');
+                        var groupNodeId = href.slice(1, href.length);
+                        // var groupNodeId = $.trim($("#groupNodeId").val());
+                        top.dialog({
+                            id: 'groupSubNodeAdd',
+                            url: '${root}/group/toAddSubNode.do?seq=' + groupNodeId,
+                            width: 300,
+                            height: 220,
+                            title: '新增子级节点',
+                            onclose: function () {
+                                reloadPage();
+                            }
+                        }).showModal();
+                    }
+                },
+                "deleteNote": {
+                    name: "删除节点",
+                    icon: "delete",
+                    callback: function (itemKey, opt, rootMenu, originalEvent) {
+                        var href = $('.list-group-item.node-div_group.context-menu-active a').attr('href');
+                        var groupNodeId = href.slice(1, href.length);
+                        $.ajax({
+                            url: '${root}/group/delNode.do?seq=' + groupNodeId,
+                            dataType: 'json',
+                            type: 'post',
+                            async: false,
+                            success: function (data) {
+                                var msg = data.message;
+                                if (data.successful == true) {
+                                    alert("删除节点成功!");
+                                    window.location.reload();
+                                } else if (msg == "sRelated") {
+                                    alert("子节点和按钮关联了，不能删除");
+                                } else if (msg == "related") {
+                                    alert("根节点或者其子节点和按钮关联了，不能删除");
+                                } else {
+                                    alert(msg);
+                                }
+
+                            },
+                            error: function (error) {
+                                alert("系统错误!");
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
