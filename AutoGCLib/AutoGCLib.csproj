@@ -201,7 +201,6 @@
     <Compile Include="GeneCodeV8\CSharp\NodeWCCCode4CSharp.cs" />
     <Compile Include="GeneCodeV8\CSharp\NodeWCCCode4Gv4CSharp.cs" />
     <Compile Include="GeneCodeV8\Html\NodeWCVCode4Gv4Html.cs" />
-    <Compile Include="GeneCodeV8Bak\WA_ViewScript_Edit_JS4Html.cs" />
     <Compile Include="GeneCodeV8\Html\WA_ViewScript_Detail_TS4Html.cs" />
     <Compile Include="GeneCodeV8\Html\Vue_ViewScript_Edit_TS4Html.cs" />
     <Compile Include="GeneCodeV8\Html\WA_ViewScript_Edit_TS4Html.cs" />
@@ -217,8 +216,6 @@
     <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Gv_Design4CSharp.cs" />
     <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Gv4CSharp.cs" />
     <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Design4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_AccessHigh_UDF4JAVA.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_AccessHigh4JAVA.cs" />
     <Compile Include="GeneCodeV8\CSharp\BusinessLogic4Mvc4CSharp.cs" />
     <Compile Include="GeneCode6\AutoGC6Cs_M.cs" />
     <Compile Include="GeneCodeV8\CSharp\Mvc_Model_View4CSharp.cs" />
@@ -245,9 +242,6 @@
     <Compile Include="GeneCodeV8\TypeScript\WA_Access4TypeScript.cs" />
     <Compile Include="GeneCodeV8\CSharp\CondEntityLayer4CSharp.cs" />
     <Compile Include="GeneCodeV8\CSharp\DALExCode4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Swift3.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Swift4.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4Swift4.cs" />
     <Compile Include="GeneCodeV8\Dict_PageName_Dic6Cs.cs" />
     <Compile Include="GeneCodeV8\TypeScript\BusinessLogicEx4TypeScript.cs" />
     <Compile Include="GeneCodeV8\Swift\BusinessLogicEx4Swift4.cs" />
@@ -280,13 +274,7 @@
     <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_Invoke.cs" />
     <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_icls.cs" />
     <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_btnClick.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_AccessHigh4Swift4.cs" />
     <Compile Include="GeneCodeV8\Swift\WA_Access4Swift4.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Java.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4Swift.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4SilverLight.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4JAVA.cs" />
     <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_btnClick.cs" />
     <Compile Include="GeneCode6\AutoGC6Java_Controller_DefBtnClickEvent.cs" />
     <Compile Include="GeneCode6\AutoGC6Java_Controller_BindButton.cs" />
@@ -307,16 +295,12 @@
     <Compile Include="GeneCode6\AutoGC6Cs_M_Ora.cs" />
     <Compile Include="GeneCodeV8\Html\WebViewCode4Html.cs" />
     <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Srv4Front4CSharp.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Srv4CSharp.cs" />
     <Compile Include="GeneCode6\AutoGC6Swift3_Controller_btnClick.cs" />
     <Compile Include="GeneCode6\AutoGC6Swift3_Controller_icls.cs" />
     <Compile Include="GeneCode6\AutoGC6Swift3_Controller_Invoke.cs" />
     <Compile Include="GeneCode6\AutoGC6Swift4_ControllerBak.cs" />
     <Compile Include="GeneCodeV8\Swift\BusinessLogic4Swift4.cs" />
     <Compile Include="GeneCodeV8\Swift\EntityLayer4Swift4.cs" />
-    <Compile Include="GeneCodeV8Bak\WS_Access4Swift3.cs" />
     <Compile Include="GeneCodeV8\Java\EntityLayer4JAVA.cs" />
     <Compile Include="GeneCode6\AutoGC6SilverLight_BusinessLogic.cs" />
     <Compile Include="GeneCode6\AutoGC6SilverLight_M.cs" />

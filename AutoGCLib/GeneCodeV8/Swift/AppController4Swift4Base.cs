@@ -4329,27 +4329,27 @@ enumDict4GC_DictKey2.conFinished));
             try
             {
                 string strCode = "";
-                Type t = typeof(WS_AccessHigh4Swift4);
-                MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
+                //Type t = typeof(WS_AccessHigh4Swift4);
+                //MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
-                if (mt == null)
-                {
-                    string strMsg = string.Format("在类中没有相应的函数:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                    throw new Exception(strMsg);
-                }
-                else
-                {
-                    //                string str = (string)mt.Invoke(null, new object[] { "1234567890123"    });
-                    if (mt.GetParameters().Length == 0)
-                    {
-                        strCode = (string)mt.Invoke(this, null);
-                    }
-                    else if (mt.GetParameters().Length == 1)
-                    {
-                        strCode = (string)mt.Invoke(this, new object[] { objvFunction4GeneCodeEN });
-                    }
-                    //Console.WriteLine(str);
-                }
+                //if (mt == null)
+                //{
+                //    string strMsg = string.Format("在类中没有相应的函数:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                //    throw new Exception(strMsg);
+                //}
+                //else
+                //{
+                //    //                string str = (string)mt.Invoke(null, new object[] { "1234567890123"    });
+                //    if (mt.GetParameters().Length == 0)
+                //    {
+                //        strCode = (string)mt.Invoke(this, null);
+                //    }
+                //    else if (mt.GetParameters().Length == 1)
+                //    {
+                //        strCode = (string)mt.Invoke(this, new object[] { objvFunction4GeneCodeEN });
+                //    }
+                //    //Console.WriteLine(str);
+                //}
 
                 return strCode;
             }

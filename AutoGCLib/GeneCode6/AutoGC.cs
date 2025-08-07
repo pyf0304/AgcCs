@@ -1507,36 +1507,36 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 case clsPubConst.ClassName.WS_Srv:
                     try
                     {
-                        objAutoGC6Cs_WS = new WS_Srv4CSharp(strTabId, strPrjDataBaseId, strPrjId);
-                        objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
+                        //objAutoGC6Cs_WS = new WS_Srv4CSharp(strTabId, strPrjDataBaseId, strPrjId);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
 
-                        objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
-                        objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
+                        //objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
 
-                        strSqlDsTypeId = objAutoGC6Cs_WS.objPrjTabENEx.SqlDsTypeId;
+                        //strSqlDsTypeId = objAutoGC6Cs_WS.objPrjTabENEx.SqlDsTypeId;
 
-                        switch (ltLangType)
-                        {
-                            case clsPubConst.LangType.CSharp:
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JAVA:
-                            case clsPubConst.LangType.Swift:
-                            case clsPubConst.LangType.Swift3:
-                            case clsPubConst.LangType.Swift4:
-                            case clsPubConst.LangType.JavaScript:
-                                strCodeText = "";  //已完成
-                                strMsg1 = string.Format("(errorId:022)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                        ltLangType,
-                                        cnClassName,
-                                        clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg1);
-                            default:
-                                strMsg = string.Format("(errorId:023)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg);
-                        }
+                        //switch (ltLangType)
+                        //{
+                        //    case clsPubConst.LangType.CSharp:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JAVA:
+                        //    case clsPubConst.LangType.Swift:
+                        //    case clsPubConst.LangType.Swift3:
+                        //    case clsPubConst.LangType.Swift4:
+                        //    case clsPubConst.LangType.JavaScript:
+                        //        strCodeText = "";  //已完成
+                        //        strMsg1 = string.Format("(errorId:022)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //                ltLangType,
+                        //                cnClassName,
+                        //                clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg1);
+                        //    default:
+                        //        strMsg = string.Format("(errorId:023)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg);
+                        //}
 
-                        clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
+                        //clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
                     }
                     catch (Exception objException)
                     {
@@ -1557,35 +1557,35 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 case clsPubConst.ClassName.WS_Srv4Front:
                     try
                     {
-                        objAutoGC6Cs_WS = new WS_Srv4Front4CSharp(strTabId, strPrjDataBaseId, strPrjId);
-                        objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
-                        objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
-                        objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
+                        //objAutoGC6Cs_WS = new WS_Srv4Front4CSharp(strTabId, strPrjDataBaseId, strPrjId);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
+                        //objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
 
-                        strSqlDsTypeId = objAutoGC6Cs_WS.objPrjTabENEx.SqlDsTypeId;
+                        //strSqlDsTypeId = objAutoGC6Cs_WS.objPrjTabENEx.SqlDsTypeId;
 
-                        switch (ltLangType)
-                        {
-                            case clsPubConst.LangType.CSharp:
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JAVA:
-                            case clsPubConst.LangType.Swift:
-                            case clsPubConst.LangType.Swift3:
-                            case clsPubConst.LangType.Swift4:
-                            case clsPubConst.LangType.JavaScript:
-                                strCodeText = "";  //已完成
-                                strMsg1 = string.Format("(errorId:025)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                       ltLangType,
-                                       cnClassName,
-                                       clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg1);
-                            default:
-                                strMsg = string.Format("(errorId:026)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg);
-                        }
+                        //switch (ltLangType)
+                        //{
+                        //    case clsPubConst.LangType.CSharp:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JAVA:
+                        //    case clsPubConst.LangType.Swift:
+                        //    case clsPubConst.LangType.Swift3:
+                        //    case clsPubConst.LangType.Swift4:
+                        //    case clsPubConst.LangType.JavaScript:
+                        //        strCodeText = "";  //已完成
+                        //        strMsg1 = string.Format("(errorId:025)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //               ltLangType,
+                        //               cnClassName,
+                        //               clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg1);
+                        //    default:
+                        //        strMsg = string.Format("(errorId:026)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg);
+                        //}
 
-                        clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
+                        //clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
                     }
                     catch (Exception objException)
                     {
@@ -1606,48 +1606,48 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 case clsPubConst.ClassName.WS_Access:
                     try
                     {
-                        objAutoGC6Cs_WS = new WS_Access4CSharp(strTabId, strPrjDataBaseId, strPrjId);
-                        objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
-                        objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
-                        objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
+                        //objAutoGC6Cs_WS = new WS_Access4CSharp(strTabId, strPrjDataBaseId, strPrjId);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
+                        //objAutoGC6Cs_WS.objPrjTabENEx.LangType = ltLangType;
+                        //objAutoGC6Cs_WS.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
 
-                        switch (ltLangType)
-                        {
-                            case clsPubConst.LangType.CSharp:
+                        //switch (ltLangType)
+                        //{
+                        //    case clsPubConst.LangType.CSharp:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JAVA:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JAVA:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift3:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift3:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift4:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift4:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JavaScript:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JavaScript:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.SilverLight:
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.SilverLight:
 
-                                strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            default:
-                                strMsg = string.Format("(errorId:028)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg);
+                        //        strCodeText = objAutoGC6Cs_WS.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    default:
+                        //        strMsg = string.Format("(errorId:028)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg);
 
-                        }
+                        //}
 
-                        clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
+                        //clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6Cs_WS.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
                     }
                     catch (Exception objException)
                     {
@@ -1741,57 +1741,57 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 case clsPubConst.ClassName.WS_AccessHigh:
                     try
                     {
-                        objAutoGC6_Controller = new WS_AccessHigh4JAVA(strTabId, strPrjDataBaseId, strPrjId);
-                        objAutoGC6_Controller.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
-                        objAutoGC6_Controller.objPrjTabENEx.LangType = ltLangType;
-                        objAutoGC6_Controller.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
+                        //objAutoGC6_Controller = new WS_AccessHigh4JAVA(strTabId, strPrjDataBaseId, strPrjId);
+                        //objAutoGC6_Controller.objPrjTabENEx.UserId = clsUsersBL.GetUserNameByUserIdCache(strUserId);
+                        //objAutoGC6_Controller.objPrjTabENEx.LangType = ltLangType;
+                        //objAutoGC6_Controller.objPrjTabENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
 
-                        strSqlDsTypeId = objAutoGC6_Controller.objPrjTabENEx.SqlDsTypeId;
+                        //strSqlDsTypeId = objAutoGC6_Controller.objPrjTabENEx.SqlDsTypeId;
 
-                        switch (ltLangType)
-                        {
-                            case clsPubConst.LangType.CSharp:
+                        //switch (ltLangType)
+                        //{
+                        //    case clsPubConst.LangType.CSharp:
 
-                                strMsg1 = string.Format("(errorId:030)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                    ltLangType,
-                                    cnClassName,
-                                    clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg1);
+                        //        strMsg1 = string.Format("(errorId:030)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //            ltLangType,
+                        //            cnClassName,
+                        //            clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg1);
 
-                            case clsPubConst.LangType.JAVA:
-                                //strMsg1 = string.Format("(errorId:031)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                //     ltLangType,
-                                //     cnClassName,
-                                //     clsStackTrace.GetCurrClassFunction());
-                                //throw new Exception(strMsg1);
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift:
+                        //    case clsPubConst.LangType.JAVA:
+                        //        //strMsg1 = string.Format("(errorId:031)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //        //     ltLangType,
+                        //        //     cnClassName,
+                        //        //     clsStackTrace.GetCurrClassFunction());
+                        //        //throw new Exception(strMsg1);
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift3:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift3:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift4:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift4:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JavaScript:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JavaScript:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.SilverLight:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.SilverLight:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            default:
-                                strMsg = string.Format("(errorId:032)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg);
-                        }
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    default:
+                        //        strMsg = string.Format("(errorId:032)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg);
+                        //}
 
-                        clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6_Controller.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
+                        //clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objAutoGC6_Controller.objPrjTabENEx.TabId, strCmPrjId, intApplicationTypeId, strUserId, clsSysParaEN_Local.strVersion);
                     }
                     catch (Exception objException)
                     {
@@ -5406,55 +5406,55 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 case clsPubConst.ClassName.WS_AccessHigh:
                     try
                     {
-                        objAutoGC6_Controller = new WS_AccessHigh_UDF4JAVA("","","");
-                        objAutoGC6_Controller.WebSrvClassId = strWebSrvClassId;
-                        objAutoGC6_Controller.objWebSrvClassENEx.CurrUserName = clsUsersBL.GetUserNameByUserIdCache(strUserId);
-                        objAutoGC6_Controller.objWebSrvClassENEx.LangType = ltLangType;
-                        objAutoGC6_Controller.objWebSrvClassENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
+                        //objAutoGC6_Controller = new WS_AccessHigh_UDF4JAVA("","","");
+                        //objAutoGC6_Controller.WebSrvClassId = strWebSrvClassId;
+                        //objAutoGC6_Controller.objWebSrvClassENEx.CurrUserName = clsUsersBL.GetUserNameByUserIdCache(strUserId);
+                        //objAutoGC6_Controller.objWebSrvClassENEx.LangType = ltLangType;
+                        //objAutoGC6_Controller.objWebSrvClassENEx.CodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByClassNameCache(cnClassName, ltLangType);
 
-                        //strSqlDsTypeId = objAutoGC6_Controller.objWebSrvClassENEx.SqlDsTypeId;
+                        ////strSqlDsTypeId = objAutoGC6_Controller.objWebSrvClassENEx.SqlDsTypeId;
 
-                        switch (ltLangType)
-                        {
-                            case clsPubConst.LangType.CSharp:
+                        //switch (ltLangType)
+                        //{
+                        //    case clsPubConst.LangType.CSharp:
 
-                                string strMsg1 = string.Format("(errorId:193)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                     ltLangType,
-                                     cnClassName,
-                                     clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg1);
+                        //        string strMsg1 = string.Format("(errorId:193)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //             ltLangType,
+                        //             cnClassName,
+                        //             clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg1);
 
-                            case clsPubConst.LangType.JAVA:
+                        //    case clsPubConst.LangType.JAVA:
 
-                                //string strMsg1 = string.Format("(errorId:194)语言类型：{0}没有生成类:[{1}]的功能!({2})",
-                                //     ltLangType,
-                                //     cnClassName,
-                                //     clsStackTrace.GetCurrClassFunction());
-                                //throw new Exception(strMsg1);
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        //string strMsg1 = string.Format("(errorId:194)语言类型：{0}没有生成类:[{1}]的功能!({2})",
+                        //        //     ltLangType,
+                        //        //     cnClassName,
+                        //        //     clsStackTrace.GetCurrClassFunction());
+                        //        //throw new Exception(strMsg1);
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
 
-                                break;
-                            case clsPubConst.LangType.Swift:
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift3:
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.Swift4:
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            case clsPubConst.LangType.JavaScript:
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift3:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.Swift4:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    case clsPubConst.LangType.JavaScript:
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
 
-                                break;
-                            case clsPubConst.LangType.SilverLight:
+                        //        break;
+                        //    case clsPubConst.LangType.SilverLight:
 
-                                strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
-                                break;
-                            default:
-                                strMsg = string.Format("(errorId:195)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
-                                throw new Exception(strMsg);
-                        }
+                        //        strCodeText = objAutoGC6_Controller.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                        //        break;
+                        //    default:
+                        //        strMsg = string.Format("(errorId:195)语言类型：{0}在相应函数中没有被处理!({1})", ltLangType, clsStackTrace.GetCurrClassFunction());
+                        //        throw new Exception(strMsg);
+                        //}
 
                     }
                     catch (Exception objException)

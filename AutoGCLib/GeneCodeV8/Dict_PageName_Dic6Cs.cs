@@ -335,20 +335,20 @@ namespace AutoGCLib
             try
             {
                 string strCode = "";
-                Type t = typeof(WS_Srv4Front4CSharp);
-                MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
+                //Type t = typeof(WS_Srv4Front4CSharp);
+                //MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
-                if (mt == null)
-                {
-                    string strMsg = string.Format("在类中没有相应的函数:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                    throw new Exception(strMsg);
-                }
-                else
-                {
-                    //                string str = (string)mt.Invoke(null, newobject[] { "1234567890123"    });
-                    strCode = (string)mt.Invoke(this, null);
-                    //Console.WriteLine(str);
-                }
+                //if (mt == null)
+                //{
+                //    string strMsg = string.Format("在类中没有相应的函数:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                //    throw new Exception(strMsg);
+                //}
+                //else
+                //{
+                //    //                string str = (string)mt.Invoke(null, newobject[] { "1234567890123"    });
+                //    strCode = (string)mt.Invoke(this, null);
+                //    //Console.WriteLine(str);
+                //}
 
                 return strCode;
             }
