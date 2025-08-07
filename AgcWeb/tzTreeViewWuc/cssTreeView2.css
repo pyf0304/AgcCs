@@ -1,0 +1,76 @@
+﻿.aa{
+    color:red;
+    font-size:15px;
+}
+.aa table
+{
+    color:red;
+    font-size:15px;
+}
+.aa table td
+{
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+}
+.aa div table td
+{
+    color: #3366FF;
+    font-size: 14px;
+    /*background-color: #3366CC;*/
+    font-style: normal;
+    font-weight: bold;
+}
+.aa div div table td 
+{
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+.TreeView  
+{ 
+    border-bottom:1px dotted #B2B2B2 !important; 
+} 
+.TreeView div 
+{ 
+    margin-left:5px; 
+} 
+.TreeView table 
+{ 
+    border-top:1px dotted #B2B2B2 !important; 
+} 
+.TreeView div table 
+{ 
+    border-bottom:none !important; 
+    border-top:none !important; 
+} 
+.TreeView table td 
+{ 
+    padding:2px 0; 
+} 
+.LeafNodesStyle  
+{ 
+     
+} 
+ 
+.RootNodeStyle  
+{ 
+     
+} 
+/* ALL ELEMENTS */ 
+.NodeStyle  
+{ 
+} 
+.ParentNodeStyle  
+{ 
+    background:gray; 
+} 
+a.SelectedNodeStyle  
+{ 
+    background:#E5E5E5; 
+    display:block; 
+    padding:2px 0 2px 3px; 
+} 
+

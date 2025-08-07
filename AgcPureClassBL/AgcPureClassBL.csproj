@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{948D0D10-E065-4F47-B386-CA4B41966B1E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Agc.PureClassEx</RootNamespace>
+    <AssemblyName>AgcPureClassBL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcPureClassBL\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcPureClassBL\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AC_Class\GCAndroid\clsAndroidAppBarLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidButtonBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidCheckBoxBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidConstraintLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidControlBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidCoordinatorLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidEditTextBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidFloatingActionButtonBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidFrameLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidHorizontalScrollViewBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidImageButtonBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidIncludeBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidLinearLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidListViewBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidRelativeLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidScrollViewBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidSpinnerBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidTabHostBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidTableLayoutBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidTableRowBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidTabWidgetBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidTextViewBLEx.cs" />
+    <Compile Include="AC_Class\GCAndroid\clsAndroidToolbarBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOActionBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOAutoresizingMaskBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOBarButtonItemBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOButtonBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOControlBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOlabelBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOnavigationBarBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISONavigationItemBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOOutletBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOsceneBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOStackViewBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOstoryBoardBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOtextFieldBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOviewBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOviewControllerBLEx.cs" />
+    <Compile Include="AC_Class\GCISOBase\clsISOviewControllerLayoutGuideBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPBodyBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPBoundFieldBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPButtonBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPCheckBoxBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPCodeBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPColBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPCompareValidatorBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPControlBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPControlGroupBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPDivBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPDropDownListBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPEmptyBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPFormBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPGridViewBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPH4BLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHeadBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHeaderStyleBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHeaderTemplateBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHiddenFieldBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHrBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHtmlButtonBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHtmlInputBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPHtmlTableBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPInterfaceBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPItemTemplateBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPLabelBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPLiBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPLinkButtonBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPModalDialogBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPPagerTemplateBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPRowBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPSpanBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPTemplateFieldBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPTextAreaBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPTextBoxBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPUlBLEx.cs" />
+    <Compile Include="AC_Class\GeneCSharp\clsASPWebUserControlBLEx.cs" />
+    <Compile Include="AC_Class\Vue\clsVueComponentBLEx.cs" />
+    <Compile Include="FuncClass4BLEx\clsPrjTabFldBLExInPureClass.cs" />
+    <Compile Include="FunClass\clsPubFun.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5de8e2b4-6932-4f71-bac7-87221670c657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClass\AgcPureClass.csproj">
+      <Project>{09e0ffbe-e7b7-4391-a176-1233811ef857}</Project>
+      <Name>AgcPureClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

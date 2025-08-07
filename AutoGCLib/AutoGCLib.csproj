@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BABCFA57-D8E6-49C6-B23F-2507445DF4E2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoGCLib</RootNamespace>
+    <AssemblyName>AutoGCLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AutoGCLib\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AutoGCLib\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.7\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PubDataBase, Version=2023.5.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.7\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.7\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.7\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzCommWebServerCtrlLib, Version=2018.4.23.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PrjCode\PublicLib\TzCommWebServerCtrlLib.dll</HintPath>
+    </Reference>
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GeneCode6\AutoGC4Feature.cs" />
+    <Compile Include="GeneCode6\AutoGC4Func.cs" />
+    <Compile Include="GeneCode6\AutoGC.cs" />
+    <Compile Include="GeneCode6\AutoGC5Cs_MEx.cs" />
+    <Compile Include="GeneCode6\AutoGC6Cs_BL_Ora.cs" />
+    <Compile Include="GeneCode6\clsGcFunctionItem.cs" />
+    <Compile Include="GeneCodeV8\CheckData.cs" />
+    <Compile Include="GeneCodeV8\clsGCBase.cs" />
+    <Compile Include="GeneCodeV8\clsGeneCodeBase4Tab.cs" />
+    <Compile Include="GeneCodeV8\DefFuncName4View.cs" />
+    <Compile Include="GeneCodeV8\GetFuncParams.cs" />
+    <Compile Include="GeneCodeV8\GetFuncParams4View.cs" />
+    <Compile Include="GeneCodeV8\Html\Vue_ViewScript_List_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController4JAVABase.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewLvItemScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewLvHeadScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewEdtScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewQryScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewListViewAdapter4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewScriptCS4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewScriptContent4JAVA.cs" />
+    <Compile Include="GeneCodeV8\DefFuncName.cs" />
+    <Compile Include="GeneCodeV8\PubVarType.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppViewUTScriptCS4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppViewUTScript4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController_UDF4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUnitTest_UDF4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUTScriptCS_UDF4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUTScript_UDF4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUTScriptCS4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUTScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewDdlAdapter4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewDdlBind4JAVA.cs" />
+    <Compile Include="GeneCodeV8\clsPubFun4GC.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\clsGC_CodeSnippet.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\CommFun4WA4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\PureClass4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWCCCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWCCCode4Gv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\RelaWCVCode4Gv4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWVCCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\RelaWVCode4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\RelaWCVCode4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWA_SrvEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWA_Srv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWA_AccessEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaWA_Access4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaBusinessLogicEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaBusinessLogic4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaDALExCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaEntityLayerEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaDALCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeDALExCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\RelaEntityLayer4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeEntityLayerEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeBusinessLogicEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeBusinessLogic4CSharp.cs" />
+    <Compile Include="GeneCodeV8\clsAdjustOrderNum.cs" />
+    <Compile Include="GeneCodeV8\CSharp\CommFun4WA4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeDALCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeEntityLayer4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\PureClass4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Java\EntityLayer_Sim4JAVA.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\StoreEntityLayer4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\EntityLayer_Sim4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\EntityLayer_Sim4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_ControllerBase4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Model_Feature4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Model_Query4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Model_List4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Model_Edit4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_View_EditAjax4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_View_QueryAjax4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_View_Query4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_View_Edit4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_ViewLstAjax4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_ViewSpa4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_ViewAjax4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Swift\TableFldConst4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Swift\EntityLayer_Sim4Swift4.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWA_Access4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWA_AccessEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_Share_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_AccessEx4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_AccessEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWA_Srv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWA_SrvEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_SrvEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScript_DetailCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScriptCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScriptCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScript_DetailCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScript_EditCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScript_DetailCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\Html\Vue_ViewScript_Detail_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScript_EditCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScriptCSEx_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScript_DetailCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\Vue_ViewScript_EditCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScript_EditCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewScriptCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AccessHigh4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewUnitTest4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppController4JAVABase.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppViewUTScriptCS4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppViewUTScript4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_ViewScriptCSModel_TS4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\NodeWCVCode4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWCCCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWCCCode4Gv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\NodeWCVCode4Gv4Html.cs" />
+    <Compile Include="GeneCodeV8Bak\WA_ViewScript_Edit_JS4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewScript_Detail_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\Vue_ViewScript_Edit_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewScript_Edit_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\Vue_ViewScript_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewUTScript4Html.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewUTScript4Html2.cs" />
+    <Compile Include="GeneCodeV8\Html\WebCtlViewCode4Gv4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WebCtlControlCode4Gv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\NodeWVCCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\NodeWVCode4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_UI_Design4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_UI4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Gv_Design4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Gv4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD_Design4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_AccessHigh_UDF4JAVA.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_AccessHigh4JAVA.cs" />
+    <Compile Include="GeneCodeV8\CSharp\BusinessLogic4Mvc4CSharp.cs" />
+    <Compile Include="GeneCode6\AutoGC6Cs_M.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Model_View4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_Controller4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\Mvc_View4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Java\TableFldConst4JAVA.cs" />
+    <Compile Include="GeneCodeV8\CSharp\TableFldConst4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_ViewUTScript4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_Access4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_Srv4CSharp.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_WA_Controller_DefButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_WA_Controller_DefBtnClickEvent.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppController4JAVA.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_WA_Controller_BindButton.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppController4JAVABase_icls.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppController4JAVABase_Invoke.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppController4JAVABase_btnClick.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_AppViewUT4JAVA.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_Access4TypeScript_Async.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_4ReqJs_btnClick.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewScript_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_ViewUTScriptCS_TS4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewUTScript_TS4Html2.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\WA_Access4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\CondEntityLayer4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\DALExCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Swift3.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Swift4.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Dict_PageName_Dic6Cs.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\BusinessLogicEx4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\Swift\BusinessLogicEx4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Java\BusinessLogicEx4JAVA.cs" />
+    <Compile Include="GeneCodeV8\CSharp\BusinessLogicEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\CommFun4BL4CSharp.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\BusinessLogic4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\DALCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\DALCode4CSharp_MySql.cs" />
+    <Compile Include="GeneCodeV8\Java\DALCode4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Swift\DALCode4Swift4.cs" />
+    <Compile Include="GeneCodeV8\CSharp\EntityLayerEx4CSharp_MySql.cs" />
+    <Compile Include="GeneCodeV8\Java\EntityLayerEx4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Swift\EntityLayerEx4Swift4.cs" />
+    <Compile Include="GeneCodeV8\CSharp\EntityLayerEx4CSharp.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\EntityLayerEx4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\TypeScript\EntityLayer4TypeScript.cs" />
+    <Compile Include="GeneCodeV8\Java\AppViewScriptMain4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Java\AppBusiness4JAVA.cs" />
+    <Compile Include="GeneCodeV8\Html\WA_ViewUTScript_TS4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WA_ViewUTScriptCS4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Java\WA_Access4JAVA.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift4_Desk_top_Controller_Invoke.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift4_Desk_top_Controller_icls.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_Desk_top_DefButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift4_Desk_top_Controller_DeclareButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift4_Desk_top_Controller_btnClick.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_DefButton.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_DeclareButton.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_Invoke.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_icls.cs" />
+    <Compile Include="GeneCodeV8\Swift\AppController4Swift4Base_btnClick.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_AccessHigh4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Swift\WA_Access4Swift4.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4Java.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access_UDF4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4Swift.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4SilverLight.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4JAVA.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_btnClick.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_Controller_DefBtnClickEvent.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_Controller_BindButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_Controller_DeclareButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6Java_Controller_DefButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_icls.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_DefButton.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_InvokeFun.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller_Invoke.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController4JAVABase_icls.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController4JAVABase_btnClick.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController4JAVABase_Invoke.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift_BusinessLogic.cs" />
+    <Compile Include="GeneCodeV8\Java\BusinessLogic4JAVA.cs" />
+    <Compile Include="GeneCodeV8\CSharp\BusinessLogic4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WebViewControlCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\CSharp\EntityLayer4CSharp_MySql.cs" />
+    <Compile Include="GeneCode6\AutoGC6Cs_M_Ora.cs" />
+    <Compile Include="GeneCodeV8\Html\WebViewCode4Html.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WinViewCode_QD4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Srv4Front4CSharp.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Srv4CSharp.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift3_Controller_btnClick.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift3_Controller_icls.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift3_Controller_Invoke.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift4_ControllerBak.cs" />
+    <Compile Include="GeneCodeV8\Swift\BusinessLogic4Swift4.cs" />
+    <Compile Include="GeneCodeV8\Swift\EntityLayer4Swift4.cs" />
+    <Compile Include="GeneCodeV8Bak\WS_Access4Swift3.cs" />
+    <Compile Include="GeneCodeV8\Java\EntityLayer4JAVA.cs" />
+    <Compile Include="GeneCode6\AutoGC6SilverLight_BusinessLogic.cs" />
+    <Compile Include="GeneCode6\AutoGC6SilverLight_M.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift3_BusinessLogic.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift3_Controller.cs" />
+    <Compile Include="GeneCode6\AutoGC6Swift_Controller.cs" />
+    <Compile Include="GeneCodeV8\Java\AppController4JAVA.cs" />
+    <Compile Include="GeneCode6\AutoGC6JavaScript_Controller.cs" />
+    <Compile Include="GeneCode6\AutoGC6SilverLight_Controller.cs" />
+    <Compile Include="GeneCode6\AutoGCEx.cs" />
+    <Compile Include="GeneCode6\AutoGCPubFuncV6.cs" />
+    <Compile Include="GeneCode6\AutoGCPubFunc_Ora.cs" />
+    <Compile Include="GeneCode6\AutoGC_Cs_CWeb_PubFun.cs" />
+    <Compile Include="GeneCode6\AutoGC_Cs_VWin_PubFun.cs" />
+    <Compile Include="GeneCode6\clsColumnTemplate.cs" />
+    <Compile Include="GeneCode6\clsFieldBLEx.cs" />
+    <Compile Include="GeneCode6\AutoGC_SelfDefineFunction.cs" />
+    <Compile Include="GeneCodeV8\CSharp\EntityLayer4CSharp.cs" />
+    <Compile Include="GeneCodeV8\clsGeneCodeBase4View.cs" />
+    <Compile Include="TzGCScript\clsTzGCScript.cs" />
+    <Compile Include="GeneCodeV8\CSharp\WebCtlControlCode4CSharp.cs" />
+    <Compile Include="GeneCodeV8\Html\WebCtlViewCode4Html.cs" />
+    <Compile Include="GeneCodeV7\AutoGC7Cs_VWin.cs" />
+    <Compile Include="InvokeGeneCode\clsPrjTabBLEx_GeneCode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TzGCScript\clsVariable.cs" />
+    <Compile Include="TzGCScript\clsVariableTab.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GeneCodeV8\JavaScript\" />
+    <Folder Include="PrjFunction\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcBLLEx\AgcBLLEx.csproj">
+      <Project>{876edade-754a-48b4-9e5c-37ea7b9e684c}</Project>
+      <Name>AgcBLLEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcDAL\AgcDAL.csproj">
+      <Project>{5d01006b-50af-4dbd-aa5f-42321f5e304a}</Project>
+      <Name>AgcDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5de8e2b4-6932-4f71-bac7-87221670c657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClassBL\AgcPureClassBL.csproj">
+      <Project>{948d0d10-e065-4f47-b386-ca4b41966b1e}</Project>
+      <Name>AgcPureClassBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClass\AgcPureClass.csproj">
+      <Project>{09e0ffbe-e7b7-4391-a176-1233811ef857}</Project>
+      <Name>AgcPureClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeStruct\CodeStruct.csproj">
+      <Project>{6d47e144-bff2-4595-9a4c-9cb7e9550ef5}</Project>
+      <Name>CodeStruct</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TzAdvancedLib\TzAdvancedLib.csproj">
+      <Project>{139398f1-df8c-4c3d-92d2-52fe18c35d73}</Project>
+      <Name>TzAdvancedLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

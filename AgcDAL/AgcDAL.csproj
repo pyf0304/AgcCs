@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5D01006B-50AF-4DBD-AA5F-42321F5E304A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AGC_CSV7.DAL</RootNamespace>
+    <AssemblyName>AgcDA</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcDAL\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcDAL\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PubDataBase, Version=2023.5.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\AIModule\clsAssociationMappingDAEx.cs" />
+    <Compile Include="Class\AIModule\clsCommonDataNodeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeCmPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeDirectMapDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeFuncMapDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeTypeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapCmPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDNFunctionDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDNMappingModeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathCmPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDNPathDAEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathFuncMapRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncInOutRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncMapModeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNodeDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNodeFuncMapDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNode_SimDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMapDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMap_SimDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNFunctionDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNPath_SimDAEx.cs" />
+    <Compile Include="Class\AIModule\clsvFuncInOutRelaDAEx.cs" />
+    <Compile Include="Class\AIModule\clsXWordDAEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsPriotityOrderDAEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserPrjGrantDAEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserRolesDAEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserViewGrantDAEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsvUserPrjGrantDAEx.cs" />
+    <Compile Include="Class\BaseInfo\clsCollegeDAEx.cs" />
+    <Compile Include="Class\BaseInfo\clsXzMajorDAEx.cs" />
+    <Compile Include="Class\CaseManage\clsCaseTypeDAEx.cs" />
+    <Compile Include="Class\CaseManage\clsPrjCasesDAEx.cs" />
+    <Compile Include="Class\CaseManage\clsvPrjCasesDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassFuncRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureRequirementDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureTypeDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionKeyWordDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaBakDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectFuncModuleDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectPrjTabDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementTypeDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMUserProjectDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassFuncRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureRequirementDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionKeyWordDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectAppRelaDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectFuncModuleDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectPrjTabDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCmProjectPrjTab_SimDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMRequirementDAEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMUserProjectDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ControlDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_FldDispUnitStyleDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ModuleAreaDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_StyleDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateDAEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateStyleDAEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_StyleDAEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_TemplateStyleDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsRecExclusiveWayDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlCommandTypeDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlDataSynDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsSynCodeTypeDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsTransWayDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsvSqlDataSynDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsvTabFieldRelaDAEx.cs" />
+    <Compile Include="Class\ElecDict\clsElecDictDAEx.cs" />
+    <Compile Include="Class\ElecDict\clsWordTypeDAEx.cs" />
+    <Compile Include="Class\FileService\clsFileServerDAEx.cs" />
+    <Compile Include="Class\FileService\clsFtpResourceDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsAcademyDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsAppCodeTypeRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsApplicationTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeFunctionDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeLocationDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeParaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeSegmentDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsDict4GCDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsDictType4GCDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsEventTabDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsFrontAndBack4AppTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCConstantPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCContainerTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCDefaConstantsDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCKeyIdGetModeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCPathDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFilesDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFileTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsSelfDefDataTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsStudentDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsValueGivingModeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvAppCodeTypeRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvApplicationTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeType_SimDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvDict4GCDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvFrontAndBack4AppTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvGCVariableDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewDesignDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewIdGCVariableRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewReferFilesDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvProgLangTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvReferFilesDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvViewReferFilesDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClass4GeneCodeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClassDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFuncParaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFunctionsDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvClassDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFuncParaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFunctionsDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormPropertysDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormTypeDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionForwardDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsJavaTypeDAEx.cs" />
+    <Compile Include="Class\J2EEModule\clsStrutsActionDAEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorInformationDAEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorLevelDAEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4CreateView4SqlDAEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GC_WebSrvClassDAEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneTabCodeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneViewCodeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsSysLogDAEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckErrorTypeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckLogDAEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckResultDAEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckStatusDAEx.cs" />
+    <Compile Include="Class\LogManage\clsUserLogDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4CreateView4SqlDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GC_WebSrvClassDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneTabCodeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneViewCodeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvPrjTab4GeneCodeDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvSysLogDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckResultDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckStatus_SimDAEx.cs" />
+    <Compile Include="Class\LogManage\clsvViewInfo4GeneCodeDAEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsDAEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsTypeDAEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsvNewsDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOperationTypeDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOptMemoDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjOptStepsDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjProcessDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsStepTypeDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewBtnOptStepsDAEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewOptStepsDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsButtonTabDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureAppTypeRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureButtonRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureFuncRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncAccessModeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncGCTypeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncOptStepsDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncPara4CodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncParaRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4CodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionPurposeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionReferedFeatureDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaTypeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTypeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsMethodModifierDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureTypeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsTabFunctionPropDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureAppTypeRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureButtonRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRela_GroupByTtlDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncPara4CodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRela_SimDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4CodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4Code_SimDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCode_SimDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionReferedFeatureDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRela_SimDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTypeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureSimDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFunctionDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvTabFunctionPropDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCtlTypeDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDataGridStyleDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDDLItemsOptionDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDgFuncTypeDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDropDownLstStyleDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsFeatureImplementationDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsQueryOptionDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsSQLDSTypeDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvFeatureImplementationDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewGroupDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewImplementationDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoCmPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewMasterDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewRelaTabDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewStyleDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTabTypeDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewGroupDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewInfoDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewMasterDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewRelaTabDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewStyleDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewTypeCodeTabDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsFuncModule_AgcDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsPrjDataBaseDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectDatabaseRelDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectsDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsSoftStructureDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModulePrjViewNumDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleTabNumDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleViewNumDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModule_AgcDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvPrjDataBaseDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectDatabaseRelDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectsDAEx.cs" />
+    <Compile Include="Class\PrjMenu\clsPageDispModeDAEx.cs" />
+    <Compile Include="Class\PrjMenu\clsUserMenusDAEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjFunctionDAEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjPropertyDAEx.cs" />
+    <Compile Include="Class\PrjObjects\clsPrjObjectsDAEx.cs" />
+    <Compile Include="Class\Products\clsProductsDAEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsPrjProcessTypeDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsDetailRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsDGRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsEditRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsExcelExportRegionDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsExcelExportRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsFeatureRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsQryRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsRegionTypeDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFlds_TtlDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewDgInfoDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewFeatureFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionCmPrjIdRelaDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionRelaDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountInUseDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvRegionFeatureCountDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewFeatureFldsDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionReferNumDAEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionRelaDAEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResExcludePathDAEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResourceDAEx.cs" />
+    <Compile Include="Class\ResourceMan\clsvFileResourceDAEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlFunctionDAEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlSP_ParaDAEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlStoreProcedureDAEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSQL_DataBaseDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewRelaTabDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSV_RelaTabTypeDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTabRelationTypeDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTextResourceTypeDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewFldDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewRelaTabDAEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlView_SimDAEx.cs" />
+    <Compile Include="Class\SysPara\clsAppPageTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsAssociationTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsButtonStyleDAEx.cs" />
+    <Compile Include="Class\SysPara\clsCharEncodingDAEx.cs" />
+    <Compile Include="Class\SysPara\clsDataBaseTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsDataTypeAbbrDAEx.cs" />
+    <Compile Include="Class\SysPara\clsFKeysDAEx.cs" />
+    <Compile Include="Class\SysPara\clsGCVersionDAEx.cs" />
+    <Compile Include="Class\SysPara\clsImportLevelDAEx.cs" />
+    <Compile Include="Class\SysPara\clsINOUTTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsLabelStyleDAEx.cs" />
+    <Compile Include="Class\SysPara\clsPrjFileStateDAEx.cs" />
+    <Compile Include="Class\SysPara\clsProgLangTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsRetrievalMethodDAEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleStyleDAEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleTypeDAEx.cs" />
+    <Compile Include="Class\SysPara\clsUseStateDAEx.cs" />
+    <Compile Include="Class\SysPara\clsvTitleStyleDAEx.cs" />
+    <Compile Include="Class\SysPara\clsVueCtrlDesignSysDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsAssociationTabDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheModeDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheUseStateDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsDataBaseModuleRelaDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsErrorIdManageDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcel4UsersDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcelSetDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsPrjUserCharEncodingRelaDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsSetFieldVisibilityDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsSysDefaValNameDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsTemplate1DAEx.cs" />
+    <Compile Include="Class\SystemSet\clstz_CommKeyWordsDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePathDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPathDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPath_MachineNameDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserDefaPrjDataBaseDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserWebSrvSetDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvCacheUseStateDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvDataBaseModuleRelaDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvErrorIdManageDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcel4UsersDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcelSetDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvPrjUserCharEncodingRelaDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvSetFieldVisibilityDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePathDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePrjMainPathDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserDefaPrjDataBaseDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsWebApiIPAndPortTabDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsXzSchoolDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsCodeDictTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintFieldsDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsDataFieldTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFeatureFieldTypeRelaDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4CodeConvDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4RootFldDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldOperationTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldStateDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrimaryTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjConstraintDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabAddiDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabFldDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTab_CheckDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsSortTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureFldsDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabMainTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabRelationDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabStateDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabTypeDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsTestIsRelaToSqlTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvCodeDictTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvConstraintFieldsDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFeatureFieldTypeRelaDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab2DAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4CodeConvDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4RootFldDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_Sim2DAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_SimDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFldTabNumDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraintDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraint_SimDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4DdlDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4ErrMsgDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldNumDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_DnPathIdDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_SimDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldV2DAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabNumDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimV2DAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFldsDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFlds_SimDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeature_SimDAEx.cs" />
+    <Compile Include="Class\TempModule\clsvWorkFlowPageDAEx.cs" />
+    <Compile Include="Class\TempModule\clsWorkFlowPageDAEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentTypeDAEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserObjsDAEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserRoleDAEx.cs" />
+    <Compile Include="Class\UserManage\clsUserDefaValue_LocalDAEx.cs" />
+    <Compile Include="Class\UserManage\clsUserIdentityDAEx.cs" />
+    <Compile Include="Class\UserManage\clsUserLinkRelaDAEx.cs" />
+    <Compile Include="Class\UserManage\clsUsersDAEx.cs" />
+    <Compile Include="Class\UserManage\clsUserStateDAEx.cs" />
+    <Compile Include="Class\UserManage\clsvDepartmentInfoDAEx.cs" />
+    <Compile Include="Class\UserManage\clsvUserLinkRelaDAEx.cs" />
+    <Compile Include="Class\UserManage\clsvUsersDAEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsCheckStyleDAEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsGenCtlStyleDAEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsTextBoxStyleDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsRelationTypeDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_PointDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_ProcessDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepPointRelaDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepProcessRelaDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_WorkFlowDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointTypeDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProcessDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProjectsDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepPointRelaDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepProcessRelaDAEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_WorkFlowDAEx.cs" />
+    <Compile Include="Class\DataSynch\clsTabFieldRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4GeneCodeDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateRelaDAEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTypeCodeTabDAEx.cs" />
+    <Compile Include="Class\PrjManage\clsFuncModuleDAEx.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewFldDAEx.cs" />
+    <Compile Include="Class\SystemSet\clsDataSynConfigDAEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTabDAEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentInfoDAEx.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5DE8E2B4-6932-4F71-BAC7-87221670C657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

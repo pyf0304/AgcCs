@@ -1,0 +1,16 @@
+﻿body {
+}
+.myBorder {
+    padding: 0px;
+    margin: 2px;
+    border-color: #0066CC;
+    border-width: 2px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+}
+.SelectTd {
+    border-style: solid;
+    border-color: #009999;
+}

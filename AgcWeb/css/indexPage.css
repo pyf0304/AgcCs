@@ -1,0 +1,51 @@
+html{-webkit-text-size-adjust: 100%;text-size-adjust: 100%;	word-wrap: break-word;}
+body{ margin:0 auto; padding:0; background:#c4d6e2 url("images/indexbg.jpg") no-repeat;overflow: hidden;background-size:cover; font:14px/1.5 'Microsoft Yahei'; color:#666;}
+*{margin:0;padding:0;}
+a{ color:#484848; text-decoration:none; border:0 none;}
+a:hover{color:#f50;}
+html{-webkit-text-size-adjust: 100%;text-size-adjust: 100%;	word-wrap: break-word;}
+input,button,select{outline: none;}
+
+/*index页面样式*/
+.top{position: absolute;top: 8%;left:41%;z-index: 100;width: 500px; height: 150px; text-align:left;}
+.top span{display:inline-block;font-size:XX-Large;height:48px;width:448px;color:#000;}
+.top .txtMore{display:block;height:22px;width:340px; margin:10px 0 0 80px; font-size:12px; line-height:20px ;color:#999;}
+
+.content{ width:100%; height:100%;position:fixed; top:0; left:0; z-index:90;}
+.content .bg{ width:100%; height:100%; background:rgba(255,255,255,0.8);filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);}
+.content .login{ position:absolute; left:50%; top:50%; width:400px; margin:-5% 0 0 -200px;padding: 20px 0 12px; z-index:120; background:#fff;border:2px solid #eee;}
+.login h3{ padding:15px 0 5px 50px; font: bold 18px/38px 'Microsoft YaHei'; color:#444;}
+.login .form{ width:300px; height:43px; margin:0 0 36px 48px;}
+.login .form input{ display:block; width:300px; height:38px; background: #fafafa;margin-top: 2px; border: 1px solid #dfdfdf; box-shadow:0px 0px 1px 1px #2683e9; font:14px/38px 'Microsoft YaHei'; text-indent:10px; color:#000; }
+.login .form label{ font:16px/28px 'Microsoft YaHei'; color:#333;}
+.login button{ cursor: pointer; width:306px; height:46px; border:none; margin:14px 0 0 45px; background:#0078d7; color: #fff;font-weight: bold;font-size: 18px;}
+.loginbutton1{ cursor: pointer; width:306px; height:46px; border:none; margin:14px 0 0 0px; background:#0078d7; color: #fff;font-weight: bold;font-size: 18px;}
+.loginform1{ width:300px; height:43px; margin:0 0 36px 48px;}
+.btnMore{margin: 0 auto;}
+.btnMore a{display:inline-block;width:64px;color: #0078d7;margin: 2px 66px;}
+.btnMore a:hover{text-decoration: underline;}
+
+.bottom{position: absolute;bottom: 4px;left:34%;z-index: 95;color: #999;}
+.bottom span{display:inline-block;height:4px;padding-right: 30px;}
+.bottom span a{display:inline-block;color: #777;}
+.bottom span a:hover{text-decoration: underline;}
+
+/*register页面样式*/
+.content .register{ position:absolute; left:50%; top:46%; width:400px; margin:-5% 0 0 -200px;padding: 20px 0 12px; z-index:120; background:#fff;border:2px solid #eee;}
+.register legend{color: #333;font-weight: bold;font-size: 18px;margin: 0 0 10px 30px;}
+.register label{display: inline-block;width: 70px;text-align: right;}
+.register select{width:204px;}
+.register .txt{width:200px;height: 20px;text-indent:4px;}
+.register textarea{width:202px;text-indent:4px;}
+.register button{width:75px;height:28px;background: #0078d7;color: #fff;border: 0;cursor: pointer;margin: 6px 0 0 30px;}
+.register div{margin:6px 20px;}
+
+/*download页面样式*/
+.content .download{ position:absolute; left:50%; top:46%; width:350px; margin:-10% 0 0 -200px;padding: 20px 0 12px; z-index:120; background:#fff;border:2px solid #eee;padding:20px 50px;}
+.download div{color: #333;font-weight: bold;font-size: 18px;}
+.download div span{cursor: pointer;font-weight: normal;float: right;font-size: 14px;color: #0078d7;margin: -10px -34px 0 0;}
+.download div span:hover{text-decoration: underline;}
+.download p{color: #999;padding: 2px 0;text-indent: 2em;}
+.download li{list-style: none;}
+.download li a{display: inline-block;width:250px;line-height:40px;background: #0078d7;color: #fff; text-align: center;margin: 3px;}
+.download li a:hover{text-decoration: underline;}

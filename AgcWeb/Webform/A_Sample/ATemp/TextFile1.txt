@@ -1,0 +1,10 @@
+﻿   clsAndroidTextViewENEx objAndroidTextViewENEx = new clsAndroidTextViewENEx();
+                objAndroidTextViewENEx_Title.CtrlId = "lblEditTitle";
+                objAndroidTextViewENEx_Title.Text = "编辑区域";
+                objAndroidTextViewENEx_Title.layout_width = "wrap_content";
+                objAndroidTextViewENEx_Title.layout_height = "wrap_content";
+                objAndroidTextViewENEx_Title.layout_marginTop = 8;
+
+                objAndroidTextViewENEx_Title.layout_constraintStart_toStartOf = "parent";
+                objAndroidTextViewENEx_Title.layout_constraintTop_toTopOf = "parent";
+                objAndroidRelativeLayoutENEx.arrSubAndroidControlLst2.Add(objAndroidTextViewENEx_Title);

@@ -1,0 +1,166 @@
+﻿.tzMenu_L0 {
+    color: #ffffff;
+    font-size: 18px;
+    background-color: #B7B7B7;
+    width : 150px;
+    height:30px;
+
+}
+.tzMenu_L0 a.level1{
+    color: #ffffff;
+    font-size: 15px;
+    background-color: #0078d7;
+    width : 150px;
+    height: 30px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.tzMenu_L0 a.level2{
+    color: #0066FF;
+    font-size: 15px;
+    background-color: #CCCCCC;
+    width : 128px;
+    height: 30px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 7px;
+}
+
+.tzMenu_L1 {
+    color: #ffffff;
+    font-size: 18px;
+    background-color: #B7B7B7;
+    width : 150px;
+    height:30px;
+
+}
+    .tzMenu_L1 ul {
+        color: blue;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+        .tzMenu_L1 ul li {
+            margin: 1px;
+            padding: 2px;
+            color: red;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+            .tzMenu_L1 ul li a {
+                color: green;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+.tzMenu_L2 {
+    color: #666699;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    background-color: #009999;
+    width : 150px;
+    height: 30px;
+}
+.tzMenu_L3 {
+    color: #666699;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    background-color: #009999;
+    width : 150px;
+    height: 30px;
+}
+.tzMenu_L4 {
+    color: #666699;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    background-color: #009999;
+    width : 150px;
+    height: 30px;
+}
+.tzMenu_L2 ul {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+    .tzMenu_L2 ul li {
+        margin: 1px;
+        padding: 2px;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+        .tzMenu_L2 ul li a {
+            color: #0099CC;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+.tzMenu1 div table {
+    color: #3366FF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+    .tzMenu1 div table td {
+        margin: 1px;
+        color: #3366FF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+        .tzMenu1 div table td a {
+            margin: 1px;
+            color: #0099CC;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+.tzMenu1 div div table {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+    .tzMenu1 div div table td {
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+        .tzMenu1 div div table td a {
+            margin: 1px;
+            color: #00CCFF;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+            .tzMenu1 div div table td a:visited, a:active {
+                color: #005eac;
+            }
+
+            .tzMenu1 div div table td a:hover {
+                color: #ff5500;
+            }
+
+.selectedNode {
+    color: #FFFFFF;
+    background-color: #0066FF;
+    font-size: 15px;
+}

@@ -1,0 +1,142 @@
+﻿
+
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <script  language=javascript src="/ywxt2/js/unieap/Globals.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/Common.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/DatePicker.js"></script>
+<script  language=javascript src="/ywxt2/js/validation.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/DWNameRule.js"></script>
+
+<link href="/ywxt2/js/style.css" rel="stylesheet" type="text/css">
+
+<script  language=javascript src="/ywxt2/js/common.js"></script>
+
+<title> 教育履历 ->查询</title>
+</head>
+<body >
+<form id="EAPForm" name="com.taishsoft.shnu.humansys.baseinfo.edubiography.eduBiographyForm" method="POST" action="/ywxt2/humansys/baseinfo/edubiography/eduBiographyAction.do" onsubmit="if(checkValue()){this.submit()}">
+<script language="javascript">
+formBak="listEduBiography";
+</script>
+<input type="hidden" id="method" name="method" value="listEduBiography"/>
+<input type="hidden" name="com.neusoft.ecnuidc.html.TOKEN" value="e59f541b994d900938438ce5e0111f7b">
+<table border="0" id=table>
+<tr>
+  <td width="25" height="23">&nbsp;</td>
+  <td class="HEADER ">
+
+<a href="/ywxt2/humansys/baseinfo/edubiography/eduBiographyAction.do?method=listEduBiography&needinit=true">教育履历-列表</a>
+  </td>
+</tr>
+
+<tr>                                                                                                    
+  <td height="10" colspan="2"><img src="/ywxt2/images/clear.gif" width="1" height="1"></td>          
+</tr>                                                                                                   
+<tr>                                                                                                    
+  <td><img src="/ywxt2/images/clear.gif" width="1" height="1"></td>                                      
+  <td>                                                                                                  
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="deepa">             
+      <tr>                                                                                              
+        <th><table width="100%" border="0" cellpadding="0" cellspacing="3" ><tr><td>  教育履历 ->查询</td></tr></table></th> 
+        <th>&nbsp;</th>                                                                                 
+        <th>&nbsp;</th>                                                                                 
+      </tr>                                                                                             
+      <tr>                                                                                              
+        <td height=5 colspan="3" class="little">         <img src="/ywxt2/images/clear.gif" width="1" height="1"></td> 
+      </tr>
+      <tr>
+       <td colspan="3" class="lightcell">
+
+<table width="100%" border=0 cellSpacing=1 cellPadding=3 class=deep>
+<tr>
+<td width="15%"  class="cellLabel">职工号</td>
+<td width="35%" class="lightcell">
+<input type="text"  value=""  class="NEUHTCInput"  onkeydown="javascript:enterToTab()"  onkeypress="javascript:OnlyNumber(this)"  htcname="Number"  prompt="职工号"  name="zgh_query"  maxlength="8"  id="zgh_query"  title="数字类型"/>
+</td>
+<td width="15%"  class="cellLabel">姓名</td>
+<td width="35%" class="lightcell">
+<input type="text"  value=""  class="NEUHTCInput"  onkeydown="javascript:enterToTab()"  htcname="Text"  prompt="姓名"  name="xm_query"  maxlength="30"  id="xm_query"  title=""/>
+</td>
+</tr>
+<tr>
+  <td width="15%"  class="cellLabel">学习开始年月</td>
+<td width="35%" class="lightcell">
+<input type="text"  value=""  class="NEUHTCInput"  onkeydown="javascript:enterToTab()"  onkeypress="javascript:OnlyDate(this)"  htcname="Date"  prompt="开始年月"  name="begyearmonth_query"  maxlength="6"  id="begyearmonth_query"  dateformat="yyyyMM"  title="日期类型
+格式为yyyyMM
+如：2004-05代表2004年5月"/> <img alt="弹出日历下拉菜单" align="middle" style="cursor:hand;" src="/ywxt2/images/time.gif" onclick="show_calendar(document.forms[0].begyearmonth_query,'','',document.forms[0].begyearmonth_query.dateformat)"/>
+</td>
+<td width="15%"  class="cellLabel">学习结束年月</td>
+<td width="35%" class="lightcell">
+<input type="text"  value=""  class="NEUHTCInput"  onkeydown="javascript:enterToTab()"  onkeypress="javascript:OnlyDate(this)"  htcname="Date"  prompt="结束年月"  name="endyearmonth_query"  maxlength="6"  id="endyearmonth_query"  dateformat="yyyyMM"  title="日期类型
+格式为yyyyMM
+如：2004-05代表2004年5月"/> <img alt="弹出日历下拉菜单" align="middle" style="cursor:hand;" src="/ywxt2/images/time.gif" onclick="show_calendar(document.forms[0].endyearmonth_query,'','',document.forms[0].endyearmonth_query.dateformat)"/>
+</td>
+
+</tr>
+<tr>
+<td width="15%"  class="cellLabel">学习所在国家</td>
+<td width="35%" class="lightcell">
+<select style="behavior:url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)" name="countryid_query"  id="countryid_query" isnullable="true" prompt=" "  ><option value="">请选择</option><option value="01">日本</option><option value="02">韩国</option><option value="03">老挝</option><option value="04">菲律宾</option><option value="05">蒙古</option><option value="06">尼泊尔</option><option value="08">斯里兰卡</option><option value="09">泰国</option><option value="10">新加坡</option><option value="11">伊拉克</option><option value="12">以色列</option><option value="13">印度尼西亚</option><option value="14">越南</option><option value="15">德国</option><option value="16">俄罗斯</option><option value="17">法国</option><option value="18">芬兰</option><option value="19">荷兰</option><option value="20">南斯拉夫</option><option value="21">挪威</option><option value="22">波兰</option><option value="23">瑞士</option><option value="24">乌克兰</option><option value="25">匈牙利</option><option value="26">意大利</option><option value="27">英国</option><option value="28">阿尔及利亚</option><option value="29">贝宁</option><option value="30">刚果</option><option value="31">圭亚那</option><option value="32">几内亚</option><option value="33">喀麦隆</option><option value="34">马里</option><option value="35">摩洛哥</option><option value="36">尼日尔</option><option value="37">苏丹</option><option value="38">刚果民</option><option value="39">赞比亚</option><option value="40">澳大利亚</option><option value="41">美国</option><option value="42">秘鲁</option><option value="43">加拿大</option><option value="44">马来西亚</option><option value="45">毛里求斯</option><option value="46">西班牙</option><option value="47">巴西</option><option value="48">津巴布韦</option><option value="49">马达加斯加</option><option value="50">墨西哥</option><option value="51">瑞典</option><option value="52">印度</option><option value="53">智利</option><option value="54">希腊</option><option value="55">柬埔寨</option><option value="56">白俄罗斯</option><option value="57">巴基斯坦</option><option value="58">新西兰</option><option value="59">阿根廷</option><option value="60">比利时</option><option value="61">罗马尼亚</option><option value="62">朝鲜</option><option value="63">丹麦</option><option value="64">委内瑞拉</option><option value="65">圣卢西亚</option><option value="66">坦桑尼亚</option><option value="67">巴拿马</option><option value="156">中国</option></select>
+</td>
+<td width="15%"  class="cellLabel">是否学历学位教育</td>
+<td width="35%" class="lightcell">
+<select style="behavior:url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)" name="isnormaledu_query"  id="isnormaledu_query" isnullable="true" prompt=" "  ><option value="">请选择</option><option value="0">否</option><option value="1">是</option></select></td>
+</tr>
+<tr>
+  <td width="15%"  class="cellLabel">学历</td>
+<td width="35%" class="lightcell">
+<select style="behavior:url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)" name="xueliid_query"  id="xueliid_query" isnullable="true" prompt=" "  ><option value="">请选择</option><option value="10">研究生</option><option value="11">研究生毕业</option><option value="19">研究生肄业</option><option value="20">大学本科（简称“大学”）</option><option value="21">大学毕业</option><option value="28">相当于大学毕业</option><option value="29">大学肄业</option><option value="30">大学专科和专科学校</option><option value="31">专科毕业</option><option value="38">相当专科毕业</option><option value="39">专科肄业</option><option value="40">中专</option><option value="41">中专毕业</option><option value="42">中技毕业</option><option value="48">相当中专或中技毕业</option><option value="49">中专或中技肄业</option><option value="50">技工学校</option><option value="51">技工学校毕业</option><option value="59">技工学校肄业</option><option value="60">高中</option><option value="61">高中毕业</option><option value="62">职业高中毕业</option><option value="63">农业高中毕业</option><option value="68">相当高中毕业</option><option value="69">高中肄业</option><option value="70">初中</option><option value="71">初中毕业</option><option value="72">职业初中毕业</option><option value="73">农业初中毕业</option><option value="78">相当初中毕业</option><option value="79">初中肄业</option><option value="80">小学</option><option value="81">小学毕业</option><option value="88">相当小学毕业</option><option value="89">小学肄业</option><option value="90">文盲或半文盲</option><option value="91">文盲</option><option value="92">半文盲</option></select>
+</td>
+<td width="15%"  class="cellLabel">学位</td>
+<td width="35%" class="lightcell">
+<select style="behavior:url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)" name="xueweiid_query"  id="xueweiid_query" isnullable="true" prompt=" "  ><option value="">请选择</option><option value="212">管理学博士</option><option value="312">管理学硕士</option><option value="412">管理学学士</option><option value="1">名誉博士</option><option value="2">博士</option><option value="201">哲学博士</option><option value="202">经济学博士</option><option value="203">法学博士</option><option value="204">教育学博士</option><option value="205">文学博士</option><option value="206">历史学博士</option><option value="207">理学博士</option><option value="208">工学博士</option><option value="209">农学博士</option><option value="210">医学博士</option><option value="211">军事学博士</option><option value="3">硕士</option><option value="301">哲学硕士</option><option value="302">经济学硕士</option><option value="303">法学硕士</option><option value="304">教育学硕士</option><option value="305">文学硕士</option><option value="306">历史学硕士</option><option value="307">理学硕士</option><option value="308">工学硕士</option><option value="309">农学硕士</option><option value="310">医学硕士</option><option value="311">军事学硕士</option><option value="4">学士</option><option value="401">哲学学士</option><option value="402">经济学学士</option><option value="403">法学学士</option><option value="404">教育学学士</option><option value="405">文学学士</option><option value="406">历史学学士</option><option value="407">理学学士</option><option value="408">工学学士</option><option value="409">农学学士</option><option value="410">医学学士</option><option value="411">军事学学士</option></select>
+</td>
+</tr>
+<tr>
+  <td width="15%"  class="cellLabel">学习专业</td>
+<td width="35%" class="lightcell">
+<input type="text"  value=""  class="NEUHTCInput"  onkeydown="javascript:enterToTab()"  htcname="Text"  prompt="学习专业"  name="speciality_query"  size="50"  maxlength="60"  id="speciality_query"  title=""/>
+</td>
+
+<td width="15%"  class="cellLabel">部门</td>
+<td width="35%" class="lightcell" >
+<select style="behavior:url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)" name="departid_query"  id="departid_query" isnullable="true" prompt=" "  ><option value="">请选择</option><option value="0205">宣传部</option><option value="0106">音乐学院</option><option value="0111">对外汉语学院</option><option value="0115">生命与环境科学学院</option><option value="0213">团委</option><option value="0305">学生工作处</option><option value="0312">财务处</option><option value="0315">保卫处</option><option value="04">直属机构</option><option value="0407">信息化办公室</option><option value="05">附属机构</option><option value="06">独立二级学院</option><option value="0107">美术学院</option><option value="0112">女子文化学院</option><option value="0119">继续教育学院</option><option value="0206">统战部</option><option value="0214">妇委会</option><option value="0306">研究生工作处</option><option value="0313">审计处</option><option value="01">二级学院</option><option value="0104">外国语学院</option><option value="0401">图书馆</option><option value="0402">档案馆</option><option value="0408">基础教育发展中心</option><option value="0409">科技开发总公司</option><option value="0501">附属中学</option><option value="0502">第二附属中学</option><option value="0601">天华学院</option><option value="0201">奉贤校区工作党委</option><option value="0301">奉贤校区管理委员会</option><option value="0403">高等教育研究所</option><option value="0503">第三附属中学</option><option value="0101">人文与传播学院</option><option value="0105">商学院</option><option value="0108">谢晋影视艺术学院</option><option value="0113">旅游学院
+(上海旅游高</option><option value="0117">建筑工程学院</option><option value="02">党群机构</option><option value="0102">教育科学学院</option><option value="0109">犹他科技学院</option><option value="0203">纪委</option><option value="0207">老干部工作处</option><option value="0209">研究生工作部</option><option value="0211">机关党委</option><option value="03">行政机构</option><option value="0303">发展规划与外联合作办</option><option value="0308">资产管理办公室</option><option value="0310">社会科学管理处</option><option value="0317">基建规划处</option><option value="0405">后勤实业中心</option><option value="0410">高校文科学术文摘编辑</option><option value="0413">校医院</option><option value="0505">附属外国语中学</option><option value="07">合作办学学院</option><option value="0801">剑桥国际中心</option><option value="0110">欧洲文化与商务学院</option><option value="0114">数理信息学院</option><option value="0116">机械与电子工程学院</option><option value="0118">体育学院</option><option value="0202">校办公室</option><option value="0204">组织部</option><option value="0103">法政学院</option><option value="0208">学生工作部</option><option value="0210">保卫部</option><option value="0212">工会</option><option value="0302">校办公室(行政)</option><option value="0304">教务处</option><option value="0307">人事处</option><option value="0309">科学技术管理处</option><option value="0311">国际交流处</option><option value="0314">监察处</option><option value="0316">设备与实验室管理处</option><option value="0318">校友会</option><option value="0404">天体物理联合研究中心</option><option value="0406">接待服务中心</option><option value="0411">学报编辑部</option><option value="0412">上海师资培训中心</option><option value="0414">博物馆</option><option value="0504">第四附属中学</option><option value="0506">上海市实验学校</option><option value="0701">中新科技管理学院</option><option value="08">其他</option><option value="0802">青年干部管理学院</option></select>
+</td>
+
+</tr>
+</table>
+      </td>
+    </tr>  
+  </table> 
+
+     </td>                         
+ </tr>                             
+ <tr>                              
+   <td>&nbsp;</td>                 
+   <td align="center">&nbsp;</td>
+ </tr>                             
+
+<tr>                   
+ <td>&nbsp;</td>       
+ <td align="center" > 
+
+<table border="0">
+<tr>
+<td align="center" width="10%">
+<input class="sbutton" type=button    value="提 交"  onclick="javascript:submit_form('','','','','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="sbutton" type=button    value="返 回"  onclick="javascript:location.href='/ywxt2/humansys/baseinfo/edubiography/eduBiographyAction.do?method=listEduBiography' " >
+</td >
+</tr>
+</table>
+   </td>
+</tr>   
+
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Test\**" />
+    <Content Remove="Test\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\launchSettings.json" />
+    <Content Remove="Properties\launchSettingsbak.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\launchSettings.json" />
+    <_WebToolingArtifacts Remove="Properties\launchSettingsbak.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.14.2" />
+    <PackageReference Include="JWT" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.12.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Svg" Version="3.4.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0" />
+    <PackageReference Include="System.Buffers" Version="4.6.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.7" />
+    <PackageReference Include="System.Formats.Asn1" Version="9.0.7" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="System.Text.Json" Version="9.0.7" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj" />
+    <ProjectReference Include="..\AgcBLLEx\AgcBLLEx.csproj" />
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj" />
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj" />
+    <ProjectReference Include="..\AutoGCLib\AutoGCLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\launchSettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GeneralPlatform_Business">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GeneralPlatform_Business.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_BusinessEx">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GeneralPlatform_BusinessEx.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_DAL">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GeneralPlatform_DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralPlatform_Entity">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GeneralPlatform_Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="GP4WApi">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GP4WApi.dll</HintPath>
+    </Reference>
+    <Reference Include="PubDataBase">
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

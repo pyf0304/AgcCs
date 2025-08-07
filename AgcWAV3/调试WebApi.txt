@@ -1,0 +1,112 @@
+{
+  "effectiveDate": "20240603",
+  "qxPrjId": "0005",
+  "loginName": "pyf",
+  "userPassword": "mm012345"
+}
+https://www.sh-tz.com/AgcWA/MyCalc2/Test2
+https://www.sh-tz.com/AgcWA/api/admin/Test
+https://www.sh-tz.com/AgcWAVue/LoginApi/Test
+http://tzar.ddns.net:57109/LoginApi/Test
+http://192.168.1.15:7109/LoginApi/Test
+
+
+2024-06-03
+http://tzar.ddns.net:57109/api/admin/captchaImg?width=100&height=50
+
+http://localhost:7109/api/admin/captchaImg?width=100&height=39
+
+https://www.sh-tz.com/AgcWA/api/admin/captchaImg?width=100&height=39
+
+
+2022-11-10
+删除表功能：
+http://localhost:28523/AgcWA/TabFeatureExApi/DelRecordEx?strTabFeatureId=01120057&strPrjId=0112
+http://192.168.1.15/AgcWA/TabFeatureExApi/DelRecordEx?strTabFeatureId=01120231&strPrjId=0112
+
+获取表功能
+GetObjLstByCmPrjId
+http://localhost:28523/AgcWA/vTabFeature_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000041&strCondition=tabid='01120103'
+http://192.168.1.15/AgcWA/vTabFeature_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000041&strCondition=tabid='01120103'
+
+
+20221110013222: WebApi:[AGC.WebApi.TabFeatureExApiController]-[DelRecordEx]-[[strTabFeatureId]:=[01120057];[strPrjId]:=[0112];].
+
+http://localhost:44342/SWMWA/api/MyCalc/Plus?a=1&b=2
+
+正确：http://localhost:44342/SWMWA/api/MyCalc/Plus/1,2
+https://www.sh-tz.com/AgcWA/api/MyCalc/Plus/1,2
+
+正确：http://localhost:44342/SWMWA/MyCalc2/Test2
+
+正确：http://localhost:44342/SWMWA/SW_PressurePointApi/Test2
+
+正确：http://localhost:44342/SWMWA/SW_PressurePointApi/GetObjLst/?strWhereCond=1=1
+
+正确：http://localhost:44342/SWMWA/SW_PressurePointApi/GetRecCountByCond/?strWhereCond=1=1
+
+
+
+http://tzar.ddns.net:57109/api/admin/captchaImg?width=100&height=50
+
+
+https://www.sh-tz.com/AgcWA/api/admin/captchaImg?width=100&height=39
+
+http://localhost:44342/SWMWA/api/MyCalc/Test2
+
+http://localhost:44342/SWMWA/api/MyCalc/Minus/a=3&b=2
+
+
+
+http://localhost:44342/SWMWA/api/WeatherForecast
+
+
+http://localhost:23429/api/Values/Test
+
+.NET CLI
+connect http://localhost:28523/AgcWA/MyCalcApi/Test
+http://localhost:28523/AgcWA/MyCalcApi/Plus?a=1&b=2
+http://localhost:28523/AgcWA/MyCalcApi/Divided?a=1&b=2
+
+connect https://localhost:5001/api/todoitems/1
+get
+
+httprepl http://localhost:28523/AgcWA/MyCalcApi/Plus2
+post -h Content-Type=application/json -c "name"
+
+httprepl http://localhost:28523/AgcWA/MyCalcApi/todoitems
+
+post -h Content-Type=application/json -c "{"name":"walk dog","isComplete":true}"
+
+--测试Post 成功！
+connect http://localhost:28523/AgcWA/MyCalcApi/TestJSON
+post -h Content-Type=application/json -c "{"firstName":"walk dog","lastName":"walk dog222", "JsonStr":"{'AAA':'walk dog','BBB':'true'}"}"
+
+https://www.sh-tz.com/AgcWA/TabFeatureExApi/GC_DdlBindFunctionInDiv4TypeScript?strTabFeatureId=01120052
+http://localhost:28523/AgcWA/TabFeatureExApi/GC_DdlBindFunctionInDiv4TypeScript?strTabFeatureId=01120052
+
+http://localhost:28523/AgcWA/vFieldTab_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+http://192.168.1.15/AgcWA/vFieldTab_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+
+http://localhost:28523/AgcWA/vPrjTab_SimV2ExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+http://192.168.1.15/AgcWA/vPrjTab_SimV2ExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+
+http://localhost:28523/AgcWA/vPrjTabKeyFldV2ExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+http://192.168.1.15/AgcWA/vPrjTabKeyFldV2ExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+
+http://localhost:28523/AgcWA/vTabFeatureFlds_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+http://192.168.1.15/AgcWA/vTabFeatureFlds_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+
+http://localhost:28523/AgcWA/vTabFeature_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+http://192.168.1.15/AgcWA/vTabFeature_SimExApi/GetObjLstByCmPrjId?strCmPrjId=000012&strCondition=1=1
+
+https://www.sh-tz.com/AgcWA/UserPrjGrantApi/GetRecCountByCond?strWhereCond=1 = 1  And userId = 'pyf'
+https://192.168.1.15/AgcWA/UserPrjGrantApi/GetRecCountByCond?strWhereCond=1 = 1  And userId = 'pyf'
+SetCmPrjId
+http://localhost:28523/AgcWA/ViewInfoExApi/SetCmPrjId?strViewId=01120231&strCmPrjId=000041&strUserId=pyf
+http://192.168.1.15/AgcWA/ViewInfoExApi/SetCmPrjId?strViewId=01120231&strCmPrjId=000012&strUserId=pyf
+
+http://192.168.1.15/AgcWA/vUserPrjGrantApi/GetObjLst?strWhereCond= 1=1 and UserId = 'pyf' And UseStateId='0001' Order by VisitedNum Desc
+http://localhost:28523/AgcWA/vUserPrjGrantApi/GetObjLst?strWhereCond= 1=1 and UserId = 'pyf' And UseStateId='0001' Order by VisitedNum Desc
+
+

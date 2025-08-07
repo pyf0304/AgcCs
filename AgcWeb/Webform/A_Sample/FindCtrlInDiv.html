@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function myFindElement() {
+            var div1 = "div2";
+            var Element1 = "Text1";
+            var vFind = myFindElementInDiv(div1, Element1);
+            console.log(vFind);
+            vFind.value = "11111";
+        }
+        function myFindElementInDiv(vDiv, vElementId) {
+            //在文档中获取对vDiv的引用
+            var div1 = document.getElementById(vDiv);
+            //在div1中获取所有标签为“input”的元素
+            var ElementsInDiv = div1.getElementsByTagName("input");
+            //把元素数组转换成Array数组
+            var arrElements = Array.from(ElementsInDiv);
+            //在Array数组中查找id为vElementId的元素
+            var eFind = arrElements.find((x) => x.id == vElementId);
+            //返回查找到的元素
+            return eFind;
+        }
+        function myFindAInDiv(vDiv, vElementId) {
+            //在文档中获取对vDiv的引用
+            var div1 = document.getElementById(vDiv);
+            //在div1中获取所有标签为“input”的元素
+            var ElementsInDiv = div1.getElementsByTagName("a");
+            //把元素数组转换成Array数组
+            var arrElements = Array.from(ElementsInDiv);
+            //在Array数组中查找id为vElementId的元素
+            var eFind = arrElements.find((x) => x.id == vElementId);
+            eFind.innerText = "已经找到！";
+            //返回查找到的元素
+            return eFind;
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <span>div1</span>
+        <input id="Button1" type="button" value="button" />
+        <input id="Text1" type="text" />
+        <a id="a123">a123</a>
+    </div>
+    <div id="div2">
+        <span>div2</span>
+        <input id="Button1" type="button" value="button" />
+        <input id="Text1" type="text" />
+        <a id="a123">a123</a>
+    </div>
+    <input id="Button1" type="button" value="查找Div2下Text1" onclick="myFindElement()" />
+    <input id="Button1" type="button" value="查找Div2下Text1" onclick="myFindAInDiv('div2','a123')" />
+
+</body>
+</html>

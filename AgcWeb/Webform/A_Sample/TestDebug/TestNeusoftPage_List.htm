@@ -1,0 +1,123 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <script  language=javascript src="/ywxt2/js/unieap/Globals.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/Common.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/DatePicker.js"></script>
+<script  language=javascript src="/ywxt2/js/validation.js"></script>
+<script  language=javascript src="/ywxt2/js/unieap/DWNameRule.js"></script>
+
+<link href="/ywxt2/js/styleoa.css" rel="stylesheet" type="text/css">
+
+<script  language=javascript src="/ywxt2/js/common.js"></script>
+
+<script language="javascript">
+sortNumberArray = new Array(1);
+sortNumberArray[0] = "ID";
+function getAccess()
+{
+return 'true';
+}
+function checkupdate()
+{
+}
+</script>
+<title> 工作履历 ->列表</title>
+</head>
+<body onload="window_onload()">
+<table border="0" id=table>
+<form id="EAPForm" name="com.taishsoft.shnu.humansys.baseinfo.workbiography.workBiographyForm" method="POST" action="/ywxt2/humansys/baseinfo/workbiography/workBiographyAction.do" onsubmit="if(checkValue()){this.submit()}">
+<script language="javascript">
+formBak="listWorkBiography";
+</script>
+<input type="hidden" id="method" name="method" value="listWorkBiography"/>
+<input type="hidden" name="com.neusoft.ecnuidc.html.TOKEN" value="3816d5f73180422758a22143582b0585">
+<tr>
+  <td width="25" height="23">&nbsp;</td>
+  <td class="HEADER ">
+
+<a href="/ywxt2/humansys/baseinfo/workbiography/workBiographyAction.do?method=listWorkBiography&needinit=true">工作履历-列表</a>
+  </td>
+</tr>
+
+<tr>                                                                                                    
+  <td height="10" colspan="2"><img src="/ywxt2/images/clear.gif" width="1" height="1"></td>          
+</tr>                                                                                                   
+<tr>                                                                                                    
+  <td><img src="/ywxt2/images/clear.gif" width="1" height="1"></td>                                      
+  <td>                                                                                                  
+
+<table width="100%" border="0" cellpadding="1" cellspacing="1">
+  <tr>                                                                 
+    <td > <script language="JavaScript" >
+ doCheckAllBox();
+ </script>
+</td>  
+    <td align="right">                                               
+      <table border="0">                                             
+        <tr>                                                           
+         <td>                                                          
+
+
+<td><input class="sbutton" type=button    value="添 加"  onclick="javascript:submit_form('','','','addWorkBiography','')"></td>
+<td><input class="sbutton" type=button    value="修 改"  onclick="javascript:submit_form('','true','','updateWorkBiography','')"></td>
+<td><input class="sbutton" type=button    value="删 除"  onclick="javascript:submit_form('','','确定要删除吗？','deleteWorkBiography','true')"></td>
+
+
+<td><input class="sbutton" type=button    value="查 询"  onclick="javascript:submit_form('','','','queryWorkBiography','')"></td>
+
+<td><input type="button" name="util_export_config" class="sbutton" onclick="javascript:window.open('/ywxt2/util/export_config.do','export_config_window')" value="导 出"/></td>
+   </td>
+</tr>   
+</table>   
+   </td>
+</tr>   
+</table>   
+
+<script language="javascript">intTotalRecords=3;intRecordsPerPage=10;intCurrentPage=1;intCurrentBlock=0;intCursor=0;intMaxrows=100</script>
+
+<XML id='Data'>                                             
+  <list xmlns:dt="urn:schemas-microsoft-com:datatypes">
+
+   <ROW num="1">
+      <ECNUROWID>22</ECNUROWID>
+      <XM>王晓成</XM>
+      <DEPARTNAME>法政学院</DEPARTNAME>
+      <BEGYEARMONTH>200506</BEGYEARMONTH>
+      <ENDYEARMONTH>200506</ENDYEARMONTH>
+      <WORKPLACENAME>的所发地方</WORKPLACENAME>
+   </ROW>
+   <ROW num="2">
+      <ECNUROWID>41</ECNUROWID>
+      <XM>吕晓红</XM>
+      <DEPARTNAME>外国语学院</DEPARTNAME>
+      <BEGYEARMONTH>200612</BEGYEARMONTH>
+      <ENDYEARMONTH>200704</ENDYEARMONTH>
+      <WORKPLACENAME>反对反对</WORKPLACENAME>
+   </ROW>
+   <ROW num="3">
+      <ECNUROWID>121</ECNUROWID>
+      <XM>胡雯婷</XM>
+      <DEPARTNAME>审计处</DEPARTNAME>
+      <BEGYEARMONTH>200708</BEGYEARMONTH>
+      <ENDYEARMONTH>200710</ENDYEARMONTH>
+      <WORKPLACENAME>fdsfsdfsdf</WORKPLACENAME>
+   </ROW>
+  </list>                                                
+</XML>                                                      
+<XML id='Style' src='/ywxt2/xsl/humansys/baseinfo/workbiography/workBiography_list.xsl'></XML>                    
+<div id="DisplayArea"></div>                              
+
+     </td>                         
+ </tr>                             
+ <tr>                              
+   <td>&nbsp;</td>                 
+   <td align="center">&nbsp;</td>
+ </tr>                             
+
+</form>
+</table>
+</body>
+</html>

@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5DE8E2B4-6932-4F71-BAC7-87221670C657}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AGC_CSV7.Entity</RootNamespace>
+    <AssemblyName>AgcEN</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcEntity\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcEntity\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PubDataBase, Version=2023.5.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\AIModule\clsAssociationMappingENEx.cs" />
+    <Compile Include="Class\AIModule\clsCommonDataNodeENEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeCmPrjIdRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeDirectMapENEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeENEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeFuncMapENEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeTypeENEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapCmPrjIdRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapENEx.cs" />
+    <Compile Include="Class\AIModule\clsDNFunctionENEx.cs" />
+    <Compile Include="Class\AIModule\clsDNMappingModeENEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathCmPrjIdRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsDNPathENEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathFuncMapRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncInOutRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncMapModeENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNodeENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNodeFuncMapENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNode_SimENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMapENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMap_SimENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNFunctionENEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNPath_SimENEx.cs" />
+    <Compile Include="Class\AIModule\clsvFuncInOutRelaENEx.cs" />
+    <Compile Include="Class\AIModule\clsXWordENEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsPriotityOrderENEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserPrjGrantENEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserViewGrantENEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsvUserPrjGrantENEx.cs" />
+    <Compile Include="Class\BaseInfo\clsCollegeENEx.cs" />
+    <Compile Include="Class\BaseInfo\clsXzMajorENEx.cs" />
+    <Compile Include="Class\CaseManage\clsCaseTypeENEx.cs" />
+    <Compile Include="Class\CaseManage\clsPrjCasesENEx.cs" />
+    <Compile Include="Class\CaseManage\clsvPrjCasesENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassFuncRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureRequirementENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureTypeENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionKeyWordENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaBakENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectFuncModuleENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCmProjectPrjTabENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementTypeENEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMUserProjectENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassFuncRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureRequirementENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionKeyWordENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectAppRelaENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectFuncModuleENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectPrjTabENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCmProjectPrjTab_SimENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMRequirementENEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMUserProjectENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ControlENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_FldDispUnitStyleENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ModuleAreaENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_StyleENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateENEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateStyleENEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_StyleENEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_TemplateStyleENEx.cs" />
+    <Compile Include="Class\DataSynch\clsDataSynConfigENEx.cs" />
+    <Compile Include="Class\DataSynch\clsRecExclusiveWayENEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlCommandTypeENEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlDataSynENEx.cs" />
+    <Compile Include="Class\DataSynch\clsSynCodeTypeENEx.cs" />
+    <Compile Include="Class\DataSynch\clsTabFieldRelaENEx.cs" />
+    <Compile Include="Class\DataSynch\clsTransWayENEx.cs" />
+    <Compile Include="Class\DataSynch\clsvSqlDataSynENEx.cs" />
+    <Compile Include="Class\DataSynch\clsvTabFieldRelaENEx.cs" />
+    <Compile Include="Class\ElecDict\clsElecDictENEx.cs" />
+    <Compile Include="Class\ElecDict\clsWordTypeENEx.cs" />
+    <Compile Include="Class\FileService\clsFileServerENEx.cs" />
+    <Compile Include="Class\FileService\clsFtpResourceENEx.cs" />
+    <Compile Include="Class\GeneCode\clsAcademyENEx.cs" />
+    <Compile Include="Class\GeneCode\clsAppCodeTypeRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsApplicationTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeFunctionENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeLocationENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeParaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeSegmentENEx.cs" />
+    <Compile Include="Class\GeneCode\clsDict4GCENEx.cs" />
+    <Compile Include="Class\GeneCode\clsDictType4GCENEx.cs" />
+    <Compile Include="Class\GeneCode\clsFrontAndBack4AppTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCConstantPrjIdRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCContainerTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCDefaConstantsENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCKeyIdGetModeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCPathENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFilesENEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFileTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsSelfDefDataTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsStudentENEx.cs" />
+    <Compile Include="Class\GeneCode\clsValueGivingModeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvAppCodeTypeRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvApplicationTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeType_SimENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvDict4GCENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvFrontAndBack4AppTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvGCVariableENEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewDesignENEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewIdGCVariableRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewReferFilesENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvReferFilesENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvViewReferFilesENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClass4GeneCodeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClassENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFuncParaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFunctionsENEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvClassENEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFuncParaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFunctionsENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormPropertysENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionFormTypeENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionForwardENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsJavaTypeENEx.cs" />
+    <Compile Include="Class\J2EEModule\clsStrutsActionENEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorInformationENEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorLevelENEx.cs" />
+    <Compile Include="Class\LogManage\clsEventTabENEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4CreateView4SqlENEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GC_WebSrvClassENEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneTabCodeENEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneViewCodeENEx.cs" />
+    <Compile Include="Class\LogManage\clsSysLogENEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckErrorTypeENEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckLogENEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckResultENEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckStatusENEx.cs" />
+    <Compile Include="Class\LogManage\clsUserLogENEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4CreateView4SqlENEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GC_WebSrvClassENEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneTabCodeENEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneViewCodeENEx.cs" />
+    <Compile Include="Class\LogManage\clsvPrjTab4GeneCodeENEx.cs" />
+    <Compile Include="Class\LogManage\clsvSysLogENEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckResultENEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckStatus_SimENEx.cs" />
+    <Compile Include="Class\LogManage\clsvViewInfo4GeneCodeENEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsENEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsTypeENEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsvNewsENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOperationTypeENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOptMemoENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjOptStepsENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjProcessENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsStepTypeENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewBtnOptStepsENEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewOptStepsENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsButtonTabENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureAppTypeRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureButtonRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureFuncRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncAccessModeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncGCTypeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncOptStepsENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncPara4CodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncParaRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4CodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4GeneCodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionPurposeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionReferedFeatureENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaTypeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTypeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsMethodModifierENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureTypeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsTabFunctionPropENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureAppTypeRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureButtonRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRela_GroupByTtlENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncPara4CodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRela_SimENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4CodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4Code_SimENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCodeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCode_SimENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionReferedFeatureENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRela_SimENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTypeENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureSimENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFunctionENEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvTabFunctionPropENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCtlTypeENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDataGridStyleENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDgFuncTypeENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsFeatureImplementationENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsQueryOptionENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsSQLDSTypeENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvFeatureImplementationENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewGroupENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewGroupFldsENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewImplementationENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoCmPrjIdRelaENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewMasterENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewRelaTabENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewStyleENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTabTypeENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTypeCodeTabENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewGroupENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewGroupFldsENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewInfoENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewMasterENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewRelaTabENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewStyleENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewTypeCodeTabENEx.cs" />
+    <Compile Include="Class\PrjManage\clsFuncModule_AgcENEx.cs" />
+    <Compile Include="Class\PrjManage\clsPrjDataBaseENEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectDatabaseRelENEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectsENEx.cs" />
+    <Compile Include="Class\PrjManage\clsSoftStructureENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleObjNumENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModulePrjViewNumENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleTabNumENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleViewNumENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModule_AgcENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvPrjDataBaseENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectDatabaseRelENEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectsENEx.cs" />
+    <Compile Include="Class\PrjMenu\clsPageDispModeENEx.cs" />
+    <Compile Include="Class\PrjMenu\clsUserMenusENEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjFunctionENEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjPropertyENEx.cs" />
+    <Compile Include="Class\Products\clsProductsENEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsPrjProcessTypeENEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsPrjRequirementENEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsRequirementTypeENEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsvPrjRequirementENEx.cs" />
+    <Compile Include="Class\RegionManage\clsDetailRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsDGRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsEditRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsExcelExportRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsFeatureRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsQryRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsRegionTypeENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFlds_TtlENEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewDgInfoENEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewFeatureFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionCmPrjIdRelaENEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionENEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionRelaENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountInUseENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvRegionFeatureCountENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewFeatureFldsENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionReferNumENEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionRelaENEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResExcludePathENEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResourceENEx.cs" />
+    <Compile Include="Class\ResourceMan\clsvFileResourceENEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlFunctionENEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlSP_ParaENEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlStoreProcedureENEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSQL_DataBaseENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlStatementENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlStatementRelaTabENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewFldENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewRelaTabENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSV_RelaTabTypeENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTabRelationTypeENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTextResourceTypeENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewFldENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewRelaTabENEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlView_SimENEx.cs" />
+    <Compile Include="Class\SysPara\clsAppPageTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsAssociationTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsButtonStyleENEx.cs" />
+    <Compile Include="Class\SysPara\clsCharEncodingENEx.cs" />
+    <Compile Include="Class\SysPara\clsCodeTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsDataBaseTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsDataTypeAbbrENEx.cs" />
+    <Compile Include="Class\SysPara\clsFKeysENEx.cs" />
+    <Compile Include="Class\SysPara\clsGCVersionENEx.cs" />
+    <Compile Include="Class\SysPara\clsImportLevelENEx.cs" />
+    <Compile Include="Class\SysPara\clsINOUTTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsLabelStyleENEx.cs" />
+    <Compile Include="Class\SysPara\clsPrjFileStateENEx.cs" />
+    <Compile Include="Class\SysPara\clsProgLangTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsRetrievalMethodENEx.cs" />
+    <Compile Include="Class\SysPara\clsTabTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleStyleENEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsUseStateENEx.cs" />
+    <Compile Include="Class\SysPara\clsvCodeTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsvProgLangTypeENEx.cs" />
+    <Compile Include="Class\SysPara\clsvTitleStyleENEx.cs" />
+    <Compile Include="Class\SysPara\clsVueCtrlDesignSysENEx.cs" />
+    <Compile Include="Class\SystemSet\clsAssociationTabENEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheModeENEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheUseStateENEx.cs" />
+    <Compile Include="Class\SystemSet\clsDataBaseModuleRelaENEx.cs" />
+    <Compile Include="Class\SystemSet\clsErrorIdManageENEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcel4UsersENEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcelSetENEx.cs" />
+    <Compile Include="Class\SystemSet\clsPrjUserCharEncodingRelaENEx.cs" />
+    <Compile Include="Class\SystemSet\clsSetFieldVisibilityENEx.cs" />
+    <Compile Include="Class\SystemSet\clsSysDefaValNameENEx.cs" />
+    <Compile Include="Class\SystemSet\clsTemplate1ENEx.cs" />
+    <Compile Include="Class\SystemSet\clstz_CommKeyWordsENEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePathENEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPathENEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPath_MachineNameENEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserDefaPrjDataBaseENEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserWebSrvSetENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvCacheUseStateENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvDataBaseModuleRelaENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvErrorIdManageENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcel4UsersENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcelSetENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvPrjUserCharEncodingRelaENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvSetFieldVisibilityENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePathENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePrjMainPathENEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserDefaPrjDataBaseENEx.cs" />
+    <Compile Include="Class\SystemSet\clsWebApiIPAndPortTabENEx.cs" />
+    <Compile Include="Class\SystemSet\clsXzSchoolENEx.cs" />
+    <Compile Include="Class\Table_Field\clsALL_ALL_TABLESENEx.cs" />
+    <Compile Include="Class\Table_Field\clsCodeDictTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintFieldsENEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsDataFieldTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFeatureFieldTypeRelaENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4CodeConvENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4RootFldENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldOperationTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldStateENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrimaryTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjConstraintENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabAddiENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabFldENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTab_CheckENEx.cs" />
+    <Compile Include="Class\Table_Field\clsSortTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureENEx4Ddl.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureFldsENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabMainTypeENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabRelationENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabStateENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTestIsRelaToSqlTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvCodeDictTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvConstraintFieldsENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFeatureFieldTypeRelaENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab2ENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4CodeConvENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4RootFldENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_Sim2ENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_SimENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFldTabNumENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraintENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraint_SimENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4DdlENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4ErrMsgENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldNumENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_DnPathIdENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_SimENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldV2ENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabNumENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimV2ENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFldsENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFlds_SimENEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeature_SimENEx.cs" />
+    <Compile Include="Class\TempModule\clsvWorkFlowPageENEx.cs" />
+    <Compile Include="Class\TempModule\clsWorkFlowPageENEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentInfoENEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentTypeENEx.cs" />
+    <Compile Include="Class\UserManage\clsPlatDefaRoleENEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserObjsENEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserRoleENEx.cs" />
+    <Compile Include="Class\UserManage\clsUserDefaValue_LocalENEx.cs" />
+    <Compile Include="Class\UserManage\clsUserIdentityENEx.cs" />
+    <Compile Include="Class\UserManage\clsUserLinkRelaENEx.cs" />
+    <Compile Include="Class\UserManage\clsUserRolesENEx.cs" />
+    <Compile Include="Class\UserManage\clsUsersENEx.cs" />
+    <Compile Include="Class\UserManage\clsUserStateENEx.cs" />
+    <Compile Include="Class\UserManage\clsvDepartmentInfoENEx.cs" />
+    <Compile Include="Class\UserManage\clsvPlatDefaRoleENEx.cs" />
+    <Compile Include="Class\UserManage\clsvUserLinkRelaENEx.cs" />
+    <Compile Include="Class\UserManage\clsvUsersENEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsCheckStyleENEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsDDLItemsOptionENEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsDropDownLstStyleENEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsGenCtlStyleENEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsTextBoxStyleENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsRelationTypeENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_PointENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_ProcessENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepPointRelaENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepProcessRelaENEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_WorkFlowENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointTypeENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProcessENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProjectsENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepPointRelaENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepProcessRelaENEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_WorkFlowENEx.cs" />
+    <Compile Include="OracleModule\clsALL_TAB_COLUMNSEN.cs" />
+    <Compile Include="OracleModule\clsALL_VIEWSEN.cs" />
+    <Compile Include="OracleModule\clsUser_Tab_ColumnsEN.cs" />
+    <Compile Include="OracleModule\clsUser_ViewsEN.cs" />
+    <Compile Include="PubClass\clsDBServer.cs" />
+    <Compile Include="SysPara\clsPrimaryTypeNameENEx.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLTabField\clsTablesEN.cs" />
+    <Compile Include="SysPara\clsSysParaEN_Local.cs" />
+    <Compile Include="Table_Field\clsColumnEN.cs" />
+    <Compile Include="TestDebug\clsWorkStepPointEN.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095E4F9-B52F-414B-89DE-41B81211A72D}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClass\AgcPureClass.csproj">
+      <Project>{09e0ffbe-e7b7-4391-a176-1233811ef857}</Project>
+      <Name>AgcPureClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GeneCSharp\" />
+    <Folder Include="SqlViewMan\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

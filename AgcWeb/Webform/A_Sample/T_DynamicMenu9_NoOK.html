@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--<script src="jquery-3.1.1.js" charset="utf-8"></script>-->
+    <script src="../../Scripts/jquery-3.6.0.min.js"></script>
+    <script src="../../Scripts/jquery.ui.position.js"></script>
+    <!--    <script src="contextMenu/jquery.ui.position.min.js" type="text/javascript"></script>-->
+    <script src="../../Scripts/jquery.contextMenu.js"></script>
+    <!--<script src="contextMenu/jquery.contextMenu.js" type="text/javascript"></script>-->
+    <!--<link href="contextMenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />-->
+    <link href="../../Content/jquery.contextMenu.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="demo1" style="color:green;"> 右键点此 </div>
+    <hr>
+    <div id="demo2"> 右键点此 </div>
+    <hr>
+    <div class="demo3" id="dontShow"> 不显示 </div>
+    <hr>
+    <div class="demo3" id="showOne"> 显示第一项 </div>
+    <hr>
+    <div class="demo3" id="showAll"> 显示全部 </div>
+    <hr>
+
+    <div class="contextMenu" id="myMenu1" style="display: none;">
+        <ul>
+            <li id="open"> 打开</li>
+            <li id="email"> 邮件</li>
+            <li id="save"> 保存</li>
+            <li id="delete"> 关闭</li>
+        </ul>
+    </div>
+    <div class="contextMenu" id="myMenu2" style="display: none;">
+        <ul>
+            <li id="item_1">选项一</li>
+            <li id="item_2">选项二</li>
+            <li id="item_3">选项三</li>
+            <li id="item_4">选项四</li>
+        </ul>
+    </div>
+    <div class="contextMenu" id="myMenu3" style="display: none;">
+        <ul>
+            <li id="item_1">csdn</li>
+            <li id="item_2">javaeye</li>
+            <li id="item_3">itpub</li>
+        </ul>
+    </div>
+
+    <script>
+        //所有class为demo1的span标签都会绑定此右键菜单
+        $('div.demo1').contextMenu('myMenu1',
+            {
+                bindings:
+                {
+                    'open': function (t) {
+                        alert('Trigger was ' + t.id + '\nAction was Open');
+                    },
+                    'email': function (t) {
+                        alert('Trigger was ' + t.id + '\nAction was Email');
+                    },
+                    'save': function (t) {
+                        alert('Trigger was ' + t.id + '\nAction was Save');
+                    },
+                    'delete': function (t) {
+                        alert('Trigger was ' + t.id + '\nAction was Delete');
+                    }
+                }
+            });
+        //所有html元素id为demo2的绑定此右键菜单
+        $('#demo2').contextMenu('myMenu2', {
+            //菜单样式
+            menuStyle: {
+                border: '2px solid #000'
+            },
+            //菜单项样式
+            itemStyle: {
+                fontFamily: 'verdana',
+                backgroundColor: 'green',
+                color: 'white',
+                border: 'none',
+                padding: '1px'
+            },
+            //菜单项鼠标放在上面样式
+            itemHoverStyle: {
+                color: 'blue',
+                backgroundColor: 'red',
+                border: 'none'
+            },
+            //事件
+            bindings:
+            {
+                'item_1': function (t) {
+                    alert('Trigger was ' + t.id + '\nAction was item_1');
+                },
+                'item_2': function (t) {
+                    alert('Trigger was ' + t.id + '\nAction was item_2');
+                },
+                'item_3': function (t) {
+                    alert('Trigger was ' + t.id + '\nAction was item_3');
+                },
+                'item_4': function (t) {
+                    alert('Trigger was ' + t.id + '\nAction was item_4');
+                }
+            }
+        });
+        //所有div标签class为demo3的绑定此右键菜单
+        $('div.demo3').contextMenu('myMenu3', {
+            //重写onContextMenu和onShowMenu事件
+            onContextMenu: function (e) {
+                if ($(e.target).attr('id') == 'dontShow') return false;
+                else return true;
+            },
+            onShowMenu: function (e, menu) {
+                if ($(e.target).attr('id') == 'showOne') {
+                    $('#item_2, #item_3', menu).remove();
+                }
+                return menu;
+            }
+        });
+    </script><div id="jqContextMenu" style="position: absolute; z-index: 500; left: 53px; top: 17px; display: none;">
+        <ul style="list-style: none; padding: 1px; margin: 0px; background-color: rgb(255, 255, 255); border: 1px solid rgb(153, 153, 153); width: 100px;">
+            <li id="open" style="margin: 0px; color: rgb(0, 0, 0); display: block; cursor: default; padding: 3px; border: 1px solid rgb(255, 255, 255); background-color: transparent;"> 打开</li>
+            <li id="email" style="margin: 0px; color: rgb(0, 0, 0); display: block; cursor: default; padding: 3px; border: 1px solid rgb(255, 255, 255); background-color: transparent;"> 邮件</li>
+            <li id="save" style="margin: 0px; color: rgb(0, 0, 0); display: block; cursor: default; padding: 3px; border: 1px solid rgb(255, 255, 255); background-color: transparent;"> 保存</li>
+            <li id="delete" style="margin: 0px; color: rgb(0, 0, 0); display: block; cursor: default; padding: 3px; border: 1px solid rgb(255, 255, 255); background-color: transparent;"> 关闭</li>
+        </ul>
+    </div><div style="background-color: rgb(0, 0, 0); position: absolute; opacity: 0.2; z-index: 499; display: none; width: 104px; height: 120px; left: 55px; top: 19px;"></div>
+
+</body>
+</html>

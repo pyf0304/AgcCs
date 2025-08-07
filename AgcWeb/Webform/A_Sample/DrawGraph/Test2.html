@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style media="screen">
+        body {
+            background: black;
+            text-align: center
+        }
+
+        #v1 {
+            background: white
+        }
+    </style>
+    <script>
+  window.onload=function () {
+   let oV=document.getElementById('v1');
+   let oBtn1=document.getElementById('btn1');
+   let oBtn2=document.getElementById('btn2');
+   let oBtn3=document.getElementById('btn3');
+   let oBtn4=document.getElementById('btn4');
+   let gd=oV.getContext('2d');
+
+   let img=new Image();
+   img.src='1.jpg';
+   img.onload=function () {
+    gd.drawImage(img,0,0);
+
+    oBtn1.onclick=function () {
+     //获取像素区
+     let imageData=gd.getImageData(0,0,oV.width,oV.height);
+
+     //data[(r*W+c)*4]
+     for(let r=0;r<oV.height;r++){
+      for(let c=0;c<oV.width;c++){
+       let avg=(imageData.data[(r*oV.width+c)*4]+imageData.data[(r*oV.width+c)*4+1]+imageData.data[(r*oV.width+c)*4+2])/3;
+
+       imageData.data[(r*oV.width+c)*4]=imageData.data[(r*oV.width+c)*4+1]=imageData.data[(r*oV.width+c)*4+2]=avg;
+      }
+     }
+     gd.putImageData(imageData,0,0);
+    }
+
+    oBtn2.onclick=function () {
+     //获取像素区
+     let imageData=gd.getImageData(0,0,oV.width,oV.height);
+
+     //data[(r*W+c)*4]
+     for(let r=0;r<oV.height;r++){
+      for(let c=0;c<oV.width;c++){
+       imageData.data[(r*oV.width+c)*4+2]=0;
+
+0      }
+     }
+     gd.putImageData(imageData,0,0);
+    }
+
+    oBtn3.onclick=function () {
+     //获取像素区
+     let imageData=gd.getImageData(0,0,oV.width,oV.height);
+
+     //data[(r*W+c)*4]
+     for(let r=0;r<oV.height;r++){
+      for(let c=0;c<oV.width;c++){
+       imageData.data[(r*oV.width+c)*4]=0;
+       imageData.data[(r*oV.width+c)*4+2]=0;
+      }
+     }
+     gd.putImageData(imageData,0,0);
+    }
+
+    oBtn4.onclick=function () {
+     //火狐支持，在火狐中点击导出图片会在新窗口打开图片
+     let src=oV.toDataURL();
+     window.open(src,"_blank");
+
+    }
+
+
+
+   }
+  }
+
+
+    </script>
+</head>
+<body>
+    <input type="button" value="变灰" id="btn1" />
+    <input type="button" value="变黄" id="btn2" />
+    <input type="button" value="变绿" id="btn3" />
+    <input type="button" value="导出图片" id="btn4" />
+    <canvas id="v1" width="800" height="600"></canvas>
+</body>
+</html>

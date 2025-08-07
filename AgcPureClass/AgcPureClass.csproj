@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09E0FFBE-E7B7-4391-A176-1233811EF857}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Agc.PureClass</RootNamespace>
+    <AssemblyName>AgcPureClass</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcPureClass\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcPureClass\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassEx\GeneCSharp\clsASPTextAreaENEx.cs" />
+    <Compile Include="ClassEx\Vue\clsVueComponentEx.cs" />
+    <Compile Include="ClassEx\Vue\clsVueEvent.cs" />
+    <Compile Include="ClassEx\Vue\clsVueProp.cs" />
+    <Compile Include="Class\GeneCSharp\ASPTextArea.cs" />
+    <Compile Include="IGetTabFieldObj.cs" />
+    <Compile Include="ClassEx\GCAndroid\AndroidControlEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidAppBarLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidButtonENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidCheckBoxENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidConstraintLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidCoordinatorLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidEditTextENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidFloatingActionButtonENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidFrameLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidHorizontalScrollViewENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidImageButtonENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidIncludeENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidLinearLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidListViewENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidRelativeLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidScrollViewENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidSpinnerENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidTabHostENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidTableLayoutENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidTableRowENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidTabWidgetENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidTextViewENEx.cs" />
+    <Compile Include="ClassEx\GCAndroid\clsAndroidToolbarENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOActionENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOAutoresizingMaskENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOBarButtonItemENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOButtonENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOControlENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOlabelENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOnavigationBarENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISONavigationItemENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOOutletENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOsceneENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOStackViewENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOstoryBoardENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOtextFieldENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOviewControllerENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOviewControllerLayoutGuideENEx.cs" />
+    <Compile Include="ClassEx\GCISO\clsISOviewENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\ASPControlEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPBodyENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPBoundFieldENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPButtonENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPCheckBoxENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPCodeENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPColENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPCompareValidatorENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPControlGroupENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPDivENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPDropDownListENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPEmptyENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPFormENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPGridViewENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPH4ENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHeadENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHeaderStyleENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHeaderTemplateENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHiddenFieldENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHrENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHtmlButtonENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHtmlInputENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPHtmlTableENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPInterfaceENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPItemTemplateENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPLabelENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPLiENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPLinkButtonENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPModalDialogENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPPagerTemplateENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPRowENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPSpanENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPTemplateFieldENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPTextBoxENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPUlENEx.cs" />
+    <Compile Include="ClassEx\GeneCSharp\clsASPWebUserControlENEx.cs" />
+    <Compile Include="Class\GCAndroid\AndroidAppBarLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidButton.cs" />
+    <Compile Include="Class\GCAndroid\AndroidCheckBox.cs" />
+    <Compile Include="Class\GCAndroid\AndroidConstraintLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidControl.cs" />
+    <Compile Include="Class\GCAndroid\AndroidCoordinatorLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidEditText.cs" />
+    <Compile Include="Class\GCAndroid\AndroidFloatingActionButton.cs" />
+    <Compile Include="Class\GCAndroid\AndroidFrameLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidHorizontalScrollView.cs" />
+    <Compile Include="Class\GCAndroid\AndroidImageButton.cs" />
+    <Compile Include="Class\GCAndroid\AndroidInclude.cs" />
+    <Compile Include="Class\GCAndroid\AndroidLinearLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidListView.cs" />
+    <Compile Include="Class\GCAndroid\AndroidRelativeLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidScrollView.cs" />
+    <Compile Include="Class\GCAndroid\AndroidSpinner.cs" />
+    <Compile Include="Class\GCAndroid\AndroidTabHost.cs" />
+    <Compile Include="Class\GCAndroid\AndroidTableLayout.cs" />
+    <Compile Include="Class\GCAndroid\AndroidTableRow.cs" />
+    <Compile Include="Class\GCAndroid\AndroidTabWidget.cs" />
+    <Compile Include="Class\GCAndroid\AndroidTextView.cs" />
+    <Compile Include="Class\GCAndroid\AndroidToolbar.cs" />
+    <Compile Include="Class\GCISO\ISOAction.cs" />
+    <Compile Include="Class\GCISO\ISOAutoresizingMask.cs" />
+    <Compile Include="Class\GCISO\ISOBarButtonItem.cs" />
+    <Compile Include="Class\GCISO\ISOButton.cs" />
+    <Compile Include="Class\GCISO\ISOControl.cs" />
+    <Compile Include="Class\GCISO\ISOlabel.cs" />
+    <Compile Include="Class\GCISO\ISOnavigationBar.cs" />
+    <Compile Include="Class\GCISO\ISONavigationItem.cs" />
+    <Compile Include="Class\GCISO\ISOOutlet.cs" />
+    <Compile Include="Class\GCISO\ISOscene.cs" />
+    <Compile Include="Class\GCISO\ISOStackView.cs" />
+    <Compile Include="Class\GCISO\ISOstoryBoard.cs" />
+    <Compile Include="Class\GCISO\ISOtextField.cs" />
+    <Compile Include="Class\GCISO\ISOview.cs" />
+    <Compile Include="Class\GCISO\ISOviewController.cs" />
+    <Compile Include="Class\GCISO\ISOviewControllerLayoutGuide.cs" />
+    <Compile Include="Class\GeneCSharp\ASPBody.cs" />
+    <Compile Include="Class\GeneCSharp\ASPBoundField.cs" />
+    <Compile Include="Class\GeneCSharp\ASPButton.cs" />
+    <Compile Include="Class\GeneCSharp\ASPCheckBox.cs" />
+    <Compile Include="Class\GeneCSharp\ASPCode.cs" />
+    <Compile Include="Class\GeneCSharp\ASPCol.cs" />
+    <Compile Include="Class\GeneCSharp\ASPCompareValidator.cs" />
+    <Compile Include="Class\GeneCSharp\ASPControl.cs" />
+    <Compile Include="Class\GeneCSharp\ASPDiv.cs" />
+    <Compile Include="Class\GeneCSharp\ASPDropDownList.cs" />
+    <Compile Include="Class\GeneCSharp\ASPEmpty.cs" />
+    <Compile Include="Class\GeneCSharp\ASPForm.cs" />
+    <Compile Include="Class\GeneCSharp\ASPGridView.cs" />
+    <Compile Include="Class\GeneCSharp\ASPH4.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHead.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHeaderStyle.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHeaderTemplate.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHiddenField.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHr.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHtmlButton.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHtmlInput.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHtmlTable.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHtmlTd.cs" />
+    <Compile Include="Class\GeneCSharp\ASPHtmlTr.cs" />
+    <Compile Include="Class\GeneCSharp\ASPInterface.cs" />
+    <Compile Include="Class\GeneCSharp\ASPItemTemplate.cs" />
+    <Compile Include="Class\GeneCSharp\ASPLabel.cs" />
+    <Compile Include="Class\GeneCSharp\ASPLi.cs" />
+    <Compile Include="Class\GeneCSharp\ASPLinkButton.cs" />
+    <Compile Include="Class\GeneCSharp\ASPModalDialog.cs" />
+    <Compile Include="Class\GeneCSharp\ASPPagerTemplate.cs" />
+    <Compile Include="Class\GeneCSharp\ASPRow.cs" />
+    <Compile Include="Class\GeneCSharp\ASPSpan.cs" />
+    <Compile Include="Class\GeneCSharp\ASPTemplateField.cs" />
+    <Compile Include="Class\GeneCSharp\ASPTextBox.cs" />
+    <Compile Include="Class\GeneCSharp\ASPUl.cs" />
+    <Compile Include="Class\GeneCSharp\ASPWebUserControl.cs" />
+    <Compile Include="Class\UserManage\AspNetRoles.cs" />
+    <Compile Include="Class\UserManage\AspNetUsers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

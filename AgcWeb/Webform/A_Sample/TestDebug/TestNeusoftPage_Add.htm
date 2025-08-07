@@ -1,0 +1,505 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" language="javascript" src="/ywxt2/js/unieap/Globals.js"></script>
+
+    <script language="javascript" src="/ywxt2/js/unieap/Common.js"></script>
+
+    <script language="javascript" src="/ywxt2/js/unieap/DatePicker.js"></script>
+
+    <script language="javascript" src="/ywxt2/js/validation.js"></script>
+
+    <script language="javascript" src="/ywxt2/js/unieap/DWNameRule.js"></script>
+    <link href="/ywxt2/js/style.css" rel="stylesheet" type="text/css">
+
+    <script language="javascript" src="/ywxt2/js/common.js"></script>
+
+    <title>出国履历 ->添加</title>
+
+    <script language="javascript">
+        function submit() {
+            var jcgrq = document.forms[0].cgrq.value;
+            var jcggbm = document.forms[0].cggbm.value;
+            var jcgmdm = document.forms[0].cgmdm.value;
+            var jsqdwzwmc = document.forms[0].sqdwzwmc.value;
+            var jpcdw = document.forms[0].pcdw.value;
+            var jsqdwywmc = document.forms[0].sqdwywmc.value;
+            var jtzmc = document.forms[0].tzmc.value;
+            var jcgjflym = document.forms[0].cgjflym.value;
+            var jspdw = document.forms[0].spdw.value;
+            var jsprq = document.forms[0].sprq.value;
+            var jspwh = document.forms[0].spwh.value;
+            var jpzqx = document.forms[0].pzqx.value;
+            var jxxgznr = document.forms[0].xxgznr.value;
+            var jxxgzcj = document.forms[0].xxgzcj.value;
+            var jhgrq = document.forms[0].hgrq.value;
+            var jzgh = document.forms[0].zgh.value;
+            if ("" == jcgrq) {
+                alert("对不起! 字段[出国日期]不能为空(NULL)!");
+                return false;
+            }
+            if (jcgrq.length > 10) {
+                alert("对不起! 字段[出国日期]的长度不能超过10!");
+                return false;
+            }
+            if ("" == jcggbm) {
+                alert("对不起! 字段[出国国别码]不能为空(NULL)!");
+                return false;
+            }
+            if (jcggbm.length > 3) {
+                alert("对不起! 字段[出国国别码]的长度不能超过3!");
+                return false;
+            }
+            if ("" == jcgmdm) {
+                alert("对不起! 字段[出国目的码]不能为空(NULL)!");
+                return false;
+            }
+            if (jcgmdm.length > 2) {
+                alert("对不起! 字段[出国目的码]的长度不能超过2!");
+                return false;
+            }
+            if ("" == jsqdwzwmc) {
+                alert("对不起! 字段[所去单位中文名称]不能为空(NULL)!");
+                return false;
+            }
+            if (jsqdwzwmc.length > 60) {
+                alert("对不起! 字段[所去单位中文名称]的长度不能超过60!");
+                return false;
+            }
+            if ("" == jpcdw) {
+                alert("对不起! 字段[派出单位]不能为空(NULL)!");
+                return false;
+            }
+            if (jpcdw.length > 60) {
+                alert("对不起! 字段[派出单位]的长度不能超过60!");
+                return false;
+            }
+            if (jsqdwywmc.length > 180) {
+                alert("对不起! 字段[所去单位英文名称]的长度不能超过180!");
+                return false;
+            }
+            if (jtzmc.length > 40) {
+                alert("对不起! 字段[团组名称]的长度不能超过40!");
+                return false;
+            }
+            if ("" == jcgjflym) {
+                alert("对不起! 字段[出国经费来源码]不能为空(NULL)!");
+                return false;
+            }
+            if (jcgjflym.length > 1) {
+                alert("对不起! 字段[出国经费来源码]的长度不能超过1!");
+                return false;
+            }
+            if (jspdw.length > 60) {
+                alert("对不起! 字段[审批单位]的长度不能超过60!");
+                return false;
+            }
+            if (jsprq.length > 10) {
+                alert("对不起! 字段[审批日期]的长度不能超过10!");
+                return false;
+            }
+            if (jspwh.length > 24) {
+                alert("对不起! 字段[审批文号]的长度不能超过24!");
+                return false;
+            }
+            if (jpzqx.length > 3) {
+                alert("对不起! 字段[批准期限]的长度不能超过3!");
+                return false;
+            }
+            if ("" == jxxgznr) {
+                alert("对不起! 字段[学习工作内容]不能为空(NULL)!");
+                return false;
+            }
+            if (jxxgznr.length > 80) {
+                alert("对不起! 字段[学习工作内容]的长度不能超过80!");
+                return false;
+            }
+            if ("" == jxxgzcj) {
+                alert("对不起! 字段[学习工作成绩]不能为空(NULL)!");
+                return false;
+            }
+            if (jxxgzcj.length > 100) {
+                alert("对不起! 字段[学习工作成绩]的长度不能超过100!");
+                return false;
+            }
+            if ("" == jhgrq) {
+                alert("对不起! 字段[回国入境日期]不能为空(NULL)!");
+                return false;
+            }
+            if (jhgrq.length > 10) {
+                alert("对不起! 字段[回国入境日期]的长度不能超过10!");
+                return false;
+            }
+            if ("" == jzgh) {
+                alert("对不起! 字段[职工号]不能为空(NULL)!");
+                return false;
+            }
+            if (jzgh.length > 8) {
+                alert("对不起! 字段[职工号]的长度不能超过8!");
+                return false;
+            }
+            if (jcgrq < jsprq) {
+                alert("对不起! 出国日期必须大于审批日期!");
+                return false;
+            }
+            if (jhgrq < jcgrq) {
+                alert("对不起! 回国日期必须大于出国日期!");
+                return false;
+            }
+            return true;
+        }
+        function check() {
+            if (checkValue() == true && submit() == true) {
+                var m = window.confirm("您确定要提交吗？");
+                if (m != 1) {
+                    return false;
+                }
+                document.forms[0].method.value = "addAbroadBiographySave";
+                document.forms[0].submit();
+            }
+        }
+        function check2() {
+            if (checkValue() == true && submit() == true) {
+                document.forms[0].method.value = "deletePublicInfo";
+                document.forms[0].submit();
+                document.forms[0].method.value = "addAbroadBiographySave2";
+                document.forms[0].submit();
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <form id="EAPForm" name="com.taishsoft.shnu.humansys.baseinfo.abroadbiography.abroadBiographyForm"
+        method="POST" action="/ywxt2/humansys/baseinfo/abroadbiography/abroadBiographyAction.do"
+        onsubmit="if(checkValue()){this.submit()}">
+
+        <script language="javascript">
+            formBak = "addAbroadBiographySave";
+        </script>
+
+        <input type="hidden" id="method" name="method" value="addAbroadBiographySave" />
+        <input type="hidden" name="com.neusoft.ecnuidc.html.TOKEN" value="4b7d21cacd7e08b9cc7e85d1cdc803d9">
+        <table border="0" id="table">
+            <tr>
+                <td width="25" height="23">&nbsp;</td>
+                <td class="HEADER ">
+                    <a href="/ywxt2/humansys/baseinfo/abroadbiography/abroadBiographyAction.do?method=listAbroadBiography&needinit=true">出国履历-列表</a>
+                </td>
+            </tr>
+            <tr>
+                <td height="10" colspan="2">
+                    <img src="/ywxt2/images/clear.gif" width="1" height="1"></td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/ywxt2/images/clear.gif" width="1" height="1"></td>
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="deepa">
+                        <tr>
+                            <th>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="3">
+                                    <tr>
+                                        <td>出国履历 ->添加</td>
+                                    </tr>
+                                </table>
+                            </th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <td height="5" colspan="3" class="little">
+                                <img src="/ywxt2/images/clear.gif" width="1" height="1"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="lightcell">
+                                <table width="100%" border="0" cellspacing="1" cellpadding="3" class="deep">
+                                    <tr>
+                                        <td width="15%" class="cellLabel">职工号*</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCReadOnly" readonly="readonly" onkeydown="javascript:enterToTab()"
+                                                onkeypress="javascript:OnlyNumber(this)" htcname="Number" prompt="职工号" readonly="true"
+                                                name="zgh" maxlength="8" isnullable="false" id="zgh" title="数字类型" /><font color="red">*<font>
+                                                    <a href="#" onclick="window.open('/ywxt2/humansys/baseinfo/queryperson/QueryPersonAction.do?method=listPerson&limit=1&needinit=true','','width='+screen.width/1.5+',height='+screen.height/1.5+', top='+screen.height/6+',left='+screen.width/6+',toolbar=no, menubar=no, scrollbars=yes, resizable=yes, status=yes')">
+                                                        <img src='/ywxt2/images/pin.gif' border="0"></a>
+                                        </td>
+                                        <td width="15%" class="cellLabel">姓名</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCReadOnly" readonly="readonly" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="姓名" readonly="true" name="xm" maxlength="30" isnullable="true"
+                                                id="xm" title="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">部门</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCReadOnly" readonly="readonly" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="部门" readonly="true" name="departname" maxlength="30" isnullable="true"
+                                                id="departname" title="" />
+                                        </td>
+                                        <td width="15%" class="cellLabel">出国国别*</td>
+                                        <td width="35%" class="lightcell">
+                                            <select style="behavior: url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)"
+                                                name="cggbm" id="cggbm" isnullable="false" prompt="出国国别 ">
+                                                <option value="">请选择</option>
+                                                <option value="01">日本</option>
+                                                <option value="02">韩国</option>
+                                                <option value="03">老挝</option>
+                                                <option value="04">菲律宾</option>
+                                                <option value="05">蒙古</option>
+                                                <option value="06">尼泊尔</option>
+                                                <option value="08">斯里兰卡</option>
+                                                <option value="09">泰国</option>
+                                                <option value="10">新加坡</option>
+                                                <option value="11">伊拉克</option>
+                                                <option value="12">以色列</option>
+                                                <option value="13">印度尼西亚</option>
+                                                <option value="14">越南</option>
+                                                <option value="15">德国</option>
+                                                <option value="16">俄罗斯</option>
+                                                <option value="17">法国</option>
+                                                <option value="18">芬兰</option>
+                                                <option value="19">荷兰</option>
+                                                <option value="20">南斯拉夫</option>
+                                                <option value="21">挪威</option>
+                                                <option value="22">波兰</option>
+                                                <option value="23">瑞士</option>
+                                                <option value="24">乌克兰</option>
+                                                <option value="25">匈牙利</option>
+                                                <option value="26">意大利</option>
+                                                <option value="27">英国</option>
+                                                <option value="28">阿尔及利亚</option>
+                                                <option value="29">贝宁</option>
+                                                <option value="30">刚果</option>
+                                                <option value="31">圭亚那</option>
+                                                <option value="32">几内亚</option>
+                                                <option value="33">喀麦隆</option>
+                                                <option value="34">马里</option>
+                                                <option value="35">摩洛哥</option>
+                                                <option value="36">尼日尔</option>
+                                                <option value="37">苏丹</option>
+                                                <option value="38">刚果民</option>
+                                                <option value="39">赞比亚</option>
+                                                <option value="40">澳大利亚</option>
+                                                <option value="41">美国</option>
+                                                <option value="42">秘鲁</option>
+                                                <option value="43">加拿大</option>
+                                                <option value="44">马来西亚</option>
+                                                <option value="45">毛里求斯</option>
+                                                <option value="46">西班牙</option>
+                                                <option value="47">巴西</option>
+                                                <option value="48">津巴布韦</option>
+                                                <option value="49">马达加斯加</option>
+                                                <option value="50">墨西哥</option>
+                                                <option value="51">瑞典</option>
+                                                <option value="52">印度</option>
+                                                <option value="53">智利</option>
+                                                <option value="54">希腊</option>
+                                                <option value="55">柬埔寨</option>
+                                                <option value="56">白俄罗斯</option>
+                                                <option value="57">巴基斯坦</option>
+                                                <option value="58">新西兰</option>
+                                                <option value="59">阿根廷</option>
+                                                <option value="60">比利时</option>
+                                                <option value="61">罗马尼亚</option>
+                                                <option value="62">朝鲜</option>
+                                                <option value="63">丹麦</option>
+                                                <option value="64">委内瑞拉</option>
+                                                <option value="65">圣卢西亚</option>
+                                                <option value="66">坦桑尼亚</option>
+                                                <option value="67">巴拿马</option>
+                                                <option value="156">中国</option>
+                                            </select>
+                                            <font color="red">*<font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">出国日期*</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                onkeypress="javascript:OnlyDate(this)" htcname="Date" prompt="出国日期" name="cgrq"
+                                                maxlength="10" isnullable="false" id="cgrq" dateformat="yyyy-MM-dd" title="日期类型
+格式为yyyy-MM-dd
+如：2004-05-01代表2004年5月1日" />
+                                            <img alt="弹出日历下拉菜单" align="middle" style="cursor: hand;" src="/ywxt2/images/time.gif"
+                                                onclick="show_calendar(document.forms[0].cgrq,'','',document.forms[0].cgrq.dateformat)" /><font
+                                                    color="red">*<font>
+                                        </td>
+                                        <td width="15%" class="cellLabel">回国入境日期*</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                onkeypress="javascript:OnlyDate(this)" htcname="Date" prompt="回国入境日期" name="hgrq"
+                                                maxlength="10" isnullable="false" id="hgrq" dateformat="yyyy-MM-dd" title="日期类型
+格式为yyyy-MM-dd
+如：2004-05-01代表2004年5月1日" />
+                                            <img alt="弹出日历下拉菜单" align="middle" style="cursor: hand;" src="/ywxt2/images/time.gif"
+                                                onclick="show_calendar(document.forms[0].hgrq,'','',document.forms[0].hgrq.dateformat)" /><font
+                                                    color="red">*<font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">出国目的*</td>
+                                        <td width="35%" class="lightcell">
+                                            <select style="behavior: url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)"
+                                                name="cgmdm" id="cgmdm" isnullable="false" prompt="出国目的 ">
+                                                <option value="">请选择</option>
+                                                <option value="01">常驻国外使馆、领事馆</option>
+                                                <option value="02">常驻国际组织及其代表机构</option>
+                                                <option value="04">常驻国外其他组织</option>
+                                                <option value="05">短期派驻国外使馆、领事馆</option>
+                                                <option value="06">短期派驻国际组织及其他代表机构</option>
+                                                <option value="08">短期派驻国外其他组织</option>
+                                                <option value="10">党政代表团出访</option>
+                                                <option value="11">军事代表团出访</option>
+                                                <option value="12">经济贸易和财务方面代表团出访与洽谈</option>
+                                                <option value="13">学术、文艺、体育代表团和其它社会团体出访</option>
+                                                <option value="14">参加国际性的各类比赛</option>
+                                                <option value="15">参加交易会和展览会</option>
+                                                <option value="20">引进技术和设备</option>
+                                                <option value="21">商务出国</option>
+                                                <option value="22">实习</option>
+                                                <option value="23">监造</option>
+                                                <option value="30">援外技术工作</option>
+                                                <option value="31">援建工作</option>
+                                                <option value="32">援外培训工作</option>
+                                                <option value="33">劳务出口</option>
+                                                <option value="34">合营工程</option>
+                                                <option value="36">航空、邮电、海运、公路等国际联运业务</option>
+                                                <option value="37">随船工作</option>
+                                                <option value="39">科技合作项目</option>
+                                                <option value="40">考察</option>
+                                                <option value="41">领奖</option>
+                                                <option value="42">参加各种会议</option>
+                                                <option value="43">进修</option>
+                                                <option value="44">讲学</option>
+                                                <option value="45">公派留学</option>
+                                                <option value="46">自费留学</option>
+                                                <option value="47">自费公派留学</option>
+                                                <option value="60">旅游</option>
+                                                <option value="61">探亲</option>
+                                                <option value="62">会友</option>
+                                                <option value="63">结婚</option>
+                                                <option value="64">继承财产</option>
+                                                <option value="65">就业</option>
+                                                <option value="66">定居</option>
+                                                <option value="70">特殊任务</option>
+                                                <option value="99">其它原因出国</option>
+                                            </select>
+                                            <font color="red">*<font></td>
+                                        <td width="15%" class="cellLabel">派出单位*</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="派出单位" name="pcdw" maxlength="60" isnullable="false" id="pcdw"
+                                                title="" /><font color="red">*<font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">所去单位中文名称*</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="所去单位中文名称" name="sqdwzwmc" maxlength="60" isnullable="false"
+                                                id="sqdwzwmc" title="" /><font color="red">*<font>
+                                        </td>
+                                        <td width="15%" class="cellLabel">所去单位英文名称</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="所去单位英文名称" name="sqdwywmc" maxlength="180" isnullable="true"
+                                                id="sqdwywmc" title="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">团组名称</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="团组名称" name="tzmc" maxlength="40" isnullable="true" id="tzmc"
+                                                title="" />
+                                        </td>
+                                        <td width="15%" class="cellLabel">出国经费来源*</td>
+                                        <td width="35%" class="lightcell">
+                                            <select style="behavior: url(/ywxt2/htc/ecnuidc/Base.htc) url(/ywxt2/htc/ecnuidc/QuickSelect.htc)"
+                                                name="cgjflym" id="cgjflym" isnullable="false" prompt="出国经费来源 ">
+                                                <option value="">请选择</option>
+                                                <option value="1">财政拨款</option>
+                                                <option value="2">贷款</option>
+                                                <option value="3">自筹资金</option>
+                                                <option value="4">捐助</option>
+                                                <option value="5">集资</option>
+                                                <option value="9">其他</option>
+                                            </select>
+                                            <font color="red">*<font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">审批单位</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="审批单位" name="spdw" maxlength="60" isnullable="true" id="spdw"
+                                                title="" />
+                                        </td>
+                                        <td width="15%" class="cellLabel">审批日期</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                onkeypress="javascript:OnlyDate(this)" htcname="Date" prompt="审批日期" name="sprq"
+                                                maxlength="10" isnullable="true" id="sprq" dateformat="yyyy-MM-dd" title="日期类型
+格式为yyyy-MM-dd
+如：2004-05-01代表2004年5月1日" />
+                                            <img alt="弹出日历下拉菜单" align="middle" style="cursor: hand;" src="/ywxt2/images/time.gif"
+                                                onclick="show_calendar(document.forms[0].sprq,'','',document.forms[0].sprq.dateformat)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">审批文号</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="审批文号" name="spwh" maxlength="24" isnullable="true" id="spwh"
+                                                title="" />
+                                        </td>
+                                        <td width="15%" class="cellLabel">批准期限</td>
+                                        <td width="35%" class="lightcell">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                onkeypress="javascript:OnlyNumber(this)" htcname="Number" prompt="批准期限" name="pzqx"
+                                                maxlength="3" isnullable="true" id="pzqx" title="数字类型" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">学习工作内容*</td>
+                                        <td width="35%" class="lightcell" colspan="3">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="学习工作内容" name="xxgznr" maxlength="80" size="80" isnullable="false"
+                                                id="xxgznr" title="" /><font color="red">*<font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%" class="cellLabel">学习工作成绩*</td>
+                                        <td width="35%" class="lightcell" colspan="3">
+                                            <input type="text" value="" class="NEUHTCInput" onkeydown="javascript:enterToTab()"
+                                                htcname="Text" prompt="学习工作成绩" name="xxgzcj" maxlength="100" size="80" isnullable="false"
+                                                id="xxgzcj" title="" /><font color="red">*<font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td align="center">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td align="center">
+                    <table border="0">
+                        <tr>
+                            <td align="center" width="10%">
+                                <input class="sbutton" type="button" value="提 交" onclick="check()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="sbutton" type="button" value="返 回" onclick="javascript: location.href = '/ywxt2/humansys/baseinfo/abroadbiography/abroadBiographyAction.do?method=listAbroadBiography' ">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

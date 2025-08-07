@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace AGC.web.treeview
+{
+   
+
+    /// <summary>
+	/// clsTreeNodeMenu 的摘要说明。
+	/// </summary>
+	public class clsTreeNodeTypeMenu
+    {
+        public clsTreeNodeTypeMenu()
+        {
+            //
+            // TODO: 在此处添加构造函数逻辑
+            //
+        }
+        public string MenuName;
+        public string strTreeNodeType;
+
+    }
+}

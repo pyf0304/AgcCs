@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{876EDADE-754A-48B4-9E5C-37EA7B9E684C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AGC.BusinessLogicEx</RootNamespace>
+    <AssemblyName>AgcBLLEx</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcBLLEx\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>E:\TzAppData\AGCV2\AgcBLLEx\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GeneralPlatform_Entity">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GeneralPlatform_Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="GP4WApi">
+      <HintPath>..\..\..\PrjCode\PublicLib\GP\GP4WApi.dll</HintPath>
+    </Reference>
+    <Reference Include="PubDataBase, Version=2023.5.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.9.0\lib\net462\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+    <Reference Include="TzWinCtrlLib">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzWinCtrlLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\AIModule\clsAssociationMappingBLEx.cs" />
+    <Compile Include="Class\AIModule\clsCommonDataNodeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeCmPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeDirectMapBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDataNodeTypeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDnFuncMapCmPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDNFunctionBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDNMappingModeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDNPathBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathCmPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsDnPathFuncMapRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncInOutRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsFuncMapModeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNodeBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMapBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDataNode_SimBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDnFuncMap_SimBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNFunctionBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvDNPath_SimBLEx.cs" />
+    <Compile Include="Class\AIModule\clsvFuncInOutRelaBLEx.cs" />
+    <Compile Include="Class\AIModule\clsXWordBLEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsPriotityOrderBLEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserPrjGrantBLEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserRolesBLEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserViewGrantBLEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsvUserPrjGrantBLEx.cs" />
+    <Compile Include="Class\BaseInfo\clsCollegeBLEx.cs" />
+    <Compile Include="Class\BaseInfo\clsXzMajorBLEx.cs" />
+    <Compile Include="Class\CaseManage\clsCaseTypeBLEx.cs" />
+    <Compile Include="Class\CaseManage\clsPrjCasesBLEx.cs" />
+    <Compile Include="Class\CaseManage\clsvPrjCasesBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMClassFuncRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureRequirementBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFeatureTypeBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFuncParaRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMFunctionKeyWordBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaBakBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectAppRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectFuncModuleBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMProjectPrjTabBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMRequirementTypeBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsCMUserProjectBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMClassFuncRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFeatureRequirementBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFuncParaRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMFunctionKeyWordBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectAppRelaBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectFuncModuleBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMProjectPrjTabBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCmProjectPrjTab_SimBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMRequirementBLEx.cs" />
+    <Compile Include="Class\CodeMan\clsvCMUserProjectBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ControlBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_FldDispUnitStyleBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_ModuleAreaBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_StyleBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateBLEx.cs" />
+    <Compile Include="Class\CssManage\clscss_TemplateStyleBLEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_StyleBLEx.cs" />
+    <Compile Include="Class\CssManage\clsvcss_TemplateStyleBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsDataSynConfigBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsRecExclusiveWayBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlCommandTypeBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsSqlDataSynBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsSynCodeTypeBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsTabFieldRelaBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsTransWayBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsvSqlDataSynBLEx.cs" />
+    <Compile Include="Class\DataSynch\clsvTabFieldRelaBLEx.cs" />
+    <Compile Include="Class\ElecDict\clsElecDictBLEx.cs" />
+    <Compile Include="Class\ElecDict\clsWordTypeBLEx.cs" />
+    <Compile Include="Class\FileService\clsFileServerBLEx.cs" />
+    <Compile Include="Class\FileService\clsFtpResourceBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsAcademyBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsAppCodeTypeRelaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsApplicationTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeFunctionBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeLocationBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeParaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeSegmentBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsDict4GCBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsDictType4GCBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsEventTabBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsFrontAndBack4AppTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCConstantPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCContainerTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCDefaConstantsBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCKeyIdGetModeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCPathBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGCVariableTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFilesBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsReferFileTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsSelfDefDataTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsStudentBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsValueGivingModeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvApplicationTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeType_SimBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvDict4GCBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvFrontAndBack4AppTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvGCVariableBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewDesignBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewIdGCVariableRelaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsViewReferFilesBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvProgLangTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvReferFilesBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvViewReferFilesBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClass4GeneCodeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvClassBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFuncParaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvWebSrvFunctionsBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvClassBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFuncParaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsWebSrvFunctionsBLEx.cs" />
+    <Compile Include="Class\J2EEModule\clsActionForwardBLEx.cs" />
+    <Compile Include="Class\J2EEModule\clsJavaTypeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorInformationBLEx.cs" />
+    <Compile Include="Class\LogManage\clsErrorLevelBLEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4CreateView4SqlBLEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GC_WebSrvClassBLEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneTabCodeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsLog4GeneViewCodeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsSysLogBLEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckErrorTypeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckLogBLEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckResultBLEx.cs" />
+    <Compile Include="Class\LogManage\clsTabCheckStatusBLEx.cs" />
+    <Compile Include="Class\LogManage\clsUserLogBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4CreateView4SqlBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GC_WebSrvClassBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneTabCodeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvLog4GeneViewCodeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvPrjTab4GeneCodeBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvSysLogBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckResultBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvTabCheckStatus_SimBLEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsBLEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsNewsTypeBLEx.cs" />
+    <Compile Include="Class\NewsBulletin\clsvNewsBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOperationTypeBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsOptMemoBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjOptStepsBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsPrjProcessBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsStepTypeBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewBtnOptStepsBLEx.cs" />
+    <Compile Include="Class\OpStepManage\clsViewOptStepsBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsButtonTabBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureAppTypeRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureButtonRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFeatureFuncRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncAccessModeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncGCTypeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncOptStepsBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncPara4CodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFuncParaRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4CodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4GeneCodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionGroupRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionPurposeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionReferedFeatureBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionRelaTypeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTemplateRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunctionTypeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsMethodModifierBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureTypeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsTabFunctionPropBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureAppTypeRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRela_GroupByTtlBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncPara4CodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFuncParaRela_SimBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4CodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4Code_SimBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCode_SimBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionGroupRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionReferedFeatureBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRela_SimBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTypeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureSimBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFunctionBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvTabFunctionPropBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCtlTypeBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDataGridStyleBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDDLItemsOptionBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDgFuncTypeBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDropDownLstStyleBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsFeatureImplementationBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsQueryOptionBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsSQLDSTypeBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvFeatureImplementationBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewGroupBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewGroupFldsBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewImplementationBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoCmPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewMasterBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewRelaTabBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewStyleBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTabTypeBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewTypeCodeTabBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewGroupBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewGroupFldsBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewInfoBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewMasterBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewRelaTabBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewStyleBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsvViewTypeCodeTabBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsFuncModule_AgcBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsPrjDataBaseBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectDatabaseRelBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsProjectsBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsSoftStructureBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleObjNumBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModulePrjViewNumBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleTabNumBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModuleViewNumBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvPrjDataBaseBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectDatabaseRelBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvProjectsBLEx.cs" />
+    <Compile Include="Class\PrjMenu\clsPageDispModeBLEx.cs" />
+    <Compile Include="Class\PrjMenu\clsUserMenusBLEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjFunctionBLEx.cs" />
+    <Compile Include="Class\PrjObjects\clsObjPropertyBLEx.cs" />
+    <Compile Include="Class\Products\clsProductsBLEx.cs" />
+    <Compile Include="Class\ProjectRequirementManage\clsPrjProcessTypeBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsDetailRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsDGRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsEditRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsExcelExportRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsFeatureRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsPubRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsQryRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsRegionTypeBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDetailRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvDGRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvEditRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvExcelExportRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvFeatureRegionFlds_TtlBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewDgInfoBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewFeatureFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionCmPrjIdRelaBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsViewRegionRelaBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldCountInUseBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvQryRegionFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvRegionFeatureCountBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewFeatureFldsBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionReferNumBLEx.cs" />
+    <Compile Include="Class\RegionManage\clsvViewRegionRelaBLEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResExcludePathBLEx.cs" />
+    <Compile Include="Class\ResourceMan\clsFileResourceBLEx.cs" />
+    <Compile Include="Class\ResourceMan\clsvFileResourceBLEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlFunctionBLEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlSP_ParaBLEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSqlStoreProcedureBLEx.cs" />
+    <Compile Include="Class\SQLTabField\clsSQL_DataBaseBLEx.cs" />
+    <Compile Include="Class\SQLTabField\clsPubDataBaseBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewFldBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSqlViewRelaTabBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsSV_RelaTabTypeBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTabRelationTypeBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsTextResourceTypeBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewRelaTabBLEx.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlView_SimBLEx.cs" />
+    <Compile Include="Class\SysPara\clsAppPageTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsAssociationTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsButtonStyleBLEx.cs" />
+    <Compile Include="Class\SysPara\clsCharEncodingBLEx.cs" />
+    <Compile Include="Class\SysPara\clsDataBaseTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsDataTypeAbbrBLEx.cs" />
+    <Compile Include="Class\SysPara\clsFKeysBLEx.cs" />
+    <Compile Include="Class\SysPara\clsGCVersionBLEx.cs" />
+    <Compile Include="Class\SysPara\clsImportLevelBLEx.cs" />
+    <Compile Include="Class\SysPara\clsInOutTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsLabelStyleBLEx.cs" />
+    <Compile Include="Class\SysPara\clsPrjFileStateBLEx.cs" />
+    <Compile Include="Class\SysPara\clsProgLangTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsRetrievalMethodBLEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleStyleBLEx.cs" />
+    <Compile Include="Class\SysPara\clsTitleTypeBLEx.cs" />
+    <Compile Include="Class\SysPara\clsUseStateBLEx.cs" />
+    <Compile Include="Class\SysPara\clsvTitleStyleBLEx.cs" />
+    <Compile Include="Class\SysPara\clsVueCtrlDesignSysBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsAssociationTabBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheModeBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsCacheUseStateBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsDataBaseModuleRelaBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsErrorIdManageBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcel4UsersBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsExportExcelSetBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsPrjUserCharEncodingRelaBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsSetFieldVisibilityBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsSysDefaValNameBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsTemplate1BLEx.cs" />
+    <Compile Include="Class\SystemSet\clstz_CommKeyWordsBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePathBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPathBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserCodePrjMainPath_MachineNameBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserDefaPrjDataBaseBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsUserWebSrvSetBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvCacheUseStateBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvDataBaseModuleRelaBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvErrorIdManageBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcel4UsersBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvExportExcelSetBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvPrjUserCharEncodingRelaBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvSetFieldVisibilityBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserDefaPrjDataBaseBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsWebApiIPAndPortTabBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsXzSchoolBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsALL_ALL_TABLESBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsCodeDictTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintFieldsBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsConstraintTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsDataFieldTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFeatureFieldTypeRelaBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4CodeConvBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTab4RootFldBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFieldTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldOperationTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsFldStateBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrimaryTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjConstraintBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabAddiBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabFldBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTabRelationTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsPrjTab_CheckBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsSortTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabFeatureFldsBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabMainTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabRelationBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabStateBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabTypeBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsTestIsRelaToSqlTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvCodeDictTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvConstraintFieldsBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFeatureFieldTypeRelaBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab2BLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4CodeConvBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab4RootFldBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_Sim2BLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFieldTab_SimBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvFldTabNumBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraintBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjConstraint_SimBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4DdlBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab4ErrMsgBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFldNumBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_DnPathIdBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabFld_SimBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabKeyFldV2BLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTabNumBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvPrjTab_SimV2BLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFldsBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeatureFlds_SimBLEx.cs" />
+    <Compile Include="Class\Table_Field\clsvTabFeature_SimBLEx.cs" />
+    <Compile Include="Class\TempModule\clsWorkFlowPageBLEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentInfoBLEx.cs" />
+    <Compile Include="Class\UserManage\clsDepartmentTypeBLEx.cs" />
+    <Compile Include="Class\UserManage\clsPlatDefaRoleBLEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserObjsBLEx.cs" />
+    <Compile Include="Class\UserManage\clsPrjUserRoleBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUserDefaValue_LocalBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUserIdentityBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUserLinkRelaBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUsersBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUserStateBLEx.cs" />
+    <Compile Include="Class\UserManage\clsvDepartmentInfoBLEx.cs" />
+    <Compile Include="Class\UserManage\clsvPlatDefaRoleBLEx.cs" />
+    <Compile Include="Class\UserManage\clsvUserLinkRelaBLEx.cs" />
+    <Compile Include="Class\UserManage\clsvUsersBLEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsCheckStyleBLEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsGenCtlStyleBLEx.cs" />
+    <Compile Include="Class\ViewControlManage\clsTextBoxStyleBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsRelationTypeBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_PointBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_ProcessBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_WorkFlowBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_PointTypeBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProcessBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_ProjectsBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepPointRelaBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_StepProcessRelaBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clswf_WorkFlowBLEx.cs" />
+    <Compile Include="FubClass\clsAdjustOrderNum4View.cs" />
+    <Compile Include="FubClass\clsASPDropDownListBLEx_Static.cs" />
+    <Compile Include="FubClass\clsErrMsgBLEx.cs" />
+    <Compile Include="FubClass\clsGetTabFieldObj.cs" />
+    <Compile Include="FubClass\clsPubFun4BLEx.cs" />
+    <Compile Include="FubClass\clsPubVar4BLEx.cs" />
+    <Compile Include="FubClass\clsTranslateBLEx.cs" />
+    <Compile Include="FubClass\clsTranslateFieldName.cs" />
+    <Compile Include="Class\LogManage\clsSysLogServerBLEx.cs" />
+    <Compile Include="Class\LogManage\clsvViewInfo4GeneCodeBLEx.cs" />
+    <Compile Include="Class\OracleModule\clsALL_TAB_COLUMNSBLEx.cs" />
+    <Compile Include="Class\OracleModule\clsUser_Tab_ColumnsBLEx.cs" />
+    <Compile Include="Class\OracleModule\clsUser_ViewsBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsFunction4GeneCodeBLEx4Order.cs" />
+    <Compile Include="Class\PrjFunction\clsPrjFeatureBLEx4Order.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureButtonRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFeatureFuncRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunction4GeneCodeBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvFunctionTemplateRelaBLEx.cs" />
+    <Compile Include="Class\PrjFunction\clsvPrjFeatureBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsvAppCodeTypeRelaBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsvFuncModule_AgcBLEx.cs" />
+    <Compile Include="Class\PrjManage\clsApplicationTypeBLEx2.cs" />
+    <Compile Include="Class\PrjManage\clsFuncModule_AgcBLEx2.cs" />
+    <Compile Include="Class\PrjManage\clsPrjDataBaseBLEx2.cs" />
+    <Compile Include="Class\PrjManage\clsProjectsBLEx2.cs" />
+    <Compile Include="Class\PrjMenu\clsGeneMenuBLEx.cs" />
+    <Compile Include="FubClass\FuncParaType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\RegionManage\clsFeatureRegionFldsBLEx2.cs" />
+    <Compile Include="Class\SQLTabField\clsCheckConsistency.cs" />
+    <Compile Include="Class\SQLTabField\clsColumnsBLEx2.cs" />
+    <Compile Include="Class\SQLTabField\clsTablesBLEx2.cs" />
+    <Compile Include="Class\SqlViewMan\clsvSqlViewFldBLEx.cs" />
+    <Compile Include="Class\SysPara\clsPrimaryTypeBLEx2.cs" />
+    <Compile Include="Class\SysPara\clsSQLDSTypeBLEx2.cs" />
+    <Compile Include="Class\SysPara\clsViewTypeCodeTabBLEx2.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePathBLEx.cs" />
+    <Compile Include="Class\SystemSet\clsvUserCodePrjMainPathBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsWorkStepPointBLEx.cs" />
+    <Compile Include="Class\UserManage\clsUserPrjGrantBLEx2.cs" />
+    <Compile Include="Class\UserManage\clsUsersBLEx2.cs" />
+    <Compile Include="Class\View\clsDGRegionBLEx2.cs" />
+    <Compile Include="Class\View\clsDGRegionFldsBLEx2.cs" />
+    <Compile Include="Class\View\clsEditRegionBLEx2.cs" />
+    <Compile Include="Class\View\clsEditRegionFldsBLEx2.cs" />
+    <Compile Include="Class\View\clsExcelExportRegionBLEx.cs" />
+    <Compile Include="Class\View\clsExcelExportRegionBLEx2.cs" />
+    <Compile Include="Class\View\clsExcelExportRegionFldsBLEx2.cs" />
+    <Compile Include="Class\View\clsInOutTypeBLEx2.cs" />
+    <Compile Include="Class\View\clsQryRegionFldsBLEx2.cs" />
+    <Compile Include="Class\View\clsQueryRegionBLEx2.cs" />
+    <Compile Include="Class\View\clsRegionTypeBLEx2.cs" />
+    <Compile Include="Class\View\clsViewGroupBLEx2.cs" />
+    <Compile Include="Class\View\clsViewPotenceBLEx2.cs" />
+    <Compile Include="Class\View\clsViewRegionBaseBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepPointRelaBLEx.cs" />
+    <Compile Include="Class\WorkFlow\clsvwf_StepProcessRelaBLEx.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcDAL\AgcDAL.csproj">
+      <Project>{5d01006b-50af-4dbd-aa5f-42321f5e304a}</Project>
+      <Name>AgcDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5de8e2b4-6932-4f71-bac7-87221670c657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClassBL\AgcPureClassBL.csproj">
+      <Project>{948d0d10-e065-4f47-b386-ca4b41966b1e}</Project>
+      <Name>AgcPureClassBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcPureClass\AgcPureClass.csproj">
+      <Project>{09e0ffbe-e7b7-4391-a176-1233811ef857}</Project>
+      <Name>AgcPureClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tz.Functional2\Tz.Functional2.csproj">
+      <Project>{959EA755-9B59-4873-96BC-06B2236B5503}</Project>
+      <Name>Tz.Functional2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TzAdvancedLib\TzAdvancedLib.csproj">
+      <Project>{139398F1-DF8C-4C3D-92D2-52FE18C35D73}</Project>
+      <Name>TzAdvancedLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MSProject\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

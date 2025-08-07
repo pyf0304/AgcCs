@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{386E9141-54F3-4FB7-9C84-B3E876A2C80C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DynamicCompilerWin</RootNamespace>
+    <AssemblyName>DynamicCompilerWin</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonTableENDABL, Version=2017.5.22.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PublicLib\CommonTableENDABL.dll</HintPath>
+    </Reference>
+    <Reference Include="PubDataBase, Version=2017.5.29.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PublicLib\PubDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TzPubFunction, Version=2018.5.31.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PublicLib\TzPubFunction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmLexicalAnalysis4Xml.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4Xml.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis4Xml.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4Sql.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4Sql.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis4Sql.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoGCLibEx.cs" />
+    <Compile Include="clsDownLoad20170525.cs" />
+    <Compile Include="clsFamilyTree.cs" />
+    <Compile Include="clsLexicalAnalysis4TzGCScript.cs" />
+    <Compile Include="clsMyTest.cs" />
+    <Compile Include="clsPerson.cs" />
+    <Compile Include="clsPubFun.cs" />
+    <Compile Include="clsStuType.cs" />
+    <Compile Include="clsTree.cs" />
+    <Compile Include="clsMultTreeNode.cs" />
+    <Compile Include="Configer.cs" />
+    <Compile Include="Evaluator.cs" />
+    <Compile Include="EvaluatorItem.cs" />
+    <Compile Include="frmLexicalAnalysis4Js.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4Js.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis4Js.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4TzGCScript.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4TzGCScript.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis4TzGCScript.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmInvokePropertyByString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInvokePropertyByString.Designer.cs">
+      <DependentUpon>frmInvokePropertyByString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTestMultTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestMultTree.Designer.cs">
+      <DependentUpon>frmTestMultTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTestFamilyTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestFamilyTree.Designer.cs">
+      <DependentUpon>frmTestFamilyTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4CSharp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysis4CSharp.Designer.cs">
+      <DependentUpon>frmLexicalAnalysis4CSharp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLexicalAnalysisV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLexicalAnalysisV2.Designer.cs">
+      <DependentUpon>frmLexicalAnalysisV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTestGeneCodeByDynamicCompiler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestGeneCodeByDynamicCompiler.Designer.cs">
+      <DependentUpon>frmTestGeneCodeByDynamicCompiler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTestDynamicCompiler2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestDynamicCompiler2.Designer.cs">
+      <DependentUpon>frmTestDynamicCompiler2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IPrePostVisitor.cs" />
+    <Compile Include="IVisitor.cs" />
+    <Compile Include="MDIParent1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDIParent1.Designer.cs">
+      <DependentUpon>MDIParent1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmLexicalAnalysis4Xml.resx">
+      <DependentUpon>frmLexicalAnalysis4Xml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysis4Sql.resx">
+      <DependentUpon>frmLexicalAnalysis4Sql.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysis4Js.resx">
+      <DependentUpon>frmLexicalAnalysis4Js.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysis4TzGCScript.resx">
+      <DependentUpon>frmLexicalAnalysis4TzGCScript.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInvokePropertyByString.resx">
+      <DependentUpon>frmInvokePropertyByString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestMultTree.resx">
+      <DependentUpon>frmTestMultTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestFamilyTree.resx">
+      <DependentUpon>frmTestFamilyTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysis.resx">
+      <DependentUpon>frmLexicalAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysis4CSharp.resx">
+      <DependentUpon>frmLexicalAnalysis4CSharp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLexicalAnalysisV2.resx">
+      <DependentUpon>frmLexicalAnalysisV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestGeneCodeByDynamicCompiler.resx">
+      <DependentUpon>frmTestGeneCodeByDynamicCompiler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestDynamicCompiler2.resx">
+      <DependentUpon>frmTestDynamicCompiler2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDIParent1.resx">
+      <DependentUpon>MDIParent1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="FunBtn.Config" />
+    <None Include="app.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgcBase\AgcBase.csproj">
+      <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
+      <Name>AgcBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcBLLEx\AgcBLLEx.csproj">
+      <Project>{876edade-754a-48b4-9e5c-37ea7b9e684c}</Project>
+      <Name>AgcBLLEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcCommBase\AgcCommBase.csproj">
+      <Project>{1095e4f9-b52f-414b-89de-41b81211a72d}</Project>
+      <Name>AgcCommBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcDAL\AgcDAL.csproj">
+      <Project>{5d01006b-50af-4dbd-aa5f-42321f5e304a}</Project>
+      <Name>AgcDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgcEntity\AgcEntity.csproj">
+      <Project>{5de8e2b4-6932-4f71-bac7-87221670c657}</Project>
+      <Name>AgcEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoGCLib\AutoGCLib.csproj">
+      <Project>{babcfa57-d8e6-49c6-b23f-2507445df4e2}</Project>
+      <Name>AutoGCLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCalc\MyCalc.csproj">
+      <Project>{bc38b249-30d2-4014-83b1-babb90cd2830}</Project>
+      <Name>MyCalc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AAA\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

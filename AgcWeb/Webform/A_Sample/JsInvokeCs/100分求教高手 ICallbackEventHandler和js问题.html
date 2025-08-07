@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+
+    <div class="title" style="margin: 0px; padding: 0px 30px 15px; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: rgb(204, 204, 204); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 25.200000762939453px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-position: initial initial; background-repeat: initial initial;">
+        <h2 style="margin: 0px; padding: 0px 0px 15px; border: 0px; outline: 0px; font-size: 2em; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1359188.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 28px; vertical-align: baseline; background-color: transparent; color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">100分求教高手 ICallbackEventHandler和js问题~</a></h2>
+    </div>
+    <div class="blog" style="margin: 0px; padding: 10px 30px 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 25.200000762939453px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-position: initial initial; background-repeat: initial initial;">
+        问题1:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;GetCallbackResult()<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;RaiseCallbackEvent(string&nbsp;eventArgument)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;如果从客户端js传递到后台c#中的字符串中含有中文字符,则在回调之后显示乱码,或者不能成功回调,如何解决?<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;unicode-&gt;utf8编码转换码?&nbsp;我在后台利用system.text.encoding中的一些方法对它进行转换后,不能成功回调,js转换?不会,麻烦高手给个能用的代码范例问题2:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;从客户端GetCallbackEventReference()&nbsp;&nbsp;到&nbsp;客户端js函数接受回调后的返回值并显示的过程中,在后台的C#代码中不能发生任何与界面的交互吗?比如说&nbsp;Response..<br />
+        高手能讲一下&quot;为什么&quot;最好!问题3:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;事件回调过程中如果出现异常怎么调试?好象事件回调发生异常不报任何错误?郁闷<div class="topic-extra-info" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+            <div class="tag" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+            </div>
+            <div id="comments" style="margin: 30px 0px 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                <div class="divAdsense" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                    <ins class="adsbygoogle" data-ad-client="ca-pub-6454321281327732" data-ad-slot="4869179470" data-adsbygoogle-status="done" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; text-decoration: none; display: inline-block; width: 728px; height: 90px; background-position: initial initial; background-repeat: initial initial;"><ins style="margin: 0px; padding: 0px; border: none; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; text-decoration: none; display: inline-table; height: 90px; position: relative; visibility: visible; width: 728px; background-position: initial initial; background-repeat: initial initial;">
+                    <ins id="aSwift_0_anchor" style="margin: 0px; padding: 0px; border: none; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; text-decoration: none; display: block; height: 90px; position: relative; visibility: visible; width: 728px; background-position: initial initial; background-repeat: initial initial;">
+                    <iframe id="I1" allowtransparency="true" frameborder="0" height="90" hspace="0" marginheight="0" marginwidth="0" name="I1" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" scrolling="no" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; left: 0px; position: absolute; top: 0px; background-position: initial initial; background-repeat: initial initial;" vspace="0" width="728"></iframe>
+                    </ins></ins></ins>
+                </div>
+                <h4 class="num" style="margin: 0px; padding: 0px 30px 20px; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: rgb(204, 204, 204); outline: 0px; font-size: 2em; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">解决方案 »</h4>
+                <div class="comment" style="margin: 0px; padding: 15px 30px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                    <ol class="comment-list" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; list-style: none; background-position: initial initial; background-repeat: initial initial;">
+                        <li id="comment-293" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                如果从客户端js传递到后台c#中的字符串中含有中文字符,则在回调之后显示乱码,或者不能成功回调,如何解决?<br />
+                                ——————————————————————————————————————————<br />
+                                ICallbackEventHandler可以访问页面上所有控件的Post值，你不需要使用eventArgument传递什么中文。从客户端GetCallbackEventReference()&nbsp;&nbsp;到&nbsp;客户端js函数接受回调后的返回值并显示的过程中,在后台的C#代码中不能发生任何与界面的交互吗?比如说&nbsp;Response..<br />
+                                ———————————————————————————————————————————<br />
+                                GetCallbackResult本来就是一种Response.Write动作，只不过GetCallbackResult输出的东西可以被客户端端回调机制的javascript方法所解析，从而可以传递结果给你的javascript过程。<br />
+                                事件回调过程中如果出现异常怎么调试?好象事件回调发生异常不报任何错误?郁闷<br />
+                                ——————————————————————————————————————————<br />
+                                你可以使用Try...Cache...捕获处理时期的异常，通过GetCallbackResult输出。<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-294" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                对上边中间那个问题，你可以在页面上设置一个List&lt;string&gt;类型的容器，每个需要写出内容的组件向这个容器里追加，然后在GetCallbackResult方法执行时从这个容器里一次性写出全部内容。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-295" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                TO&nbsp;sp1234:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;感谢高手的指点,您对于第一个问题的答案给了我另一种开阔的思路,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过我在void&nbsp;RaiseCallbackEvent(string&nbsp;eventArgument)中,通过eventArgument从客户端js传递需要调用的服务器方法名,其他需要的字符串从客户端控件直接取得<br />
+                                如:string&nbsp;ID=this.txtID.Text.Trim();这样得到的数据通过sqlparamter插入数据库中<br />
+                                之后重新读出数据库中的内容,绑定到gridview中,通过control.RenderControl()返回带有html标记字符串,之后通过&nbsp;string&nbsp;GetCallbackResult()返回到js接收函数~<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此过程流程一切正常,对于英文的字符,正确显示无误,但是一旦控件中含有中文字符,回调之后的gridview中就回出现乱码,仍然没有解决~<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请高手给于指点,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期望于您交流&nbsp;&nbsp;&nbsp;MSN:&nbsp;peter_wangmingli@hotmail.com<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-296" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                TO&nbsp;sp1234<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刚才做错了&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;ICallbackEventHandler可以访问页面上所有控件的Post值，你不需要使用eventArgument传递什么中文。&quot;<br />
+                                &nbsp;&nbsp;怎样访问控件里的值,是在RaiseCallbackEvent(string&nbsp;eventArgument)函数里&nbsp;&nbsp;直接访问页面控件吗?&nbsp;&nbsp;比如说&nbsp;string&nbsp;str=this.TextBox1.Text.Trim();<br />
+                                这样好象访问不到</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-297" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;&nbsp;scow&nbsp;&nbsp;&nbsp;比如&nbsp;string&nbsp;str=this.TextBox1.Text;<br />
+                                文本框里明明有值,但是str=&quot;&quot;<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-298" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                奇怪了~&nbsp;<br />
+                                比如说&nbsp;&nbsp;&nbsp;在页面load&nbsp;的时候&nbsp;&nbsp;我让this.TextBox1.Text=&quot;123&quot;<br />
+                                &nbsp;这样就在RaiseCallbackEvent(string&nbsp;eventArgument)可以访问到里面的值但是&nbsp;&nbsp;这个TextBox1里面的值是用户自己输入的.比如说是用户的留言<br />
+                                这样&nbsp;&nbsp;就在RaiseCallbackEvent(string&nbsp;eventArgument)里访问不到它的内容了&nbsp;&nbsp;<br />
+                                内容为空&nbsp;&nbsp;如上~&nbsp;&nbsp;(注:enableViewState=true)</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-299" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                那是因为没有postback,&nbsp;textbox的值没有提交到服务端,&nbsp;可以从客户端传,<br />
+                                &nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/javascript&quot;&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;LookUpStock()<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;id&nbsp;=&nbsp;&#39;&lt;%=TextBox1.ClientID&nbsp;%&gt;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;obj&nbsp;=&nbsp;document.getElementById(id);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;product&nbsp;=&nbsp;obj.value;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CallServer(product,&nbsp;&quot;&quot;);//这里把TextBox1的值传到服务端<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;ReceiveServerData(rValue)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results.innerText&nbsp;=&nbsp;rValue;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&lt;/script&gt;&lt;table&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;onclick=&quot;LookUpStock()&quot;&gt;Look&nbsp;Up&nbsp;Stock&lt;/button&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br&nbsp;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br&nbsp;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Items&nbsp;in&nbsp;stock:&nbsp;&lt;span&nbsp;ID=&quot;Results&quot;&gt;&lt;/span&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br&nbsp;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;asp:TextBox&nbsp;ID=&quot;TextBox1&quot;&nbsp;runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br />
+                                &lt;/table&gt;后台:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;string&nbsp;str;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;Page_Load(object&nbsp;sender,&nbsp;EventArgs&nbsp;e)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;cbReference&nbsp;=<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.Page.ClientScript.GetCallbackEventReference(this,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;arg&quot;,&nbsp;&quot;ReceiveServerData&quot;,&nbsp;&quot;context&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;callbackScript;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callbackScript&nbsp;=&nbsp;&quot;function&nbsp;CallServer(arg,&nbsp;context)&quot;&nbsp;+<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;{&nbsp;&quot;&nbsp;+&nbsp;cbReference&nbsp;+&nbsp;&quot;}&nbsp;;&quot;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(),<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;CallServer&quot;,&nbsp;callbackScript,&nbsp;true);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;ICallbackEventHandler.GetCallbackResult()<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;str+&quot;xxx&quot;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;ICallbackEventHandler.RaiseCallbackEvent(string&nbsp;eventArgument)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str&nbsp;=&nbsp;eventArgument;//客户端的值传到eventArgument参数<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-300" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                1.AJAX最好全用utf-8的，否则异步请求很容易会变成乱码，这不仅仅是js的问题。2.Page中需要注册script，请使用Page.ClientScript.Register...()系列的方法，详细请看MSDN。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-301" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;scow:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我开始的做法基本上是按你的思路做的,后来sp1234提醒我后台直接取值<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过&nbsp;&nbsp;照您所说的方法,通过过js传递字符串到后台,处理之后前台显示的时候出现了乱吗~&nbsp;&nbsp;&nbsp;&nbsp;我没有用抛脚本的方式注册script,用了一个简单绑定,我想二者效果应该一样~不是产生乱码的原因<br />
+                                &nbsp;&nbsp;&nbsp;我的脚本如下:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;CallServer(inputString,&nbsp;context)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.innerHTML&nbsp;=&nbsp;&quot;&lt;IMG&nbsp;SRC=&#39;pics/pie.gif&#39;&nbsp;/&gt;Loading...&quot;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;%=&nbsp;ClientScript.GetCallbackEventReference(this,&quot;inputString&quot;,&nbsp;&quot;ReceiveServerData&quot;,&nbsp;&quot;context&quot;)%&gt;;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                function&nbsp;ReceiveServerData(result,&nbsp;context)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.innerHTML&nbsp;=&nbsp;result;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}后台,对数据做处理,之后写入数据库,之后读出更新后的数据,绑定到gridview1<br />
+                                然后自定义了一个方法,返回用来被客户端js接受的字符串<br />
+                                方法如下<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;string&nbsp;RenderControl(Control&nbsp;control)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringWriter&nbsp;writer1&nbsp;=&nbsp;new&nbsp;StringWriter(CultureInfo.InvariantCulture);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HtmlTextWriter&nbsp;writer2&nbsp;=&nbsp;new&nbsp;HtmlTextWriter(writer1);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;control.RenderControl(writer2);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer2.Flush();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer2.Close();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;writer1.ToString();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                调用string&nbsp;str=this.RenderControl(gridview1);<br />
+                                客户端js接受字符串str并显示~&nbsp;&nbsp;显示结果发现,对数据中的中文字符显示乱码~不知道我说清楚没有.我想解决的乱码问题,我在服务器端,用system.text.encoding命名空间做编码转换,并不能解决这个问题~麻烦您指点一下<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-302" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;cat_hsfz:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;1.AJAX最好全用utf-8的，否则异步请求很容易会变成乱码，这不仅仅是js的问题。<br />
+                                ---------------------------------------------------------------------------------<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;大侠能不能说的具体一点,我对ajax还算初学者.<br />
+                                &nbsp;&nbsp;&nbsp;&quot;&nbsp;全用&nbsp;utf-8&quot;&nbsp;&nbsp;&nbsp;这个编码设置怎么搞?</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-303" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                一般应该不会有中文乱码的问题,&nbsp;我从页面上的TextBox取值,&nbsp;输入中文,&nbsp;也可正常在服务端取到并返回到客户端显示.<br />
+                                你的CallServer函数里的inputString是从哪儿取值的.即客户端怎么调CallServer函数的?</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-304" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;scow:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callServer就是在客户端调用的&nbsp;&nbsp;<br />
+                                &lt;a&nbsp;href=&quot;javascript:submitComment();&quot;&gt;&lt;img&nbsp;id=&quot;imgSubmit&quot;&nbsp;border=&quot;0&quot;&nbsp;src=&quot;pics/a_03.gif&quot;&nbsp;/&gt;&lt;/a&gt;<br />
+                                &nbsp;function&nbsp;submitComment()//发表留言<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;a=document.getElementById(&quot;txtCommentName&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;b=document.getElementById(&quot;txtCommentLink&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c=document.getElementById(&quot;txtTitle&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;d=document.getElementById(&quot;txtCommentContext&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;e=document.getElementById(&quot;hideID&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String.prototype.Trim=function()&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;&nbsp;&nbsp;this.replace(/(^\s*)|(\s*$)/g,&quot;&quot;);&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String.prototype.LTrim=function()&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;&nbsp;&nbsp;this.replace(/(^\s*)/g,&quot;&quot;);&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String.prototype.RTrim=function()&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;&nbsp;&nbsp;this.replace(/(\s*$)/g,&quot;&quot;);&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(c.value.Trim()==&quot;&quot;)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(&quot;主题不能为空&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if(d.value.Trim()==&quot;&quot;)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(&quot;内容不能为空&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if(d.value.Trim().length&gt;250)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(&quot;内容过长\r\n最大允许长度为250字符&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.focus();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;aValue=a.value.Trim().replace(/\|/g,&quot;/&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;bValue=b.value.Trim().replace(/\|/g,&quot;/&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;cValue=c.value.Trim().replace(/\|/g,&quot;/&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;dValue=d.value.Trim().replace(/\|/g,&quot;/&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;commentMethod=&quot;submitCommentServer|&quot;+&nbsp;连接上aValue,bValue等;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById(&quot;divComment&quot;).style.visibility=&quot;hidden&quot;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CallServer(commentMethod,commentSpan);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}submitComment()就是实现了对字符串的处理,inputString包括&quot;服务器端的方法名+各种参数值&quot;,然后我在服务器端分割这个字符串;我的代码对于功能上的实现是没有问题的,输入英文字母&nbsp;&nbsp;正常显示,中文&nbsp;显示乱吗<br />
+                                我做过实现,类似的方法实现您上面代码的功能,不会出现中文乱玛,问题是我的输入是一个gridview的html内容,然后显示在客户端的&lt;span/&gt;里,构造gridview的html字符串参见上面帖子里<br />
+                                private&nbsp;string&nbsp;RenderControl(Control&nbsp;control)<br />
+                                这种情况就出现了乱码如果方便的话&nbsp;您可以+我MSN&nbsp;&nbsp;&nbsp;peter_wangmingli@hotmail.com&nbsp;&nbsp;<br />
+                                我可以传源码过去,请您指点</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-305" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                看RenderControl也没用到客户端传过去的值commentMethod.是哪个地方有中文的话出现乱码呢.<br />
+                                发个完整版的到我邮箱看看吧,&nbsp;amazon_scow@freemail.china.com</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-306" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                数据库里就是乱码,&nbsp;那显示在gridview呢?&nbsp;如果数据存的时候就有问题.&nbsp;正常显示是没指望了.</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-307" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;scow<br />
+                                代码已经发送到您邮箱&nbsp;&nbsp;请您指点一下<br />
+                                我觉的是从客户端js传递到服务器端函数的过程中&nbsp;产生的乱码<br />
+                                因为客户端我alert&nbsp;&nbsp;&nbsp;没有乱码<br />
+                                而到了服务器端插入数据库后&nbsp;&nbsp;数据库数据为乱码</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-308" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                没收到,&nbsp;试试amazon_scow@mail.china.com这个地址行不行.</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-309" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                按你的代码改了一下,还是没有发现乱码问题,代码如下:<br />
+                                继承ICallbackEventHandler接口的用户控件,&nbsp;前台:<br />
+                                &lt;%@&nbsp;Control&nbsp;Language=&quot;C#&quot;&nbsp;AutoEventWireup=&quot;true&quot;&nbsp;CodeFile=&quot;wc.ascx.cs&quot;&nbsp;Inherits=&quot;wc&quot;&nbsp;%&gt;&nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/javascript&quot;&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;LookUpStock()<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;id&nbsp;=&nbsp;&#39;&lt;%=TextBox1.ClientID&nbsp;%&gt;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;a&nbsp;=&nbsp;document.getElementById(id);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;&#39;&lt;%=TextBox2.ClientID&nbsp;%&gt;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;b&nbsp;=&nbsp;document.getElementById(id);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;&#39;&lt;%=TextBox3.ClientID&nbsp;%&gt;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c&nbsp;=&nbsp;document.getElementById(id);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;&#39;&lt;%=TextBox4.ClientID&nbsp;%&gt;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;d&nbsp;=&nbsp;document.getElementById(id);&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;product&nbsp;=&nbsp;a.value.replace(/\&amp;/g,&quot;_&quot;)+&nbsp;&quot;&amp;&quot;&nbsp;+b.value.replace(/\&amp;/g,&quot;_&quot;)+&nbsp;&quot;&amp;&quot;&nbsp;+c.value.replace(/\&amp;/g,&quot;_&quot;)+&quot;&amp;&quot;+d.value.replace(/\&amp;/g,&quot;_&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(product);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CallServer(product,&nbsp;&quot;&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;ReceiveServerData(rValue)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results.innerText&nbsp;=&nbsp;rValue;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&lt;/script&gt;&lt;table&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;onclick=&quot;LookUpStock()&quot;&gt;Look&nbsp;Up&nbsp;Stock&lt;/button&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br&nbsp;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br&nbsp;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Items&nbsp;in&nbsp;stock:&nbsp;&lt;span&nbsp;ID=&quot;Results&quot;&gt;&lt;/span&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;asp:GridView&nbsp;ID=&quot;GridView1&quot;&nbsp;runat=&quot;server&quot;&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/asp:GridView&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CommentName:&lt;asp:TextBox&nbsp;ID=&quot;TextBox1&quot;&nbsp;runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CommentLink:&lt;asp:TextBox&nbsp;ID=&quot;TextBox2&quot;&nbsp;runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:&lt;asp:TextBox&nbsp;ID=&quot;TextBox3&quot;&nbsp;runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CommentContext:&lt;asp:TextBox&nbsp;ID=&quot;TextBox4&quot;&nbsp;runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br />
+                                &lt;/table&gt;后台:<br />
+                                public&nbsp;partial&nbsp;class&nbsp;wc&nbsp;:&nbsp;System.Web.UI.UserControl,&nbsp;ICallbackEventHandler<br />
+                                {<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;string&nbsp;str;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;Page_Load(object&nbsp;sender,&nbsp;EventArgs&nbsp;e)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;cbReference&nbsp;=<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.Page.ClientScript.GetCallbackEventReference(this,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;arg&quot;,&nbsp;&quot;ReceiveServerData&quot;,&nbsp;&quot;context&quot;);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;callbackScript;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callbackScript&nbsp;=&nbsp;&quot;function&nbsp;CallServer(arg,&nbsp;context)&quot;&nbsp;+<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;{&nbsp;&quot;&nbsp;+&nbsp;cbReference&nbsp;+&nbsp;&quot;}&nbsp;;&quot;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(),<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;CallServer&quot;,&nbsp;callbackScript,&nbsp;true);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;ICallbackEventHandler.GetCallbackResult()<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;str;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;ICallbackEventHandler.RaiseCallbackEvent(string&nbsp;eventArgument)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string[]&nbsp;param&nbsp;=&nbsp;eventArgument.Split(new&nbsp;char[]&nbsp;{&nbsp;&#39;&amp;&#39;&nbsp;});&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QueryProductComment&nbsp;myComment&nbsp;=&nbsp;new&nbsp;QueryProductComment();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myComment.InsertCommentWithPID(param);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showProductComment(1);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str&nbsp;=&nbsp;RenderControl(this.GridView1);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;string&nbsp;RenderControl(Control&nbsp;control)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringWriter&nbsp;writer1&nbsp;=&nbsp;new&nbsp;StringWriter(CultureInfo.InvariantCulture);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HtmlTextWriter&nbsp;writer2&nbsp;=&nbsp;new&nbsp;HtmlTextWriter(writer1);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;control.RenderControl(writer2);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer2.Flush();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer2.Close();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;writer1.ToString();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;void&nbsp;showProductComment(int&nbsp;pid)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QueryProductComment&nbsp;myComment&nbsp;=&nbsp;new&nbsp;QueryProductComment();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DataTable&nbsp;myTable&nbsp;=&nbsp;myComment.QueryCommentWithPID(pid);<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.GridView1.DataSource&nbsp;=&nbsp;myTable;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.GridView1.DataBind();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                                }&nbsp;我把表中的commentTime字段去掉(这个没影响),按你所述,&nbsp;插到数据库时就会是乱码,&nbsp;但我这里正常,&nbsp;直到最后显示也没这个问题.&nbsp;另外,&nbsp;你在后台绑定GridView是没效果的,&nbsp;这个无刷新想更新页面显示只能在前台处理.&nbsp;可以试着直接在查询分析器直接插入中文值或查看客户端传到服务端的值(eventArgument)看有无问题,确定是哪一步的问题再说.</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-310" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                scow&nbsp;&nbsp;&nbsp;&nbsp;万分感谢您不厌其烦的指点&quot;另外,&nbsp;你在后台绑定GridView是没效果的,&nbsp;这个无刷新想更新页面显示只能在前台处理.&quot;<br />
+                                ---------------------------------------------------------------------------------<br />
+                                对于您这句话我不是太理解,为什么会没有效果呢?您的意思是说由于GridView1没有postback.所以对它的操作(showProductComment(int&nbsp;pid))没有起作用吗?<br />
+                                可是,如果我在前台,也就是那个发表留言的&lt;div&gt;里输入英文字母,已经成功实现了无刷新,数据显示无误,并且刚刚发表的留言也会显示出来</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-311" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                怎样访问控件里的值,是在RaiseCallbackEvent(string&nbsp;eventArgument)函数里&nbsp;&nbsp;直接访问页面控件吗?&nbsp;&nbsp;比如说&nbsp;string&nbsp;str=this.TextBox1.Text.Trim();<br />
+                                这样好象访问不到<br />
+                                ————————————————————————————————————————<br />
+                                这个内容以后的我还没有看，也许已经有答复，我这里还是答复一下，因为这很重要。vs2005的ICallbackEvent输出的客户端脚本有2个关键的BUG，不知道补丁中是否解决，一个就是post的了数据但是确不对，另外一个就是当有大量并发请求并且其中有的请求相应比较慢完成的时候会出现javascript中某个object不存在的错误。对于第一个，你可以这样：<br />
+                                &nbsp;&nbsp;this.ClientScript.RegisterStartupScript(this.GetType(),&quot;updateICallbackDef&quot;,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;@&quot;&lt;script&nbsp;type=&#39;text/javascript&#39;&gt;<br />
+                                &nbsp;&nbsp;&nbsp;var&nbsp;old_WebForm_DoCallback=old_WebForm_DoCallback;<br />
+                                &nbsp;&nbsp;&nbsp;function&nbsp;WebForm_DoCallback(a,b,c,d,e,f)<br />
+                                &nbsp;&nbsp;&nbsp;{<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__theFormPostData&nbsp;=&nbsp;&#39;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__theFormPostCollection&nbsp;=&nbsp;new&nbsp;Array();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WebForm_InitCallback();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_WebForm_DoCallback(a,b,c,d,e,f);<br />
+                                &nbsp;&nbsp;&nbsp;}<br />
+                                &nbsp;&nbsp;&nbsp;&lt;/script&gt;&quot;);</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-312" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                               =old_WebForm_DoCallback&nbsp;&nbsp;&nbsp;--&gt;&nbsp;&nbsp;=WebForm_DoCallback原来的WebForm_DoCallback调用之前，__theFormPostData&nbsp;中的值有错误。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-313" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                sorry，随手写的，语法错了，大概应该为：var&nbsp;old_WebForm_DoCallback=WebForm_DoCallback;<br />
+                                WebForm_DoCallback=function(a,b,c,d,e,f)<br />
+                                {<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;__theFormPostData&nbsp;=&nbsp;&#39;&#39;;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;__theFormPostCollection&nbsp;=&nbsp;new&nbsp;Array();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;WebForm_InitCallback();<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;old_WebForm_DoCallback(a,b,c,d,e,f);<br />
+                                }<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-314" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                对于post中的中文，asp.net没有乱码，所以你把上述的参数b写为null从而禁用eventArgument也可以。另外你刷新整个GridView，这没有必要。应该参数c所代表的你的javascript方法具有对结果简单的解释功能，后台推送任何控件的html给javascript，这时候后台推送GridView中的某个item或者cell而不要刷新大的区域。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-315" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;scow<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;我把代码改成您的方式,从后台抛脚本&nbsp;callserver&nbsp;&nbsp;还是中文出现了乱码<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;这次我确定,乱码是在从js传递到服务端方法的过程中产生的,因为我的客户端callServer之前alert,字符串没有问题,而在GetCallbackResult()里直接输出从客户端传递过来的字符串(传递过来之后没做任何操作),就出现了乱码.&nbsp;&nbsp;&nbsp;&nbsp;是因为我的web.config的问题吗?<br />
+                                &lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;encoding=&quot;gb2312&quot;&nbsp;?&gt;<br />
+                                &lt;system.web&gt;<br />
+                                &lt;globalization&nbsp;requestEncoding=&quot;gb2312&quot;&nbsp;responseEncoding=&quot;gb2312&quot;/&gt;<br />
+                                &lt;/system.web&gt;<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-316" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                To&nbsp;sp1234:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;感谢您的回复,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过我的资质有限,而且对js的理解不是很深刻,也没有仔细揣摩过经由服务器处理后生成的&lt;html&gt;中的js代码,所以,对于您抛砖引玉的几段js代码越看越迷糊~&nbsp;呵呵<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您所提到的建议&quot;不刷新整个gridview,只刷新某些cell或者item&quot;,的确金玉良言,不过我初探&quot;&nbsp;ICallbackEventHandler&quot;,还没能熟练掌握,如您所言,只刷新某些cell或者item的话,我实在不知道这个context应该怎么定义,一般的做法我都是把它固定为一个具体的&lt;span&gt;或者&lt;div&gt;,如果仅仅在现有的&lt;table&gt;上追加一些&lt;tr&gt;&lt;td&gt;,达到只刷新更改过后的item,cell的话,这个context要定义为什么才能做到追加的效果呢?追加之后的分页又需要怎么处理呢?<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些问题我感觉实在是有点高深,高手即便点化我一招半式,我想我也消化不了,如果您在这方面有些成熟的小例子,期望您能发送一份到我信箱&nbsp;&nbsp;&nbsp;mingli.wang@163.com<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不胜感激您的指点~!</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-317" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                不要使用EventArgument传递字符串。例如你可以在页面放一个HiddenField或者一个TextBox。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-318" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                修改web.config<br />
+                                &lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;encoding=&quot;gb2312&quot;?&gt;&nbsp;-&gt;&nbsp;&lt;?xml&nbsp;version=&quot;1.0&quot;?&gt;&lt;globalization&nbsp;requestEncoding=&quot;gb2312&quot;&nbsp;responseEncoding=&quot;gb2312&quot;/&gt;&nbsp;-&gt;<br />
+                                &lt;globalization&nbsp;culture=&quot;en-us&quot;&gt;&lt;/globalization&gt;</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-319" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                你不需要定义context。例如你写：str&nbsp;=&nbsp;yourControl.clientID+&quot;@~@!@#@&quot;+&nbsp;RenderControl(yourControl);然后客户端写为类似：<br />
+                                &nbsp;&nbsp;var&nbsp;s[]=result.split(&quot;@~@!@#@&quot;);<br />
+                                &nbsp;&nbsp;document.all(s[0]).outerHTML=s[1];</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-320" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                我不建议你去改web.config或者页面。如果页面不使用ICallbackEventHandler的时候没有问题，所有中文都可以postback，就使用这个机制，不要越优化路子越窄。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-321" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                我从来没有特意设置过页面编码，但是没有出现中文不能正确上传下载的问题，唯一的区别就是我使用的EventArgument中从未有中文出现，所以我不确定什么方式可以什么方式不可以。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-322" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                web.config编码那块,&nbsp;都是用的默认的.&nbsp;没出过什么中文乱码问题.&nbsp;改成gb2312倒是第一次遇到乱码.</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-323" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                实际上，GetCallbackResult&nbsp;需要输出控制刷新控件。一旦post上来的值能够正常，很多控件的xxxxChanged等事件都会，并且你的raiseCallbackEvent也会需要刷新不只一个控件，你可以把它们组合进返回中，由客户端分别刷新页面上多个控件——控件越小效果越好。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-324" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                你可以在页面上定义一个&nbsp;List&lt;string&gt;&nbsp;类型的变量，然后GetCallbackResult&nbsp;把它们组合在一起输出。客户端获得的是<br />
+                                &nbsp;&nbsp;{控件id}{分隔符}{控件内容}[{分隔符}{控件id}{分隔符}{控件内容}]....<br />
+                                这样的字符串，一次性刷新页面页面上多个控件。使用context标记控件id反倒比较死板。</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-325" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                to&nbsp;ALL高手:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我快疯了,为什么仅仅是中文出现乱码,英文正常显示?????<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想起陈小春的一首歌&lt;神啊!救救我吧&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tmd,可怜身边一个能拉我一把的人都没有.....我要跳槽:&lt;</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-326" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                还没搞定?web.config改回来也不行?</div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                        <li id="comment-327" class="comment-body comment-parent comment-odd" style="margin: 0px; padding: 5px 0px; border-width: 0px 0px 6px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+                            <p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                            <div class="post_body" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                                问题已经找到,但是并没有解决<br />
+                                其他程序员在编码时,引用了vb的类库,web.config里如下配置<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;compilation&nbsp;defaultLanguage=&quot;c#&quot;&nbsp;debug=&quot;true&quot;&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assemblies&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;add&nbsp;assembly=&quot;Microsoft.VisualBasic,&nbsp;Version=8.0.0.0,&nbsp;Culture=neutral,&nbsp;PublicKeyToken=B03F5F7F11D50A3A&quot;/&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/assemblies&gt;<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/compilation&gt;<br />
+                                造成必须填写&lt;globalization&nbsp;requestEncoding=&quot;gb2312&quot;&nbsp;responseEncoding=&quot;gb2312&quot;/&gt;<br />
+                                否则,所有页面显示都不正常,字体小的看不清,css根本不管用原因是什么,我不明白<br />
+                                所以,如果我改掉&lt;globalization&nbsp;&gt;所有页面都显示不正常了,包括我的,除非在每个网页的&lt;@page&gt;指令里+上ResponseEncoding=&quot;gb2312&quot;;可能是因为前面引用vb类库的缘故,但页面太多,而且后续的所有页面也得+这个指令,这种方法不太可取;<br />
+                                如果把&lt;assemblies&gt;&lt;add....去掉,引用vb类库的代码会报错;前辈们能不能指点个方便的方法..-----------------------------------------------------------------------<br />
+                                to&nbsp;scow:<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;globalization&nbsp;culture=&quot;en-us&quot;&gt;&lt;/globalization&gt;里面&nbsp;&nbsp;&quot;en-us&quot;是什么意思?能给讲一下吗?<br />
+                            </div>
+                            &nbsp;&nbsp;<p style="margin: 0px 0px 15px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+                <div class="comment" style="margin: 0px; padding: 15px 30px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+                    <ul style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; list-style: none; background-position: initial initial; background-repeat: initial initial;">
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1359187.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">我写了个模板数据绑定控件</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1359189.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">窗口打开问题</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/25640.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">求个NHibernate例子,最简单的的都行</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/87480.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">怎么获取别人传过来的文件，非自己网站提供的上传。</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/133364.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">Request如何获取datatable的结果集</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/261156.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">今天遇到了一个难题啊，很急啊，大家帮帮忙啊！</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/792820.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">RegularExpressionValidator如何验证用户输入的不能是纯数字</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1461119.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">哪个网站管理系统支持的视频格式丰富？</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1656741.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">怎样在脚本中查找DataGrid中模板列的控件名称，并赋值</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1851957.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">c#中，与VBScript的：Chr(9) 对应的语句为什么？</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/1997292.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: underline; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">请问各位，有没有办法将htmltable导出到excel的方法</a></li>
+                        <li style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><a href="http://www.debugease.com/aspdotnet/2030712.html" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-color: transparent; color: rgb(71, 160, 204); text-decoration: none; cursor: pointer; background-position: initial initial; background-repeat: initial initial;">vs.net编译时可以加参数吗,谢谢大家,请帮忙!</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

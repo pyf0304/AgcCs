@@ -1,0 +1,115 @@
+﻿<%@ Master Language="C#" AutoEventWireup="True" CodeBehind="EditTable2.master.cs" Inherits="Webform_Table2_EditTable2" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <title>生成代码--工程表综合维护</title>
+
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style1
+        {
+            width: 186px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <table style="width: 100%; height: 294px; position: absolute; top: 1px; left: 1px;"
+        border="0" cellpadding="0" cellspacing="0">
+        <tr style="height: 92px">
+            <td colspan="2" style="background-image: url('../../pic/top-1.gif')">
+                <table style="width: 100%; height: 92px;">
+                    <tr>
+                        <td style="width: 360px">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:Label ID="lblTabNameObjName" runat="server" Text="Label" Font-Size="Small"></asp:Label>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 300px">
+                            &nbsp;
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="style1">
+                <cc1:Accordion ID="accPrjTab" runat="server">
+                </cc1:Accordion>
+            </td>
+            <td valign="top">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="top">
+                                    <asp:Menu ID="Menu3" runat="server" Orientation="Horizontal" Width="617px" OnMenuItemClick="Menu3_MenuItemClick"
+                                        BackColor="#B5C7DE" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="13px"
+                                        ForeColor="#284E98" StaticSubMenuIndent="10px">
+                                        <Items>
+                                            <asp:MenuItem Text="对象属性" Value="Object"></asp:MenuItem>
+                                            <asp:MenuItem Text="表属性" Value="Table"></asp:MenuItem>
+                                            <asp:MenuItem Text="对象字段" Value="ObjField"></asp:MenuItem>
+                                            <asp:MenuItem Text="表字段" Value="TabField"></asp:MenuItem>
+                                            <asp:MenuItem Text="检查一致性" Value="CheckConsistency"></asp:MenuItem>
+                                            <asp:MenuItem Text="生成代码" Value="GeneCode"></asp:MenuItem>
+                                            <asp:MenuItem Text="生成SQL存储过程" Value="GeneSqlSP"></asp:MenuItem>
+                                            <asp:MenuItem Text="生成Oracle存储过程" Value="GeneOracleSP"></asp:MenuItem>
+                                        </Items>
+                                        <StaticSelectedStyle BackColor="#CC66FF" />
+                                        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                        <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+                                        <DynamicMenuStyle BackColor="#B5C7DE" />
+                                        <DynamicSelectedStyle BackColor="#507CD1" />
+                                        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                        <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+                                    </asp:Menu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

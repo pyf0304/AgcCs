@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+        }
+    </style>
+    <style type="text/css">
+        .tooltip {
+            width: 219px;
+            height: 33px;
+            background-color:gray;
+        }
+
+            .tooltip a {
+                width: 219px;
+                height: 33px;
+                display: block;
+            }
+    </style>
+
+    <script src="../../Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        //$(function () {
+        //    var oldY = null;
+        //    var isdown = false;
+        //    $("#testcss").mousedown(function (e) {
+        //        isdown = true;
+        //        oldY = e.clientY;
+        //    });
+        //    $("html").mousemove(function (e) {
+        //        if (isdown) {
+        //            $("#testcss").css("transform", "rotate(" + (e.clientY - oldY) + "deg)");
+        //        }
+        //    });
+        //    $("html").mouseup(function (e) {
+        //        isdown = false;
+        //        oldY = null;
+        //    });
+        //});
+        //$(function () {
+        //    $('div').click(function () {
+
+        //        alert(this.innerText);
+        //    });
+        //});
+        function getSelectText() {
+            var txt = "";
+            if (document.selection) {
+                txt = document.selection.createRange().text;
+            }
+
+            else {
+                txt = document.getSelection();
+                //txt = window.getSelection();
+            }
+
+            return $.trim(txt.toString());
+        }
+
+        function getPosition(e) {
+            var x = 15;
+            var y = 15;
+            var r = getSelectText();
+            if (r) {
+                var bowen = r.toString();
+                var tooltip = "<div id='tooltip' class='tooltip'><a href='javascript:void(0)' target='_blank'>" + bowen + "</a></div>";
+                $("body").append(tooltip);
+                $("#tooltip").css({
+                    "top": (e.pageY + y) + "px",
+                    "left": (e.pageX + x) + "px",
+                    "position": "absolute"
+                }).show("fast");
+            }
+
+        }
+        $(function () {
+            //$('div').oncontextmenu(function (e) {
+            //    e.preventDefault();
+            //});
+
+            //$('div').click(        function(oEvent) {
+            //if (!oEvent) oEvent = window.event;
+            //    if (oEvent.button == 2) {
+            //        console.log('鼠标右击了')
+            //        alert(this.innerText + '鼠标右击了');
+            //    }
+            //    else {
+            //        alert(this.innerText + '鼠标左击了');
+            //    }
+            //});
+            //$('div').mousedown(
+            //    function (e) {
+            //    if (e.which == 3) {  // 1 = 鼠标左键 left; 2 = 鼠标中键; 3 = 鼠标右键
+            //        //alert("按下的是鼠标右键");
+            //                   alert(this.innerText + '鼠标右击了');
+            //        }
+            //    else {
+            //        alert(this.innerText + '鼠标左击了');
+            //    }
+            //    });
+            $("div").mouseup(function (e) {
+                var txt = getSelectText();
+                txt = $.trim(txt);
+                getPosition(e);
+            }).mousedown(function () {
+                $("#tooltip").remove();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="testcss"> </div>
+    <div id="a1"> aaa</div>
+    <div id="b1"> bbb</div>
+
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+﻿.TNStyle1 {
+    color: red;
+    font-size: 15px;
+}
+
+    .TNStyle1 table {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+        .TNStyle1 table td {
+            margin: 1px;
+            padding: 2px;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+            .TNStyle1 table td a {
+                color: #3366CC;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+    .TNStyle1 div table {
+        color: #3366FF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+        .TNStyle1 div table td {
+            margin: 1px;
+            color: #3366FF;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: bold;
+            text-align: left;
+        }
+
+            .TNStyle1 div table td a {
+                margin: 1px;
+                color: #0099CC;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: bold;
+                text-align: left;
+            }
+
+    .TNStyle1 div div table {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+        text-align: left;
+    }
+
+        .TNStyle1 div div table td {
+            font-size: 14px;
+            font-style: italic;
+            font-weight: bold;
+            text-align: left;
+        }
+
+            .TNStyle1 div div table td a {
+                margin: 1px;
+                color: #00CCFF;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: bold;
+                text-align: left;
+            }
+
+                .TNStyle1 div div table td a:visited, a:active {
+                    color: #005eac;
+                }
+
+                .TNStyle1 div div table td a:hover {
+                    color: #ff5500;
+                }
+
+    .TNStyle1 div div div table {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+        text-align: left;
+    }
+
+        .TNStyle1 div div div table td {
+            font-size: 14px;
+            font-style: italic;
+            font-weight: bold;
+            text-align: left;
+        }
+
+            .TNStyle1 div div div table td a {
+                margin: 1px;
+                color: #006666;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: bold;
+                text-align: left;
+            }
+
+                .TNStyle1 div div div table td a:visited, a:active {
+                    color: #005eac;
+                }
+
+                .TNStyle1 div div div table td a:hover {
+                    color: #ff5500;
+                }
+
+.selectedNode {
+    color: #FFFFFF;
+    background-color: #0066FF;
+    font-size: 15px;
+    text-align: left;
+}
+.rootNode {
+    color: #003366;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+}

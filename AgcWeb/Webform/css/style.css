@@ -1,0 +1,71 @@
+/* CSS Document */
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif", "宋体";
+	font-size: 12px;
+	color: #444444;
+	line-height: 18px;
+}
+
+td {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #444444;
+}
+
+input{  font-size: 12px; color: #000000; font-family: "Verdana", "Arial", "Helvetica", "sans-serif", "宋体"; border: 1px #604A3B solid; background-color: #FFFFFF}
+
+.button_text {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	color: #7C6452;
+	font-size: 12px;
+}
+.text {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	color: #7C6452;
+	font-size: 12px;
+}
+.text_h {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	color: #7C6452;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.tJKL{
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	color: #7C6452;
+	font-size: 12px;
+	line-height: 18px;
+}
+.text_en {
+	font-family: verdana;
+	color: #7C6452;
+	font-size: 9px;
+	font-weight: bold;
+}
+.text_en_verdana {
+	font-family: verdana;
+	color: #7C6452;
+	font-size: 9px;
+}
+A:link {
+	COLOR: #333333;
+	TEXT-DECORATION: none;
+
+}
+A:visited {
+	COLOR: #333333;
+	TEXT-DECORATION: none;
+
+}
+A:hover {
+	COLOR: #000000;
+	TEXT-DECORATION: underline;
+
+}
