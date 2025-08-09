@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsUsersBL
  表名:Users(00050001)
- * 版本:2025.07.25.1(服务器:WIN-SRV103-116)
- 日期:2025/07/28 01:34:31
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 20:06:46
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:用户管理(UserManage)
  框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
@@ -3361,6 +3361,7 @@ return clsUsersEN._RefreshTimeLst[clsUsersEN._RefreshTimeLst.Count - 1];
  /// </summary>
 public static void ReFreshCache()
 {
+
 if (clsUsersBL.objCommFun4BL != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
@@ -3383,7 +3384,7 @@ clsUsersBL.objCommFun4BL.ReFreshCache();
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-07-28
+ /// 日期:2025-08-09
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>

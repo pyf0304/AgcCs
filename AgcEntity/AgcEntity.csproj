@@ -81,6 +81,7 @@
     <Compile Include="Class\AIModule\clsXWordENEx.cs" />
     <Compile Include="Class\AuthorityManage\clsPriotityOrderENEx.cs" />
     <Compile Include="Class\AuthorityManage\clsUserPrjGrantENEx.cs" />
+    <Compile Include="Class\AuthorityManage\clsUserRolesENEx.cs" />
     <Compile Include="Class\AuthorityManage\clsUserViewGrantENEx.cs" />
     <Compile Include="Class\AuthorityManage\clsvUserPrjGrantENEx.cs" />
     <Compile Include="Class\BaseInfo\clsCollegeENEx.cs" />
@@ -148,8 +149,10 @@
     <Compile Include="Class\GeneCode\clsCodeLocationENEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeParaENEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeSegmentENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCodeTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsDict4GCENEx.cs" />
     <Compile Include="Class\GeneCode\clsDictType4GCENEx.cs" />
+    <Compile Include="Class\GeneCode\clsEventTabENEx.cs" />
     <Compile Include="Class\GeneCode\clsFrontAndBack4AppTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsGCConstantPrjIdRelaENEx.cs" />
     <Compile Include="Class\GeneCode\clsGCContainerTypeENEx.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Class\GeneCode\clsValueGivingModeENEx.cs" />
     <Compile Include="Class\GeneCode\clsvAppCodeTypeRelaENEx.cs" />
     <Compile Include="Class\GeneCode\clsvApplicationTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvCodeTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsvCodeType_SimENEx.cs" />
     <Compile Include="Class\GeneCode\clsvDict4GCENEx.cs" />
     <Compile Include="Class\GeneCode\clsvFrontAndBack4AppTypeENEx.cs" />
@@ -173,6 +177,7 @@
     <Compile Include="Class\GeneCode\clsViewDesignENEx.cs" />
     <Compile Include="Class\GeneCode\clsViewIdGCVariableRelaENEx.cs" />
     <Compile Include="Class\GeneCode\clsViewReferFilesENEx.cs" />
+    <Compile Include="Class\GeneCode\clsvProgLangTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsvReferFilesENEx.cs" />
     <Compile Include="Class\GeneCode\clsvViewReferFilesENEx.cs" />
     <Compile Include="Class\GeneCode\clsvWebSrvClass4GeneCodeENEx.cs" />
@@ -190,7 +195,6 @@
     <Compile Include="Class\J2EEModule\clsStrutsActionENEx.cs" />
     <Compile Include="Class\LogManage\clsErrorInformationENEx.cs" />
     <Compile Include="Class\LogManage\clsErrorLevelENEx.cs" />
-    <Compile Include="Class\LogManage\clsEventTabENEx.cs" />
     <Compile Include="Class\LogManage\clsLog4CreateView4SqlENEx.cs" />
     <Compile Include="Class\LogManage\clsLog4GC_WebSrvClassENEx.cs" />
     <Compile Include="Class\LogManage\clsLog4GeneTabCodeENEx.cs" />
@@ -273,7 +277,9 @@
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropENEx.cs" />
     <Compile Include="Class\PrjInterface\clsCtlTypeENEx.cs" />
     <Compile Include="Class\PrjInterface\clsDataGridStyleENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDDLItemsOptionENEx.cs" />
     <Compile Include="Class\PrjInterface\clsDgFuncTypeENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsDropDownLstStyleENEx.cs" />
     <Compile Include="Class\PrjInterface\clsFeatureImplementationENEx.cs" />
     <Compile Include="Class\PrjInterface\clsQueryOptionENEx.cs" />
     <Compile Include="Class\PrjInterface\clsSQLDSTypeENEx.cs" />
@@ -376,7 +382,6 @@
     <Compile Include="Class\SysPara\clsAssociationTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsButtonStyleENEx.cs" />
     <Compile Include="Class\SysPara\clsCharEncodingENEx.cs" />
-    <Compile Include="Class\SysPara\clsCodeTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsDataBaseTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsDataTypeAbbrENEx.cs" />
     <Compile Include="Class\SysPara\clsFKeysENEx.cs" />
@@ -387,12 +392,9 @@
     <Compile Include="Class\SysPara\clsPrjFileStateENEx.cs" />
     <Compile Include="Class\SysPara\clsProgLangTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsRetrievalMethodENEx.cs" />
-    <Compile Include="Class\SysPara\clsTabTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsTitleStyleENEx.cs" />
     <Compile Include="Class\SysPara\clsTitleTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsUseStateENEx.cs" />
-    <Compile Include="Class\SysPara\clsvCodeTypeENEx.cs" />
-    <Compile Include="Class\SysPara\clsvProgLangTypeENEx.cs" />
     <Compile Include="Class\SysPara\clsvTitleStyleENEx.cs" />
     <Compile Include="Class\SysPara\clsVueCtrlDesignSysENEx.cs" />
     <Compile Include="Class\SystemSet\clsAssociationTabENEx.cs" />
@@ -451,6 +453,7 @@
     <Compile Include="Class\Table_Field\clsTabMainTypeENEx.cs" />
     <Compile Include="Class\Table_Field\clsTabRelationENEx.cs" />
     <Compile Include="Class\Table_Field\clsTabStateENEx.cs" />
+    <Compile Include="Class\Table_Field\clsTabTypeENEx.cs" />
     <Compile Include="Class\Table_Field\clsTestIsRelaToSqlTabENEx.cs" />
     <Compile Include="Class\Table_Field\clsvCodeDictTabENEx.cs" />
     <Compile Include="Class\Table_Field\clsvConstraintFieldsENEx.cs" />
@@ -490,7 +493,6 @@
     <Compile Include="Class\UserManage\clsUserDefaValue_LocalENEx.cs" />
     <Compile Include="Class\UserManage\clsUserIdentityENEx.cs" />
     <Compile Include="Class\UserManage\clsUserLinkRelaENEx.cs" />
-    <Compile Include="Class\UserManage\clsUserRolesENEx.cs" />
     <Compile Include="Class\UserManage\clsUsersENEx.cs" />
     <Compile Include="Class\UserManage\clsUserStateENEx.cs" />
     <Compile Include="Class\UserManage\clsvDepartmentInfoENEx.cs" />
@@ -498,8 +500,6 @@
     <Compile Include="Class\UserManage\clsvUserLinkRelaENEx.cs" />
     <Compile Include="Class\UserManage\clsvUsersENEx.cs" />
     <Compile Include="Class\ViewControlManage\clsCheckStyleENEx.cs" />
-    <Compile Include="Class\ViewControlManage\clsDDLItemsOptionENEx.cs" />
-    <Compile Include="Class\ViewControlManage\clsDropDownLstStyleENEx.cs" />
     <Compile Include="Class\ViewControlManage\clsGenCtlStyleENEx.cs" />
     <Compile Include="Class\ViewControlManage\clsTextBoxStyleENEx.cs" />
     <Compile Include="Class\WorkFlow\clsRelationTypeENEx.cs" />

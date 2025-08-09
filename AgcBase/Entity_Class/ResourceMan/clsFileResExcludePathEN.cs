@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFileResExcludePathEN
  表名:FileResExcludePath(00050588)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:34:17
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 20:09:15
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:资源管理(ResourceMan)
  框架-层名:实体层(CS)(EntityLayer,0001)

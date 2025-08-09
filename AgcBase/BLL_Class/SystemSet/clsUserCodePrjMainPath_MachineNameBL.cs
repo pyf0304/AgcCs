@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsUserCodePrjMainPath_MachineNameBL
  表名:UserCodePrjMainPath_MachineName(00050614)
- * 版本:2025.07.25.1(服务器:WIN-SRV103-116)
- 日期:2025/07/28 01:32:28
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 20:03:30
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:系统设置(SystemSet)
  框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
@@ -2979,10 +2979,17 @@ return clsUserCodePrjMainPath_MachineNameEN._RefreshTimeLst[clsUserCodePrjMainPa
  /// </summary>
 public static void ReFreshCache(string strPrjId)
 {
+
+
 if (string.IsNullOrEmpty(strPrjId) == true)
 {
-string strMsg = string.Format("缓存分类字段:[PrjId]不能为空!(from {0})", clsStackTrace.GetCurrClassFunction());
-throw new Exception(strMsg);
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsUserCodePrjMainPath_MachineNameBL.ReFreshCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsUserCodePrjMainPath_MachineNameBL.ReFreshCache)", strPrjId.Length);
+throw new Exception (strMsg);
 }
 if (clsUserCodePrjMainPath_MachineNameBL.objCommFun4BL != null) 
 {
@@ -3020,7 +3027,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-07-28
+ /// 日期:2025-08-09
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>

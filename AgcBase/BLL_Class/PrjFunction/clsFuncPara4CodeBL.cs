@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFuncPara4CodeBL
  表名:FuncPara4Code(00050384)
- * 版本:2025.07.25.1(服务器:WIN-SRV103-116)
- 日期:2025/07/28 01:31:35
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 20:01:38
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:函数管理(PrjFunction)
  框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
@@ -3156,10 +3156,17 @@ return clsFuncPara4CodeEN._RefreshTimeLst[clsFuncPara4CodeEN._RefreshTimeLst.Cou
  /// </summary>
 public static void ReFreshCache(string strFuncPurposeId)
 {
+
+
 if (string.IsNullOrEmpty(strFuncPurposeId) == true)
 {
-string strMsg = string.Format("缓存分类字段:[FuncPurposeId]不能为空!(from {0})", clsStackTrace.GetCurrClassFunction());
-throw new Exception(strMsg);
+  var strMsg = string.Format("参数:[strFuncPurposeId]不能为空！(In clsFuncPara4CodeBL.ReFreshCache)");
+ throw new Exception  (strMsg);
+}
+if (strFuncPurposeId.Length != 2)
+{
+var strMsg = string.Format("缓存分类变量:[strFuncPurposeId]的长度:[{0}]不正确！(clsFuncPara4CodeBL.ReFreshCache)", strFuncPurposeId.Length);
+throw new Exception (strMsg);
 }
 if (clsFuncPara4CodeBL.objCommFun4BL != null) 
 {
@@ -3197,7 +3204,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-07-28
+ /// 日期:2025-08-09
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>

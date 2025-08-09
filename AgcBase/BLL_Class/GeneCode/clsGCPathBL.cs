@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsGCPathBL
  表名:GCPath(00050595)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:34:29
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 20:08:35
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
@@ -2921,17 +2921,25 @@ return clsGCPathEN._RefreshTimeLst[clsGCPathEN._RefreshTimeLst.Count - 1];
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strPrjId, string strUserId)
+public static void ReFreshCache(string strPrjId,string strUserId)
 {
+
+
 if (string.IsNullOrEmpty(strPrjId) == true)
 {
-string strMsg = string.Format("缓存分类字段:[PrjId]不能为空!(from {0})", clsStackTrace.GetCurrClassFunction());
-throw new Exception(strMsg);
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsGCPathBL.ReFreshCache)");
+ throw new Exception  (strMsg);
 }
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsGCPathBL.ReFreshCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+
 if (string.IsNullOrEmpty(strUserId) == true)
 {
-string strMsg = string.Format("缓存分类字段:[UserId]不能为空!(from {0})", clsStackTrace.GetCurrClassFunction());
-throw new Exception(strMsg);
+  var strMsg = string.Format("参数:[strUserId]不能为空！(In clsGCPathBL.ReFreshCache)");
+ throw new Exception  (strMsg);
 }
 if (clsGCPathBL.objCommFun4BL != null) 
 {
@@ -2969,7 +2977,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-07-28
+ /// 日期:2025-08-09
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>

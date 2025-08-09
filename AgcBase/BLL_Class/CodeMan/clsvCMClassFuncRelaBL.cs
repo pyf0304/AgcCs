@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvCMClassFuncRelaBL
  表名:vCMClassFuncRela(00050510)
- * 版本:2025.08.02.1(服务器:PYF-MINI)
- 日期:2025/08/03 18:46:19
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 19:57:45
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1984,7 +1984,7 @@ return clsvCMClassFuncRelaEN._RefreshTimeLst[clsvCMClassFuncRelaEN._RefreshTimeL
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-03
+ /// 日期:2025-08-09
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
