@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvPrjTabFld_SimWApi
  表名:vPrjTabFld_Sim(00050589)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:36
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:40
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:字段、表维护(Table_Field)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -933,7 +933,7 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 

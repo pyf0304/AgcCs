@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFunctionTemplateRela_SimWApi
  表名:vFunctionTemplateRela_Sim(00050604)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:14
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:13
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:函数管理(PrjFunction)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -404,8 +404,8 @@ public static clsvFunctionTemplateRela_SimEN GetObjByKeyLstCache(string strFunct
 if (string.IsNullOrEmpty(strFunctionTemplateId) == true) return null;
 if (string.IsNullOrEmpty(strFunctionTemplateId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvFunctionTemplateRela_SimEN._CurrTabName, strFunctionTemplateId);
-List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = GetObjLstCache(strFunctionTemplateId);
+string strKey = string.Format("{0}", clsvFunctionTemplateRela_SimEN._CurrTabName);
+List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLst_Sel =
 from objvFunctionTemplateRela_SimEN in arrvFunctionTemplateRela_SimObjLstCache
 where objvFunctionTemplateRela_SimEN.FunctionTemplateId == strFunctionTemplateId 
@@ -509,13 +509,12 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "strFunctionTemplateId">表关键字</param>
  /// <param name = "strFuncId4GC">表关键字</param>
- /// <param name = "strFunctionTemplateId">分类字段值</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvFunctionTemplateRela_SimEN> GetObjLstByKeyLstsCache(List<string> arrFunctionTemplateId, string strFunctionTemplateId)
+public static IEnumerable<clsvFunctionTemplateRela_SimEN> GetObjLstByKeyLstsCache(List<string> arrFunctionTemplateId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvFunctionTemplateRela_SimEN._CurrTabName, strFunctionTemplateId);
-List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = GetObjLstCache(strFunctionTemplateId);
+string strKey = string.Format("{0}", clsvFunctionTemplateRela_SimEN._CurrTabName);
+List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLst_Sel =
 from objvFunctionTemplateRela_SimEN in arrvFunctionTemplateRela_SimObjLstCache
 where arrFunctionTemplateId.Contains(objvFunctionTemplateRela_SimEN.FunctionTemplateId)
@@ -911,24 +910,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strFunctionTemplateId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (string.IsNullOrEmpty(strFunctionTemplateId) == true)
-{
-  var strMsg = string.Format("参数:[strFunctionTemplateId]不能为空！(In clsvFunctionTemplateRela_SimWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
-if (strFunctionTemplateId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strFunctionTemplateId]的长度:[{0}]不正确！(clsvFunctionTemplateRela_SimWApi.ReFreshThisCache)", strFunctionTemplateId.Length);
-throw new Exception (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsvFunctionTemplateRela_SimEN._CurrTabName, strFunctionTemplateId);
+string strKey = string.Format("{0}", clsvFunctionTemplateRela_SimEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -949,65 +937,13 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 public static List<clsvFunctionTemplateRela_SimEN> GetObjLstCache(string strFunctionTemplateId)
 {
 
-
-if (string.IsNullOrEmpty(strFunctionTemplateId) == true)
-{
-  var strMsg = string.Format("参数:[strFunctionTemplateId]不能为空！(In clsvFunctionTemplateRela_SimWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
-if (strFunctionTemplateId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strFunctionTemplateId]的长度:[{0}]不正确！(clsvFunctionTemplateRela_SimWApi.GetObjLstCache)", strFunctionTemplateId.Length);
-throw new Exception (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsvFunctionTemplateRela_SimEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsvFunctionTemplateRela_SimEN._WhereFormat, strFunctionTemplateId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",convFunctionTemplateRela_Sim.FunctionTemplateId, strFunctionTemplateId);
-}
-var strKey = string.Format("{0}_{1}", clsvFunctionTemplateRela_SimEN._CurrTabName, strFunctionTemplateId);
+var strKey = clsvFunctionTemplateRela_SimEN._CurrTabName;
 List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrvFunctionTemplateRela_SimObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvFunctionTemplateRela_SimEN> GetObjLstCacheFromObjLst(string strFunctionTemplateId,List<clsvFunctionTemplateRela_SimEN> arrObjLst_P)
-{
-
-
-if (string.IsNullOrEmpty(strFunctionTemplateId) == true)
-{
-  var strMsg = string.Format("参数:[strFunctionTemplateId]不能为空！(In clsvFunctionTemplateRela_SimWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-if (strFunctionTemplateId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strFunctionTemplateId]的长度:[{0}]不正确！(clsvFunctionTemplateRela_SimWApi.GetObjLstCacheFromObjLst)", strFunctionTemplateId.Length);
-throw new Exception (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsvFunctionTemplateRela_SimEN._CurrTabName, strFunctionTemplateId);
-List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrvFunctionTemplateRela_SimObjLstCache = CacheHelper.Get<List<clsvFunctionTemplateRela_SimEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.FunctionTemplateId == strFunctionTemplateId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrvFunctionTemplateRela_SimObjLstCache = CacheHelper.Get<List<clsvFunctionTemplateRela_SimEN>>(strKey);
-}
-return arrvFunctionTemplateRela_SimObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

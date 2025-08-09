@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDnPath_SimWApi
  表名:vDnPath_Sim(00050603)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:37
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:58
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:AI模块(AIModule)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -440,8 +440,8 @@ public static clsvDnPath_SimEN GetObjByDnPathIdCache(string strDnPathId,string s
 {
 if (string.IsNullOrEmpty(strDnPathId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvDnPath_SimEN._CurrTabName, strPrjId);
-List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache(strPrjId);
+string strKey = string.Format("{0}", clsvDnPath_SimEN._CurrTabName);
+List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvDnPath_SimEN> arrvDnPath_SimObjLst_Sel =
 from objvDnPath_SimEN in arrvDnPath_SimObjLstCache
 where objvDnPath_SimEN.DnPathId == strDnPathId 
@@ -465,11 +465,11 @@ return arrvDnPath_SimObjLst_Sel.First();
  /// </summary>
  /// <param name = "strDnPathId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetDnPathNameByDnPathIdCache(string strDnPathId,string strPrjId)
+public static string GetDnPathNameByDnPathIdCache(string strDnPathId)
 {
 if (string.IsNullOrEmpty(strDnPathId) == true) return "";
 //初始化列表缓存
-List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache(strPrjId);
+List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvDnPath_SimEN> arrvDnPath_SimObjLst_Sel1 =
 from objvDnPath_SimEN in arrvDnPath_SimObjLstCache
 where objvDnPath_SimEN.DnPathId == strDnPathId 
@@ -493,11 +493,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strDnPathId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByDnPathIdCache(string strDnPathId,string strPrjId)
+public static string GetNameByDnPathIdCache(string strDnPathId)
 {
 if (string.IsNullOrEmpty(strDnPathId) == true) return "";
 //初始化列表缓存
-List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache(strPrjId);
+List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvDnPath_SimEN> arrvDnPath_SimObjLst_Sel1 =
 from objvDnPath_SimEN in arrvDnPath_SimObjLstCache
 where objvDnPath_SimEN.DnPathId == strDnPathId 
@@ -600,11 +600,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrDnPathId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvDnPath_SimEN> GetObjLstByDnPathIdLstCache(List<string> arrDnPathId, string strPrjId)
+public static IEnumerable<clsvDnPath_SimEN> GetObjLstByDnPathIdLstCache(List<string> arrDnPathId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvDnPath_SimEN._CurrTabName, strPrjId);
-List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache(strPrjId);
+string strKey = string.Format("{0}", clsvDnPath_SimEN._CurrTabName);
+List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = GetObjLstCache();
 IEnumerable <clsvDnPath_SimEN> arrvDnPath_SimObjLst_Sel =
 from objvDnPath_SimEN in arrvDnPath_SimObjLstCache
 where arrDnPathId.Contains(objvDnPath_SimEN.DnPathId)
@@ -999,24 +999,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvDnPath_SimWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvDnPath_SimWApi.ReFreshThisCache)", strPrjId.Length);
-throw new Exception (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsvDnPath_SimEN._CurrTabName, strPrjId);
+string strKey = string.Format("{0}", clsvDnPath_SimEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1037,65 +1026,13 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 public static List<clsvDnPath_SimEN> GetObjLstCache(string strPrjId)
 {
 
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvDnPath_SimWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvDnPath_SimWApi.GetObjLstCache)", strPrjId.Length);
-throw new Exception (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsvDnPath_SimEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsvDnPath_SimEN._WhereFormat, strPrjId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",convDnPath_Sim.PrjId, strPrjId);
-}
-var strKey = string.Format("{0}_{1}", clsvDnPath_SimEN._CurrTabName, strPrjId);
+var strKey = clsvDnPath_SimEN._CurrTabName;
 List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrvDnPath_SimObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDnPath_SimEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvDnPath_SimEN> arrObjLst_P)
-{
-
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvDnPath_SimWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvDnPath_SimWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
-throw new Exception (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsvDnPath_SimEN._CurrTabName, strPrjId);
-List<clsvDnPath_SimEN> arrvDnPath_SimObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrvDnPath_SimObjLstCache = CacheHelper.Get<List<clsvDnPath_SimEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrvDnPath_SimObjLstCache = CacheHelper.Get<List<clsvDnPath_SimEN>>(strKey);
-}
-return arrvDnPath_SimObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

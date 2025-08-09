@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsWebSrvFunctionsWApi
  表名:WebSrvFunctions(00050342)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:58
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:39:15
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -697,7 +697,7 @@ objWebSrvFunctionsEN.sfUpdFldSetStr = objWebSrvFunctionsEN.getsfUpdFldSetStr();
 clsWebSrvFunctionsWApi.CheckPropertyNew(objWebSrvFunctionsEN); 
 bool bolResult = clsWebSrvFunctionsWApi.UpdateRecord(objWebSrvFunctionsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -754,7 +754,7 @@ try
 clsWebSrvFunctionsWApi.CheckPropertyNew(objWebSrvFunctionsEN); 
 bool bolResult = clsWebSrvFunctionsWApi.AddNewRecord(objWebSrvFunctionsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -780,7 +780,7 @@ try
 clsWebSrvFunctionsWApi.CheckPropertyNew(objWebSrvFunctionsEN); 
 string strWebSrvFunctionId = clsWebSrvFunctionsWApi.AddNewRecordWithMaxId(objWebSrvFunctionsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 return strWebSrvFunctionId;
 }
 catch (Exception objException)
@@ -807,7 +807,7 @@ try
 clsWebSrvFunctionsWApi.CheckPropertyNew(objWebSrvFunctionsEN); 
 bool bolResult = clsWebSrvFunctionsWApi.UpdateWithCondition(objWebSrvFunctionsEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -831,7 +831,7 @@ private static readonly string mstrApiControllerName = "WebSrvFunctionsApi";
 /// 专门在逻辑层用于处理缓存等公共函数的对象
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_DefineObjCommFun4BL)
 /// </summary>
-public static clsCommFun4BLV2 objCommFun4WApi = null;
+public static clsCommFun4BL objCommFun4WApi = null;
 
  public clsWebSrvFunctionsWApi()
  {
@@ -1079,8 +1079,8 @@ public static clsWebSrvFunctionsEN GetObjByWebSrvFunctionIdCache(string strWebSr
 {
 if (string.IsNullOrEmpty(strWebSrvFunctionId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
-List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache(strWebSrvClassId);
+string strKey = string.Format("{0}", clsWebSrvFunctionsEN._CurrTabName);
+List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache();
 IEnumerable <clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLst_Sel =
 from objWebSrvFunctionsEN in arrWebSrvFunctionsObjLstCache
 where objWebSrvFunctionsEN.WebSrvFunctionId == strWebSrvFunctionId 
@@ -1104,11 +1104,11 @@ return arrWebSrvFunctionsObjLst_Sel.First();
  /// </summary>
  /// <param name = "strWebSrvFunctionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetFunctionNameByWebSrvFunctionIdCache(string strWebSrvFunctionId,string strWebSrvClassId)
+public static string GetFunctionNameByWebSrvFunctionIdCache(string strWebSrvFunctionId)
 {
 if (string.IsNullOrEmpty(strWebSrvFunctionId) == true) return "";
 //初始化列表缓存
-List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache(strWebSrvClassId);
+List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache();
 IEnumerable <clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLst_Sel1 =
 from objWebSrvFunctionsEN in arrWebSrvFunctionsObjLstCache
 where objWebSrvFunctionsEN.WebSrvFunctionId == strWebSrvFunctionId 
@@ -1132,11 +1132,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strWebSrvFunctionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByWebSrvFunctionIdCache(string strWebSrvFunctionId,string strWebSrvClassId)
+public static string GetNameByWebSrvFunctionIdCache(string strWebSrvFunctionId)
 {
 if (string.IsNullOrEmpty(strWebSrvFunctionId) == true) return "";
 //初始化列表缓存
-List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache(strWebSrvClassId);
+List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache();
 IEnumerable <clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLst_Sel1 =
 from objWebSrvFunctionsEN in arrWebSrvFunctionsObjLstCache
 where objWebSrvFunctionsEN.WebSrvFunctionId == strWebSrvFunctionId 
@@ -1239,11 +1239,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrWebSrvFunctionId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsWebSrvFunctionsEN> GetObjLstByWebSrvFunctionIdLstCache(List<string> arrWebSrvFunctionId, string strWebSrvClassId)
+public static IEnumerable<clsWebSrvFunctionsEN> GetObjLstByWebSrvFunctionIdLstCache(List<string> arrWebSrvFunctionId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
-List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache(strWebSrvClassId);
+string strKey = string.Format("{0}", clsWebSrvFunctionsEN._CurrTabName);
+List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = GetObjLstCache();
 IEnumerable <clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLst_Sel =
 from objWebSrvFunctionsEN in arrWebSrvFunctionsObjLstCache
 where arrWebSrvFunctionId.Contains(objWebSrvFunctionsEN.WebSrvFunctionId)
@@ -1425,7 +1425,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strWebSrvFunctionId.
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1499,8 +1499,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
- clsWebSrvFunctionsEN objWebSrvFunctionsEN = clsWebSrvFunctionsWApi.GetObjByWebSrvFunctionId(arrWebSrvFunctionId[0]);
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1578,7 +1577,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1617,7 +1616,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsWebSrvFunctionsWApi.ReFreshCache(objWebSrvFunctionsEN.WebSrvClassId);
+clsWebSrvFunctionsWApi.ReFreshCache();
 var strWebSrvFunctionId = (string)jobjReturn0["returnStr"];
 return strWebSrvFunctionId;
 }
@@ -2102,24 +2101,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strWebSrvClassId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (string.IsNullOrEmpty(strWebSrvClassId) == true)
-{
-  var strMsg = string.Format("参数:[strWebSrvClassId]不能为空！(In clsWebSrvFunctionsWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
-if (strWebSrvClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strWebSrvClassId]的长度:[{0}]不正确！(clsWebSrvFunctionsWApi.ReFreshThisCache)", strWebSrvClassId.Length);
-throw new Exception (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
+string strKey = string.Format("{0}", clsWebSrvFunctionsEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -2136,7 +2124,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strWebSrvClassId)
+public static void ReFreshCache()
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -2148,9 +2136,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsWebSrvFunctionsWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
+string strKey = string.Format("{0}", clsWebSrvFunctionsEN._CurrTabName);
 CacheHelper.Remove(strKey);
-clsWebSrvFunctionsWApi.objCommFun4WApi.ReFreshCache(strWebSrvClassId.ToString());
+clsWebSrvFunctionsWApi.objCommFun4WApi.ReFreshCache();
 }
 }
 
@@ -2162,65 +2150,13 @@ clsWebSrvFunctionsWApi.objCommFun4WApi.ReFreshCache(strWebSrvClassId.ToString())
 public static List<clsWebSrvFunctionsEN> GetObjLstCache(string strWebSrvClassId)
 {
 
-
-if (string.IsNullOrEmpty(strWebSrvClassId) == true)
-{
-  var strMsg = string.Format("参数:[strWebSrvClassId]不能为空！(In clsWebSrvFunctionsWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
-if (strWebSrvClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strWebSrvClassId]的长度:[{0}]不正确！(clsWebSrvFunctionsWApi.GetObjLstCache)", strWebSrvClassId.Length);
-throw new Exception (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsWebSrvFunctionsEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsWebSrvFunctionsEN._WhereFormat, strWebSrvClassId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",conWebSrvFunctions.WebSrvClassId, strWebSrvClassId);
-}
-var strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
+var strKey = clsWebSrvFunctionsEN._CurrTabName;
 List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrWebSrvFunctionsObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsWebSrvFunctionsEN> GetObjLstCacheFromObjLst(string strWebSrvClassId,List<clsWebSrvFunctionsEN> arrObjLst_P)
-{
-
-
-if (string.IsNullOrEmpty(strWebSrvClassId) == true)
-{
-  var strMsg = string.Format("参数:[strWebSrvClassId]不能为空！(In clsWebSrvFunctionsWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-if (strWebSrvClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strWebSrvClassId]的长度:[{0}]不正确！(clsWebSrvFunctionsWApi.GetObjLstCacheFromObjLst)", strWebSrvClassId.Length);
-throw new Exception (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsWebSrvFunctionsEN._CurrTabName, strWebSrvClassId);
-List<clsWebSrvFunctionsEN> arrWebSrvFunctionsObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrWebSrvFunctionsObjLstCache = CacheHelper.Get<List<clsWebSrvFunctionsEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.WebSrvClassId == strWebSrvClassId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrWebSrvFunctionsObjLstCache = CacheHelper.Get<List<clsWebSrvFunctionsEN>>(strKey);
-}
-return arrWebSrvFunctionsObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

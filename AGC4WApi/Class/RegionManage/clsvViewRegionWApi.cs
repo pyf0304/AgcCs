@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvViewRegionWApi
  表名:vViewRegion(00050199)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:51
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:53
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -1049,7 +1049,7 @@ public static clsvViewRegionEN GetObjByRegionIdCache(string strRegionId,string s
 {
 if (string.IsNullOrEmpty(strRegionId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strPrjId);
 List<clsvViewRegionEN> arrvViewRegionObjLstCache = GetObjLstCache(strCmPrjId);
 IEnumerable <clsvViewRegionEN> arrvViewRegionObjLst_Sel =
 from objvViewRegionEN in arrvViewRegionObjLstCache
@@ -1155,7 +1155,7 @@ throw new Exception(strMsg);
 public static IEnumerable<clsvViewRegionEN> GetObjLstByRegionIdLstCache(List<string> arrRegionId, string strCmPrjId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strPrjId);
 List<clsvViewRegionEN> arrvViewRegionObjLstCache = GetObjLstCache(strCmPrjId);
 IEnumerable <clsvViewRegionEN> arrvViewRegionObjLst_Sel =
 from objvViewRegionEN in arrvViewRegionObjLstCache
@@ -1572,24 +1572,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strCmPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strCmPrjId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsvViewRegionWApi.ReFreshThisCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvViewRegionWApi.ReFreshThisCache)");
  throw new Exception  (strMsg);
 }
-if (strCmPrjId.Length != 6)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsvViewRegionWApi.ReFreshThisCache)", strCmPrjId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvViewRegionWApi.ReFreshThisCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1611,32 +1611,64 @@ public static List<clsvViewRegionEN> GetObjLstCache(string strCmPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strCmPrjId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsvViewRegionWApi.GetObjLstCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvViewRegionWApi.GetObjLstCache)");
  throw new Exception  (strMsg);
 }
-if (strCmPrjId.Length != 6)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsvViewRegionWApi.GetObjLstCache)", strCmPrjId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvViewRegionWApi.GetObjLstCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 //初始化列表缓存
 var strWhereCond = "1=1";
 if (string.IsNullOrEmpty(clsvViewRegionEN._WhereFormat) == false)
 {
-strWhereCond =string.Format(clsvViewRegionEN._WhereFormat, strCmPrjId);
+strWhereCond =string.Format(clsvViewRegionEN._WhereFormat, strPrjId);
 }
 else
 {
-var strMsg =$"分类字段为扩展字段,此时_WhereFormat不能为空!({clsStackTrace.GetCurrFunction()})";
-throw new Exception(strMsg);
+strWhereCond = string.Format("{0}='{1}'",convViewRegion.PrjId, strPrjId);
 }
-var strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strCmPrjId);
+var strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strPrjId);
 List<clsvViewRegionEN> arrvViewRegionObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrvViewRegionObjLstCache;
 }
-//该表缓存分类字段是扩展字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvViewRegionEN> GetObjLstCacheFromObjLst(string strCmPrjId,List<clsvViewRegionEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvViewRegionWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvViewRegionWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvViewRegionEN._CurrTabName, strPrjId);
+List<clsvViewRegionEN> arrvViewRegionObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvViewRegionObjLstCache = CacheHelper.Get<List<clsvViewRegionEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvViewRegionObjLstCache = CacheHelper.Get<List<clsvViewRegionEN>>(strKey);
+}
+return arrvViewRegionObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

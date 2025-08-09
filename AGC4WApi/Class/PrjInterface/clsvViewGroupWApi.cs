@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvViewGroupWApi
  表名:vViewGroup(00050158)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:40:29
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:06:34
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:界面管理(PrjInterface)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -776,8 +776,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetViewGroupNameByViewGroupIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strViewGroupId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvViewGroupEN GetObjByViewGroupIdCache(string strViewGroupId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strViewGroupId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvViewGroupEN._CurrTabName, strPrjId);
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvViewGroupEN> arrvViewGroupObjLst_Sel =
+from objvViewGroupEN in arrvViewGroupObjLstCache
+where objvViewGroupEN.ViewGroupId == strViewGroupId 
+select objvViewGroupEN;
+if (arrvViewGroupObjLst_Sel.Count() == 0)
+{
+   clsvViewGroupEN obj = clsvViewGroupWApi.GetObjByViewGroupId(strViewGroupId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvViewGroupObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strViewGroupId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetViewGroupNameByViewGroupIdCache(string strViewGroupId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strViewGroupId) == true) return "";
+//初始化列表缓存
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvViewGroupEN> arrvViewGroupObjLst_Sel1 =
+from objvViewGroupEN in arrvViewGroupObjLstCache
+where objvViewGroupEN.ViewGroupId == strViewGroupId 
+select objvViewGroupEN;
+List <clsvViewGroupEN> arrvViewGroupObjLst_Sel = new List<clsvViewGroupEN>();
+foreach (clsvViewGroupEN obj in arrvViewGroupObjLst_Sel1)
+{
+arrvViewGroupObjLst_Sel.Add(obj);
+}
+if (arrvViewGroupObjLst_Sel.Count > 0)
+{
+return arrvViewGroupObjLst_Sel[0].ViewGroupName;
+}
+string strErrMsgForGetObjById = string.Format("在vViewGroup对象缓存列表中,找不到记录[ViewGroupId = {0}](函数:{1})", strViewGroupId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvViewGroupBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strViewGroupId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByViewGroupIdCache(string strViewGroupId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strViewGroupId) == true) return "";
+//初始化列表缓存
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvViewGroupEN> arrvViewGroupObjLst_Sel1 =
+from objvViewGroupEN in arrvViewGroupObjLstCache
+where objvViewGroupEN.ViewGroupId == strViewGroupId 
+select objvViewGroupEN;
+List <clsvViewGroupEN> arrvViewGroupObjLst_Sel = new List<clsvViewGroupEN>();
+foreach (clsvViewGroupEN obj in arrvViewGroupObjLst_Sel1)
+{
+arrvViewGroupObjLst_Sel.Add(obj);
+}
+if (arrvViewGroupObjLst_Sel.Count > 0)
+{
+return arrvViewGroupObjLst_Sel[0].ViewGroupName;
+}
+string strErrMsgForGetObjById = string.Format("在vViewGroup对象缓存列表中,找不到记录的相关名称[ViewGroupId = {0}](函数:{1})", strViewGroupId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvViewGroupBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -856,7 +940,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrViewGroupId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvViewGroupEN> GetObjLstByViewGroupIdLstCache(List<string> arrViewGroupId, string strPrjId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvViewGroupEN._CurrTabName, strPrjId);
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvViewGroupEN> arrvViewGroupObjLst_Sel =
+from objvViewGroupEN in arrvViewGroupObjLstCache
+where arrViewGroupId.Contains(objvViewGroupEN.ViewGroupId)
+select objvViewGroupEN;
+return arrvViewGroupObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1256,7 +1357,7 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
@@ -1285,8 +1386,74 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvViewGroupEN> GetObjLstCache(string strPrjId)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvViewGroupWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvViewGroupWApi.GetObjLstCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+//初始化列表缓存
+var strWhereCond = "1=1";
+if (string.IsNullOrEmpty(clsvViewGroupEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsvViewGroupEN._WhereFormat, strPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",convViewGroup.PrjId, strPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsvViewGroupEN._CurrTabName, strPrjId);
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvViewGroupObjLstCache;
+}
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvViewGroupEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvViewGroupEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvViewGroupWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvViewGroupWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvViewGroupEN._CurrTabName, strPrjId);
+List<clsvViewGroupEN> arrvViewGroupObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvViewGroupObjLstCache = CacheHelper.Get<List<clsvViewGroupEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvViewGroupObjLstCache = CacheHelper.Get<List<clsvViewGroupEN>>(strKey);
+}
+return arrvViewGroupObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

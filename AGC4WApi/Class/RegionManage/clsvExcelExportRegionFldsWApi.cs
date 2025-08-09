@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvExcelExportRegionFldsWApi
  表名:vExcelExportRegionFlds(00050150)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:11
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:00
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -722,7 +722,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
 public static clsvExcelExportRegionFldsEN GetObjBymIdCache(long lngmId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}", clsvExcelExportRegionFldsEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsvExcelExportRegionFldsEN._CurrTabName, strPrjId);
 List<clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLstCache = GetObjLstCache();
 IEnumerable <clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLst_Sel =
 from objvExcelExportRegionFldsEN in arrvExcelExportRegionFldsObjLstCache
@@ -825,10 +825,10 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrMId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvExcelExportRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId)
+public static IEnumerable<clsvExcelExportRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, )
 {
 //初始化列表缓存
-string strKey = string.Format("{0}", clsvExcelExportRegionFldsEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsvExcelExportRegionFldsEN._CurrTabName, strPrjId);
 List<clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLstCache = GetObjLstCache();
 IEnumerable <clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLst_Sel =
 from objvExcelExportRegionFldsEN in arrvExcelExportRegionFldsObjLstCache
@@ -1234,13 +1234,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache()
+public static void ReFreshThisCache(string strPrjId)
 {
 
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvExcelExportRegionFldsWApi.ReFreshThisCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvExcelExportRegionFldsWApi.ReFreshThisCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}", clsvExcelExportRegionFldsEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsvExcelExportRegionFldsEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1261,13 +1272,65 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 public static List<clsvExcelExportRegionFldsEN> GetObjLstCache()
 {
 
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvExcelExportRegionFldsWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvExcelExportRegionFldsWApi.GetObjLstCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
 //初始化列表缓存
 var strWhereCond = "1=1";
-var strKey = clsvExcelExportRegionFldsEN._CurrTabName;
+if (string.IsNullOrEmpty(clsvExcelExportRegionFldsEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsvExcelExportRegionFldsEN._WhereFormat, strPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",convExcelExportRegionFlds.PrjId, strPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsvExcelExportRegionFldsEN._CurrTabName, strPrjId);
 List<clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrvExcelExportRegionFldsObjLstCache;
 }
-//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvExcelExportRegionFldsEN> GetObjLstCacheFromObjLst(List<clsvExcelExportRegionFldsEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvExcelExportRegionFldsWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvExcelExportRegionFldsWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvExcelExportRegionFldsEN._CurrTabName, strPrjId);
+List<clsvExcelExportRegionFldsEN> arrvExcelExportRegionFldsObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvExcelExportRegionFldsObjLstCache = CacheHelper.Get<List<clsvExcelExportRegionFldsEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvExcelExportRegionFldsObjLstCache = CacheHelper.Get<List<clsvExcelExportRegionFldsEN>>(strKey);
+}
+return arrvExcelExportRegionFldsObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

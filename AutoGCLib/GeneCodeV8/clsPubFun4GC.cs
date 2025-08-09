@@ -1463,6 +1463,73 @@ namespace AutoGCLib
 
         }
 
+        public static string GetParaVarLstStr4CacheClassfy(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId)
+        {
+            var objFuncParaLst = new FuncParaLst("ReFreshThisCache", objGeneCodeBase4Tab.IsFstLcase, enumAppLevel.DefindFunc);
+            List<string> arrCondFldId = new List<string>();
+            if (bolIsFrontend == true)
+            {
+
+                objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify_TS, arrCondFldId, strProgLangTypeId);
+            }
+            else
+            {
+                objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify, arrCondFldId, strProgLangTypeId);
+            }
+            //objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify, arrCondFldId, enumProgLangType.CSharp_01);
+            string strCode = objFuncParaLst.Gc_ParaVarLstStr(strProgLangTypeId);
+            return strCode;
+            //string strFuncParaLst = objFuncParaLst.GetCondFldLst4Para();
+            //string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Cs(objGeneCodeBase4Tab.ThisClsName, strFuncName, true);
+
+
+        }
+
+
+        public static string GetFuncParaDef4KeyField(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId)
+        {
+            string strProgLangType = clsProgLangTypeBL.GetNameByProgLangTypeIdCache(strProgLangTypeId);
+            var objVarManage = new clsVarManage(strProgLangType);
+            string strVariableType = "";
+
+            foreach (var objInFor in objGeneCodeBase4Tab.objPrjTabENEx.arrKeyFldSet)
+            {
+                if (strProgLangTypeId == enumProgLangType.TypeScript_09) { strVariableType = objInFor.TypeScriptType; }
+                else { strVariableType = objInFor.CsType; }
+                objVarManage.AddVariable(new clsVariable(objInFor.PrivFuncName, strVariableType));
+            }
+            string strParamVarDefLstStr = objVarManage.ParaVarDefLstStr();
+
+            return strParamVarDefLstStr;
+            //string strFuncParaLst = objFuncParaLst.GetCondFldLst4Para();
+            //string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Cs(objGeneCodeBase4Tab.ThisClsName, strFuncName, true);
+
+
+        }
+
+
+        public static string GetParaVarLstStr4KeyField(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId)
+        {
+            string strProgLangType = clsProgLangTypeBL.GetNameByProgLangTypeIdCache(strProgLangTypeId);
+            var objVarManage = new clsVarManage(strProgLangType);
+            string strVariableType = "";
+
+            foreach (var objInFor in objGeneCodeBase4Tab.objPrjTabENEx.arrKeyFldSet)
+            {
+                if (strProgLangTypeId == enumProgLangType.TypeScript_09) { strVariableType = objInFor.TypeScriptType; }
+                else { strVariableType = objInFor.CsType; }
+                objVarManage.AddVariable(new clsVariable(objInFor.PrivFuncName, strVariableType));
+            }
+            string strParaVarLstStr = objVarManage.ParaVarLstStr();
+
+            return strParaVarLstStr;
+            //string strFuncParaLst = objFuncParaLst.GetCondFldLst4Para();
+            //string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Cs(objGeneCodeBase4Tab.ThisClsName, strFuncName, true);
+
+
+        }
+
+
         public static string Gc_CheckVarEmpty4CacheClassfy(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId, string ThisClsName, string strFuncName, IImportClass objImportClass=null, string strBaseUrl="")
         {
             var objFuncParaLst = new FuncParaLst("ReFreshThisCache", objGeneCodeBase4Tab.IsFstLcase, enumAppLevel.DefindFunc);

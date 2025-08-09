@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCMFeatureWApi
  表名:CMFeature(00050517)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:47
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:40:32
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -623,7 +623,7 @@ objCMFeatureEN.sfUpdFldSetStr = objCMFeatureEN.getsfUpdFldSetStr();
 clsCMFeatureWApi.CheckPropertyNew(objCMFeatureEN); 
 bool bolResult = clsCMFeatureWApi.UpdateRecord(objCMFeatureEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -688,7 +688,7 @@ try
 clsCMFeatureWApi.CheckPropertyNew(objCMFeatureEN); 
 bool bolResult = clsCMFeatureWApi.AddNewRecord(objCMFeatureEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -714,7 +714,7 @@ try
 clsCMFeatureWApi.CheckPropertyNew(objCMFeatureEN); 
 string strCmFeatureId = clsCMFeatureWApi.AddNewRecordWithMaxId(objCMFeatureEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 return strCmFeatureId;
 }
 catch (Exception objException)
@@ -741,7 +741,7 @@ try
 clsCMFeatureWApi.CheckPropertyNew(objCMFeatureEN); 
 bool bolResult = clsCMFeatureWApi.UpdateWithCondition(objCMFeatureEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -1303,7 +1303,7 @@ public static clsCMFeatureEN GetObjByCmFeatureIdCache(string strCmFeatureId,stri
 {
 if (string.IsNullOrEmpty(strCmFeatureId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel =
 from objCMFeatureEN in arrCMFeatureObjLstCache
@@ -1466,7 +1466,7 @@ throw new Exception(strMsg);
 public static IEnumerable<clsCMFeatureEN> GetObjLstByCmFeatureIdLstCache(List<string> arrCmFeatureId, string strCmPrjId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel =
 from objCMFeatureEN in arrCMFeatureObjLstCache
@@ -1649,7 +1649,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strCmFeatureId.ToStr
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1724,7 +1724,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
  clsCMFeatureEN objCMFeatureEN = clsCMFeatureWApi.GetObjByCmFeatureId(arrCmFeatureId[0]);
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1802,7 +1802,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1841,7 +1841,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.CmPrjId);
+clsCMFeatureWApi.ReFreshCache(objCMFeatureEN.PrjId);
 var strCmFeatureId = (string)jobjReturn0["returnStr"];
 return strCmFeatureId;
 }
@@ -2324,24 +2324,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strCmPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strCmPrjId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCMFeatureWApi.ReFreshThisCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCMFeatureWApi.ReFreshThisCache)");
  throw new Exception  (strMsg);
 }
-if (strCmPrjId.Length != 6)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.ReFreshThisCache)", strCmPrjId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.ReFreshThisCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -2358,7 +2358,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strCmPrjId)
+public static void ReFreshCache(string strPrjId)
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -2370,9 +2370,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsCMFeatureWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
-clsCMFeatureWApi.objCommFun4WApi.ReFreshCache(strCmPrjId.ToString());
+clsCMFeatureWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
 }
 }
 
@@ -2385,27 +2385,27 @@ public static List<clsCMFeatureEN> GetObjLstCache(string strCmPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strCmPrjId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCMFeatureWApi.GetObjLstCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCMFeatureWApi.GetObjLstCache)");
  throw new Exception  (strMsg);
 }
-if (strCmPrjId.Length != 6)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.GetObjLstCache)", strCmPrjId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.GetObjLstCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 //初始化列表缓存
 var strWhereCond = "1=1";
 if (string.IsNullOrEmpty(clsCMFeatureEN._WhereFormat) == false)
 {
-strWhereCond =string.Format(clsCMFeatureEN._WhereFormat, strCmPrjId);
+strWhereCond =string.Format(clsCMFeatureEN._WhereFormat, strPrjId);
 }
 else
 {
-strWhereCond = string.Format("{0}='{1}'",conCMFeature.CmPrjId, strCmPrjId);
+strWhereCond = string.Format("{0}='{1}'",conCMFeature.PrjId, strPrjId);
 }
-var strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+var strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 List<clsCMFeatureEN> arrCMFeatureObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrCMFeatureObjLstCache;
 }
@@ -2419,17 +2419,17 @@ public static List<clsCMFeatureEN> GetObjLstCacheFromObjLst(string strCmPrjId,Li
 {
 
 
-if (string.IsNullOrEmpty(strCmPrjId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCMFeatureWApi.GetObjLstCacheFromObjLst)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCMFeatureWApi.GetObjLstCacheFromObjLst)");
  throw new Exception  (strMsg);
 }
-if (strCmPrjId.Length != 6)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.GetObjLstCacheFromObjLst)", strCmPrjId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCMFeatureWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
 throw new Exception (strMsg);
 }
-var strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strCmPrjId);
+var strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
 List<clsCMFeatureEN> arrCMFeatureObjLstCache = null;
 if (CacheHelper.Exsits(strKey) == true)
 {
@@ -2437,7 +2437,7 @@ arrCMFeatureObjLstCache = CacheHelper.Get<List<clsCMFeatureEN>>(strKey);
 }
 else
 {
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.CmPrjId == strCmPrjId).ToList();
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
 CacheHelper.Add(strKey, arrObjLst_Sel);
 arrCMFeatureObjLstCache = CacheHelper.Get<List<clsCMFeatureEN>>(strKey);
 }

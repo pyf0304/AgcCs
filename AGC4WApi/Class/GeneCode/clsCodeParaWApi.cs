@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCodeParaWApi
  表名:CodePara(00050437)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:42
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:40:06
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -399,7 +399,7 @@ objCodeParaEN.sfUpdFldSetStr = objCodeParaEN.getsfUpdFldSetStr();
 clsCodeParaWApi.CheckPropertyNew(objCodeParaEN); 
 bool bolResult = clsCodeParaWApi.UpdateRecord(objCodeParaEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -437,7 +437,7 @@ try
 clsCodeParaWApi.CheckPropertyNew(objCodeParaEN); 
 bool bolResult = clsCodeParaWApi.AddNewRecord(objCodeParaEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -463,7 +463,7 @@ try
 clsCodeParaWApi.CheckPropertyNew(objCodeParaEN); 
 string strCodeParaId = clsCodeParaWApi.AddNewRecordWithMaxId(objCodeParaEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 return strCodeParaId;
 }
 catch (Exception objException)
@@ -490,7 +490,7 @@ try
 clsCodeParaWApi.CheckPropertyNew(objCodeParaEN); 
 bool bolResult = clsCodeParaWApi.UpdateWithCondition(objCodeParaEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -514,7 +514,7 @@ private static readonly string mstrApiControllerName = "CodeParaApi";
 /// 专门在逻辑层用于处理缓存等公共函数的对象
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_DefineObjCommFun4BL)
 /// </summary>
-public static clsCommFun4BLV2 objCommFun4WApi = null;
+public static clsCommFun4BL objCommFun4WApi = null;
 
  public clsCodeParaWApi()
  {
@@ -746,8 +746,8 @@ public static clsCodeParaEN GetObjByCodeParaIdCache(string strCodeParaId,string 
 {
 if (string.IsNullOrEmpty(strCodeParaId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
-List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache(strPrjId);
+string strKey = string.Format("{0}", clsCodeParaEN._CurrTabName);
+List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache();
 IEnumerable <clsCodeParaEN> arrCodeParaObjLst_Sel =
 from objCodeParaEN in arrCodeParaObjLstCache
 where objCodeParaEN.CodeParaId == strCodeParaId 
@@ -771,11 +771,11 @@ return arrCodeParaObjLst_Sel.First();
  /// </summary>
  /// <param name = "strCodeParaId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetCodeParaNameByCodeParaIdCache(string strCodeParaId,string strPrjId)
+public static string GetCodeParaNameByCodeParaIdCache(string strCodeParaId)
 {
 if (string.IsNullOrEmpty(strCodeParaId) == true) return "";
 //初始化列表缓存
-List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache(strPrjId);
+List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache();
 IEnumerable <clsCodeParaEN> arrCodeParaObjLst_Sel1 =
 from objCodeParaEN in arrCodeParaObjLstCache
 where objCodeParaEN.CodeParaId == strCodeParaId 
@@ -799,11 +799,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strCodeParaId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByCodeParaIdCache(string strCodeParaId,string strPrjId)
+public static string GetNameByCodeParaIdCache(string strCodeParaId)
 {
 if (string.IsNullOrEmpty(strCodeParaId) == true) return "";
 //初始化列表缓存
-List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache(strPrjId);
+List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache();
 IEnumerable <clsCodeParaEN> arrCodeParaObjLst_Sel1 =
 from objCodeParaEN in arrCodeParaObjLstCache
 where objCodeParaEN.CodeParaId == strCodeParaId 
@@ -906,11 +906,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrCodeParaId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsCodeParaEN> GetObjLstByCodeParaIdLstCache(List<string> arrCodeParaId, string strPrjId)
+public static IEnumerable<clsCodeParaEN> GetObjLstByCodeParaIdLstCache(List<string> arrCodeParaId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
-List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache(strPrjId);
+string strKey = string.Format("{0}", clsCodeParaEN._CurrTabName);
+List<clsCodeParaEN> arrCodeParaObjLstCache = GetObjLstCache();
 IEnumerable <clsCodeParaEN> arrCodeParaObjLst_Sel =
 from objCodeParaEN in arrCodeParaObjLstCache
 where arrCodeParaId.Contains(objCodeParaEN.CodeParaId)
@@ -1092,7 +1092,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strCodeParaId.ToStri
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1166,8 +1166,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
- clsCodeParaEN objCodeParaEN = clsCodeParaWApi.GetObjByCodeParaId(arrCodeParaId[0]);
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1245,7 +1244,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1284,7 +1283,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCodeParaWApi.ReFreshCache(objCodeParaEN.PrjId);
+clsCodeParaWApi.ReFreshCache();
 var strCodeParaId = (string)jobjReturn0["returnStr"];
 return strCodeParaId;
 }
@@ -1760,24 +1759,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCodeParaWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCodeParaWApi.ReFreshThisCache)", strPrjId.Length);
-throw new Exception (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
+string strKey = string.Format("{0}", clsCodeParaEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1794,7 +1782,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strPrjId)
+public static void ReFreshCache()
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -1806,9 +1794,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsCodeParaWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
+string strKey = string.Format("{0}", clsCodeParaEN._CurrTabName);
 CacheHelper.Remove(strKey);
-clsCodeParaWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
+clsCodeParaWApi.objCommFun4WApi.ReFreshCache();
 }
 }
 
@@ -1820,65 +1808,13 @@ clsCodeParaWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
 public static List<clsCodeParaEN> GetObjLstCache(string strPrjId)
 {
 
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCodeParaWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCodeParaWApi.GetObjLstCache)", strPrjId.Length);
-throw new Exception (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsCodeParaEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsCodeParaEN._WhereFormat, strPrjId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",conCodePara.PrjId, strPrjId);
-}
-var strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
+var strKey = clsCodeParaEN._CurrTabName;
 List<clsCodeParaEN> arrCodeParaObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrCodeParaObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCodeParaEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsCodeParaEN> arrObjLst_P)
-{
-
-
-if (string.IsNullOrEmpty(strPrjId) == true)
-{
-  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsCodeParaWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-if (strPrjId.Length != 4)
-{
-var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsCodeParaWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
-throw new Exception (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsCodeParaEN._CurrTabName, strPrjId);
-List<clsCodeParaEN> arrCodeParaObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrCodeParaObjLstCache = CacheHelper.Get<List<clsCodeParaEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrCodeParaObjLstCache = CacheHelper.Get<List<clsCodeParaEN>>(strKey);
-}
-return arrCodeParaObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

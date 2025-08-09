@@ -25,7 +25,7 @@ namespace AutoGCLib
         /// <param name="objFuncName"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public Tuple<string, string,string> thisWA_FP(WA_F objFuncName, string strProgLangType)
+        public Tuple<string, string,string> thisWA_FP(WA_F objFuncName, string strProgLangType, bool bolIsFrontEnd = true)
         {
             var objVarManage = new clsVarManage(strProgLangType);
             var strVariableType = "";

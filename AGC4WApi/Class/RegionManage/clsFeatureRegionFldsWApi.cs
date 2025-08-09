@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFeatureRegionFldsWApi
  表名:FeatureRegionFlds(00050452)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:09
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:38:13
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -1094,7 +1094,7 @@ objFeatureRegionFldsEN.sfUpdFldSetStr = objFeatureRegionFldsEN.getsfUpdFldSetStr
 clsFeatureRegionFldsWApi.CheckPropertyNew(objFeatureRegionFldsEN); 
 bool bolResult = clsFeatureRegionFldsWApi.UpdateRecord(objFeatureRegionFldsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -1153,7 +1153,7 @@ try
 clsFeatureRegionFldsWApi.CheckPropertyNew(objFeatureRegionFldsEN); 
 bool bolResult = clsFeatureRegionFldsWApi.AddNewRecord(objFeatureRegionFldsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -1179,7 +1179,7 @@ try
 clsFeatureRegionFldsWApi.CheckPropertyNew(objFeatureRegionFldsEN); 
 string strViewFeatureId = clsFeatureRegionFldsWApi.AddNewRecordWithMaxId(objFeatureRegionFldsEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 return strViewFeatureId;
 }
 catch (Exception objException)
@@ -1206,7 +1206,7 @@ try
 clsFeatureRegionFldsWApi.CheckPropertyNew(objFeatureRegionFldsEN); 
 bool bolResult = clsFeatureRegionFldsWApi.UpdateWithCondition(objFeatureRegionFldsEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -1490,7 +1490,7 @@ public static clsFeatureRegionFldsEN GetObjByViewFeatureIdCache(string strViewFe
 {
 if (string.IsNullOrEmpty(strViewFeatureId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 List<clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLstCache = GetObjLstCache(strRegionId);
 IEnumerable <clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLst_Sel =
 from objFeatureRegionFldsEN in arrFeatureRegionFldsObjLstCache
@@ -1596,7 +1596,7 @@ throw new Exception(strMsg);
 public static IEnumerable<clsFeatureRegionFldsEN> GetObjLstByViewFeatureIdLstCache(List<string> arrViewFeatureId, string strRegionId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 List<clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLstCache = GetObjLstCache(strRegionId);
 IEnumerable <clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLst_Sel =
 from objFeatureRegionFldsEN in arrFeatureRegionFldsObjLstCache
@@ -1779,7 +1779,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strViewFeatureId.ToS
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1854,7 +1854,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
  clsFeatureRegionFldsEN objFeatureRegionFldsEN = clsFeatureRegionFldsWApi.GetObjByViewFeatureId(arrViewFeatureId[0]);
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1932,7 +1932,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1971,7 +1971,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.RegionId);
+clsFeatureRegionFldsWApi.ReFreshCache(objFeatureRegionFldsEN.PrjId);
 var strViewFeatureId = (string)jobjReturn0["returnStr"];
 return strViewFeatureId;
 }
@@ -2469,24 +2469,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strRegionId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strRegionId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strRegionId]不能为空！(In clsFeatureRegionFldsWApi.ReFreshThisCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsFeatureRegionFldsWApi.ReFreshThisCache)");
  throw new Exception  (strMsg);
 }
-if (strRegionId.Length != 10)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strRegionId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.ReFreshThisCache)", strRegionId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.ReFreshThisCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -2503,7 +2503,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strRegionId)
+public static void ReFreshCache(string strPrjId)
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -2515,9 +2515,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsFeatureRegionFldsWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+string strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
-clsFeatureRegionFldsWApi.objCommFun4WApi.ReFreshCache(strRegionId.ToString());
+clsFeatureRegionFldsWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
 }
 }
 
@@ -2530,27 +2530,27 @@ public static List<clsFeatureRegionFldsEN> GetObjLstCache(string strRegionId)
 {
 
 
-if (string.IsNullOrEmpty(strRegionId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strRegionId]不能为空！(In clsFeatureRegionFldsWApi.GetObjLstCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsFeatureRegionFldsWApi.GetObjLstCache)");
  throw new Exception  (strMsg);
 }
-if (strRegionId.Length != 10)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strRegionId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.GetObjLstCache)", strRegionId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.GetObjLstCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 //初始化列表缓存
 var strWhereCond = "1=1";
 if (string.IsNullOrEmpty(clsFeatureRegionFldsEN._WhereFormat) == false)
 {
-strWhereCond =string.Format(clsFeatureRegionFldsEN._WhereFormat, strRegionId);
+strWhereCond =string.Format(clsFeatureRegionFldsEN._WhereFormat, strPrjId);
 }
 else
 {
-strWhereCond = string.Format("{0}='{1}'",conFeatureRegionFlds.RegionId, strRegionId);
+strWhereCond = string.Format("{0}='{1}'",conFeatureRegionFlds.PrjId, strPrjId);
 }
-var strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+var strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 List<clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrFeatureRegionFldsObjLstCache;
 }
@@ -2564,17 +2564,17 @@ public static List<clsFeatureRegionFldsEN> GetObjLstCacheFromObjLst(string strRe
 {
 
 
-if (string.IsNullOrEmpty(strRegionId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strRegionId]不能为空！(In clsFeatureRegionFldsWApi.GetObjLstCacheFromObjLst)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsFeatureRegionFldsWApi.GetObjLstCacheFromObjLst)");
  throw new Exception  (strMsg);
 }
-if (strRegionId.Length != 10)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strRegionId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.GetObjLstCacheFromObjLst)", strRegionId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsFeatureRegionFldsWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
 throw new Exception (strMsg);
 }
-var strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strRegionId);
+var strKey = string.Format("{0}_{1}", clsFeatureRegionFldsEN._CurrTabName, strPrjId);
 List<clsFeatureRegionFldsEN> arrFeatureRegionFldsObjLstCache = null;
 if (CacheHelper.Exsits(strKey) == true)
 {
@@ -2582,7 +2582,7 @@ arrFeatureRegionFldsObjLstCache = CacheHelper.Get<List<clsFeatureRegionFldsEN>>(
 }
 else
 {
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.RegionId == strRegionId).ToList();
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
 CacheHelper.Add(strKey, arrObjLst_Sel);
 arrFeatureRegionFldsObjLstCache = CacheHelper.Get<List<clsFeatureRegionFldsEN>>(strKey);
 }

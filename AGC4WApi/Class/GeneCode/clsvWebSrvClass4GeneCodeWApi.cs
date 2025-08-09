@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvWebSrvClass4GeneCodeWApi
  表名:vWebSrvClass4GeneCode(00050372)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:48
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:43
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -761,7 +761,35 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strWebSrvClassId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvWebSrvClass4GeneCodeEN GetObjByWebSrvClassIdCache(string strWebSrvClassId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strWebSrvClassId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvWebSrvClass4GeneCodeEN._CurrTabName, strPrjId);
+List<clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLst_Sel =
+from objvWebSrvClass4GeneCodeEN in arrvWebSrvClass4GeneCodeObjLstCache
+where objvWebSrvClass4GeneCodeEN.WebSrvClassId == strWebSrvClassId 
+select objvWebSrvClass4GeneCodeEN;
+if (arrvWebSrvClass4GeneCodeObjLst_Sel.Count() == 0)
+{
+   clsvWebSrvClass4GeneCodeEN obj = clsvWebSrvClass4GeneCodeWApi.GetObjByWebSrvClassId(strWebSrvClassId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvWebSrvClass4GeneCodeObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -840,7 +868,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrWebSrvClassId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvWebSrvClass4GeneCodeEN> GetObjLstByWebSrvClassIdLstCache(List<string> arrWebSrvClassId, string strPrjId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvWebSrvClass4GeneCodeEN._CurrTabName, strPrjId);
+List<clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLst_Sel =
+from objvWebSrvClass4GeneCodeEN in arrvWebSrvClass4GeneCodeObjLstCache
+where arrWebSrvClassId.Contains(objvWebSrvClass4GeneCodeEN.WebSrvClassId)
+select objvWebSrvClass4GeneCodeEN;
+return arrvWebSrvClass4GeneCodeObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1241,7 +1286,7 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
@@ -1270,8 +1315,74 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvWebSrvClass4GeneCodeEN> GetObjLstCache(string strPrjId)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvWebSrvClass4GeneCodeWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvWebSrvClass4GeneCodeWApi.GetObjLstCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+//初始化列表缓存
+var strWhereCond = "1=1";
+if (string.IsNullOrEmpty(clsvWebSrvClass4GeneCodeEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsvWebSrvClass4GeneCodeEN._WhereFormat, strPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",convWebSrvClass4GeneCode.PrjId, strPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsvWebSrvClass4GeneCodeEN._CurrTabName, strPrjId);
+List<clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvWebSrvClass4GeneCodeObjLstCache;
+}
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvWebSrvClass4GeneCodeEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvWebSrvClass4GeneCodeEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvWebSrvClass4GeneCodeWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvWebSrvClass4GeneCodeWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvWebSrvClass4GeneCodeEN._CurrTabName, strPrjId);
+List<clsvWebSrvClass4GeneCodeEN> arrvWebSrvClass4GeneCodeObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvWebSrvClass4GeneCodeObjLstCache = CacheHelper.Get<List<clsvWebSrvClass4GeneCodeEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvWebSrvClass4GeneCodeObjLstCache = CacheHelper.Get<List<clsvWebSrvClass4GeneCodeEN>>(strKey);
+}
+return arrvWebSrvClass4GeneCodeObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

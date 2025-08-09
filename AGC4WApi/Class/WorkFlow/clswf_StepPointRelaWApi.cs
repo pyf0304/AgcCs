@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clswf_StepPointRelaWApi
  表名:wf_StepPointRela(00050486)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:40:16
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:41:09
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:工作流管理(WorkFlow)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -421,6 +421,7 @@ objwf_StepPointRelaEN.sfUpdFldSetStr = objwf_StepPointRelaEN.getsfUpdFldSetStr()
 clswf_StepPointRelaWApi.CheckPropertyNew(objwf_StepPointRelaEN); 
 bool bolResult = clswf_StepPointRelaWApi.UpdateRecord(objwf_StepPointRelaEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clswf_StepPointRelaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -473,6 +474,7 @@ try
 clswf_StepPointRelaWApi.CheckPropertyNew(objwf_StepPointRelaEN); 
 bool bolResult = clswf_StepPointRelaWApi.AddNewRecord(objwf_StepPointRelaEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clswf_StepPointRelaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -499,6 +501,7 @@ try
 clswf_StepPointRelaWApi.CheckPropertyNew(objwf_StepPointRelaEN); 
 bool bolResult = clswf_StepPointRelaWApi.UpdateWithCondition(objwf_StepPointRelaEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clswf_StepPointRelaWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -683,7 +686,34 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "lngWorkFlowStepPointRelaId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clswf_StepPointRelaEN GetObjByWorkFlowStepPointRelaIdCache(long lngWorkFlowStepPointRelaId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clswf_StepPointRelaEN._CurrTabName);
+List<clswf_StepPointRelaEN> arrwf_StepPointRelaObjLstCache = GetObjLstCache();
+IEnumerable <clswf_StepPointRelaEN> arrwf_StepPointRelaObjLst_Sel =
+from objwf_StepPointRelaEN in arrwf_StepPointRelaObjLstCache
+where objwf_StepPointRelaEN.WorkFlowStepPointRelaId == lngWorkFlowStepPointRelaId 
+select objwf_StepPointRelaEN;
+if (arrwf_StepPointRelaObjLst_Sel.Count() == 0)
+{
+   clswf_StepPointRelaEN obj = clswf_StepPointRelaWApi.GetObjByWorkFlowStepPointRelaId(lngWorkFlowStepPointRelaId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrwf_StepPointRelaObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -762,7 +792,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrWorkFlowStepPointRelaId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clswf_StepPointRelaEN> GetObjLstByWorkFlowStepPointRelaIdLstCache(List<long> arrWorkFlowStepPointRelaId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clswf_StepPointRelaEN._CurrTabName);
+List<clswf_StepPointRelaEN> arrwf_StepPointRelaObjLstCache = GetObjLstCache();
+IEnumerable <clswf_StepPointRelaEN> arrwf_StepPointRelaObjLst_Sel =
+from objwf_StepPointRelaEN in arrwf_StepPointRelaObjLstCache
+where arrWorkFlowStepPointRelaId.Contains(objwf_StepPointRelaEN.WorkFlowStepPointRelaId)
+select objwf_StepPointRelaEN;
+return arrwf_StepPointRelaObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -938,6 +985,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, lngWorkFlowStepPoint
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clswf_StepPointRelaWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1011,6 +1059,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clswf_StepPointRelaWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1088,6 +1137,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clswf_StepPointRelaWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1127,6 +1177,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clswf_StepPointRelaWApi.ReFreshCache();
 var strReturnStr = (string)jobjReturn0["returnStr"];
 return strReturnStr;
 }
@@ -1571,8 +1622,22 @@ CacheHelper.Remove(strKey);
 clswf_StepPointRelaWApi.objCommFun4WApi.ReFreshCache();
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clswf_StepPointRelaEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clswf_StepPointRelaEN._CurrTabName;
+List<clswf_StepPointRelaEN> arrwf_StepPointRelaObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrwf_StepPointRelaObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

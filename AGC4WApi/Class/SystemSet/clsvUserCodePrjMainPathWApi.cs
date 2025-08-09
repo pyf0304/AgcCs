@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvUserCodePrjMainPathWApi
  表名:vUserCodePrjMainPath(00050339)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:43
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:33
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:系统设置(SystemSet)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -1076,8 +1076,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetApplicationTypeNameByUserCodePrjMainPathIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strUserCodePrjMainPathId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvUserCodePrjMainPathEN GetObjByUserCodePrjMainPathIdCache(string strUserCodePrjMainPathId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strUserCodePrjMainPathId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvUserCodePrjMainPathEN._CurrTabName, strPrjId);
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel =
+from objvUserCodePrjMainPathEN in arrvUserCodePrjMainPathObjLstCache
+where objvUserCodePrjMainPathEN.UserCodePrjMainPathId == strUserCodePrjMainPathId 
+select objvUserCodePrjMainPathEN;
+if (arrvUserCodePrjMainPathObjLst_Sel.Count() == 0)
+{
+   clsvUserCodePrjMainPathEN obj = clsvUserCodePrjMainPathWApi.GetObjByUserCodePrjMainPathId(strUserCodePrjMainPathId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvUserCodePrjMainPathObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strUserCodePrjMainPathId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetApplicationTypeNameByUserCodePrjMainPathIdCache(string strUserCodePrjMainPathId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strUserCodePrjMainPathId) == true) return "";
+//初始化列表缓存
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel1 =
+from objvUserCodePrjMainPathEN in arrvUserCodePrjMainPathObjLstCache
+where objvUserCodePrjMainPathEN.UserCodePrjMainPathId == strUserCodePrjMainPathId 
+select objvUserCodePrjMainPathEN;
+List <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel = new List<clsvUserCodePrjMainPathEN>();
+foreach (clsvUserCodePrjMainPathEN obj in arrvUserCodePrjMainPathObjLst_Sel1)
+{
+arrvUserCodePrjMainPathObjLst_Sel.Add(obj);
+}
+if (arrvUserCodePrjMainPathObjLst_Sel.Count > 0)
+{
+return arrvUserCodePrjMainPathObjLst_Sel[0].ApplicationTypeName;
+}
+string strErrMsgForGetObjById = string.Format("在vUserCodePrjMainPath对象缓存列表中,找不到记录[UserCodePrjMainPathId = {0}](函数:{1})", strUserCodePrjMainPathId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvUserCodePrjMainPathBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strUserCodePrjMainPathId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByUserCodePrjMainPathIdCache(string strUserCodePrjMainPathId,string strPrjId)
+{
+if (string.IsNullOrEmpty(strUserCodePrjMainPathId) == true) return "";
+//初始化列表缓存
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel1 =
+from objvUserCodePrjMainPathEN in arrvUserCodePrjMainPathObjLstCache
+where objvUserCodePrjMainPathEN.UserCodePrjMainPathId == strUserCodePrjMainPathId 
+select objvUserCodePrjMainPathEN;
+List <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel = new List<clsvUserCodePrjMainPathEN>();
+foreach (clsvUserCodePrjMainPathEN obj in arrvUserCodePrjMainPathObjLst_Sel1)
+{
+arrvUserCodePrjMainPathObjLst_Sel.Add(obj);
+}
+if (arrvUserCodePrjMainPathObjLst_Sel.Count > 0)
+{
+return arrvUserCodePrjMainPathObjLst_Sel[0].ApplicationTypeName;
+}
+string strErrMsgForGetObjById = string.Format("在vUserCodePrjMainPath对象缓存列表中,找不到记录的相关名称[UserCodePrjMainPathId = {0}](函数:{1})", strUserCodePrjMainPathId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvUserCodePrjMainPathBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -1156,7 +1240,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrUserCodePrjMainPathId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvUserCodePrjMainPathEN> GetObjLstByUserCodePrjMainPathIdLstCache(List<string> arrUserCodePrjMainPathId, string strPrjId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvUserCodePrjMainPathEN._CurrTabName, strPrjId);
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = GetObjLstCache(strPrjId);
+IEnumerable <clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLst_Sel =
+from objvUserCodePrjMainPathEN in arrvUserCodePrjMainPathObjLstCache
+where arrUserCodePrjMainPathId.Contains(objvUserCodePrjMainPathEN.UserCodePrjMainPathId)
+select objvUserCodePrjMainPathEN;
+return arrvUserCodePrjMainPathObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1565,7 +1666,7 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strPrjId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
@@ -1594,8 +1695,74 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvUserCodePrjMainPathEN> GetObjLstCache(string strPrjId)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvUserCodePrjMainPathWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvUserCodePrjMainPathWApi.GetObjLstCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+//初始化列表缓存
+var strWhereCond = "1=1";
+if (string.IsNullOrEmpty(clsvUserCodePrjMainPathEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsvUserCodePrjMainPathEN._WhereFormat, strPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",convUserCodePrjMainPath.PrjId, strPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsvUserCodePrjMainPathEN._CurrTabName, strPrjId);
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvUserCodePrjMainPathObjLstCache;
+}
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvUserCodePrjMainPathEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvUserCodePrjMainPathEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvUserCodePrjMainPathWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvUserCodePrjMainPathWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvUserCodePrjMainPathEN._CurrTabName, strPrjId);
+List<clsvUserCodePrjMainPathEN> arrvUserCodePrjMainPathObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvUserCodePrjMainPathObjLstCache = CacheHelper.Get<List<clsvUserCodePrjMainPathEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvUserCodePrjMainPathObjLstCache = CacheHelper.Get<List<clsvUserCodePrjMainPathEN>>(strKey);
+}
+return arrvUserCodePrjMainPathObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

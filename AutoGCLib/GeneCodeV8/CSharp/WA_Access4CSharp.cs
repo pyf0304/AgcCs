@@ -1233,7 +1233,7 @@ namespace AutoGCLib
 
         public string Gen_4WA_GetObjLstByKeyLst_WACache()
         {
-
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
             StringBuilder strCodeForCs = new StringBuilder();
             //获取某一条件值的记录集-----------------------------;
             strCodeForCs.Append("\r\n /// <summary>");
@@ -1247,24 +1247,9 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objInFor.PrivFuncName);
                 }
                 strCodeForCs.Append("\r\n /// <returns>返回对象列表</returns>");
-                if (objPrjTabENEx.objCacheClassifyFld == null)
-                {
-                    strCodeForCs.AppendFormat("\r\npublic static List<cls{0}EN> GetObjLstByKeyLsts_WACache(List<{2}> arr{1})",
-                        objPrjTabENEx.TabName,
-                        objKeyField.FldName_FstUcase,
-                        objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                        objKeyField.PrivFuncName);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\npublic static List<cls{0}EN> GetObjLstByKeyLsts_WACache(List<{2}> arr{1}, {3} {4})",
-                       objPrjTabENEx.TabName,
-                       objKeyField.FldName_FstUcase,
-                       objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.PrivFuncName
-                   );
-                }
+              
+                strCodeForCs.Append("\r\n"+$"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstByKeyLsts_WACache(List<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType}> arr{objKeyField.FldName_FstUcase}, {strFuncParaCode})");
+              
 
                 strCodeForCs.Append("\r\n{");
                 strCodeForCs.AppendFormat("\r\n List<cls{0}EN> arrObjLst; ",
@@ -1276,24 +1261,8 @@ namespace AutoGCLib
             {
                 strCodeForCs.AppendFormat("\r\n /// <param name = \"arr{0}\">关键字列表</param>", objKeyField.FldName_FstUcase);
                 strCodeForCs.Append("\r\n /// <returns>返回对象列表</returns>");
-                if (objPrjTabENEx.objCacheClassifyFld == null)
-                {
-                    strCodeForCs.AppendFormat("\r\npublic static List<cls{0}EN> GetObjLstBy{1}Lst_WACache(List<{2}> arr{1})",
-                        objPrjTabENEx.TabName,
-                        objKeyField.FldName_FstUcase,
-                        objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                        objKeyField.PrivFuncName);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\npublic static List<cls{0}EN> GetObjLstBy{1}Lst_WACache(List<{2}> arr{1}, {3} {4})",
-                       objPrjTabENEx.TabName,
-                       objKeyField.FldName_FstUcase,
-                       objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.PrivFuncName
-                   );
-                }
+
+                strCodeForCs.Append("\r\n"+$"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstBy{objKeyField.FldName_FstUcase}Lst_WACache(List<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType}> arr{objKeyField.FldName_FstUcase}{strFuncParaCode})");
 
                 strCodeForCs.Append("\r\n{");
                 strCodeForCs.AppendFormat("\r\n List<cls{0}EN> arrObjLst; ",
@@ -1880,7 +1849,8 @@ objPrjTabENEx.TabName);
         /// <returns></returns>
         public string Gen_4WA_GetObjByKeyId_WACache()
         {
-
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n /// <summary>");
             strCodeForCs.AppendFormat("\r\n /// 获取当前关键字的记录对象,用对象的形式表示.");
@@ -1893,18 +1863,9 @@ objPrjTabENEx.TabName);
                     strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objInFor.PrivFuncName);
                 }
                 strCodeForCs.AppendFormat("\r\n /// <returns>表对象</returns>");
-                if (objPrjTabENEx.objCacheClassifyFld == null)
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjByKeyLst_WACache({2})",
-                objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjByKeyLst_WACache({2}, {3} {4})",
-                        objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr,
-                    objPrjTabENEx.objCacheClassifyFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
-                }
+
+                    strCodeForCs.Append("\r\n" + $"public static cls{objPrjTabENEx.TabName}EN GetObjByKeyLst_WACache({objPrjTabENEx.KeyVarDefineLstStr} {strFuncParaCode})");
+
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "string strAction = \"GetObjByKeyLstCache\";", objKeyField.FldName);
             }
@@ -1912,18 +1873,9 @@ objPrjTabENEx.TabName);
             {
                 strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objKeyField.PrivFuncName);
                 strCodeForCs.AppendFormat("\r\n /// <returns>表对象</returns>");
-                if (objPrjTabENEx.objCacheClassifyFld == null)
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjBy{1}_WACache({2})",
-                objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjBy{1}_WACache({2}, {3} {4})",
-                        objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr,
-                    objPrjTabENEx.objCacheClassifyFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
-                }
+
+                    strCodeForCs.Append("\r\n" + $"public static cls{objPrjTabENEx.TabName}EN GetObjBy{objKeyField.FldName}_WACache({objPrjTabENEx.KeyVarDefineLstStr} {strFuncParaCode})");
+
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "string strAction = \"GetObjBy{0}Cache\";", objKeyField.FldName);
             }
@@ -3623,16 +3575,19 @@ objPrjTabENEx.TabName);
             //                   objKeyField.FldName);
             //if (objPrjTabENEx.IsUseCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in {clsStackTrace.GetCurrClassFunction()})";
             Tuple<string,string, string> tup = thisWA_FP(WA_F.GetObjByKeyId_Cache, "CSharp");
-            var strFuncParamsDefLst = tup.Item1;
-            var strFuncParamsLst = tup.Item2;
+
+            string strParaVarLstStr_KeyField = clsPubFun4GC.GetParaVarLstStr4KeyField(this, false, enumProgLangType.CSharp_01);
+
             //var strFuncParamsLst_Cache = tup.Item3;
 
+            string strFuncParaCode4KeyField = clsPubFun4GC.GetFuncParaDef4KeyField(this, false, enumProgLangType.CSharp_01);
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
 
             Tuple<string, string, string> tup_GetObjLstCache = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");
+               
+            string strFuncParamsLst_Cache = clsPubFun4GC.GetParaVarLstStr4CacheClassfy(this, false, enumProgLangType.CSharp_01);
    
-            var strFuncParamsLst_Cache = tup_GetObjLstCache.Item2;
-
-
             StringBuilder strCodeForCs = new StringBuilder();
             //根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
 
@@ -3648,10 +3603,7 @@ objPrjTabENEx.TabName);
                 }
                 strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字获取的对象</returns>");
 
-
-                strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjByKeyLstCache({1})",
-         objPrjTabENEx.TabName,
-         strFuncParamsDefLst);
+                strCodeForCs.Append("\r\n" + $"public static cls{objPrjTabENEx.TabName}EN GetObjByKeyLstCache({strFuncParaCode4KeyField}{strFuncParaCode})");
 
                 strCodeForCs.Append("\r\n" + "{");
                 foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
@@ -3669,7 +3621,7 @@ objPrjTabENEx.TabName);
                 strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字获取的对象</returns>");
 
 
-                strCodeForCs.Append("\r\n" + $"public static cls{objPrjTabENEx.TabName}EN GetObjBy{objKeyField.FldName}Cache({strFuncParamsDefLst})");
+                strCodeForCs.Append("\r\n" + $"public static cls{objPrjTabENEx.TabName}EN GetObjBy{objKeyField.FldName}Cache({strFuncParaCode4KeyField}{strFuncParaCode})");
 
                 strCodeForCs.Append("\r\n" + "{");
                 if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "string")
@@ -3766,9 +3718,12 @@ objPrjTabENEx.TabName);
 
 
             Tuple<string, string, string> tup = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");
-            var strFuncParamsDefLst = tup.Item1;
-            var strFuncParamsLst = tup.Item2;
 
+
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            string strParaVarLstStr_Cache = clsPubFun4GC.GetParaVarLstStr4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            string strParaVarLstStr_KeyField = clsPubFun4GC.GetParaVarLstStr4KeyField(this, false, enumProgLangType.CSharp_01);
+            
             StringBuilder strCodeForCs = new StringBuilder();
             //根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
 
@@ -3805,31 +3760,16 @@ objPrjTabENEx.TabName);
              objPrjTabENEx.TabName,
              objKeyField.FldName_FstUcase,
              objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-             strFuncParamsDefLst);
+             strFuncParaCode);
                 }
             }
             else
             {
                 strCodeForCs.AppendFormat("\r\n /// <param name = \"arr{0}\">所给的关键字列表</param>", objKeyField.FldName_FstUcase);
                 strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字列表获取的对象</returns>");
-
-                if (objPrjTabENEx.objCacheClassifyFld == null)
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstBy{1}LstCache(List<{2}> arr{1})",
-                objPrjTabENEx.TabName,
-                objKeyField.FldName_FstUcase,
-                objKeyField.CsType,
-                objKeyField.PrivFuncName);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstBy{1}LstCache(List<{2}> arr{1}, {3})",
-             objPrjTabENEx.TabName,
-             objKeyField.FldName_FstUcase,
-             objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                    strFuncParamsDefLst);
-                }
-
+                              
+                strCodeForCs.Append("\r\n" + $"public static IEnumerable<cls{objPrjTabENEx.TabName}EN> GetObjLstBy{objKeyField.FldName_FstUcase}LstCache(List<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType}> arr{objKeyField.FldName_FstUcase}, {strFuncParaCode})");
+              
             }
 
             strCodeForCs.Append("\r\n" + "{");
@@ -3852,7 +3792,7 @@ objPrjTabENEx.TabName);
                 strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}_{{1}}\", cls{0}EN._CurrTabName, {1});",
                                 objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
                 strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache({1});",
-                    objPrjTabENEx.TabName, strFuncParamsLst);
+                    objPrjTabENEx.TabName, strParaVarLstStr_Cache);
             }
             strCodeForCs.AppendFormat("\r\n" + "IEnumerable <cls{0}EN> arr{0}ObjLst_Sel =", objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n" + "from obj{0}EN in arr{0}ObjLstCache", objPrjTabENEx.TabName);
@@ -3898,15 +3838,18 @@ objPrjTabENEx.TabName);
         //    if (objPrjTabENEx.IsUseCache() == false) return $"//该表没有使用Cache,不需要生成[Get{strTextFieldName}By{objKeyField.FldName}Cache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
 
             Tuple<string, string, string> tup = thisWA_FP(WA_F.GetRecNameByKeyCache, "CSharp");
-            var strFuncParamsDefLst = tup.Item1;
-            var strFuncParamsLst = tup.Item2;
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
+            string strParaVarLstStr_KeyField = clsPubFun4GC.GetParaVarLstStr4KeyField(this, false, enumProgLangType.CSharp_01);
+
             //var strFuncParamsLst_Cache = tup.Item3;
 
 
             Tuple<string, string, string> tup_GetObjLstCache = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");
 
-            var strFuncParamsLst_Cache = tup_GetObjLstCache.Item2;
-
+            
+            string strFuncParamsLst_Cache = clsPubFun4GC.GetParaVarLstStr4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            string strFuncParaCode4KeyField = clsPubFun4GC.GetFuncParaDef4KeyField(this, false, enumProgLangType.CSharp_01);
 
             StringBuilder strCodeForCs = new StringBuilder();
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
@@ -3917,19 +3860,9 @@ objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n /// </summary>");
             strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">所给的关键字</param>", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字获取的名称</returns>");
-            if (objPrjTabENEx.objCacheClassifyFld == null)
-            {
-                strCodeForCs.AppendFormat("\r\n" + "public static string Get{4}By{1}Cache({2} {3})",
-            objPrjTabENEx.TabName,
-            objKeyField.FldName,
-            objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-            objKeyField.PrivFuncName,
-            strTextFieldName);
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"public static string Get{strTextFieldName}By{objKeyField.FldName}Cache({strFuncParamsDefLst})");
-            }
+          
+                strCodeForCs.Append("\r\n" + $"public static string Get{strTextFieldName}By{objKeyField.FldName}Cache({strFuncParaCode4KeyField}{strFuncParaCode})");
+          
             strCodeForCs.Append("\r\n" + "{");
             if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "string")
             {
@@ -3938,20 +3871,9 @@ objPrjTabENEx.TabName);
             }
             strCodeForCs.Append("\r\n" + "//初始化列表缓存");
             //strCodeForCs.Append("\r\n" + "InitListCache(); ");
-            if (objPrjTabENEx.objCacheClassifyFld == null)
-            {
-                //strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}\", cls{0}EN._CurrTabName);",
-                //    objPrjTabENEx.TabName);
-                strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache();",
-                    objPrjTabENEx.TabName);
-            }
-            else
-            {
-                //strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}_{{1}}\", cls{0}EN._CurrTabName, {1});",
-                //                objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
-                strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache({1});",
-                    objPrjTabENEx.TabName, strFuncParamsLst_Cache);
-            }
+
+            strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache({1});",
+                objPrjTabENEx.TabName, strFuncParamsLst_Cache);
 
             strCodeForCs.AppendFormat("\r\n" + "IEnumerable <cls{0}EN> arr{0}ObjLst_Sel1 =", objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n" + "from obj{0}EN in arr{0}ObjLstCache", objPrjTabENEx.TabName);
@@ -4012,19 +3934,9 @@ objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n /// </summary>");
             strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">所给的关键字</param>", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字获取的名称</returns>");
-            if (objPrjTabENEx.objCacheClassifyFld == null)
-            {
-                strCodeForCs.AppendFormat("\r\n" + "public static string GetNameBy{1}Cache({2} {3})",
-            objPrjTabENEx.TabName,
-            objKeyField.FldName,
-            objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-            objKeyField.PrivFuncName,
-            strTextFieldName);
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"public static string GetNameBy{objKeyField.FldName}Cache({strFuncParamsDefLst})");
-            }
+
+                strCodeForCs.Append("\r\n" + $"public static string GetNameBy{objKeyField.FldName}Cache({strFuncParaCode4KeyField}{strFuncParaCode})");
+
             strCodeForCs.Append("\r\n" + "{");
             if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "string")
             {
@@ -4034,20 +3946,12 @@ objPrjTabENEx.TabName);
             strCodeForCs.Append("\r\n" + "//初始化列表缓存");
             //strCodeForCs.Append("\r\n" + "InitListCache(); ");
 
-            if (objPrjTabENEx.objCacheClassifyFld == null)
-            {
-                //strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}\", cls{0}EN._CurrTabName);",
-                //    objPrjTabENEx.TabName);
-                strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache();",
-                    objPrjTabENEx.TabName);
-            }
-            else
-            {
+         
                 //strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}_{{1}}\", cls{0}EN._CurrTabName, {1});",
                 //                objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
                 strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache({1});",
                     objPrjTabENEx.TabName, strFuncParamsLst_Cache);
-            }
+         
             strCodeForCs.AppendFormat("\r\n" + "IEnumerable <cls{0}EN> arr{0}ObjLst_Sel1 =", objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n" + "from obj{0}EN in arr{0}ObjLstCache", objPrjTabENEx.TabName);
             intIndex = 0;
@@ -5366,8 +5270,12 @@ objPrjTabENEx.TabName);
             string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Cs(ThisClsName, strFuncName, true);
 
             Tuple<string, string, string> tup = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");
-            var strFuncParamsDefLst = tup.Item1;
-            var strFuncParamsLst = tup.Item2;
+
+            string strParaVarLstStr_KeyField = clsPubFun4GC.GetParaVarLstStr4KeyField(this, false, enumProgLangType.CSharp_01);
+
+
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+
             StringBuilder strCodeForCs = new StringBuilder();
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
 
@@ -5378,7 +5286,7 @@ objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n /// <returns>从缓存中获取的所有对象列表</returns>");
 
 
-            strCodeForCs.Append("\r\n" + $"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstCache({strFuncParamsDefLst})");
+            strCodeForCs.Append("\r\n" + $"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstCache({strFuncParaCode})");
 
 
 
@@ -5445,17 +5353,9 @@ objPrjTabENEx.TabName);
             }
 
             //strCodeForCs.Append("\r\n" + "InitListCache(); ");
-            if (objPrjTabENEx.objCacheClassifyFld == null)
-            {
 
-                strCodeForCs.Append("\r\n" + $"List<cls{objPrjTabENEx.TabName}EN> arr{objPrjTabENEx.TabName}ObjLstCache = CacheHelper.GetCache(strKey, () => {{ return GetObjLst(strWhereCond); }});");
-            }
-            else
-            {
+            strCodeForCs.Append("\r\n" + $"List<cls{objPrjTabENEx.TabName}EN> arr{objPrjTabENEx.TabName}ObjLstCache = CacheHelper.GetCache(strKey, () => {{ return GetObjLst(strWhereCond); }});");
 
-                strCodeForCs.Append("\r\n" + $"List<cls{objPrjTabENEx.TabName}EN> arr{objPrjTabENEx.TabName}ObjLstCache = CacheHelper.GetCache(strKey, () => {{ return GetObjLst(strWhereCond); }});");
-
-            }
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}ObjLstCache;",
                      objPrjTabENEx.TabName);
             //strCodeForCs.AppendFormat("\r\n" + "return null;");
@@ -5486,8 +5386,23 @@ objPrjTabENEx.TabName);
 
 
             Tuple<string, string, string> tup = thisWA_FP(WA_F.GetObjLst_CacheFromObjLst, "CSharp");
-            var strFuncParamsDefLst = tup.Item1;
-            var strFuncParamsLst = tup.Item2;
+
+            string strParaVarLstStr_KeyField = clsPubFun4GC.GetParaVarLstStr4KeyField(this, false, enumProgLangType.CSharp_01);
+
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+
+            string strFuncParaDef4ObjLst = "";
+            //if (strProgLangType == "TypeScript")
+            //{
+            //    strVariableType = string.Format("Array<cls{0}EN>", ThisTabName4GC);
+            //}
+            //else
+            //{
+            strFuncParaDef4ObjLst = string.Format("List<cls{0}EN> arrObjLst_P", ThisTabName4GC);
+            if (strFuncParaCode.Length > 5) strFuncParaDef4ObjLst = $",{strFuncParaDef4ObjLst}";
+            //}
+
+
             StringBuilder strCodeForCs = new StringBuilder();
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
 
@@ -5498,8 +5413,7 @@ objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n /// <returns>从缓存中获取的所有对象列表</returns>");
 
 
-            strCodeForCs.Append("\r\n" + $"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstCacheFromObjLst({strFuncParamsDefLst})");
-
+            strCodeForCs.Append("\r\n" + $"public static List<cls{objPrjTabENEx.TabName}EN> GetObjLstCacheFromObjLst({strFuncParaCode}{strFuncParaDef4ObjLst})");
 
 
             strCodeForCs.Append("\r\n" + "{");

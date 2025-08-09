@@ -245,7 +245,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n /// </summary>");
 
-                if (objPrjTabENEx.ObjCacheClassifyFld_TS == null)
+                if (objPrjTabENEx.objCacheClassifyFld == null)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "public class  {0} : clsCommFun4BL", objPrjTabENEx.ClsName);
                 }
@@ -367,7 +367,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n /// </summary>");
 
-                if (objPrjTabENEx.ObjCacheClassifyFld_TS == null)
+                if (objPrjTabENEx.objCacheClassifyFld == null)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "public class  {0} : clsCommFun4BL", objPrjTabENEx.ClsName);
                 }
@@ -849,6 +849,8 @@ namespace AutoGCLib
 
         public string Gen_4CFWA_ReFreshCache()
         {
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            string strParaVarLstStr_Cache = clsPubFun4GC.GetParaVarLstStr4CacheClassfy(this, false, enumProgLangType.CSharp_01);
 
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -856,19 +858,9 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.");
             strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n /// </summary>");
-            if (objPrjTabENEx.ObjCacheClassifyFld_TS == null)
-            {
-                strCodeForCs.AppendFormat("\r\n" + "public override void ReFreshCache()");
-            }
-            else
-            {
-                //strCodeForCs.AppendFormat("\r\n" + "public override void ReFreshCache({0} {1})",
-                //    objPrjTabENEx.objCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                //objPrjTabENEx.objCacheClassifyFld_TS.PrivFuncName);
-                strCodeForCs.AppendFormat("\r\n" + "public override void ReFreshCache(string {1})",
-                    objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                objPrjTabENEx.ObjCacheClassifyFld_TS.PrivFuncName);
-            }
+
+                strCodeForCs.Append("\r\n" + $"public override void ReFreshCache({strFuncParaCode})");
+
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "string strMsg;");
             strCodeForCs.Append("\r\n" + "if (clsSysParaEN.spSetRefreshCacheOn == false)");
@@ -884,17 +876,8 @@ namespace AutoGCLib
 
 
             strCodeForCs.Append("\r\n" + "// 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用");
-            if (objPrjTabENEx.ObjCacheClassifyFld_TS == null)
-            {
-                strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshThisCache();",
-                    objPrjTabENEx.TabName);
-            }
-            else
-            {
-                strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshThisCache({1});",
-                    objPrjTabENEx.TabName,
-                        objPrjTabENEx.ObjCacheClassifyFld_TS.PrivFuncName);
-            }
+
+                strCodeForCs.Append("\r\n" + $"cls{objPrjTabENEx.TabName}WApi.ReFreshThisCache({strParaVarLstStr_Cache});");
 
             //string strTabId = cboPrjTab.SelectedValue.ToString();
             //arrPrjTabObjLst = clsPrjTabBLEx.GetPrjTabObjLstByPrjIdCacheEx(strPrjId);
@@ -911,25 +894,8 @@ namespace AutoGCLib
                     //    objPrjTab.TabName, objPrjTab.TabId);
                     //listBox1.Items.Add(strMsg);
                     if (objPrjTab.IsUseCache == false) continue;
-                    if (string.IsNullOrEmpty(objPrjTab.CacheClassifyField) == true)
-                    {
-                        strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshThisCache();",
-                            objPrjTab.TabName);
-                    }
-                    else if (string.IsNullOrEmpty(objPrjTab.CacheClassifyField2) == true)
-                    {
-                        strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshThisCache({1});",
-                            objPrjTab.TabName,
-                            objPrjTabENEx.ObjCacheClassifyFld_TS.PrivFuncName);
-                    }
-                    else
-                    {
-                        strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshThisCache({1}, {2});",
-                            objPrjTab.TabName,
-                            objPrjTabENEx.ObjCacheClassifyFld_TS.PrivFuncName,
-                            objPrjTabENEx.objCacheClassifyFld2.PrivFuncName);
-                    }
-
+                    strCodeForCs.AppendFormat("\r\n" + $"cls{objPrjTab.TabName}WApi.ReFreshThisCache({strParaVarLstStr_Cache});",
+                        objPrjTab.TabName);
                 }
             }
             strCodeForCs.Append("\r\n" + "}");

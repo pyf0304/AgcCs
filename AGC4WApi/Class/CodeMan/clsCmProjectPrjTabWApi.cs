@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCmProjectPrjTabWApi
  表名:CmProjectPrjTab(00050530)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:20
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:38:30
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -299,6 +299,7 @@ objCmProjectPrjTabEN.sfUpdFldSetStr = objCmProjectPrjTabEN.getsfUpdFldSetStr();
 clsCmProjectPrjTabWApi.CheckPropertyNew(objCmProjectPrjTabEN); 
 bool bolResult = clsCmProjectPrjTabWApi.UpdateRecord(objCmProjectPrjTabEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -351,6 +352,7 @@ try
 clsCmProjectPrjTabWApi.CheckPropertyNew(objCmProjectPrjTabEN); 
 bool bolResult = clsCmProjectPrjTabWApi.AddNewRecord(objCmProjectPrjTabEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -377,6 +379,7 @@ try
 clsCmProjectPrjTabWApi.CheckPropertyNew(objCmProjectPrjTabEN); 
 bool bolResult = clsCmProjectPrjTabWApi.UpdateWithCondition(objCmProjectPrjTabEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -400,7 +403,7 @@ private static readonly string mstrApiControllerName = "CmProjectPrjTabApi";
 /// 专门在逻辑层用于处理缓存等公共函数的对象
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_DefineObjCommFun4BL)
 /// </summary>
-public static clsCommFun4BL objCommFun4WApi = null;
+public static clsCommFun4BLV2 objCommFun4WApi = null;
 
  public clsCmProjectPrjTabWApi()
  {
@@ -557,7 +560,34 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "lngmId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsCmProjectPrjTabEN GetObjBymIdCache(long lngmId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
+List<clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLstCache = GetObjLstCache();
+IEnumerable <clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLst_Sel =
+from objCmProjectPrjTabEN in arrCmProjectPrjTabObjLstCache
+where objCmProjectPrjTabEN.mId == lngmId 
+select objCmProjectPrjTabEN;
+if (arrCmProjectPrjTabObjLst_Sel.Count() == 0)
+{
+   clsCmProjectPrjTabEN obj = clsCmProjectPrjTabWApi.GetObjBymId(lngmId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrCmProjectPrjTabObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -636,7 +666,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrMId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsCmProjectPrjTabEN> GetObjLstByMIdLstCache(List<long> arrMId, )
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
+List<clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLstCache = GetObjLstCache();
+IEnumerable <clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLst_Sel =
+from objCmProjectPrjTabEN in arrCmProjectPrjTabObjLstCache
+where arrMId.Contains(objCmProjectPrjTabEN.mId)
+select objCmProjectPrjTabEN;
+return arrCmProjectPrjTabObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -812,6 +859,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, lngmId.ToString(), o
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -885,6 +933,8 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+ clsCmProjectPrjTabEN objCmProjectPrjTabEN = clsCmProjectPrjTabWApi.GetObjBymId(long.Parse(arrmId[0]));
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -962,6 +1012,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1001,6 +1052,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCmProjectPrjTabWApi.ReFreshCache(objCmProjectPrjTabEN.CmPrjId);
 var strReturnStr = (string)jobjReturn0["returnStr"];
 return strReturnStr;
 }
@@ -1401,13 +1453,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache()
+public static void ReFreshThisCache(string strCmPrjId)
 {
 
+
+if (string.IsNullOrEmpty(strCmPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCmProjectPrjTabWApi.ReFreshThisCache)");
+ throw new Exception  (strMsg);
+}
+if (strCmPrjId.Length != 6)
+{
+var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCmProjectPrjTabWApi.ReFreshThisCache)", strCmPrjId.Length);
+throw new Exception (strMsg);
+}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}", clsCmProjectPrjTabEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1424,7 +1487,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache()
+public static void ReFreshCache(string strCmPrjId)
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -1436,13 +1499,79 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsCmProjectPrjTabWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}", clsCmProjectPrjTabEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
 CacheHelper.Remove(strKey);
-clsCmProjectPrjTabWApi.objCommFun4WApi.ReFreshCache();
+clsCmProjectPrjTabWApi.objCommFun4WApi.ReFreshCache(strCmPrjId.ToString());
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsCmProjectPrjTabEN> GetObjLstCache()
+{
+
+
+if (string.IsNullOrEmpty(strCmPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCmProjectPrjTabWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strCmPrjId.Length != 6)
+{
+var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCmProjectPrjTabWApi.GetObjLstCache)", strCmPrjId.Length);
+throw new Exception (strMsg);
+}
+//初始化列表缓存
+var strWhereCond = "1=1";
+if (string.IsNullOrEmpty(clsCmProjectPrjTabEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsCmProjectPrjTabEN._WhereFormat, strCmPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",conCmProjectPrjTab.CmPrjId, strCmPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
+List<clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrCmProjectPrjTabObjLstCache;
+}
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsCmProjectPrjTabEN> GetObjLstCacheFromObjLst(List<clsCmProjectPrjTabEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strCmPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strCmPrjId]不能为空！(In clsCmProjectPrjTabWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strCmPrjId.Length != 6)
+{
+var strMsg = string.Format("缓存分类变量:[strCmPrjId]的长度:[{0}]不正确！(clsCmProjectPrjTabWApi.GetObjLstCacheFromObjLst)", strCmPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsCmProjectPrjTabEN._CurrTabName, strCmPrjId);
+List<clsCmProjectPrjTabEN> arrCmProjectPrjTabObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrCmProjectPrjTabObjLstCache = CacheHelper.Get<List<clsCmProjectPrjTabEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.CmPrjId == strCmPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrCmProjectPrjTabObjLstCache = CacheHelper.Get<List<clsCmProjectPrjTabEN>>(strKey);
+}
+return arrCmProjectPrjTabObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

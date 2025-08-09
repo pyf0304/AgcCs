@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCtlTypeWApi
  表名:CtlType(00050058)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:27
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:38:46
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:界面管理(PrjInterface)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -878,7 +878,34 @@ objComboBox.DisplayMember = conCtlType.CtlTypeName;
 objComboBox.DataSource = arrObjLstSel;
 objComboBox.SelectedIndex = 0;
 }
+//该表下拉框功能不需要生成;
+ /// <summary>
+ /// 绑定基于Win的下拉框
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_TabFeature_ComboBoxBindFunction)
+ /// </summary>
+ /// <param name = "objComboBox">需要绑定当前表的下拉框</param>
 
+ /// <param name = "bolIsVisible"></param>
+public static void BindCbo_CtlTypeId(System.Windows.Forms.ComboBox objComboBox , bool bolIsVisible)
+{
+//为数据源为表的下拉框设置内容
+string strCondition = string.Format("1 =1 Order By {0}", conCtlType.CtlTypeId); 
+List<clsCtlTypeEN> arrObjLst = clsCtlTypeWApi.GetObjLst(strCondition).OrderBy(x=>x.OrderNum).ToList();
+var arrObjLstSel = arrObjLst.Where(x=>x.IsVisible == false).ToList();
+//初始化一个对象列表
+//插入第0项。在第0项中插入“请选择...”,为了方便用户,与WEB方式类似。
+clsCtlTypeEN objCtlTypeEN = new clsCtlTypeEN()
+{
+CtlTypeId = "0",
+CtlTypeName = "选[控件类型缩写]..."
+};
+arrObjLstSel.Insert(0, objCtlTypeEN);
+//设置下拉框的数据源、以及设置值项、显示项
+objComboBox.ValueMember = conCtlType.CtlTypeId;
+objComboBox.DisplayMember = conCtlType.CtlTypeName;
+objComboBox.DataSource = arrObjLstSel;
+objComboBox.SelectedIndex = 0;
+}
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.

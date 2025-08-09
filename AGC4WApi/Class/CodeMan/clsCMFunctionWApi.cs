@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCMFunctionWApi
  表名:CMFunction(00050502)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:59
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:39:17
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -1034,7 +1034,7 @@ objCMFunctionEN.sfUpdFldSetStr = objCMFunctionEN.getsfUpdFldSetStr();
 clsCMFunctionWApi.CheckPropertyNew(objCMFunctionEN); 
 bool bolResult = clsCMFunctionWApi.UpdateRecord(objCMFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -1093,7 +1093,7 @@ try
 clsCMFunctionWApi.CheckPropertyNew(objCMFunctionEN); 
 bool bolResult = clsCMFunctionWApi.AddNewRecord(objCMFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -1119,7 +1119,7 @@ try
 clsCMFunctionWApi.CheckPropertyNew(objCMFunctionEN); 
 string strCmFunctionId = clsCMFunctionWApi.AddNewRecordWithMaxId(objCMFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 return strCmFunctionId;
 }
 catch (Exception objException)
@@ -1146,7 +1146,7 @@ try
 clsCMFunctionWApi.CheckPropertyNew(objCMFunctionEN); 
 bool bolResult = clsCMFunctionWApi.UpdateWithCondition(objCMFunctionEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -1170,7 +1170,7 @@ private static readonly string mstrApiControllerName = "CMFunctionApi";
 /// 专门在逻辑层用于处理缓存等公共函数的对象
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_DefineObjCommFun4BL)
 /// </summary>
-public static clsCommFun4BLV2 objCommFun4WApi = null;
+public static clsCommFun4BL objCommFun4WApi = null;
 
  public clsCMFunctionWApi()
  {
@@ -1446,8 +1446,8 @@ public static clsCMFunctionEN GetObjByCmFunctionIdCache(string strCmFunctionId,s
 {
 if (string.IsNullOrEmpty(strCmFunctionId) == true) return null;
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
-List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache(strCmClassId);
+string strKey = string.Format("{0}", clsCMFunctionEN._CurrTabName);
+List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache();
 IEnumerable <clsCMFunctionEN> arrCMFunctionObjLst_Sel =
 from objCMFunctionEN in arrCMFunctionObjLstCache
 where objCMFunctionEN.CmFunctionId == strCmFunctionId 
@@ -1471,11 +1471,11 @@ return arrCMFunctionObjLst_Sel.First();
  /// </summary>
  /// <param name = "strCmFunctionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetFunctionNameByCmFunctionIdCache(string strCmFunctionId,string strCmClassId)
+public static string GetFunctionNameByCmFunctionIdCache(string strCmFunctionId)
 {
 if (string.IsNullOrEmpty(strCmFunctionId) == true) return "";
 //初始化列表缓存
-List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache(strCmClassId);
+List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache();
 IEnumerable <clsCMFunctionEN> arrCMFunctionObjLst_Sel1 =
 from objCMFunctionEN in arrCMFunctionObjLstCache
 where objCMFunctionEN.CmFunctionId == strCmFunctionId 
@@ -1499,11 +1499,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strCmFunctionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByCmFunctionIdCache(string strCmFunctionId,string strCmClassId)
+public static string GetNameByCmFunctionIdCache(string strCmFunctionId)
 {
 if (string.IsNullOrEmpty(strCmFunctionId) == true) return "";
 //初始化列表缓存
-List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache(strCmClassId);
+List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache();
 IEnumerable <clsCMFunctionEN> arrCMFunctionObjLst_Sel1 =
 from objCMFunctionEN in arrCMFunctionObjLstCache
 where objCMFunctionEN.CmFunctionId == strCmFunctionId 
@@ -1606,11 +1606,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrCmFunctionId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsCMFunctionEN> GetObjLstByCmFunctionIdLstCache(List<string> arrCmFunctionId, string strCmClassId)
+public static IEnumerable<clsCMFunctionEN> GetObjLstByCmFunctionIdLstCache(List<string> arrCmFunctionId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
-List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache(strCmClassId);
+string strKey = string.Format("{0}", clsCMFunctionEN._CurrTabName);
+List<clsCMFunctionEN> arrCMFunctionObjLstCache = GetObjLstCache();
 IEnumerable <clsCMFunctionEN> arrCMFunctionObjLst_Sel =
 from objCMFunctionEN in arrCMFunctionObjLstCache
 where arrCmFunctionId.Contains(objCMFunctionEN.CmFunctionId)
@@ -1792,7 +1792,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strCmFunctionId.ToSt
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1866,8 +1866,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
- clsCMFunctionEN objCMFunctionEN = clsCMFunctionWApi.GetObjByCmFunctionId(arrCmFunctionId[0]);
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1945,7 +1944,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1984,7 +1983,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFunctionWApi.ReFreshCache(objCMFunctionEN.CmClassId);
+clsCMFunctionWApi.ReFreshCache();
 var strCmFunctionId = (string)jobjReturn0["returnStr"];
 return strCmFunctionId;
 }
@@ -2480,24 +2479,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strCmClassId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (string.IsNullOrEmpty(strCmClassId) == true)
-{
-  var strMsg = string.Format("参数:[strCmClassId]不能为空！(In clsCMFunctionWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
-if (strCmClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strCmClassId]的长度:[{0}]不正确！(clsCMFunctionWApi.ReFreshThisCache)", strCmClassId.Length);
-throw new Exception (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
+string strKey = string.Format("{0}", clsCMFunctionEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -2514,7 +2502,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strCmClassId)
+public static void ReFreshCache()
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -2526,9 +2514,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsCMFunctionWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
+string strKey = string.Format("{0}", clsCMFunctionEN._CurrTabName);
 CacheHelper.Remove(strKey);
-clsCMFunctionWApi.objCommFun4WApi.ReFreshCache(strCmClassId.ToString());
+clsCMFunctionWApi.objCommFun4WApi.ReFreshCache();
 }
 }
 
@@ -2540,65 +2528,13 @@ clsCMFunctionWApi.objCommFun4WApi.ReFreshCache(strCmClassId.ToString());
 public static List<clsCMFunctionEN> GetObjLstCache(string strCmClassId)
 {
 
-
-if (string.IsNullOrEmpty(strCmClassId) == true)
-{
-  var strMsg = string.Format("参数:[strCmClassId]不能为空！(In clsCMFunctionWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
-if (strCmClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strCmClassId]的长度:[{0}]不正确！(clsCMFunctionWApi.GetObjLstCache)", strCmClassId.Length);
-throw new Exception (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsCMFunctionEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsCMFunctionEN._WhereFormat, strCmClassId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",conCMFunction.CmClassId, strCmClassId);
-}
-var strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
+var strKey = clsCMFunctionEN._CurrTabName;
 List<clsCMFunctionEN> arrCMFunctionObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrCMFunctionObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCMFunctionEN> GetObjLstCacheFromObjLst(string strCmClassId,List<clsCMFunctionEN> arrObjLst_P)
-{
-
-
-if (string.IsNullOrEmpty(strCmClassId) == true)
-{
-  var strMsg = string.Format("参数:[strCmClassId]不能为空！(In clsCMFunctionWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-if (strCmClassId.Length != 8)
-{
-var strMsg = string.Format("缓存分类变量:[strCmClassId]的长度:[{0}]不正确！(clsCMFunctionWApi.GetObjLstCacheFromObjLst)", strCmClassId.Length);
-throw new Exception (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsCMFunctionEN._CurrTabName, strCmClassId);
-List<clsCMFunctionEN> arrCMFunctionObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrCMFunctionObjLstCache = CacheHelper.Get<List<clsCMFunctionEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.CmClassId == strCmClassId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrCMFunctionObjLstCache = CacheHelper.Get<List<clsCMFunctionEN>>(strKey);
-}
-return arrCMFunctionObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

@@ -110,6 +110,22 @@ namespace AGC.BusinessLogicEx
             return sb.ToString();
         }
 
+        public string GetParaVar4CSharp()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}", this.VarName);
+            this.CodeText = sb.ToString();
+            return sb.ToString();
+        }
+
+        public string GetParaVar4TypeScript()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}", this.VarName);
+            this.CodeText = sb.ToString();
+            return sb.ToString();
+        }
+
         public string GetFuncParaText4TypeScript()
         {
             StringBuilder sb = new StringBuilder();
@@ -737,6 +753,34 @@ namespace AGC.BusinessLogicEx
                         break;
                     case enumProgLangType.TypeScript_09:// "TypeScript":
                         strCodeText = item.GetFuncParaText4TypeScript();
+                        strCodeForCs.Append(strCodeText + ",");
+                        break;
+                    default:
+                        var objProgLangType = clsProgLangTypeBL.GetObjByProgLangTypeIdCache(strProgLangTypeId);
+                        string strMsg = string.Format("在定义函数参数过程中，语言:{0}没有处理！", objProgLangType.ProgLangTypeName);
+                        throw new Exception(strMsg);
+                }
+            }
+            strCodeForCs = strCodeForCs.Remove(strCodeForCs.Length - 1, 1);
+            return strCodeForCs.ToString();
+        }
+
+        public string Gc_ParaVarLstStr(string strProgLangTypeId)
+        {
+            if (this.lstFuncParaType == null || this.lstFuncParaType.Count == 0) return "";
+
+            StringBuilder strCodeForCs = new StringBuilder();
+            foreach (var item in this.lstFuncParaType)
+            {
+                string strCodeText = "";
+                switch (strProgLangTypeId)
+                {
+                    case enumProgLangType.CSharp_01:// "CSharp":
+                        strCodeText = item.GetParaVar4CSharp();
+                        strCodeForCs.Append(strCodeText + ",");
+                        break;
+                    case enumProgLangType.TypeScript_09:// "TypeScript":
+                        strCodeText = item.GetParaVar4TypeScript();
                         strCodeForCs.Append(strCodeText + ",");
                         break;
                     default:

@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCaseTypeWApi
  表名:CaseType(00050055)
- * 版本:2025.07.25.1(服务器:WIN-SRV103-116)
- 日期:2025/07/28 01:50:47
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:41:22
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:用例管理(CaseManage)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -173,6 +173,7 @@ objCaseTypeEN.sfUpdFldSetStr = objCaseTypeEN.getsfUpdFldSetStr();
 clsCaseTypeWApi.CheckPropertyNew(objCaseTypeEN); 
 bool bolResult = clsCaseTypeWApi.UpdateRecord(objCaseTypeEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -227,6 +228,7 @@ try
 clsCaseTypeWApi.CheckPropertyNew(objCaseTypeEN); 
 bool bolResult = clsCaseTypeWApi.AddNewRecord(objCaseTypeEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -252,6 +254,7 @@ try
 clsCaseTypeWApi.CheckPropertyNew(objCaseTypeEN); 
 string strCaseTypeId = clsCaseTypeWApi.AddNewRecordWithMaxId(objCaseTypeEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 return strCaseTypeId;
 }
 catch (Exception objException)
@@ -278,6 +281,7 @@ try
 clsCaseTypeWApi.CheckPropertyNew(objCaseTypeEN); 
 bool bolResult = clsCaseTypeWApi.UpdateWithCondition(objCaseTypeEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -494,8 +498,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetCaseTypeNameByCaseTypeIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strCaseTypeId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsCaseTypeEN GetObjByCaseTypeIdCache(string strCaseTypeId)
+{
+if (string.IsNullOrEmpty(strCaseTypeId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}", clsCaseTypeEN._CurrTabName);
+List<clsCaseTypeEN> arrCaseTypeObjLstCache = GetObjLstCache();
+IEnumerable <clsCaseTypeEN> arrCaseTypeObjLst_Sel =
+from objCaseTypeEN in arrCaseTypeObjLstCache
+where objCaseTypeEN.CaseTypeId == strCaseTypeId 
+select objCaseTypeEN;
+if (arrCaseTypeObjLst_Sel.Count() == 0)
+{
+   clsCaseTypeEN obj = clsCaseTypeWApi.GetObjByCaseTypeId(strCaseTypeId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrCaseTypeObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strCaseTypeId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetCaseTypeNameByCaseTypeIdCache(string strCaseTypeId)
+{
+if (string.IsNullOrEmpty(strCaseTypeId) == true) return "";
+//初始化列表缓存
+List<clsCaseTypeEN> arrCaseTypeObjLstCache = GetObjLstCache();
+IEnumerable <clsCaseTypeEN> arrCaseTypeObjLst_Sel1 =
+from objCaseTypeEN in arrCaseTypeObjLstCache
+where objCaseTypeEN.CaseTypeId == strCaseTypeId 
+select objCaseTypeEN;
+List <clsCaseTypeEN> arrCaseTypeObjLst_Sel = new List<clsCaseTypeEN>();
+foreach (clsCaseTypeEN obj in arrCaseTypeObjLst_Sel1)
+{
+arrCaseTypeObjLst_Sel.Add(obj);
+}
+if (arrCaseTypeObjLst_Sel.Count > 0)
+{
+return arrCaseTypeObjLst_Sel[0].CaseTypeName;
+}
+string strErrMsgForGetObjById = string.Format("在CaseType对象缓存列表中,找不到记录[CaseTypeId = {0}](函数:{1})", strCaseTypeId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsCaseTypeBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strCaseTypeId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByCaseTypeIdCache(string strCaseTypeId)
+{
+if (string.IsNullOrEmpty(strCaseTypeId) == true) return "";
+//初始化列表缓存
+List<clsCaseTypeEN> arrCaseTypeObjLstCache = GetObjLstCache();
+IEnumerable <clsCaseTypeEN> arrCaseTypeObjLst_Sel1 =
+from objCaseTypeEN in arrCaseTypeObjLstCache
+where objCaseTypeEN.CaseTypeId == strCaseTypeId 
+select objCaseTypeEN;
+List <clsCaseTypeEN> arrCaseTypeObjLst_Sel = new List<clsCaseTypeEN>();
+foreach (clsCaseTypeEN obj in arrCaseTypeObjLst_Sel1)
+{
+arrCaseTypeObjLst_Sel.Add(obj);
+}
+if (arrCaseTypeObjLst_Sel.Count > 0)
+{
+return arrCaseTypeObjLst_Sel[0].CaseTypeName;
+}
+string strErrMsgForGetObjById = string.Format("在CaseType对象缓存列表中,找不到记录的相关名称[CaseTypeId = {0}](函数:{1})", strCaseTypeId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsCaseTypeBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -574,7 +662,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrCaseTypeId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsCaseTypeEN> GetObjLstByCaseTypeIdLstCache(List<string> arrCaseTypeId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsCaseTypeEN._CurrTabName);
+List<clsCaseTypeEN> arrCaseTypeObjLstCache = GetObjLstCache();
+IEnumerable <clsCaseTypeEN> arrCaseTypeObjLst_Sel =
+from objCaseTypeEN in arrCaseTypeObjLstCache
+where arrCaseTypeId.Contains(objCaseTypeEN.CaseTypeId)
+select objCaseTypeEN;
+return arrCaseTypeObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -750,6 +855,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strCaseTypeId.ToStri
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsCaseTypeWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -823,6 +929,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsCaseTypeWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -900,6 +1007,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -938,6 +1046,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsCaseTypeWApi.ReFreshCache();
 var strCaseTypeId = (string)jobjReturn0["returnStr"];
 return strCaseTypeId;
 }
@@ -1446,8 +1555,22 @@ CacheHelper.Remove(strKey);
 clsCaseTypeWApi.objCommFun4WApi.ReFreshCache();
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsCaseTypeEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsCaseTypeEN._CurrTabName;
+List<clsCaseTypeEN> arrCaseTypeObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrCaseTypeObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

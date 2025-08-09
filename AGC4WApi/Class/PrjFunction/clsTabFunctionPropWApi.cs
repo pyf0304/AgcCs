@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsTabFunctionPropWApi
  表名:TabFunctionProp(00050522)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:24
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:38:43
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:函数管理(PrjFunction)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -464,7 +464,7 @@ objTabFunctionPropEN.sfUpdFldSetStr = objTabFunctionPropEN.getsfUpdFldSetStr();
 clsTabFunctionPropWApi.CheckPropertyNew(objTabFunctionPropEN); 
 bool bolResult = clsTabFunctionPropWApi.UpdateRecord(objTabFunctionPropEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -523,7 +523,7 @@ try
 clsTabFunctionPropWApi.CheckPropertyNew(objTabFunctionPropEN); 
 bool bolResult = clsTabFunctionPropWApi.AddNewRecord(objTabFunctionPropEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -550,7 +550,7 @@ try
 clsTabFunctionPropWApi.CheckPropertyNew(objTabFunctionPropEN); 
 bool bolResult = clsTabFunctionPropWApi.UpdateWithCondition(objTabFunctionPropEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)
@@ -757,7 +757,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
 public static clsTabFunctionPropEN GetObjBymIdCache(long lngmId,string strTabId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 List<clsTabFunctionPropEN> arrTabFunctionPropObjLstCache = GetObjLstCache(strTabId);
 IEnumerable <clsTabFunctionPropEN> arrTabFunctionPropObjLst_Sel =
 from objTabFunctionPropEN in arrTabFunctionPropObjLstCache
@@ -863,7 +863,7 @@ throw new Exception(strMsg);
 public static IEnumerable<clsTabFunctionPropEN> GetObjLstByMIdLstCache(List<long> arrMId, string strTabId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 List<clsTabFunctionPropEN> arrTabFunctionPropObjLstCache = GetObjLstCache(strTabId);
 IEnumerable <clsTabFunctionPropEN> arrTabFunctionPropObjLst_Sel =
 from objTabFunctionPropEN in arrTabFunctionPropObjLstCache
@@ -1046,7 +1046,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, lngmId.ToString(), o
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1121,7 +1121,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
  clsTabFunctionPropEN objTabFunctionPropEN = clsTabFunctionPropWApi.GetObjBymId(long.Parse(arrmId[0]));
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1199,7 +1199,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1239,7 +1239,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.TabId);
+clsTabFunctionPropWApi.ReFreshCache(objTabFunctionPropEN.PrjId);
 var strReturnStr = (string)jobjReturn0["returnStr"];
 return strReturnStr;
 }
@@ -1645,24 +1645,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strTabId = "")
+public static void ReFreshThisCache(string strPrjId)
 {
 
 
-if (string.IsNullOrEmpty(strTabId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strTabId]不能为空！(In clsTabFunctionPropWApi.ReFreshThisCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsTabFunctionPropWApi.ReFreshThisCache)");
  throw new Exception  (strMsg);
 }
-if (strTabId.Length != 8)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strTabId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.ReFreshThisCache)", strTabId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.ReFreshThisCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1679,7 +1679,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strTabId)
+public static void ReFreshCache(string strPrjId)
 {
   if (clsSysParaEN.spIsUseQueue4Task == true)
 {
@@ -1691,9 +1691,9 @@ clsSysParaEN.arrFunctionLst4Queue = new Queue<object>();
 if (clsTabFunctionPropWApi.objCommFun4WApi != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+string strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
-clsTabFunctionPropWApi.objCommFun4WApi.ReFreshCache(strTabId.ToString());
+clsTabFunctionPropWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
 }
 }
 
@@ -1706,27 +1706,27 @@ public static List<clsTabFunctionPropEN> GetObjLstCache(string strTabId)
 {
 
 
-if (string.IsNullOrEmpty(strTabId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strTabId]不能为空！(In clsTabFunctionPropWApi.GetObjLstCache)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsTabFunctionPropWApi.GetObjLstCache)");
  throw new Exception  (strMsg);
 }
-if (strTabId.Length != 8)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strTabId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.GetObjLstCache)", strTabId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.GetObjLstCache)", strPrjId.Length);
 throw new Exception (strMsg);
 }
 //初始化列表缓存
 var strWhereCond = "1=1";
 if (string.IsNullOrEmpty(clsTabFunctionPropEN._WhereFormat) == false)
 {
-strWhereCond =string.Format(clsTabFunctionPropEN._WhereFormat, strTabId);
+strWhereCond =string.Format(clsTabFunctionPropEN._WhereFormat, strPrjId);
 }
 else
 {
-strWhereCond = string.Format("{0}='{1}'",conTabFunctionProp.TabId, strTabId);
+strWhereCond = string.Format("{0}='{1}'",conTabFunctionProp.PrjId, strPrjId);
 }
-var strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+var strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 List<clsTabFunctionPropEN> arrTabFunctionPropObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrTabFunctionPropObjLstCache;
 }
@@ -1740,17 +1740,17 @@ public static List<clsTabFunctionPropEN> GetObjLstCacheFromObjLst(string strTabI
 {
 
 
-if (string.IsNullOrEmpty(strTabId) == true)
+if (string.IsNullOrEmpty(strPrjId) == true)
 {
-  var strMsg = string.Format("参数:[strTabId]不能为空！(In clsTabFunctionPropWApi.GetObjLstCacheFromObjLst)");
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsTabFunctionPropWApi.GetObjLstCacheFromObjLst)");
  throw new Exception  (strMsg);
 }
-if (strTabId.Length != 8)
+if (strPrjId.Length != 4)
 {
-var strMsg = string.Format("缓存分类变量:[strTabId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.GetObjLstCacheFromObjLst)", strTabId.Length);
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsTabFunctionPropWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
 throw new Exception (strMsg);
 }
-var strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strTabId);
+var strKey = string.Format("{0}_{1}", clsTabFunctionPropEN._CurrTabName, strPrjId);
 List<clsTabFunctionPropEN> arrTabFunctionPropObjLstCache = null;
 if (CacheHelper.Exsits(strKey) == true)
 {
@@ -1758,7 +1758,7 @@ arrTabFunctionPropObjLstCache = CacheHelper.Get<List<clsTabFunctionPropEN>>(strK
 }
 else
 {
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.TabId == strTabId).ToList();
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
 CacheHelper.Add(strKey, arrObjLst_Sel);
 arrTabFunctionPropObjLstCache = CacheHelper.Get<List<clsTabFunctionPropEN>>(strKey);
 }

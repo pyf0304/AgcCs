@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFieldTab4CodeConvWApi
  表名:vFieldTab4CodeConv(00050594)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:30
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:08:33
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:字段、表维护(Table_Field)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -571,7 +571,35 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strFldId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvFieldTab4CodeConvEN GetObjByFldIdCache(string strFldId)
+{
+if (string.IsNullOrEmpty(strFldId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache();
+IEnumerable <clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLst_Sel =
+from objvFieldTab4CodeConvEN in arrvFieldTab4CodeConvObjLstCache
+where objvFieldTab4CodeConvEN.FldId == strFldId 
+select objvFieldTab4CodeConvEN;
+if (arrvFieldTab4CodeConvObjLst_Sel.Count() == 0)
+{
+   clsvFieldTab4CodeConvEN obj = clsvFieldTab4CodeConvWApi.GetObjByFldId(strFldId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvFieldTab4CodeConvObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -650,7 +678,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrFldId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvFieldTab4CodeConvEN> GetObjLstByFldIdLstCache(List<string> arrFldId, )
+{
+//初始化列表缓存
+string strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache();
+IEnumerable <clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLst_Sel =
+from objvFieldTab4CodeConvEN in arrvFieldTab4CodeConvObjLstCache
+where arrFldId.Contains(objvFieldTab4CodeConvEN.FldId)
+select objvFieldTab4CodeConvEN;
+return arrvFieldTab4CodeConvObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1045,13 +1090,24 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache()
+public static void ReFreshThisCache(string strPrjId)
 {
 
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvFieldTab4CodeConvWApi.ReFreshThisCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvFieldTab4CodeConvWApi.ReFreshThisCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}", clsvFieldTab4CodeConvEN._CurrTabName);
+string strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1063,8 +1119,74 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvFieldTab4CodeConvEN> GetObjLstCache()
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvFieldTab4CodeConvWApi.GetObjLstCache)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvFieldTab4CodeConvWApi.GetObjLstCache)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+//初始化列表缓存
+var strWhereCond = "1=1";
+if (string.IsNullOrEmpty(clsvFieldTab4CodeConvEN._WhereFormat) == false)
+{
+strWhereCond =string.Format(clsvFieldTab4CodeConvEN._WhereFormat, strPrjId);
+}
+else
+{
+strWhereCond = string.Format("{0}='{1}'",convFieldTab4CodeConv.PrjId, strPrjId);
+}
+var strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvFieldTab4CodeConvObjLstCache;
+}
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvFieldTab4CodeConvEN> GetObjLstCacheFromObjLst(List<clsvFieldTab4CodeConvEN> arrObjLst_P)
+{
+
+
+if (string.IsNullOrEmpty(strPrjId) == true)
+{
+  var strMsg = string.Format("参数:[strPrjId]不能为空！(In clsvFieldTab4CodeConvWApi.GetObjLstCacheFromObjLst)");
+ throw new Exception  (strMsg);
+}
+if (strPrjId.Length != 4)
+{
+var strMsg = string.Format("缓存分类变量:[strPrjId]的长度:[{0}]不正确！(clsvFieldTab4CodeConvWApi.GetObjLstCacheFromObjLst)", strPrjId.Length);
+throw new Exception (strMsg);
+}
+var strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = null;
+if (CacheHelper.Exsits(strKey) == true)
+{
+arrvFieldTab4CodeConvObjLstCache = CacheHelper.Get<List<clsvFieldTab4CodeConvEN>>(strKey);
+}
+else
+{
+var arrObjLst_Sel = arrObjLst_P.Where(x => x.PrjId == strPrjId).ToList();
+CacheHelper.Add(strKey, arrObjLst_Sel);
+arrvFieldTab4CodeConvObjLstCache = CacheHelper.Get<List<clsvFieldTab4CodeConvEN>>(strKey);
+}
+return arrvFieldTab4CodeConvObjLstCache;
+}
 
  /// <summary>
  /// 根据对象列表获取DataTable

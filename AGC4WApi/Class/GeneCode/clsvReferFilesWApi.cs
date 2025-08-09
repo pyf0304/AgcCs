@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvReferFilesWApi
  表名:vReferFiles(00050461)
- * 版本:2025.07.25.1(服务器:WIN-SRV103-116)
- 日期:2025/07/28 01:50:51
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:06:58
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -608,7 +608,35 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strReferFileId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvReferFilesEN GetObjByReferFileIdCache(string strReferFileId)
+{
+if (string.IsNullOrEmpty(strReferFileId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}", clsvReferFilesEN._CurrTabName);
+List<clsvReferFilesEN> arrvReferFilesObjLstCache = GetObjLstCache();
+IEnumerable <clsvReferFilesEN> arrvReferFilesObjLst_Sel =
+from objvReferFilesEN in arrvReferFilesObjLstCache
+where objvReferFilesEN.ReferFileId == strReferFileId 
+select objvReferFilesEN;
+if (arrvReferFilesObjLst_Sel.Count() == 0)
+{
+   clsvReferFilesEN obj = clsvReferFilesWApi.GetObjByReferFileId(strReferFileId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvReferFilesObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -687,7 +715,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrReferFileId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvReferFilesEN> GetObjLstByReferFileIdLstCache(List<string> arrReferFileId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsvReferFilesEN._CurrTabName);
+List<clsvReferFilesEN> arrvReferFilesObjLstCache = GetObjLstCache();
+IEnumerable <clsvReferFilesEN> arrvReferFilesObjLst_Sel =
+from objvReferFilesEN in arrvReferFilesObjLstCache
+where arrReferFileId.Contains(objvReferFilesEN.ReferFileId)
+select objvReferFilesEN;
+return arrvReferFilesObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1100,8 +1145,22 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvReferFilesEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsvReferFilesEN._CurrTabName;
+List<clsvReferFilesEN> arrvReferFilesObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvReferFilesObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

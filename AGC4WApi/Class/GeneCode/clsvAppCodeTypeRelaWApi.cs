@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvAppCodeTypeRelaWApi
  表名:vAppCodeTypeRela(00050419)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:00
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:10
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -1056,8 +1056,8 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
 public static clsvAppCodeTypeRelaEN GetObjBymIdCache(long lngmId,int intApplicationTypeId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvAppCodeTypeRelaEN._CurrTabName, intApplicationTypeId);
-List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = GetObjLstCache(intApplicationTypeId);
+string strKey = string.Format("{0}", clsvAppCodeTypeRelaEN._CurrTabName);
+List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = GetObjLstCache();
 IEnumerable <clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLst_Sel =
 from objvAppCodeTypeRelaEN in arrvAppCodeTypeRelaObjLstCache
 where objvAppCodeTypeRelaEN.mId == lngmId 
@@ -1159,11 +1159,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrMId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvAppCodeTypeRelaEN> GetObjLstByMIdLstCache(List<long> arrMId, int intApplicationTypeId)
+public static IEnumerable<clsvAppCodeTypeRelaEN> GetObjLstByMIdLstCache(List<long> arrMId)
 {
 //初始化列表缓存
-string strKey = string.Format("{0}_{1}", clsvAppCodeTypeRelaEN._CurrTabName, intApplicationTypeId);
-List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = GetObjLstCache(intApplicationTypeId);
+string strKey = string.Format("{0}", clsvAppCodeTypeRelaEN._CurrTabName);
+List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = GetObjLstCache();
 IEnumerable <clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLst_Sel =
 from objvAppCodeTypeRelaEN in arrvAppCodeTypeRelaObjLstCache
 where arrMId.Contains(objvAppCodeTypeRelaEN.mId)
@@ -1579,19 +1579,13 @@ return result;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string intApplicationTypeId = "")
+public static void ReFreshThisCache()
 {
 
-
-if (intApplicationTypeId == 0)
-{
-  var strMsg = string.Format("参数:[intApplicationTypeId]不能为空！(In clsvAppCodeTypeRelaWApi.ReFreshThisCache)");
- throw new Exception  (strMsg);
-}
 string strMsg0;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsvAppCodeTypeRelaEN._CurrTabName, intApplicationTypeId);
+string strKey = string.Format("{0}", clsvAppCodeTypeRelaEN._CurrTabName);
 CacheHelper.Remove(strKey);
 }
 else
@@ -1612,55 +1606,13 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 public static List<clsvAppCodeTypeRelaEN> GetObjLstCache(int intApplicationTypeId)
 {
 
-
-if (intApplicationTypeId == 0)
-{
-  var strMsg = string.Format("参数:[intApplicationTypeId]不能为空！(In clsvAppCodeTypeRelaWApi.GetObjLstCache)");
- throw new Exception  (strMsg);
-}
 //初始化列表缓存
 var strWhereCond = "1=1";
-if (string.IsNullOrEmpty(clsvAppCodeTypeRelaEN._WhereFormat) == false)
-{
-strWhereCond =string.Format(clsvAppCodeTypeRelaEN._WhereFormat, intApplicationTypeId);
-}
-else
-{
-strWhereCond = string.Format("{0}='{1}'",convAppCodeTypeRela.ApplicationTypeId, intApplicationTypeId);
-}
-var strKey = string.Format("{0}_{1}", clsvAppCodeTypeRelaEN._CurrTabName, intApplicationTypeId);
+var strKey = clsvAppCodeTypeRelaEN._CurrTabName;
 List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
 return arrvAppCodeTypeRelaObjLstCache;
 }
-
- /// <summary>
- /// 从缓存中获取所有对象列表, 缓存内容来自于另一个对象列表.
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
- /// </summary>
- /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvAppCodeTypeRelaEN> GetObjLstCacheFromObjLst(int intApplicationTypeId,List<clsvAppCodeTypeRelaEN> arrObjLst_P)
-{
-
-
-if (intApplicationTypeId == 0)
-{
-  var strMsg = string.Format("参数:[intApplicationTypeId]不能为空！(In clsvAppCodeTypeRelaWApi.GetObjLstCacheFromObjLst)");
- throw new Exception  (strMsg);
-}
-var strKey = string.Format("{0}_{1}", clsvAppCodeTypeRelaEN._CurrTabName, intApplicationTypeId);
-List<clsvAppCodeTypeRelaEN> arrvAppCodeTypeRelaObjLstCache = null;
-if (CacheHelper.Exsits(strKey) == true)
-{
-arrvAppCodeTypeRelaObjLstCache = CacheHelper.Get<List<clsvAppCodeTypeRelaEN>>(strKey);
-}
-else
-{
-var arrObjLst_Sel = arrObjLst_P.Where(x => x.ApplicationTypeId == intApplicationTypeId).ToList();
-CacheHelper.Add(strKey, arrObjLst_Sel);
-arrvAppCodeTypeRelaObjLstCache = CacheHelper.Get<List<clsvAppCodeTypeRelaEN>>(strKey);
-}
-return arrvAppCodeTypeRelaObjLstCache;
-}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

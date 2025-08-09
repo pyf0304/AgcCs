@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvCMProjectWApi
  表名:vCMProject(00050513)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:39:10
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 22:07:47
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -649,8 +649,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetCmPrjNameByCmPrjIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strCmPrjId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsvCMProjectEN GetObjByCmPrjIdCache(string strCmPrjId)
+{
+if (string.IsNullOrEmpty(strCmPrjId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}", clsvCMProjectEN._CurrTabName);
+List<clsvCMProjectEN> arrvCMProjectObjLstCache = GetObjLstCache();
+IEnumerable <clsvCMProjectEN> arrvCMProjectObjLst_Sel =
+from objvCMProjectEN in arrvCMProjectObjLstCache
+where objvCMProjectEN.CmPrjId == strCmPrjId 
+select objvCMProjectEN;
+if (arrvCMProjectObjLst_Sel.Count() == 0)
+{
+   clsvCMProjectEN obj = clsvCMProjectWApi.GetObjByCmPrjId(strCmPrjId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrvCMProjectObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strCmPrjId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetCmPrjNameByCmPrjIdCache(string strCmPrjId)
+{
+if (string.IsNullOrEmpty(strCmPrjId) == true) return "";
+//初始化列表缓存
+List<clsvCMProjectEN> arrvCMProjectObjLstCache = GetObjLstCache();
+IEnumerable <clsvCMProjectEN> arrvCMProjectObjLst_Sel1 =
+from objvCMProjectEN in arrvCMProjectObjLstCache
+where objvCMProjectEN.CmPrjId == strCmPrjId 
+select objvCMProjectEN;
+List <clsvCMProjectEN> arrvCMProjectObjLst_Sel = new List<clsvCMProjectEN>();
+foreach (clsvCMProjectEN obj in arrvCMProjectObjLst_Sel1)
+{
+arrvCMProjectObjLst_Sel.Add(obj);
+}
+if (arrvCMProjectObjLst_Sel.Count > 0)
+{
+return arrvCMProjectObjLst_Sel[0].CmPrjName;
+}
+string strErrMsgForGetObjById = string.Format("在vCMProject对象缓存列表中,找不到记录[CmPrjId = {0}](函数:{1})", strCmPrjId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvCMProjectBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strCmPrjId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByCmPrjIdCache(string strCmPrjId)
+{
+if (string.IsNullOrEmpty(strCmPrjId) == true) return "";
+//初始化列表缓存
+List<clsvCMProjectEN> arrvCMProjectObjLstCache = GetObjLstCache();
+IEnumerable <clsvCMProjectEN> arrvCMProjectObjLst_Sel1 =
+from objvCMProjectEN in arrvCMProjectObjLstCache
+where objvCMProjectEN.CmPrjId == strCmPrjId 
+select objvCMProjectEN;
+List <clsvCMProjectEN> arrvCMProjectObjLst_Sel = new List<clsvCMProjectEN>();
+foreach (clsvCMProjectEN obj in arrvCMProjectObjLst_Sel1)
+{
+arrvCMProjectObjLst_Sel.Add(obj);
+}
+if (arrvCMProjectObjLst_Sel.Count > 0)
+{
+return arrvCMProjectObjLst_Sel[0].CmPrjName;
+}
+string strErrMsgForGetObjById = string.Format("在vCMProject对象缓存列表中,找不到记录的相关名称[CmPrjId = {0}](函数:{1})", strCmPrjId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsvCMProjectBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -729,7 +813,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrCmPrjId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsvCMProjectEN> GetObjLstByCmPrjIdLstCache(List<string> arrCmPrjId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsvCMProjectEN._CurrTabName);
+List<clsvCMProjectEN> arrvCMProjectObjLstCache = GetObjLstCache();
+IEnumerable <clsvCMProjectEN> arrvCMProjectObjLst_Sel =
+from objvCMProjectEN in arrvCMProjectObjLstCache
+where arrCmPrjId.Contains(objvCMProjectEN.CmPrjId)
+select objvCMProjectEN;
+return arrvCMProjectObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1143,8 +1244,22 @@ clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg0);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsvCMProjectEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsvCMProjectEN._CurrTabName;
+List<clsvCMProjectEN> arrvCMProjectObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrvCMProjectObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

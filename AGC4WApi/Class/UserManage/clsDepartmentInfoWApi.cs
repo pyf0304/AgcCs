@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsDepartmentInfoWApi
  表名:DepartmentInfo(00050029)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:40:00
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:40:50
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:用户管理(UserManage)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -333,6 +333,7 @@ objDepartmentInfoEN.sfUpdFldSetStr = objDepartmentInfoEN.getsfUpdFldSetStr();
 clsDepartmentInfoWApi.CheckPropertyNew(objDepartmentInfoEN); 
 bool bolResult = clsDepartmentInfoWApi.UpdateRecord(objDepartmentInfoEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -370,6 +371,7 @@ try
 clsDepartmentInfoWApi.CheckPropertyNew(objDepartmentInfoEN); 
 bool bolResult = clsDepartmentInfoWApi.AddNewRecord(objDepartmentInfoEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -395,6 +397,7 @@ try
 clsDepartmentInfoWApi.CheckPropertyNew(objDepartmentInfoEN); 
 string strDepartmentId = clsDepartmentInfoWApi.AddNewRecordWithMaxId(objDepartmentInfoEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 return strDepartmentId;
 }
 catch (Exception objException)
@@ -421,6 +424,7 @@ try
 clsDepartmentInfoWApi.CheckPropertyNew(objDepartmentInfoEN); 
 bool bolResult = clsDepartmentInfoWApi.UpdateWithCondition(objDepartmentInfoEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -649,8 +653,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetDepartmentNameByDepartmentIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strDepartmentId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsDepartmentInfoEN GetObjByDepartmentIdCache(string strDepartmentId)
+{
+if (string.IsNullOrEmpty(strDepartmentId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}", clsDepartmentInfoEN._CurrTabName);
+List<clsDepartmentInfoEN> arrDepartmentInfoObjLstCache = GetObjLstCache();
+IEnumerable <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel =
+from objDepartmentInfoEN in arrDepartmentInfoObjLstCache
+where objDepartmentInfoEN.DepartmentId == strDepartmentId 
+select objDepartmentInfoEN;
+if (arrDepartmentInfoObjLst_Sel.Count() == 0)
+{
+   clsDepartmentInfoEN obj = clsDepartmentInfoWApi.GetObjByDepartmentId(strDepartmentId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrDepartmentInfoObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strDepartmentId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetDepartmentNameByDepartmentIdCache(string strDepartmentId)
+{
+if (string.IsNullOrEmpty(strDepartmentId) == true) return "";
+//初始化列表缓存
+List<clsDepartmentInfoEN> arrDepartmentInfoObjLstCache = GetObjLstCache();
+IEnumerable <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel1 =
+from objDepartmentInfoEN in arrDepartmentInfoObjLstCache
+where objDepartmentInfoEN.DepartmentId == strDepartmentId 
+select objDepartmentInfoEN;
+List <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel = new List<clsDepartmentInfoEN>();
+foreach (clsDepartmentInfoEN obj in arrDepartmentInfoObjLst_Sel1)
+{
+arrDepartmentInfoObjLst_Sel.Add(obj);
+}
+if (arrDepartmentInfoObjLst_Sel.Count > 0)
+{
+return arrDepartmentInfoObjLst_Sel[0].DepartmentName;
+}
+string strErrMsgForGetObjById = string.Format("在DepartmentInfo对象缓存列表中,找不到记录[DepartmentId = {0}](函数:{1})", strDepartmentId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsDepartmentInfoBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strDepartmentId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByDepartmentIdCache(string strDepartmentId)
+{
+if (string.IsNullOrEmpty(strDepartmentId) == true) return "";
+//初始化列表缓存
+List<clsDepartmentInfoEN> arrDepartmentInfoObjLstCache = GetObjLstCache();
+IEnumerable <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel1 =
+from objDepartmentInfoEN in arrDepartmentInfoObjLstCache
+where objDepartmentInfoEN.DepartmentId == strDepartmentId 
+select objDepartmentInfoEN;
+List <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel = new List<clsDepartmentInfoEN>();
+foreach (clsDepartmentInfoEN obj in arrDepartmentInfoObjLst_Sel1)
+{
+arrDepartmentInfoObjLst_Sel.Add(obj);
+}
+if (arrDepartmentInfoObjLst_Sel.Count > 0)
+{
+return arrDepartmentInfoObjLst_Sel[0].DepartmentName;
+}
+string strErrMsgForGetObjById = string.Format("在DepartmentInfo对象缓存列表中,找不到记录的相关名称[DepartmentId = {0}](函数:{1})", strDepartmentId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsDepartmentInfoBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -729,7 +817,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrDepartmentId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsDepartmentInfoEN> GetObjLstByDepartmentIdLstCache(List<string> arrDepartmentId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsDepartmentInfoEN._CurrTabName);
+List<clsDepartmentInfoEN> arrDepartmentInfoObjLstCache = GetObjLstCache();
+IEnumerable <clsDepartmentInfoEN> arrDepartmentInfoObjLst_Sel =
+from objDepartmentInfoEN in arrDepartmentInfoObjLstCache
+where arrDepartmentId.Contains(objDepartmentInfoEN.DepartmentId)
+select objDepartmentInfoEN;
+return arrDepartmentInfoObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -905,6 +1010,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strDepartmentId.ToSt
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsDepartmentInfoWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -978,6 +1084,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsDepartmentInfoWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1055,6 +1162,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1093,6 +1201,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsDepartmentInfoWApi.ReFreshCache();
 var strDepartmentId = (string)jobjReturn0["returnStr"];
 return strDepartmentId;
 }
@@ -1606,8 +1715,22 @@ CacheHelper.Remove(strKey);
 clsDepartmentInfoWApi.objCommFun4WApi.ReFreshCache();
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsDepartmentInfoEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsDepartmentInfoEN._CurrTabName;
+List<clsDepartmentInfoEN> arrDepartmentInfoObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrDepartmentInfoObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

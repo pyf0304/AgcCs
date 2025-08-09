@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsActionForwardWApi
  表名:ActionForward(00050143)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:40:13
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:41:14
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:J2EE模块(J2EEModule)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -205,6 +205,7 @@ objActionForwardEN.sfUpdFldSetStr = objActionForwardEN.getsfUpdFldSetStr();
 clsActionForwardWApi.CheckPropertyNew(objActionForwardEN); 
 bool bolResult = clsActionForwardWApi.UpdateRecord(objActionForwardEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsActionForwardWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -257,6 +258,7 @@ try
 clsActionForwardWApi.CheckPropertyNew(objActionForwardEN); 
 bool bolResult = clsActionForwardWApi.AddNewRecord(objActionForwardEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsActionForwardWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -283,6 +285,7 @@ try
 clsActionForwardWApi.CheckPropertyNew(objActionForwardEN); 
 bool bolResult = clsActionForwardWApi.UpdateWithCondition(objActionForwardEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsActionForwardWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -455,7 +458,34 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "lngActionForwardId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsActionForwardEN GetObjByActionForwardIdCache(long lngActionForwardId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsActionForwardEN._CurrTabName);
+List<clsActionForwardEN> arrActionForwardObjLstCache = GetObjLstCache();
+IEnumerable <clsActionForwardEN> arrActionForwardObjLst_Sel =
+from objActionForwardEN in arrActionForwardObjLstCache
+where objActionForwardEN.ActionForwardId == lngActionForwardId 
+select objActionForwardEN;
+if (arrActionForwardObjLst_Sel.Count() == 0)
+{
+   clsActionForwardEN obj = clsActionForwardWApi.GetObjByActionForwardId(lngActionForwardId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrActionForwardObjLst_Sel.First();
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -534,7 +564,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrActionForwardId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsActionForwardEN> GetObjLstByActionForwardIdLstCache(List<long> arrActionForwardId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsActionForwardEN._CurrTabName);
+List<clsActionForwardEN> arrActionForwardObjLstCache = GetObjLstCache();
+IEnumerable <clsActionForwardEN> arrActionForwardObjLst_Sel =
+from objActionForwardEN in arrActionForwardObjLstCache
+where arrActionForwardId.Contains(objActionForwardEN.ActionForwardId)
+select objActionForwardEN;
+return arrActionForwardObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -710,6 +757,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, lngActionForwardId.T
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsActionForwardWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -783,6 +831,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsActionForwardWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -860,6 +909,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsActionForwardWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -899,6 +949,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsActionForwardWApi.ReFreshCache();
 var strReturnStr = (string)jobjReturn0["returnStr"];
 return strReturnStr;
 }
@@ -1336,8 +1387,22 @@ CacheHelper.Remove(strKey);
 clsActionForwardWApi.objCommFun4WApi.ReFreshCache();
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsActionForwardEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsActionForwardEN._CurrTabName;
+List<clsActionForwardEN> arrActionForwardObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrActionForwardObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable

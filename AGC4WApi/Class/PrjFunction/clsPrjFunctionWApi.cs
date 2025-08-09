@@ -2,13 +2,13 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjFunctionWApi
  表名:PrjFunction(00050072)
- * 版本:2025.07.25.1(服务器:PYF-AI)
- 日期:2025/07/28 00:38:58
+ * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
+ 日期:2025/08/09 21:39:16
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,8433AGC_CS12
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:函数管理(PrjFunction)
  框架-层名:WA_访问层(CS)(WA_Access,0045)
@@ -428,6 +428,7 @@ objPrjFunctionEN.sfUpdFldSetStr = objPrjFunctionEN.getsfUpdFldSetStr();
 clsPrjFunctionWApi.CheckPropertyNew(objPrjFunctionEN); 
 bool bolResult = clsPrjFunctionWApi.UpdateRecord(objPrjFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -492,6 +493,7 @@ try
 clsPrjFunctionWApi.CheckPropertyNew(objPrjFunctionEN); 
 bool bolResult = clsPrjFunctionWApi.AddNewRecord(objPrjFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -517,6 +519,7 @@ try
 clsPrjFunctionWApi.CheckPropertyNew(objPrjFunctionEN); 
 string strFuncId = clsPrjFunctionWApi.AddNewRecordWithMaxId(objPrjFunctionEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 return strFuncId;
 }
 catch (Exception objException)
@@ -543,6 +546,7 @@ try
 clsPrjFunctionWApi.CheckPropertyNew(objPrjFunctionEN); 
 bool bolResult = clsPrjFunctionWApi.UpdateWithCondition(objPrjFunctionEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -783,8 +787,92 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjByKeyLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
-//该表没有使用Cache,不需要生成[GetFuncNameByFuncIdCache]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjByKeyCache)
+ /// </summary>
+ /// <param name = "strFuncId">所给的关键字</param>
+ /// <returns>根据关键字获取的对象</returns>
+public static clsPrjFunctionEN GetObjByFuncIdCache(string strFuncId)
+{
+if (string.IsNullOrEmpty(strFuncId) == true) return null;
+//初始化列表缓存
+string strKey = string.Format("{0}", clsPrjFunctionEN._CurrTabName);
+List<clsPrjFunctionEN> arrPrjFunctionObjLstCache = GetObjLstCache();
+IEnumerable <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel =
+from objPrjFunctionEN in arrPrjFunctionObjLstCache
+where objPrjFunctionEN.FuncId == strFuncId 
+select objPrjFunctionEN;
+if (arrPrjFunctionObjLst_Sel.Count() == 0)
+{
+   clsPrjFunctionEN obj = clsPrjFunctionWApi.GetObjByFuncId(strFuncId);
+   if (obj != null)
+ {
+CacheHelper.Remove(strKey);
+     return obj;
+ }
+return null;
+}
+return arrPrjFunctionObjLst_Sel.First();
+}
+
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strFuncId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetFuncNameByFuncIdCache(string strFuncId)
+{
+if (string.IsNullOrEmpty(strFuncId) == true) return "";
+//初始化列表缓存
+List<clsPrjFunctionEN> arrPrjFunctionObjLstCache = GetObjLstCache();
+IEnumerable <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel1 =
+from objPrjFunctionEN in arrPrjFunctionObjLstCache
+where objPrjFunctionEN.FuncId == strFuncId 
+select objPrjFunctionEN;
+List <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel = new List<clsPrjFunctionEN>();
+foreach (clsPrjFunctionEN obj in arrPrjFunctionObjLst_Sel1)
+{
+arrPrjFunctionObjLst_Sel.Add(obj);
+}
+if (arrPrjFunctionObjLst_Sel.Count > 0)
+{
+return arrPrjFunctionObjLst_Sel[0].FuncName;
+}
+string strErrMsgForGetObjById = string.Format("在PrjFunction对象缓存列表中,找不到记录[FuncId = {0}](函数:{1})", strFuncId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsPrjFunctionBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
+ /// <summary>
+ /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetRecNameByKeyCache)
+ /// </summary>
+ /// <param name = "strFuncId">所给的关键字</param>
+ /// <returns>根据关键字获取的名称</returns>
+public static string GetNameByFuncIdCache(string strFuncId)
+{
+if (string.IsNullOrEmpty(strFuncId) == true) return "";
+//初始化列表缓存
+List<clsPrjFunctionEN> arrPrjFunctionObjLstCache = GetObjLstCache();
+IEnumerable <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel1 =
+from objPrjFunctionEN in arrPrjFunctionObjLstCache
+where objPrjFunctionEN.FuncId == strFuncId 
+select objPrjFunctionEN;
+List <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel = new List<clsPrjFunctionEN>();
+foreach (clsPrjFunctionEN obj in arrPrjFunctionObjLst_Sel1)
+{
+arrPrjFunctionObjLst_Sel.Add(obj);
+}
+if (arrPrjFunctionObjLst_Sel.Count > 0)
+{
+return arrPrjFunctionObjLst_Sel[0].FuncName;
+}
+string strErrMsgForGetObjById = string.Format("在PrjFunction对象缓存列表中,找不到记录的相关名称[FuncId = {0}](函数:{1})", strFuncId, clsStackTrace.GetCurrFunction());
+clsLog.LogErrorS2("clsPrjFunctionBL", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, "", "");
+throw new Exception(strErrMsgForGetObjById);
+}
 
  /// <summary>
  /// 根据条件获取对象列表
@@ -863,7 +951,24 @@ string strMsg = string.Format("根据关键字列表获取对象列表出错,{0}
 throw new Exception(strMsg);
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+
+ /// <summary>
+ /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstByKeyLstCache)
+ /// </summary>
+ /// <param name = "arrFuncId">所给的关键字列表</param>
+ /// <returns>根据关键字列表获取的对象</returns>
+public static IEnumerable<clsPrjFunctionEN> GetObjLstByFuncIdLstCache(List<string> arrFuncId)
+{
+//初始化列表缓存
+string strKey = string.Format("{0}", clsPrjFunctionEN._CurrTabName);
+List<clsPrjFunctionEN> arrPrjFunctionObjLstCache = GetObjLstCache();
+IEnumerable <clsPrjFunctionEN> arrPrjFunctionObjLst_Sel =
+from objPrjFunctionEN in arrPrjFunctionObjLstCache
+where arrFuncId.Contains(objPrjFunctionEN.FuncId)
+select objPrjFunctionEN;
+return arrPrjFunctionObjLst_Sel;
+}
 
  /// <summary>
  /// 根据条件获取顶部对象列表
@@ -1039,6 +1144,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strFuncId.ToString()
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsPrjFunctionWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1112,6 +1218,7 @@ if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strJSON,
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
+clsPrjFunctionWApi.ReFreshCache();
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1189,6 +1296,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1227,6 +1335,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
+clsPrjFunctionWApi.ReFreshCache();
 var strFuncId = (string)jobjReturn0["returnStr"];
 return strFuncId;
 }
@@ -1743,8 +1852,22 @@ CacheHelper.Remove(strKey);
 clsPrjFunctionWApi.objCommFun4WApi.ReFreshCache();
 }
 }
-//该表没有使用Cache,不需要生成[GetObjLstCache()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
-//该表没有使用Cache,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
+
+ /// <summary>
+ /// 从缓存中获取所有对象列表.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
+ /// </summary>
+ /// <returns>从缓存中获取的所有对象列表</returns>
+public static List<clsPrjFunctionEN> GetObjLstCache()
+{
+
+//初始化列表缓存
+var strWhereCond = "1=1";
+var strKey = clsPrjFunctionEN._CurrTabName;
+List<clsPrjFunctionEN> arrPrjFunctionObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strWhereCond); });
+return arrPrjFunctionObjLstCache;
+}
+//该表没有缓存分类字段,不需要生成[GetObjLstCacheFromObjLst()]函数;(in AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
 
  /// <summary>
  /// 根据对象列表获取DataTable
