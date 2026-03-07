@@ -46,12 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AGC4WebApi, Version=2021.11.8.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\PublicLib\AGC4WebApi.dll</HintPath>
-    </Reference>
     <Reference Include="AjaxControlToolkit">
-      <HintPath>E:\PublicLib\AjaxControlToolkit.Binary.NET4\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\..\PrjCode\PublicLib\AjaxControlToolkit.Binary.NET4\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="clMailServer">
       <HintPath>E:\PublicLib\clMailServer.dll</HintPath>
@@ -75,9 +71,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PubDataBase, Version=2023.5.16.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\PublicLib\PubDataBase.dll</HintPath>
+    <Reference Include="PubDataBase">
+      <HintPath>..\..\..\PrjCode\PublicLib\PubDataBase.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -91,9 +86,8 @@
     <Reference Include="TzCommWebServerCtrlLib">
       <HintPath>E:\PublicLib\TzCommWebServerCtrlLib.dll</HintPath>
     </Reference>
-    <Reference Include="TzPubFunction, Version=2023.5.17.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\PublicLib\TzPubFunction.dll</HintPath>
+    <Reference Include="TzPubFunction">
+      <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -6649,6 +6643,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AGC4WApi\AGC4WApi.csproj">
+      <Project>{a4a7b8ee-f496-4367-9486-b328584163f4}</Project>
+      <Name>AGC4WApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AgcBase\AgcBase.csproj">
       <Project>{37210a3c-ee22-421c-bb5c-fb3aafba4345}</Project>
       <Name>AgcBase</Name>
