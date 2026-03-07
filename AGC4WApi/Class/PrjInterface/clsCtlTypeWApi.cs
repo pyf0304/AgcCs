@@ -878,34 +878,6 @@ objComboBox.DisplayMember = conCtlType.CtlTypeName;
 objComboBox.DataSource = arrObjLstSel;
 objComboBox.SelectedIndex = 0;
 }
-//该表下拉框功能不需要生成;
- /// <summary>
- /// 绑定基于Win的下拉框
- /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_TabFeature_ComboBoxBindFunction)
- /// </summary>
- /// <param name = "objComboBox">需要绑定当前表的下拉框</param>
-
- /// <param name = "bolIsVisible"></param>
-public static void BindCbo_CtlTypeId(System.Windows.Forms.ComboBox objComboBox , bool bolIsVisible)
-{
-//为数据源为表的下拉框设置内容
-string strCondition = string.Format("1 =1 Order By {0}", conCtlType.CtlTypeId); 
-List<clsCtlTypeEN> arrObjLst = clsCtlTypeWApi.GetObjLst(strCondition).OrderBy(x=>x.OrderNum).ToList();
-var arrObjLstSel = arrObjLst.Where(x=>x.IsVisible == false).ToList();
-//初始化一个对象列表
-//插入第0项。在第0项中插入“请选择...”,为了方便用户,与WEB方式类似。
-clsCtlTypeEN objCtlTypeEN = new clsCtlTypeEN()
-{
-CtlTypeId = "0",
-CtlTypeName = "选[控件类型缩写]..."
-};
-arrObjLstSel.Insert(0, objCtlTypeEN);
-//设置下拉框的数据源、以及设置值项、显示项
-objComboBox.ValueMember = conCtlType.CtlTypeId;
-objComboBox.DisplayMember = conCtlType.CtlTypeName;
-objComboBox.DataSource = arrObjLstSel;
-objComboBox.SelectedIndex = 0;
-}
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.

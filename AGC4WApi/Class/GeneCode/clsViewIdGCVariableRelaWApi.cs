@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewIdGCVariableRelaWApi
  表名:ViewIdGCVariableRela(00050631)
- * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
- 日期:2026/03/07 22:32:10
+ * 版本:2026.03.07.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 23:02:55
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -811,7 +811,7 @@ throw new Exception(strMsg);
  /// <param name = "strViewId">表关键字</param>
  /// <param name = "strPrjId">分类字段值</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsViewIdGCVariableRelaEN> GetObjLstByKeyLstsCache(List<string> arrVarId, )
+public static IEnumerable<clsViewIdGCVariableRelaEN> GetObjLstByKeyLstsCache(List<string> arrVarId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsViewIdGCVariableRelaEN._CurrTabName, strPrjId);

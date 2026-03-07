@@ -74,7 +74,7 @@ namespace AGC4WApi
                 objGCPathEN.sfUpdFldSetStr = objGCPathEN.getsfUpdFldSetStr();
                 bool bolResult = clsGCPathExWApi.EditRecordEx(objGCPathEN);
                 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-                clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+                clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId, objGCPathEN.UserId);
                 return bolResult;
             }
             catch (Exception objException)

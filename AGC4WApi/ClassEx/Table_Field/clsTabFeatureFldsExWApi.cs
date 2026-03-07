@@ -82,7 +82,7 @@ namespace AGC4WApi
         public static List<clsvTabFeatureFlds_SimEN> GetObjLstByTabFeatureIdCache(string strTabFeatureId, string strPrjId)
         {
             //string strCondition = string.Format("{0}='{1}'", conTabFeatureFlds.TabFeatureId, strTabFeatureId);
-            List<clsvTabFeatureFlds_SimEN> arrObjLst = clsvTabFeatureFlds_SimWApi.GetObjLstCache(strPrjId);
+            List<clsvTabFeatureFlds_SimEN> arrObjLst = clsvTabFeatureFlds_SimWApi.GetObjLstCache();
             var arrObjLst_Sel = arrObjLst.Where(x=>x.TabFeatureId == strTabFeatureId).ToList();
             return arrObjLst_Sel;
         }

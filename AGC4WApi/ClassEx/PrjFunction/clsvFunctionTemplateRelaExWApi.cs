@@ -70,7 +70,7 @@ namespace AGC4WApi
             string strFunctionTemplateId = clsPrjFuncTemplateRelaExWApi.getFunctionTemplateIdByPrjId(objPrjTab.PrjId);
             //clsCodeTypeEN objCodeTypeEN = clsCodeTypeWApi.GetObjByCodeTypeIdCache(strCodeTypeId);
             //初始化列表缓存
-            IEnumerable<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRelaObjLst_Cache =  clsvFunctionTemplateRela_SimWApi.GetObjLstCache(strFunctionTemplateId);
+            IEnumerable<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRelaObjLst_Cache =  clsvFunctionTemplateRela_SimWApi.GetObjLstCache();
             IEnumerable<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRelaObjLst_Sel1 =
                 arrvFunctionTemplateRelaObjLst_Cache
             .Where(x => x.CodeTypeId == strCodeTypeId

@@ -15,5 +15,19 @@
   "isRecordLog": true
 }
 
-
-20260307223400: WebApi:[AGC.WebApiEx.AutoGeneCodeApiController]-[GeneCode]-[[CodeTypeId]:=[0045];[DataBaseType]:=[01];[TabId]:=[00050631];[ViewId]:=[];[PrjId]:=[0005];[cmPrjId]:=[000014];[PrjDataBaseId]:=[0005];[GCUserId]:=[pyf];[TypeParas]:=[];].
+{
+  "codeTypeId": "0045",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "00050631",
+  "viewId": "",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 0,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}

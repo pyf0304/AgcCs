@@ -67,7 +67,7 @@ namespace AGC4WApi
         public static List<clsvAppCodeTypeRelaENEx> GetObjExLstByApplicationTypeId(int intApplicationTypeId)
         {
             //string strCondition = string.Format("{0}={1}", convAppCodeTypeRela.ApplicationTypeId, intApplicationTypeId);
-            List<clsvAppCodeTypeRelaEN> arrObjLst = clsvAppCodeTypeRelaWApi.GetObjLstCache(intApplicationTypeId);
+            List<clsvAppCodeTypeRelaEN> arrObjLst = clsvAppCodeTypeRelaWApi.GetObjLstCache();
             List<clsvAppCodeTypeRelaENEx> arrObjExLst = new List<clsvAppCodeTypeRelaENEx>();
             foreach (clsvAppCodeTypeRelaEN objInFor in arrObjLst)
             {

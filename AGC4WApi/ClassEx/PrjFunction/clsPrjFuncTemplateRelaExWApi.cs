@@ -83,7 +83,7 @@ namespace AGC4WApi
         public static List<clsPrjFuncTemplateRelaEN> GetAllPrjFuncTemplateRelaObjLst_CacheEx(string strPrjId)
         {
 
-            List<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst_Cache = clsPrjFuncTemplateRelaWApi.GetObjLstCache(strPrjId);
+            List<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst_Cache = clsPrjFuncTemplateRelaWApi.GetObjLstCache();
             List<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst = new List<clsPrjFuncTemplateRelaEN>();
 
             IEnumerable<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst_Sel1 =

@@ -73,7 +73,7 @@ try
 objDnPathEN.sfUpdFldSetStr = objDnPathEN.getsfUpdFldSetStr();
 bool bolResult = clsDnPathExWApi.EditRecordEx(objDnPathEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsDnPathWApi.ReFreshCache();
+clsDnPathWApi.ReFreshCache(objDnPathEN.PrjId);
 return bolResult;
 }
 catch (Exception objException)

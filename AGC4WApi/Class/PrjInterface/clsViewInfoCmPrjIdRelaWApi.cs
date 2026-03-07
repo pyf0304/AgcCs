@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewInfoCmPrjIdRelaWApi
  表名:ViewInfoCmPrjIdRela(00050621)
- * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
- 日期:2026/03/07 22:19:28
+ * 版本:2026.03.07.2(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 23:18:33
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -519,7 +519,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <param name = "strViewId">表关键字</param>
  /// <param name = "strCmPrjId">表关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsViewInfoCmPrjIdRelaEN GetObjByKeyLstCache(string strViewId,string strCmPrjId,string strCmPrjId)
+public static clsViewInfoCmPrjIdRelaEN GetObjByKeyLstCache(string strViewId,string strCmPrjId)
 {
 if (string.IsNullOrEmpty(strViewId) == true) return null;
 if (string.IsNullOrEmpty(strCmPrjId) == true) return null;

@@ -555,7 +555,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <param name = "strVarId">表关键字</param>
  /// <param name = "strPrjId">表关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsGCVariablePrjIdRelaEN GetObjByKeyLstCache(string strVarId,string strPrjId,string strPrjId)
+public static clsGCVariablePrjIdRelaEN GetObjByKeyLstCache(string strVarId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strVarId) == true) return null;
 if (string.IsNullOrEmpty(strPrjId) == true) return null;

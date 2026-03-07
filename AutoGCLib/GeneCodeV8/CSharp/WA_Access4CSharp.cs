@@ -3586,6 +3586,10 @@ objPrjTabENEx.TabName);
 
             string strFuncParaCode4KeyField = clsPubFun4GC.GetFuncParaDef4KeyField(this, false, enumProgLangType.CSharp_01);
             string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            if (strFuncParaCode4KeyField.IndexOf(strFuncParaCode) > -1)
+            {
+                strFuncParaCode = "";
+            }
             if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
 
             Tuple<string, string, string> tup_GetObjLstCache = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");

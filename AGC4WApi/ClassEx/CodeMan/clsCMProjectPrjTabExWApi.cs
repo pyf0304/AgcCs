@@ -73,7 +73,7 @@ namespace AGC4WApi
                 objCMProjectPrjTabEN.sfUpdFldSetStr = objCMProjectPrjTabEN.getsfUpdFldSetStr();
                 bool bolResult = clsCMProjectPrjTabExWApi.EditRecordEx(objCMProjectPrjTabEN);
                 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-                clsCmProjectPrjTabWApi.ReFreshCache();
+                clsCmProjectPrjTabWApi.ReFreshCache(objCMProjectPrjTabEN.CmPrjId);
                 return bolResult;
             }
             catch (Exception objException)

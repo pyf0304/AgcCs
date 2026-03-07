@@ -271,7 +271,7 @@ namespace AGC4WApi
                 return arrvUserCodePathObjLst_Sel[0];
             }
             
-            clsvUserCodePathWApi.ReFreshThisCache();
+            clsvUserCodePathWApi.ReFreshThisCache(strCurrPrjId);
             StringBuilder sbMsg = new StringBuilder();
             clsvCodeType_SimEN objCodeTypeEN = null;
             try
@@ -348,7 +348,7 @@ namespace AGC4WApi
             }
             if (strCurrPrjId != mstrPrjId4Cache)
             {
-                clsvUserCodePathWApi.ReFreshThisCache();
+                clsvUserCodePathWApi.ReFreshThisCache(strCurrPrjId);
             }
             //初始化列表缓存
             //string strWhereCond = string.Format("1 = 1 order by mId");
