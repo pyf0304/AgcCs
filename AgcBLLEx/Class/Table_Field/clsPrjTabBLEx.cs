@@ -264,7 +264,12 @@ namespace AGC.BusinessLogicEx
             return false;
         }
 
-
+        /// <summary>
+        /// 这是我最新修改的
+        /// </summary>
+        /// <param name="objPrjTabENEx"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static bool GetObjAllInfoEx(this clsPrjTabENEx objPrjTabENEx)
         {
             objPrjTabENEx.arrPrjTabFldENExObjLst = clsPrjTabFldBLEx.GetObjExLstOrderBySequence(objPrjTabENEx.PrjId, objPrjTabENEx.TabId);
