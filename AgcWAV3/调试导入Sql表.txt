@@ -1,0 +1,7 @@
+ImportSqlTab
+{
+  "arrSqlTable": "[[{"tabName":"In_vCurrEduClsStu","sqlTypeId":"02"}]]",
+  "strPrjId": "0169",
+  "strPrjDataBaseId": "0199",
+  "strOpUser": "pyf"
+}

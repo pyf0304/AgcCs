@@ -240,6 +240,7 @@ namespace AGC.BusinessLogicEx
                 var objCmProject = clsCMProjectBL.GetObjByCmPrjIdCache(strCmPrjId);
                 //objCMProjectPrjTab_Cond.PrjId = objCmProject.PrjId;
                 objCMProjectPrjTab_Cond.AddNewRecord();
+                clsPrjTabBL.SetFldValue(clsPrjTabEN._CurrTabName, conPrjTab.TabStateId, enumTabState.Normal_01, $"{conPrjTab.TabId}='{strTabId}'");
             }
             return true;
         }

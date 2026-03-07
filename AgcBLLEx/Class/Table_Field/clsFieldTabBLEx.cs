@@ -653,13 +653,14 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name = "strPrjId"></param>
         /// <param name = "strFldName"></param>
         /// <returns></returns>
-        public static bool IsExistSameFldName(string strPrjId, string strFldName, string strFldTypeId)
+        public static string IsExistSameFldName(string strPrjId, string strFldName, string strDataTypeId)
         {
             //DataTypeId
             StringBuilder strCondition = new StringBuilder();
             strCondition.AppendFormat("PrjId = '{0}' and FldName = '{1}' And DataTypeId = '{2}'",
-              strPrjId, strFldName, strFldTypeId);
-            return clsFieldTabBL.IsExistRecord(strCondition.ToString());
+              strPrjId, strFldName, strDataTypeId);
+            string strFldId = clsFieldTabBL.GetFirstID_S(strCondition.ToString());
+            return strFldId;
         }
 
 
@@ -835,7 +836,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             objSouFieldTab = clsFieldTabBLEx.GetObjExByFldIDCache(strSouFldId, strPrjId);
 
             //2、检查是否存在相同的字段名,如果存在就退出返回；
-            if (IsExistSameFldName(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId) == true)
+            if (IsExistSameFldName(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId).Length>0)
             {
                 strTarFldId = GetFldId(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId);
                 clsPrjTabFldBLEx.Add_FieldTabToPrjTabFld(strTarTabId, strTarFldId, strUserId);
@@ -1053,7 +1054,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             //工程ID
             objFieldTabEN.PrjId = strPrjId;
             //检查是否存在相同的字段名
-            if (IsExistSameFldName(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId) == true)
+            if (IsExistSameFldName(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId).Length > 0 )
             {
                 objFieldTabEN.FldId = GetFldId(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
             }
@@ -1117,7 +1118,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 throw new Exception(string.Format("Sql Server中数据类型名:{0}不存在,请检查!", objColumns.Type_Name));
             }
             //检查是否存在相同的字段名
-            if (clsFieldTabBLEx.IsExistSameFldName(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId) == true)
+            if (clsFieldTabBLEx.IsExistSameFldName(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId).Length > 0)
             {
                 objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId);
             }
@@ -1173,7 +1174,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             //工程ID
             objFieldTabEN.PrjId = strPrjId;
             //检查是否存在相同的字段名
-            if (IsExistSameFldName(strPrjId, strFldName, strDataTypeId) == true)
+            if (IsExistSameFldName(strPrjId, strFldName, strDataTypeId).Length > 0 )
             {
                 objFieldTabEN.FldId = GetFldId(strPrjId, strFldName, strDataTypeId);
                 //clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);

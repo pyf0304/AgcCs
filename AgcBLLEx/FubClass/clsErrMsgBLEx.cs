@@ -15,6 +15,7 @@ namespace AGC.BusinessLogicEx
         public static string FeatureRegion = "功能区错误";
         public static string ListRegion = "列表区错误";
         public static string TabField = "表字段错误";
+        public static string DnPath = "字段的数据节点路径错误";
 
     }
     public class clsErrMsgENEx

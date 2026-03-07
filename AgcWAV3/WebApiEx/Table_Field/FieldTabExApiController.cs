@@ -18,22 +18,23 @@ PrjDataBaseId:0005
        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
 == == == == == == == == == == == == 
 **/
-using System;
-using System.Data;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using com.taishsoft.json;
-using AGC.Entity;
 using AGC.BusinessLogicEx;
+using AGC.Entity;
 using com.taishsoft.commdb;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using Newtonsoft.Json.Linq;
+using com.taishsoft.json;
 using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Net;
+using System.Text;
 
 namespace AGC.WebApi
 {
@@ -161,6 +162,39 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+
+
+        /// <summary>
+        /// 添加新记录
+        /// 调用方法: Get /api/clsFieldTabBLExApi/AddNewRec?strFldName=value&strCaption=value&strDataTypeId=value&intFldLength=value&intFldPrecision=value&bolIsNull=value&strPrjId=value&strUpdUser=value
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name = "strPrjId">工程Id</param>
+        /// <param name = "strFldName">字段名</param>
+        /// <param name = "strDataTypeId">数据类型Id</param>
+        /// <returns>返回是否存在?</returns>
+        [AllowAnonymous]
+        [HttpGet("IsExistSameFldName")]
+        public ActionResult IsExistSameFldName(string strPrjId, string strFldName, string strDataTypeId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strFldName", strFldName);
+            dictParam.Add("strDataTypeId", strDataTypeId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsFieldTabBLEx.IsExistSameFldName(strPrjId, strFldName, strDataTypeId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
 
         /// <summary>
         /// 复制一些字段到其他表,并同步到数据库

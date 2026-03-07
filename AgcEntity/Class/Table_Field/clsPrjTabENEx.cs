@@ -106,6 +106,10 @@ namespace AGC.Entity
         private clsPrjTabFldENEx objCacheClassifyFld_TS = null;
         private clsPrjTabFldENEx objCacheClassifyFld2_TS = null;
 
+        //public clsPrjTabFldENEx objCacheClassifyFld = null;
+        //public clsPrjTabFldENEx objCacheClassifyFld2 = null;
+        //public clsPrjTabFldENEx objCacheClassifyFld_TS = null;
+        //public clsPrjTabFldENEx objCacheClassifyFld2_TS = null;
         /// <summary>
         /// 名称字段的表字段对象
         /// </summary>
@@ -604,5 +608,8 @@ namespace AGC.Entity
 
         public clsPrjTabFldENEx ObjCacheClassifyFld_TS { get => objCacheClassifyFld_TS; set => objCacheClassifyFld_TS = value; }
         public clsPrjTabFldENEx ObjCacheClassifyFld2_TS { get => objCacheClassifyFld2_TS; set => objCacheClassifyFld2_TS = value; }
+        
+        public clsPrjTabFldENEx ObjCacheClassifyFld { get => objCacheClassifyFld; set => objCacheClassifyFld = value; }
+        public clsPrjTabFldENEx ObjCacheClassifyFld2 { get => objCacheClassifyFld2; set => objCacheClassifyFld2 = value; }
     }
 }

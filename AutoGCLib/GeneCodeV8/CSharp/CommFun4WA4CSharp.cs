@@ -371,9 +371,13 @@ namespace AutoGCLib
                 {
                     strCodeForCs.AppendFormat("\r\n" + "public class  {0} : clsCommFun4BL", objPrjTabENEx.ClsName);
                 }
-                else
+                else if (objPrjTabENEx.ObjCacheClassifyFld2 == null)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "public class  {0} : clsCommFun4BLV2", objPrjTabENEx.ClsName);
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "public class  {0} : clsCommFun4BLV3", objPrjTabENEx.ClsName);
                 }
                 strCodeForCs.Append("\r\n" + "{");
 
