@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AGCWA.Controllers
 {
@@ -8,7 +9,7 @@ namespace AGCWA.Controllers
     {
         //public class MyCalcApiController : ApiController
         //{
-       
+        [AllowAnonymous]
         [HttpGet("Test")]
         public ActionResult Test()
         {
@@ -20,6 +21,7 @@ namespace AGCWA.Controllers
             return Ok(new { T = "aa", b = "测试成功" });
 
         }
+        [AllowAnonymous]
         [HttpGet("Plus3")]
         public ActionResult<int> Plus3(int a, int b)
         {
@@ -45,7 +47,7 @@ namespace AGCWA.Controllers
             //var c = a + b;
             return "测试成功2";
         }
-     
+        [AllowAnonymous]
         [HttpPost("Plus2")]
         public int Plus2([FromBody] string value)
         {

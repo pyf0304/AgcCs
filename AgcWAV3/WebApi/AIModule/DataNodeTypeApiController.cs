@@ -31,17 +31,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq; using Comm.WebApi;
-
+using Newtonsoft.Json.Linq; 
+using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
 namespace AGC.WebApi
 {
- /// <summary>
- /// DataNodeTypeController 的摘要说明
- /// (AutoGCLib.WA_Srv4CSharp:GeneCode)
- /// </summary>
+    /// <summary>
+    /// DataNodeTypeController 的摘要说明
+    /// (AutoGCLib.WA_Srv4CSharp:GeneCode)
+    /// </summary>
 [ApiController]
 [Route("[controller]")]
-[ApiExplorerSettings(IgnoreApi = true)]
+//[ApiExplorerSettings(IgnoreApi = true)]
 public class  DataNodeTypeApiController : ControllerBase
 { 
 
@@ -79,14 +80,15 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
 }
 
- /// <summary>
- /// 根据条件获取对象列表
- /// 调用方法: GET /api/DataNodeTypeApi/GetObjLst?strWhereCond=v1&
- /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLst)
- /// </summary>
- /// <param name = "strWhereCond">给定条件</param>
- /// <returns>返回对象列表</returns>
-[HttpGet("GetObjLst")]
+        /// <summary>
+        /// 根据条件获取对象列表
+        /// 调用方法: GET /api/DataNodeTypeApi/GetObjLst?strWhereCond=v1&
+        /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLst)
+        /// </summary>
+        /// <param name = "strWhereCond">给定条件</param>
+        /// <returns>返回对象列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetObjLst")]
 public ActionResult GetObjLst(string strWhereCond)
 {
 strWhereCond = strWhereCond.Replace("'% ", "'%");
