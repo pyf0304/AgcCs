@@ -1,30 +1,30 @@
 ﻿
-using System;
-using System.Data;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using com.taishsoft.json;
-using AGC.Entity;
 using AGC.BusinessLogic;
+using AGC.BusinessLogicEx;
+using AGC.Entity;
 using com.taishsoft.commdb;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
+using com.taishsoft.json;
+using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Net;
-using Newtonsoft.Json.Linq; using Comm.WebApi;
-using AGC.BusinessLogicEx;
+using System.Text;
 
 namespace AGC.WebApi
 {
-    /// <summary>
-    /// PrjTabFldExApiController 的摘要说明
-    /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
-    /// </summary>
-    public class PrjTabFldExApiController : PrjTabFldApiController
-    {
 
+    [ApiController]
+    [Route("[controller]")]
+    public class PrjTabFldExApiController : ControllerBase
+    {
         /// <summary>
         /// 构造函数
         /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_ClassConstructor1)
@@ -376,6 +376,37 @@ namespace AGC.WebApi
             }
         }
 
+
+        /// <summary>
+        /// 检查表字段，并回溯修改字段表的错误信息
+        /// 调用方法: Get /api/clsPrjTabFldBLExApi/CheckTabFldsUp?strTabId=value&strCmPrjId=value&strOpUserId=value
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name = "strTabId">表Id</param>
+        /// <param name = "strCmPrjId">CM工程Id</param>
+        /// <param name = "strOpUserId">操作用户Id</param>
+        /// <returns>返回是否存在?</returns>        
+        [AllowAnonymous]
+        [HttpGet("GetSourceTabName")]
+        public ActionResult GetSourceTabName(string strPrjId, string strTabId, string strFldName)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strFldName", strFldName);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsPrjTabFldBLEx.GetSourceTabName(strPrjId, strTabId, strFldName);
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
 
         /// <summary>
         /// 获取TabId列表的所有对象列表

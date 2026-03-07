@@ -1414,7 +1414,7 @@ namespace AGC.BusinessLogicEx
             objPrjTabFldEN.FieldTypeId = "01";	//默认为一般字段
             objPrjTabFldEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
             objPrjTabFldEN.UpdUser = strUpdUser;
-
+            objPrjTabFldEN.IsGeneProp = true;
             //3.1、判断是否有相同的字段存在。					
             if (clsPrjTabFldBLEx.IsExistSameFldId(strTabId, objFieldTabEN.FldId))	//判断是否有相同的关键字
             {
@@ -1617,7 +1617,7 @@ namespace AGC.BusinessLogicEx
                 throw new Exception(string.Format("ORACLE中数据类型名:{0}不存在,请检查!", objColumns.Type_Name));
             }
             //检查是否存在相同的字段名
-            if (clsFieldTabBLEx.IsExistSameFldName(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId) == true)
+            if (clsFieldTabBLEx.IsExistSameFldName(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId).Length > 0)
             {
                 objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId);
                 //clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
@@ -4509,6 +4509,29 @@ namespace AGC.BusinessLogicEx
 
             return true;
         }
+
+
+        public static string GetSourceTabName(string strPrjId, string strTabId, string strFldName)
+        {
+            try
+            {
+                clsvSqlViewFldEN objvSqlViewFldEN = clsvSqlViewFldBLEx.GetvSqlViewFldObjByTabIdFieldAliasesExCache(strPrjId, strTabId, strFldName);
+                if (objvSqlViewFldEN == null)
+                {
+                    objvSqlViewFldEN = clsvSqlViewFldBLEx.GetvSqlViewFldObjByTabIdFldNameExCache(strPrjId, strTabId, strFldName);
+
+                }
+                if (objvSqlViewFldEN != null)
+                {
+                    return objvSqlViewFldEN.TabName;
+                }
+            }
+            catch (Exception objException)
+            {
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(objException.Message);
+            }
+            return "";
+        }
         /// <summary>
         /// 为字段设置一个新标题
         /// </summary>
@@ -4721,7 +4744,8 @@ namespace AGC.BusinessLogicEx
                     if (objInFor.DnPathId == "") objInFor.DnPathId = null;
                     objInFor.Update();
                     intErrCount++;
-                    continue;
+                    return new clsErrMsgENEx(conErrType.DnPath, intErrCount);
+//                    continue;
                 }
                 if (objInFor.ErrMsg != null && objInFor.ErrMsg.Length>0)
                 {
@@ -4736,7 +4760,7 @@ namespace AGC.BusinessLogicEx
             //    sbErrMsg.AppendLine(ex.Message);
             //}
             //2、获取相关主表ID的字段的对象列表;
-
+            //字段的数据节点路径错误
             return new clsErrMsgENEx(conErrType.TabField, intErrCount);
 
         }

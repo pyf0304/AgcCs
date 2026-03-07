@@ -1,0 +1,16 @@
+{
+  "codeTypeId": "0045",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "02",
+  "tabId": "01690015",01690678
+  "viewId": "",
+  "prjId": "0169",
+  "cmPrjId": "000015",
+  "prjDataBaseId": "0199",
+  "applicationTypeId": 0,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}

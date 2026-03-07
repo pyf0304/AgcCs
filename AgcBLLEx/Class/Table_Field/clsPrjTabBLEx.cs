@@ -282,6 +282,11 @@ namespace AGC.BusinessLogicEx
 
             objPrjTabENEx.TabSpace = objPrjTabENEx.DataBaseName;
             objPrjTabENEx.objProjectsEN = clsProjectsBL.GetObjByPrjIdCache(objPrjTabENEx.PrjId);
+            if (string.IsNullOrEmpty(objPrjTabENEx.FuncModuleAgcId) == true)
+            {
+                var strMsg = $"(errid:Busi002279)在表[{objPrjTabENEx.TabName}]中,属性[FuncModuleAgcId]中不能为空!({clsStackTrace.GetCurrClassFunction()})";
+                throw new Exception(strMsg);
+            }
             objPrjTabENEx.ObjFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objPrjTabENEx.FuncModuleAgcId, objPrjTabENEx.PrjId);
 
             try
@@ -4322,15 +4327,25 @@ namespace AGC.BusinessLogicEx
                 objPrjTab.Update();
                 return false;
             }
-
-            if (clsTabCheckStatusBLEx.CheckPrjTabBySQLTab4OneTab(strTabId, strPrjId, strPrjDataBaseId) == false)
+            try
             {
-                string strMsg = string.Format("(errorId:0002)检查表字段不成功!.({0})",
-                            clsStackTrace.GetCurrClassFunction());
-                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                if (clsTabCheckStatusBLEx.CheckPrjTabBySQLTab4OneTab(strTabId, strPrjId, strPrjDataBaseId) == false)
+                {
+                    string strMsg = string.Format("(errorId:0002)检查表字段不成功!.({0})",
+                                clsStackTrace.GetCurrClassFunction());
+                    clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
 
-                throw new Exception("检查表字段不成功!");
-                //return false;
+                    throw new Exception("检查表字段不成功!");
+                    //return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = ex.Message;
+                objPrjTab.ErrMsg = strMsg;
+                objPrjTab.UpdDate = clsDateTime.getTodayDateTimeStr(0);
+                objPrjTab.Update();
+                return false;
             }
             var objProjectsEN = clsProjectsBL.GetObjByPrjIdCache(strPrjId);
             clsTabCheckStatusBLEx.CheckPrjTabColumnBySQLTabDetail(strTabId, objProjectsEN, strPrjDataBaseId, strOpUserId);
@@ -4339,6 +4354,7 @@ namespace AGC.BusinessLogicEx
             if (objErrMsg_Tab.ErrNum > 0) arrErrMsg.Add(objErrMsg_Tab);
             if (arrErrMsg.Count > 0)
             {
+                objPrjTab.UpdDate = clsDateTime.getTodayDateTimeStr(0);
                 objPrjTab.ErrMsg = clsErrMsgBLEx.GetErrMsgByObjLst(arrErrMsg);
                 objPrjTab.Update();
 
@@ -4347,6 +4363,7 @@ namespace AGC.BusinessLogicEx
             {
                 //if (objPrjTab.ErrMsg != null && objPrjTab.ErrMsg.Length > 0)
                 //{
+                objPrjTab.UpdDate = clsDateTime.getTodayDateTimeStr(0);
                 objPrjTab.ErrMsg = "";
                 objPrjTab.Update();
                 //}
@@ -4437,22 +4454,38 @@ namespace AGC.BusinessLogicEx
                     intFldPrecision = objColumn.PRECISION;
                     strIsNull = objColumn.Is_Nullable;
                     bolIsNull = strIsNull == "NO" ? false : true;
+                    string strDataTypeId = clsDataTypeAbbrBLEx.GetDataTypeIdByName(strFldType);
                     try
                     {
-                        string strFldId = clsFieldTabBLEx.ImportFldToFieldTab(strFldName,
-                                       strFldCaption,
-                                       strFldType,
-                                       intFldLength,
-                                       intFldPrecision,
-                                       bolIsNull,
-                                       strPrjId,
-                                       strUserId);
+                        string strFldId = clsFieldTabBLEx.IsExistSameFldName(strPrjId, strFldName, strDataTypeId);
+                        if (string.IsNullOrEmpty(strFldId) == true)
+                        {
+                            //如果strDataTypeId为25，04中的一个，还可以换一个数字查一下
+                            if (strDataTypeId == "25")
+                            {
+                                strFldId = clsFieldTabBLEx.IsExistSameFldName(strPrjId, strFldName, "04");
+                            }
+                            else if (strDataTypeId == "04")
+                            {
+                                strFldId = clsFieldTabBLEx.IsExistSameFldName(strPrjId, strFldName, "25");
+                            }
+                        }
+                        if (string.IsNullOrEmpty(strFldId) == true)
+                        {
+                            strFldId = clsFieldTabBLEx.ImportFldToFieldTab(strFldName,
+                                            strFldCaption,
+                                            strFldType,
+                                            intFldLength,
+                                            intFldPrecision,
+                                            bolIsNull,
+                                            strPrjId,
+                                            strUserId);
+                        }
                         clsPrjTabFldBLEx.Add_FieldTabToPrjTabFld(strTabId, strFldId, strUserId);
                     }
                     catch (Exception objException)
                     {
-                        string strMsg = string.Format("(ErrId:Web02003)导入数据表(视图)失败--添加表字段列表失败。错误信息：{0}({1})",
-                             objException.Message, clsStackTrace.GetCurrClassFunction());
+                        string strMsg = $"(ErrId:Web02003)导入数据表(视图)--添加表字段列表失败。错误：{objException.Message}({clsStackTrace.GetCurrClassFunction()})(FldName={strFldName},FldType={strFldType})";
                         throw new Exception(strMsg);
                     }
                 }

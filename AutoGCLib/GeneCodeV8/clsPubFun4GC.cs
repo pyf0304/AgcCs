@@ -1478,13 +1478,26 @@ namespace AutoGCLib
             }
             //objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify, arrCondFldId, enumProgLangType.CSharp_01);
             string strCode = objFuncParaLst.Gc_ParaVarLstStr(strProgLangTypeId);
-            return strCode;
-            //string strFuncParaLst = objFuncParaLst.GetCondFldLst4Para();
-            //string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Cs(objGeneCodeBase4Tab.ThisClsName, strFuncName, true);
-
-
+            return strCode;            
         }
 
+        public static string GetParaVarLstStr4CacheClassfyWithObjName(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId, string strObjName)
+        {
+            var objFuncParaLst = new FuncParaLst("ReFreshThisCache", objGeneCodeBase4Tab.IsFstLcase, enumAppLevel.DefindFunc);
+            List<string> arrCondFldId = new List<string>();
+            if (bolIsFrontend == true)
+            {
+
+                objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify_TS, arrCondFldId, strProgLangTypeId);
+            }
+            else
+            {
+                objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify, arrCondFldId, strProgLangTypeId);
+            }
+            //objFuncParaLst.AddParaByCacheClassify(objGeneCodeBase4Tab.thisCacheClassify, arrCondFldId, enumProgLangType.CSharp_01);
+            string strCode = objFuncParaLst.Gc_ParaVarLstStrWithObjName(strProgLangTypeId, strObjName);
+            return strCode;
+        }
 
         public static string GetFuncParaDef4KeyField(clsGeneCodeBase4Tab objGeneCodeBase4Tab, bool bolIsFrontend, string strProgLangTypeId)
         {

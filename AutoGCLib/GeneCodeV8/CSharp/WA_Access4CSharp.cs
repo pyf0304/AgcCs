@@ -1950,6 +1950,8 @@ objPrjTabENEx.TabName);
         /// <returns></returns>
         public string Gen_4WA_DelRecord()
         {
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -1961,9 +1963,6 @@ objPrjTabENEx.TabName);
             objPrjTabENEx.KeyVarDefineLstStr);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "string strAction = \"DelRecord\";");
-
-
-
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
@@ -1993,7 +1992,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
                 strCodeForCs.Append("\r\n" + "var intReturnInt = (int)jobjReturn0[\"returnInt\"];");
@@ -2030,6 +2029,9 @@ objPrjTabENEx.TabName);
         public string Gen_4WA_DelMultiRecord()
         {
             if (objPrjTabENEx.arrKeyFldSet.Count > 1) return "";
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
+
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
             strCodeForCs.Append("\r\n /// 根据关键字列表删除记录");
@@ -2041,9 +2043,7 @@ objPrjTabENEx.TabName);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "string strAction = \"Del{0}s\";", objPrjTabENEx.TabName);
 
-
             strCodeForCs.Append("\r\n" + "Dictionary<string, string> dictParam = new Dictionary<string, string>();");
-
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
@@ -2076,7 +2076,7 @@ objPrjTabENEx.TabName);
                         strCodeForCs.AppendFormat("\r\n cls{0}EN obj{0}EN = cls{0}WApi.GetObjBy{1}(arr{1}[0]);",
         objPrjTabENEx.TabName, objKeyField.FldName, objKeyField.PrivFuncName);
                     }
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
             strCodeForCs.Append("\r\n" + "var intReturnInt = (int)jobjReturn0[\"returnInt\"];");
@@ -2228,6 +2228,8 @@ objPrjTabENEx.TabName);
         public string Gen_4WA_AddNewRecordWithMaxId()
         {
             if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType != "string") return "";
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -2265,7 +2267,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
                 strCodeForCs.AppendFormat("\r\n" + "var {0} = ({1})jobjReturn0[\"returnStr\"];", objKeyField.PrivFuncName, objKeyField.CsType);
@@ -2295,6 +2297,8 @@ objPrjTabENEx.TabName);
 
         public string Gen_4WA_AddNewRecord()
         {
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -2332,7 +2336,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
             strCodeForCs.Append("\r\n" + "var bolReturnBool = (bool)jobjReturn0[\"returnBool\"];");
@@ -3207,6 +3211,8 @@ objPrjTabENEx.TabName);
         public string Gen_4WA_AddNewRecordWithReturnKey()
         {
             if (objKeyField.PrimaryTypeId != "02") return "";
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -3228,9 +3234,7 @@ objPrjTabENEx.TabName);
             objPrjTabENEx.TabName);
             strCodeForCs.Append("\r\n" + "if (clsPubFun4WApi.Post(mstrApiControllerName, strAction, dictParam, strJson, out string strResult, out string strErrMsg) == true)");
             strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "string strKey = strResult;",
-            //objPrjTabENEx.TabName);
-            //strCodeForCs.Append("\r\n" + "return strKey;");
+
             strCodeForCs.Append("\r\n" + "JObject jobjReturn0 = JObject.Parse(strResult);");
             strCodeForCs.Append("\r\n" + "if ((int)jobjReturn0[\"errorId\"] == 0)");
             strCodeForCs.Append("\r\n" + "{");
@@ -3243,7 +3247,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
                 strCodeForCs.Append("\r\n" + "var strReturnStr = (string)jobjReturn0[\"returnStr\"];");
@@ -3611,7 +3615,12 @@ objPrjTabENEx.TabName);
                     if (objInFor.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "string")
                     {
                         strCodeForCs.AppendFormat("\r\n" + "if (string.IsNullOrEmpty({0}) == true) return null;",
-                          objKeyField.PrivFuncName);
+                          objInFor.ObjFieldTabENEx.PrivFuncName);
+                    }
+                    else if (objInFor.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "long")
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "if ({0} == 0) return null;",
+                          objInFor.ObjFieldTabENEx.PrivFuncName);
                     }
                 }
             }
@@ -3629,6 +3638,12 @@ objPrjTabENEx.TabName);
                     strCodeForCs.AppendFormat("\r\n" + "if (string.IsNullOrEmpty({0}) == true) return null;",
                       objKeyField.PrivFuncName);
                 }
+                else if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "long")
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "if ({0} == 0) return null;",
+                      objKeyField.PrivFuncName);
+                }
+
             }
             strCodeForCs.Append("\r\n" + "//初始化列表缓存");
             //strCodeForCs.Append("\r\n" + "InitListCache(); ");
@@ -3707,12 +3722,12 @@ objPrjTabENEx.TabName);
         /// 根据关键字获取相关对象, 从缓存的对象列表中获取.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4WA_GetObjLstByKeyLstCache()
+        public string Gen_4WA_GetObjLstByKeyLstCacheBak()
         {
 
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;     
-            //if (objPrjTabENEx.IsUseCache == false) return string.Format("//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;",
-            //                  objKeyField.FldName);
+            if (objPrjTabENEx.IsUseCache == false) return string.Format("//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;",
+                              objKeyField.FldName);
 
             //if (objPrjTabENEx.IsUseCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in {clsStackTrace.GetCurrClassFunction()})";
 
@@ -3809,6 +3824,118 @@ objPrjTabENEx.TabName);
             return strCodeForCs.ToString();
         }
 
+        public string Gen_4WA_GetObjLstByKeyLstCache()
+        {
+
+            ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;     
+            if (objPrjTabENEx.IsUseCache == false) return string.Format("//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;",
+                              objKeyField.FldName);
+
+            //if (objPrjTabENEx.IsUseCache == false) return $"//该表没有使用Cache,不需要生成[GetObjLstByKeyLstsCache()]函数;(in {clsStackTrace.GetCurrClassFunction()})";
+
+
+            Tuple<string, string, string> tup = thisWA_FP(WA_F.GetObjLst_Cache, "CSharp");
+            var strFuncParamsDefLst = tup.Item1;
+            var strFuncParamsLst = tup.Item2;
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+            
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfy(this, false, enumProgLangType.CSharp_01);
+
+            StringBuilder strCodeForCs = new StringBuilder();
+            //根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
+
+            strCodeForCs.AppendFormat("\r\n /// <summary>");
+            strCodeForCs.AppendFormat("\r\n /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.");
+            strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n /// </summary>");
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                if (objPrjTabENEx.objCacheClassifyFld == null)
+                {
+                    foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                    {
+                        strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objInFor.PrivFuncName);
+                    }
+                    strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字列表获取的对象</returns>");
+                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstByKeyLstsCache(List<{2}> arr{1})",
+                objPrjTabENEx.TabName,
+                objKeyField.FldName_FstUcase,
+                objKeyField.CsType,
+                objKeyField.PrivFuncName);
+                }
+                else
+                {
+                    foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                    {
+                        strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objInFor.PrivFuncName);
+                    }
+                    strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">分类字段值</param>", objPrjTabENEx.ObjCacheClassifyFld.PrivFuncName);
+                    strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字列表获取的对象</returns>");
+                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstByKeyLstsCache(List<{2}> arr{1}, {3})",
+                        objPrjTabENEx.TabName,
+                        objKeyField.FldName_FstUcase,
+                        objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
+                        strFuncParamsDefLst);
+                }
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n /// <param name = \"arr{0}\">所给的关键字列表</param>", objKeyField.FldName_FstUcase);
+                strCodeForCs.AppendFormat("\r\n /// <returns>根据关键字列表获取的对象</returns>");
+
+                if (objPrjTabENEx.objCacheClassifyFld == null)
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstBy{1}LstCache(List<{2}> arr{1})",
+                objPrjTabENEx.TabName,
+                objKeyField.FldName_FstUcase,
+                objKeyField.CsType,
+                objKeyField.PrivFuncName);
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "public static IEnumerable<cls{0}EN> GetObjLstBy{1}LstCache(List<{2}> arr{1}, {3})",
+             objPrjTabENEx.TabName,
+             objKeyField.FldName_FstUcase,
+             objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
+                    strFuncParaCode);
+                }
+            }
+            strCodeForCs.Append("\r\n" + "{");
+            //if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType == "string")
+            //{
+            //    strCodeForCs.AppendFormat("\r\n" + "if (string.IsNullOrEmpty({0}) == true) return null;",
+            //      objKeyField.PrivFuncName);
+            //}
+            strCodeForCs.Append("\r\n" + "//初始化列表缓存");
+            //strCodeForCs.Append("\r\n" + "InitListCache(); ");
+            if (objPrjTabENEx.objCacheClassifyFld == null)
+            {
+                strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}\", cls{0}EN._CurrTabName);",
+                    objPrjTabENEx.TabName);
+                strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache();",
+                    objPrjTabENEx.TabName);
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n" + "string strKey = string.Format(\"{{0}}_{{1}}\", cls{0}EN._CurrTabName, {1});",
+                                objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
+                strCodeForCs.AppendFormat("\r\n" + "List<cls{0}EN> arr{0}ObjLstCache = GetObjLstCache({1});",
+                    objPrjTabENEx.TabName, strParaVarLst);
+            }
+            strCodeForCs.AppendFormat("\r\n" + "IEnumerable <cls{0}EN> arr{0}ObjLst_Sel =", objPrjTabENEx.TabName);
+            strCodeForCs.AppendFormat("\r\n" + "from obj{0}EN in arr{0}ObjLstCache", objPrjTabENEx.TabName);
+            strCodeForCs.AppendFormat("\r\n" + "where arr{1}.Contains(obj{0}EN.{2})",
+                objPrjTabENEx.TabName,
+                objKeyField.FldName_FstUcase,
+                objKeyField.PropertyName(this.IsFstLcase));
+            strCodeForCs.AppendFormat("\r\n" + "select obj{0}EN;", objPrjTabENEx.TabName);
+
+            strCodeForCs.AppendFormat("\r\n" + "return arr{0}ObjLst_Sel;", objPrjTabENEx.TabName);
+            strCodeForCs.Append("\r\n" + "}");
+
+            //根据关键字获取相关对象, 从缓存的对象列表中获取. == = ;
+            return strCodeForCs.ToString();
+        }
 
         /// <summary>
         /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
@@ -4944,6 +5071,8 @@ objPrjTabENEx.TabName);
         }
         public string Gen_4WA_Static_Update()
         {
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01,strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
@@ -4986,17 +5115,7 @@ objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.CheckPropertyNew(obj{0}EN); ", objPrjTabENEx.TabName);
             strCodeForCs.AppendFormat("\r\n" + "bool bolResult = cls{0}WApi.UpdateRecord(obj{0}EN);",
             objPrjTabENEx.TabName);
-            //strCodeForCs.Append("\r\n" + "  //引发修改记录的事件");
-            //strCodeForCs.Append("\r\n" + "try");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "    onUpdateRecord?.Invoke(obj{0}EN);", TabName);
-            //strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.Append("\r\n" + "catch (Exception objException)");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.Append("\r\n" + "string strMsg2 = string.Format(\"在调用修改记录代理事件时出错。错误：{0}.({1})\", objException.Message, clsStackTrace.GetCurrClassFunction());");
-            //strCodeForCs.Append("\r\n" + "clsSysParaEN.objLog.WriteDebugLog(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "throw new Exception(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "}");
+       
 
             strCodeForCs.Append("\r\n" + "// 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用");
             if ( thisCacheClassify.IsForExtendClass == false)
@@ -5007,7 +5126,8 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    //strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
                 strCodeForCs.Append("\r\n" + "return bolResult;");
@@ -5028,6 +5148,8 @@ objPrjTabENEx.TabName);
         }
         public string Gen_4WA_Static_AddNewRecord()
         {
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -5081,17 +5203,7 @@ objPrjTabENEx.TabName);
 
             strCodeForCs.AppendFormat("\r\n" + "bool bolResult = cls{0}WApi.AddNewRecord(obj{0}EN);",
             objPrjTabENEx.TabName);
-            //strCodeForCs.Append("\r\n" + "  //引发添加新记录的事件");
-            //strCodeForCs.Append("\r\n" + "try");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "    onAddNewRecord?.Invoke(obj{0}EN);", TabName);
-            //strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.Append("\r\n" + "catch (Exception objException)");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.Append("\r\n" + "string strMsg2 = string.Format(\"在调用添加记录代理事件时出错。错误：{0}.({1})\", objException.Message, clsStackTrace.GetCurrClassFunction());");
-            //strCodeForCs.Append("\r\n" + "clsSysParaEN.objLog.WriteDebugLog(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "throw new Exception(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "}");
+
 
             strCodeForCs.Append("\r\n" + "// 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用");
             if ( thisCacheClassify.IsForExtendClass == false)
@@ -5102,7 +5214,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
             strCodeForCs.Append("\r\n" + "return bolResult;");
@@ -5131,6 +5243,8 @@ objPrjTabENEx.TabName);
         public string Gen_4WA_Static_AddNewRecordWithMaxId()
         {
             if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType != "string") return "";
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -5153,17 +5267,7 @@ objPrjTabENEx.TabName);
 
             strCodeForCs.AppendFormat("\r\n" + "{1} {2} = cls{0}WApi.AddNewRecordWithMaxId(obj{0}EN);",
             objPrjTabENEx.TabName, objKeyField.CsType, objKeyField.PrivFuncName);
-            //strCodeForCs.Append("\r\n" + "  //引发添加新记录的事件");
-            //strCodeForCs.Append("\r\n" + "try");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "    onAddNewRecord?.Invoke(obj{0}EN);", TabName);
-            //strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.Append("\r\n" + "catch (Exception objException)");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.Append("\r\n" + "string strMsg2 = string.Format(\"在调用添加记录代理事件时出错。错误：{0}.({1})\", objException.Message, clsStackTrace.GetCurrClassFunction());");
-            //strCodeForCs.Append("\r\n" + "clsSysParaEN.objLog.WriteDebugLog(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "throw new Exception(strMsg2);");
-            //strCodeForCs.Append("\r\n" + "}");
+   
 
             strCodeForCs.Append("\r\n" + "// 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用");
             if ( thisCacheClassify.IsForExtendClass == false)
@@ -5174,7 +5278,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
             strCodeForCs.AppendFormat("\r\n" + "return {0};", objKeyField.PrivFuncName);
@@ -5202,6 +5306,8 @@ objPrjTabENEx.TabName);
 
         public string Gen_4WA_Static_UpdateWithCondition()
         {
+            string strObjName = "obj" + objPrjTabENEx.TabName + "EN";
+            string strParaVarLst = clsPubFun4GC.GetParaVarLstStr4CacheClassfyWithObjName(this, false, enumProgLangType.CSharp_01, strObjName);
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /// <summary>");
@@ -5230,7 +5336,7 @@ objPrjTabENEx.TabName);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache(obj{0}EN.{1});", objPrjTabENEx.TabName, objPrjTabENEx.objCacheClassifyFld.PropertyName(this.IsFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "cls{0}WApi.ReFreshCache({1});", objPrjTabENEx.TabName, strParaVarLst);
                 }
             }
             strCodeForCs.Append("\r\n" + "return bolResult;");

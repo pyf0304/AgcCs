@@ -81,6 +81,7 @@ namespace AGC.WebApiEx
                 dictParam.Add("TabId", objGCPara.tabId);
                 dictParam.Add("ViewId", objGCPara.viewId);
                 dictParam.Add("PrjId", objGCPara.prjId);
+                dictParam.Add("cmPrjId", objGCPara.cmPrjId);
                 dictParam.Add("PrjDataBaseId", objGCPara.prjDataBaseId);
                 dictParam.Add("GCUserId", objGCPara.gcUserId);
                 //dictParam.Add("ClassName", objGCPara.ClassName);

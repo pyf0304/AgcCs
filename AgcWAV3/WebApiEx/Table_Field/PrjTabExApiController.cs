@@ -540,6 +540,7 @@ namespace AGC.WebApi
         /// <param name = "strPrjDataBaseId">工程数据库Id</param>
         /// <param name = "strOpUserId">操作用户Id</param>
         /// <returns>返回是否存在?</returns>
+        [AllowAnonymous]
         [HttpPost("ImportSqlTab")]
         public ActionResult ImportSqlTab([FromBody] clsImportSqlTab myData)
         {
