@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsUserPrjGrantWApi
  表名:UserPrjGrant(00050092)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:39:45
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:23:03
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -637,8 +637,9 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsUserPrjGrantEN GetObjBymIdCache(long lngmId,string strUserId)
+public static clsUserPrjGrantEN GetObjBymIdCache(long lngmId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}", clsUserPrjGrantEN._CurrTabName);
 List<clsUserPrjGrantEN> arrUserPrjGrantObjLstCache = GetObjLstCache();
@@ -1570,7 +1571,7 @@ clsUserPrjGrantWApi.objCommFun4WApi.ReFreshCache();
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsUserPrjGrantEN> GetObjLstCache(string strUserId)
+public static List<clsUserPrjGrantEN> GetObjLstCache()
 {
 
 //初始化列表缓存
@@ -1621,14 +1622,14 @@ return objDT;
  /// 数据源类型:表
  /// (AutoGCLib.CommFun4WA4CSharp:GeneCode_This)
  /// </summary>
-public class  clsCommFun4WA4UserPrjGrant : clsCommFun4BLV2
+public class  clsCommFun4WA4UserPrjGrant : clsCommFun4BL
 {
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strUserId)
+public override void ReFreshCache()
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -1641,7 +1642,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsUserPrjGrantWApi.ReFreshThisCache(strUserId);
+clsUserPrjGrantWApi.ReFreshThisCache();
 }
 }
 

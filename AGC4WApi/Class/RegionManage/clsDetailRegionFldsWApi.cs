@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsDetailRegionFldsWApi
  表名:DetailRegionFlds(00050544)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:14
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:22:52
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1052,11 +1052,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsDetailRegionFldsEN GetObjBymIdCache(long lngmId,string strRegionId)
+public static clsDetailRegionFldsEN GetObjBymIdCache(long lngmId,string strPrjId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsDetailRegionFldsEN._CurrTabName, strPrjId);
-List<clsDetailRegionFldsEN> arrDetailRegionFldsObjLstCache = GetObjLstCache(strRegionId);
+List<clsDetailRegionFldsEN> arrDetailRegionFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsDetailRegionFldsEN> arrDetailRegionFldsObjLst_Sel =
 from objDetailRegionFldsEN in arrDetailRegionFldsObjLstCache
 where objDetailRegionFldsEN.mId == lngmId 
@@ -1158,11 +1159,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrMId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsDetailRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, string strRegionId)
+public static IEnumerable<clsDetailRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsDetailRegionFldsEN._CurrTabName, strPrjId);
-List<clsDetailRegionFldsEN> arrDetailRegionFldsObjLstCache = GetObjLstCache(strRegionId);
+List<clsDetailRegionFldsEN> arrDetailRegionFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsDetailRegionFldsEN> arrDetailRegionFldsObjLst_Sel =
 from objDetailRegionFldsEN in arrDetailRegionFldsObjLstCache
 where arrMId.Contains(objDetailRegionFldsEN.mId)
@@ -2009,7 +2010,7 @@ clsDetailRegionFldsWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsDetailRegionFldsEN> GetObjLstCache(string strRegionId)
+public static List<clsDetailRegionFldsEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -2043,7 +2044,7 @@ return arrDetailRegionFldsObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsDetailRegionFldsEN> GetObjLstCacheFromObjLst(string strRegionId,List<clsDetailRegionFldsEN> arrObjLst_P)
+public static List<clsDetailRegionFldsEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsDetailRegionFldsEN> arrObjLst_P)
 {
 
 
@@ -2143,7 +2144,7 @@ public class  clsCommFun4WA4DetailRegionFlds : clsCommFun4BLV2
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strRegionId)
+public override void ReFreshCache(string strPrjId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -2156,7 +2157,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsDetailRegionFldsWApi.ReFreshThisCache(strRegionId);
+clsDetailRegionFldsWApi.ReFreshThisCache(strPrjId);
 }
 }
 

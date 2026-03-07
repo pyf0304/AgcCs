@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCMFeatureWApi
  表名:CMFeature(00050517)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:40:32
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:23:25
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1299,12 +1299,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strCmFeatureId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsCMFeatureEN GetObjByCmFeatureIdCache(string strCmFeatureId,string strCmPrjId)
+public static clsCMFeatureEN GetObjByCmFeatureIdCache(string strCmFeatureId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strCmFeatureId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
-List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
+List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel =
 from objCMFeatureEN in arrCMFeatureObjLstCache
 where objCMFeatureEN.CmFeatureId == strCmFeatureId 
@@ -1328,11 +1328,11 @@ return arrCMFeatureObjLst_Sel.First();
  /// </summary>
  /// <param name = "strCmFeatureId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetFeatureNameByCmFeatureIdCache(string strCmFeatureId,string strCmPrjId)
+public static string GetFeatureNameByCmFeatureIdCache(string strCmFeatureId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strCmFeatureId) == true) return "";
 //初始化列表缓存
-List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
+List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel1 =
 from objCMFeatureEN in arrCMFeatureObjLstCache
 where objCMFeatureEN.CmFeatureId == strCmFeatureId 
@@ -1356,11 +1356,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strCmFeatureId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByCmFeatureIdCache(string strCmFeatureId,string strCmPrjId)
+public static string GetNameByCmFeatureIdCache(string strCmFeatureId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strCmFeatureId) == true) return "";
 //初始化列表缓存
-List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
+List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel1 =
 from objCMFeatureEN in arrCMFeatureObjLstCache
 where objCMFeatureEN.CmFeatureId == strCmFeatureId 
@@ -1463,11 +1463,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrCmFeatureId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsCMFeatureEN> GetObjLstByCmFeatureIdLstCache(List<string> arrCmFeatureId, string strCmPrjId)
+public static IEnumerable<clsCMFeatureEN> GetObjLstByCmFeatureIdLstCache(List<string> arrCmFeatureId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsCMFeatureEN._CurrTabName, strPrjId);
-List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strCmPrjId);
+List<clsCMFeatureEN> arrCMFeatureObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsCMFeatureEN> arrCMFeatureObjLst_Sel =
 from objCMFeatureEN in arrCMFeatureObjLstCache
 where arrCmFeatureId.Contains(objCMFeatureEN.CmFeatureId)
@@ -2381,7 +2381,7 @@ clsCMFeatureWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCMFeatureEN> GetObjLstCache(string strCmPrjId)
+public static List<clsCMFeatureEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -2415,7 +2415,7 @@ return arrCMFeatureObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCMFeatureEN> GetObjLstCacheFromObjLst(string strCmPrjId,List<clsCMFeatureEN> arrObjLst_P)
+public static List<clsCMFeatureEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsCMFeatureEN> arrObjLst_P)
 {
 
 
@@ -2507,7 +2507,7 @@ public class  clsCommFun4WA4CMFeature : clsCommFun4BLV2
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strCmPrjId)
+public override void ReFreshCache(string strPrjId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -2520,7 +2520,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCMFeatureWApi.ReFreshThisCache(strCmPrjId);
+clsCMFeatureWApi.ReFreshThisCache(strPrjId);
 }
 }
 

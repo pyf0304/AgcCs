@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsDataBaseModuleRelaWApi
  表名:DataBaseModuleRela(00050235)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:39:37
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:20:51
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -613,6 +613,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsDataBaseModuleRelaEN GetObjBymIdCache(long lngmId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}", clsDataBaseModuleRelaEN._CurrTabName);
 List<clsDataBaseModuleRelaEN> arrDataBaseModuleRelaObjLstCache = GetObjLstCache();

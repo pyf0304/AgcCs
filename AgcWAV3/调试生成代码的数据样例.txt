@@ -14,3 +14,6 @@
   "webSrvClassId": "",
   "isRecordLog": true
 }
+
+
+20260307223400: WebApi:[AGC.WebApiEx.AutoGeneCodeApiController]-[GeneCode]-[[CodeTypeId]:=[0045];[DataBaseType]:=[01];[TabId]:=[00050631];[ViewId]:=[];[PrjId]:=[0005];[cmPrjId]:=[000014];[PrjDataBaseId]:=[0005];[GCUserId]:=[pyf];[TypeParas]:=[];].

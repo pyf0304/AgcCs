@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFieldTab4RootFldWApi
  表名:FieldTab4RootFld(00050422)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:40:21
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:19:23
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -756,6 +756,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsFieldTab4RootFldEN GetObjBymIdCache(long lngmId,string strPrjId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsFieldTab4RootFldEN._CurrTabName, strPrjId);
 List<clsFieldTab4RootFldEN> arrFieldTab4RootFldObjLstCache = GetObjLstCache(strPrjId);

@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewFeatureFldsWApi
  表名:ViewFeatureFlds(00050453)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:24
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:22:55
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1351,11 +1351,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsViewFeatureFldsEN GetObjBymIdCache(long lngmId,string strViewFeatureId)
+public static clsViewFeatureFldsEN GetObjBymIdCache(long lngmId,string strPrjId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsViewFeatureFldsEN._CurrTabName, strPrjId);
-List<clsViewFeatureFldsEN> arrViewFeatureFldsObjLstCache = GetObjLstCache(strViewFeatureId);
+List<clsViewFeatureFldsEN> arrViewFeatureFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsViewFeatureFldsEN> arrViewFeatureFldsObjLst_Sel =
 from objViewFeatureFldsEN in arrViewFeatureFldsObjLstCache
 where objViewFeatureFldsEN.mId == lngmId 
@@ -1457,11 +1458,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrMId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsViewFeatureFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, string strViewFeatureId)
+public static IEnumerable<clsViewFeatureFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsViewFeatureFldsEN._CurrTabName, strPrjId);
-List<clsViewFeatureFldsEN> arrViewFeatureFldsObjLstCache = GetObjLstCache(strViewFeatureId);
+List<clsViewFeatureFldsEN> arrViewFeatureFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsViewFeatureFldsEN> arrViewFeatureFldsObjLst_Sel =
 from objViewFeatureFldsEN in arrViewFeatureFldsObjLstCache
 where arrMId.Contains(objViewFeatureFldsEN.mId)
@@ -2316,7 +2317,7 @@ clsViewFeatureFldsWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsViewFeatureFldsEN> GetObjLstCache(string strViewFeatureId)
+public static List<clsViewFeatureFldsEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -2350,7 +2351,7 @@ return arrViewFeatureFldsObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsViewFeatureFldsEN> GetObjLstCacheFromObjLst(string strViewFeatureId,List<clsViewFeatureFldsEN> arrObjLst_P)
+public static List<clsViewFeatureFldsEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsViewFeatureFldsEN> arrObjLst_P)
 {
 
 
@@ -2466,7 +2467,7 @@ public class  clsCommFun4WA4ViewFeatureFlds : clsCommFun4BLV2
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strViewFeatureId)
+public override void ReFreshCache(string strPrjId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -2479,7 +2480,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsViewFeatureFldsWApi.ReFreshThisCache(strViewFeatureId);
+clsViewFeatureFldsWApi.ReFreshThisCache(strPrjId);
 }
 }
 

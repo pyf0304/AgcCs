@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsGCPathWApi
  表名:GCPath(00050595)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:40:05
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:22:24
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -338,7 +338,7 @@ objGCPathEN.sfUpdFldSetStr = objGCPathEN.getsfUpdFldSetStr();
 clsGCPathWApi.CheckPropertyNew(objGCPathEN); 
 bool bolResult = clsGCPathWApi.UpdateRecord(objGCPathEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 return bolResult;
 }
 catch (Exception objException)
@@ -399,7 +399,7 @@ try
 clsGCPathWApi.CheckPropertyNew(objGCPathEN); 
 bool bolResult = clsGCPathWApi.AddNewRecord(objGCPathEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 return bolResult;
 }
 catch (Exception objException)
@@ -425,7 +425,7 @@ try
 clsGCPathWApi.CheckPropertyNew(objGCPathEN); 
 string strGcPathId = clsGCPathWApi.AddNewRecordWithMaxId(objGCPathEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 return strGcPathId;
 }
 catch (Exception objException)
@@ -452,7 +452,7 @@ try
 clsGCPathWApi.CheckPropertyNew(objGCPathEN); 
 bool bolResult = clsGCPathWApi.UpdateWithCondition(objGCPathEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 return bolResult;
 }
 catch (Exception objException)
@@ -1045,7 +1045,7 @@ if (clsPubFun4WApi.Delete(mstrApiControllerName, strAction, strGcPathId.ToString
 JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1120,7 +1120,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
  clsGCPathEN objGCPathEN = clsGCPathWApi.GetObjByGcPathId(arrGcPathId[0]);
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 var intReturnInt = (int)jobjReturn0["returnInt"];
 return intReturnInt;
 }
@@ -1198,7 +1198,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 var bolReturnBool = (bool)jobjReturn0["returnBool"];
 return bolReturnBool;
 }
@@ -1237,7 +1237,7 @@ JObject jobjReturn0 = JObject.Parse(strResult);
 if ((int)jobjReturn0["errorId"] == 0)
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId);
+clsGCPathWApi.ReFreshCache(objGCPathEN.PrjId,objGCPathEN.UserId);
 var strGcPathId = (string)jobjReturn0["returnStr"];
 return strGcPathId;
 }
@@ -1887,14 +1887,14 @@ return objDT;
  /// 数据源类型:表
  /// (AutoGCLib.CommFun4WA4CSharp:GeneCode_This)
  /// </summary>
-public class  clsCommFun4WA4GCPath : clsCommFun4BLV2
+public class  clsCommFun4WA4GCPath : clsCommFun4BLV3
 {
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strPrjId)
+public override void ReFreshCache(string strPrjId,string strUserId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -1907,7 +1907,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsGCPathWApi.ReFreshThisCache(strPrjId);
+clsGCPathWApi.ReFreshThisCache(strPrjId,strUserId);
 }
 }
 

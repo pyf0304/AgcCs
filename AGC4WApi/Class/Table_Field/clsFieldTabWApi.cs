@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFieldTabWApi
  表名:FieldTab(00050021)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:16
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:18:56
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1365,12 +1365,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strFldId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsFieldTabEN GetObjByFldIdCache(string strFldId)
+public static clsFieldTabEN GetObjByFldIdCache(string strFldId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strFldId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsFieldTabEN._CurrTabName, strPrjId);
-List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache();
+List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsFieldTabEN> arrFieldTabObjLst_Sel =
 from objFieldTabEN in arrFieldTabObjLstCache
 where objFieldTabEN.FldId == strFldId 
@@ -1394,11 +1394,11 @@ return arrFieldTabObjLst_Sel.First();
  /// </summary>
  /// <param name = "strFldId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetFldNameByFldIdCache(string strFldId)
+public static string GetFldNameByFldIdCache(string strFldId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strFldId) == true) return "";
 //初始化列表缓存
-List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache();
+List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsFieldTabEN> arrFieldTabObjLst_Sel1 =
 from objFieldTabEN in arrFieldTabObjLstCache
 where objFieldTabEN.FldId == strFldId 
@@ -1422,11 +1422,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strFldId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByFldIdCache(string strFldId)
+public static string GetNameByFldIdCache(string strFldId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strFldId) == true) return "";
 //初始化列表缓存
-List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache();
+List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsFieldTabEN> arrFieldTabObjLst_Sel1 =
 from objFieldTabEN in arrFieldTabObjLstCache
 where objFieldTabEN.FldId == strFldId 
@@ -1529,11 +1529,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrFldId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsFieldTabEN> GetObjLstByFldIdLstCache(List<string> arrFldId, )
+public static IEnumerable<clsFieldTabEN> GetObjLstByFldIdLstCache(List<string> arrFldId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsFieldTabEN._CurrTabName, strPrjId);
-List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache();
+List<clsFieldTabEN> arrFieldTabObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsFieldTabEN> arrFieldTabObjLst_Sel =
 from objFieldTabEN in arrFieldTabObjLstCache
 where arrFldId.Contains(objFieldTabEN.FldId)
@@ -2457,7 +2457,7 @@ clsFieldTabWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsFieldTabEN> GetObjLstCache()
+public static List<clsFieldTabEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -2491,7 +2491,7 @@ return arrFieldTabObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsFieldTabEN> GetObjLstCacheFromObjLst(List<clsFieldTabEN> arrObjLst_P)
+public static List<clsFieldTabEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsFieldTabEN> arrObjLst_P)
 {
 
 
@@ -2596,14 +2596,14 @@ return objDT;
  /// 数据源类型:表
  /// (AutoGCLib.CommFun4WA4CSharp:GeneCode_This)
  /// </summary>
-public class  clsCommFun4WA4FieldTab : clsCommFun4BL
+public class  clsCommFun4WA4FieldTab : clsCommFun4BLV2
 {
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache()
+public override void ReFreshCache(string strPrjId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -2616,7 +2616,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsFieldTabWApi.ReFreshThisCache();
+clsFieldTabWApi.ReFreshThisCache(strPrjId);
 }
 }
 

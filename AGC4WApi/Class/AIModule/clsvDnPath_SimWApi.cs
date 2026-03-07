@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDnPath_SimWApi
  表名:vDnPath_Sim(00050603)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:07:58
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:24:29
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -436,7 +436,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strDnPathId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvDnPath_SimEN GetObjByDnPathIdCache(string strDnPathId,string strPrjId)
+public static clsvDnPath_SimEN GetObjByDnPathIdCache(string strDnPathId)
 {
 if (string.IsNullOrEmpty(strDnPathId) == true) return null;
 //初始化列表缓存
@@ -1023,7 +1023,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDnPath_SimEN> GetObjLstCache(string strPrjId)
+public static List<clsvDnPath_SimEN> GetObjLstCache()
 {
 
 //初始化列表缓存

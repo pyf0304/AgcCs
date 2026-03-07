@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvQryRegionFldCountWApi
  表名:vQryRegionFldCount(00050579)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:06:56
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:25:11
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -293,12 +293,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strRegionId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvQryRegionFldCountEN GetObjByRegionIdCache(string strRegionId)
+public static clsvQryRegionFldCountEN GetObjByRegionIdCache(string strRegionId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strRegionId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvQryRegionFldCountEN._CurrTabName, strPrjId);
-List<clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLstCache = GetObjLstCache();
+List<clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLst_Sel =
 from objvQryRegionFldCountEN in arrvQryRegionFldCountObjLstCache
 where objvQryRegionFldCountEN.RegionId == strRegionId 
@@ -400,11 +400,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrRegionId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvQryRegionFldCountEN> GetObjLstByRegionIdLstCache(List<string> arrRegionId, )
+public static IEnumerable<clsvQryRegionFldCountEN> GetObjLstByRegionIdLstCache(List<string> arrRegionId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvQryRegionFldCountEN._CurrTabName, strPrjId);
-List<clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLstCache = GetObjLstCache();
+List<clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvQryRegionFldCountEN> arrvQryRegionFldCountObjLst_Sel =
 from objvQryRegionFldCountEN in arrvQryRegionFldCountObjLstCache
 where arrRegionId.Contains(objvQryRegionFldCountEN.RegionId)
@@ -831,7 +831,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvQryRegionFldCountEN> GetObjLstCache()
+public static List<clsvQryRegionFldCountEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -865,7 +865,7 @@ return arrvQryRegionFldCountObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvQryRegionFldCountEN> GetObjLstCacheFromObjLst(List<clsvQryRegionFldCountEN> arrObjLst_P)
+public static List<clsvQryRegionFldCountEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvQryRegionFldCountEN> arrObjLst_P)
 {
 
 
