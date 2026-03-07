@@ -457,37 +457,37 @@ namespace AGC
                         }
                      
                         ///检查是否存在相同的字段名
-                        if (clsFieldTabBLEx.IsExistSameFldName(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId) == true)
-						{
-                            objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
-							//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-						}
-						else
-						{
-                            objFieldTabEN.FldId = clsFieldTabBL.GetMaxStrIdByPrefix_S(clsPubVar.CurrSelPrjId);
-							objFieldTabEN.FldName= strFldName;
-                            objFieldTabEN.DataTypeId = objDataTypeAbbrEN.DataTypeId;
-							objFieldTabEN.IsNull= di.Cells[4].Text=="YES"? true:false;
-							objFieldTabEN.IsPrimaryKey=false;
-							objFieldTabEN.FldLength=int.Parse( di.Cells[3].Text);
-							objFieldTabEN.Caption = strFldName;
-							objFieldTabEN.IsOnlyOne = false;
-                            if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN) == false)
-							{
+      //                  if (clsFieldTabBLEx.IsExistSameFldName(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId) == true)
+						//{
+      //                      objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
+						//	//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
+						//}
+						//else
+						//{
+      //                      objFieldTabEN.FldId = clsFieldTabBL.GetMaxStrIdByPrefix_S(clsPubVar.CurrSelPrjId);
+						//	objFieldTabEN.FldName= strFldName;
+      //                      objFieldTabEN.DataTypeId = objDataTypeAbbrEN.DataTypeId;
+						//	objFieldTabEN.IsNull= di.Cells[4].Text=="YES"? true:false;
+						//	objFieldTabEN.IsPrimaryKey=false;
+						//	objFieldTabEN.FldLength=int.Parse( di.Cells[3].Text);
+						//	objFieldTabEN.Caption = strFldName;
+						//	objFieldTabEN.IsOnlyOne = false;
+      //                      if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN) == false)
+						//	{
 
-								strMsg = "添加不成功!";
-								clsCommonJsFunc.Alert(this, strMsg);
-								lblMsgForOK.Text = "添加记录不成功!";
-							}
-							else
-							{
-								strMsg = "添加记录成功!";
-								//				clsCommonJsFunc.Alert(this, strMsg);
-								lblMsgForOK.Text = "添加记录成功!";
-							}
-							//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-						}
-                        arrFldIdLst.Add(objFieldTabEN.FldId);
+						//		strMsg = "添加不成功!";
+						//		clsCommonJsFunc.Alert(this, strMsg);
+						//		lblMsgForOK.Text = "添加记录不成功!";
+						//	}
+						//	else
+						//	{
+						//		strMsg = "添加记录成功!";
+						//		//				clsCommonJsFunc.Alert(this, strMsg);
+						//		lblMsgForOK.Text = "添加记录成功!";
+						//	}
+						//	//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
+						//}
+      //                  arrFldIdLst.Add(objFieldTabEN.FldId);
 
                     }
 				}
@@ -529,40 +529,40 @@ namespace AGC
 					///工程ID
                     objFieldTabEN.PrjId = clsPubVar.CurrSelPrjId;
 					///检查是否存在相同的字段名
-                    if (clsFieldTabBLEx.IsExistSameFldName(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId) == true)
-					{
-                        objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
-						//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-					}
-					else
-					{
-                        objFieldTabEN.FldId = clsFieldTabBL.GetMaxStrIdByPrefix_S(clsPubVar.CurrSelPrjId);
-						objFieldTabEN.FldName= strFldName;
-						///转换类型名称
-                        List<string> arrID = new List<string>();
-						arrID = clsDataTypeAbbrBL.GetPrimaryKeyID_S("DataTypeName = '" + strTypeName + "'");
-						objFieldTabEN.DataTypeId=arrID[0].ToString();
-						objFieldTabEN.IsNull= bolIsNull;
-						objFieldTabEN.IsPrimaryKey=false;
-						objFieldTabEN.FldLength=intFldLength;
-						objFieldTabEN.Caption = strFldName;
-						objFieldTabEN.IsOnlyOne = false;
-                        if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN) == false)
-						{
+     //               if (clsFieldTabBLEx.IsExistSameFldName(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId) == true)
+					//{
+     //                   objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(clsPubVar.CurrSelPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
+					//	//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
+					//}
+					//else
+					//{
+     //                   objFieldTabEN.FldId = clsFieldTabBL.GetMaxStrIdByPrefix_S(clsPubVar.CurrSelPrjId);
+					//	objFieldTabEN.FldName= strFldName;
+					//	///转换类型名称
+     //                   List<string> arrID = new List<string>();
+					//	arrID = clsDataTypeAbbrBL.GetPrimaryKeyID_S("DataTypeName = '" + strTypeName + "'");
+					//	objFieldTabEN.DataTypeId=arrID[0].ToString();
+					//	objFieldTabEN.IsNull= bolIsNull;
+					//	objFieldTabEN.IsPrimaryKey=false;
+					//	objFieldTabEN.FldLength=intFldLength;
+					//	objFieldTabEN.Caption = strFldName;
+					//	objFieldTabEN.IsOnlyOne = false;
+     //                   if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN) == false)
+					//	{
 
-							strMsg = "添加不成功!";
-							clsCommonJsFunc.Alert(this, strMsg);
-							lblMsgForOK.Text = "添加记录不成功!";
-						}
-						else
-						{
-							strMsg = "添加记录成功!";
-							//				clsCommonJsFunc.Alert(this, strMsg);
-							lblMsgForOK.Text = "添加记录成功!";
-						}
-						//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-					}
-                    arrFldIdLst.Add(objFieldTabEN.FldId);
+					//		strMsg = "添加不成功!";
+					//		clsCommonJsFunc.Alert(this, strMsg);
+					//		lblMsgForOK.Text = "添加记录不成功!";
+					//	}
+					//	else
+					//	{
+					//		strMsg = "添加记录成功!";
+					//		//				clsCommonJsFunc.Alert(this, strMsg);
+					//		lblMsgForOK.Text = "添加记录成功!";
+					//	}
+					//	//clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
+					//}
+     //               arrFldIdLst.Add(objFieldTabEN.FldId);
 
                 }
 			}

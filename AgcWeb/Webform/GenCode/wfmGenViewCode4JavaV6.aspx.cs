@@ -1057,7 +1057,7 @@ namespace AGC.Webform
             lblMsg2.Text = "";
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
             WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
             if (objViewInfoENEx.ViewFldNum == 0)
             {

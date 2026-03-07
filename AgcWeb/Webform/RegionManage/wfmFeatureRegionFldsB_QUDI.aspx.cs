@@ -363,8 +363,8 @@ namespace AGC.Webform
             //5、检查传进去的对象属性是否合法
             //6、把数据实体层的数据存贮到数据库中
             //7、把新添的记录内容显示在DATAGRID中
-            var objViewRegion     =  clsViewRegionBLEx.GetObjByRegionIdCacheEx(clsCommonSession.ViewId, enumRegionType.FeatureRegion_0008, clsPubVar.CurrCmPrjId);
-            clsFeatureRegionFldsBLEx.ImportRelaFlds(objViewRegion.RegionId, clsPubVar.CurrCmPrjId, UserId);
+            //var objViewRegion     =  clsViewRegionBLEx.GetObjByRegionIdCacheEx(clsCommonSession.ViewId, enumRegionType.FeatureRegion_0008, clsPubVar.CurrCmPrjId);
+            //clsFeatureRegionFldsBLEx.ImportRelaFlds(objViewRegion.RegionId, clsPubVar.CurrCmPrjId, UserId);
             clsViewInfoBLEx.SetViewUpdDate(vsViewId, clsPubVar.CurrSelPrjId, clsCommonSession.UserId);
             BindGv_vFeatureRegionFlds();
             ///恢复<确认添加>变成<添加>

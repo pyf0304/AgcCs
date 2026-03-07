@@ -437,9 +437,9 @@ namespace AGC.Webform
             if (string.IsNullOrEmpty(strDataNodeId) == true) return;
 
 
-            List<clsDataNodeEN> arrConnectedNode = clsDataNodeBLEx.GetConnectedNode_Prev(strDataNodeId, vsCmPrjId);
+            List<clsDataNodeEN> arrConnectedNode = clsDataNodeBLEx.GetConnectedNode_Prev(long.Parse(strDataNodeId), vsCmPrjId);
 
-            var objEndNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, vsCmPrjId);
+            var objEndNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), vsCmPrjId);
             var arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(objEndNode.TabId, objEndNode.PrjId);
             var arrFldId = arrPrjTabFld.Select(x => x.FldId);
             arrConnectedNode = arrConnectedNode

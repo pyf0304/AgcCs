@@ -95,12 +95,12 @@ System.Data.DataTable objDT = null;
 try
 {
 vsWhereCond = strWhereCond;
-intRecCount = clsvCMProjectPrjTabBL.GetRecCountByCond(vsWhereCond);
+intRecCount = clsvCmProjectPrjTabBL.GetRecCountByCond(vsWhereCond);
 vsRecCount = intRecCount;
 intPageCount = GetPageCount(intRecCount, vsPageSize);
 vsPageCount = intPageCount;
 //	2、根据条件串获取该表满足条件的DataTable；
-objDT = clsvCMProjectPrjTabBL.GetDataTableByPager(vsPageIndex, vsPageSize, strWhereCond, vsSortCMProjectPrjTabBy);
+objDT = clsvCmProjectPrjTabBL.GetDataTableByPager(vsPageIndex, vsPageSize, strWhereCond, vsSortCMProjectPrjTabBy);
 }
 catch (Exception objException)
 {
@@ -628,13 +628,13 @@ Session.Add("BackErrPageLinkStr", strBackErrPageLinkStr);
  /// </summary>
 public void SetGvVisibility_AllShow()
 {
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.mId, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.CmPrjName, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.TabName, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.OrderNum, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.UpdDate, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.UpdUser, true);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.Memo, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.mId, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.CmPrjName, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.TabName, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.OrderNum, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.UpdDate, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.UpdUser, true);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.Memo, true);
 }
 
  /// <summary>
@@ -643,13 +643,13 @@ clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.Memo, t
  /// </summary>
 public void SetGvVisibility_AllHide()
 {
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.mId, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.CmPrjName, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.TabName, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.OrderNum, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.UpdDate, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.UpdUser, false);
-clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCMProjectPrjTab.Memo, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.mId, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.CmPrjName, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.TabName, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.OrderNum, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.UpdDate, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.UpdUser, false);
+clsCommForWebForm.SetGvVisibility(gvCMProjectPrjTab, convCmProjectPrjTab.Memo, false);
 }
 
  /// <summary>
@@ -678,7 +678,7 @@ gvCMProjectPrjTab.Visible = bolVisible;
  /// </summary>/// <returns>返回所有选择的关键字列表</returns>
 public List<long> GetAllCheckedKeysFromGv()
 {
-List<string> lstMId = clsCommForWebForm.GetAllCheckedItemFromGv(gvCMProjectPrjTab, "chkCheckRec", conCMProjectPrjTab.mId);
+List<string> lstMId = clsCommForWebForm.GetAllCheckedItemFromGv(gvCMProjectPrjTab, "chkCheckRec", conCmProjectPrjTab.mId);
 if (lstMId.Count == 0) 
 {
 clsCommonJsFunc.Alert(this, "(errid:WucL000002)没有选择记录,请选择有效的表记录!");
@@ -701,7 +701,7 @@ return arrMIdLst;
  /// </summary>/// <returns>返回选择的第一个关键字</returns>
 public long GetFirstCheckedKeyFromGv()
 {
-List<string> lstMId = clsCommForWebForm.GetFirstCheckedItemFromGv(gvCMProjectPrjTab,conCMProjectPrjTab.mId);
+List<string> lstMId = clsCommForWebForm.GetFirstCheckedItemFromGv(gvCMProjectPrjTab,conCmProjectPrjTab.mId);
 if (lstMId.Count == 0) 
 {
 clsCommonJsFunc.Alert(this, "(errid:WucL000003)没有选择记录,请选择有效的表记录!");

@@ -2816,10 +2816,10 @@ namespace AGC.web.treeview
                 .OrderBy(x => x.FuncModuleName);
 
             string strCondition_vCMProjectPrjTab = string.Format(" {0} = '{1}' ",
-                                                       convCMProjectPrjTab.PrjId,
+                                                       convCmProjectPrjTab.PrjId,
                                                        strPrjId);
 
-            IEnumerable<clsvCMProjectPrjTabEN> arrvCMProjectPrjTab = clsvCMProjectPrjTabBL.GetObjLst(strCondition_vCMProjectPrjTab)
+            IEnumerable<clsvCmProjectPrjTabEN> arrvCMProjectPrjTab = clsvCmProjectPrjTabBL.GetObjLst(strCondition_vCMProjectPrjTab)
                 .OrderBy(x => x.TabName);
 
 
@@ -2864,14 +2864,14 @@ namespace AGC.web.treeview
                     {
                         tnFuncModule_Agc = getTreeNodeByTabObj(objFuncModule_Agc);
 
-                        IEnumerable<clsvCMProjectPrjTabEN> arrvCMProjectPrjTab_Sel = arrvCMProjectPrjTab
+                        IEnumerable<clsvCmProjectPrjTabEN> arrvCMProjectPrjTab_Sel = arrvCMProjectPrjTab
                                 .Where(x => x.FuncModuleAgcId == objFuncModule_Agc.FuncModuleAgcId)
                                 .OrderBy(x => x.TabName);
                         if (arrvCMProjectPrjTab_Sel.Count() == 0) continue;
                         tnCMProject.ChildNodes.Add(tnFuncModule_Agc);
 
 
-                        foreach (clsvCMProjectPrjTabEN objvCMProjectPrjTab in arrvCMProjectPrjTab_Sel)  //CMProject
+                        foreach (clsvCmProjectPrjTabEN objvCMProjectPrjTab in arrvCMProjectPrjTab_Sel)  //CMProject
                         {
                             tnvCMProjectPrjTab = getTreeNodeByTabObj(objvCMProjectPrjTab);
                             tnvCMProjectPrjTab.Text = string.Format("{0}({1})",

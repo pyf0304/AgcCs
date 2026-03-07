@@ -46,52 +46,52 @@ namespace AGC.Webform
         {
             //string strPrjId = "0116";// clsPubVar.CurrSelPrjId;
             ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.GetObj4EditRegion("Test");
-            List<clsEditRegionFldsENEx> arrEditRegionFlds = clsEditRegionFldsBLEx.GetObjExLstByRegionIdEx1(lngRegionId, clsPubVar.CurrCmPrjId);
+            //List<clsEditRegionFldsENEx> arrEditRegionFlds = clsEditRegionFldsBLEx.GetObjExLstByRegionIdEx1(lngRegionId, clsPubVar.CurrCmPrjId);
 
-            Func<clsEditRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4AspNet = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, clsPubVar.CurrSelPrjId, false);
+            //Func<clsEditRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4AspNet = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, clsPubVar.CurrSelPrjId, false);
 
-            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst
-                = arrEditRegionFlds
-                .Where(x => x.IsLogUpdDateOrUpdUser(clsPubVar.CurrSelPrjId) == false)
-                .Select(GetControlGroup_Asp4AspNet);
+            //IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst
+            //    = arrEditRegionFlds
+            //    .Where(x => x.IsLogUpdDateOrUpdUser(clsPubVar.CurrSelPrjId) == false)
+            //    .Select(GetControlGroup_Asp4AspNet);
 
-            //把查询按钮加进来
-            //ASPControlGroupEx objASPControlGroup = clsASPControlGroupBLEx.GetbtnQuery();
-            //List<ASPControlGroupEx> arrButtonObjLst = new List<ASPControlGroupEx>();
-            //arrButtonObjLst.Add(objASPControlGroup);
-            //arrASPControlGroupObjLst = arrASPControlGroupObjLst.Union(arrButtonObjLst);
-            //封装Td
-            arrASPControlGroupObjLst = arrASPControlGroupObjLst.Select(clsASPControlGroupBLEx.PackageTr4Wuc);
+            ////把查询按钮加进来
+            ////ASPControlGroupEx objASPControlGroup = clsASPControlGroupBLEx.GetbtnQuery();
+            ////List<ASPControlGroupEx> arrButtonObjLst = new List<ASPControlGroupEx>();
+            ////arrButtonObjLst.Add(objASPControlGroup);
+            ////arrASPControlGroupObjLst = arrASPControlGroupObjLst.Union(arrButtonObjLst);
+            ////封装Td
+            //arrASPControlGroupObjLst = arrASPControlGroupObjLst.Select(clsASPControlGroupBLEx.PackageTr4Wuc);
 
-            //int intCount = 0;
-            //ASPRowEx objRow = new ASPRowEx();
+            ////int intCount = 0;
+            ////ASPRowEx objRow = new ASPRowEx();
 
-            foreach (ASPControlEx objInFor in arrASPControlGroupObjLst)
-            {
-                objTable.arrSubAspControlLst2.Add(objInFor);
-            }
-            HtmlGenericControl objDiv = new HtmlGenericControl("div");
-            objTable.GeneHtmlControl(objDiv);
-
-
-            pnlControlLst.Controls.Add(objDiv);
-
-            //foreach (HtmlControl objInFor in arrHtmlControl)
+            //foreach (ASPControlEx objInFor in arrASPControlGroupObjLst)
             //{
-            //    pnlControlLst.Controls.Add(objInFor);
+            //    objTable.arrSubAspControlLst2.Add(objInFor);
             //}
             //HtmlGenericControl objDiv = new HtmlGenericControl("div");
-            //objDiv.Attributes["class"] = "nav";
-            
-            //    HtmlButton objButton = new HtmlButton();
-            //objButton.InnerText = "Test1";
-            //objButton.Attributes["class"] = "btn btn-outline-info";
-            //objButton.ID = "ID1";
-            //objDiv.Controls.Add(objButton);
-            //HtmlInputButton objHtmlInputButton = new HtmlInputButton();
-            //objHtmlInputButton.Attributes["class"] = "btn btn-outline-info";
-            //objDiv.Controls.Add(objHtmlInputButton);
+            //objTable.GeneHtmlControl(objDiv);
+
+
             //pnlControlLst.Controls.Add(objDiv);
+
+            ////foreach (HtmlControl objInFor in arrHtmlControl)
+            ////{
+            ////    pnlControlLst.Controls.Add(objInFor);
+            ////}
+            ////HtmlGenericControl objDiv = new HtmlGenericControl("div");
+            ////objDiv.Attributes["class"] = "nav";
+            
+            ////    HtmlButton objButton = new HtmlButton();
+            ////objButton.InnerText = "Test1";
+            ////objButton.Attributes["class"] = "btn btn-outline-info";
+            ////objButton.ID = "ID1";
+            ////objDiv.Controls.Add(objButton);
+            ////HtmlInputButton objHtmlInputButton = new HtmlInputButton();
+            ////objHtmlInputButton.Attributes["class"] = "btn btn-outline-info";
+            ////objDiv.Controls.Add(objHtmlInputButton);
+            ////pnlControlLst.Controls.Add(objDiv);
 
         }
     }

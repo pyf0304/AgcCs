@@ -873,7 +873,7 @@ namespace AGC.Webform
                             break;
                         case enumCtlType.GivenValue_35:
                         case enumCtlType.DefaultValue_36:
-                        case enumCtlType.CacheClassifyField_37:
+                        
 
                             int intIndex4FieldTypeName = clsCommForWebForm.GetIndexByDataField4GridView(gvEditRegionFlds,
                                conFieldType.FieldTypeName);

@@ -289,7 +289,7 @@ namespace AGC.Webform
                     }
                     else
                     {
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.QUERYREGION, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.QUERYREGION, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
                         Response.Redirect("../View/wfmQryRegionFlds_QUDI2.aspx");
                         //StringBuilder sbHtml = new StringBuilder();
@@ -320,7 +320,7 @@ namespace AGC.Webform
                     }
                     else
                     {
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.FEATUREREGION, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.FEATUREREGION, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
 
                         Response.Redirect("../RegionManage/wfmFeatureRegionFldsB_QUDI.aspx?Operator=LimitInInterface");
@@ -331,7 +331,7 @@ namespace AGC.Webform
                     break;
 
                 case "4"://预览
-                    lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.FEATUREREGION, clsPubVar.CurrCmPrjId);
+                    //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.FEATUREREGION, clsPubVar.CurrCmPrjId);
                     new clsCommonSession().RegionId = lngRegionId;
 
                     Response.Redirect("../RegionManage/wfmViewFeatureFldsB_QUDI.aspx");            
@@ -357,7 +357,7 @@ namespace AGC.Webform
                     else
                     {
 
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.DGREGION, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.DGREGION, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
                         Response.Redirect("../View/wfmDGRegionFlds_QUDI2.aspx");
                 
@@ -381,7 +381,7 @@ namespace AGC.Webform
                     }
                     else
                     {
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.EDITREGION, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.EDITREGION, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
                         Response.Redirect("../View/wfmEditRegionFlds_QUDI2.aspx?AutoAddRegion=true");
                    
@@ -407,7 +407,7 @@ namespace AGC.Webform
                     }
                     else
                     {
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, enumRegionType.DetailRegion_0006, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, enumRegionType.DetailRegion_0006, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
                         Response.Redirect("../View/wfmDetailRegionFlds_QUDI2.aspx?AutoAddRegion=true");
 
@@ -432,7 +432,7 @@ namespace AGC.Webform
                     }
                     else
                     {
-                        lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.EXCELEXPORT_REGION, clsPubVar.CurrCmPrjId);
+                        //lngRegionId = clsViewRegionBLEx.GetRegionIdByTypeCache(getViewId, clsRegionTypeENEx.EXCELEXPORT_REGION, clsPubVar.CurrCmPrjId);
                         new clsCommonSession().RegionId = lngRegionId;
                         Response.Redirect("../View/wfmExcelExportRegionFlds_QUDI2.aspx");
                         //StringBuilder sbHtml = new StringBuilder();

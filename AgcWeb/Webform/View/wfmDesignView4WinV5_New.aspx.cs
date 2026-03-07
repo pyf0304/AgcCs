@@ -333,7 +333,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 if (objViewInfoENEx.ViewFldNum == 0)
                 {
@@ -373,7 +373,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 if (objViewInfoENEx.ViewFldNum == 0)
                 {
@@ -451,7 +451,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
                 if (objViewInfoENEx.ViewFldNum == 0)
                 {
@@ -495,7 +495,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 if (objViewInfoENEx.ViewFldNum == 0)
                 {
@@ -683,7 +683,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";
                 objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
@@ -820,7 +820,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";
                 objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
@@ -862,7 +862,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";
                 objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
@@ -900,7 +900,7 @@ namespace AGC.Webform
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
             objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 
             lblMsg2.Text = "";
             string strRe_ClsName = "";
@@ -952,7 +952,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";
                 objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
@@ -991,7 +991,7 @@ namespace AGC.Webform
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
             objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
             lblMsg2.Text = "";
             string strRe_ClsName = "";
             string strRe_FileNameWithModuleName = "";
@@ -1034,7 +1034,7 @@ namespace AGC.Webform
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
             objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
             lblMsg2.Text = "";
             string strRe_ClsName = "";
             string strRe_FileNameWithModuleName = "";
@@ -1084,7 +1084,7 @@ namespace AGC.Webform
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
                 objViewInfoENEx.PrjDataBaseId = clsPubVar.CurrPrjDataBaseId;
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";
                 objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
@@ -1120,7 +1120,7 @@ namespace AGC.Webform
             }
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
             lblMsg2.Text = "";
             string strRe_ClsName = "";
             string strRe_FileNameWithModuleName = "";

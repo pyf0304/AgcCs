@@ -70,7 +70,7 @@ namespace AGC.Webform
             {
 
                 vsViewName = "CM功能需求关系维护";
-                vsTabName = string.Format("{0}", clsvCMProjectPrjTabEN._CurrTabName);
+                vsTabName = string.Format("{0}", clsvCmProjectPrjTabEN._CurrTabName);
                 //生成权限有关判断权限的代码
                 //根据等级权限编号来确定用户可以使用什么功能,等级编号方式:1为最大2其次,依此类推
                 switch (vsPotenceLevel)
@@ -119,7 +119,7 @@ namespace AGC.Webform
                 }
                 //clsCMProjectBLEx.BindDdl_UserIdEx(ddlUserIdq);
 
-                wucvCMProjectPrjTab4Gv1.SetSortBy(string.Format("{0} Asc", convCMProjectPrjTab.mId));
+                wucvCMProjectPrjTab4Gv1.SetSortBy(string.Format("{0} Asc", convCmProjectPrjTab.mId));
 
                 BindTv_ApplicationType_CMProject_FuncModule_PrjTab();
 
@@ -129,7 +129,7 @@ namespace AGC.Webform
                 // 使之只读,因为在修改功能中关键字是不能被修改的。
                 DispCMProjectPrjTabListRegion();
                 //设置逻辑层的公共函数，包含：缓存刷新函数
-                //clsCMProjectPrjTabBL.objCommFun4BL = new clsCommFun4BL4CMProjectPrjTab();
+                //clsCmProjectPrjTabBL.objCommFun4BL = new clsCommFun4BL4CMProjectPrjTab();
             }
         }
 
@@ -179,8 +179,8 @@ namespace AGC.Webform
                 //	2、调用控件中的绑定GridView函数；
                 wucvCMProjectPrjTab4Gv1.BindGv_CMProjectPrjTab(strWhereCond);
                 //	3、设置Gv控件的某些列不可见；
-                //wucvCMProjectPrjTab4Gv1.SetGvVisibility(convCMProjectPrjTab.UpdDate, false);
-                //wucvCMProjectPrjTab4Gv1.SetGvVisibility(convCMProjectPrjTab.UpdUser, false);
+                //wucvCMProjectPrjTab4Gv1.SetGvVisibility(convCmProjectPrjTab.UpdDate, false);
+                //wucvCMProjectPrjTab4Gv1.SetGvVisibility(convCmProjectPrjTab.UpdUser, false);
             }
             catch (Exception objException)
             {
@@ -204,7 +204,7 @@ namespace AGC.Webform
             string strWhereCond = " 1 = 1 ";
             strWhereCond += string.Format(" And {0} = '{1}'", convPrjTab.TabStateId, enumTabState.Normal_01);
             //如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。
-            clsvCMProjectPrjTabEN objvCMProjectPrjTabEN = new clsvCMProjectPrjTabEN();
+            clsvCmProjectPrjTabEN objvCMProjectPrjTabEN = new clsvCmProjectPrjTabEN();
             try
             {
                 if (chkShowPureClass.Checked == false)
@@ -225,32 +225,32 @@ namespace AGC.Webform
               //  if (chkNoClassified.Checked == true)
               //  {
               //      strWhereCond += string.Format(" And {0} In (Select {0} From {1} Where {2}='{3}') ",
-              //convPrjTab.TabId, conCMProjectPrjTab._CurrTabName, conCMProjectPrjTab.PrjId, clsPubVar.CurrSelPrjId);
+              //convPrjTab.TabId, conCmProjectPrjTab._CurrTabName, conCmProjectPrjTab.PrjId, clsPubVar.CurrSelPrjId);
               //  }
               //  else
               //  {
                     if (string.IsNullOrEmpty(vsCmPrjId) == false)
                     {
                         objvCMProjectPrjTabEN.CmPrjId = vsCmPrjId;
-                        strWhereCond += string.Format(" And {0} = '{1}'", convCMProjectPrjTab.CmPrjId,
+                        strWhereCond += string.Format(" And {0} = '{1}'", convCmProjectPrjTab.CmPrjId,
                             vsCmPrjId);
                     }
 
                     if (this.ddlCmPrjIdq.SelectedValue != "" && this.ddlCmPrjIdq.SelectedValue != "0")
                     {
                         objvCMProjectPrjTabEN.CmPrjId = this.ddlCmPrjIdq.SelectedValue;
-                        strWhereCond += string.Format(" And {0} = '{1}'", convCMProjectPrjTab.CmPrjId, this.ddlCmPrjIdq.SelectedValue);
+                        strWhereCond += string.Format(" And {0} = '{1}'", convCmProjectPrjTab.CmPrjId, this.ddlCmPrjIdq.SelectedValue);
                     }
                 //}
                 if (this.ddlTabIdq.SelectedValue != "" && this.ddlTabIdq.SelectedValue != "0")
                 {
                     objvCMProjectPrjTabEN.TabId = this.ddlTabIdq.SelectedValue;
-                    strWhereCond += string.Format(" And {0} = '{1}'", convCMProjectPrjTab.TabId, this.ddlTabIdq.SelectedValue);
+                    strWhereCond += string.Format(" And {0} = '{1}'", convCmProjectPrjTab.TabId, this.ddlTabIdq.SelectedValue);
                 }
                 if (this.txtTabNameq.Text.Trim() != "")
                 {
                     objvCMProjectPrjTabEN.TabName = this.txtTabNameq.Text.Trim();
-                    strWhereCond += string.Format(" And {0} like '%{1}%'", convCMProjectPrjTab.TabName, this.txtTabNameq.Text.Trim());
+                    strWhereCond += string.Format(" And {0} like '%{1}%'", convCmProjectPrjTab.TabName, this.txtTabNameq.Text.Trim());
                 }
                 objvCMProjectPrjTabEN.CheckProperty4Condition();
             }
@@ -339,8 +339,8 @@ namespace AGC.Webform
 
             btnOKUpd.Text = "确认添加";
             btnCancelCMProjectPrjTabEdit.Text = "取消添加";
-            //wucCMProjectPrjTab1.mId = clsCMProjectPrjTabBL.GetMaxStrId_S();
-            wucCMProjectPrjTab1.OrderNum = clsCMProjectPrjTabBL.GetRecCount() + 1;
+            //wucCMProjectPrjTab1.mId = clsCmProjectPrjTabBL.GetMaxStrId_S();
+            wucCMProjectPrjTab1.OrderNum = clsCmProjectPrjTabBL.GetRecCount() + 1;
             DispEditCMProjectPrjTabRegion();
         }
 
@@ -362,7 +362,7 @@ namespace AGC.Webform
             //7、把新添的记录内容显示在GridView中
             string strMsg;  //专门用于传递信息的变量
             string strResult = " "; //用于传递在检验对象属性时结果值的变量
-            clsCMProjectPrjTabEN objCMProjectPrjTabEN;
+            clsCmProjectPrjTabEN objCMProjectPrjTabEN;
             //1、检查控件中输入数据类型是否正确
             if (!wucCMProjectPrjTab1.IsValid(ref strResult))
             {
@@ -370,8 +370,8 @@ namespace AGC.Webform
                 return false;
             }
             //2、定义对象并初始化对象
-            //clsCMProjectPrjTabEN objCMProjectPrjTabEN;	//定义对象
-            objCMProjectPrjTabEN = new clsCMProjectPrjTabEN();    //初始化新对象
+            //clsCmProjectPrjTabEN objCMProjectPrjTabEN;	//定义对象
+            objCMProjectPrjTabEN = new clsCmProjectPrjTabEN();    //初始化新对象
 
             //3.1、判断是否有相同的关键字,如果主键是标识递增型就不需要判断是否存在
             try
@@ -474,18 +474,18 @@ namespace AGC.Webform
             //1、检查关键字是否为空；
             if (lngmId == 0) return;        //如果关键字为空就返回退出
                                             //2、检查该关键字的记录是否存在,如果不存在就返回不显示；
-            if (clsCMProjectPrjTabBL.IsExist(lngmId) == false)     //检查该关键字的记录是否存在
+            if (clsCmProjectPrjTabBL.IsExist(lngmId) == false)     //检查该关键字的记录是否存在
             {
                 string strMsg = "(errid:WebI000010)在表[CMProjectPrjTab]中,关键字为:[lngmId]的记录不存在!";
                 clsCommonJsFunc.Alert(this, strMsg);
                 return;
             }
             //3、用提供的关键字初始化一个类对象；
-            clsCMProjectPrjTabEN objCMProjectPrjTabEN = new clsCMProjectPrjTabEN(lngmId);
+            clsCmProjectPrjTabEN objCMProjectPrjTabEN = new clsCmProjectPrjTabEN(lngmId);
             //4、获取类对象的所有属性；
             try
             {
-                clsCMProjectPrjTabBL.GetCMProjectPrjTab(ref objCMProjectPrjTabEN);
+                clsCmProjectPrjTabBL.GetCmProjectPrjTab(ref objCMProjectPrjTabEN);
             }
             catch (Exception objException)
             {
@@ -506,7 +506,7 @@ namespace AGC.Webform
         /// (AutoGCLib.WebViewControlCode4CSharp:Gen_WebView_CS_GetDataFromClass)
         /// </summary>
         /// <param name = "pobjCMProjectPrjTabEN">表实体类对象</param>
-        protected void GetDataFromCMProjectPrjTabClass(clsCMProjectPrjTabEN pobjCMProjectPrjTabEN)
+        protected void GetDataFromCMProjectPrjTabClass(clsCmProjectPrjTabEN pobjCMProjectPrjTabEN)
         {
             wucCMProjectPrjTab1.CmPrjId = pobjCMProjectPrjTabEN.CmPrjId;// 功能
             wucCMProjectPrjTab1.TabId = pobjCMProjectPrjTabEN.TabId;// 需求
@@ -533,7 +533,7 @@ namespace AGC.Webform
         /// </summary>
         /// <param name = "objCMProjectPrjTabEN">需要修改的实体对象</param>
         /// <returns>修改是否成功？</returns>
-        protected bool UpdateCMProjectPrjTabRecordSave(clsCMProjectPrjTabEN objCMProjectPrjTabEN)
+        protected bool UpdateCMProjectPrjTabRecordSave(clsCmProjectPrjTabEN objCMProjectPrjTabEN)
         {
             //操作步骤:
             //1、检查控件中输入数据类型是否正确
@@ -601,7 +601,7 @@ namespace AGC.Webform
         protected void btnOKUpd_Click(object sender, System.EventArgs e)
         {
             string strCommandText;
-            clsCMProjectPrjTabEN objCMProjectPrjTabEN;
+            clsCmProjectPrjTabEN objCMProjectPrjTabEN;
             Button btnTemp;
             btnTemp = (Button)sender;
             strCommandText = btnTemp.Text;
@@ -618,7 +618,7 @@ namespace AGC.Webform
                 case "确认修改":
                     //这是一个单表的修改的代码,由于逻辑层太简单,
                     //就把逻辑层合并到控制层,
-                    objCMProjectPrjTabEN = (clsCMProjectPrjTabEN)Session["objCMProjectPrjTabEN"];
+                    objCMProjectPrjTabEN = (clsCmProjectPrjTabEN)Session["objCMProjectPrjTabEN"];
                     UpdateCMProjectPrjTabRecordSave(objCMProjectPrjTabEN);
                     break;
             }
@@ -643,7 +643,7 @@ namespace AGC.Webform
                 return;
             }
             arrTabId.ForEach(x=> {
-                clsCMProjectPrjTabEN pobjCMProjectPrjTabEN = new clsCMProjectPrjTabEN();
+                clsCmProjectPrjTabEN pobjCMProjectPrjTabEN = new clsCmProjectPrjTabEN();
                 pobjCMProjectPrjTabEN.SetCmPrjId(vsCmPrjId)// 功能
     .SetTabId(x)// 需求  
     .SetOrderNum(0)// 序号
@@ -671,7 +671,7 @@ namespace AGC.Webform
         /// (AutoGCLib.WebViewControlCode4CSharp:Gen_WebView_CS_PutDataToClass)
         /// </summary>
         /// <param name = "pobjCMProjectPrjTabEN">数据传输的目的类对象</param>
-        protected void PutDataToCMProjectPrjTabClass(clsCMProjectPrjTabEN pobjCMProjectPrjTabEN)
+        protected void PutDataToCMProjectPrjTabClass(clsCmProjectPrjTabEN pobjCMProjectPrjTabEN)
         {
             pobjCMProjectPrjTabEN.SetCmPrjId(wucCMProjectPrjTab1.CmPrjId)// 功能
             .SetTabId(wucCMProjectPrjTab1.TabId)// 需求
@@ -706,7 +706,7 @@ namespace AGC.Webform
             {
                 foreach (long lngmId in lstMId)
                 {
-                    clsCMProjectPrjTabBL.DelRecord(lngmId);
+                    clsCmProjectPrjTabBL.DelRecord(lngmId);
                 }
             }
             catch (Exception objException)
@@ -741,7 +741,7 @@ namespace AGC.Webform
         {
             try
             {
-                clsCMProjectPrjTabBL.DelRecord(lngmId);
+                clsCmProjectPrjTabBL.DelRecord(lngmId);
             }
             catch (Exception objException)
             {
@@ -779,7 +779,7 @@ namespace AGC.Webform
             lblMsgList.Text = "";
             try
             {
-                clsCMProjectPrjTabBL.GoTop(arrmId, vsCmPrjId);
+                clsCmProjectPrjTabBL.GoTop(arrmId, vsCmPrjId);
             }
             catch (Exception objException)
             {
@@ -827,7 +827,7 @@ namespace AGC.Webform
             lblMsgList.Text = "";
             try
             {
-                clsCMProjectPrjTabBL.GoBottom(arrmId, vsCmPrjId);
+                clsCmProjectPrjTabBL.GoBottom(arrmId, vsCmPrjId);
             }
             catch (Exception objException)
             {
@@ -850,7 +850,7 @@ namespace AGC.Webform
             if (PreCheck4Order() == false) return;
             try
             {
-                clsCMProjectPrjTabBL.ReOrder(vsCmPrjId);
+                clsCmProjectPrjTabBL.ReOrder(vsCmPrjId);
             }
             catch (Exception objException)
             {
@@ -879,7 +879,7 @@ namespace AGC.Webform
             lblMsgList.Text = "";
             try
             {
-                clsCMProjectPrjTabBL.AdjustOrderNum(strDirect, lngmId, vsCmPrjId);
+                clsCmProjectPrjTabBL.AdjustOrderNum(strDirect, lngmId, vsCmPrjId);
             }
             catch (Exception objException)
             {
@@ -919,12 +919,12 @@ namespace AGC.Webform
             string strFileName = "CMProjectPrjTab信息导出.xls";
             string strFolderName;
             string strDownLoadFileName;
-            arrColName.Add(convCMProjectPrjTab.CmPrjName); arrCnName.Add("CM工程名");
-            arrColName.Add(convCMProjectPrjTab.TabName); arrCnName.Add("表名");
-            arrColName.Add(convCMProjectPrjTab.OrderNum); arrCnName.Add("序号");
-            arrColName.Add(convCMProjectPrjTab.UpdDate); arrCnName.Add("修改日期");
-            arrColName.Add(convCMProjectPrjTab.UpdUser); arrCnName.Add("修改者");
-            arrColName.Add(convCMProjectPrjTab.Memo); arrCnName.Add("说明");
+            arrColName.Add(convCmProjectPrjTab.CmPrjName); arrCnName.Add("CM工程名");
+            arrColName.Add(convCmProjectPrjTab.TabName); arrCnName.Add("表名");
+            arrColName.Add(convCmProjectPrjTab.OrderNum); arrCnName.Add("序号");
+            arrColName.Add(convCmProjectPrjTab.UpdDate); arrCnName.Add("修改日期");
+            arrColName.Add(convCmProjectPrjTab.UpdUser); arrCnName.Add("修改者");
+            arrColName.Add(convCmProjectPrjTab.Memo); arrCnName.Add("说明");
             strFolderName = clsSysParaEN.TempFileFolder;
             strDownLoadFileName = strFolderName + strFileName;
             //初始化需要导出的Excel文件,即复制标准Excel文件作为母版,复制不成功即不能导出
@@ -935,7 +935,7 @@ namespace AGC.Webform
             try
             {
                 //	2、根据条件串获取该表满足条件的DataTable；
-                objDT = clsvCMProjectPrjTabBL.GetDataTable(strWhereCond);
+                objDT = clsvCmProjectPrjTabBL.GetDataTable(strWhereCond);
             }
             catch (Exception objException)
             {
@@ -1391,12 +1391,12 @@ namespace AGC.Webform
             if (chkNoClassified.Checked == true)
             {
                 strWhereCond += string.Format(" And {0} Not In (Select {0} From {1} Where {2}='{3}') ",
-                 convPrjTab.TabId, conCMProjectPrjTab._CurrTabName, conCMProjectPrjTab.CmPrjId, clsPubVar.CurrCmPrjId);
+                 convPrjTab.TabId, conCmProjectPrjTab._CurrTabName, conCmProjectPrjTab.CmPrjId, clsPubVar.CurrCmPrjId);
             }
             else
             {
                 strWhereCond += string.Format(" And {0} Not In (Select {0} From {1} Where {2}= '{3}') ",
-                    convPrjTab.TabId, conCMProjectPrjTab._CurrTabName, conCMProjectPrjTab.CmPrjId, vsCmPrjId);
+                    convPrjTab.TabId, conCmProjectPrjTab._CurrTabName, conCmProjectPrjTab.CmPrjId, vsCmPrjId);
             }
 
             //如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。
@@ -1549,12 +1549,12 @@ namespace AGC.Webform
                 int intIndex = 0;
                 foreach (long lngmId in lstMId)
                 {
-                    var objCMProjectPrjTab =                     clsCMProjectPrjTabBL.GetObjBymId(lngmId);
+                    var objCMProjectPrjTab =                     clsCmProjectPrjTabBL.GetObjBymId(lngmId);
                     objCMProjectPrjTab.CmPrjId = strCmPrjId_T;
                     string strCondition = objCMProjectPrjTab.GetUniCondStr();
-                    if (clsCMProjectPrjTabBL.IsExistRecord(strCondition) == false)
+                    if (clsCmProjectPrjTabBL.IsExistRecord(strCondition) == false)
                     {
-                        clsCMProjectPrjTabBL.AddNewRecordBySql2(objCMProjectPrjTab);
+                        clsCmProjectPrjTabBL.AddNewRecordBySql2(objCMProjectPrjTab);
                         intIndex++;
                     }
                 }

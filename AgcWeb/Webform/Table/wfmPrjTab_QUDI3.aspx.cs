@@ -2470,7 +2470,7 @@ namespace AGC.Webform
             {
 
                 strWhereCond += string.Format(" And {0} in (Select {0} From {1} Where {2}='{3}')",
-              conPrjTab.TabId, conCMProjectPrjTab._CurrTabName, conCMProjectPrjTab.CmPrjId, 
+              conPrjTab.TabId, conCmProjectPrjTab._CurrTabName, conCmProjectPrjTab.CmPrjId, 
                         this.ddlCmPrjIdq.SelectedValue);
                 
             }
@@ -4312,7 +4312,7 @@ namespace AGC.Webform
             {
                 foreach (string strTabId in lstTabId)
                 {
-                    clsPrjTabBLEx.CheckTabFlds(strTabId, strCmPrjId, clsCommonSession.UserId);
+                    //clsPrjTabBLEx.CheckTabFlds(strTabId, strCmPrjId, clsCommonSession.UserId);
                 }
             }
             catch (Exception objException)

@@ -699,7 +699,7 @@ namespace AGC.Webform
             }
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
             lblMsg2.Text = "";
             WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
             if (objViewInfoENEx.ViewFldNum == 0)

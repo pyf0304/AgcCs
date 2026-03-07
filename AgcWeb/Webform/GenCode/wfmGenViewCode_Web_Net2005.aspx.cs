@@ -898,7 +898,7 @@ namespace AGC.Webform
 				return ;
 			}
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 			lblMsg2.Text = "";
 			WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
 			if (objViewInfoENEx.ViewFldNum == 0)
@@ -924,7 +924,7 @@ namespace AGC.Webform
 
             string strViewId =(string) rd.Value;
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 			if (strViewId.Trim().Length == 0) 
 			{
 				lblMsg2.Text = "没有选择记录，请选择一个有效的界面记录!";
@@ -967,7 +967,7 @@ namespace AGC.Webform
 			}
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 			lblMsg2.Text = "";
             WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
 			if (objViewInfoENEx.ViewFldNum == 0)

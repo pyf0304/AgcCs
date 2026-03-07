@@ -924,7 +924,7 @@ namespace AGC.Webform
 			tabCode.Visible = true;
 
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-            clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+            //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 			
             //生成相关代码
             Encoding myEncoding = clsPubFun.GetEncodingByPrjUser(clsPubVar.CurrSelPrjId, clsCommonSession.UserId);

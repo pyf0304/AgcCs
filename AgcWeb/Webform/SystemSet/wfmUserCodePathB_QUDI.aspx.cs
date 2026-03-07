@@ -370,10 +370,7 @@ namespace AGC.Webform
                 {
                     strWhereCond += string.Format(" And {0} = '{1}'", convUserCodePath.ProgLangTypeId, this.ddlProgLangTypeIdq.SelectedValue);
                 }
-                if (this.txtUserIdq.Text.Trim() != "")
-                {
-                    strWhereCond += string.Format(" And {0} like '%{1}%'", convUserCodePath.UserId, this.txtUserIdq.Text.Trim());
-                }
+                
                 if (this.ddlIsTemplateq.SelectedIndex == 1)
                 {
                     strWhereCond += string.Format(" And {0} = '1'", convUserCodePath.IsTemplate);
@@ -684,7 +681,7 @@ namespace AGC.Webform
         protected void GetDataFromUserCodePathClass(clsUserCodePathEN pobjUserCodePathEN)
         {
         
-            wucUserCodePathB1.UserCodePrjMainPathId = pobjUserCodePathEN.UserCodePrjMainPathId;// 工程ID
+            //wucUserCodePathB1.UserCodePrjMainPathId = pobjUserCodePathEN.UserCodePrjMainPathId;// 工程ID
             wucUserCodePathB1.CodeTypeId = pobjUserCodePathEN.CodeTypeId;// 代码类型Id
         
             wucUserCodePathB1.CodePath = pobjUserCodePathEN.CodePath;// 代码路径
@@ -869,7 +866,7 @@ namespace AGC.Webform
         /// <param name = "pobjUserCodePathEN">数据传输的目的类对象</param>
         protected void PutDataToUserCodePathClass(clsUserCodePathEN pobjUserCodePathEN)
         {
-            pobjUserCodePathEN.UserCodePrjMainPathId = wucUserCodePathB1.UserCodePrjMainPathId;// 用户ID
+            //pobjUserCodePathEN.UserCodePrjMainPathId = wucUserCodePathB1.UserCodePrjMainPathId;// 用户ID
 
             pobjUserCodePathEN.CodeTypeId = wucUserCodePathB1.CodeTypeId;// 代码类型Id
 
@@ -979,19 +976,13 @@ namespace AGC.Webform
             string strFolderName;
             string strDownLoadFileName;
             arrColName.Add(convUserCodePath.PrjId); arrCnName.Add("工程ID");
-            arrColName.Add(convUserCodePath.PrjName); arrCnName.Add("工程名称");
+
             arrColName.Add(convUserCodePath.CodeTypeId); arrCnName.Add("代码类型Id");
             arrColName.Add(convUserCodePath.CodeTypeName); arrCnName.Add("代码类型名");
             arrColName.Add(convUserCodePath.CodeTypeENName); arrCnName.Add("代码类型英文名");
             arrColName.Add(convUserCodePath.OrderNum); arrCnName.Add("序号");
             arrColName.Add(convUserCodePath.ProgLangTypeId); arrCnName.Add("编程语言类型Id");
             arrColName.Add(convUserCodePath.ProgLangTypeName); arrCnName.Add("编程语言类型名");
-            arrColName.Add(convUserCodePath.UserId); arrCnName.Add("用户ID");
-            arrColName.Add(convUserCodePath.UserName); arrCnName.Add("用户名");
-            arrColName.Add(convUserCodePath.UserStateName); arrCnName.Add("用户状态名");
-            arrColName.Add(convUserCodePath.DepartmentId); arrCnName.Add("部门ID");
-            arrColName.Add(convUserCodePath.UserStateId); arrCnName.Add("用户状态号");
-            arrColName.Add(convUserCodePath.DepartmentName); arrCnName.Add("部门名称");
             arrColName.Add(convUserCodePath.CodePath); arrCnName.Add("代码路径");
             arrColName.Add(convUserCodePath.CodePathBackup); arrCnName.Add("备份代码路径");
             arrColName.Add(convUserCodePath.IsTemplate); arrCnName.Add("是否模板");

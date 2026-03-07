@@ -1657,7 +1657,7 @@ select objViewRegionEN;
             {
                 foreach (string strViewId in lstViewId)
                 {
-                    clsViewInfoBLEx.CheckRegionFlds(strViewId, strCmPrjId, clsCommonSession.UserId);
+                    //clsViewInfoBLEx.CheckRegionFlds(strViewId, strCmPrjId, clsCommonSession.UserId);
                 }
             }
             catch (Exception objException)

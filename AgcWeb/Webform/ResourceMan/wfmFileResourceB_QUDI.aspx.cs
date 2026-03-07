@@ -1182,11 +1182,11 @@ namespace AGC.Webform
                     if (arrTabIdSet.Contains(obj.TabId) == false) arrTabIdSet.Add(obj.TabId);
                 }
                 arrTabIdSet.ForEach(x=> {
-                    string strCondition_Del = new clsCMProjectPrjTabEN()
+                    string strCondition_Del = new clsCmProjectPrjTabEN()
                         .SetTabId(x, "=")
                         .SetCmPrjId(strCmPrjId, "=")
                         .GetCombineCondition();
-                    clsCMProjectPrjTabBL.DelCMProjectPrjTabsByCond(strCondition_Del);
+                    //clsCmProjectPrjTabBL.DelCMProjectPrjTabsByCond(strCondition_Del);
                 });
 
             }
@@ -1259,14 +1259,15 @@ namespace AGC.Webform
             if (ddlCmPrjIdq.SelectedIndex <= 0) return;
             string strCmPrjId = ddlCmPrjIdq.SelectedValue.ToString();
             clsCMProjectEN objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(strCmPrjId);
-            string strCondtion = new clsUserCodePrjMainPathEN()
-                  .SetUserId(clsCommonSession.UserId, "=")
-             .SetApplicationTypeId(objCMProject.ApplicationTypeId, "=")
-             .SetPrjId(clsPubVar.CurrSelPrjId, "=")
-.SetCmPrjId(strCmPrjId, "=")
+            //            string strCondtion = new clsUserCodePrjMainPathEN()
+            //                  .SetUserId(clsCommonSession.UserId, "=")
+            //             .SetApplicationTypeId(objCMProject.ApplicationTypeId, "=")
+            //             .SetPrjId(clsPubVar.CurrSelPrjId, "=")
+            //.SetCmPrjId(strCmPrjId, "=")
 
-             .GetCombineCondition();
-            clsUserCodePrjMainPathEN objUserCodePrjMainPath = clsUserCodePrjMainPathBL.GetFirstObj_S(strCondtion);
+            //             .GetCombineCondition();
+            string strCondtion = "";
+                       clsUserCodePrjMainPathEN objUserCodePrjMainPath = clsUserCodePrjMainPathBL.GetFirstObj_S(strCondtion);
             if (objUserCodePrjMainPath == null)
             {
                 clsApplicationTypeEN objApp = clsApplicationTypeBL.GetObjByApplicationTypeIdCache(objCMProject.ApplicationTypeId);

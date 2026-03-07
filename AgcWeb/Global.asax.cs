@@ -83,7 +83,7 @@ namespace AgcMvc4
             clsSysPara4WebApi_GP.strCurrPrx = clsMyConfig.CurrPrxWA;// "GP_SHNU_WS";
             //clsSpecSQLforSql.IsUseBackupConnect = true;
             //clsSysPara4WebApi_Agc.strCurrIPAddressAndPort = "http://localhost:39540";
-            //clsSysPara4WebApi_Agc.strCurrIPAddressAndPort = "https://103.116.76.183";
+            //clsSysPara4WebApi_Agc.strCurrIPAddressAndPort = "https://109.244.40.104";
             //clsSysPara4WebApi_Agc.strCurrIPAddressAndPort = "tzar.ddns.net:9080";
 
             clsSysPara4WebApi_Agc.strCurrPrx = "Agc";

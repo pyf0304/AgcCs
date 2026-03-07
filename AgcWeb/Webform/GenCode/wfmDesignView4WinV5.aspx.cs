@@ -583,40 +583,40 @@ namespace AGC.Webform
             {
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
-                WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
-                if (objViewInfoENEx.ViewFldNum == 0)
-                {
-                    ShowCode("界面中字段数为0，不能生成界面代码");
-                    return;
-                }
-                objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
-                objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
-                if (ddlSubViewName.SelectedIndex == 0)
-                {
-                    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.MainView;
-                }
-                else if (ddlSubViewName.SelectedIndex == 1)
-                {
-                    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.SubView;
-                }
-                else if (ddlSubViewName.SelectedIndex == 2)
-                {
-                    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.MainView;
-                }
-                else if (ddlSubViewName.SelectedIndex == 3)
-                {
-                    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.SubView;
-                }
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
+                //if (objViewInfoENEx.ViewFldNum == 0)
+                //{
+                //    ShowCode("界面中字段数为0，不能生成界面代码");
+                //    return;
+                //}
+                //objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
+                //objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
+                //if (ddlSubViewName.SelectedIndex == 0)
+                //{
+                //    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.MainView;
+                //}
+                //else if (ddlSubViewName.SelectedIndex == 1)
+                //{
+                //    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.SubView;
+                //}
+                //else if (ddlSubViewName.SelectedIndex == 2)
+                //{
+                //    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.MainView;
+                //}
+                //else if (ddlSubViewName.SelectedIndex == 3)
+                //{
+                //    objViewInfoENEx.MainSubViewType = clsPubConst.MainSubViewType.SubView;
+                //}
 
-                objViewInfoENEx.IsDesign = bolIsDesign;
-                //是否使用控件
-                objViewInfoENEx.IsUseCtl = chkIsUseCtrl.Checked;
+                //objViewInfoENEx.IsDesign = bolIsDesign;
+                ////是否使用控件
+                //objViewInfoENEx.IsUseCtl = chkIsUseCtrl.Checked;
 
 
-                ShowCode(autoGC5Cs_VWin.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName));
-                txtFileName4GenCode.Text = objViewInfoENEx.FileName;
-                SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
+                //ShowCode(autoGC5Cs_VWin.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName));
+                //txtFileName4GenCode.Text = objViewInfoENEx.FileName;
+                //SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
             }
             catch (Exception objException)
             {
@@ -671,19 +671,19 @@ namespace AGC.Webform
             {
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
-                WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
-                if (objViewInfoENEx.ViewFldNum == 0)
-                {
-                    ShowCode("界面中字段数为0，不能生成界面代码");
-                    return;
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
+                //if (objViewInfoENEx.ViewFldNum == 0)
+                //{
+                //    ShowCode("界面中字段数为0，不能生成界面代码");
+                //    return;
 
-                }
-                objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
-                objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
-                //ShowCode(autoGC5Cs_VWin.A_GenCtlCodeforTab(myEncoding, objViewInfoENEx));
-                txtFileName4GenCode.Text = objViewInfoENEx.FileName;
-                SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
+                //}
+                //objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
+                //objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
+                ////ShowCode(autoGC5Cs_VWin.A_GenCtlCodeforTab(myEncoding, objViewInfoENEx));
+                //txtFileName4GenCode.Text = objViewInfoENEx.FileName;
+                //SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
             }
             catch (Exception objException)
             {
@@ -710,7 +710,7 @@ namespace AGC.Webform
             {
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
                 WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
                 if (objViewInfoENEx.ViewFldNum == 0)
                 {
@@ -784,19 +784,19 @@ namespace AGC.Webform
             {
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
-                WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
-                if (objViewInfoENEx.ViewFldNum == 0)
-                {
-                    ShowCode("界面中字段数为0，不能生成界面代码");
-                    return;
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
+                //if (objViewInfoENEx.ViewFldNum == 0)
+                //{
+                //    ShowCode("界面中字段数为0，不能生成界面代码");
+                //    return;
 
-                }
-                objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
-                objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
-                ShowCode(autoGC5Cs_VWeb.A_GenCtlViewCodeforTab_Disp(objViewInfoENEx, ref strRe_ClsName, ref strRe_FileNameWithModuleName));
-                txtFileName4GenCode.Text = objViewInfoENEx.FileName;
-                SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
+                //}
+                //objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
+                //objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
+                //ShowCode(autoGC5Cs_VWeb.A_GenCtlViewCodeforTab_Disp(objViewInfoENEx, ref strRe_ClsName, ref strRe_FileNameWithModuleName));
+                //txtFileName4GenCode.Text = objViewInfoENEx.FileName;
+                //SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
             }
             catch (Exception objException)
             {
@@ -872,24 +872,24 @@ namespace AGC.Webform
             {
 
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
-                WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
-                if (objViewInfoENEx.ViewFldNum == 0)
-                {
-                    ShowCode("界面中字段数为0，不能生成界面代码");
-                    return;
-                }
-                objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
-                objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
-                if (ddlFuncList.SelectedValue == "导出到EXCEL")
-                {
-                    ShowCode(autoGC5Cs_VWin.gfunGenbtnExportExcel4Dg_Click());
-                }
-                else if (ddlFuncList.SelectedValue == "绑定ListView")
-                {
-                    ShowCode(autoGC5Cs_VWin.gfunGenBindListView());
-                }
-                txtFileName4GenCode.Text = objViewInfoENEx.FileName;
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //WinViewCode_QD4CSharp autoGC5Cs_VWin = new WinViewCode_QD4CSharp(strViewId);
+                //if (objViewInfoENEx.ViewFldNum == 0)
+                //{
+                //    ShowCode("界面中字段数为0，不能生成界面代码");
+                //    return;
+                //}
+                //objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + clsCommonSession.UserId + "\\";
+                //objViewInfoENEx.CurrUserName = clsCommonSession.UserName;
+                //if (ddlFuncList.SelectedValue == "导出到EXCEL")
+                //{
+                //    ShowCode(autoGC5Cs_VWin.gfunGenbtnExportExcel4Dg_Click());
+                //}
+                //else if (ddlFuncList.SelectedValue == "绑定ListView")
+                //{
+                //    ShowCode(autoGC5Cs_VWin.gfunGenBindListView());
+                //}
+                //txtFileName4GenCode.Text = objViewInfoENEx.FileName;
                 //			SimpleFName = clsString.GetSimpleFName_S(objViewInfoENEx.FileName);
             }
             catch (Exception objException)

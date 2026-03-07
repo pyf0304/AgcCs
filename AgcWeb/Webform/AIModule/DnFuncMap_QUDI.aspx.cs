@@ -206,12 +206,12 @@ namespace AGC.Webform
             {
                 if (this.ddlInDataNodeIdq.SelectedValue != "" && this.ddlInDataNodeIdq.SelectedValue != "0")
                 {
-                    objvDnFuncMapEN.InDataNodeId = this.ddlInDataNodeIdq.SelectedValue;
+                    objvDnFuncMapEN.InDataNodeId = long.Parse( this.ddlInDataNodeIdq.SelectedValue);
                     strWhereCond += string.Format(" And {0} = '{1}'", convDnFuncMap.InDataNodeId, this.ddlInDataNodeIdq.SelectedValue);
                 }
                 if (this.ddlOutDataNodeIdq.SelectedValue != "" && this.ddlOutDataNodeIdq.SelectedValue != "0")
                 {
-                    objvDnFuncMapEN.OutDataNodeId = this.ddlOutDataNodeIdq.SelectedValue;
+                    objvDnFuncMapEN.OutDataNodeId = long.Parse(this.ddlOutDataNodeIdq.SelectedValue);
                     strWhereCond += string.Format(" And {0} = '{1}'", convDnFuncMap.OutDataNodeId, this.ddlOutDataNodeIdq.SelectedValue);
                 }
                 if (this.ddlAssociationMappingIdq.SelectedValue != "" && this.ddlAssociationMappingIdq.SelectedValue != "0")
@@ -265,12 +265,12 @@ namespace AGC.Webform
                 }
                 if (this.ddlInDataNodeIdq.SelectedValue != "" && this.ddlInDataNodeIdq.SelectedValue != "0")
                 {
-                    objvDnFuncMapEN.SetInDataNodeId(this.ddlInDataNodeIdq.SelectedValue, "=");
+                    objvDnFuncMapEN.SetInDataNodeId(long.Parse(this.ddlInDataNodeIdq.SelectedValue), "=");
                     strWhereCond += string.Format(" And {0} = '{1}'", convDnFuncMap.InDataNodeId, this.ddlInDataNodeIdq.SelectedValue);
                 }
                 if (this.ddlOutDataNodeIdq.SelectedValue != "" && this.ddlOutDataNodeIdq.SelectedValue != "0")
                 {
-                    objvDnFuncMapEN.SetOutDataNodeId(this.ddlOutDataNodeIdq.SelectedValue, "=");
+                    objvDnFuncMapEN.SetOutDataNodeId(long.Parse(this.ddlOutDataNodeIdq.SelectedValue), "=");
                     strWhereCond += string.Format(" And {0} = '{1}'", convDnFuncMap.OutDataNodeId, this.ddlOutDataNodeIdq.SelectedValue);
                 }
                 if (this.ddlAssociationMappingIdq.SelectedValue != "" && this.ddlAssociationMappingIdq.SelectedValue != "0")
@@ -603,8 +603,8 @@ namespace AGC.Webform
         /// <param name = "pobjDnFuncMapEN">表实体类对象</param>
         protected void GetDataFromDnFuncMapClass(clsDnFuncMapEN pobjDnFuncMapEN)
         {
-            DnFuncMap_Edit1.InDataNodeId = pobjDnFuncMapEN.InDataNodeId;// In数据结点
-            DnFuncMap_Edit1.OutDataNodeId = pobjDnFuncMapEN.OutDataNodeId;// Out数据结点
+            DnFuncMap_Edit1.InDataNodeId = pobjDnFuncMapEN.InDataNodeId.ToString();// In数据结点
+            DnFuncMap_Edit1.OutDataNodeId = pobjDnFuncMapEN.OutDataNodeId.ToString();// Out数据结点
             DnFuncMap_Edit1.AssociationMappingId = pobjDnFuncMapEN.AssociationMappingId;// 关系映射
             DnFuncMap_Edit1.FuncMapModeId = pobjDnFuncMapEN.FuncMapModeId;// 映射模式
             DnFuncMap_Edit1.TabId = pobjDnFuncMapEN.TabId;// 表
@@ -735,8 +735,8 @@ namespace AGC.Webform
         /// <param name = "pobjDnFuncMapEN">数据传输的目的类对象</param>
         protected void PutDataToDnFuncMapClass(clsDnFuncMapEN pobjDnFuncMapEN)
         {
-            pobjDnFuncMapEN.SetInDataNodeId(DnFuncMap_Edit1.InDataNodeId)// In数据结点
-            .SetOutDataNodeId(DnFuncMap_Edit1.OutDataNodeId)// Out数据结点
+            pobjDnFuncMapEN.SetInDataNodeId(long.Parse(DnFuncMap_Edit1.InDataNodeId))// In数据结点
+            .SetOutDataNodeId(long.Parse(DnFuncMap_Edit1.OutDataNodeId))// Out数据结点
             .SetAssociationMappingId(DnFuncMap_Edit1.AssociationMappingId)// 关系映射
             .SetFuncMapModeId(DnFuncMap_Edit1.FuncMapModeId)// 映射模式
             .SetTabId(DnFuncMap_Edit1.TabId)// 表

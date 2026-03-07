@@ -498,7 +498,7 @@ namespace AGC.Webform
             {
                 var objViewRegion = clsViewRegionBL.GetObjByRegionIdCache(objvDetailRegionFlds.RegionId, clsPubVar.CurrSelPrjId);
                 wucDetailRegionFlds1.vsCmPrjId = objViewRegion.PrjId;
-                wucDetailRegionFlds1.DataNodeId = objvDetailRegionFlds.OutDataNodeId;
+                wucDetailRegionFlds1.DataNodeId = objvDetailRegionFlds.OutDataNodeId.ToString();
             }
             catch (Exception objException)
             {

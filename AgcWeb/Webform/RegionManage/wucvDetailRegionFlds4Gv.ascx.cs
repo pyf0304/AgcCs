@@ -788,7 +788,6 @@ namespace AGC.Webform
                         break;
                     case enumCtlType.GivenValue_35:
                     case enumCtlType.DefaultValue_36:
-                    case enumCtlType.CacheClassifyField_37:
 
                         var strFieldTypeName = clsFieldTypeBL.GetNameByFieldTypeIdCache(clsFieldTabBL.GetObjByFldIdCache(objCurr.FldId, clsPubVar.CurrSelPrjId).FieldTypeId);
                         int intIndex4FieldTypeName = clsCommForWebForm.GetIndexByDataField4GridView(gvDetailRegionFlds,
@@ -870,7 +869,7 @@ namespace AGC.Webform
                                 }
                                 else
                                 {
-                                    var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(objCurr.OutDataNodeId, objViewRegion.PrjId);
+                                    var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(objCurr.OutDataNodeId??0, objViewRegion.PrjId);
                                     if (objDataNode != null && objDataNode.PrjId == objViewRegion.PrjId)
                                     {
                                         strDataNodeName = objDataNode.DataNodeName;
@@ -885,9 +884,9 @@ namespace AGC.Webform
                     string strCtrlId = "";
                     if (string.IsNullOrEmpty(objCurr.FldName) == false)
                     {
-                        if (string.IsNullOrEmpty(objCurr.OutDataNodeId) == false)
+                        if (objCurr.OutDataNodeId == 0)
                         {
-                            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(objCurr.OutDataNodeId, objViewRegion0.PrjId);
+                            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(objCurr.OutDataNodeId ?? 0, objViewRegion0.PrjId);
                             if (objDataNode == null)
                             {
                                 string strMsg = string.Format("DataNodeId=[{0}]在本项目中数据结点不存在，请检查！", objCurr.OutDataNodeId);

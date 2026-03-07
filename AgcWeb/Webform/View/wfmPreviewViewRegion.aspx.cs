@@ -353,7 +353,7 @@ namespace AGC.Webform
             try
             {
                 clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
+                //clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, clsPubVar.CurrSelPrjId);
 
 				WebViewCode4Html autoGC5Cs_VWeb = new WebViewCode4Html(strViewId);
 				objViewInfoENEx.FolderName = "D:\\FTP\\ClsFile\\" + UserId + "\\";

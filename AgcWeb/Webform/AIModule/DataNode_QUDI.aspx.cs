@@ -213,7 +213,7 @@ namespace AGC.Webform
             {
                 if (this.txtDataNodeIdq.Text.Trim() != "")
                 {
-                    objvDataNodeEN.DataNodeId = this.txtDataNodeIdq.Text.Trim();
+                    objvDataNodeEN.DataNodeId = long.Parse(this.txtDataNodeIdq.Text.Trim());
                     strWhereCond += string.Format(" And {0} like '%{1}%'", convDataNode.DataNodeId, this.txtDataNodeIdq.Text.Trim());
                 }
                 if (this.txtDataNodeNameq.Text.Trim() != "")
@@ -262,7 +262,7 @@ namespace AGC.Webform
             {
                 if (this.txtDataNodeIdq.Text.Trim() != "")
                 {
-                    objvDataNodeEN.SetDataNodeId(string.Format("{0}", this.txtDataNodeIdq.Text.Trim()), "like");
+                    objvDataNodeEN.SetDataNodeId(long.Parse(this.txtDataNodeIdq.Text.Trim()), "like");
                     strWhereCond += string.Format(" And {0} like '%{1}%'", convDataNode.DataNodeId, this.txtDataNodeIdq.Text.Trim());
                 }
                 if (this.txtDataNodeNameq.Text.Trim() != "")
@@ -405,7 +405,7 @@ namespace AGC.Webform
             btnOKUpd.Text = "确认添加";
             btnCancelDataNodeEdit.Text = "取消添加";
             //4、设置添加时编辑区域控件的初值
-            DataNode_Edit1.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
+            //DataNode_Edit1.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
             DispEditDataNodeRegion();
         }
 
@@ -436,7 +436,7 @@ namespace AGC.Webform
             }
             //2、定义对象并初始化对象
             //clsDataNodeEN objDataNodeEN;	//定义对象
-            objDataNodeEN = new clsDataNodeEN(DataNode_Edit1.DataNodeId);   //初始化新对象
+            objDataNodeEN = new clsDataNodeEN(long.Parse(DataNode_Edit1.DataNodeId));   //初始化新对象
 
             try
             {
@@ -503,9 +503,9 @@ namespace AGC.Webform
         {
             try
             {
-                K_DataNodeId_DataNode myKey = new K_DataNodeId_DataNode(strDataNodeId);
+                K_DataNodeId_DataNode myKey = new K_DataNodeId_DataNode(long.Parse(strDataNodeId));
                 clsDataNodeEN objDataNodeEN = myKey.GetObj();
-                objDataNodeEN.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
+                //objDataNodeEN.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
                 objDataNodeEN.VersionNo+=1;
                 var strCondition = new clsDataNodeEN()
                     .SetFldId(objDataNodeEN.FldId, "=")
@@ -594,14 +594,14 @@ namespace AGC.Webform
             //1、检查关键字是否为空；
             if (strDataNodeId == "") return;        //如果关键字为空就返回退出
                                                     //2、检查该关键字的记录是否存在,如果不存在就返回不显示；
-            if (clsDataNodeBL.IsExist(strDataNodeId) == false)      //检查该关键字的记录是否存在
+            if (clsDataNodeBL.IsExist(long.Parse(strDataNodeId)) == false)      //检查该关键字的记录是否存在
             {
                 string strMsg = "(errid:WebI000010)在表[DataNode]中,关键字为:[strDataNodeId]的记录不存在!";
                 clsCommonJsFunc.Alert(this, strMsg);
                 return;
             }
             //3、用提供的关键字初始化一个类对象；
-            clsDataNodeEN objDataNodeEN = new clsDataNodeEN(strDataNodeId);
+            clsDataNodeEN objDataNodeEN = new clsDataNodeEN(long.Parse(strDataNodeId));
             //4、获取类对象的所有属性；
             try
             {
@@ -628,7 +628,7 @@ namespace AGC.Webform
         /// <param name = "pobjDataNodeEN">表实体类对象</param>
         protected void GetDataFromDataNodeClass(clsDataNodeEN pobjDataNodeEN)
         {
-            DataNode_Edit1.DataNodeId = pobjDataNodeEN.DataNodeId;// 数据结点Id
+            DataNode_Edit1.DataNodeId = pobjDataNodeEN.DataNodeId.ToString();// 数据结点Id
             DataNode_Edit1.TabId = pobjDataNodeEN.TabId;// 表
             DataNode_Edit1.FldId = pobjDataNodeEN.FldId;// 字段
             DataNode_Edit1.DataNodeName = pobjDataNodeEN.DataNodeName;// 结点名
@@ -758,7 +758,7 @@ namespace AGC.Webform
         /// <param name = "pobjDataNodeEN">数据传输的目的类对象</param>
         protected void PutDataToDataNodeClass(clsDataNodeEN pobjDataNodeEN)
         {
-            pobjDataNodeEN.SetDataNodeId(DataNode_Edit1.DataNodeId)// 数据结点Id
+            pobjDataNodeEN.SetDataNodeId(long.Parse(DataNode_Edit1.DataNodeId))// 数据结点Id
             .SetTabId(DataNode_Edit1.TabId)// 表
             .SetFldId(DataNode_Edit1.FldId)// 字段
             .SetDataNodeName(DataNode_Edit1.DataNodeName)// 结点名
@@ -805,7 +805,7 @@ namespace AGC.Webform
                 vsCmPrjId = strCmPrjId;
                 foreach (string strDataNodeId in lstDataNodeId)
                 {
-                    clsDataNodeBLEx.DelRecordEx(strDataNodeId, strCmPrjId);
+                    clsDataNodeBLEx.DelRecordEx(long.Parse(strDataNodeId), strCmPrjId);
                 }
             }
             catch (Exception objException)
@@ -827,7 +827,7 @@ namespace AGC.Webform
         {
             try
             {
-                clsDataNodeBL.DelRecord(strDataNodeId);
+                clsDataNodeBL.DelRecord(long.Parse(strDataNodeId));
             }
             catch (Exception objException)
             {
@@ -1172,9 +1172,9 @@ namespace AGC.Webform
             }
      
             if (string.IsNullOrEmpty(strDataNodeId) == true) return;
-            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, strCmPrjId);
+            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), strCmPrjId);
             txtStartNode.Text = objDataNode.DataNodeName;
-            txtStartNode.ToolTip = objDataNode.DataNodeId;
+            txtStartNode.ToolTip = objDataNode.DataNodeId.ToString();
         }
 
         protected void btnSetEndNode_Click(object sender, EventArgs e)
@@ -1188,9 +1188,9 @@ namespace AGC.Webform
                 ddlCmPrjIdq.Focus();
                 return;
             }
-            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, strCmPrjId);
+            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), strCmPrjId);
             txtEndNode.Text = objDataNode.DataNodeName;
-            txtEndNode.ToolTip = objDataNode.DataNodeId;
+            txtEndNode.ToolTip = objDataNode.DataNodeId.ToString();
         }
 
         protected void btnGetGraphPath_Click(object sender, EventArgs e)
@@ -1211,7 +1211,7 @@ namespace AGC.Webform
             string strEndNodeId = txtEndNode.ToolTip;
             try
             {
-                clsDataNodeBLEx.BindDdl_PathNode(ddlGraphPath, strStartNodeId, strEndNodeId, vsCmPrjId);
+                clsDataNodeBLEx.BindDdl_PathNode(ddlGraphPath, long.Parse(strStartNodeId), long.Parse(strEndNodeId), vsCmPrjId);
 
                 //List<clsDataNodeEN> arrPath = clsDataNodeBLEx.GetGraphPath(g, strStartNodeId, strEndNodeId, vsPrjId_Cache);
                 //ListBox1.Items.Clear();
@@ -1247,7 +1247,7 @@ namespace AGC.Webform
             {
                 //List<clsDataNodeEN> arrConnectedNode = clsDataNodeBLEx.GetConnectedNode(g, strStartNodeId, vsPrjId_Cache);
                 //ListBox2.Items.Clear();
-                clsDataNodeBLEx.BindDdl_ConnectedNodeV2(ddlConnectedNode, strStartNodeId, strCmPrjId, false);
+                clsDataNodeBLEx.BindDdl_ConnectedNodeV2(ddlConnectedNode, long.Parse(strStartNodeId), strCmPrjId, false);
                 //foreach (var objInFor in arrConnectedNode)
                 //{
                 //    ListBox2.Items.Add(objInFor.DataNodeName);
@@ -1367,9 +1367,9 @@ namespace AGC.Webform
                 ddlCmPrjIdq.Focus();
                 return;
             }
-            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, strCmPrjId);
+            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), strCmPrjId);
             txtEndNode.Text = objDataNode.DataNodeName;
-            txtEndNode.ToolTip = objDataNode.DataNodeId;
+            txtEndNode.ToolTip = objDataNode.DataNodeId.ToString();
         }
 
         protected void ddlConnectedNode4TabId_SelectedIndexChanged(object sender, EventArgs e)
@@ -1383,9 +1383,9 @@ namespace AGC.Webform
                 ddlCmPrjIdq.Focus();
                 return;
             }
-            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, strCmPrjId);
+            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), strCmPrjId);
             txtEndNode.Text = objDataNode.DataNodeName;
-            txtEndNode.ToolTip = objDataNode.DataNodeId;
+            txtEndNode.ToolTip = objDataNode.DataNodeId.ToString();
         }
 
         protected void ddlConnectedNodeByEndNode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1399,9 +1399,9 @@ namespace AGC.Webform
                 ddlCmPrjIdq.Focus();
                 return;
             }
-            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(strDataNodeId, strCmPrjId);
+            var objDataNode = clsDataNodeBL.GetObjByDataNodeIdCache(long.Parse(strDataNodeId), strCmPrjId);
             txtStartNode.Text = objDataNode.DataNodeName;
-            txtStartNode.ToolTip = objDataNode.DataNodeId;
+            txtStartNode.ToolTip = objDataNode.DataNodeId.ToString();
         }
 
         protected void btnGetConnectedNodeByEndNode_Click(object sender, EventArgs e)
@@ -1424,7 +1424,7 @@ namespace AGC.Webform
             {
                 //List<clsDataNodeEN> arrConnectedNode = clsDataNodeBLEx.GetConnectedNode(g, strStartNodeId, vsPrjId_Cache);
                 //ListBox2.Items.Clear();
-                clsDataNodeBLEx.BindDdl_ConnectedNodeV2_Prev(ddlConnectedNodeByEndNode, strEndNodeId, strCmPrjId);
+                clsDataNodeBLEx.BindDdl_ConnectedNodeV2_Prev(ddlConnectedNodeByEndNode, long.Parse( strEndNodeId), strCmPrjId);
                 //foreach (var objInFor in arrConnectedNode)
                 //{
                 //    ListBox2.Items.Add(objInFor.DataNodeName);
@@ -1508,9 +1508,9 @@ namespace AGC.Webform
                 int intIndex = 0;
                 foreach (string strDataNodeId in lstDataNodeId)
                 {
-                    var objDataNode = clsDataNodeBL.GetObjByDataNodeId(strDataNodeId);
+                    var objDataNode = clsDataNodeBL.GetObjByDataNodeId(long.Parse(strDataNodeId));
                     objDataNode.PrjId = strCmPrjId_T;
-                    objDataNode.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
+                    //objDataNode.DataNodeId = clsDataNodeBL.GetMaxStrId_S();
                     string strCondition = objDataNode.GetUniCondStr();
                     if (clsDataNodeBL.IsExistRecord(strCondition) == false)
                     {
