@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFuncModuleViewNumWApi
  表名:vFuncModuleViewNum(00050290)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:08:13
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:26:10
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -294,7 +294,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strFuncModuleAgcId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvFuncModuleViewNumEN GetObjByFuncModuleAgcIdCache(string strFuncModuleAgcId,string strPrjId)
+public static clsvFuncModuleViewNumEN GetObjByFuncModuleAgcIdCache(string strFuncModuleAgcId)
 {
 if (string.IsNullOrEmpty(strFuncModuleAgcId) == true) return null;
 //初始化列表缓存
@@ -821,7 +821,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvFuncModuleViewNumEN> GetObjLstCache(string strPrjId)
+public static List<clsvFuncModuleViewNumEN> GetObjLstCache()
 {
 
 //初始化列表缓存

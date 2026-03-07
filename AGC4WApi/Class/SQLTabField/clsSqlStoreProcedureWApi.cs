@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsSqlStoreProcedureWApi
  表名:SqlStoreProcedure(00050182)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:41:26
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:23:29
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -492,6 +492,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsSqlStoreProcedureEN GetObjBymIdCache(long lngmId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}", clsSqlStoreProcedureEN._CurrTabName);
 List<clsSqlStoreProcedureEN> arrSqlStoreProcedureObjLstCache = GetObjLstCache();

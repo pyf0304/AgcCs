@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFunctionTemplateRela_SimWApi
  表名:vFunctionTemplateRela_Sim(00050604)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:07:13
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:26:34
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -402,7 +402,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
 public static clsvFunctionTemplateRela_SimEN GetObjByKeyLstCache(string strFunctionTemplateId,string strFuncId4GC)
 {
 if (string.IsNullOrEmpty(strFunctionTemplateId) == true) return null;
-if (string.IsNullOrEmpty(strFunctionTemplateId) == true) return null;
+if (string.IsNullOrEmpty(strFuncId4GC) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}", clsvFunctionTemplateRela_SimEN._CurrTabName);
 List<clsvFunctionTemplateRela_SimEN> arrvFunctionTemplateRela_SimObjLstCache = GetObjLstCache();
@@ -934,7 +934,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvFunctionTemplateRela_SimEN> GetObjLstCache(string strFunctionTemplateId)
+public static List<clsvFunctionTemplateRela_SimEN> GetObjLstCache()
 {
 
 //初始化列表缓存

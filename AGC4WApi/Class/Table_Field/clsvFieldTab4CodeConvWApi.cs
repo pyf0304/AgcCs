@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFieldTab4CodeConvWApi
  表名:vFieldTab4CodeConv(00050594)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:08:33
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:27:06
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -578,12 +578,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strFldId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvFieldTab4CodeConvEN GetObjByFldIdCache(string strFldId)
+public static clsvFieldTab4CodeConvEN GetObjByFldIdCache(string strFldId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strFldId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
-List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache();
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLst_Sel =
 from objvFieldTab4CodeConvEN in arrvFieldTab4CodeConvObjLstCache
 where objvFieldTab4CodeConvEN.FldId == strFldId 
@@ -685,11 +685,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrFldId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvFieldTab4CodeConvEN> GetObjLstByFldIdLstCache(List<string> arrFldId, )
+public static IEnumerable<clsvFieldTab4CodeConvEN> GetObjLstByFldIdLstCache(List<string> arrFldId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvFieldTab4CodeConvEN._CurrTabName, strPrjId);
-List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache();
+List<clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvFieldTab4CodeConvEN> arrvFieldTab4CodeConvObjLst_Sel =
 from objvFieldTab4CodeConvEN in arrvFieldTab4CodeConvObjLstCache
 where arrFldId.Contains(objvFieldTab4CodeConvEN.FldId)
@@ -1125,7 +1125,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvFieldTab4CodeConvEN> GetObjLstCache()
+public static List<clsvFieldTab4CodeConvEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -1159,7 +1159,7 @@ return arrvFieldTab4CodeConvObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvFieldTab4CodeConvEN> GetObjLstCacheFromObjLst(List<clsvFieldTab4CodeConvEN> arrObjLst_P)
+public static List<clsvFieldTab4CodeConvEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvFieldTab4CodeConvEN> arrObjLst_P)
 {
 
 

@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDGRegionFldsWApi
  表名:vDGRegionFlds(00050201)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:08:30
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:25:31
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1017,11 +1017,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvDGRegionFldsEN GetObjBymIdCache(long lngmId)
+public static clsvDGRegionFldsEN GetObjBymIdCache(long lngmId,string strPrjId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvDGRegionFldsEN._CurrTabName, strPrjId);
-List<clsvDGRegionFldsEN> arrvDGRegionFldsObjLstCache = GetObjLstCache();
+List<clsvDGRegionFldsEN> arrvDGRegionFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDGRegionFldsEN> arrvDGRegionFldsObjLst_Sel =
 from objvDGRegionFldsEN in arrvDGRegionFldsObjLstCache
 where objvDGRegionFldsEN.mId == lngmId 
@@ -1123,11 +1124,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrMId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvDGRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, )
+public static IEnumerable<clsvDGRegionFldsEN> GetObjLstByMIdLstCache(List<long> arrMId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvDGRegionFldsEN._CurrTabName, strPrjId);
-List<clsvDGRegionFldsEN> arrvDGRegionFldsObjLstCache = GetObjLstCache();
+List<clsvDGRegionFldsEN> arrvDGRegionFldsObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDGRegionFldsEN> arrvDGRegionFldsObjLst_Sel =
 from objvDGRegionFldsEN in arrvDGRegionFldsObjLstCache
 where arrMId.Contains(objvDGRegionFldsEN.mId)
@@ -1576,7 +1577,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDGRegionFldsEN> GetObjLstCache()
+public static List<clsvDGRegionFldsEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -1610,7 +1611,7 @@ return arrvDGRegionFldsObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDGRegionFldsEN> GetObjLstCacheFromObjLst(List<clsvDGRegionFldsEN> arrObjLst_P)
+public static List<clsvDGRegionFldsEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvDGRegionFldsEN> arrObjLst_P)
 {
 
 

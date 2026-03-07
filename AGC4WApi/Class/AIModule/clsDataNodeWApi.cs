@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsDataNodeWApi
  表名:DataNode(00050547)
- * 版本:2025.08.02.1(服务器:PYF-AI)
- 日期:2025/08/10 01:34:08
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:23:50
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1016,6 +1016,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsDataNodeEN GetObjByDataNodeIdCache(long lngDataNodeId,string strPrjId)
 {
+if (lngDataNodeId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsDataNodeEN._CurrTabName, strPrjId);
 List<clsDataNodeEN> arrDataNodeObjLstCache = GetObjLstCache(strPrjId);

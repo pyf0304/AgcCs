@@ -3875,7 +3875,7 @@ objPrjTabENEx.TabName);
                         objPrjTabENEx.TabName,
                         objKeyField.FldName_FstUcase,
                         objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType,
-                        strFuncParamsDefLst);
+                        strFuncParaCode);
                 }
             }
             else

@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsGCVariablePrjIdRelaWApi
  表名:GCVariablePrjIdRela(00050617)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:49
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:22:23
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -555,10 +555,10 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <param name = "strVarId">表关键字</param>
  /// <param name = "strPrjId">表关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsGCVariablePrjIdRelaEN GetObjByKeyLstCache(string strVarId,string strPrjId)
+public static clsGCVariablePrjIdRelaEN GetObjByKeyLstCache(string strVarId,string strPrjId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strVarId) == true) return null;
-if (string.IsNullOrEmpty(strVarId) == true) return null;
+if (string.IsNullOrEmpty(strPrjId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsGCVariablePrjIdRelaEN._CurrTabName, strPrjId);
 List<clsGCVariablePrjIdRelaEN> arrGCVariablePrjIdRelaObjLstCache = GetObjLstCache(strPrjId);

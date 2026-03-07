@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvUserCodePathWApi
  表名:vUserCodePath(00050205)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:06:26
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:26:23
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1451,6 +1451,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsvUserCodePathEN GetObjBymIdCache(long lngmId,string strPrjId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvUserCodePathEN._CurrTabName, strPrjId);
 List<clsvUserCodePathEN> arrvUserCodePathObjLstCache = GetObjLstCache(strPrjId);

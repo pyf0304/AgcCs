@@ -94,6 +94,7 @@
     <Compile Include="ClassEx\CodeMan\clsvCMProjectAppRelaExWApi.cs" />
     <Compile Include="ClassEx\CodeMan\clsvCMProjectFuncModuleExWApi.cs" />
     <Compile Include="ClassEx\CodeMan\clsvCMProjectPrjTabExWApi.cs" />
+    <Compile Include="ClassEx\CodeMan\clsvCmProjectPrjTab_SimExWApi.cs" />
     <Compile Include="ClassEx\CssManage\clscss_ControlExWApi.cs" />
     <Compile Include="ClassEx\CssManage\clscss_FldDispUnitStyleExWApi.cs" />
     <Compile Include="ClassEx\GeneCode\clsCodeTypeExWApi.cs" />

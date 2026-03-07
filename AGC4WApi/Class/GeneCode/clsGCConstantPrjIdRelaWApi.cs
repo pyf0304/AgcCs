@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsGCConstantPrjIdRelaWApi
  表名:GCConstantPrjIdRela(00050641)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:01
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:22:25
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -522,7 +522,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
 public static clsGCConstantPrjIdRelaEN GetObjByKeyLstCache(string strConstId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strConstId) == true) return null;
-if (string.IsNullOrEmpty(strConstId) == true) return null;
+if (string.IsNullOrEmpty(strPrjId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}", clsGCConstantPrjIdRelaEN._CurrTabName);
 List<clsGCConstantPrjIdRelaEN> arrGCConstantPrjIdRelaObjLstCache = GetObjLstCache();

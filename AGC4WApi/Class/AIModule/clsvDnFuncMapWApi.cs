@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDnFuncMapWApi
  表名:vDnFuncMap(00050554)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:08:19
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:24:31
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -670,12 +670,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strDnFuncMapId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsvDnFuncMapEN GetObjByDnFuncMapIdCache(string strDnFuncMapId)
+public static clsvDnFuncMapEN GetObjByDnFuncMapIdCache(string strDnFuncMapId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strDnFuncMapId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvDnFuncMapEN._CurrTabName, strPrjId);
-List<clsvDnFuncMapEN> arrvDnFuncMapObjLstCache = GetObjLstCache();
+List<clsvDnFuncMapEN> arrvDnFuncMapObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDnFuncMapEN> arrvDnFuncMapObjLst_Sel =
 from objvDnFuncMapEN in arrvDnFuncMapObjLstCache
 where objvDnFuncMapEN.DnFuncMapId == strDnFuncMapId 
@@ -777,11 +777,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrDnFuncMapId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsvDnFuncMapEN> GetObjLstByDnFuncMapIdLstCache(List<string> arrDnFuncMapId, )
+public static IEnumerable<clsvDnFuncMapEN> GetObjLstByDnFuncMapIdLstCache(List<string> arrDnFuncMapId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvDnFuncMapEN._CurrTabName, strPrjId);
-List<clsvDnFuncMapEN> arrvDnFuncMapObjLstCache = GetObjLstCache();
+List<clsvDnFuncMapEN> arrvDnFuncMapObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDnFuncMapEN> arrvDnFuncMapObjLst_Sel =
 from objvDnFuncMapEN in arrvDnFuncMapObjLstCache
 where arrDnFuncMapId.Contains(objvDnFuncMapEN.DnFuncMapId)
@@ -1220,7 +1220,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg0);
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDnFuncMapEN> GetObjLstCache()
+public static List<clsvDnFuncMapEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -1254,7 +1254,7 @@ return arrvDnFuncMapObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsvDnFuncMapEN> GetObjLstCacheFromObjLst(List<clsvDnFuncMapEN> arrObjLst_P)
+public static List<clsvDnFuncMapEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsvDnFuncMapEN> arrObjLst_P)
 {
 
 

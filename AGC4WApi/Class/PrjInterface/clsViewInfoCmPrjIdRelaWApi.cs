@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewInfoCmPrjIdRelaWApi
  表名:ViewInfoCmPrjIdRela(00050621)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:21
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:19:28
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -519,10 +519,10 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <param name = "strViewId">表关键字</param>
  /// <param name = "strCmPrjId">表关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsViewInfoCmPrjIdRelaEN GetObjByKeyLstCache(string strViewId,string strCmPrjId)
+public static clsViewInfoCmPrjIdRelaEN GetObjByKeyLstCache(string strViewId,string strCmPrjId,string strCmPrjId)
 {
 if (string.IsNullOrEmpty(strViewId) == true) return null;
-if (string.IsNullOrEmpty(strViewId) == true) return null;
+if (string.IsNullOrEmpty(strCmPrjId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsViewInfoCmPrjIdRelaEN._CurrTabName, strCmPrjId);
 List<clsViewInfoCmPrjIdRelaEN> arrViewInfoCmPrjIdRelaObjLstCache = GetObjLstCache(strCmPrjId);

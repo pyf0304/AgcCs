@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjConstraintWApi
  表名:PrjConstraint(00050331)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 21:38:18
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:19:10
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -908,12 +908,12 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// </summary>
  /// <param name = "strPrjConstraintId">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsPrjConstraintEN GetObjByPrjConstraintIdCache(string strPrjConstraintId)
+public static clsPrjConstraintEN GetObjByPrjConstraintIdCache(string strPrjConstraintId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strPrjConstraintId) == true) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsPrjConstraintEN._CurrTabName, strPrjId);
-List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache();
+List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsPrjConstraintEN> arrPrjConstraintObjLst_Sel =
 from objPrjConstraintEN in arrPrjConstraintObjLstCache
 where objPrjConstraintEN.PrjConstraintId == strPrjConstraintId 
@@ -937,11 +937,11 @@ return arrPrjConstraintObjLst_Sel.First();
  /// </summary>
  /// <param name = "strPrjConstraintId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetConstraintNameByPrjConstraintIdCache(string strPrjConstraintId)
+public static string GetConstraintNameByPrjConstraintIdCache(string strPrjConstraintId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strPrjConstraintId) == true) return "";
 //初始化列表缓存
-List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache();
+List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsPrjConstraintEN> arrPrjConstraintObjLst_Sel1 =
 from objPrjConstraintEN in arrPrjConstraintObjLstCache
 where objPrjConstraintEN.PrjConstraintId == strPrjConstraintId 
@@ -965,11 +965,11 @@ throw new Exception(strErrMsgForGetObjById);
  /// </summary>
  /// <param name = "strPrjConstraintId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameByPrjConstraintIdCache(string strPrjConstraintId)
+public static string GetNameByPrjConstraintIdCache(string strPrjConstraintId,string strPrjId)
 {
 if (string.IsNullOrEmpty(strPrjConstraintId) == true) return "";
 //初始化列表缓存
-List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache();
+List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsPrjConstraintEN> arrPrjConstraintObjLst_Sel1 =
 from objPrjConstraintEN in arrPrjConstraintObjLstCache
 where objPrjConstraintEN.PrjConstraintId == strPrjConstraintId 
@@ -1072,11 +1072,11 @@ throw new Exception(strMsg);
  /// </summary>
  /// <param name = "arrPrjConstraintId">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象</returns>
-public static IEnumerable<clsPrjConstraintEN> GetObjLstByPrjConstraintIdLstCache(List<string> arrPrjConstraintId, )
+public static IEnumerable<clsPrjConstraintEN> GetObjLstByPrjConstraintIdLstCache(List<string> arrPrjConstraintId, string strPrjId)
 {
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsPrjConstraintEN._CurrTabName, strPrjId);
-List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache();
+List<clsPrjConstraintEN> arrPrjConstraintObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsPrjConstraintEN> arrPrjConstraintObjLst_Sel =
 from objPrjConstraintEN in arrPrjConstraintObjLstCache
 where arrPrjConstraintId.Contains(objPrjConstraintEN.PrjConstraintId)
@@ -1987,7 +1987,7 @@ clsPrjConstraintWApi.objCommFun4WApi.ReFreshCache(strPrjId.ToString());
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsPrjConstraintEN> GetObjLstCache()
+public static List<clsPrjConstraintEN> GetObjLstCache(string strPrjId)
 {
 
 
@@ -2021,7 +2021,7 @@ return arrPrjConstraintObjLstCache;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GetObjLstCacheFromObjLst)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsPrjConstraintEN> GetObjLstCacheFromObjLst(List<clsPrjConstraintEN> arrObjLst_P)
+public static List<clsPrjConstraintEN> GetObjLstCacheFromObjLst(string strPrjId,List<clsPrjConstraintEN> arrObjLst_P)
 {
 
 
@@ -2100,14 +2100,14 @@ return objDT;
  /// 数据源类型:表
  /// (AutoGCLib.CommFun4WA4CSharp:GeneCode_This)
  /// </summary>
-public class  clsCommFun4WA4PrjConstraint : clsCommFun4BL
+public class  clsCommFun4WA4PrjConstraint : clsCommFun4BLV2
 {
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4WA4CSharp:Gen_4CFWA_ReFreshCache)
  /// </summary>
-public override void ReFreshCache()
+public override void ReFreshCache(string strPrjId)
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -2120,7 +2120,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsPrjConstraintWApi.ReFreshThisCache();
+clsPrjConstraintWApi.ReFreshThisCache(strPrjId);
 }
 }
 

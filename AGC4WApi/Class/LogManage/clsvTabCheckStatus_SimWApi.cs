@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvTabCheckStatus_SimWApi
  表名:vTabCheckStatus_Sim(00050599)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 22:07:55
+ * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/07 22:26:06
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -392,6 +392,7 @@ clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));
  /// <returns>根据关键字获取的对象</returns>
 public static clsvTabCheckStatus_SimEN GetObjBymIdCache(long lngmId,string strPrjId,string strPrjDataBaseId)
 {
+if (lngmId == 0) return null;
 //初始化列表缓存
 string strKey = string.Format("{0}_{1}", clsvTabCheckStatus_SimEN._CurrTabName, strPrjId);
 List<clsvTabCheckStatus_SimEN> arrvTabCheckStatus_SimObjLstCache = GetObjLstCache(strPrjId,strPrjDataBaseId);
