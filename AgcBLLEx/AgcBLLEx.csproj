@@ -275,6 +275,8 @@
     <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFunctionBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskRegionBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsCtlTypeBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsDataGridStyleBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsDDLItemsOptionBLEx.cs" />
@@ -287,6 +289,8 @@
     <Compile Include="Class\PrjInterface\clsViewGroupBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsViewGroupFldsBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsViewImplementationBLEx.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoBLExBak20260417.cs" />
+    <Compile Include="Class\PrjInterface\clsViewInfoBLExBak.cs" />
     <Compile Include="Class\PrjInterface\clsViewInfoBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsViewInfoCmPrjIdRelaBLEx.cs" />
     <Compile Include="Class\PrjInterface\clsViewMasterBLEx.cs" />

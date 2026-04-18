@@ -1,0 +1,48 @@
+/**
+ * 修改记录
+ * ({{ func_full_name }})
+ **/
+const btnUpdate_Click = async () => {
+    const strThisFuncName = btnUpdate_Click.name;
+
+    if (objPage.value == null) {
+        alert('页面初始化不成功,请联系管理员!');
+        return;
+    }
+
+    objPage_Edit.value = new {{ edit_class }}Ex('{{ edit_class }}Ex', objPage.value);
+
+    if (objPage_Edit.value == null) {
+        alert('编辑页面初始化不成功,请联系管理员!');
+        return;
+    }
+
+    {{ get_first_checked }}
+
+    {{ key_check_code }}
+
+    try {
+        opType.value = "Update";
+
+        const bolIsSuccess = await objPage_Edit.value.ShowDialog_{{ tab_name }}(opType.value);
+        if (bolIsSuccess == false) return;
+
+        {{ update_call }}
+
+        if (update == false) {
+            const strMsg = Format("在修改记录时,显示记录数据不成功!");
+            console.error(strMsg);
+            alert(strMsg);
+            return;
+        }
+    }
+    catch (e) {
+        const strMsg = Format('(errid: WiTsCs0034)在修改记录时出错!请联系管理员!{0}.(in {1}.{2})',
+            e,
+            objPage_Edit.value.className,
+            strThisFuncName,
+          );
+        console.error(strMsg);
+        alert(strMsg);
+    }
+}

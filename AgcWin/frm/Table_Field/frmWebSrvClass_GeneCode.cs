@@ -74,7 +74,7 @@ namespace AGC
                 MessageBox.Show(objException.Message);
                 return;
             }
-            this.Text = string.Format("项目表代码生成20250705----工程：{0}({1})  数据库：{2}({3})", clsPubVar.objCurrSelProjectEN.PrjName, clsPubVar.objCurrSelProjectEN.PrjId,
+            this.Text = string.Format("项目表代码生成20260329----工程：{0}({1})  数据库：{2}({3})", clsPubVar.objCurrSelProjectEN.PrjName, clsPubVar.objCurrSelProjectEN.PrjId,
                                 objPrjDataBaseEN.PrjDataBaseName, objPrjDataBaseEN.PrjDataBaseId);
             // 在此处放置用户代码以初始化页面
             //1、为下拉框设置数据源，绑定列表数据
@@ -1211,9 +1211,9 @@ namespace AGC
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.WS_Srv;
             //string strClassName = clsPubConst.GetClassNameStringByClassName(cnClassName);
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             clsPubConst.ClassName cnClassName4Front = clsPubConst.ClassName.WS_Srv4Front;
-            string strCodeTypeId_Front = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName4Front, mltLangType);
+            string strCodeTypeId_Front = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName4Front, mltLangType);
             //string strViewId = "";
             clsGCResult objGCResult = null;
             string strRe_ClsName = "";
@@ -1367,7 +1367,7 @@ namespace AGC
 
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.WS_Access;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             //string strViewId = "";
             clsGCResult objGCResult = null;
          
@@ -1563,7 +1563,7 @@ namespace AGC
             lblMsg.Text = "";
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.WS_AccessHigh;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             //string strViewId = "";
             clsGCResult objGCResult = null;
             
@@ -1674,7 +1674,7 @@ namespace AGC
 
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.AppController;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             clsGCResult objGCResult = null;
             //string strViewId = "";
             //string strRe_ClsName = "";
@@ -1785,7 +1785,7 @@ namespace AGC
    
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.CommFun4BL;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             //string strViewId = "";
             clsGCResult objGCResult = null;
             string strClassFName = "";
@@ -1904,7 +1904,7 @@ namespace AGC
             //保存当前选择的字符编码
             //clsPubFun.SaveCharEncodingId4PrjUser(clsPubVar.CurrSelPrjId, clsSysParaEN.strUserId, strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.DALExCode;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
             clsGCResult objGCResult = null;
             //string strViewId = "";
             string strClassFName = "";
@@ -2161,7 +2161,7 @@ namespace AGC
             lblMsg.Text = "";      
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.AppViewUTScript;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
 
             clsGCResult objGCResult = null;
             string strClassFName = "";
@@ -2263,7 +2263,7 @@ namespace AGC
             lblMsg.Text = "";    
             Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
             clsPubConst.ClassName cnClassName = clsPubConst.ClassName.AppViewUTScriptCS;
-            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassNameCache(cnClassName, mltLangType);
+            string strCodeTypeId = clsCodeTypeExWApi.GetCodeTypeIdByClassName_Cache(cnClassName, mltLangType);
 
             clsGCResult objGCResult = null;
             string strClassFName = "";

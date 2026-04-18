@@ -87,7 +87,7 @@ namespace AGC
                 MessageBox.Show(objException.Message);
                 return;
             }
-            this.Text = string.Format("项目表代码生成20250705----工程：{0}({1})  数据库：{2}({3})",
+            this.Text = string.Format("项目表代码生成20260329----工程：{0}({1})  数据库：{2}({3})",
                                 clsPubVar.objCurrSelProjectEN.PrjName, clsPubVar.objCurrSelProjectEN.PrjId,
                                 objPrjDataBaseEN.PrjDataBaseName, objPrjDataBaseEN.PrjDataBaseId);
             // 在此处放置用户代码以初始化页面

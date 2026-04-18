@@ -1,0 +1,7 @@
+本地：
+http://localhost:7109/Ping
+http://192.168.1.20:7109/Ping
+
+其他电脑 ：
+http://tzar.ddns.net:27109/Ping
+注意:不能运行 clash for windows,否则不能访问：http://tzar.ddns.net:

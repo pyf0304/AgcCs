@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvQryRegionFldsEN
  表名:vQryRegionFlds(00050151)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:57
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:36
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:实体层(CS)(EntityLayer)
+ 框架-层名:实体层(CS)(EntityLayer,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -25,6 +25,7 @@ using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace AGC.Entity
 {
@@ -75,13 +76,14 @@ return new K_mId_vQryRegionFlds(value);
 [DataContractAttribute]
 public class clsvQryRegionFldsEN : clsEntityBase2
 {
+public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "vQryRegionFlds"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int mintAttributeCount = 31;
-public static string[] AttributeName = new string[] {"mId", "RegionId", "RegionName", "TabId", "TabName", "FldId", "FldName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "DsTabId", "QueryOptionId", "QueryOptionName", "DdlItemsOptionId", "DdlItemsOptionName", "DsSqlStr", "ItemsString", "DsCondStr", "ColSpan", "Width", "SeqNum", "ChangeEvent", "ClickEvent", "InUse", "UpdUser", "UpdDate", "Memo", "PrjId"};
+protected const int _AttributeCount = 31;
+public static string[] _AttributeName = new string[] {"mId", "RegionId", "RegionName", "TabId", "TabName", "FldId", "FldName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "DsTabId", "QueryOptionId", "QueryOptionName", "DdlItemsOptionId", "DdlItemsOptionName", "DsSqlStr", "ItemsString", "DsCondStr", "ColSpan", "Width", "SeqNum", "ChangeEvent", "ClickEvent", "InUse", "UpdUser", "UpdDate", "Memo", "PrjId"};
 
 protected long mlngmId;    //mId
 protected string mstrRegionId;    //区域Id
@@ -113,11 +115,11 @@ protected bool mbolInUse;    //是否在用
 protected string mstrUpdUser;    //修改者
 protected string mstrUpdDate;    //修改日期
 protected string mstrMemo;    //说明
-protected string mstrPrjId;    //工程ID
+protected string mstrPrjId;    //工程Id
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor1)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor1)
 /// </summary>
  public clsvQryRegionFldsEN()
  {
@@ -128,7 +130,7 @@ protected string mstrPrjId;    //工程ID
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor2)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
 /// <param name = "lngmId">关键字:mId</param>
 public clsvQryRegionFldsEN(long lngmId)
@@ -148,7 +150,7 @@ public static int AttributeCount
 {
 get
 {
-return mintAttributeCount;
+return _AttributeCount;
 }
 }
 public override object this[string strAttributeName]
@@ -444,127 +446,127 @@ public object this[int intIndex]
 {
 get
 {
-if (convQryRegionFlds.mId  ==  AttributeName[intIndex])
+if (convQryRegionFlds.mId  ==  _AttributeName[intIndex])
 {
 return mlngmId;
 }
-else if (convQryRegionFlds.RegionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.RegionId  ==  _AttributeName[intIndex])
 {
 return mstrRegionId;
 }
-else if (convQryRegionFlds.RegionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.RegionName  ==  _AttributeName[intIndex])
 {
 return mstrRegionName;
 }
-else if (convQryRegionFlds.TabId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.TabId  ==  _AttributeName[intIndex])
 {
 return mstrTabId;
 }
-else if (convQryRegionFlds.TabName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.TabName  ==  _AttributeName[intIndex])
 {
 return mstrTabName;
 }
-else if (convQryRegionFlds.FldId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.FldId  ==  _AttributeName[intIndex])
 {
 return mstrFldId;
 }
-else if (convQryRegionFlds.FldName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.FldName  ==  _AttributeName[intIndex])
 {
 return mstrFldName;
 }
-else if (convQryRegionFlds.LabelCaption  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 return mstrLabelCaption;
 }
-else if (convQryRegionFlds.CtlTypeId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeId;
 }
-else if (convQryRegionFlds.CtlTypeName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeName  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeName;
 }
-else if (convQryRegionFlds.CtlCnName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlCnName  ==  _AttributeName[intIndex])
 {
 return mstrCtlCnName;
 }
-else if (convQryRegionFlds.CtlTypeAbbr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeAbbr  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeAbbr;
 }
-else if (convQryRegionFlds.VarId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.VarId  ==  _AttributeName[intIndex])
 {
 return mstrVarId;
 }
-else if (convQryRegionFlds.DsTabId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsTabId  ==  _AttributeName[intIndex])
 {
 return mstrDsTabId;
 }
-else if (convQryRegionFlds.QueryOptionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.QueryOptionId  ==  _AttributeName[intIndex])
 {
 return mstrQueryOptionId;
 }
-else if (convQryRegionFlds.QueryOptionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.QueryOptionName  ==  _AttributeName[intIndex])
 {
 return mstrQueryOptionName;
 }
-else if (convQryRegionFlds.DdlItemsOptionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DdlItemsOptionId  ==  _AttributeName[intIndex])
 {
 return mstrDdlItemsOptionId;
 }
-else if (convQryRegionFlds.DdlItemsOptionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DdlItemsOptionName  ==  _AttributeName[intIndex])
 {
 return mstrDdlItemsOptionName;
 }
-else if (convQryRegionFlds.DsSqlStr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsSqlStr  ==  _AttributeName[intIndex])
 {
 return mstrDsSqlStr;
 }
-else if (convQryRegionFlds.ItemsString  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ItemsString  ==  _AttributeName[intIndex])
 {
 return mstrItemsString;
 }
-else if (convQryRegionFlds.DsCondStr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsCondStr  ==  _AttributeName[intIndex])
 {
 return mstrDsCondStr;
 }
-else if (convQryRegionFlds.ColSpan  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ColSpan  ==  _AttributeName[intIndex])
 {
 return mintColSpan;
 }
-else if (convQryRegionFlds.Width  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.Width  ==  _AttributeName[intIndex])
 {
 return mintWidth;
 }
-else if (convQryRegionFlds.SeqNum  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.SeqNum  ==  _AttributeName[intIndex])
 {
 return mintSeqNum;
 }
-else if (convQryRegionFlds.ChangeEvent  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ChangeEvent  ==  _AttributeName[intIndex])
 {
 return mstrChangeEvent;
 }
-else if (convQryRegionFlds.ClickEvent  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ClickEvent  ==  _AttributeName[intIndex])
 {
 return mstrClickEvent;
 }
-else if (convQryRegionFlds.InUse  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.InUse  ==  _AttributeName[intIndex])
 {
 return mbolInUse;
 }
-else if (convQryRegionFlds.UpdUser  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.UpdUser  ==  _AttributeName[intIndex])
 {
 return mstrUpdUser;
 }
-else if (convQryRegionFlds.UpdDate  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.UpdDate  ==  _AttributeName[intIndex])
 {
 return mstrUpdDate;
 }
-else if (convQryRegionFlds.Memo  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.Memo  ==  _AttributeName[intIndex])
 {
 return mstrMemo;
 }
-else if (convQryRegionFlds.PrjId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
 }
@@ -572,157 +574,157 @@ return null;
 }
 set
 {
-if (convQryRegionFlds.mId  ==  AttributeName[intIndex])
+if (convQryRegionFlds.mId  ==  _AttributeName[intIndex])
 {
 mlngmId = TransNullToInt(value.ToString());
  AddUpdatedFld(convQryRegionFlds.mId);
 }
-else if (convQryRegionFlds.RegionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.RegionId  ==  _AttributeName[intIndex])
 {
 mstrRegionId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.RegionId);
 }
-else if (convQryRegionFlds.RegionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.RegionName  ==  _AttributeName[intIndex])
 {
 mstrRegionName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.RegionName);
 }
-else if (convQryRegionFlds.TabId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.TabId  ==  _AttributeName[intIndex])
 {
 mstrTabId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.TabId);
 }
-else if (convQryRegionFlds.TabName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.TabName  ==  _AttributeName[intIndex])
 {
 mstrTabName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.TabName);
 }
-else if (convQryRegionFlds.FldId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.FldId  ==  _AttributeName[intIndex])
 {
 mstrFldId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.FldId);
 }
-else if (convQryRegionFlds.FldName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.FldName  ==  _AttributeName[intIndex])
 {
 mstrFldName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.FldName);
 }
-else if (convQryRegionFlds.LabelCaption  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 mstrLabelCaption = value.ToString();
  AddUpdatedFld(convQryRegionFlds.LabelCaption);
 }
-else if (convQryRegionFlds.CtlTypeId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.CtlTypeId);
 }
-else if (convQryRegionFlds.CtlTypeName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeName  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.CtlTypeName);
 }
-else if (convQryRegionFlds.CtlCnName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlCnName  ==  _AttributeName[intIndex])
 {
 mstrCtlCnName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.CtlCnName);
 }
-else if (convQryRegionFlds.CtlTypeAbbr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.CtlTypeAbbr  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeAbbr = value.ToString();
  AddUpdatedFld(convQryRegionFlds.CtlTypeAbbr);
 }
-else if (convQryRegionFlds.VarId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.VarId  ==  _AttributeName[intIndex])
 {
 mstrVarId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.VarId);
 }
-else if (convQryRegionFlds.DsTabId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsTabId  ==  _AttributeName[intIndex])
 {
 mstrDsTabId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.DsTabId);
 }
-else if (convQryRegionFlds.QueryOptionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.QueryOptionId  ==  _AttributeName[intIndex])
 {
 mstrQueryOptionId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.QueryOptionId);
 }
-else if (convQryRegionFlds.QueryOptionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.QueryOptionName  ==  _AttributeName[intIndex])
 {
 mstrQueryOptionName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.QueryOptionName);
 }
-else if (convQryRegionFlds.DdlItemsOptionId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DdlItemsOptionId  ==  _AttributeName[intIndex])
 {
 mstrDdlItemsOptionId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.DdlItemsOptionId);
 }
-else if (convQryRegionFlds.DdlItemsOptionName  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DdlItemsOptionName  ==  _AttributeName[intIndex])
 {
 mstrDdlItemsOptionName = value.ToString();
  AddUpdatedFld(convQryRegionFlds.DdlItemsOptionName);
 }
-else if (convQryRegionFlds.DsSqlStr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsSqlStr  ==  _AttributeName[intIndex])
 {
 mstrDsSqlStr = value.ToString();
  AddUpdatedFld(convQryRegionFlds.DsSqlStr);
 }
-else if (convQryRegionFlds.ItemsString  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ItemsString  ==  _AttributeName[intIndex])
 {
 mstrItemsString = value.ToString();
  AddUpdatedFld(convQryRegionFlds.ItemsString);
 }
-else if (convQryRegionFlds.DsCondStr  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.DsCondStr  ==  _AttributeName[intIndex])
 {
 mstrDsCondStr = value.ToString();
  AddUpdatedFld(convQryRegionFlds.DsCondStr);
 }
-else if (convQryRegionFlds.ColSpan  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ColSpan  ==  _AttributeName[intIndex])
 {
 mintColSpan = TransNullToInt(value.ToString());
  AddUpdatedFld(convQryRegionFlds.ColSpan);
 }
-else if (convQryRegionFlds.Width  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.Width  ==  _AttributeName[intIndex])
 {
 mintWidth = TransNullToInt(value.ToString());
  AddUpdatedFld(convQryRegionFlds.Width);
 }
-else if (convQryRegionFlds.SeqNum  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.SeqNum  ==  _AttributeName[intIndex])
 {
 mintSeqNum = TransNullToInt(value.ToString());
  AddUpdatedFld(convQryRegionFlds.SeqNum);
 }
-else if (convQryRegionFlds.ChangeEvent  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ChangeEvent  ==  _AttributeName[intIndex])
 {
 mstrChangeEvent = value.ToString();
  AddUpdatedFld(convQryRegionFlds.ChangeEvent);
 }
-else if (convQryRegionFlds.ClickEvent  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.ClickEvent  ==  _AttributeName[intIndex])
 {
 mstrClickEvent = value.ToString();
  AddUpdatedFld(convQryRegionFlds.ClickEvent);
 }
-else if (convQryRegionFlds.InUse  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.InUse  ==  _AttributeName[intIndex])
 {
 mbolInUse = TransNullToBool(value.ToString());
  AddUpdatedFld(convQryRegionFlds.InUse);
 }
-else if (convQryRegionFlds.UpdUser  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.UpdUser  ==  _AttributeName[intIndex])
 {
 mstrUpdUser = value.ToString();
  AddUpdatedFld(convQryRegionFlds.UpdUser);
 }
-else if (convQryRegionFlds.UpdDate  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.UpdDate  ==  _AttributeName[intIndex])
 {
 mstrUpdDate = value.ToString();
  AddUpdatedFld(convQryRegionFlds.UpdDate);
 }
-else if (convQryRegionFlds.Memo  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.Memo  ==  _AttributeName[intIndex])
 {
 mstrMemo = value.ToString();
  AddUpdatedFld(convQryRegionFlds.Memo);
 }
-else if (convQryRegionFlds.PrjId  ==  AttributeName[intIndex])
+else if (convQryRegionFlds.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(convQryRegionFlds.PrjId);
@@ -1471,7 +1473,7 @@ else
 }
 }
 /// <summary>
-/// 工程ID(说明:;字段类型:char;字段长度:4;是否可空:False)
+/// 工程Id(说明:;字段类型:char;字段长度:4;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -1499,7 +1501,7 @@ else
 
 /// <summary>
 /// 获取关键字Id(keyId)
- /// (AutoGCLib.clsGeneCodeBase:GenGetKeyId)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetKeyId)
 /// </summary>
  public override string _KeyId
  {
@@ -1517,7 +1519,7 @@ public static class convQryRegionFlds
 {
 public const string _CurrTabName = "vQryRegionFlds"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] AttributeName = new string[] {"mId", "RegionId", "RegionName", "TabId", "TabName", "FldId", "FldName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "DsTabId", "QueryOptionId", "QueryOptionName", "DdlItemsOptionId", "DdlItemsOptionName", "DsSqlStr", "ItemsString", "DsCondStr", "ColSpan", "Width", "SeqNum", "ChangeEvent", "ClickEvent", "InUse", "UpdUser", "UpdDate", "Memo", "PrjId"};
+public static string[] _AttributeName = new string[] {"mId", "RegionId", "RegionName", "TabId", "TabName", "FldId", "FldName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "DsTabId", "QueryOptionId", "QueryOptionName", "DdlItemsOptionId", "DdlItemsOptionName", "DsSqlStr", "ItemsString", "DsCondStr", "ColSpan", "Width", "SeqNum", "ChangeEvent", "ClickEvent", "InUse", "UpdUser", "UpdDate", "Memo", "PrjId"};
 //以下是属性变量
 
 
@@ -1705,7 +1707,7 @@ public static string[] AttributeName = new string[] {"mId", "RegionId", "RegionN
  /// 常量:"PrjId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string PrjId = "PrjId";    //工程ID
+ public const string PrjId = "PrjId";    //工程Id
 }
 
 }

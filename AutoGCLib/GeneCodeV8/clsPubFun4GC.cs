@@ -2485,7 +2485,7 @@ namespace AutoGCLib
         {
             throw new NotImplementedException();
         }
-        public static string Gen_GetFirstCheckedValue(CodeElement objCodeElement_Parent, TabProp objTabProp, string strFeatureName, IImportClass objImportClass, string strBaseUrl)
+        public static string Gen_GetFirstCheckedValue(CodeElement objCodeElement_Parent, TabProp objTabProp, string strFeatureName, string strVarTypePrev, IImportClass objImportClass, string strBaseUrl)
         {
             StringBuilder strCodeForCs = new StringBuilder();
             if (objTabProp.KeyFldCount > 1)
@@ -2516,7 +2516,7 @@ namespace AutoGCLib
             }
             else
             {
-                strCodeForCs.Append("\r\n" + $"strKeyId = GetFirstCheckedKeyIdInDivObj(divVarSet.refDivList);");
+                strCodeForCs.Append("\r\n" + $"{strVarTypePrev} strKeyId = GetFirstCheckedKeyIdInDivObj(divVarSet.refDivList);");
                 ImportClass myImportClass3 = objImportClass.AddImportClass("", "/PubFun/clsCommFunc4Ctrl.js", "GetFirstCheckedKeyIdInDivObj", enumImportObjType.CustomFunc, strBaseUrl);
 
                 CodeElement objCodeElement_Import3 = clsPubFun4GC.GetCodeElementByImportClass(myImportClass3);
@@ -2525,7 +2525,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "if (strKeyId == 'undefined')");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + $"strMsg = `在{strFeatureName}记录时，获取记录关键字为:${{ strKeyId }},不成功!`;");
+                strCodeForCs.Append("\r\n" + $"{strVarTypePrev} strMsg = `在{strFeatureName}记录时，获取记录关键字为:${{ strKeyId }},不成功!`;");
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "return;");

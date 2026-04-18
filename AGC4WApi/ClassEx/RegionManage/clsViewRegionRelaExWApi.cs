@@ -160,7 +160,8 @@ namespace AGC4WApi
         public static List<string> GetRegionIdLstByViewIdCache(string strViewId, string strCmPrjId)
         {
             //string strCondition = string.Format("{0}='{1}'", clsViewRegionRelaEN.con_ViewId, strViewId);
-            IEnumerable<clsViewRegionRelaEN> arrObjLst_Cache = clsViewRegionRelaWApi.GetObjLstCache(strCmPrjId);
+            string strPrjId = clsCMProjectExWApi.GetPrjIdByCmPrjIdCache(strCmPrjId);
+            IEnumerable<clsViewRegionRelaEN> arrObjLst_Cache = clsViewRegionRelaWApi.GetObjLstCache(strPrjId);
             IEnumerable<clsViewRegionRelaEN> arrObjLst = arrObjLst_Cache.Where(x => x.ViewId == strViewId);
             List<string> arrRegionId = arrObjLst.Select(x => x.RegionId).ToList();
             //List<string> arrRegionId  = clsViewRegionRelaWApi.GetPrimaryKeyID_S(strCondition).Select(x => long.Parse(x)).ToList();

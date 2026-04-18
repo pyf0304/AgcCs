@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvLog4GC_WebSrvClassBL
  表名:vLog4GC_WebSrvClass(00050371)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:17:46
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:34
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:日志管理(LogManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -360,7 +360,7 @@ if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldForeignKey(strPrjId, 4, convLog4GC_WebSrvClass.PrjId);
 }
-objvLog4GC_WebSrvClassEN.PrjId = strPrjId; //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = strPrjId; //工程Id
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objvLog4GC_WebSrvClassEN.dicFldComparisonOp.ContainsKey(convLog4GC_WebSrvClass.PrjId) == false)
@@ -512,6 +512,34 @@ objvLog4GC_WebSrvClassEN.dicFldComparisonOp[convLog4GC_WebSrvClass.Memo] = strCo
 }
 return objvLog4GC_WebSrvClassEN;
 	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objvLog4GC_WebSrvClassEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsvLog4GC_WebSrvClassEN SetClsName(this clsvLog4GC_WebSrvClassEN objvLog4GC_WebSrvClassEN, string strClsName, string strComparisonOp="")
+	{
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strClsName, 100, convLog4GC_WebSrvClass.ClsName);
+}
+objvLog4GC_WebSrvClassEN.ClsName = strClsName; //类名
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objvLog4GC_WebSrvClassEN.dicFldComparisonOp.ContainsKey(convLog4GC_WebSrvClass.ClsName) == false)
+{
+objvLog4GC_WebSrvClassEN.dicFldComparisonOp.Add(convLog4GC_WebSrvClass.ClsName, strComparisonOp);
+}
+else
+{
+objvLog4GC_WebSrvClassEN.dicFldComparisonOp[convLog4GC_WebSrvClass.ClsName] = strComparisonOp;
+}
+}
+return objvLog4GC_WebSrvClassEN;
+	}
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
@@ -533,7 +561,7 @@ objvLog4GC_WebSrvClassENT.PageName = objvLog4GC_WebSrvClassENS.PageName; //页�
 objvLog4GC_WebSrvClassENT.FuncModuleAgcId = objvLog4GC_WebSrvClassENS.FuncModuleAgcId; //功能模块Id
 objvLog4GC_WebSrvClassENT.FuncModuleName = objvLog4GC_WebSrvClassENS.FuncModuleName; //功能模块名称
 objvLog4GC_WebSrvClassENT.IsNeedGene = objvLog4GC_WebSrvClassENS.IsNeedGene; //是否需要生成
-objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程ID
+objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程Id
 objvLog4GC_WebSrvClassENT.PrjName = objvLog4GC_WebSrvClassENS.PrjName; //工程名称
 objvLog4GC_WebSrvClassENT.FuncNum = objvLog4GC_WebSrvClassENS.FuncNum; //函数个数
 objvLog4GC_WebSrvClassENT.GeneCodeDate = objvLog4GC_WebSrvClassENS.GeneCodeDate; //生成代码日期
@@ -572,7 +600,7 @@ PageName = objvLog4GC_WebSrvClassENS.PageName, //页面名称
 FuncModuleAgcId = objvLog4GC_WebSrvClassENS.FuncModuleAgcId, //功能模块Id
 FuncModuleName = objvLog4GC_WebSrvClassENS.FuncModuleName, //功能模块名称
 IsNeedGene = objvLog4GC_WebSrvClassENS.IsNeedGene, //是否需要生成
-PrjId = objvLog4GC_WebSrvClassENS.PrjId, //工程ID
+PrjId = objvLog4GC_WebSrvClassENS.PrjId, //工程Id
 PrjName = objvLog4GC_WebSrvClassENS.PrjName, //工程名称
 FuncNum = objvLog4GC_WebSrvClassENS.FuncNum, //函数个数
 GeneCodeDate = objvLog4GC_WebSrvClassENS.GeneCodeDate, //生成代码日期
@@ -1052,7 +1080,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1117,7 +1145,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1166,7 +1194,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1195,7 +1223,7 @@ public static IEnumerable<clsvLog4GC_WebSrvClassEN> GetSubObjLstCache(clsvLog4GC
 {
 List<clsvLog4GC_WebSrvClassEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvLog4GC_WebSrvClassEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convLog4GC_WebSrvClass.AttributeName)
+foreach (string strFldName in convLog4GC_WebSrvClass._AttributeName)
 {
 if (objvLog4GC_WebSrvClassCond.IsUpdated(strFldName) == false) continue;
 if (objvLog4GC_WebSrvClassCond.dicFldComparisonOp == null)
@@ -1277,7 +1305,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1326,7 +1354,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1419,7 +1447,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1468,7 +1496,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1531,7 +1559,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1583,7 +1611,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1630,7 +1658,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1924,7 +1952,7 @@ objvLog4GC_WebSrvClassENT.PageName = objvLog4GC_WebSrvClassENS.PageName; //页�
 objvLog4GC_WebSrvClassENT.FuncModuleAgcId = objvLog4GC_WebSrvClassENS.FuncModuleAgcId; //功能模块Id
 objvLog4GC_WebSrvClassENT.FuncModuleName = objvLog4GC_WebSrvClassENS.FuncModuleName; //功能模块名称
 objvLog4GC_WebSrvClassENT.IsNeedGene = objvLog4GC_WebSrvClassENS.IsNeedGene; //是否需要生成
-objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程ID
+objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程Id
 objvLog4GC_WebSrvClassENT.PrjName = objvLog4GC_WebSrvClassENS.PrjName; //工程名称
 objvLog4GC_WebSrvClassENT.FuncNum = objvLog4GC_WebSrvClassENS.FuncNum; //函数个数
 objvLog4GC_WebSrvClassENT.GeneCodeDate = objvLog4GC_WebSrvClassENS.GeneCodeDate; //生成代码日期
@@ -1996,7 +2024,7 @@ objvLog4GC_WebSrvClassEN.IsNeedGene = objvLog4GC_WebSrvClassEN.IsNeedGene; //是
 }
 if (arrFldSet.Contains(convLog4GC_WebSrvClass.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvLog4GC_WebSrvClassEN.PrjId = objvLog4GC_WebSrvClassEN.PrjId; //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objvLog4GC_WebSrvClassEN.PrjId; //工程Id
 }
 if (arrFldSet.Contains(convLog4GC_WebSrvClass.PrjName, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -2189,6 +2217,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}", clsvLog4GC_WebSrvClassEN._CurrTabName);
 CacheHelper.Remove(strKey);
+clsvLog4GC_WebSrvClassEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -2198,6 +2227,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvLog4GC_WebSrvClassEN._RefreshTimeLst.Count == 0) return "";
+return clsvLog4GC_WebSrvClassEN._RefreshTimeLst[clsvLog4GC_WebSrvClassEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -2212,7 +2250,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -2226,10 +2264,10 @@ if (strInFldName != convLog4GC_WebSrvClass.mId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convLog4GC_WebSrvClass.AttributeName.Contains(strOutFldName) == false)
+if (convLog4GC_WebSrvClass._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convLog4GC_WebSrvClass.AttributeName));
+strInFldName, string.Join(", ", convLog4GC_WebSrvClass._AttributeName));
 throw new Exception(strMsg);
 }
 var objvLog4GC_WebSrvClass = clsvLog4GC_WebSrvClassBL.GetObjBymIdCache(lngmId);
@@ -2308,7 +2346,7 @@ public static int GetRecCountByCondCache(clsvLog4GC_WebSrvClassEN objvLog4GC_Web
 {
 List<clsvLog4GC_WebSrvClassEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvLog4GC_WebSrvClassEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convLog4GC_WebSrvClass.AttributeName)
+foreach (string strFldName in convLog4GC_WebSrvClass._AttributeName)
 {
 if (objvLog4GC_WebSrvClassCond.IsUpdated(strFldName) == false) continue;
 if (objvLog4GC_WebSrvClassCond.dicFldComparisonOp == null)

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvLog4GC_WebSrvClassEN
  表名:vLog4GC_WebSrvClass(00050371)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:17:44
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:33
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:日志管理(LogManage)
- 框架-层名:实体层(CS)(EntityLayer)
+ 框架-层名:实体层(CS)(EntityLayer,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -25,6 +25,7 @@ using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace AGC.Entity
 {
@@ -75,13 +76,14 @@ return new K_mId_vLog4GC_WebSrvClass(value);
 [DataContractAttribute]
 public class clsvLog4GC_WebSrvClassEN : clsEntityBase2
 {
+public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "vLog4GC_WebSrvClass"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int mintAttributeCount = 17;
-public static string[] AttributeName = new string[] {"mId", "UserId", "UserName", "WebSrvClassId", "NameSpace", "WebSrvUrl", "PageName", "FuncModuleAgcId", "FuncModuleName", "IsNeedGene", "PrjId", "PrjName", "FuncNum", "GeneCodeDate", "VersionGeneCode", "Memo", "ClsName"};
+protected const int _AttributeCount = 17;
+public static string[] _AttributeName = new string[] {"mId", "UserId", "UserName", "WebSrvClassId", "NameSpace", "WebSrvUrl", "PageName", "FuncModuleAgcId", "FuncModuleName", "IsNeedGene", "PrjId", "PrjName", "FuncNum", "GeneCodeDate", "VersionGeneCode", "Memo", "ClsName"};
 
 protected long mlngmId;    //mId
 protected string mstrUserId;    //用户Id
@@ -93,7 +95,7 @@ protected string mstrPageName;    //页面名称
 protected string mstrFuncModuleAgcId;    //功能模块Id
 protected string mstrFuncModuleName;    //功能模块名称
 protected bool mbolIsNeedGene;    //是否需要生成
-protected string mstrPrjId;    //工程ID
+protected string mstrPrjId;    //工程Id
 protected string mstrPrjName;    //工程名称
 protected int? mintFuncNum;    //函数个数
 protected string mstrGeneCodeDate;    //生成代码日期
@@ -103,7 +105,7 @@ protected string mstrClsName;    //类名
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor1)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor1)
 /// </summary>
  public clsvLog4GC_WebSrvClassEN()
  {
@@ -114,7 +116,7 @@ protected string mstrClsName;    //类名
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor2)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
 /// <param name = "lngmId">关键字:mId</param>
 public clsvLog4GC_WebSrvClassEN(long lngmId)
@@ -134,7 +136,7 @@ public static int AttributeCount
 {
 get
 {
-return mintAttributeCount;
+return _AttributeCount;
 }
 }
 public override object this[string strAttributeName]
@@ -304,71 +306,71 @@ public object this[int intIndex]
 {
 get
 {
-if (convLog4GC_WebSrvClass.mId  ==  AttributeName[intIndex])
+if (convLog4GC_WebSrvClass.mId  ==  _AttributeName[intIndex])
 {
 return mlngmId;
 }
-else if (convLog4GC_WebSrvClass.UserId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.UserId  ==  _AttributeName[intIndex])
 {
 return mstrUserId;
 }
-else if (convLog4GC_WebSrvClass.UserName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.UserName  ==  _AttributeName[intIndex])
 {
 return mstrUserName;
 }
-else if (convLog4GC_WebSrvClass.WebSrvClassId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.WebSrvClassId  ==  _AttributeName[intIndex])
 {
 return mstrWebSrvClassId;
 }
-else if (convLog4GC_WebSrvClass.NameSpace  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.NameSpace  ==  _AttributeName[intIndex])
 {
 return mstrNameSpace;
 }
-else if (convLog4GC_WebSrvClass.WebSrvUrl  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.WebSrvUrl  ==  _AttributeName[intIndex])
 {
 return mstrWebSrvUrl;
 }
-else if (convLog4GC_WebSrvClass.PageName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PageName  ==  _AttributeName[intIndex])
 {
 return mstrPageName;
 }
-else if (convLog4GC_WebSrvClass.FuncModuleAgcId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncModuleAgcId  ==  _AttributeName[intIndex])
 {
 return mstrFuncModuleAgcId;
 }
-else if (convLog4GC_WebSrvClass.FuncModuleName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncModuleName  ==  _AttributeName[intIndex])
 {
 return mstrFuncModuleName;
 }
-else if (convLog4GC_WebSrvClass.IsNeedGene  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.IsNeedGene  ==  _AttributeName[intIndex])
 {
 return mbolIsNeedGene;
 }
-else if (convLog4GC_WebSrvClass.PrjId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
 }
-else if (convLog4GC_WebSrvClass.PrjName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PrjName  ==  _AttributeName[intIndex])
 {
 return mstrPrjName;
 }
-else if (convLog4GC_WebSrvClass.FuncNum  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncNum  ==  _AttributeName[intIndex])
 {
 return mintFuncNum;
 }
-else if (convLog4GC_WebSrvClass.GeneCodeDate  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.GeneCodeDate  ==  _AttributeName[intIndex])
 {
 return mstrGeneCodeDate;
 }
-else if (convLog4GC_WebSrvClass.VersionGeneCode  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.VersionGeneCode  ==  _AttributeName[intIndex])
 {
 return mstrVersionGeneCode;
 }
-else if (convLog4GC_WebSrvClass.Memo  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.Memo  ==  _AttributeName[intIndex])
 {
 return mstrMemo;
 }
-else if (convLog4GC_WebSrvClass.ClsName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.ClsName  ==  _AttributeName[intIndex])
 {
 return mstrClsName;
 }
@@ -376,87 +378,87 @@ return null;
 }
 set
 {
-if (convLog4GC_WebSrvClass.mId  ==  AttributeName[intIndex])
+if (convLog4GC_WebSrvClass.mId  ==  _AttributeName[intIndex])
 {
 mlngmId = TransNullToInt(value.ToString());
  AddUpdatedFld(convLog4GC_WebSrvClass.mId);
 }
-else if (convLog4GC_WebSrvClass.UserId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.UserId  ==  _AttributeName[intIndex])
 {
 mstrUserId = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.UserId);
 }
-else if (convLog4GC_WebSrvClass.UserName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.UserName  ==  _AttributeName[intIndex])
 {
 mstrUserName = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.UserName);
 }
-else if (convLog4GC_WebSrvClass.WebSrvClassId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.WebSrvClassId  ==  _AttributeName[intIndex])
 {
 mstrWebSrvClassId = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.WebSrvClassId);
 }
-else if (convLog4GC_WebSrvClass.NameSpace  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.NameSpace  ==  _AttributeName[intIndex])
 {
 mstrNameSpace = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.NameSpace);
 }
-else if (convLog4GC_WebSrvClass.WebSrvUrl  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.WebSrvUrl  ==  _AttributeName[intIndex])
 {
 mstrWebSrvUrl = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.WebSrvUrl);
 }
-else if (convLog4GC_WebSrvClass.PageName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PageName  ==  _AttributeName[intIndex])
 {
 mstrPageName = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.PageName);
 }
-else if (convLog4GC_WebSrvClass.FuncModuleAgcId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncModuleAgcId  ==  _AttributeName[intIndex])
 {
 mstrFuncModuleAgcId = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.FuncModuleAgcId);
 }
-else if (convLog4GC_WebSrvClass.FuncModuleName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncModuleName  ==  _AttributeName[intIndex])
 {
 mstrFuncModuleName = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.FuncModuleName);
 }
-else if (convLog4GC_WebSrvClass.IsNeedGene  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.IsNeedGene  ==  _AttributeName[intIndex])
 {
 mbolIsNeedGene = TransNullToBool(value.ToString());
  AddUpdatedFld(convLog4GC_WebSrvClass.IsNeedGene);
 }
-else if (convLog4GC_WebSrvClass.PrjId  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.PrjId);
 }
-else if (convLog4GC_WebSrvClass.PrjName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.PrjName  ==  _AttributeName[intIndex])
 {
 mstrPrjName = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.PrjName);
 }
-else if (convLog4GC_WebSrvClass.FuncNum  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.FuncNum  ==  _AttributeName[intIndex])
 {
 mintFuncNum = TransNullToInt(value.ToString());
  AddUpdatedFld(convLog4GC_WebSrvClass.FuncNum);
 }
-else if (convLog4GC_WebSrvClass.GeneCodeDate  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.GeneCodeDate  ==  _AttributeName[intIndex])
 {
 mstrGeneCodeDate = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.GeneCodeDate);
 }
-else if (convLog4GC_WebSrvClass.VersionGeneCode  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.VersionGeneCode  ==  _AttributeName[intIndex])
 {
 mstrVersionGeneCode = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.VersionGeneCode);
 }
-else if (convLog4GC_WebSrvClass.Memo  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.Memo  ==  _AttributeName[intIndex])
 {
 mstrMemo = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.Memo);
 }
-else if (convLog4GC_WebSrvClass.ClsName  ==  AttributeName[intIndex])
+else if (convLog4GC_WebSrvClass.ClsName  ==  _AttributeName[intIndex])
 {
 mstrClsName = value.ToString();
  AddUpdatedFld(convLog4GC_WebSrvClass.ClsName);
@@ -709,7 +711,7 @@ set
 }
 }
 /// <summary>
-/// 工程ID(说明:;字段类型:char;字段长度:4;是否可空:False)
+/// 工程Id(说明:;字段类型:char;字段长度:4;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -885,7 +887,7 @@ else
 
 /// <summary>
 /// 获取关键字Id(keyId)
- /// (AutoGCLib.clsGeneCodeBase:GenGetKeyId)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetKeyId)
 /// </summary>
  public override string _KeyId
  {
@@ -903,7 +905,7 @@ public static class convLog4GC_WebSrvClass
 {
 public const string _CurrTabName = "vLog4GC_WebSrvClass"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] AttributeName = new string[] {"mId", "UserId", "UserName", "WebSrvClassId", "NameSpace", "WebSrvUrl", "PageName", "FuncModuleAgcId", "FuncModuleName", "IsNeedGene", "PrjId", "PrjName", "FuncNum", "GeneCodeDate", "VersionGeneCode", "Memo", "ClsName"};
+public static string[] _AttributeName = new string[] {"mId", "UserId", "UserName", "WebSrvClassId", "NameSpace", "WebSrvUrl", "PageName", "FuncModuleAgcId", "FuncModuleName", "IsNeedGene", "PrjId", "PrjName", "FuncNum", "GeneCodeDate", "VersionGeneCode", "Memo", "ClsName"};
 //以下是属性变量
 
 
@@ -971,7 +973,7 @@ public static string[] AttributeName = new string[] {"mId", "UserId", "UserName"
  /// 常量:"PrjId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string PrjId = "PrjId";    //工程ID
+ public const string PrjId = "PrjId";    //工程Id
 
  /// <summary>
  /// 常量:"PrjName"

@@ -909,7 +909,7 @@ namespace AutoGCLib
 
         public string Gen_WApi_Ts_SetBindDdl4FeatureRegion()
         {
-            string strFuncName = "";
+            string strFuncName = "Temp";
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
@@ -1336,7 +1336,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
                 strCodeForCs.AppendFormat("\r\n * 每页记录数,在扩展类可以修改");
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "public get pageSize():number {");
-                strCodeForCs.Append("\r\n" + "return 5;");
+                strCodeForCs.Append("\r\n" + "return this._pageSize ?? 10;");
                 strCodeForCs.Append("\r\n" + "}");
 
                 strCodeForCs.Append("\r\n" + "public recCount = 0;");
@@ -2919,7 +2919,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
                 strTabName_Copy = strTabName_Copy.Substring(1);
             }
             StringBuilder strCodeForCs = new StringBuilder();
-            string strFuncName = "";
+            string strFuncName = "CopyRecord";
             try
             {
 
@@ -3293,6 +3293,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
 
             strCodeForCs.AppendFormat("\r\n" + "public async BindGv_{0}(divList: HTMLDivElement) ",
                 TabName_Out4ListRegion4GC);
+            strFuncName = string.Format("BindGv_{0}", TabName_Out4ListRegion4GC);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.BindGv_{0}.name;", TabName_Out4ListRegion4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (viewVarSet.sort{0}By == null)", TabName_Out4ListRegion4GC, ThisClsName);
@@ -9993,7 +9994,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_btnCopyRecord_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            string strFuncName = "";
+            string strFuncName = "btnCopyRecord_Click";
             if (strFuncName4BindGv == "") return "";
             if (objPrjTabEx_ListRegion == null) return "";
             if (objPrjTabEx_ListRegion.arrKeyFldSet.Count > 1)

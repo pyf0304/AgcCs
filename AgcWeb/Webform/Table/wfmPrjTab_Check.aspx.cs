@@ -371,7 +371,7 @@ namespace AGC.Webform
             Session.Add("TabId", strTabId);
             string strFileFolder = Server.MapPath("~");
 
-            clsPrjTabFldBLEx.ReNumber(strTabId);
+            clsPrjTabFldBLEx.ReNumber(strTabId, clsCommonSession.UserId);
             Response.Redirect("wfmPrjTabFld_QUDI.aspx");
         }
 

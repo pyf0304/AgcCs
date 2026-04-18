@@ -878,8 +878,10 @@ namespace AGC.PureClassEx
                     if (objDetailRegionFldsEx.IsUseFunc_PC() == true)
                     {
                         objASPLabelEx.CtrlId = string.Format("lbl{0}_d", objDetailRegionFldsEx.DataPropertyName_PC());
-                        objASPLabelEx.Text=$"{{{{ {clsString.FstLcaseS( objDetailRegionFldsEx.DataPropertyName_PC())} }}}}";
-
+                        if (objDetailRegionFldsEx.DataPropertyName_PC() != null)
+                        {
+                            objASPLabelEx.Text = $"{{{{ {clsString.FstLcaseS(objDetailRegionFldsEx.DataPropertyName_PC())} }}}}";
+                        }
                     }
                     else
                     {

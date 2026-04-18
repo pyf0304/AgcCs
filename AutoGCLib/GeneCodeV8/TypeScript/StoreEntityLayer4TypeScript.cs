@@ -266,6 +266,7 @@ namespace AutoGCLib
                        ThisTabName4GC,
                         objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType);
                 strCodeForCs.Append("\r\n{");
+                strFuncName = $"enum{ThisTabName4GC}";
 
                 foreach (DataRow objRow in objDT.Rows)
                 {
@@ -282,6 +283,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n export enum enum{0} ",
                 ThisTabName4GC,
                 objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType);
+                strFuncName = $"enum{ThisTabName4GC}";
                 strCodeForCs.Append("\r\n{");
 
                 foreach (DataRow objRow in objDT.Rows)

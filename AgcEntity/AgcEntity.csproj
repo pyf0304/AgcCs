@@ -275,6 +275,8 @@
     <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaENEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFunctionENEx.cs" />
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskENEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskRegionENEx.cs" />
     <Compile Include="Class\PrjInterface\clsCtlTypeENEx.cs" />
     <Compile Include="Class\PrjInterface\clsDataGridStyleENEx.cs" />
     <Compile Include="Class\PrjInterface\clsDDLItemsOptionENEx.cs" />
@@ -515,6 +517,9 @@
     <Compile Include="Class\WorkFlow\clswf_StepPointRelaENEx.cs" />
     <Compile Include="Class\WorkFlow\clswf_StepProcessRelaENEx.cs" />
     <Compile Include="Class\WorkFlow\clswf_WorkFlowENEx.cs" />
+    <Compile Include="DTO\CopyViewTaskDto.cs" />
+    <Compile Include="DTO\CopyViewWithRegionsResultDto.cs" />
+    <Compile Include="DTO\StartOrResumeCopyTaskResultDto.cs" />
     <Compile Include="OracleModule\clsALL_TAB_COLUMNSEN.cs" />
     <Compile Include="OracleModule\clsALL_VIEWSEN.cs" />
     <Compile Include="OracleModule\clsUser_Tab_ColumnsEN.cs" />

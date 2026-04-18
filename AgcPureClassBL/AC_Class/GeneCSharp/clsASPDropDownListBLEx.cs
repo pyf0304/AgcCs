@@ -1095,6 +1095,12 @@ namespace AGC.PureClassEx
             {
                 objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objViewFeatureFldsEx.DsTabId,
                     objViewFeatureFldsEx.ObjFieldTabENEx.PrjId);
+                if (objASPDropDownListEx.objPrjTab_CodeTab == null)
+                {
+                    //显示出错信息
+                    string strMsg = $"下拉框：{objASPDropDownListEx.FldName}对应的数据源Id:{objViewFeatureFldsEx.DsTabId}不存在，请检查！";
+                    throw new Exception(strMsg);
+                }
                 //objASPDropDownListEx.objFieldTab_ValueField =
                 //    string.IsNullOrEmpty(objViewFeatureFldsEx.DsDataValueFieldId)?null:
                 //    objGetTabFieldObj.GetObjByFldId(objViewFeatureFldsEx.DsDataValueFieldId,                    objViewFeatureFldsEx.ObjFieldTab_PC().PrjId);

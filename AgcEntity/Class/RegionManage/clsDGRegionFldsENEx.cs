@@ -57,6 +57,7 @@ namespace AGC.Entity
         {
             get
             {
+                if (this.ObjFieldTabENEx == null) return "";
                 return this.ObjFieldTabENEx.FldName;
             }
         }

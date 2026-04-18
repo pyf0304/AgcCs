@@ -1,0 +1,54 @@
+﻿
+ /*-- -- -- -- -- -- -- -- -- -- --
+ 类名:clsCopyTaskRegionExWApi
+ 表名:CopyTaskRegion(00050644)
+ * 版本:2026.04.01.1(服务器:WIN-SRV103-116)
+ 日期:2026/04/05 00:49:26
+ 生成者:pyf
+ 生成服务器IP:
+ 工程名称:AGC(0005)
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
+ PrjDataBaseId:0005
+ 模块中文名:界面管理(PrjInterface)
+ 框架-层名:WA_访问扩展层(CS)(WA_AccessEx,0186)
+ 编程语言:CSharp
+ 注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
+        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
+ == == == == == == == == == == == == 
+ **/
+using System;
+using System.Data; 
+using System.Data.SqlClient;
+using System.Text; 
+using System.Web;
+using System.Collections; 
+using com.taishsoft.common;
+using System.ServiceModel;
+using AGC.Entity;
+using System.Collections.Generic;
+using com.taishsoft.json;
+using Newtonsoft.Json.Linq;
+
+namespace AGC4WApi
+{
+ /// <summary>
+ /// CopyTaskRegion(CopyTaskRegion)
+ /// (AutoGCLib.WA_AccessEx4CSharp:GeneCode)
+ /// </summary>
+public class clsCopyTaskRegionExWApi
+{
+private static readonly string mstrApiControllerName = "CopyTaskRegionExApi";
+ /// <summary>
+ /// 静态的对象列表,用于缓存,针对记录较少,作为参数表可以使用
+ /// (AutoGCLib.WA_AccessEx4CSharp:GeneCode)
+ /// </summary>
+public static List<clsCopyTaskRegionEN> arrCopyTaskRegionObjLstCache = null;
+ /// <summary>
+ /// 从缓存中查找失败的次数
+ /// (AutoGCLib.WA_AccessEx4CSharp:GeneCode)
+ /// </summary>
+protected static int intFindFailCount = 0;
+
+}
+}

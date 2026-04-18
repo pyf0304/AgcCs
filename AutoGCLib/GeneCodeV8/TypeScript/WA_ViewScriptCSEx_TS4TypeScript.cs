@@ -385,7 +385,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * 每页记录数,在扩展类可以修改");
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "public get pageSize():number {");
-                strCodeForCs.Append("\r\n" + "return 10;");
+                strCodeForCs.Append("\r\n" + "return this._pageSize ?? 10;");
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "");
         

@@ -380,7 +380,7 @@ namespace AGC.Webform
                 switch (strCommandName)
                 {
                     case "Delete":
-                        clsPrjTabFldBLEx.DelRecordEx(lngMId);
+                        clsPrjTabFldBLEx.DelRecordEx(lngMId, clsCommonSession.UserId);
                         BindGv_PrjTabFld();
                         break;
                     // Add other cases here, if there are multiple ButtonColumns in 
@@ -609,7 +609,7 @@ namespace AGC.Webform
             //1、显示该关键字的数据让用户修改该关键字记录；
             long lngmId;
             lngmId = long.Parse(strmId);
-            clsPrjTabFldBLEx.DelRecordEx(lngmId);
+            clsPrjTabFldBLEx.DelRecordEx(lngmId, clsCommonSession.UserId);
             BindGv_PrjTabFld();
         }
 
@@ -1164,7 +1164,7 @@ namespace AGC.Webform
                 intNewSeqNum = int.Parse(txtRecSeqNum.Text);
             }
             string strFileFolder = Server.MapPath("~");
-            bool bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(clsCommonSession.TabId, intSeqNum, intNewSeqNum));
+            bool bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(clsCommonSession.TabId, intSeqNum, intNewSeqNum, clsCommonSession.UserId));
             if (bolIsSuccess == true)
             {
                 BindGv_PrjTabFld();

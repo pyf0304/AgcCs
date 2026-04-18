@@ -67,7 +67,7 @@ namespace AGC
         {
             clsPrjDataBaseEN objPrjDataBaseEN = clsPrjDataBaseWApi.GetObjByPrjDataBaseIdCache(clsPubVar.CurrPrjDataBaseId);
 
-            this.Text = string.Format("界面代码生成20250705----工程：{0}({1})  数据库：{2}({3})", clsPubVar.objCurrSelProjectEN.PrjName, clsPubVar.objCurrSelProjectEN.PrjId,
+            this.Text = string.Format("界面代码生成20260329----工程：{0}({1})  数据库：{2}({3})", clsPubVar.objCurrSelProjectEN.PrjName, clsPubVar.objCurrSelProjectEN.PrjId,
                                 objPrjDataBaseEN.PrjDataBaseName, objPrjDataBaseEN.PrjDataBaseId);
 
             // 在此处放置用户代码以初始化页面
@@ -1576,7 +1576,7 @@ namespace AGC
                     {
                         arrTabId4Rela.Add(strTabId_in);
                     }
-                    clsvPrjTab_SimEN objPrjTabEN = clsvPrjTab_SimWApi.GetObjByTabIdCache(strTabId_in, strCmPrjId);
+                    clsvPrjTab_SimEN objPrjTabEN = clsvPrjTab_SimWApi.GetObjByTabIdCache(strTabId_in, clsPubVar.CurrSelPrjId);
                     sbLog4GeneFile.AppendFormat("{2}、表:{0}({1})\r\n",
                         objPrjTabEN.TabId, objPrjTabEN.TabName, intIndex);
                 }

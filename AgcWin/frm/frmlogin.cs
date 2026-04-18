@@ -249,7 +249,7 @@ namespace AGC_CSWin
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(119, 14);
             this.label7.TabIndex = 25;
-            this.label7.Text = "Version 20250705";
+            this.label7.Text = "Version 20260329";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
@@ -322,7 +322,7 @@ namespace AGC_CSWin
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "系统登陆界面20250705";
+            this.Text = "系统登陆界面20260329";
             this.Load += new System.EventHandler(this.frmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

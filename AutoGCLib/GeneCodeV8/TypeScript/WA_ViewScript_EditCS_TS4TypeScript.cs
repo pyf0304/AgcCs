@@ -1312,18 +1312,21 @@ this.TabName_In4Edit4GC)
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
             }
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            if (string.IsNullOrEmpty(strFuncName) == false)
             {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
+                clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+                {
+                    Name = strFuncName,
+                    CodeContent = strCodeForCs.ToString(),
+                    ElementType = CodeElementType.Method,
+                    Modifiers = "public async",
+                    ReturnType = "void",
+                });
+                if (strFuncName == "")
+                {
+                    string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
             }
             return strCodeForCs.ToString();
         }

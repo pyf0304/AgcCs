@@ -496,6 +496,7 @@ namespace AutoGCLib
             string strFuncName = "";
             try
             {
+           
                 foreach (clsEditRegionFldsENEx objEditRegionFldsEx in objViewInfoENEx.arrEditRegionFldSet)
                 {
                     StringBuilder sbConstContent = new StringBuilder();
@@ -540,7 +541,14 @@ namespace AutoGCLib
                                 sbConstContent.AppendFormat("\r\n" + "const {0} = ref('');", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 break;
                         }
-
+                        strCodeForCs.Append(sbConstContent.ToString());
+                        objCodeElement_Parent.Children.Add(new CodeElement
+                        {
+                            Name = strFuncName,
+                            CodeContent = sbConstContent.ToString(),
+                            ElementType = CodeElementType.RefConstant,
+                            Modifiers = "export const"
+                        });
                         continue;
                     }
                     try

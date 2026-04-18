@@ -1027,7 +1027,7 @@ namespace AGC.BusinessLogicEx
                 }
                 if (objvPrjTabFldT.IsTabNullable != bolIs_Nullable_SQL)
                 {
-                    clsPrjTabFldEN objPrjTabFldEN = new clsPrjTabFldEN(objvPrjTabFldT.mId);
+                    clsPrjTabFldEN objPrjTabFldEN =  clsPrjTabFldBL.GetObjBymId(objvPrjTabFldT.mId);
 
                     objPrjTabFldEN.IsTabNullable = bolIs_Nullable_SQL;
                     objPrjTabFldEN.PrjId = objPrjTabENEx.PrjId;
@@ -1276,24 +1276,30 @@ namespace AGC.BusinessLogicEx
                             throw new Exception(objTabCheckStatusEN.ErrorMsg);
                         case enumPrimaryType.Identity_02:
                             //List<string> arr = clsPrjConstraintBLEx.GetObjLstByTabName();
-                            bolIsSuccess = clsPrjConstraintBLEx.CheckUniqueness(strTabId, strPrjId);
-                            if (bolIsSuccess == false)
+                            if (objPrjTabEN.SqlDsTypeId == enumSQLDSType.SqlTab_01)
                             {
-                                objTabCheckStatusEN.AddErrMsg($"表[{objPrjTabEN.TabName}]主键类型为Identity, 但表没有相关约束!");
-                                objPrjTabFldEN.ErrMsg = $"表[{objPrjTabEN.TabName}]主键类型为Identity, 但表没有相关约束!";
-                                objPrjTabFldEN.Update();
-                                throw new Exception(objTabCheckStatusEN.ErrorMsg);
+                                bolIsSuccess = clsPrjConstraintBLEx.CheckUniqueness(strTabId, strPrjId);
+                                if (bolIsSuccess == false)
+                                {
+                                    objTabCheckStatusEN.AddErrMsg($"表[{objPrjTabEN.TabName}]主键类型为Identity, 但表没有相关约束!");
+                                    objPrjTabFldEN.ErrMsg = $"表[{objPrjTabEN.TabName}]主键类型为Identity, 但表没有相关约束!";
+                                    objPrjTabFldEN.Update();
+                                    throw new Exception(objTabCheckStatusEN.ErrorMsg);
+                                }
                             }
                             break;
                         case enumPrimaryType.StringAutoAddPrimaryKey_03:
                             //List<string> arr = clsPrjConstraintBLEx.GetObjLstByTabName();
-                            bolIsSuccess = clsPrjConstraintBLEx.CheckUniqueness(strTabId, strPrjId);
-                            if (bolIsSuccess == false)
+                            if (objPrjTabEN.SqlDsTypeId == enumSQLDSType.SqlTab_01)
                             {
-                                objTabCheckStatusEN.AddErrMsg($"表[{objPrjTabEN.TabName}]主键类型为自动增加字符串, 但表没有相关约束!");
-                                objPrjTabFldEN.ErrMsg = $"表[{objPrjTabEN.TabName}]主键类型为自动增加字符串, 但表没有相关约束!";
-                                objPrjTabFldEN.Update();
-                                throw new Exception(objTabCheckStatusEN.ErrorMsg);
+                                 bolIsSuccess = clsPrjConstraintBLEx.CheckUniqueness(strTabId, strPrjId);
+                                if (bolIsSuccess == false)
+                                {
+                                    objTabCheckStatusEN.AddErrMsg($"表[{objPrjTabEN.TabName}]主键类型为自动增加字符串, 但表没有相关约束!");
+                                    objPrjTabFldEN.ErrMsg = $"表[{objPrjTabEN.TabName}]主键类型为自动增加字符串, 但表没有相关约束!";
+                                    objPrjTabFldEN.Update();
+                                    throw new Exception(objTabCheckStatusEN.ErrorMsg);
+                                }
                             }
                             break;
                         default:

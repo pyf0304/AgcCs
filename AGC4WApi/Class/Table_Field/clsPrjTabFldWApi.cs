@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabFldWApi
  表名:PrjTabFld(00050019)
- * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
- 日期:2026/03/07 22:18:54
+ * 版本:2026.04.01.1(服务器:WIN-SRV103-116)
+ 日期:2026/04/05 00:50:17
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -688,6 +688,7 @@ return objPrjTabFldEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabFldEN SetUpdDate(this clsPrjTabFldEN objPrjTabFldEN, string strUpdDate, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdDate, conPrjTabFld.UpdDate);
 clsCheckSql.CheckFieldLen(strUpdDate, 20, conPrjTabFld.UpdDate);
 objPrjTabFldEN.UpdDate = strUpdDate; //修改日期
 if (string.IsNullOrEmpty(strComparisonOp) == false)
@@ -714,6 +715,7 @@ return objPrjTabFldEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabFldEN SetUpdUser(this clsPrjTabFldEN objPrjTabFldEN, string strUpdUser, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdUser, conPrjTabFld.UpdUser);
 clsCheckSql.CheckFieldLen(strUpdUser, 20, conPrjTabFld.UpdUser);
 objPrjTabFldEN.UpdUser = strUpdUser; //修改者
 if (string.IsNullOrEmpty(strComparisonOp) == false)

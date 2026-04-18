@@ -352,7 +352,7 @@ namespace AGC.Webform
             {
                 foreach (string strTabId in arrTabId)
                 {
-                    clsPrjTabBLEx.DelRecordEx(strTabId);
+                    clsPrjTabBLEx.DelRecordEx(strTabId, clsCommonSession.UserId);
                 }
             }
             catch (Exception objException)
@@ -441,7 +441,7 @@ namespace AGC.Webform
             Session.Add("TabId", strTabId);
             string strFileFolder = Server.MapPath("~");
 
-            clsPrjTabFldBLEx.ReNumber(strTabId);
+            clsPrjTabFldBLEx.ReNumber(strTabId, clsCommonSession.UserId);
             new clsCommonSession().BackErrPageEditFldLinkStr = Page.Request.Url.AbsolutePath;
             Response.Redirect("wfmPrjTabFld_QUDI.aspx");
         }
@@ -3297,7 +3297,7 @@ namespace AGC.Webform
             {
                 clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabId(strTabId);
                 AddSysLogForPrjTab(strTabId);
-                clsPrjTabBLEx.DelRecordEx(strTabId);
+                clsPrjTabBLEx.DelRecordEx(strTabId, clsCommonSession.UserId);
                 try
                 {
                     BindGv_vPrjTab();
@@ -3339,7 +3339,7 @@ namespace AGC.Webform
                     {
                         clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabId(strTabId);
                         AddSysLogForPrjTab(strTabId);
-                        clsPrjTabBLEx.DelRecordEx(strTabId);
+                        clsPrjTabBLEx.DelRecordEx(strTabId, clsCommonSession.UserId);
                     }
                     catch (Exception objException)
                     {

@@ -367,8 +367,8 @@
                                     <asp:CheckBoxField DataField="IsChecked" HeaderText="核实?" SortExpression="IsChecked" />
                                     <asp:BoundField DataField="IsArchive" SortExpression="IsArchive" HeaderText="是否存档"
                                         Visible="False"></asp:BoundField>
-                                    <asp:BoundField DataField="KeyFldName" SortExpression="KeyFldName" HeaderText="主键">
-                                    </asp:BoundField>
+                                 <%--   <asp:BoundField DataField="KeyFldName" SortExpression="KeyFldName" HeaderText="主键">
+                                    </asp:BoundField>--%>
                                     <asp:BoundField DataField="PrimaryTypeName" SortExpression="PrimaryTypeName" HeaderText="主键类型">
                                     </asp:BoundField>
                                     <asp:BoundField DataField="SQLDSTypeName" SortExpression="SQLDSTypeName" HeaderText="数据源类型">

@@ -910,7 +910,7 @@ namespace AGC.Webform
         {
             try
             {
-                clsPrjTabFldBLEx.DelRecordEx(lngmId);
+                clsPrjTabFldBLEx.DelRecordEx(lngmId, clsCommonSession.UserId);
             }
             catch (Exception objException)
             {
@@ -1078,7 +1078,7 @@ namespace AGC.Webform
                     }
                 }
                 clsTabCheckStatusBLEx.CheckPrjTabColumnBySQLTab(vsTabId, clsPubVar.CurrSelPrjId, clsPubVar.CurrPrjDataBaseId, true, clsCommonSession.UserId);
-                clsPrjTabBLEx.SetUpdDate(vsTabId);
+                clsPrjTabBLEx.SetUpdDate(vsTabId, clsCommonSession.UserId);
                 clsCommonJsFunc.Alert(this, "添加字段成功！");
             }
             catch (Exception objException)
@@ -1339,14 +1339,14 @@ namespace AGC.Webform
                 //1、找到所选SQL数据字段，并生成相应的类对象
                 ArrayList arrColumnsObjList = Get_GvCheckedObjArr(gvPrjTabFld_Sql);
                 //2、把类对象列表传递到表字段类中，并添加到相应的表
-                clsPrjTabFldBLEx.SynchFieldFromColumnObjList(vsTabId, arrColumnsObjList);
+                clsPrjTabFldBLEx.SynchFieldFromColumnObjList(vsTabId, arrColumnsObjList, clsCommonSession.UserId);
                 ///
                 BindGv_PrjTabFld_Agc();
                 BindGv_PrjTabFld_Sql();
 
                 clsCheckConsistency.CheckConsistency(gvPrjTabFld_Agc, gvPrjTabFld_Sql, vsTabId, clsPubVar.CurrSelPrjId);
                 clsTabCheckStatusBLEx.CheckPrjTabColumnBySQLTab(vsTabId, clsPubVar.CurrSelPrjId, clsPubVar.CurrPrjDataBaseId, true, clsCommonSession.UserId);
-                clsPrjTabBLEx.SetUpdDate(vsTabId);
+                clsPrjTabBLEx.SetUpdDate(vsTabId, clsCommonSession.UserId);
             }
             catch (Exception objException)
             {
@@ -1375,14 +1375,14 @@ namespace AGC.Webform
                     //string strObjId = clsPrjTabBLEx.GetObjByTabIdEx(objPrjTabFld.TabId).ObjId;
                     //clsFldObjTabBLEx.DelObjFld(strObjId, objPrjTabFld.FldId);
 
-                    clsPrjTabFldBLEx.DelRecordEx(lngMid);
+                    clsPrjTabFldBLEx.DelRecordEx(lngMid, clsCommonSession.UserId);
                 }
                 //3、重新检查两间之间的一致性
                 BindGv_PrjTabFld_Agc();
                 BindGv_PrjTabFld_Sql();
                 clsCheckConsistency.CheckConsistency(gvPrjTabFld_Agc, gvPrjTabFld_Sql, vsTabId, clsPubVar.CurrSelPrjId);
                 clsTabCheckStatusBLEx.CheckPrjTabColumnBySQLTab(vsTabId, clsPubVar.CurrSelPrjId, clsPubVar.CurrPrjDataBaseId, true, clsCommonSession.UserId);
-                clsPrjTabBLEx.SetUpdDate(vsTabId);
+                clsPrjTabBLEx.SetUpdDate(vsTabId, clsCommonSession.UserId);
             }
             catch (Exception objException)
             {

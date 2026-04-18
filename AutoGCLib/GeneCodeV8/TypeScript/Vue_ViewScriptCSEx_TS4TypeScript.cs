@@ -539,7 +539,7 @@ namespace AutoGCLib
                 strCodeForCs.Append(sbFuncComment);
                 StringBuilder sbFuncCode = new StringBuilder();
                 sbFuncCode.Append("\r\n" + "public get pageSize():number {");
-                sbFuncCode.Append("\r\n" + "return 10;");
+                sbFuncCode.Append("\r\n" + "return this._pageSize ?? 10;");
                 sbFuncCode.Append("\r\n" + "}");
                 strCodeForCs.Append(sbFuncCode);
                 this.objCodeElement_Class.Children.Add(new CodeElement
@@ -584,7 +584,7 @@ namespace AutoGCLib
                 sbFuncCode = new StringBuilder();
                 sbFuncCode.Append("\r\n" + "  public async InitCtlVar() : Promise<void> {");
                 sbFuncCode.Append("\r\n" + $"console.log('InitCtlVar in {ThisClsName}');");
-                sbFuncCode.Append("\r\n" + "}");
+                sbFuncCode.Append("\r\n" + "}");                
                 strCodeForCs.Append(sbFuncCode);
 
                 clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
@@ -610,7 +610,7 @@ namespace AutoGCLib
                     sbFuncCode.AppendFormat("\r\n" + "console.log(strType + strPara);", objViewInfoENEx.TabName_Out);
                     sbFuncCode.Append("\r\n" + $"{strFuncName_Temp}(divVarSet.refDivList);");
                 }
-                strCodeForCs.Append("\r\n" + "}");
+                sbFuncCode.Append("\r\n" + "}");
                 strCodeForCs.Append(sbFuncCode);
 
                 clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
@@ -976,7 +976,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "case \"Update\":            //修改记录");
                 strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex('{ThisEditClsName}Ex',objPage);//初始化编辑类,设置当前类为编辑类的父类，编辑返回的类");
                 strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
-                string strGetFirstCheckedStr = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, thisEditTabProp_TS, "修改", this, this.strBaseUrl);
+                string strGetFirstCheckedStr = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, thisEditTabProp_TS, "修改","", this, this.strBaseUrl);
                 strCodeForCs.Append("\r\n" + strGetFirstCheckedStr);
                 if (thisEditTabProp_TS.KeyFldCount > 1)
                 {

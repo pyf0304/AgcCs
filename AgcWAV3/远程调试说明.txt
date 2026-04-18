@@ -1,0 +1,7 @@
+本地调试的地址
+http://192.168.1.20:7109/ping
+远程高度的地址：
+http://tzar.ddns.net:27109/ping：针对192.168.1.20
+
+
+netsh advfirewall firewall add rule name="port7111" dir=in action=allow protocol=TCP localport=7111

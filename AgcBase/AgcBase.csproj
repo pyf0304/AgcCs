@@ -278,6 +278,8 @@
     <Compile Include="BLL_Class\PrjFunction\clsvPrjFuncTemplateRelaBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsvPrjFunctionBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsvTabFunctionPropBL.cs" />
+    <Compile Include="BLL_Class\PrjInterface\clsCopyTaskBL.cs" />
+    <Compile Include="BLL_Class\PrjInterface\clsCopyTaskRegionBL.cs" />
     <Compile Include="BLL_Class\PrjInterface\clsCtlTypeBL.cs" />
     <Compile Include="BLL_Class\PrjInterface\clsDataGridStyleBL.cs" />
     <Compile Include="BLL_Class\PrjInterface\clsDDLItemsOptionBL.cs" />
@@ -718,6 +720,8 @@
     <Compile Include="DAL_Class\PrjFunction\clsvPrjFuncTemplateRelaDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsvPrjFunctionDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsvTabFunctionPropDA.cs" />
+    <Compile Include="DAL_Class\PrjInterface\clsCopyTaskDA.cs" />
+    <Compile Include="DAL_Class\PrjInterface\clsCopyTaskRegionDA.cs" />
     <Compile Include="DAL_Class\PrjInterface\clsCtlTypeDA.cs" />
     <Compile Include="DAL_Class\PrjInterface\clsDataGridStyleDA.cs" />
     <Compile Include="DAL_Class\PrjInterface\clsDDLItemsOptionDA.cs" />
@@ -1158,6 +1162,8 @@
     <Compile Include="Entity_Class\PrjFunction\clsvPrjFuncTemplateRelaEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsvPrjFunctionEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsvTabFunctionPropEN.cs" />
+    <Compile Include="Entity_Class\PrjInterface\clsCopyTaskEN.cs" />
+    <Compile Include="Entity_Class\PrjInterface\clsCopyTaskRegionEN.cs" />
     <Compile Include="Entity_Class\PrjInterface\clsCtlTypeEN.cs" />
     <Compile Include="Entity_Class\PrjInterface\clsDataGridStyleEN.cs" />
     <Compile Include="Entity_Class\PrjInterface\clsDDLItemsOptionEN.cs" />

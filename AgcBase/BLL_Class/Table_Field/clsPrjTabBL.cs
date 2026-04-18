@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabBL
  表名:PrjTab(00050009)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:32
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:13
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -1166,6 +1166,7 @@ return objPrjTabEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabEN SetUpdUserId(this clsPrjTabEN objPrjTabEN, string strUpdUserId, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdUserId, conPrjTab.UpdUserId);
 if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldLen(strUpdUserId, 20, conPrjTab.UpdUserId);
@@ -1194,6 +1195,7 @@ return objPrjTabEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabEN SetUpdDate(this clsPrjTabEN objPrjTabEN, string strUpdDate, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdDate, conPrjTab.UpdDate);
 if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldLen(strUpdDate, 20, conPrjTab.UpdDate);
@@ -2686,8 +2688,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -2780,8 +2782,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -2858,8 +2860,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3004,8 +3006,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3082,8 +3084,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3204,8 +3206,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3282,8 +3284,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3374,8 +3376,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3455,8 +3457,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -3531,8 +3533,8 @@ objPrjTabEN.TabRecNum = objRow[conPrjTab.TabRecNum] == DBNull.Value ? (int?)null
 objPrjTabEN.KeyId4Test = objRow[conPrjTab.KeyId4Test] == DBNull.Value ? null : objRow[conPrjTab.KeyId4Test].ToString().Trim(); //测试关键字Id
 objPrjTabEN.ErrMsg = objRow[conPrjTab.ErrMsg] == DBNull.Value ? null : objRow[conPrjTab.ErrMsg].ToString().Trim(); //错误信息
 objPrjTabEN.FldNum = objRow[conPrjTab.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.FldNum].ToString().Trim()); //字段数
-objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId] == DBNull.Value ? null : objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
-objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate] == DBNull.Value ? null : objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
+objPrjTabEN.UpdUserId = objRow[conPrjTab.UpdUserId].ToString().Trim(); //修改用户Id
+objPrjTabEN.UpdDate = objRow[conPrjTab.UpdDate].ToString().Trim(); //修改日期
 objPrjTabEN.Memo = objRow[conPrjTab.Memo] == DBNull.Value ? null : objRow[conPrjTab.Memo].ToString().Trim(); //说明
 objPrjTabEN.OrderNum4Refer = objRow[conPrjTab.OrderNum4Refer] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTab.OrderNum4Refer].ToString().Trim()); //引用序号
 objPrjTabEN.IsChecked = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsChecked].ToString().Trim()); //是否核实
@@ -4496,11 +4498,11 @@ objPrjTabEN.FldNum = objPrjTabEN.FldNum; //字段数
 }
 if (arrFldSet.Contains(conPrjTab.UpdUserId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objPrjTabEN.UpdUserId = objPrjTabEN.UpdUserId == "[null]" ? null :  objPrjTabEN.UpdUserId; //修改用户Id
+objPrjTabEN.UpdUserId = objPrjTabEN.UpdUserId; //修改用户Id
 }
 if (arrFldSet.Contains(conPrjTab.UpdDate, new clsStrCompareIgnoreCase())  ==  true)
 {
-objPrjTabEN.UpdDate = objPrjTabEN.UpdDate == "[null]" ? null :  objPrjTabEN.UpdDate; //修改日期
+objPrjTabEN.UpdDate = objPrjTabEN.UpdDate; //修改日期
 }
 if (arrFldSet.Contains(conPrjTab.Memo, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -4586,8 +4588,6 @@ if (objPrjTabEN.WhereFormat == "[null]") objPrjTabEN.WhereFormat = null; //缓�
 if (objPrjTabEN.WhereFormatBack == "[null]") objPrjTabEN.WhereFormatBack = null; //后台缓存条件格式
 if (objPrjTabEN.KeyId4Test == "[null]") objPrjTabEN.KeyId4Test = null; //测试关键字Id
 if (objPrjTabEN.ErrMsg == "[null]") objPrjTabEN.ErrMsg = null; //错误信息
-if (objPrjTabEN.UpdUserId == "[null]") objPrjTabEN.UpdUserId = null; //修改用户Id
-if (objPrjTabEN.UpdDate == "[null]") objPrjTabEN.UpdDate = null; //修改日期
 if (objPrjTabEN.Memo == "[null]") objPrjTabEN.Memo = null; //说明
 if (objPrjTabEN.Owner == "[null]") objPrjTabEN.Owner = null; //拥有者
 if (objPrjTabEN.TabEnName == "[null]") objPrjTabEN.TabEnName = null; //表英文详细名
@@ -4935,7 +4935,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -5310,9 +5310,9 @@ public static string GetCode4CreateTable()
  // /**字段数*/ 
  strCreateTabCode.Append(" FldNum int Null, "); 
  // /**修改用户Id*/ 
- strCreateTabCode.Append(" UpdUserId varchar(20) Null, "); 
+ strCreateTabCode.Append(" UpdUserId varchar(20) not Null, "); 
  // /**修改日期*/ 
- strCreateTabCode.Append(" UpdDate varchar(20) Null, "); 
+ strCreateTabCode.Append(" UpdDate varchar(20) not Null, "); 
  // /**说明*/ 
  strCreateTabCode.Append(" Memo varchar(1000) Null, "); 
  // /**引用序号*/ 

@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabFldDA
  表名:PrjTabFld(00050019)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:43
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:16
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -522,8 +522,8 @@ objPrjTabFldEN.FldOpTypeId = objRow[conPrjTabFld.FldOpTypeId].ToString().Trim();
 objPrjTabFldEN.SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()); //顺序号
 objPrjTabFldEN.MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(); //表中说明
 objPrjTabFldEN.ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(); //错误信息
-objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
-objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
+objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
+objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
 objPrjTabFldEN.Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim(); //说明
 }
  catch(Exception objException)
@@ -595,8 +595,8 @@ objPrjTabFldEN.FldOpTypeId = objRow[conPrjTabFld.FldOpTypeId].ToString().Trim();
 objPrjTabFldEN.SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()); //顺序号
 objPrjTabFldEN.MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(); //表中说明
 objPrjTabFldEN.ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(); //错误信息
-objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
-objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
+objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
+objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
 objPrjTabFldEN.Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim(); //说明
 }
  catch(Exception objException)
@@ -716,8 +716,8 @@ try
  objPrjTabFldEN.SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()); //顺序号(字段类型:int,字段长度:4,是否可空:True)
  objPrjTabFldEN.MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(); //表中说明(字段类型:varchar,字段长度:1000,是否可空:True)
  objPrjTabFldEN.ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(); //错误信息(字段类型:varchar,字段长度:2000,是否可空:True)
- objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
- objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
+ objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
+ objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
  objPrjTabFldEN.Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim(); //说明(字段类型:varchar,字段长度:1000,是否可空:True)
 }
  catch(Exception objException)
@@ -784,8 +784,8 @@ FldOpTypeId = objRow[conPrjTabFld.FldOpTypeId].ToString().Trim(), //字段操作
 SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()), //顺序号
 MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(), //表中说明
 ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(), //错误信息
-UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(), //修改日期
-UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(), //修改者
+UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(), //修改日期
+UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(), //修改者
 Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim() //说明
 };
 objPrjTabFldEN.ClearUpdateState();//清除修改状态,即清除脏字段信息
@@ -836,8 +836,8 @@ objPrjTabFldEN.FldOpTypeId = objRow[conPrjTabFld.FldOpTypeId].ToString().Trim();
 objPrjTabFldEN.SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()); //顺序号
 objPrjTabFldEN.MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(); //表中说明
 objPrjTabFldEN.ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(); //错误信息
-objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
-objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
+objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
+objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
 objPrjTabFldEN.Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim(); //说明
 }
  catch(Exception objException)
@@ -886,8 +886,8 @@ objPrjTabFldEN.FldOpTypeId = objRow[conPrjTabFld.FldOpTypeId].ToString().Trim();
 objPrjTabFldEN.SequenceNumber = objRow[conPrjTabFld.SequenceNumber] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conPrjTabFld.SequenceNumber].ToString().Trim()); //顺序号
 objPrjTabFldEN.MemoInTab = objRow[conPrjTabFld.MemoInTab] == DBNull.Value ? null : objRow[conPrjTabFld.MemoInTab].ToString().Trim(); //表中说明
 objPrjTabFldEN.ErrMsg = objRow[conPrjTabFld.ErrMsg] == DBNull.Value ? null : objRow[conPrjTabFld.ErrMsg].ToString().Trim(); //错误信息
-objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate] == DBNull.Value ? null : objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
-objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser] == DBNull.Value ? null : objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
+objPrjTabFldEN.UpdDate = objRow[conPrjTabFld.UpdDate].ToString().Trim(); //修改日期
+objPrjTabFldEN.UpdUser = objRow[conPrjTabFld.UpdUser].ToString().Trim(); //修改者
 objPrjTabFldEN.Memo = objRow[conPrjTabFld.Memo] == DBNull.Value ? null : objRow[conPrjTabFld.Memo].ToString().Trim(); //说明
 }
  catch(Exception objException)
@@ -1171,14 +1171,8 @@ objRow[conPrjTabFld.MemoInTab] = objPrjTabFldEN.MemoInTab; //表中说明
  {
 objRow[conPrjTabFld.ErrMsg] = objPrjTabFldEN.ErrMsg; //错误信息
  }
- if (objPrjTabFldEN.UpdDate !=  "")
- {
 objRow[conPrjTabFld.UpdDate] = objPrjTabFldEN.UpdDate; //修改日期
- }
- if (objPrjTabFldEN.UpdUser !=  "")
- {
 objRow[conPrjTabFld.UpdUser] = objPrjTabFldEN.UpdUser; //修改者
- }
  if (objPrjTabFldEN.Memo !=  "")
  {
 objRow[conPrjTabFld.Memo] = objPrjTabFldEN.Memo; //说明
@@ -3924,6 +3918,8 @@ clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.IsTabNullable, conPrjTabFld.IsTabNu
 clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.IsForExtendClass, conPrjTabFld.IsForExtendClass);
 clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.PrimaryTypeId, conPrjTabFld.PrimaryTypeId);
 clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.FldOpTypeId, conPrjTabFld.FldOpTypeId);
+clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.UpdDate, conPrjTabFld.UpdDate);
+clsCheckSql.CheckFieldNotNull(objPrjTabFldEN.UpdUser, conPrjTabFld.UpdUser);
 //检查字段长度
 clsCheckSql.CheckFieldLen(objPrjTabFldEN.TabId, 8, conPrjTabFld.TabId);
 clsCheckSql.CheckFieldLen(objPrjTabFldEN.FldId, 8, conPrjTabFld.FldId);

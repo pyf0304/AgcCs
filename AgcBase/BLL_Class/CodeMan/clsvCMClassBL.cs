@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvCMClassBL
  表名:vCMClass(00050506)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:18:05
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:45
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -655,7 +655,7 @@ if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldForeignKey(strPrjId, 4, convCMClass.PrjId);
 }
-objvCMClassEN.PrjId = strPrjId; //工程ID
+objvCMClassEN.PrjId = strPrjId; //工程Id
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objvCMClassEN.dicFldComparisonOp.ContainsKey(convCMClass.PrjId) == false)
@@ -830,6 +830,35 @@ objvCMClassEN.dicFldComparisonOp[convCMClass.FuncNum] = strComparisonOp;
 }
 return objvCMClassEN;
 	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objvCMClassEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsvCMClassEN SetClsName(this clsvCMClassEN objvCMClassEN, string strClsName, string strComparisonOp="")
+	{
+clsCheckSql.CheckFieldNotNull(strClsName, convCMClass.ClsName);
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strClsName, 100, convCMClass.ClsName);
+}
+objvCMClassEN.ClsName = strClsName; //类名
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objvCMClassEN.dicFldComparisonOp.ContainsKey(convCMClass.ClsName) == false)
+{
+objvCMClassEN.dicFldComparisonOp.Add(convCMClass.ClsName, strComparisonOp);
+}
+else
+{
+objvCMClassEN.dicFldComparisonOp[convCMClass.ClsName] = strComparisonOp;
+}
+}
+return objvCMClassEN;
+	}
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
@@ -861,7 +890,7 @@ objvCMClassENT.CodeTypeId = objvCMClassENS.CodeTypeId; //代码类型Id
 objvCMClassENT.CodeTypeName = objvCMClassENS.CodeTypeName; //代码类型名
 objvCMClassENT.CodeTypeSimName = objvCMClassENS.CodeTypeSimName; //简称
 objvCMClassENT.UserId = objvCMClassENS.UserId; //用户Id
-objvCMClassENT.PrjId = objvCMClassENS.PrjId; //工程ID
+objvCMClassENT.PrjId = objvCMClassENS.PrjId; //工程Id
 objvCMClassENT.PrjName = objvCMClassENS.PrjName; //工程名称
 objvCMClassENT.IsOpen = objvCMClassENS.IsOpen; //是否开放
 objvCMClassENT.UpdDate = objvCMClassENS.UpdDate; //修改日期
@@ -911,7 +940,7 @@ CodeTypeId = objvCMClassENS.CodeTypeId, //代码类型Id
 CodeTypeName = objvCMClassENS.CodeTypeName, //代码类型名
 CodeTypeSimName = objvCMClassENS.CodeTypeSimName, //简称
 UserId = objvCMClassENS.UserId, //用户Id
-PrjId = objvCMClassENS.PrjId, //工程ID
+PrjId = objvCMClassENS.PrjId, //工程Id
 PrjName = objvCMClassENS.PrjName, //工程名称
 IsOpen = objvCMClassENS.IsOpen, //是否开放
 UpdDate = objvCMClassENS.UpdDate, //修改日期
@@ -1453,7 +1482,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1529,7 +1558,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1589,7 +1618,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1619,7 +1648,7 @@ public static IEnumerable<clsvCMClassEN> GetSubObjLstCache(clsvCMClassEN objvCMC
 {
 List<clsvCMClassEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvCMClassEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convCMClass.AttributeName)
+foreach (string strFldName in convCMClass._AttributeName)
 {
 if (objvCMClassCond.IsUpdated(strFldName) == false) continue;
 if (objvCMClassCond.dicFldComparisonOp == null)
@@ -1711,7 +1740,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1771,7 +1800,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1875,7 +1904,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -1935,7 +1964,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -2009,7 +2038,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -2072,7 +2101,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -2130,7 +2159,7 @@ objvCMClassEN.CodeTypeId = objRow[convCMClass.CodeTypeId].ToString().Trim(); //�
 objvCMClassEN.CodeTypeName = objRow[convCMClass.CodeTypeName].ToString().Trim(); //代码类型名
 objvCMClassEN.CodeTypeSimName = objRow[convCMClass.CodeTypeSimName].ToString().Trim(); //简称
 objvCMClassEN.UserId = objRow[convCMClass.UserId] == DBNull.Value ? null : objRow[convCMClass.UserId].ToString().Trim(); //用户Id
-objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程ID
+objvCMClassEN.PrjId = objRow[convCMClass.PrjId].ToString().Trim(); //工程Id
 objvCMClassEN.PrjName = objRow[convCMClass.PrjName].ToString().Trim(); //工程名称
 objvCMClassEN.IsOpen = clsEntityBase2.TransNullToBool_S(objRow[convCMClass.IsOpen].ToString().Trim()); //是否开放
 objvCMClassEN.UpdDate = objRow[convCMClass.UpdDate] == DBNull.Value ? null : objRow[convCMClass.UpdDate].ToString().Trim(); //修改日期
@@ -2475,7 +2504,7 @@ objvCMClassENT.CodeTypeId = objvCMClassENS.CodeTypeId; //代码类型Id
 objvCMClassENT.CodeTypeName = objvCMClassENS.CodeTypeName; //代码类型名
 objvCMClassENT.CodeTypeSimName = objvCMClassENS.CodeTypeSimName; //简称
 objvCMClassENT.UserId = objvCMClassENS.UserId; //用户Id
-objvCMClassENT.PrjId = objvCMClassENS.PrjId; //工程ID
+objvCMClassENT.PrjId = objvCMClassENS.PrjId; //工程Id
 objvCMClassENT.PrjName = objvCMClassENS.PrjName; //工程名称
 objvCMClassENT.IsOpen = objvCMClassENS.IsOpen; //是否开放
 objvCMClassENT.UpdDate = objvCMClassENS.UpdDate; //修改日期
@@ -2588,7 +2617,7 @@ objvCMClassEN.UserId = objvCMClassEN.UserId == "[null]" ? null :  objvCMClassEN.
 }
 if (arrFldSet.Contains(convCMClass.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvCMClassEN.PrjId = objvCMClassEN.PrjId; //工程ID
+objvCMClassEN.PrjId = objvCMClassEN.PrjId; //工程Id
 }
 if (arrFldSet.Contains(convCMClass.PrjName, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -2887,6 +2916,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}", clsvCMClassEN._CurrTabName);
 CacheHelper.Remove(strKey);
+clsvCMClassEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -2896,6 +2926,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvCMClassEN._RefreshTimeLst.Count == 0) return "";
+return clsvCMClassEN._RefreshTimeLst[clsvCMClassEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -2910,7 +2949,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -2924,10 +2963,10 @@ if (strInFldName != convCMClass.CmClassId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convCMClass.AttributeName.Contains(strOutFldName) == false)
+if (convCMClass._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convCMClass.AttributeName));
+strInFldName, string.Join(", ", convCMClass._AttributeName));
 throw new Exception(strMsg);
 }
 var objvCMClass = clsvCMClassBL.GetObjByCmClassIdCache(strCmClassId);
@@ -3006,7 +3045,7 @@ public static int GetRecCountByCondCache(clsvCMClassEN objvCMClassCond)
 {
 List<clsvCMClassEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvCMClassEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convCMClass.AttributeName)
+foreach (string strFldName in convCMClass._AttributeName)
 {
 if (objvCMClassCond.IsUpdated(strFldName) == false) continue;
 if (objvCMClassCond.dicFldComparisonOp == null)

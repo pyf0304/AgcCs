@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvCMFunctionKeyWordEN
  表名:vCMFunctionKeyWord(00050516)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:18:24
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:47
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
- 框架-层名:实体层(CS)(EntityLayer)
+ 框架-层名:实体层(CS)(EntityLayer,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -25,6 +25,7 @@ using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace AGC.Entity
 {
@@ -75,13 +76,14 @@ return new K_mId_vCMFunctionKeyWord(value);
 [DataContractAttribute]
 public class clsvCMFunctionKeyWordEN : clsEntityBase2
 {
+public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "vCMFunctionKeyWord"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int mintAttributeCount = 25;
-public static string[] AttributeName = new string[] {"mId", "CmFunctionId", "CmClassId", "ApplicationTypeId", "ProgLangTypeId", "ProgLangTypeName", "ProgLangTypeSimName", "NameSpace", "ProjectPath", "FilePath", "FileName", "CodeTypeId", "UserId", "PrjId", "PrjName", "FunctionName", "FuncContent", "FuncParaLst", "FuncComments", "FunctionSignature", "Keyword", "UpdDate", "UpdUser", "Memo", "ClsName"};
+protected const int _AttributeCount = 25;
+public static string[] _AttributeName = new string[] {"mId", "CmFunctionId", "CmClassId", "ApplicationTypeId", "ProgLangTypeId", "ProgLangTypeName", "ProgLangTypeSimName", "NameSpace", "ProjectPath", "FilePath", "FileName", "CodeTypeId", "UserId", "PrjId", "PrjName", "FunctionName", "FuncContent", "FuncParaLst", "FuncComments", "FunctionSignature", "Keyword", "UpdDate", "UpdUser", "Memo", "ClsName"};
 
 protected long mlngmId;    //mId
 protected string mstrCmFunctionId;    //函数Id
@@ -96,7 +98,7 @@ protected string mstrFilePath;    //文件路径
 protected string mstrFileName;    //文件名
 protected string mstrCodeTypeId;    //代码类型Id
 protected string mstrUserId;    //用户Id
-protected string mstrPrjId;    //工程ID
+protected string mstrPrjId;    //工程Id
 protected string mstrPrjName;    //工程名称
 protected string mstrFunctionName;    //功能名称
 protected string mstrFuncContent;    //函数内容
@@ -111,7 +113,7 @@ protected string mstrClsName;    //类名
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor1)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor1)
 /// </summary>
  public clsvCMFunctionKeyWordEN()
  {
@@ -122,7 +124,7 @@ protected string mstrClsName;    //类名
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor2)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
 /// <param name = "lngmId">关键字:mId</param>
 public clsvCMFunctionKeyWordEN(long lngmId)
@@ -142,7 +144,7 @@ public static int AttributeCount
 {
 get
 {
-return mintAttributeCount;
+return _AttributeCount;
 }
 }
 public override object this[string strAttributeName]
@@ -384,103 +386,103 @@ public object this[int intIndex]
 {
 get
 {
-if (convCMFunctionKeyWord.mId  ==  AttributeName[intIndex])
+if (convCMFunctionKeyWord.mId  ==  _AttributeName[intIndex])
 {
 return mlngmId;
 }
-else if (convCMFunctionKeyWord.CmFunctionId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CmFunctionId  ==  _AttributeName[intIndex])
 {
 return mstrCmFunctionId;
 }
-else if (convCMFunctionKeyWord.CmClassId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CmClassId  ==  _AttributeName[intIndex])
 {
 return mstrCmClassId;
 }
-else if (convCMFunctionKeyWord.ApplicationTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ApplicationTypeId  ==  _AttributeName[intIndex])
 {
 return mintApplicationTypeId;
 }
-else if (convCMFunctionKeyWord.ProgLangTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeId  ==  _AttributeName[intIndex])
 {
 return mstrProgLangTypeId;
 }
-else if (convCMFunctionKeyWord.ProgLangTypeName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeName  ==  _AttributeName[intIndex])
 {
 return mstrProgLangTypeName;
 }
-else if (convCMFunctionKeyWord.ProgLangTypeSimName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeSimName  ==  _AttributeName[intIndex])
 {
 return mstrProgLangTypeSimName;
 }
-else if (convCMFunctionKeyWord.NameSpace  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.NameSpace  ==  _AttributeName[intIndex])
 {
 return mstrNameSpace;
 }
-else if (convCMFunctionKeyWord.ProjectPath  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProjectPath  ==  _AttributeName[intIndex])
 {
 return mstrProjectPath;
 }
-else if (convCMFunctionKeyWord.FilePath  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FilePath  ==  _AttributeName[intIndex])
 {
 return mstrFilePath;
 }
-else if (convCMFunctionKeyWord.FileName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FileName  ==  _AttributeName[intIndex])
 {
 return mstrFileName;
 }
-else if (convCMFunctionKeyWord.CodeTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CodeTypeId  ==  _AttributeName[intIndex])
 {
 return mstrCodeTypeId;
 }
-else if (convCMFunctionKeyWord.UserId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UserId  ==  _AttributeName[intIndex])
 {
 return mstrUserId;
 }
-else if (convCMFunctionKeyWord.PrjId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
 }
-else if (convCMFunctionKeyWord.PrjName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.PrjName  ==  _AttributeName[intIndex])
 {
 return mstrPrjName;
 }
-else if (convCMFunctionKeyWord.FunctionName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FunctionName  ==  _AttributeName[intIndex])
 {
 return mstrFunctionName;
 }
-else if (convCMFunctionKeyWord.FuncContent  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncContent  ==  _AttributeName[intIndex])
 {
 return mstrFuncContent;
 }
-else if (convCMFunctionKeyWord.FuncParaLst  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncParaLst  ==  _AttributeName[intIndex])
 {
 return mstrFuncParaLst;
 }
-else if (convCMFunctionKeyWord.FuncComments  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncComments  ==  _AttributeName[intIndex])
 {
 return mstrFuncComments;
 }
-else if (convCMFunctionKeyWord.FunctionSignature  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FunctionSignature  ==  _AttributeName[intIndex])
 {
 return mstrFunctionSignature;
 }
-else if (convCMFunctionKeyWord.Keyword  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.Keyword  ==  _AttributeName[intIndex])
 {
 return mstrKeyword;
 }
-else if (convCMFunctionKeyWord.UpdDate  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UpdDate  ==  _AttributeName[intIndex])
 {
 return mstrUpdDate;
 }
-else if (convCMFunctionKeyWord.UpdUser  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UpdUser  ==  _AttributeName[intIndex])
 {
 return mstrUpdUser;
 }
-else if (convCMFunctionKeyWord.Memo  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.Memo  ==  _AttributeName[intIndex])
 {
 return mstrMemo;
 }
-else if (convCMFunctionKeyWord.ClsName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ClsName  ==  _AttributeName[intIndex])
 {
 return mstrClsName;
 }
@@ -488,127 +490,127 @@ return null;
 }
 set
 {
-if (convCMFunctionKeyWord.mId  ==  AttributeName[intIndex])
+if (convCMFunctionKeyWord.mId  ==  _AttributeName[intIndex])
 {
 mlngmId = TransNullToInt(value.ToString());
  AddUpdatedFld(convCMFunctionKeyWord.mId);
 }
-else if (convCMFunctionKeyWord.CmFunctionId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CmFunctionId  ==  _AttributeName[intIndex])
 {
 mstrCmFunctionId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.CmFunctionId);
 }
-else if (convCMFunctionKeyWord.CmClassId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CmClassId  ==  _AttributeName[intIndex])
 {
 mstrCmClassId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.CmClassId);
 }
-else if (convCMFunctionKeyWord.ApplicationTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ApplicationTypeId  ==  _AttributeName[intIndex])
 {
 mintApplicationTypeId = TransNullToInt(value.ToString());
  AddUpdatedFld(convCMFunctionKeyWord.ApplicationTypeId);
 }
-else if (convCMFunctionKeyWord.ProgLangTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeId  ==  _AttributeName[intIndex])
 {
 mstrProgLangTypeId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.ProgLangTypeId);
 }
-else if (convCMFunctionKeyWord.ProgLangTypeName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeName  ==  _AttributeName[intIndex])
 {
 mstrProgLangTypeName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.ProgLangTypeName);
 }
-else if (convCMFunctionKeyWord.ProgLangTypeSimName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProgLangTypeSimName  ==  _AttributeName[intIndex])
 {
 mstrProgLangTypeSimName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.ProgLangTypeSimName);
 }
-else if (convCMFunctionKeyWord.NameSpace  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.NameSpace  ==  _AttributeName[intIndex])
 {
 mstrNameSpace = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.NameSpace);
 }
-else if (convCMFunctionKeyWord.ProjectPath  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ProjectPath  ==  _AttributeName[intIndex])
 {
 mstrProjectPath = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.ProjectPath);
 }
-else if (convCMFunctionKeyWord.FilePath  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FilePath  ==  _AttributeName[intIndex])
 {
 mstrFilePath = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FilePath);
 }
-else if (convCMFunctionKeyWord.FileName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FileName  ==  _AttributeName[intIndex])
 {
 mstrFileName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FileName);
 }
-else if (convCMFunctionKeyWord.CodeTypeId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.CodeTypeId  ==  _AttributeName[intIndex])
 {
 mstrCodeTypeId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.CodeTypeId);
 }
-else if (convCMFunctionKeyWord.UserId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UserId  ==  _AttributeName[intIndex])
 {
 mstrUserId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.UserId);
 }
-else if (convCMFunctionKeyWord.PrjId  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.PrjId);
 }
-else if (convCMFunctionKeyWord.PrjName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.PrjName  ==  _AttributeName[intIndex])
 {
 mstrPrjName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.PrjName);
 }
-else if (convCMFunctionKeyWord.FunctionName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FunctionName  ==  _AttributeName[intIndex])
 {
 mstrFunctionName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FunctionName);
 }
-else if (convCMFunctionKeyWord.FuncContent  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncContent  ==  _AttributeName[intIndex])
 {
 mstrFuncContent = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FuncContent);
 }
-else if (convCMFunctionKeyWord.FuncParaLst  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncParaLst  ==  _AttributeName[intIndex])
 {
 mstrFuncParaLst = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FuncParaLst);
 }
-else if (convCMFunctionKeyWord.FuncComments  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FuncComments  ==  _AttributeName[intIndex])
 {
 mstrFuncComments = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FuncComments);
 }
-else if (convCMFunctionKeyWord.FunctionSignature  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.FunctionSignature  ==  _AttributeName[intIndex])
 {
 mstrFunctionSignature = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.FunctionSignature);
 }
-else if (convCMFunctionKeyWord.Keyword  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.Keyword  ==  _AttributeName[intIndex])
 {
 mstrKeyword = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.Keyword);
 }
-else if (convCMFunctionKeyWord.UpdDate  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UpdDate  ==  _AttributeName[intIndex])
 {
 mstrUpdDate = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.UpdDate);
 }
-else if (convCMFunctionKeyWord.UpdUser  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.UpdUser  ==  _AttributeName[intIndex])
 {
 mstrUpdUser = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.UpdUser);
 }
-else if (convCMFunctionKeyWord.Memo  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.Memo  ==  _AttributeName[intIndex])
 {
 mstrMemo = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.Memo);
 }
-else if (convCMFunctionKeyWord.ClsName  ==  AttributeName[intIndex])
+else if (convCMFunctionKeyWord.ClsName  ==  _AttributeName[intIndex])
 {
 mstrClsName = value.ToString();
  AddUpdatedFld(convCMFunctionKeyWord.ClsName);
@@ -939,7 +941,7 @@ else
 }
 }
 /// <summary>
-/// 工程ID(说明:;字段类型:char;字段长度:4;是否可空:False)
+/// 工程Id(说明:;字段类型:char;字段长度:4;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -1253,7 +1255,7 @@ else
 
 /// <summary>
 /// 获取关键字Id(keyId)
- /// (AutoGCLib.clsGeneCodeBase:GenGetKeyId)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetKeyId)
 /// </summary>
  public override string _KeyId
  {
@@ -1265,7 +1267,7 @@ else
 
 /// <summary>
 /// 获取名称字段值(NameValue)
- /// (AutoGCLib.clsGeneCodeBase:GenGetNameValue)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetNameValue)
 /// </summary>
  public override string _NameValue
  {
@@ -1283,7 +1285,7 @@ public static class convCMFunctionKeyWord
 {
 public const string _CurrTabName = "vCMFunctionKeyWord"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] AttributeName = new string[] {"mId", "CmFunctionId", "CmClassId", "ApplicationTypeId", "ProgLangTypeId", "ProgLangTypeName", "ProgLangTypeSimName", "NameSpace", "ProjectPath", "FilePath", "FileName", "CodeTypeId", "UserId", "PrjId", "PrjName", "FunctionName", "FuncContent", "FuncParaLst", "FuncComments", "FunctionSignature", "Keyword", "UpdDate", "UpdUser", "Memo", "ClsName"};
+public static string[] _AttributeName = new string[] {"mId", "CmFunctionId", "CmClassId", "ApplicationTypeId", "ProgLangTypeId", "ProgLangTypeName", "ProgLangTypeSimName", "NameSpace", "ProjectPath", "FilePath", "FileName", "CodeTypeId", "UserId", "PrjId", "PrjName", "FunctionName", "FuncContent", "FuncParaLst", "FuncComments", "FunctionSignature", "Keyword", "UpdDate", "UpdUser", "Memo", "ClsName"};
 //以下是属性变量
 
 
@@ -1369,7 +1371,7 @@ public static string[] AttributeName = new string[] {"mId", "CmFunctionId", "CmC
  /// 常量:"PrjId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string PrjId = "PrjId";    //工程ID
+ public const string PrjId = "PrjId";    //工程Id
 
  /// <summary>
  /// 常量:"PrjName"

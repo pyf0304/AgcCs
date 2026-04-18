@@ -1466,7 +1466,7 @@ public static DataTable ToDataTable(List<clsvCMFunctionKeyWordEN> arrObj)
 DataTable dataTable = new DataTable(); //实例化
 DataTable result;
 if (arrObj.Count == 0) return null;
-if (clsvCMFunctionKeyWordEN.AttributeName.Length == 0)
+if (clsvCMFunctionKeyWordEN._AttributeName.Length == 0)
 {
 result = dataTable;
 return result;
@@ -1476,7 +1476,7 @@ PropertyInfo[] arrPropertyInfo = type.GetProperties();
 try
 {
 //Columns
-foreach (string strAttrName in clsvCMFunctionKeyWordEN.AttributeName)
+foreach (string strAttrName in clsvCMFunctionKeyWordEN._AttributeName)
 {
 PropertyInfo proprety_Curr = arrPropertyInfo.Where(x => x.Name == strAttrName).First();
 dataTable.Columns.Add(strAttrName, proprety_Curr.PropertyType);
@@ -1485,7 +1485,7 @@ foreach (clsvCMFunctionKeyWordEN objInFor in arrObj)
 {
 //Rows
 DataRow dataRow = dataTable.NewRow();
-foreach (string strAttrName in clsvCMFunctionKeyWordEN.AttributeName)
+foreach (string strAttrName in clsvCMFunctionKeyWordEN._AttributeName)
 {
 dataRow[strAttrName] = objInFor[strAttrName];
 }

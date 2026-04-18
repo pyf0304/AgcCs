@@ -113,6 +113,7 @@ namespace AutoGCLib
                         FldName = PrjTabEx_DetailRegion.KeyFldName(),
                         FldName_FstLCase = clsString.FstLcaseS(PrjTabEx_DetailRegion.KeyFldName()),
                         KeyFldNameLstStr = PrjTabEx_DetailRegion.KeyFldNameLstStr,
+                        
                         PropertyNameLstrStr = strTemp,
                         KeyVarDefineLstStr = PrjTabEx_DetailRegion.KeyVarDefineLstStr_TS,
                         KeyPrivVarNameLstStr = PrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS,
@@ -270,9 +271,11 @@ namespace AutoGCLib
                         FldName = PrjTabEx_EditRegion.KeyFldName(),
                         FldName_FstLCase = clsString.FstLcaseS(PrjTabEx_EditRegion.KeyFldName()),
                         KeyFldNameLstStr = PrjTabEx_EditRegion.KeyFldNameLstStr,
+                        
                         PropertyNameLstrStr = strTemp,
                         KeyVarDefineLstStr = PrjTabEx_EditRegion.KeyVarDefineLstStr_TS,
                         KeyPrivVarNameLstStr = PrjTabEx_EditRegion.KeyPrivFuncFldNameLstStr_TS,
+                        PriVarName = PrjTabEx_EditRegion.KeyPrivFuncFldNameLstStr_TS,
                         PropertyNamePrivVarNameLstrStr = strTempMatch,
                         KeyPropNameLstStrWithKeyLst = PrjTabEx_EditRegion.KeyPropNameLstStrWithKeyLst_TS,
                         ByInFuncName = PrjTabEx_EditRegion.arrKeyFldSet.Count == 1 ? PrjTabEx_EditRegion.KeyFldName() : "KeyLst",

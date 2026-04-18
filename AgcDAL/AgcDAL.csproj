@@ -266,6 +266,8 @@
     <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFunctionDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskDAEx.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskRegionDAEx.cs" />
     <Compile Include="Class\PrjInterface\clsCtlTypeDAEx.cs" />
     <Compile Include="Class\PrjInterface\clsDataGridStyleDAEx.cs" />
     <Compile Include="Class\PrjInterface\clsDDLItemsOptionDAEx.cs" />

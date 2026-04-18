@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvViewFeatureFldsEN
  表名:vViewFeatureFlds(00050454)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:38
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:39
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:实体层(CS)(EntityLayer)
+ 框架-层名:实体层(CS)(EntityLayer,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -25,6 +25,7 @@ using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace AGC.Entity
 {
@@ -75,13 +76,14 @@ return new K_mId_vViewFeatureFlds(value);
 [DataContractAttribute]
 public class clsvViewFeatureFldsEN : clsEntityBase2
 {
+public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "vViewFeatureFlds"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int mintAttributeCount = 47;
-public static string[] AttributeName = new string[] {"mId", "ViewFeatureId", "RegionId", "RegionName", "RegionTypeId", "RegionTypeName", "FeatureId", "FeatureName", "ButtonName", "ValueGivingModeId", "GroupName", "ReleTabId", "SeqNum", "RelaTabName", "ReleFldId", "FieldTypeId", "FieldTypeName", "FuncName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "VarName", "CtrlId", "DefaultValue", "OrderNum", "DdlItemsOptionId", "DsTabId", "FldName", "DsCondStr", "DsSqlStr", "ItemsString", "InUse", "PrjId", "UpdUser", "UpdDate", "Memo", "DsTabName", "FldIdCond1", "FldIdCond2", "TabFeatureId4Ddl", "VarIdCond1", "VarIdCond2", "VarTypeIdCond1", "VarTypeIdCond2"};
+protected const int _AttributeCount = 47;
+public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "RegionId", "RegionName", "RegionTypeId", "RegionTypeName", "FeatureId", "FeatureName", "ButtonName", "ValueGivingModeId", "GroupName", "ReleTabId", "SeqNum", "RelaTabName", "ReleFldId", "FieldTypeId", "FieldTypeName", "FuncName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "VarName", "CtrlId", "DefaultValue", "OrderNum", "DdlItemsOptionId", "DsTabId", "FldName", "DsCondStr", "DsSqlStr", "ItemsString", "InUse", "PrjId", "UpdUser", "UpdDate", "Memo", "DsTabName", "FldIdCond1", "FldIdCond2", "TabFeatureId4Ddl", "VarIdCond1", "VarIdCond2", "VarTypeIdCond1", "VarTypeIdCond2"};
 
 protected long mlngmId;    //mId
 protected string mstrViewFeatureId;    //界面功能Id
@@ -118,7 +120,7 @@ protected string mstrDsCondStr;    //数据源条件串
 protected string mstrDsSqlStr;    //数据源SQL串
 protected string mstrItemsString;    //列表项串
 protected bool mbolInUse;    //是否在用
-protected string mstrPrjId;    //工程ID
+protected string mstrPrjId;    //工程Id
 protected string mstrUpdUser;    //修改者
 protected string mstrUpdDate;    //修改日期
 protected string mstrMemo;    //说明
@@ -133,7 +135,7 @@ protected string mstrVarTypeIdCond2;    //变量类型Id_条件2
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor1)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor1)
 /// </summary>
  public clsvViewFeatureFldsEN()
  {
@@ -144,7 +146,7 @@ protected string mstrVarTypeIdCond2;    //变量类型Id_条件2
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor2)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
 /// <param name = "lngmId">关键字:mId</param>
 public clsvViewFeatureFldsEN(long lngmId)
@@ -164,7 +166,7 @@ public static int AttributeCount
 {
 get
 {
-return mintAttributeCount;
+return _AttributeCount;
 }
 }
 public override object this[string strAttributeName]
@@ -604,191 +606,191 @@ public object this[int intIndex]
 {
 get
 {
-if (convViewFeatureFlds.mId  ==  AttributeName[intIndex])
+if (convViewFeatureFlds.mId  ==  _AttributeName[intIndex])
 {
 return mlngmId;
 }
-else if (convViewFeatureFlds.ViewFeatureId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ViewFeatureId  ==  _AttributeName[intIndex])
 {
 return mstrViewFeatureId;
 }
-else if (convViewFeatureFlds.RegionId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionId  ==  _AttributeName[intIndex])
 {
 return mstrRegionId;
 }
-else if (convViewFeatureFlds.RegionName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionName  ==  _AttributeName[intIndex])
 {
 return mstrRegionName;
 }
-else if (convViewFeatureFlds.RegionTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionTypeId  ==  _AttributeName[intIndex])
 {
 return mstrRegionTypeId;
 }
-else if (convViewFeatureFlds.RegionTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionTypeName  ==  _AttributeName[intIndex])
 {
 return mstrRegionTypeName;
 }
-else if (convViewFeatureFlds.FeatureId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FeatureId  ==  _AttributeName[intIndex])
 {
 return mstrFeatureId;
 }
-else if (convViewFeatureFlds.FeatureName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FeatureName  ==  _AttributeName[intIndex])
 {
 return mstrFeatureName;
 }
-else if (convViewFeatureFlds.ButtonName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ButtonName  ==  _AttributeName[intIndex])
 {
 return mstrButtonName;
 }
-else if (convViewFeatureFlds.ValueGivingModeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ValueGivingModeId  ==  _AttributeName[intIndex])
 {
 return mstrValueGivingModeId;
 }
-else if (convViewFeatureFlds.GroupName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.GroupName  ==  _AttributeName[intIndex])
 {
 return mstrGroupName;
 }
-else if (convViewFeatureFlds.ReleTabId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ReleTabId  ==  _AttributeName[intIndex])
 {
 return mstrReleTabId;
 }
-else if (convViewFeatureFlds.SeqNum  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.SeqNum  ==  _AttributeName[intIndex])
 {
 return mintSeqNum;
 }
-else if (convViewFeatureFlds.RelaTabName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RelaTabName  ==  _AttributeName[intIndex])
 {
 return mstrRelaTabName;
 }
-else if (convViewFeatureFlds.ReleFldId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ReleFldId  ==  _AttributeName[intIndex])
 {
 return mstrReleFldId;
 }
-else if (convViewFeatureFlds.FieldTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FieldTypeId  ==  _AttributeName[intIndex])
 {
 return mstrFieldTypeId;
 }
-else if (convViewFeatureFlds.FieldTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FieldTypeName  ==  _AttributeName[intIndex])
 {
 return mstrFieldTypeName;
 }
-else if (convViewFeatureFlds.FuncName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FuncName  ==  _AttributeName[intIndex])
 {
 return mstrFuncName;
 }
-else if (convViewFeatureFlds.LabelCaption  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 return mstrLabelCaption;
 }
-else if (convViewFeatureFlds.CtlTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeId;
 }
-else if (convViewFeatureFlds.CtlTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeName  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeName;
 }
-else if (convViewFeatureFlds.CtlCnName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlCnName  ==  _AttributeName[intIndex])
 {
 return mstrCtlCnName;
 }
-else if (convViewFeatureFlds.CtlTypeAbbr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeAbbr  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeAbbr;
 }
-else if (convViewFeatureFlds.VarId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarId  ==  _AttributeName[intIndex])
 {
 return mstrVarId;
 }
-else if (convViewFeatureFlds.VarName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarName  ==  _AttributeName[intIndex])
 {
 return mstrVarName;
 }
-else if (convViewFeatureFlds.CtrlId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtrlId  ==  _AttributeName[intIndex])
 {
 return mstrCtrlId;
 }
-else if (convViewFeatureFlds.DefaultValue  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DefaultValue  ==  _AttributeName[intIndex])
 {
 return mstrDefaultValue;
 }
-else if (convViewFeatureFlds.OrderNum  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.OrderNum  ==  _AttributeName[intIndex])
 {
 return mintOrderNum;
 }
-else if (convViewFeatureFlds.DdlItemsOptionId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DdlItemsOptionId  ==  _AttributeName[intIndex])
 {
 return mstrDdlItemsOptionId;
 }
-else if (convViewFeatureFlds.DsTabId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsTabId  ==  _AttributeName[intIndex])
 {
 return mstrDsTabId;
 }
-else if (convViewFeatureFlds.FldName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldName  ==  _AttributeName[intIndex])
 {
 return mstrFldName;
 }
-else if (convViewFeatureFlds.DsCondStr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsCondStr  ==  _AttributeName[intIndex])
 {
 return mstrDsCondStr;
 }
-else if (convViewFeatureFlds.DsSqlStr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsSqlStr  ==  _AttributeName[intIndex])
 {
 return mstrDsSqlStr;
 }
-else if (convViewFeatureFlds.ItemsString  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ItemsString  ==  _AttributeName[intIndex])
 {
 return mstrItemsString;
 }
-else if (convViewFeatureFlds.InUse  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.InUse  ==  _AttributeName[intIndex])
 {
 return mbolInUse;
 }
-else if (convViewFeatureFlds.PrjId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
 }
-else if (convViewFeatureFlds.UpdUser  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.UpdUser  ==  _AttributeName[intIndex])
 {
 return mstrUpdUser;
 }
-else if (convViewFeatureFlds.UpdDate  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.UpdDate  ==  _AttributeName[intIndex])
 {
 return mstrUpdDate;
 }
-else if (convViewFeatureFlds.Memo  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.Memo  ==  _AttributeName[intIndex])
 {
 return mstrMemo;
 }
-else if (convViewFeatureFlds.DsTabName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsTabName  ==  _AttributeName[intIndex])
 {
 return mstrDsTabName;
 }
-else if (convViewFeatureFlds.FldIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldIdCond1  ==  _AttributeName[intIndex])
 {
 return mstrFldIdCond1;
 }
-else if (convViewFeatureFlds.FldIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldIdCond2  ==  _AttributeName[intIndex])
 {
 return mstrFldIdCond2;
 }
-else if (convViewFeatureFlds.TabFeatureId4Ddl  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.TabFeatureId4Ddl  ==  _AttributeName[intIndex])
 {
 return mstrTabFeatureId4Ddl;
 }
-else if (convViewFeatureFlds.VarIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarIdCond1  ==  _AttributeName[intIndex])
 {
 return mstrVarIdCond1;
 }
-else if (convViewFeatureFlds.VarIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarIdCond2  ==  _AttributeName[intIndex])
 {
 return mstrVarIdCond2;
 }
-else if (convViewFeatureFlds.VarTypeIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarTypeIdCond1  ==  _AttributeName[intIndex])
 {
 return mstrVarTypeIdCond1;
 }
-else if (convViewFeatureFlds.VarTypeIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarTypeIdCond2  ==  _AttributeName[intIndex])
 {
 return mstrVarTypeIdCond2;
 }
@@ -796,237 +798,237 @@ return null;
 }
 set
 {
-if (convViewFeatureFlds.mId  ==  AttributeName[intIndex])
+if (convViewFeatureFlds.mId  ==  _AttributeName[intIndex])
 {
 mlngmId = TransNullToInt(value.ToString());
  AddUpdatedFld(convViewFeatureFlds.mId);
 }
-else if (convViewFeatureFlds.ViewFeatureId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ViewFeatureId  ==  _AttributeName[intIndex])
 {
 mstrViewFeatureId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ViewFeatureId);
 }
-else if (convViewFeatureFlds.RegionId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionId  ==  _AttributeName[intIndex])
 {
 mstrRegionId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.RegionId);
 }
-else if (convViewFeatureFlds.RegionName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionName  ==  _AttributeName[intIndex])
 {
 mstrRegionName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.RegionName);
 }
-else if (convViewFeatureFlds.RegionTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionTypeId  ==  _AttributeName[intIndex])
 {
 mstrRegionTypeId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.RegionTypeId);
 }
-else if (convViewFeatureFlds.RegionTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RegionTypeName  ==  _AttributeName[intIndex])
 {
 mstrRegionTypeName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.RegionTypeName);
 }
-else if (convViewFeatureFlds.FeatureId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FeatureId  ==  _AttributeName[intIndex])
 {
 mstrFeatureId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FeatureId);
 }
-else if (convViewFeatureFlds.FeatureName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FeatureName  ==  _AttributeName[intIndex])
 {
 mstrFeatureName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FeatureName);
 }
-else if (convViewFeatureFlds.ButtonName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ButtonName  ==  _AttributeName[intIndex])
 {
 mstrButtonName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ButtonName);
 }
-else if (convViewFeatureFlds.ValueGivingModeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ValueGivingModeId  ==  _AttributeName[intIndex])
 {
 mstrValueGivingModeId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ValueGivingModeId);
 }
-else if (convViewFeatureFlds.GroupName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.GroupName  ==  _AttributeName[intIndex])
 {
 mstrGroupName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.GroupName);
 }
-else if (convViewFeatureFlds.ReleTabId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ReleTabId  ==  _AttributeName[intIndex])
 {
 mstrReleTabId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ReleTabId);
 }
-else if (convViewFeatureFlds.SeqNum  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.SeqNum  ==  _AttributeName[intIndex])
 {
 mintSeqNum = TransNullToInt(value.ToString());
  AddUpdatedFld(convViewFeatureFlds.SeqNum);
 }
-else if (convViewFeatureFlds.RelaTabName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.RelaTabName  ==  _AttributeName[intIndex])
 {
 mstrRelaTabName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.RelaTabName);
 }
-else if (convViewFeatureFlds.ReleFldId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ReleFldId  ==  _AttributeName[intIndex])
 {
 mstrReleFldId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ReleFldId);
 }
-else if (convViewFeatureFlds.FieldTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FieldTypeId  ==  _AttributeName[intIndex])
 {
 mstrFieldTypeId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FieldTypeId);
 }
-else if (convViewFeatureFlds.FieldTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FieldTypeName  ==  _AttributeName[intIndex])
 {
 mstrFieldTypeName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FieldTypeName);
 }
-else if (convViewFeatureFlds.FuncName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FuncName  ==  _AttributeName[intIndex])
 {
 mstrFuncName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FuncName);
 }
-else if (convViewFeatureFlds.LabelCaption  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 mstrLabelCaption = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.LabelCaption);
 }
-else if (convViewFeatureFlds.CtlTypeId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.CtlTypeId);
 }
-else if (convViewFeatureFlds.CtlTypeName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeName  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.CtlTypeName);
 }
-else if (convViewFeatureFlds.CtlCnName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlCnName  ==  _AttributeName[intIndex])
 {
 mstrCtlCnName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.CtlCnName);
 }
-else if (convViewFeatureFlds.CtlTypeAbbr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtlTypeAbbr  ==  _AttributeName[intIndex])
 {
 mstrCtlTypeAbbr = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.CtlTypeAbbr);
 }
-else if (convViewFeatureFlds.VarId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarId  ==  _AttributeName[intIndex])
 {
 mstrVarId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarId);
 }
-else if (convViewFeatureFlds.VarName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarName  ==  _AttributeName[intIndex])
 {
 mstrVarName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarName);
 }
-else if (convViewFeatureFlds.CtrlId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.CtrlId  ==  _AttributeName[intIndex])
 {
 mstrCtrlId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.CtrlId);
 }
-else if (convViewFeatureFlds.DefaultValue  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DefaultValue  ==  _AttributeName[intIndex])
 {
 mstrDefaultValue = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DefaultValue);
 }
-else if (convViewFeatureFlds.OrderNum  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.OrderNum  ==  _AttributeName[intIndex])
 {
 mintOrderNum = TransNullToInt(value.ToString());
  AddUpdatedFld(convViewFeatureFlds.OrderNum);
 }
-else if (convViewFeatureFlds.DdlItemsOptionId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DdlItemsOptionId  ==  _AttributeName[intIndex])
 {
 mstrDdlItemsOptionId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DdlItemsOptionId);
 }
-else if (convViewFeatureFlds.DsTabId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsTabId  ==  _AttributeName[intIndex])
 {
 mstrDsTabId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DsTabId);
 }
-else if (convViewFeatureFlds.FldName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldName  ==  _AttributeName[intIndex])
 {
 mstrFldName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FldName);
 }
-else if (convViewFeatureFlds.DsCondStr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsCondStr  ==  _AttributeName[intIndex])
 {
 mstrDsCondStr = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DsCondStr);
 }
-else if (convViewFeatureFlds.DsSqlStr  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsSqlStr  ==  _AttributeName[intIndex])
 {
 mstrDsSqlStr = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DsSqlStr);
 }
-else if (convViewFeatureFlds.ItemsString  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.ItemsString  ==  _AttributeName[intIndex])
 {
 mstrItemsString = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.ItemsString);
 }
-else if (convViewFeatureFlds.InUse  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.InUse  ==  _AttributeName[intIndex])
 {
 mbolInUse = TransNullToBool(value.ToString());
  AddUpdatedFld(convViewFeatureFlds.InUse);
 }
-else if (convViewFeatureFlds.PrjId  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.PrjId);
 }
-else if (convViewFeatureFlds.UpdUser  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.UpdUser  ==  _AttributeName[intIndex])
 {
 mstrUpdUser = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.UpdUser);
 }
-else if (convViewFeatureFlds.UpdDate  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.UpdDate  ==  _AttributeName[intIndex])
 {
 mstrUpdDate = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.UpdDate);
 }
-else if (convViewFeatureFlds.Memo  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.Memo  ==  _AttributeName[intIndex])
 {
 mstrMemo = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.Memo);
 }
-else if (convViewFeatureFlds.DsTabName  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.DsTabName  ==  _AttributeName[intIndex])
 {
 mstrDsTabName = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.DsTabName);
 }
-else if (convViewFeatureFlds.FldIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldIdCond1  ==  _AttributeName[intIndex])
 {
 mstrFldIdCond1 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FldIdCond1);
 }
-else if (convViewFeatureFlds.FldIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.FldIdCond2  ==  _AttributeName[intIndex])
 {
 mstrFldIdCond2 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.FldIdCond2);
 }
-else if (convViewFeatureFlds.TabFeatureId4Ddl  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.TabFeatureId4Ddl  ==  _AttributeName[intIndex])
 {
 mstrTabFeatureId4Ddl = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.TabFeatureId4Ddl);
 }
-else if (convViewFeatureFlds.VarIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarIdCond1  ==  _AttributeName[intIndex])
 {
 mstrVarIdCond1 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarIdCond1);
 }
-else if (convViewFeatureFlds.VarIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarIdCond2  ==  _AttributeName[intIndex])
 {
 mstrVarIdCond2 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarIdCond2);
 }
-else if (convViewFeatureFlds.VarTypeIdCond1  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarTypeIdCond1  ==  _AttributeName[intIndex])
 {
 mstrVarTypeIdCond1 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarTypeIdCond1);
 }
-else if (convViewFeatureFlds.VarTypeIdCond2  ==  AttributeName[intIndex])
+else if (convViewFeatureFlds.VarTypeIdCond2  ==  _AttributeName[intIndex])
 {
 mstrVarTypeIdCond2 = value.ToString();
  AddUpdatedFld(convViewFeatureFlds.VarTypeIdCond2);
@@ -1913,7 +1915,7 @@ set
 }
 }
 /// <summary>
-/// 工程ID(说明:;字段类型:char;字段长度:4;是否可空:False)
+/// 工程Id(说明:;字段类型:char;字段长度:4;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -2227,7 +2229,7 @@ else
 
 /// <summary>
 /// 获取关键字Id(keyId)
- /// (AutoGCLib.clsGeneCodeBase:GenGetKeyId)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetKeyId)
 /// </summary>
  public override string _KeyId
  {
@@ -2245,7 +2247,7 @@ public static class convViewFeatureFlds
 {
 public const string _CurrTabName = "vViewFeatureFlds"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] AttributeName = new string[] {"mId", "ViewFeatureId", "RegionId", "RegionName", "RegionTypeId", "RegionTypeName", "FeatureId", "FeatureName", "ButtonName", "ValueGivingModeId", "GroupName", "ReleTabId", "SeqNum", "RelaTabName", "ReleFldId", "FieldTypeId", "FieldTypeName", "FuncName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "VarName", "CtrlId", "DefaultValue", "OrderNum", "DdlItemsOptionId", "DsTabId", "FldName", "DsCondStr", "DsSqlStr", "ItemsString", "InUse", "PrjId", "UpdUser", "UpdDate", "Memo", "DsTabName", "FldIdCond1", "FldIdCond2", "TabFeatureId4Ddl", "VarIdCond1", "VarIdCond2", "VarTypeIdCond1", "VarTypeIdCond2"};
+public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "RegionId", "RegionName", "RegionTypeId", "RegionTypeName", "FeatureId", "FeatureName", "ButtonName", "ValueGivingModeId", "GroupName", "ReleTabId", "SeqNum", "RelaTabName", "ReleFldId", "FieldTypeId", "FieldTypeName", "FuncName", "LabelCaption", "CtlTypeId", "CtlTypeName", "CtlCnName", "CtlTypeAbbr", "VarId", "VarName", "CtrlId", "DefaultValue", "OrderNum", "DdlItemsOptionId", "DsTabId", "FldName", "DsCondStr", "DsSqlStr", "ItemsString", "InUse", "PrjId", "UpdUser", "UpdDate", "Memo", "DsTabName", "FldIdCond1", "FldIdCond2", "TabFeatureId4Ddl", "VarIdCond1", "VarIdCond2", "VarTypeIdCond1", "VarTypeIdCond2"};
 //以下是属性变量
 
 
@@ -2463,7 +2465,7 @@ public static string[] AttributeName = new string[] {"mId", "ViewFeatureId", "Re
  /// 常量:"PrjId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string PrjId = "PrjId";    //工程ID
+ public const string PrjId = "PrjId";    //工程Id
 
  /// <summary>
  /// 常量:"UpdUser"

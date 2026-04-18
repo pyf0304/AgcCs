@@ -370,6 +370,9 @@ namespace AutoGCLib
                     isExported = true,
                     CodeContent = "sortFunStatic: (ascOrDesc: string) => (x: any, y: any) => number;"
                 });
+                
+                strCodeForCs.Append("\r\n" + "/** 保存用户通过下拉框选择的每页记录数，null 时由子类 getter 提供默认值 */");
+                strCodeForCs.Append("\r\n" + "protected _pageSize: number | null = null;");
                 //strCodeForCs.Append("\r\n" + "public static ascOrDesc4SortFun = \"Asc\";");
                 //strCodeForCs.AppendFormat("\r\n" + "public static sort{0}By = \"\";", TabName_Out4ListRegion4GC);
 
@@ -385,6 +388,10 @@ namespace AutoGCLib
                 sbConstructor.AppendFormat("\r\n" + "{0}.objPageCRUD = this;", ThisClsName);
                 //AddImportClass("", "/PubFun/clsCommFunc4Ctrl.js", "GetDivObjInDivObjN", enumImportObjType.CustomFunc, this.strBaseUrl);
                 sbConstructor.Append("\r\n" + "this.objPager = new clsPager(this);");
+                sbConstructor.Append("\r\n" + "this.objPager.onPageSizeChange = (ps: number) => {");
+                sbConstructor.Append("\r\n" + "this._pageSize = ps;");
+                sbConstructor.Append("\r\n" + "};");
+
                 sbConstructor.Append("\r\n" + "}");
                 strCodeForCs.Append(sbConstructor.ToString());
                 clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
@@ -453,7 +460,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * 每页记录数,在扩展类可以修改");
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "public get pageSize():number {");
-                strCodeForCs.Append("\r\n" + "return 5;");
+                strCodeForCs.Append("\r\n" + "return this._pageSize ?? 10;");
                 strCodeForCs.Append("\r\n" + "}");
 
                 this.objCodeElement_Class.Children.Add(new CodeElement
@@ -464,7 +471,7 @@ namespace AutoGCLib
                     ReturnType = "number",
                     DocumentationComment = "每页记录数,在扩展类可以修改",
                     isExported = true,
-                    CodeContent = "public get pageSize(): number { return 5; }"
+                    CodeContent = "public get pageSize(): number { return this._pageSize ?? 10; }"
                 });
 
                 strCodeForCs.Append("\r\n" + "public recCount = 0;");
@@ -2552,7 +2559,7 @@ namespace AutoGCLib
                 {
 
                     clsFieldTabEN objFieldTabEN = clsFieldTabBL.GetObjByFldIdCache(objInFor.ReleFldId, objInFor.PrjId());
-                    strFuncName = string.Format("{0}", objInFor.ButtonName.Substring(3));
+                    string strFuncName0 = string.Format("{0}", objInFor.ButtonName.Substring(3));
                     StringBuilder sbFuncCode = new StringBuilder();
                     sbFuncCode.AppendFormat("\r\n /** 设置字段值-{0}", objFieldTabEN.FldName);
                     sbFuncCode.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
@@ -2680,20 +2687,20 @@ namespace AutoGCLib
                         {
                             sbFuncCode.Append("\r\n" + "    for (const strKeyLst of arrKeyIds) {");
 
-                            sbFuncCode.AppendFormat("\r\n" + "await this.{0}(strKeyLst, {1});", strFuncName, objViewFeatureFlds.ObjFieldTabENEx.PrivFuncName);
+                            sbFuncCode.AppendFormat("\r\n" + "await this.{0}(strKeyLst, {1});", strFuncName0, objViewFeatureFlds.ObjFieldTabENEx.PrivFuncName);
 
                             sbFuncCode.Append("\r\n" + "}");
                         }
                         else
                         {
-                            sbFuncCode.AppendFormat("\r\n" + "await this.{0}(arrKeyIds, {1});", strFuncName, objViewFeatureFlds.ObjFieldTabENEx.PrivFuncName);
+                            sbFuncCode.AppendFormat("\r\n" + "await this.{0}(arrKeyIds, {1});", strFuncName0, objViewFeatureFlds.ObjFieldTabENEx.PrivFuncName);
                         }
                     }
                     else
                     {
                         sbFuncCode.Append("\r\n" + "//console.log('arrKeyIds=');");
                         sbFuncCode.Append("\r\n" + "//console.log(arrKeyIds);");
-                        sbFuncCode.AppendFormat("\r\n" + "await this.{0}(arrKeyIds);", strFuncName);
+                        sbFuncCode.AppendFormat("\r\n" + "await this.{0}(arrKeyIds);", strFuncName0);
                     }
 
                     sbFuncCode.Append("\r\n" + $"await this.{strFuncName4BindGv}(divVarSet.refDivList);");
@@ -2979,6 +2986,19 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.Append("\r\n" + "}");
 
+                    clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+                    {
+                        Name = strFuncName,
+                        CodeContent = strCodeForCs.ToString(),
+                        ElementType = CodeElementType.Method,
+                        Modifiers = "public async",
+                        ReturnType = "void",
+                    });
+                    if (strFuncName == "")
+                    {
+                        string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                        throw new Exception(strMsg);
+                    }
                 }
 
             }
@@ -2987,19 +3007,7 @@ namespace AutoGCLib
                 clsEntityBase.LogErrorS(ex, "");
                 throw new Exception(ex.Message, ex);
             }
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
+      
             return strCodeForCs.ToString();
         }
 

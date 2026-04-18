@@ -2089,7 +2089,7 @@ public static DataTable ToDataTable(List<clsvFeatureRegionFlds_TtlEN> arrObj)
 DataTable dataTable = new DataTable(); //实例化
 DataTable result;
 if (arrObj.Count == 0) return null;
-if (clsvFeatureRegionFlds_TtlEN.AttributeName.Length == 0)
+if (clsvFeatureRegionFlds_TtlEN._AttributeName.Length == 0)
 {
 result = dataTable;
 return result;
@@ -2099,7 +2099,7 @@ PropertyInfo[] arrPropertyInfo = type.GetProperties();
 try
 {
 //Columns
-foreach (string strAttrName in clsvFeatureRegionFlds_TtlEN.AttributeName)
+foreach (string strAttrName in clsvFeatureRegionFlds_TtlEN._AttributeName)
 {
 PropertyInfo proprety_Curr = arrPropertyInfo.Where(x => x.Name == strAttrName).First();
 dataTable.Columns.Add(strAttrName, proprety_Curr.PropertyType);
@@ -2108,7 +2108,7 @@ foreach (clsvFeatureRegionFlds_TtlEN objInFor in arrObj)
 {
 //Rows
 DataRow dataRow = dataTable.NewRow();
-foreach (string strAttrName in clsvFeatureRegionFlds_TtlEN.AttributeName)
+foreach (string strAttrName in clsvFeatureRegionFlds_TtlEN._AttributeName)
 {
 dataRow[strAttrName] = objInFor[strAttrName];
 }

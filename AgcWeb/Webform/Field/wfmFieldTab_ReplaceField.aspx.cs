@@ -511,7 +511,7 @@ namespace AGC.Webform
             {
                 if (strUserIp == "127.0.0.1" || strUserIp == "59.78.151.114" || strUserIp == "59.78.151.116")
                 {
-                    clsFieldTabBLEx.DelFieldTabEx2(objArr2);
+                    clsFieldTabBLEx.DelFieldTabEx2(objArr2, clsCommonSession.UserId);
                 }
                 else
                 {

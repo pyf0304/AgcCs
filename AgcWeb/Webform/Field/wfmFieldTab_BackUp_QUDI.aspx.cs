@@ -782,7 +782,7 @@ namespace AGC.Webform
             ArrayList objArr = new ArrayList();
 			objArr = clsCommForWebForm.Get_DgCheckedArr(this.dgFieldTab);
             List<string> objArr2 = clsArray.CopyArrayListToList_String(objArr);
-            clsFieldTabBLEx.DelFieldTabEx(objArr2);
+            clsFieldTabBLEx.DelFieldTabEx(objArr2, clsCommonSession.UserId);
 			BindDg_FieldTab();
 //			Response.Write("<script>alert('所选字段已经删除！')</script>");
 		}

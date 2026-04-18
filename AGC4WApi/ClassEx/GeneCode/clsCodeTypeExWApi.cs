@@ -373,9 +373,9 @@ namespace AGC4WApi
         }
 
 
-        public static bool IsCanVisible(List<clsCodeTypeEN> arrCodeTypeObjList, Button btnClassName)
+        public static bool IsCanVisible(List<clsvCodeType_SimEN> arrCodeTypeObjList, Button btnClassName)
         {
-            foreach (clsCodeTypeEN objCodeTypeEN in arrCodeTypeObjList)
+            foreach (clsvCodeType_SimEN objCodeTypeEN in arrCodeTypeObjList)
             {
                 if (btnClassName.Name.Substring(3) == objCodeTypeEN.CodeTypeENName)
                 {

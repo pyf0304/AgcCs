@@ -16,6 +16,7 @@ using System.Web.UI.WebControls;
 using com.taishsoft.commexception;
 using System.Data.SqlClient;
 using com.taishsoft.sql;
+using System.Linq.Expressions;
 
 namespace AGC.BusinessLogicEx
 {
@@ -703,7 +704,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         }
 
         //同时删除多条记录,扩展删除,是全功能删除
-        public static bool DelFieldTabEx2(List<string> lstKey)
+        public static bool DelFieldTabEx2(List<string> lstKey,string strUpdUserId)
         {
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
             string strSQL;
@@ -729,7 +730,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 foreach (string strMid in arrRelaMid)
                 {
                     long lngMid = long.Parse(strMid);
-                    clsPrjTabFldBLEx.DelRecordEx(lngMid);
+                    clsPrjTabFldBLEx.DelRecordEx(lngMid, strUpdUserId);
                 }
             }
             strSQL = "";
@@ -747,7 +748,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
 
 
         //同时删除多条记录
-        public static bool DelFieldTabEx(List<string> lstKey)
+        public static bool DelFieldTabEx(List<string> lstKey, string strUpdUserId)
         {
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
             string strSQL;
@@ -773,7 +774,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 foreach (string strMid in arrRelaMid)
                 {
                     long lngMid = long.Parse(strMid);
-                    clsPrjTabFldBLEx.DelRecordEx(lngMid);
+                    clsPrjTabFldBLEx.DelRecordEx(lngMid, strUpdUserId);
                 }
             }
             strSQL = "";
@@ -786,7 +787,78 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             return bolResult;
         }
 
+        //同时删除多条记录
+        public static bool DelRecordExBak(string strKey, string strUpdUserId)
+        {
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+            string strSQL;
+            bool bolIsFirstItem = true;
+            string strKeyList;
+            //if (lstKey.Count == 0) return true;
+            //strKeyList = "";
+            //for (int i = 0; i < lstKey.Count; i++)
+            //{
+            //    if (IsCanDelUpd(lstKey[i].ToString()) == false) continue;
+            //    if (bolIsFirstItem == true)
+            //    {
+            //        strKeyList = strKeyList + "'" + lstKey[i].ToString() + "'";
+            //        bolIsFirstItem = false;
+            //    }
+            //    else strKeyList += ", " + "'" + lstKey[i].ToString() + "'";
+            //}
+            //if (strKeyList == "") return true;
+            ////删除相关的工程表字段
+            //List<string> arrRelaMid = clsPrjTabFldBL.GetPrimaryKeyID_S("FldId in (" + strKeyList + ")");
+            //if (arrRelaMid != null)
+            //{
+            //    foreach (string strMid in arrRelaMid)
+            //    {
+            //        long lngMid = long.Parse(strMid);
+            //        clsPrjTabFldBLEx.DelRecordEx(lngMid, strUpdUserId);
+            //    }
+            //}
+            strSQL = "";
+            //删除与FieldTab表有关的外键表中的内容
+            //			strSQL = strSQL + "Delete FldObjTab where FldId in (" + strKeyList + ")";
+            //strSQL = strSQL + "Delete EditRegionFlds where DsDataValueFieldId in (" + strKeyList + ")";
+            //删除FieldTab本表中与当前对象有关的记录
+            //strSQL = strSQL + "Delete from FieldTab where FldId in (" + strKeyList + ")";
+            bool bolResult = objSQL.ExecSql(strSQL);
+            return bolResult;
+        }
+        public static bool DelRecordEx(string strFldId, string strUpdUserId)
+        {
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
 
+            if (!IsCanDelUpd(strFldId)) return false;
+
+            // 删除关联
+            List<string> arrRelaMid = clsPrjTabFldBL.GetPrimaryKeyID_S($"FldId = '{strFldId}'");
+
+            if (arrRelaMid != null)
+            {
+                foreach (string strMid in arrRelaMid)
+                {
+                    long lngMid = long.Parse(strMid);
+                    clsPrjTabFldBLEx.DelRecordEx(lngMid, strUpdUserId);
+                }
+            }
+
+            string strSQL = $" DELETE FROM EditRegionFlds WHERE {conEditRegionFlds.FldId} = '{strFldId}';    " +
+                $" DELETE FROM {conViewFeatureFlds._CurrTabName} WHERE {conViewFeatureFlds.ReleFldId} = '{strFldId}';    " +
+                $" DELETE FROM {conDGRegionFlds._CurrTabName} WHERE {conDGRegionFlds.FldId} = '{strFldId}';    " +
+                $" DELETE FROM {conFeatureRegionFlds._CurrTabName} WHERE {conFeatureRegionFlds.ReleFldId} = '{strFldId}';    " +
+                
+                $"         DELETE FROM FieldTab WHERE FldId =  '{strFldId}'; ";
+            bool bolResult = objSQL.ExecSql(strSQL);
+            return bolResult;
+            //    var param = new SqlParameter[]
+            //    {
+            //new SqlParameter("@FldId", strKey)
+            //    };
+
+            //return objSQL.ExecSql(strSQL, param);
+        }
 
         public static bool DelFieldTabBySp(string strFldId, string strTabId)
         {
@@ -1174,9 +1246,24 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             //工程ID
             objFieldTabEN.PrjId = strPrjId;
             //检查是否存在相同的字段名
-            if (IsExistSameFldName(strPrjId, strFldName, strDataTypeId).Length > 0 )
+            string strFldId0 = IsExistSameFldName(strPrjId, strFldName, strDataTypeId);
+
+            if (strFldId0.Length == 0 && (strDataTypeId == enumDataTypeAbbr.float_07 || strDataTypeId == enumDataTypeAbbr.decimal_06))
             {
-                objFieldTabEN.FldId = GetFldId(strPrjId, strFldName, strDataTypeId);
+                // 如果是 float_07，尝试用 decimal_06 再查一次
+                if (strDataTypeId == enumDataTypeAbbr.float_07)
+                {
+                    strFldId0 = IsExistSameFldName(strPrjId, strFldName, enumDataTypeAbbr.decimal_06);
+                }
+                // 如果是 decimal_06，尝试用 float_07 再查一次
+                else if (strDataTypeId == enumDataTypeAbbr.decimal_06)
+                {
+                    strFldId0 = IsExistSameFldName(strPrjId, strFldName, enumDataTypeAbbr.float_07);
+                }
+            }
+            if (strFldId0.Length > 0 )
+            {
+                objFieldTabEN.FldId = strFldId0;
                 //clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
             }
             else
@@ -1391,7 +1478,10 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             objNewPrjTab.UpdUserId = strUserId;
             objNewPrjTab.Memo = objSouPrjTab.Memo;
             objNewPrjTab.IsUseCache = objSouPrjTab.IsUseCache;
-
+            if (string.IsNullOrEmpty( objNewPrjTab.TabMainTypeId) == true)
+            {
+                objNewPrjTab.TabMainTypeId = enumTabMainType.DataTab_0001;
+            }
             //  5.3 当新建<工程表>记录添加到数据库中；
             if (clsPrjTabBL.AddNewRecordBySql2(objNewPrjTab) == false)
             {
@@ -1412,7 +1502,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 //8、把源字段ID列表从源工程中复制到目标工程中,同时获取一个插入到目标工程中的字段ID
                 strTarFldId = clsFieldTabBLEx.CopyField(objSouPrjTab.PrjId, strTarPrjId, strSouFldId, strUserId);
                 //9、把获取的一个新字段ID列表添加到目标工程中的<工程表字段>表中。
-                clsPrjTabFldBLEx.CopyPrjTabFld(objSouPrjTab.PrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId);
+                clsPrjTabFldBLEx.CopyPrjTabFld(objSouPrjTab.PrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId, strUserId);
             }
             return strNewTabId;
         }

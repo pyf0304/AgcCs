@@ -673,6 +673,8 @@ namespace AutoGCLib
 
         public string Gen_4BL_func()
         {
+            if (objPrjTabENEx.IsUseCache == false) return "//该表没有使用Cache,不需要生成[Func]函数;";
+
             StringBuilder strBuilder = new StringBuilder();
             string strFuncAddiParaVar = clsPubFun4GC.Gen_4BL_GetFuncAddiParaVar(objPrjTabENEx);
             string strFuncAddiPara = clsPubFun4GC.Gen_4BL_GetFuncAddiPara(objPrjTabENEx);
@@ -4764,6 +4766,7 @@ objPrjTabENEx.TabName);
         }
         public string Gen_4BL_GetObjFromSimObj4Upd_S()
         {
+
             StringBuilder strBuilder = new StringBuilder();
 
             strBuilder.Append("\r\n /// <summary>");
@@ -14605,10 +14608,25 @@ objKeyField.FldName, objKeyField.PrivFuncName, objPrjTabENEx.objCacheClassifyFld
                         objKeyField.FldName,
                         objAdjustOrderNum.OrderNumFieldName);
                     strCodeForCs.Append("\r\n" + "");
-                    strCodeForCs.AppendFormat("\r\n" + "cls{0}EN obj{0} = cls{0}BL.GetObjBy{1}({2});",
-                        objPrjTabENEx.TabName,
-                        objKeyField.FldName,
-                        objKeyField.PrivFuncName);
+
+                    if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+                    {
+                        strCodeForCs.AppendFormat(
+                            "\r\n cls{0}EN obj{0} = cls{0}BL.GetObjByKeyLst({1});",
+                            objPrjTabENEx.TabName,
+                            objPrjTabENEx.KeyPrivFuncFldNameLstStr
+                        );
+                    }
+                    else
+                    {
+                        strCodeForCs.AppendFormat(
+                            "\r\n cls{0}EN obj{0} = cls{0}BL.GetObjBy{1}({2});",
+                            objPrjTabENEx.TabName,
+                            objKeyField.FldName,
+                            strKeyFldName_PrivateVar
+                        );
+                    }
+
                     strCodeForCs.Append("\r\n" + "");
 
                     strCodeForCs.AppendFormat("\r\n" + "intOrderNum = obj{0}.{1}{2};//当前序号",
@@ -14945,6 +14963,7 @@ objKeyField.FldName, objKeyField.PrivFuncName, objPrjTabENEx.objCacheClassifyFld
                             foreach (clsConstraintFieldsEN objField in arrObjLst_Flds)
                             {
                                 var objPrjTabFld = objField.ObjPrjTabFld();
+                                if (objPrjTabFld == null) continue;
                                 if (bolIsFirst == true)
                                 {
                                     strDuplicateInfo += string.Format("{0}({1})=[{{{2}}}]",

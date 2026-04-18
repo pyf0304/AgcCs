@@ -20,6 +20,8 @@ namespace AGC
         private string mstrOperatePrjId;
         public string OperateType;
         public long CMProjectAppRelaId;
+        public int mintApplicationTypeId;
+
         public IBindListView iBindListView = null;
         public frmUserCodePath_UI()
         {
@@ -34,6 +36,8 @@ namespace AGC
 
             this.Text = string.Format("{0}-代码生成路径设置-维护", clsPubVar.objCurrSelProjectEN.PrjName);
             // 在此处放置用户代码以初始化页面
+            var objvCmProjectAppRela = clsvCmProjectAppRelaWApi.GetObjByCMProjectAppRelaIdCache(CMProjectAppRelaId, clsPubVar.CurrSelPrjId);
+            mintApplicationTypeId = objvCmProjectAppRela.ApplicationTypeId;
             //1、为下拉框设置数据源，绑定列表数据
             this.SetAllComboBox();
 
@@ -64,7 +68,7 @@ namespace AGC
             clsTabMainTypeWApi.BindCbo_TabMainTypeId(this.cboTabMainTypeId);
 
             //clsCodeTypeExWApi.BindCbo_CodeTypeIdEx(this.cboCodeTypeId);
-            clsCodeTypeExWApi.BindCbo_CodeTypeIdByApplicationTypeidEx(cboCodeTypeId, CMProjectAppRelaId, clsPubVar.CurrSelPrjId);
+            clsCodeTypeExWApi.BindCbo_CodeTypeIdByApplicationTypeidEx(cboCodeTypeId,mintApplicationTypeId);
         }
 
         public string PrjId

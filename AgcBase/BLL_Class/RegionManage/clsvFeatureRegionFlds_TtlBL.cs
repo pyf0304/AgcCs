@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvFeatureRegionFlds_TtlBL
  表名:vFeatureRegionFlds_Ttl(00050474)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:45
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:31
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -1346,7 +1346,7 @@ objvFeatureRegionFlds_TtlENT.Memo = objvFeatureRegionFlds_TtlENS.Memo; //说明
 objvFeatureRegionFlds_TtlENT.FldNum = objvFeatureRegionFlds_TtlENS.FldNum; //字段数
 objvFeatureRegionFlds_TtlENT.RelaFldName = objvFeatureRegionFlds_TtlENS.RelaFldName; //关系字段名
 objvFeatureRegionFlds_TtlENT.RelaTabName = objvFeatureRegionFlds_TtlENS.RelaTabName; //相关表名
-objvFeatureRegionFlds_TtlENT.PrjId = objvFeatureRegionFlds_TtlENS.PrjId; //工程ID
+objvFeatureRegionFlds_TtlENT.PrjId = objvFeatureRegionFlds_TtlENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -1412,7 +1412,7 @@ Memo = objvFeatureRegionFlds_TtlENS.Memo, //说明
 FldNum = objvFeatureRegionFlds_TtlENS.FldNum, //字段数
 RelaFldName = objvFeatureRegionFlds_TtlENS.RelaFldName, //关系字段名
 RelaTabName = objvFeatureRegionFlds_TtlENS.RelaTabName, //相关表名
-PrjId = objvFeatureRegionFlds_TtlENS.PrjId, //工程ID
+PrjId = objvFeatureRegionFlds_TtlENS.PrjId, //工程Id
 };
  return objvFeatureRegionFlds_TtlENT;
 }
@@ -2054,7 +2054,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2146,7 +2146,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2222,7 +2222,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2251,7 +2251,7 @@ throw new Exception(strMsg);
 }
 List<clsvFeatureRegionFlds_TtlEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvFeatureRegionFlds_TtlEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convFeatureRegionFlds_Ttl.AttributeName)
+foreach (string strFldName in convFeatureRegionFlds_Ttl._AttributeName)
 {
 if (objvFeatureRegionFlds_TtlCond.IsUpdated(strFldName) == false) continue;
 if (objvFeatureRegionFlds_TtlCond.dicFldComparisonOp == null)
@@ -2366,7 +2366,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2442,7 +2442,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2562,7 +2562,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2638,7 +2638,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2728,7 +2728,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2807,7 +2807,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2881,7 +2881,7 @@ objvFeatureRegionFlds_TtlEN.Memo = objRow[convFeatureRegionFlds_Ttl.Memo] == DBN
 objvFeatureRegionFlds_TtlEN.FldNum = objRow[convFeatureRegionFlds_Ttl.FldNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convFeatureRegionFlds_Ttl.FldNum].ToString().Trim()); //字段数
 objvFeatureRegionFlds_TtlEN.RelaFldName = objRow[convFeatureRegionFlds_Ttl.RelaFldName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaFldName].ToString().Trim(); //关系字段名
 objvFeatureRegionFlds_TtlEN.RelaTabName = objRow[convFeatureRegionFlds_Ttl.RelaTabName] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.RelaTabName].ToString().Trim(); //相关表名
-objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objRow[convFeatureRegionFlds_Ttl.PrjId] == DBNull.Value ? null : objRow[convFeatureRegionFlds_Ttl.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -3242,7 +3242,7 @@ objvFeatureRegionFlds_TtlENT.Memo = objvFeatureRegionFlds_TtlENS.Memo; //说明
 objvFeatureRegionFlds_TtlENT.FldNum = objvFeatureRegionFlds_TtlENS.FldNum; //字段数
 objvFeatureRegionFlds_TtlENT.RelaFldName = objvFeatureRegionFlds_TtlENS.RelaFldName; //关系字段名
 objvFeatureRegionFlds_TtlENT.RelaTabName = objvFeatureRegionFlds_TtlENS.RelaTabName; //相关表名
-objvFeatureRegionFlds_TtlENT.PrjId = objvFeatureRegionFlds_TtlENS.PrjId; //工程ID
+objvFeatureRegionFlds_TtlENT.PrjId = objvFeatureRegionFlds_TtlENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -3440,7 +3440,7 @@ objvFeatureRegionFlds_TtlEN.RelaTabName = objvFeatureRegionFlds_TtlEN.RelaTabNam
 }
 if (arrFldSet.Contains(convFeatureRegionFlds_Ttl.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvFeatureRegionFlds_TtlEN.PrjId = objvFeatureRegionFlds_TtlEN.PrjId == "[null]" ? null :  objvFeatureRegionFlds_TtlEN.PrjId; //工程ID
+objvFeatureRegionFlds_TtlEN.PrjId = objvFeatureRegionFlds_TtlEN.PrjId == "[null]" ? null :  objvFeatureRegionFlds_TtlEN.PrjId; //工程Id
 }
 }
 catch (Exception objException)
@@ -3490,7 +3490,7 @@ if (objvFeatureRegionFlds_TtlEN.UpdDate == "[null]") objvFeatureRegionFlds_TtlEN
 if (objvFeatureRegionFlds_TtlEN.Memo == "[null]") objvFeatureRegionFlds_TtlEN.Memo = null; //说明
 if (objvFeatureRegionFlds_TtlEN.RelaFldName == "[null]") objvFeatureRegionFlds_TtlEN.RelaFldName = null; //关系字段名
 if (objvFeatureRegionFlds_TtlEN.RelaTabName == "[null]") objvFeatureRegionFlds_TtlEN.RelaTabName = null; //相关表名
-if (objvFeatureRegionFlds_TtlEN.PrjId == "[null]") objvFeatureRegionFlds_TtlEN.PrjId = null; //工程ID
+if (objvFeatureRegionFlds_TtlEN.PrjId == "[null]") objvFeatureRegionFlds_TtlEN.PrjId = null; //工程Id
 }
 catch (Exception objException)
 {
@@ -3721,6 +3721,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}_{1}", clsvFeatureRegionFlds_TtlEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
+clsvFeatureRegionFlds_TtlEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -3730,6 +3731,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvFeatureRegionFlds_TtlEN._RefreshTimeLst.Count == 0) return "";
+return clsvFeatureRegionFlds_TtlEN._RefreshTimeLst[clsvFeatureRegionFlds_TtlEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -3744,7 +3754,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3759,10 +3769,10 @@ if (strInFldName != convFeatureRegionFlds_Ttl.ViewFeatureId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convFeatureRegionFlds_Ttl.AttributeName.Contains(strOutFldName) == false)
+if (convFeatureRegionFlds_Ttl._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convFeatureRegionFlds_Ttl.AttributeName));
+strInFldName, string.Join(", ", convFeatureRegionFlds_Ttl._AttributeName));
 throw new Exception(strMsg);
 }
 var objvFeatureRegionFlds_Ttl = clsvFeatureRegionFlds_TtlBL.GetObjByViewFeatureIdCache(strViewFeatureId, strPrjId);
@@ -3847,7 +3857,7 @@ throw new Exception(strMsg);
 }
 List<clsvFeatureRegionFlds_TtlEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvFeatureRegionFlds_TtlEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convFeatureRegionFlds_Ttl.AttributeName)
+foreach (string strFldName in convFeatureRegionFlds_Ttl._AttributeName)
 {
 if (objvFeatureRegionFlds_TtlCond.IsUpdated(strFldName) == false) continue;
 if (objvFeatureRegionFlds_TtlCond.dicFldComparisonOp == null)

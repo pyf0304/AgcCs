@@ -30,6 +30,7 @@ using AGC.Entity;
 
 using System.Collections.Generic;
 using com.taishsoft.json;
+using System.Linq;
 
 namespace AGC4WApi
 {
@@ -68,6 +69,7 @@ namespace AGC4WApi
         {
             //string strCondition = string.Format("{0}={1}", convAppCodeTypeRela.ApplicationTypeId, intApplicationTypeId);
             List<clsvAppCodeTypeRelaEN> arrObjLst = clsvAppCodeTypeRelaWApi.GetObjLstCache();
+            arrObjLst = arrObjLst.Where(x => x.ApplicationTypeId == intApplicationTypeId).ToList();
             List<clsvAppCodeTypeRelaENEx> arrObjExLst = new List<clsvAppCodeTypeRelaENEx>();
             foreach (clsvAppCodeTypeRelaEN objInFor in arrObjLst)
             {

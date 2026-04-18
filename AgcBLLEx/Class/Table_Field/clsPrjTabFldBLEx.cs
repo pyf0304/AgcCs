@@ -833,7 +833,7 @@ namespace AGC.BusinessLogicEx
         //    }
         //    objPrjTabFldENEx.ObjFieldTabENEx.objDataTypeAbbrEN = clsDataTypeAbbrBL.GetObjByDataTypeIdCache(objPrjTabFldENEx.ObjFieldTabENEx.DataTypeId).CopyToEx();
         //}
-        public static bool DelRecordEx(string strTabId)
+        public static bool DelRecordExByTabId(string strTabId, string strUpdUserId)
         {
             List<string> arrLst = null;
             StringBuilder sbCondition = new StringBuilder();
@@ -843,9 +843,9 @@ namespace AGC.BusinessLogicEx
             foreach (string strMid in arrLst)
             {
                 long lngMid = long.Parse(strMid);
-                DelRecordEx(lngMid);
+                DelRecordEx(lngMid, strUpdUserId);
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId,strUpdUserId);
             return true;
         }
         /// <summary>
@@ -853,7 +853,7 @@ namespace AGC.BusinessLogicEx
         /// </summary>
         /// <param name = "lngMId">工程表字段的关键字</param>
         /// <returns></returns>
-        public static bool DelRecordEx(long lngMId)
+        public static bool DelRecordEx(long lngMId, string strUpdUserId)
         {
             //操作步骤:
             //1、获取当前序号的步骤序号；
@@ -891,7 +891,7 @@ namespace AGC.BusinessLogicEx
             //删除PrjTabFld本表中与当前对象有关的记录
             strSQL = "Update PrjTabFld set SequenceNumber = SequenceNumber - 1 where TabId = '" + strCurrTabId + "' and SequenceNumber > " + intCurrSeqNum;
             objSQL.ExecSql(strSQL);
-            clsPrjTabBLEx.SetUpdDate(strCurrTabId);
+            clsPrjTabBLEx.SetUpdDate(strCurrTabId, strUpdUserId);
             //4、返回TRUE；
             return true;
         }
@@ -969,7 +969,7 @@ namespace AGC.BusinessLogicEx
                     strFldId_T = objFieldTab_T.FldId;
                 }
                 ReplaceField(strPrjId, strTabId, objvPrjTabFldEN.FldId, strFldId_T, strUserId);
-                clsPrjTabBLEx.SetUpdDate(strTabId);
+                clsPrjTabBLEx.SetUpdDate(strTabId,strUserId);
                 //   clsFldObjTabBLEx.ReplaceFieldByObjId(strPrjId, strObjId, objvPrjTabFldEN.FldId, strFldId_T, strUserId);
             }
 
@@ -987,7 +987,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "strTarFldId">指定的[工程表]</param>
         /// <returns>是否成功</returns>
         public static bool CopyPrjTabFld(string strSouPrjId, string strTarPrjId,
-            string strSouTabId, string strTarTabId, string strSouFldId, string strTarFldId)
+            string strSouTabId, string strTarTabId, string strSouFldId, string strTarFldId, string strUpdUser)
         {
             //操作步骤:
             //1、获取源<工程表字段>记录。根据源<表ID>和源<字段ID>,并获取该记录的属性。
@@ -1019,7 +1019,8 @@ namespace AGC.BusinessLogicEx
             objTarPrjTabFld.FieldTypeId = objSouPrjTabFld.FieldTypeId;
             objTarPrjTabFld.FldOpTypeId = objSouPrjTabFld.FldOpTypeId;
             objTarPrjTabFld.UpdDate = clsDateTime.getTodayDateTimeStr(1);
-
+            objTarPrjTabFld.UpdUser = strUpdUser;
+            objTarPrjTabFld.IsGeneProp = true;
             if (string.IsNullOrEmpty(objTarPrjTabFld.FieldTypeId) == true)
             {
                 objTarPrjTabFld.FieldTypeId = "01";
@@ -1042,7 +1043,7 @@ namespace AGC.BusinessLogicEx
             return true;
         }
 
-        public static bool DelRecordEx(string strTabId, string strFldId)
+        public static bool DelRecordEx(string strTabId, string strFldId, string strUpdUserId)
         {
             long lngTabTabId = getTabFldId(strTabId, strFldId);
             if (lngTabTabId == 0)
@@ -1063,8 +1064,8 @@ namespace AGC.BusinessLogicEx
 
                 throw new Exception(sbMessage.ToString());
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
-            return DelRecordEx(lngTabTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUserId);
+            return DelRecordEx(lngTabTabId, strUpdUserId);
         }
 
         public static long getTabFldId(string strTabId, string strFldId)
@@ -1093,7 +1094,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "strTabId">表ID</param>
         /// <param name = "strFldId">字段Id</param>
         /// <returns>是否成功？</returns>
-        public static bool DelFieldFromTab(string strTabId, string strFldId)
+        public static bool DelFieldFromTab(string strTabId, string strFldId, string strUpdUserId)
         {
             long lngTabTabId = getTabFldId(strTabId, strFldId);
             if (lngTabTabId == 0)
@@ -1104,8 +1105,8 @@ namespace AGC.BusinessLogicEx
                 sbMessage.AppendFormat("表名:{0},字段名:{1}不存在!", strTabName, strFldName);
                 throw new Exception(sbMessage.ToString());
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
-            return DelRecordEx(lngTabTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId,strUpdUserId);
+            return DelRecordEx(lngTabTabId, strUpdUserId);
         }
 
         /// <summary>
@@ -1114,7 +1115,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "strTabId">表ID</param>
         /// <param name = "arrColumnsObjList">字段对象列表</param>
         /// <returns>成功？</returns>
-        public static bool SynchFieldFromColumnObjList(string strTabId, ArrayList arrColumnsObjList)
+        public static bool SynchFieldFromColumnObjList(string strTabId, ArrayList arrColumnsObjList, string strUpdUserId)
         {
             //操作步骤:
             //1、表ID-->对象ID；
@@ -1166,7 +1167,7 @@ namespace AGC.BusinessLogicEx
                     throw new Exception(sbMessage.ToString());
                 }
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUserId);
             return true;
         }
 
@@ -1235,7 +1236,7 @@ namespace AGC.BusinessLogicEx
                 sbMessage.AppendFormat("修改字段 :{0}不成功,请检查!", strColumn_Name);
                 throw new Exception(sbMessage.ToString());
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUser);
             return strFldId;
         }
 
@@ -1529,7 +1530,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "strFldId_S">源字段Id</param>
         /// <param name = "strFldId_T">目标字段Id</param>
         /// <returns>是否成功</returns>
-        public static bool ReplaceFieldInPrjTabFld(string strTabId, string strFldId_S, string strFldId_T)
+        public static bool ReplaceFieldInPrjTabFld(string strTabId, string strFldId_S, string strFldId_T,string strUpdUserId)
         {
             //操作步骤:
             //1、获取当前视图ID的相关对象ID；
@@ -1552,7 +1553,7 @@ namespace AGC.BusinessLogicEx
             //删除PrjTabFld本表中与当前对象有关的记录
             strSQL = strSQL + string.Format("update PrjTabFld set fldid = '{0}' where tabid = '{1}' and FldId = '{2}';",
                strFldId_T, strTabId, strFldId_S);
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUserId);
             //if (string.IsNullOrEmpty(strObjId) == false)
             //{
             //    strSQL = strSQL + string.Format("update FldObjTab set fldid = '{0}' where ObjId = '{1}' and FldId = '{2}';",
@@ -1749,7 +1750,7 @@ namespace AGC.BusinessLogicEx
 
 
 
-        public static void ReNumber(string strTabId)
+        public static void ReNumber(string strTabId,string strUpdUserId)
         {
             //通过存储过程来
             //直接使用
@@ -1760,10 +1761,10 @@ namespace AGC.BusinessLogicEx
             values.Add(strTabId);
 
             objSQL.ExecSP2("ReNumberForPrjTabFld", values);
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUserId);
             //			return true;
         }
-        public new static void ReOrder(string strTabId)
+        public new static void ReOrder(string strTabId, string strUpdUserId)
         {
             List<clsPrjTabFldEN> arrPrjTabFldObjList = clsPrjTabFldBL.GetObjLst("TabId = '" + strTabId + "' order by SequenceNumber ");
             arrPrjTabFldObjList = arrPrjTabFldObjList.OrderBy(x => x.FieldTypeId).ToList();
@@ -1791,7 +1792,7 @@ namespace AGC.BusinessLogicEx
                 clsPrjTabFldBL.UpdateBySql2(objPrjTabFldEN);
                 intIndex++;
             }
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strUpdUserId);
         }
         /// <summary>
         /// 功能:移动到新的序号
@@ -1800,7 +1801,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "intSequenceNumber">当前序号</param>
         /// <param name = "intNewSequenceNumber">新的序号</param>
         /// <returns>如果增1成功就返回true, 否则返回false.</returns>
-        public bool MoveRecSeqTo(string strTabId, int intSequenceNumber, int intNewSequenceNumber)
+        public bool MoveRecSeqTo(string strTabId, int intSequenceNumber, int intNewSequenceNumber,string strUpdUserId)
         {
             //操作步骤:
             //1、获取当前界面的操作步骤的数目(intStepsNum, 操作步骤的数目)；
@@ -1827,13 +1828,13 @@ namespace AGC.BusinessLogicEx
             {
                 //5、修改当前步骤的序号,使之为0；
                 clsPrjTabFldBL.SetFldValue(clsPrjTabFldEN._CurrTabName, "SequenceNumber", "0", "mId = " + lngIdForCurrStep.ToString());
-                clsPrjTabFldBLEx.ReNumber(strTabId);
+                clsPrjTabFldBLEx.ReNumber(strTabId, strUpdUserId);
             }
             else if (intNewSequenceNumber == -1)
             {
                 //5、修改当前步骤的序号,使之为0；
                 clsPrjTabFldBL.SetFldValue(clsPrjTabFldEN._CurrTabName, "SequenceNumber", "1000", "mId = " + lngIdForCurrStep.ToString());
-                clsPrjTabFldBLEx.ReNumber(strTabId);
+                clsPrjTabFldBLEx.ReNumber(strTabId, strUpdUserId);
             }
             else
             {
@@ -1841,7 +1842,7 @@ namespace AGC.BusinessLogicEx
                 strSQL = "update PrjTabFld set SequenceNumber = SequenceNumber +1 where TabId = '" + strTabId + "' and SequenceNumber >=  " + intNewSequenceNumber.ToString();
                 new clsSpecSQLforSql().ExecSql(strSQL);
                 clsPrjTabFldBL.SetFldValue(clsPrjTabFldEN._CurrTabName, "SequenceNumber", intNewSequenceNumber.ToString(), "mId = " + lngIdForCurrStep.ToString());
-                clsPrjTabFldBLEx.ReNumber(strTabId);
+                clsPrjTabFldBLEx.ReNumber(strTabId, strUpdUserId);
             }
             //7、返回TRUE；
             return true;
@@ -4557,7 +4558,7 @@ namespace AGC.BusinessLogicEx
                     .SetUpdDate(clsDateTime.getTodayDateTimeStr(1))
                     .SetUpdUser(strOpUser)
                     .Update();
-                clsPrjTabBLEx.SetUpdDate(objPrjTabFldEN.TabId);
+                clsPrjTabBLEx.SetUpdDate(objPrjTabFldEN.TabId, strOpUser);
                 return objPrjTabFldEN.FldId;
             }
             catch (Exception objException)
@@ -4586,7 +4587,7 @@ namespace AGC.BusinessLogicEx
             }
 
             clsPrjTabFldEN objPrjTabFldEN = clsPrjTabFldBL.GetObjBymId(lngmId);
-            if (objPrjTabFldEN != null) clsPrjTabBLEx.SetUpdDate(objPrjTabFldEN.TabId);
+            if (objPrjTabFldEN != null) clsPrjTabBLEx.SetUpdDate(objPrjTabFldEN.TabId, strOpUser);
             clsFieldTabEN objFieldTabEN = clsFieldTabBL.GetObjByFldId(objPrjTabFldEN.FldId);
             if (objFieldTabEN.FldName == strFldName)
             {
@@ -4663,7 +4664,7 @@ namespace AGC.BusinessLogicEx
                    .Update();
 
             clsPrjTabFldBL.ReOrder(strTabId);
-            clsPrjTabBLEx.SetUpdDate(strTabId);
+            clsPrjTabBLEx.SetUpdDate(strTabId, strOpUser);
             return true;
 
         }

@@ -42,7 +42,7 @@ namespace AGC.WebApi
         /// <param name = "strFldId">字段Id</param>
         /// <returns>返回是否存在?</returns>
         [HttpGet("DelRecordEx")]
-        public ActionResult DelRecordEx(string strTabId, string strFldId)
+        public ActionResult DelRecordEx(string strTabId, string strFldId, string strUpdUserId)
         {
 
             string strFunctionName = clsStackTrace.GetCurrFunction();
@@ -52,7 +52,7 @@ namespace AGC.WebApi
             clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
             try
             {
-                var varResult = clsPrjTabFldBLEx.DelRecordEx(strTabId, strFldId);
+                var varResult = clsPrjTabFldBLEx.DelRecordEx(strTabId, strFldId, strUpdUserId);
                 return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
             }
             catch (Exception objException)

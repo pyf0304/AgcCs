@@ -1,4 +1,5 @@
 ﻿using AGC.BusinessLogic;
+using AGC.DAL;
 using AGC.Entity;
 using AGC.PureClass;
 using AGC.PureClassEx;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.UI.WebControls;
+using static AGC.Entity.CopyTaskStatusResultDto;
 //using AGC.PureClassEx;
 
 namespace AGC.BusinessLogicEx
@@ -638,7 +640,7 @@ namespace AGC.BusinessLogicEx
         }
 
 
-        public static bool DelRecordEx(string strViewId)
+        public static bool DelRecordExBak(string strViewId)
         {
             //删除单条记录
             string strSQL = "";
@@ -649,11 +651,11 @@ namespace AGC.BusinessLogicEx
 
             strSQL = strSQL + string.Format("Delete from {0} where {1} in (Select {1} From {2} Where {3} in (Select {3} From {4} where {5}= '{6}'));",
                 clsViewFeatureFldsEN._CurrTabName, conViewFeatureFlds.ViewFeatureId,
-                clsFeatureRegionFldsEN._CurrTabName, conFeatureRegionFlds.RegionId,
+                clsFeatureRegionFldsEN._CurrTabName, conViewRegionRela.RegionId,
                 clsViewRegionRelaEN._CurrTabName, conViewRegionRela.ViewId, strViewId);
 
             strSQL = strSQL + string.Format("Delete from {0} where {1} in (Select {1} From {2} where {3}= '{4}');",
-                clsFeatureRegionFldsEN._CurrTabName, conFeatureRegionFlds.RegionId, clsViewRegionRelaEN._CurrTabName, conViewRegionRela.ViewId, strViewId);
+                clsFeatureRegionFldsEN._CurrTabName, conViewRegionRela.RegionId, clsViewRegionRelaEN._CurrTabName, conViewRegionRela.ViewId, strViewId);
             strSQL = strSQL + "Delete from ViewRelaTab where ViewId = " + "'" + strViewId + "'";
             strSQL = strSQL + "Delete from ViewBtnOptSteps where ViewId = " + "'" + strViewId + "'";
             objSQL.ExecSql(strSQL);
@@ -662,7 +664,219 @@ namespace AGC.BusinessLogicEx
             strSQL = strSQL + "Delete from ViewInfo where ViewId = " + "'" + strViewId + "'";
             return objSQL.ExecSql(strSQL);
         }
+        public static bool DelRecordExBak1(string strViewId)
+        {
+            //删除单条记录
+            string strSQL = "";
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
 
+            try
+            {
+                // 1、先获取该界面关联的所有区域ID
+                string strRegionCondition = string.Format("ViewId = '{0}'", strViewId);
+                List<clsViewRegionRelaEN> arrViewRegionRelaLst = clsViewRegionRelaBL.GetObjLst(strRegionCondition);
+
+                // 2、删除每个区域的字段数据
+                foreach (clsViewRegionRelaEN objRegionRela in arrViewRegionRelaLst)
+                {
+                    clsViewRegionEN objRegion = clsViewRegionBL.GetObjByRegionId(objRegionRela.RegionId);
+                    if (objRegion == null) continue;
+
+                    // 根据区域类型删除对应的字段表
+                    switch (objRegion.RegionTypeId)
+                    {
+                        case enumRegionType.EditRegion_0003:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsEditRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.ListRegion_0002:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsDGRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.QueryRegion_0001:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsQryRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.DetailRegion_0006:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsDetailRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.FeatureRegion_0008:
+                            // 功能区域需要先删除 ViewFeatureFlds 子表
+                            strSQL += string.Format("DELETE FROM {0} WHERE ViewFeatureId IN (SELECT ViewFeatureId FROM {1} WHERE RegionId = '{2}');",
+                                clsViewFeatureFldsEN._CurrTabName, clsFeatureRegionFldsEN._CurrTabName, objRegion.RegionId);
+
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsFeatureRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.ExcelExportRegion_0007:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsExcelExportRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.TreeViewRegion_0005:
+                            // 如果有树形区域字段表，也需要删除
+                            // strSQL += string.Format("DELETE FROM TreeViewRegionFlds WHERE RegionId = '{0}';", objRegion.RegionId);
+                            break;
+                    }
+                }
+
+                // 3、删除界面样式
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewStyleEN._CurrTabName, strViewId);
+
+                // 4、删除 ViewFeatureFlds（功能字段）
+                strSQL += string.Format("DELETE FROM {0} WHERE {1} IN (SELECT {1} FROM {2} WHERE {3} IN (SELECT {3} FROM {4} WHERE {5} = '{6}'));",
+                    clsViewFeatureFldsEN._CurrTabName, conViewFeatureFlds.ViewFeatureId,
+                    clsFeatureRegionFldsEN._CurrTabName, conFeatureRegionFlds.RegionId,
+                    clsViewRegionRelaEN._CurrTabName, conViewRegionRela.ViewId, strViewId);
+
+                // 5、删除 FeatureRegionFlds（功能区域字段）
+                strSQL += string.Format("DELETE FROM {0} WHERE {1} IN (SELECT {1} FROM {2} WHERE {3} = '{4}');",
+                    clsFeatureRegionFldsEN._CurrTabName, conFeatureRegionFlds.RegionId,
+                    clsViewRegionRelaEN._CurrTabName, conViewRegionRela.ViewId, strViewId);
+
+                // 6、删除 ViewRelaTab（界面关联表）
+                strSQL += string.Format("DELETE FROM ViewRelaTab WHERE ViewId = '{0}';", strViewId);
+
+                // 7、删除 ViewBtnOptSteps（界面按钮操作步骤）
+                strSQL += string.Format("DELETE FROM ViewBtnOptSteps WHERE ViewId = '{0}';", strViewId);
+
+                // 8、删除 ViewRegion（区域本身）
+                strSQL += string.Format("DELETE FROM {0} WHERE RegionId IN (SELECT RegionId FROM {1} WHERE ViewId = '{2}');",
+                    clsViewRegionEN._CurrTabName, clsViewRegionRelaEN._CurrTabName, strViewId);
+
+                // 9、删除 ViewRegionRela（界面区域关系）
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewRegionRelaEN._CurrTabName, strViewId);
+
+                // 10、删除 ViewInfo（界面本身）
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewInfoEN._CurrTabName, strViewId);
+
+                // 执行SQL
+                bool bolResult = objSQL.ExecSql(strSQL);
+
+                if (bolResult)
+                {
+                    string strLog = string.Format("删除界面成功，ViewId:[{0}]", strViewId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+
+                return bolResult;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("删除界面失败，ViewId:[{0}]，错误:{1}.(in {2})",
+                    strViewId, ex.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        public static bool DelRecordEx(string strViewId)
+        {
+            //删除单条记录
+            string strSQL = "";
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+
+            try
+            {
+                // 1、先获取该界面关联的所有区域ID
+                string strRegionCondition = string.Format("ViewId = '{0}'", strViewId);
+                List<clsViewRegionRelaEN> arrViewRegionRelaLst = clsViewRegionRelaBL.GetObjLst(strRegionCondition);
+
+                // 2、删除每个区域的字段数据（最底层子表）
+                foreach (clsViewRegionRelaEN objRegionRela in arrViewRegionRelaLst)
+                {
+                    clsViewRegionEN objRegion = clsViewRegionBL.GetObjByRegionId(objRegionRela.RegionId);
+                    if (objRegion == null) continue;
+
+                    // 根据区域类型删除对应的字段表
+                    switch (objRegion.RegionTypeId)
+                    {
+                        case enumRegionType.EditRegion_0003:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsEditRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.ListRegion_0002:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsDGRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.QueryRegion_0001:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsQryRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.DetailRegion_0006:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsDetailRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.FeatureRegion_0008:
+                            // 功能区域需要先删除 ViewFeatureFlds 子表
+                            strSQL += string.Format("DELETE FROM {0} WHERE ViewFeatureId IN (SELECT ViewFeatureId FROM {1} WHERE RegionId = '{2}');",
+                                clsViewFeatureFldsEN._CurrTabName, clsFeatureRegionFldsEN._CurrTabName, objRegion.RegionId);
+
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsFeatureRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+
+                        case enumRegionType.ExcelExportRegion_0007:
+                            strSQL += string.Format("DELETE FROM {0} WHERE RegionId = '{1}';",
+                                clsExcelExportRegionFldsEN._CurrTabName, objRegion.RegionId);
+                            break;
+                    }
+                }
+
+                // 3、删除界面样式
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewStyleEN._CurrTabName, strViewId);
+
+                // 4、删除 ViewRelaTab（界面关联表）
+                strSQL += string.Format("DELETE FROM ViewRelaTab WHERE ViewId = '{0}';", strViewId);
+
+                // 5、删除 ViewBtnOptSteps（界面按钮操作步骤）
+                strSQL += string.Format("DELETE FROM ViewBtnOptSteps WHERE ViewId = '{0}';", strViewId);
+
+                // 6、【关键】先删除 ViewRegionRela（界面区域关系）- 子表
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewRegionRelaEN._CurrTabName, strViewId);
+
+                // 7、再删除 ViewRegion（区域本身）- 父表
+                strSQL += string.Format("DELETE FROM {0} WHERE RegionId IN (SELECT RegionId FROM {1} WHERE ViewId = '{2}');",
+                    clsViewRegionEN._CurrTabName, clsViewRegionRelaEN._CurrTabName, strViewId);
+
+                // 8、删除 ViewInfo（界面本身）
+                strSQL += string.Format("DELETE FROM {0} WHERE ViewId = '{1}';",
+                    clsViewInfoEN._CurrTabName, strViewId);
+
+                // 执行SQL
+                bool bolResult = objSQL.ExecSql(strSQL);
+
+                if (bolResult)
+                {
+                    string strLog = string.Format("删除界面成功，ViewId:[{0}]", strViewId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+
+                return bolResult;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("删除界面失败，ViewId:[{0}]，错误:{1}.(in {2})",
+                    strViewId, ex.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
         public static int SetViewUpdDate(string strViewId)
         {
             return clsViewInfoBL.SetFldValue("ViewInfo", "UpdDate", clsDateTime.getTodayDateTimeStr(1), "ViewId = " + "'" + strViewId + "'");
@@ -802,6 +1016,7 @@ namespace AGC.BusinessLogicEx
             }
 
         }
+
         /// <summary>
         /// 关键字字段名的列表串,附带双引号
         /// </summary>
@@ -1063,7 +1278,7 @@ namespace AGC.BusinessLogicEx
                 if (objRegionQry != null)
                 {
 
-                        if (arrTabId.Contains(objRegionQry.TabId) == false) arrTabId.Add(objRegionQry.TabId);
+                    if (arrTabId.Contains(objRegionQry.TabId) == false) arrTabId.Add(objRegionQry.TabId);
 
                 }
             }
@@ -1074,7 +1289,7 @@ namespace AGC.BusinessLogicEx
 
                     if (arrTabId.Contains(objRegionFeature.TabId) == false) arrTabId.Add(objRegionFeature.TabId);
 
-                }               
+                }
             }
             {
                 var objRegionDetail = clsViewRegionBLEx.GetObjByTypeCache2(strViewId, clsRegionTypeENEx.DETAILREGION, strPrjId);
@@ -1291,13 +1506,13 @@ namespace AGC.BusinessLogicEx
                 foreach (var strTabId in arrTabId)
                 {
                     clsPrjTabBLEx.CheckTabFlds(strTabId, strPrjDataBaseId, strCmPrjId, strUpdUser, strViewId);
-                }   
+                }
 
             }
             catch (Exception objException)
             {
-                string  strErrMsg = objException.Message;
-                arrErrMsg.Add(new clsErrMsgENEx(strErrMsg, 1)); 
+                string strErrMsg = objException.Message;
+                arrErrMsg.Add(new clsErrMsgENEx(strErrMsg, 1));
             }
             try
             {
@@ -1336,7 +1551,7 @@ namespace AGC.BusinessLogicEx
                 objViewInfo.Update();
                 //}
             }
-            
+
             return true;
         }
         public static bool Clone(string strViewId, string strPrjId, string strUpdUser)
@@ -1575,6 +1790,7 @@ namespace AGC.BusinessLogicEx
                 objASPColENEx.AspControlName = string.Format("tdFuncCol{0}", intCurrCol);
                 objASPRowENEx.arrSubAspControlLst2.Add(objASPColENEx);
 
+
                 objASPButtonENEx = new ASPButtonEx();
                 objASPButtonENEx.AspControlId = string.Format("btn{0}", objFeatureRegionFldsENEx.ButtonName);
                 objASPButtonENEx.AspControlName = string.Format("btn{0}", objFeatureRegionFldsENEx.ButtonName);
@@ -1742,7 +1958,7 @@ namespace AGC.BusinessLogicEx
                 .SetViewId(strViewId)
                 .SetUpdUserId(strUserId)
                 .SetUpdDate(strCurrDate);
-            string strCondition = string.Format("{0}='{1}' and {2}='{3}'", 
+            string strCondition = string.Format("{0}='{1}' and {2}='{3}'",
                 conViewInfoCmPrjIdRela.ViewId, strViewId,
                 conViewInfoCmPrjIdRela.CmPrjId, strCmPrjId);
             if (clsViewInfoCmPrjIdRelaBL.IsExistRecord(strCondition) == false)
@@ -1750,8 +1966,8 @@ namespace AGC.BusinessLogicEx
                 objViewInfoCmPrjIdRela.AddNewRecord();
             }
             else
-            { 
-                objViewInfoCmPrjIdRela          .UpdateWithCondition(strCondition);
+            {
+                objViewInfoCmPrjIdRela.UpdateWithCondition(strCondition);
             }
             var arrViewRegion = clsViewRegionBLEx.GetObjLstByViewId(strViewId);
 
@@ -1915,7 +2131,11 @@ namespace AGC.BusinessLogicEx
 
         //    //string strPrjId4Ag1c = "0013";
         //    //string strTabName4Set = "ViewInfo";
-        //    //string strCondition4DataSyn = string.Format("PrjId='{0}' And TabName='{1}'", strPrjId4Agc, strTabName4Set);
+        //    //string strCondition4DataSyn = string.Format("{0}='{1}' And {2}='{3}'", 
+        //    //    conViewInfo.PrjId,
+        //    //    strPrjId4Agc, 
+        //    //    conViewInfo.ViewName,
+        //    //    strTabName4Set);
         //    //string strViewId = clsViewInfoBL.GetFirstID_S(strCondition4DataSyn);
 
         //    //clsViewInfoEN objViewInfoEN = new clsViewInfoEN(strId_TransferCourses);
@@ -2006,7 +2226,7 @@ namespace AGC.BusinessLogicEx
         //    //clsViewInfoEN objViewInfoEN = new clsViewInfoEN(strId_TransferCourses);
         //    ////objViewInfoEN.Id_TransferCourses
         //    //clsViewInfoBL.GetViewInfo(ref objViewInfoEN);
-        //    clsSysParaEN.strConnectStrName = "ConnectionString";
+        //    clsSysParaEN.strConnectStrName = "ConnectionStringWeb";
 
         //    List<clsViewInfoEN> arrViewInfoENObjLst = clsViewInfoBL.GetObjLst(strCondition);
 
@@ -2016,7 +2236,7 @@ namespace AGC.BusinessLogicEx
         //        objViewInfoEN4Main.IsSynchToClient = true;
         //        objViewInfoEN4Main.SynchToClientDate = strCurrDate14;
         //        objViewInfoEN4Main.SynchToClientUser = strUserId;
-        //        clsSysParaEN.strConnectStrName = "ConnectionStringWeb";
+        //        clsSysParaEN.strConnectStrName = "ConnectionString";
         //        //string strCondition2 = string.Format("id_Stu='{0}' And ScrTermSeq={1} And id_course='{2}' and id_scoretype='{3}'",
         //        // objViewInfoEN4Web.Id_TransferCourses,
         //        // objViewInfoEN4Web.ScrTermSeq,
@@ -2046,13 +2266,13 @@ namespace AGC.BusinessLogicEx
         //                intCount++;
         //            }
 
-        //            clsSysParaEN.strConnectStrName = "ConnectionString";
+        //            clsSysParaEN.strConnectStrName = "ConnectionStringWeb";
         //            clsViewInfoBL.UpdateBySql2(objViewInfoEN4Main);
         //        }
         //        catch (Exception objException)
         //        {
         //            StringBuilder sbMsg = new StringBuilder();
-        //            sbMsg.AppendFormat("在同步到Web库，工程表：{0}({1})时出错。({3}).[上级抛错:{2}]", objViewInfoEN4Main.ViewId,
+        //            sbMsg.AppendFormat("在同步到Client库，工程表：{0}({1})时出错。({3}).[上级抛错:{2}]", objViewInfoEN4Main.ViewId,
         //                        objViewInfoEN4Main.ViewId, objException.Message, clsStackTrace.GetCurrClassFunction());
         //            throw new Exception(sbMsg.ToString());
         //        }
@@ -2069,18 +2289,2947 @@ namespace AGC.BusinessLogicEx
             var intCount = 0;
             foreach (clsViewInfoEN objViewInfoEN in arrViewInfoENObjLst)
             {
-                var objPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoEN.MainTabId, strPrjId);
+                var objPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoEN.MainTabId, objViewInfoEN.PrjId);
                 if (objPrjTab == null) continue;
                 if (objViewInfoEN.FuncModuleAgcId == objPrjTab.FuncModuleAgcId &&
                                 objViewInfoEN.IsShare == objPrjTab.IsShare) continue;
 
                 objViewInfoEN.FuncModuleAgcId = objPrjTab.FuncModuleAgcId;
                 objViewInfoEN.IsShare = objPrjTab.IsShare;
-                objViewInfoEN.UpdDate = strCurrDate14;
+                objViewInfoEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
                 clsViewInfoBL.UpdateBySql2(objViewInfoEN);
                 intCount++;
             }
             return intCount;
+        }
+
+
+        /// <summary>
+        /// 执行复制任务（真正的复制逻辑，支持断点续传）
+        /// </summary>
+        public static ExecuteCopyTaskResultDto ExecuteCopyTaskBak(long lngTaskId)
+        {
+            ExecuteCopyTaskResultDto result = new ExecuteCopyTaskResultDto();
+
+            try
+            {
+                // 1、读取任务头
+                clsCopyTaskEN objTask = GetCopyTask(lngTaskId);
+                if (objTask == null)
+                {
+                    result.success = false;
+                    result.message = "任务不存在";
+                    return result;
+                }
+
+                // 校验任务状态
+                if (objTask.Status == "Success")
+                {
+                    result.success = true;
+                    result.message = "任务已完成";
+                    result.targetViewId = objTask.TargetViewId;
+                    result.targetViewName = objTask.TargetViewName;
+                    return result;
+                }
+
+                if (objTask.Status == "Canceled")
+                {
+                    result.success = false;
+                    result.message = "任务已取消";
+                    return result;
+                }
+
+                // 校验源界面和目标工程
+                clsViewInfoEN objSouViewInfo = clsViewInfoBL.GetObjByViewId(objTask.SourceViewId);
+                if (objSouViewInfo == null)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Validate", "源界面不存在");
+                    result.success = false;
+                    result.message = "源界面不存在";
+                    return result;
+                }
+
+                clsProjectsEN objTarProject = clsProjectsBL.GetObjByPrjId(objTask.TargetPrjId);
+                if (objTarProject == null)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Validate", "目标工程不存在");
+                    result.success = false;
+                    result.message = "目标工程不存在";
+                    return result;
+                }
+
+                // 2、读取任务明细（按 StepOrder 排序）
+                List<clsCopyTaskRegionEN> arrDetails = GetCopyTaskRegions(lngTaskId);
+                if (arrDetails == null || arrDetails.Count == 0)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Init", "任务明细不存在");
+                    result.success = false;
+                    result.message = "任务明细不存在";
+                    return result;
+                }
+
+                // 3、把任务头标记为运行中
+                UpdateTask(lngTaskId, "Running", "CopyRegions", "");
+
+                // 4、执行区域复制（只处理 Pending 和 Failed 的区域）
+                foreach (clsCopyTaskRegionEN objDetail in arrDetails)
+                {
+                    // 跳过已成功或已复用的区域
+                    if (objDetail.CopyStatus == "Success" || objDetail.CopyStatus == "Reused")
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        // 解析或复制区域
+                        string strTargetRegionId = ResolveOrCopyRegion(objTask, objDetail);
+
+                        // 更新区域复制结果
+                        string strCopyStatus = objDetail.CopyStatus == "Reused" ? "Reused" : "Success";
+                        UpdateTaskRegionCopyResult(lngTaskId, objDetail.SourceRegionId, strTargetRegionId, strCopyStatus, "");
+
+                        objDetail.TargetRegionId = strTargetRegionId;
+                        objDetail.CopyStatus = strCopyStatus;
+                    }
+                    catch (Exception exRegion)
+                    {
+                        // 更新该区域为失败
+                        string strErrorMsg = string.Format("复制区域失败:[{0}]，错误:{1}", objDetail.SourceClsName, exRegion.Message);
+                        UpdateTaskRegionCopyResult(lngTaskId, objDetail.SourceRegionId, "", "Failed", strErrorMsg);
+
+                        // 更新任务头为失败
+                        UpdateTask(lngTaskId, "Failed", "CopyRegions", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 5、执行界面复制
+                UpdateTaskStep(lngTaskId, "CopyView");
+
+                if (string.IsNullOrEmpty(objTask.TargetViewId))
+                {
+                    try
+                    {
+                        string strNewViewId = "";
+                        string strNewViewName = "";
+                        CopyViewCore(objTask, objSouViewInfo, out strNewViewId, out strNewViewName);
+
+                        // 更新任务头的目标界面信息
+                        UpdateTaskTargetView(lngTaskId, strNewViewId, strNewViewName);
+
+                        objTask.TargetViewId = strNewViewId;
+                        objTask.TargetViewName = strNewViewName;
+                    }
+                    catch (Exception exView)
+                    {
+                        string strErrorMsg = string.Format("复制界面失败，错误:{0}", exView.Message);
+                        UpdateTask(lngTaskId, "Failed", "CopyView", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 6、执行关系绑定（只处理 Pending 和 Failed 的关系）
+                UpdateTaskStep(lngTaskId, "BindRelations");
+
+                foreach (clsCopyTaskRegionEN objDetail in arrDetails)
+                {
+                    // 跳过已成功的关系
+                    if (objDetail.RelationStatus == "Success")
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        // 建立界面与区域关系
+                        BindViewRegion(objTask.TargetViewId, objDetail.TargetRegionId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                        // 更新关系状态
+                        UpdateTaskRegionRelationResult(lngTaskId, objDetail.SourceRegionId, "Success", "");
+
+                        objDetail.RelationStatus = "Success";
+                    }
+                    catch (Exception exRelation)
+                    {
+                        string strErrorMsg = string.Format("绑定关系失败:[{0}]，错误:{1}", objDetail.SourceClsName, exRelation.Message);
+                        UpdateTaskRegionRelationResult(lngTaskId, objDetail.SourceRegionId, "Failed", strErrorMsg);
+
+                        // 更新任务头为失败
+                        UpdateTask(lngTaskId, "Failed", "BindRelations", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 7、全部完成后更新任务头
+                UpdateTask(lngTaskId, "Success", "Done", "");
+
+                // 8、返回成功结果
+                result.errorId = 0;
+                result.success = true;
+                result.message = "复制成功";
+                result.targetViewId = objTask.TargetViewId;
+                result.targetViewName = objTask.TargetViewName;
+                result.totalRegions = arrDetails.Count;
+                result.completedRegions = arrDetails.FindAll(d => d.CopyStatus == "Success" || d.CopyStatus == "Reused").Count;
+                result.failedRegions = arrDetails.FindAll(d => d.CopyStatus == "Failed").Count;
+                result.regionStatuses = ConvertToRegionStatusList(arrDetails);
+
+                string strSuccessLog = string.Format("执行复制任务成功，TaskId:[{0}]，TargetViewId:[{1}]",
+                    lngTaskId, objTask.TargetViewId);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strSuccessLog);
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("执行复制任务失败，TaskId:[{0}]，错误:{1}.(in {2})",
+                    lngTaskId, objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+
+                UpdateTask(lngTaskId, "Failed", "Error", strMsg);
+
+                result.success = false;
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 执行复制任务（真正的复制逻辑，支持断点续传）
+        /// </summary>
+        public static ExecuteCopyTaskResultDto ExecuteCopyTask(long lngTaskId)
+        {
+            ExecuteCopyTaskResultDto result = new ExecuteCopyTaskResultDto();
+
+            try
+            {
+                // 1、读取任务头
+                clsCopyTaskEN objTask = GetCopyTask(lngTaskId);
+                if (objTask == null)
+                {
+                    result.success = false;
+                    result.message = "任务不存在";
+                    return result;
+                }
+
+                // 校验任务状态
+                if (objTask.Status == "Success")
+                {
+                    result.success = true;
+                    result.message = "任务已完成";
+                    result.targetViewId = objTask.TargetViewId;
+                    result.targetViewName = "";
+                    return result;
+                }
+
+                if (objTask.Status == "Canceled")
+                {
+                    result.success = false;
+                    result.message = "任务已取消";
+                    return result;
+                }
+
+                // 校验源界面和目标工程
+                clsViewInfoEN objSouViewInfo = clsViewInfoBL.GetObjByViewId(objTask.SourceViewId);
+                if (objSouViewInfo == null)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Validate", "源界面不存在");
+                    result.success = false;
+                    result.message = "源界面不存在";
+                    return result;
+                }
+
+                clsProjectsEN objTarProject = clsProjectsBL.GetObjByPrjId(objTask.TargetPrjId);
+                if (objTarProject == null)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Validate", "目标工程不存在");
+                    result.success = false;
+                    result.message = "目标工程不存在";
+                    return result;
+                }
+
+                // 2、【关键】先补全缺失的区域记录
+                EnsureAllRegionsInTask(lngTaskId, objTask.SourceViewId);
+
+                // 3、读取任务明细（按 StepOrder 排序）
+                List<clsCopyTaskRegionEN> arrDetails = GetCopyTaskRegions(lngTaskId);
+                if (arrDetails == null || arrDetails.Count == 0)
+                {
+                    UpdateTask(lngTaskId, "Failed", "Init", "任务明细不存在");
+                    result.success = false;
+                    result.message = "任务明细不存在";
+                    return result;
+                }
+
+                // 4、把任务头标记为运行中
+                UpdateTask(lngTaskId, "Running", "CopyRegions", "");
+
+                // 5、执行区域复制（只处理 Pending 和 Failed 的区域）
+                foreach (clsCopyTaskRegionEN objDetail in arrDetails)
+                {
+                    // 跳过已成功或已复用的区域
+                    if (objDetail.CopyStatus == "Success" || objDetail.CopyStatus == "Reused")
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        // 解析或复制区域
+                        string strTargetRegionId = ResolveOrCopyRegion(objTask, objDetail);
+
+                        // 更新区域复制结果
+                        string strCopyStatus = objDetail.CopyStatus == "Reused" ? "Reused" : "Success";
+                        UpdateTaskRegionCopyResult(lngTaskId, objDetail.SourceRegionId, strTargetRegionId, strCopyStatus, "");
+
+                        objDetail.TargetRegionId = strTargetRegionId;
+                        objDetail.CopyStatus = strCopyStatus;
+                    }
+                    catch (Exception exRegion)
+                    {
+                        // 更新该区域为失败
+                        string strErrorMsg = string.Format("复制区域失败:[{0}]，错误:{1}", objDetail.SourceClsName, exRegion.Message);
+                        UpdateTaskRegionCopyResult(lngTaskId, objDetail.SourceRegionId, "", "Failed", strErrorMsg);
+
+                        // 更新任务头为失败
+                        UpdateTask(lngTaskId, "Failed", "CopyRegions", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 6、执行界面复制
+                UpdateTaskStep(lngTaskId, "CopyView");
+
+                if (string.IsNullOrEmpty(objTask.TargetViewId))
+                {
+                    try
+                    {
+                        string strNewViewId = "";
+                        string strNewViewName = "";
+                        CopyViewCore(objTask, objSouViewInfo, out strNewViewId, out strNewViewName);
+
+                        // 更新任务头的目标界面信息
+                        UpdateTaskTargetView(lngTaskId, strNewViewId, strNewViewName);
+
+                        objTask.TargetViewId = strNewViewId;
+                    }
+                    catch (Exception exView)
+                    {
+                        string strErrorMsg = string.Format("复制界面失败，错误:{0}", exView.Message);
+                        UpdateTask(lngTaskId, "Failed", "CopyView", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 7、执行关系绑定（只处理 Pending 和 Failed 的关系）
+                UpdateTaskStep(lngTaskId, "BindRelations");
+
+                foreach (clsCopyTaskRegionEN objDetail in arrDetails)
+                {
+                    // 跳过已成功的关系
+                    if (objDetail.RelationStatus == "Success")
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        // 建立界面与区域关系
+                        BindViewRegion(objTask.TargetViewId, objDetail.TargetRegionId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                        // 更新关系状态
+                        UpdateTaskRegionRelationResult(lngTaskId, objDetail.SourceRegionId, "Success", "");
+
+                        objDetail.RelationStatus = "Success";
+                    }
+                    catch (Exception exRelation)
+                    {
+                        string strErrorMsg = string.Format("绑定关系失败:[{0}]，错误:{1}", objDetail.SourceClsName, exRelation.Message);
+                        UpdateTaskRegionRelationResult(lngTaskId, objDetail.SourceRegionId, "Failed", strErrorMsg);
+
+                        // 更新任务头为失败
+                        UpdateTask(lngTaskId, "Failed", "BindRelations", strErrorMsg);
+
+                        result.success = false;
+                        result.message = strErrorMsg;
+                        return result;
+                    }
+                }
+
+                // 8、全部完成后更新任务头
+                UpdateTask(lngTaskId, "Success", "Done", "");
+
+                // 9、返回成功结果
+                result.success = true;
+                result.message = "复制成功";
+                result.targetViewId = objTask.TargetViewId;
+                result.totalRegions = arrDetails.Count;
+                result.completedRegions = arrDetails.FindAll(d => d.CopyStatus == "Success" || d.CopyStatus == "Reused").Count;
+                result.failedRegions = arrDetails.FindAll(d => d.CopyStatus == "Failed").Count;
+                result.regionStatuses = ConvertToRegionStatusList(arrDetails);
+
+                string strSuccessLog = string.Format("执行复制任务成功，TaskId:[{0}]，TargetViewId:[{1}]",
+                    lngTaskId, objTask.TargetViewId);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strSuccessLog);
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("执行复制任务失败，TaskId:[{0}]，错误:{1}.(in {2})",
+                    lngTaskId, objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+
+                UpdateTask(lngTaskId, "Failed", "Error", strMsg);
+
+                result.success = false;
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 确保所有源区域都在任务表中（补全缺失的区域记录）
+        /// </summary>
+        private static void EnsureAllRegionsInTask(long lngTaskId, string strSouViewId)
+        {
+            try
+            {
+                // 1、查询源界面的所有区域
+                string strRegionCondition = string.Format("ViewId = '{0}'", strSouViewId);
+                List<clsViewRegionRelaEN> arrSouRegionRelaLst = clsViewRegionRelaBL.GetObjLst(strRegionCondition);
+
+                if (arrSouRegionRelaLst == null || arrSouRegionRelaLst.Count == 0)
+                {
+                    return;
+                }
+
+                // 2、查询已有的任务区域记录
+                string strTaskRegionCondition = string.Format("TaskId = '{0}'", lngTaskId);
+                List<clsCopyTaskRegionEN> arrExistingTaskRegions = clsCopyTaskRegionBL.GetObjLst(strTaskRegionCondition);
+
+                // 创建已存在区域的字典（用于快速查找）
+                Dictionary<string, bool> dictExistingRegions = new Dictionary<string, bool>();
+                int intMaxStepOrder = 0;
+
+                if (arrExistingTaskRegions != null)
+                {
+                    foreach (clsCopyTaskRegionEN objExisting in arrExistingTaskRegions)
+                    {
+                        dictExistingRegions[objExisting.SourceRegionId] = true;
+                        if (objExisting.StepOrder > intMaxStepOrder)
+                        {
+                            intMaxStepOrder = objExisting.StepOrder;
+                        }
+                    }
+                }
+
+                // 3、补全缺失的区域
+                int intStepOrder = intMaxStepOrder + 1;
+                foreach (clsViewRegionRelaEN objSouRegionRela in arrSouRegionRelaLst)
+                {
+                    clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objSouRegionRela.RegionId);
+                    if (objSouRegion == null) continue;
+
+                    // 检查是否已存在
+                    if (dictExistingRegions.ContainsKey(objSouRegion.RegionId))
+                    {
+                        continue; // 已存在，跳过
+                    }
+
+                    // 插入缺失的区域记录
+                    clsCopyTaskRegionEN objTaskRegion = new clsCopyTaskRegionEN();
+                    objTaskRegion.TaskId = lngTaskId;
+                    objTaskRegion.SourceRegionId = objSouRegion.RegionId;
+                    objTaskRegion.SourceClsName = objSouRegion.ClsName;
+                    objTaskRegion.TargetRegionId = "";
+                    objTaskRegion.CopyStatus = "Pending";
+                    objTaskRegion.RelationStatus = "Pending";
+                    objTaskRegion.ErrorMessage = "";
+                    objTaskRegion.StepOrder = intStepOrder;
+                    objTaskRegion.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                    clsCopyTaskRegionBL.AddNewRecordBySql2(objTaskRegion);
+
+                    string strLog = string.Format("补全缺失区域，TaskId:[{0}]，RegionId:[{1}]，ClsName:[{2}]，StepOrder:[{3}]",
+                        lngTaskId, objSouRegion.RegionId, objSouRegion.ClsName, intStepOrder);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    intStepOrder++;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("补全缺失区域失败，TaskId:[{0}]，错误:{1}", lngTaskId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+        /// <summary>
+        /// 查询复制任务状态（只查询，不修改数据）
+        /// </summary>
+        public static GetCopyTaskStatusResultDto GetCopyTaskStatus(long lngTaskId)
+        {
+            GetCopyTaskStatusResultDto result = new GetCopyTaskStatusResultDto();
+
+            try
+            {
+                // 1、查任务头
+                clsCopyTaskEN objTask = GetCopyTask(lngTaskId);
+                if (objTask == null)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = "任务不存在";
+                    return result;
+                }
+
+                // 2、查任务明细（按 StepOrder 排序）
+                List<clsCopyTaskRegionEN> arrDetails = GetCopyTaskRegions(lngTaskId);
+
+                // 3、如果有目标界面，补界面名称
+                string strTargetViewName = "";
+                if (!string.IsNullOrEmpty(objTask.TargetViewId))
+                {
+                    clsViewInfoEN objTargetView = clsViewInfoBL.GetObjByViewId(objTask.TargetViewId);
+                    if (objTargetView != null)
+                    {
+                        strTargetViewName = objTargetView.ViewName;
+                    }
+                }
+
+                // 4、组装返回对象
+                result.taskId = lngTaskId;
+                result.status = objTask.Status;
+                result.currentStep = objTask.CurrentStep;
+                result.message = objTask.ErrorMessage ?? "";
+                result.targetViewId = objTask.TargetViewId ?? "";
+                result.targetViewName = strTargetViewName;
+                result.errorId = 0;
+                if (arrDetails != null && arrDetails.Count > 0)
+                {
+                    result.totalRegions = arrDetails.Count;
+                    result.completedRegions = arrDetails.FindAll(d => d.CopyStatus == "Success" || d.CopyStatus == "Reused").Count;
+                    result.failedRegions = arrDetails.FindAll(d => d.CopyStatus == "Failed").Count;
+                    result.relationCompletedCount = arrDetails.FindAll(d => d.RelationStatus == "Success").Count;
+                    result.regionStatuses = ConvertToRegionStatusList(arrDetails);
+                }
+                else
+                {
+                    result.totalRegions = 0;
+                    result.completedRegions = 0;
+                    result.failedRegions = 0;
+                    result.relationCompletedCount = 0;
+                    result.regionStatuses = new List<CopyRegionStatusDto>();
+                }
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("查询任务状态失败，TaskId:[{0}]，错误:{1}.(in {2})",
+                    lngTaskId, objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                result.errorId = -1;
+                result.status = "Failed";
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 解析或复制区域（按唯一键查找，存在则复用，不存在则复制）
+        /// </summary>
+        private static string ResolveOrCopyRegionBak2(clsCopyTaskEN objTask, clsCopyTaskRegionEN objDetail)
+        {
+            try
+            {
+                // 获取源区域
+                clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objDetail.SourceRegionId);
+                if (objSouRegion == null)
+                {
+                    throw new Exception(string.Format("源区域不存在，RegionId:[{0}]", objDetail.SourceRegionId));
+                }
+
+                // 按唯一键 (PrjId, ClsName) 查找目标工程中是否已有对应区域
+                string strCheckCond = string.Format("PrjId = '{0}' AND ClsName = '{1}'",
+                    objTask.TargetPrjId, objSouRegion.ClsName);
+
+                if (clsViewRegionBL.IsExistRecord(strCheckCond))
+                {
+                    // 复用现有区域
+                    string strExistingRegionId = clsViewRegionBL.GetFirstID_S(strCheckCond);
+                    objDetail.CopyStatus = "Reused";
+
+                    string strLog = string.Format("复用现有区域，RegionId:[{0}]，ClsName:[{1}]",
+                        strExistingRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strExistingRegionId;
+                }
+                else
+                {
+                    // 复制新区域
+                    string strNewRegionId = clsViewRegionBL.GetMaxStrId_S();
+                    clsViewRegionEN objNewRegion = new clsViewRegionEN(strNewRegionId);
+
+                    clsViewRegionBL.CopyTo(objSouRegion, objNewRegion);
+                    objNewRegion.RegionId = strNewRegionId;
+                    objNewRegion.PrjId = objTask.TargetPrjId;
+                    objNewRegion.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewRegion.UpdUser = objTask.CreatedBy;
+
+                    // 映射区域的 TabId（按表名映射）
+                    if (!string.IsNullOrEmpty(objSouRegion.TabId))
+                    {
+                        string strTargetTabId = MapTabByName(objSouRegion.TabId, objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+                        objNewRegion.TabId = strTargetTabId;
+                    }
+
+                    if (!clsViewRegionBL.AddNewRecordBySql2(objNewRegion))
+                    {
+                        throw new Exception("添加区域记录失败");
+                    }
+
+                    // 复制区域字段
+                    CopyRegionFields(objSouRegion.RegionId, strNewRegionId, objSouRegion.RegionTypeId,
+                        objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                    string strLog = string.Format("创建新区域成功，RegionId:[{0}]，ClsName:[{1}]",
+                        strNewRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewRegionId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("解析或复制区域失败，SourceRegionId:[{0}]，错误:{1}",
+                    objDetail.SourceRegionId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        private static string ResolveOrCopyRegionBak(clsCopyTaskEN objTask, clsCopyTaskRegionEN objDetail)
+        {
+            try
+            {
+                // 获取源区域
+                clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objDetail.SourceRegionId);
+                if (objSouRegion == null)
+                {
+                    throw new Exception(string.Format("源区域不存在，RegionId:[{0}]", objDetail.SourceRegionId));
+                }
+
+                // 按唯一键 (PrjId, ClsName) 查找目标工程中是否已有对应区域
+                string strCheckCond = string.Format("PrjId = '{0}' AND ClsName = '{1}'",
+                    objTask.TargetPrjId, objSouRegion.ClsName);
+
+                if (clsViewRegionBL.IsExistRecord(strCheckCond))
+                {
+                    // 复用现有区域
+                    string strExistingRegionId = clsViewRegionBL.GetFirstID_S(strCheckCond);
+                    objDetail.CopyStatus = "Reused";
+
+                    string strLog = string.Format("复用现有区域，RegionId:[{0}]，ClsName:[{1}]",
+                        strExistingRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strExistingRegionId;
+                }
+                else
+                {
+                    // 复制新区域
+                    string strNewRegionId = clsViewRegionBL.GetMaxStrId_S();
+                    clsViewRegionEN objNewRegion = new clsViewRegionEN(strNewRegionId);
+
+                    clsViewRegionBL.CopyTo(objSouRegion, objNewRegion);
+                    objNewRegion.RegionId = strNewRegionId;
+                    objNewRegion.PrjId = objTask.TargetPrjId;
+                    objNewRegion.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewRegion.UpdUser = objTask.CreatedBy;
+
+                    // 映射区域的 TabId（按表名映射）
+                    if (!string.IsNullOrEmpty(objSouRegion.TabId))
+                    {
+                        string strTargetTabId = MapTabByName(objSouRegion.TabId, objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+                        objNewRegion.TabId = strTargetTabId;
+                    }
+
+                    if (!clsViewRegionBL.AddNewRecordBySql2(objNewRegion))
+                    {
+                        throw new Exception("添加区域记录失败");
+                    }
+
+                    // 复制区域字段
+                    CopyRegionFields(objSouRegion.RegionId, strNewRegionId, objSouRegion.RegionTypeId,
+                        objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                    string strLog = string.Format("创建新区域成功，RegionId:[{0}]，ClsName:[{1}]",
+                        strNewRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewRegionId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("解析或复制区域失败，SourceRegionId:[{0}]，错误:{1}",
+                    objDetail.SourceRegionId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 复制界面核心逻辑
+        /// </summary>
+        private static void CopyViewCore(clsCopyTaskEN objTask, clsViewInfoEN objSouViewInfo,
+            out string strNewViewId, out string strNewViewName)
+        {
+            strNewViewId = "";
+            strNewViewName = "";
+
+            try
+            {
+                // 构建表映射
+                Dictionary<string, string> dictTabMapping = new Dictionary<string, string>();
+                string strMappingError = "";
+                if (!BuildTabMapping(objSouViewInfo, objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy,
+                    dictTabMapping, out strMappingError))
+                {
+                    throw new Exception(strMappingError);
+                }
+
+                // 处理界面重名冲突
+                strNewViewName = objSouViewInfo.ViewName;
+                string strCheckCondition = string.Format("PrjId = '{0}' AND ViewName = '{1}'",
+                    objTask.TargetPrjId, objSouViewInfo.ViewName);
+
+                if (clsViewInfoBL.IsExistRecord(strCheckCondition))
+                {
+                    switch (objTask.ConflictStrategy.ToLower())
+                    {
+                        case "skip":
+                            throw new Exception(string.Format("跳过：目标工程中已存在同名界面 [{0}]", objSouViewInfo.ViewName));
+
+                        case "overwrite":
+                            string strExistingViewId = clsViewInfoBL.GetFirstID_S(strCheckCondition);
+                            if (!DeleteViewWithRelations(strExistingViewId, objTask.TargetPrjId, objTask.CreatedBy))
+                            {
+                                throw new Exception("删除目标工程同名界面失败");
+                            }
+                            break;
+
+                        case "rename":
+                            strNewViewName = GenerateUniqueViewName(objTask.TargetPrjId, objSouViewInfo.ViewName);
+                            break;
+                    }
+                }
+
+                // 创建新界面
+                strNewViewId = clsGeneralTab.GetMaxStrId("ViewInfo", "ViewId", 8, objTask.TargetPrjId);
+                clsViewInfoEN objNewViewInfo = new clsViewInfoEN(strNewViewId);
+
+                CopyViewInfoProperties(objSouViewInfo, objNewViewInfo, strNewViewId, objTask.TargetPrjId,
+                    strNewViewName, objTask.CreatedBy, dictTabMapping);
+
+                if (!clsViewInfoBL.AddNewRecordBySql2(objNewViewInfo))
+                {
+                    throw new Exception("添加界面记录失败");
+                }
+
+                // 复制界面样式
+                CopyViewStyle(objSouViewInfo.ViewId, strNewViewId, objTask.CreatedBy);
+
+                string strLog = string.Format("复制界面成功，ViewId:[{0}]，ViewName:[{1}]", strNewViewId, strNewViewName);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("复制界面核心逻辑失败，错误:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 绑定界面与区域关系
+        /// </summary>
+        private static void BindViewRegion(string strViewId, string strRegionId, string strPrjId, string strUserId)
+        {
+            try
+            {
+                // 检查关系是否已存在
+                string strCheckCond = string.Format("ViewId = '{0}' AND RegionId = '{1}'", strViewId, strRegionId);
+                if (clsViewRegionRelaBL.IsExistRecord(strCheckCond))
+                {
+                    // 关系已存在，跳过
+                    return;
+                }
+
+                // 创建新关系
+                clsViewRegionRelaEN objNewRela = new clsViewRegionRelaEN();
+                objNewRela.ViewId = strViewId;
+                objNewRela.RegionId = strRegionId;
+                objNewRela.PrjId = strPrjId;
+                objNewRela.InUse = true;
+                objNewRela.IsDisp = true;
+                objNewRela.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewRela.UpdUser = strUserId;
+
+                if (!clsViewRegionRelaBL.AddNewRecordBySql2(objNewRela))
+                {
+                    throw new Exception("添加界面区域关系失败");
+                }
+
+                string strLog = string.Format("绑定界面区域关系成功，ViewId:[{0}]，RegionId:[{1}]", strViewId, strRegionId);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("绑定界面区域关系失败，错误:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 转换为区域状态列表
+        /// </summary>
+        private static List<CopyRegionStatusDto> ConvertToRegionStatusList(List<clsCopyTaskRegionEN> arrDetails)
+        {
+            List<CopyRegionStatusDto> regionStatuses = new List<CopyRegionStatusDto>();
+
+            foreach (clsCopyTaskRegionEN objDetail in arrDetails)
+            {
+                CopyRegionStatusDto status = new CopyRegionStatusDto();
+                status.sourceRegionId = objDetail.SourceRegionId;
+                status.clsName = objDetail.SourceClsName;
+                status.targetRegionId = objDetail.TargetRegionId;
+                status.copyStatus = objDetail.CopyStatus;
+                status.relationStatus = objDetail.RelationStatus;
+                status.errorMessage = objDetail.ErrorMessage ?? "";
+
+                regionStatuses.Add(status);
+            }
+
+            return regionStatuses;
+        }
+
+        /// <summary>
+        /// 获取复制任务（从数据库）
+        /// </summary>
+        private static clsCopyTaskEN GetCopyTask(long lngTaskId)
+        {
+            try
+            {
+                clsCopyTaskEN objCopyTaskEN = clsCopyTaskBL.GetObjByTaskId(lngTaskId);
+                if (objCopyTaskEN == null) return null;
+
+                clsCopyTaskEN objTask = new clsCopyTaskEN();
+                objTask.TaskId = objCopyTaskEN.TaskId;
+                objTask.SourcePrjId = objCopyTaskEN.SourcePrjId;
+                objTask.TargetPrjId = objCopyTaskEN.TargetPrjId;
+                objTask.SourceViewId = objCopyTaskEN.SourceViewId;
+                objTask.TargetViewId = objCopyTaskEN.TargetViewId;
+                objTask.TargetViewName = objCopyTaskEN.TargetViewName;
+                objTask.ConflictStrategy = objCopyTaskEN.ConflictStrategy;
+                objTask.Status = objCopyTaskEN.Status;
+                objTask.CurrentStep = objCopyTaskEN.CurrentStep;
+                objTask.ErrorMessage = objCopyTaskEN.ErrorMessage;
+                objTask.CreatedBy = objCopyTaskEN.CreatedBy;
+
+                return objTask;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("获取复制任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 获取复制任务区域列表（从数据库，按 StepOrder 排序）
+        /// </summary>
+        private static List<clsCopyTaskRegionEN> GetCopyTaskRegions(long lngTaskId)
+        {
+            try
+            {
+                string strCondition = string.Format("TaskId = '{0}'", lngTaskId);
+                List<clsCopyTaskRegionEN> arrCopyTaskRegionENList = clsCopyTaskRegionBL.GetObjLst(strCondition);
+
+                List<clsCopyTaskRegionEN> arrRegions = new List<clsCopyTaskRegionEN>();
+
+                if (arrCopyTaskRegionENList == null) return arrRegions;
+
+                foreach (clsCopyTaskRegionEN objEN in arrCopyTaskRegionENList)
+                {
+                    clsCopyTaskRegionEN objRegion = new clsCopyTaskRegionEN();
+                    objRegion.TaskId = objEN.TaskId;
+                    objRegion.SourceRegionId = objEN.SourceRegionId;
+                    objRegion.SourceClsName = objEN.SourceClsName;
+                    objRegion.TargetRegionId = objEN.TargetRegionId;
+                    objRegion.CopyStatus = objEN.CopyStatus;
+                    objRegion.RelationStatus = objEN.RelationStatus;
+                    objRegion.ErrorMessage = objEN.ErrorMessage;
+                    objRegion.StepOrder = objEN.StepOrder;
+
+                    arrRegions.Add(objRegion);
+                }
+
+                // 按 StepOrder 排序
+                arrRegions.Sort((a, b) => a.StepOrder.CompareTo(b.StepOrder));
+
+                return arrRegions;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("获取任务区域列表失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+                //return new List<clsCopyTaskRegionEN>();
+            }
+        }
+
+        /// <summary>
+        /// 插入复制任务（独立事务）
+        /// </summary>
+        private static long InsertCopyTask(string strSouPrjId, string strTarPrjId, string strSouViewId,
+            string strConflictStrategy, string strUserId)
+        {
+            try
+            {
+                clsCopyTaskEN objCopyTask = new clsCopyTaskEN();
+                objCopyTask.SourcePrjId = strSouPrjId;
+                objCopyTask.TargetPrjId = strTarPrjId;
+                objCopyTask.SourceViewId = strSouViewId;
+                objCopyTask.TargetViewId = "";
+                objCopyTask.TargetViewName = "";
+                objCopyTask.ConflictStrategy = strConflictStrategy;
+                objCopyTask.Status = "Pending";
+                objCopyTask.CurrentStep = "Init";
+                objCopyTask.ErrorMessage = "";
+                objCopyTask.CreatedBy = strUserId;
+                objCopyTask.CreatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+                objCopyTask.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                string strTaskId = clsCopyTaskBL.AddNewRecordBySql2WithReturnKey(objCopyTask);
+                long lngTaskId = long.Parse(strTaskId);
+
+                string strLog = string.Format("插入复制任务成功，TaskId:[{0}]", lngTaskId);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                return lngTaskId;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("插入复制任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 初始化复制任务区域清单（独立事务）
+        /// </summary>
+        private static int InitializeCopyTaskRegions(long lngTaskId, string strSouViewId)
+        {
+            try
+            {
+                string strRegionCondition = string.Format("ViewId = '{0}'", strSouViewId);
+                List<clsViewRegionRelaEN> arrSouRegionRelaLst = clsViewRegionRelaBL.GetObjLst(strRegionCondition);
+
+                if (arrSouRegionRelaLst == null || arrSouRegionRelaLst.Count == 0)
+                {
+                    return 0;
+                }
+
+                int intStepOrder = 1;
+                foreach (clsViewRegionRelaEN objSouRegionRela in arrSouRegionRelaLst)
+                {
+                    clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objSouRegionRela.RegionId);
+                    if (objSouRegion == null) continue;
+
+                    clsCopyTaskRegionEN objTaskRegion = new clsCopyTaskRegionEN();
+                    objTaskRegion.TaskId = lngTaskId;
+                    objTaskRegion.SourceRegionId = objSouRegion.RegionId;
+                    objTaskRegion.SourceClsName = objSouRegion.ClsName;
+                    objTaskRegion.TargetRegionId = "";
+                    objTaskRegion.CopyStatus = "Pending";
+                    objTaskRegion.RelationStatus = "Pending";
+                    objTaskRegion.ErrorMessage = "";
+                    objTaskRegion.StepOrder = intStepOrder;
+                    objTaskRegion.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                    clsCopyTaskRegionBL.AddNewRecordBySql2(objTaskRegion);
+
+                    intStepOrder++;
+                }
+
+                return arrSouRegionRelaLst.Count;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("初始化任务区域清单失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+                //return -1;
+            }
+        }
+
+        /// <summary>
+        /// 更新任务头（独立事务）
+        /// </summary>
+        private static void UpdateTask(long lngTaskId, string strStatus, string strCurrentStep, string strErrorMessage)
+        {
+            try
+            {
+                clsCopyTaskEN objTask = clsCopyTaskBL.GetObjByTaskId(lngTaskId);
+                if (objTask == null)
+                {
+                    string strMsg = string.Format("任务不存在，TaskId:[{0}]", lngTaskId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                    return;
+                }
+
+                objTask.Status = strStatus;
+                objTask.CurrentStep = strCurrentStep;
+                objTask.ErrorMessage = strErrorMessage ?? "";
+                objTask.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                clsCopyTaskBL.UpdateBySql2(objTask);
+
+                string strLog = string.Format("更新任务，TaskId:[{0}]，Status:[{1}]，Step:[{2}]",
+                    lngTaskId, strStatus, strCurrentStep);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("更新任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 更新任务步骤（独立事务）
+        /// </summary>
+        private static void UpdateTaskStep(long lngTaskId, string strCurrentStep)
+        {
+            try
+            {
+                clsCopyTaskEN objTask = clsCopyTaskBL.GetObjByTaskId(lngTaskId);
+                if (objTask == null) return;
+
+                objTask.CurrentStep = strCurrentStep;
+                objTask.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                clsCopyTaskBL.UpdateBySql2(objTask);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("更新任务步骤失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 更新任务目标界面（独立事务）
+        /// </summary>
+        private static void UpdateTaskTargetView(long lngTaskId, string strTargetViewId, string strTargetViewName)
+        {
+            try
+            {
+                clsCopyTaskEN objTask = clsCopyTaskBL.GetObjByTaskId(lngTaskId);
+                if (objTask == null) return;
+
+                objTask.TargetViewId = strTargetViewId;
+                objTask.TargetViewName = strTargetViewName;
+                objTask.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                clsCopyTaskBL.UpdateBySql2(objTask);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("更新任务目标界面失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 更新任务区域复制结果（独立事务）
+        /// </summary>
+        private static void UpdateTaskRegionCopyResult(long lngTaskId, string strSourceRegionId,
+            string strTargetRegionId, string strCopyStatus, string strErrorMessage)
+        {
+            try
+            {
+                string strCondition = string.Format("TaskId = '{0}' AND SourceRegionId = '{1}'",
+                    lngTaskId, strSourceRegionId);
+                clsCopyTaskRegionEN objRegion = clsCopyTaskRegionBL.GetFirstObj_S(strCondition);
+                if (objRegion == null) return;
+
+                objRegion.TargetRegionId = strTargetRegionId ?? "";
+                objRegion.CopyStatus = strCopyStatus;
+                objRegion.ErrorMessage = strErrorMessage ?? "";
+                objRegion.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+                clsCopyTaskRegionBL.UpdateBySql2(objRegion);
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("更新区域复制结果失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 更新任务区域关系结果（独立事务）
+        /// </summary>
+        private static void UpdateTaskRegionRelationResult(long lngTaskId, string strSourceRegionId,
+            string strRelationStatus, string strErrorMessage)
+        {
+
+            string strCondition = string.Format("TaskId = '{0}' AND SourceRegionId = '{1}'",
+                lngTaskId, strSourceRegionId);
+            clsCopyTaskRegionEN objRegion = clsCopyTaskRegionBL.GetFirstObj_S(strCondition);
+            if (objRegion == null) return;
+
+            objRegion.RelationStatus = strRelationStatus;
+            objRegion.ErrorMessage = strErrorMessage ?? "";
+            objRegion.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+
+            clsCopyTaskRegionBL.UpdateBySql2(objRegion);
+
+        }
+
+        /// <summary>
+        /// 启动或恢复复制任务（只创建/恢复任务，不执行复制）
+        /// </summary>
+        public static StartOrResumeCopyTaskResultDto StartOrResumeCopyTask(
+            string strTarPrjId,
+            string strSouViewId,
+            string strUserId,
+            string strConflictStrategy)
+        {
+            StartOrResumeCopyTaskResultDto result = new StartOrResumeCopyTaskResultDto();
+
+            try
+            {
+                // 1、参数校验
+                if (!ValidateCopyTaskInput(strTarPrjId, strSouViewId, strUserId, strConflictStrategy, out string strValidationError))
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = strValidationError;
+                    return result;
+                }
+
+                // 2、读取源界面并校验业务对象
+                clsViewInfoEN objSouViewInfo = clsViewInfoBL.GetObjByViewId(strSouViewId);
+                if (objSouViewInfo == null)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = string.Format("源界面ID:[{0}]不存在", strSouViewId);
+                    return result;
+                }
+
+                string strSouPrjId = objSouViewInfo.PrjId;
+
+                // 校验源工程存在
+                clsProjectsEN objSouProject = clsProjectsBL.GetObjByPrjId(strSouPrjId);
+                if (objSouProject == null)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = string.Format("源工程ID:[{0}]不存在", strSouPrjId);
+                    return result;
+                }
+
+                // 校验目标工程存在
+                clsProjectsEN objTarProject = clsProjectsBL.GetObjByPrjId(strTarPrjId);
+                if (objTarProject == null)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = string.Format("目标工程ID:[{0}]不存在", strTarPrjId);
+                    return result;
+                }
+
+                // 校验不能复制到同一个工程（可选）
+                if (strSouPrjId == strTarPrjId)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = "不能复制到同一个工程";
+                    return result;
+                }
+
+                // 3、查是否已有未完成任务
+                clsCopyTaskEN objExistingTask = GetLatestUnfinishedTask(strSouPrjId, strTarPrjId, strSouViewId);
+
+                if (objExistingTask != null)
+                {
+                    // 4、命中旧任务，做任务修正
+                    NormalizeTaskForResume(objExistingTask);
+
+                    // 统计区域完成情况
+                    int intTotalRegions = 0;
+                    int intCompletedRegions = 0;
+                    GetTaskRegionProgress(objExistingTask.TaskId, out intTotalRegions, out intCompletedRegions);
+
+                    result.taskId = objExistingTask.TaskId;
+                    result.isNewTask = false;
+                    result.status = objExistingTask.Status;
+                    result.currentStep = objExistingTask.CurrentStep;
+                    result.message = "已存在未完成任务，继续执行该任务。";
+                    result.totalRegions = intTotalRegions;
+                    result.completedRegions = intCompletedRegions;
+                    result.errorId = 0;
+                    return result;
+                }
+
+                // 5、创建新任务
+                long lngTaskId = InsertCopyTask(strSouPrjId, strTarPrjId, strSouViewId, strConflictStrategy, strUserId);
+
+                if (lngTaskId <= 0)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = "创建任务失败";
+                    return result;
+                }
+
+                // 6、初始化任务明细（区域清单）
+                int intRegionCount = InitializeCopyTaskRegions(lngTaskId, strSouViewId);
+
+                if (intRegionCount < 0)
+                {
+                    result.errorId = -1;
+                    result.status = "Failed";
+                    result.message = "初始化任务明细失败";
+                    return result;
+                }
+
+                // 7、返回任务信息
+                result.taskId = lngTaskId;
+                result.isNewTask = true;
+                result.status = "Pending";
+                result.currentStep = "Init";
+                result.message = "复制任务已创建。";
+                result.totalRegions = intRegionCount;
+                result.completedRegions = 0;
+                result.errorId = 0;
+                string strLog = string.Format("创建复制任务成功，TaskId:[{0}]，源界面:[{1}]，目标工程:[{2}]，区域数:[{3}]",
+                    lngTaskId, strSouViewId, strTarPrjId, intRegionCount);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("启动或恢复复制任务失败，错误:{0}.(in {1})",
+                    objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+
+                result.status = "Failed";
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 验证复制任务输入参数
+        /// </summary>
+        private static bool ValidateCopyTaskInput(string strTarPrjId, string strSouViewId, string strUserId,
+            string strConflictStrategy, out string strError)
+        {
+            strError = "";
+
+            if (string.IsNullOrEmpty(strTarPrjId))
+            {
+                strError = "目标工程ID不能为空";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(strSouViewId))
+            {
+                strError = "源界面ID不能为空";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(strUserId))
+            {
+                strError = "操作用户ID不能为空";
+                return false;
+            }
+
+            List<string> validStrategies = new List<string> { "skip", "overwrite", "rename" };
+            if (!validStrategies.Contains(strConflictStrategy?.ToLower()))
+            {
+                strError = "冲突策略必须是 skip、overwrite 或 rename";
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 获取最近的未完成任务
+        /// </summary>
+        private static clsCopyTaskEN GetLatestUnfinishedTask(string strSouPrjId, string strTarPrjId, string strSouViewId)
+        {
+            try
+            {
+                // 查询条件：SourcePrjId + TargetPrjId + SourceViewId
+                string strCondition = string.Format(
+                    "SourcePrjId = '{0}' AND TargetPrjId = '{1}' AND SourceViewId = '{2}'",
+                    strSouPrjId, strTarPrjId, strSouViewId);
+
+                List<clsCopyTaskEN> arrTasks = clsCopyTaskBL.GetObjLst(strCondition);
+                if (arrTasks == null || arrTasks.Count == 0) return null;
+
+                // 状态：Pending, Running, Failed
+                List<string> unfinishedStatuses = new List<string> { "Pending", "Running", "Failed", "Error" };
+
+                // 优先找未完成任务（按 TaskId 倒序）
+                arrTasks.Sort((a, b) => b.TaskId.CompareTo(a.TaskId));
+
+                foreach (clsCopyTaskEN objTaskEN in arrTasks)
+                {
+                    if (unfinishedStatuses.Contains(objTaskEN.Status))
+                    {
+                        clsCopyTaskEN objTask = new clsCopyTaskEN();
+                        objTask.TaskId = objTaskEN.TaskId;
+                        objTask.SourcePrjId = objTaskEN.SourcePrjId;
+                        objTask.TargetPrjId = objTaskEN.TargetPrjId;
+                        objTask.SourceViewId = objTaskEN.SourceViewId;
+                        objTask.TargetViewId = objTaskEN.TargetViewId;
+                        objTask.TargetViewName = objTaskEN.TargetViewName;
+                        objTask.ConflictStrategy = objTaskEN.ConflictStrategy;
+                        objTask.Status = objTaskEN.Status;
+                        objTask.CurrentStep = objTaskEN.CurrentStep;
+                        objTask.ErrorMessage = objTaskEN.ErrorMessage;
+                        objTask.CreatedBy = objTaskEN.CreatedBy;
+
+                        return objTask;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("查询未完成任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 修正任务状态以便恢复
+        /// </summary>
+        private static void NormalizeTaskForResume(clsCopyTaskEN objTask)
+        {
+            try
+            {
+                bool bolNeedUpdate = false;
+                clsCopyTaskEN objCopyTaskEN = clsCopyTaskBL.GetObjByTaskId(objTask.TaskId);
+                if (objCopyTaskEN == null)
+                {
+                    throw new Exception(string.Format("任务不存在，TaskId:[{0}]", objTask.TaskId));
+                }
+
+                // 如果状态是 Running，但实际上任务已中断，改回 Pending
+                if (objCopyTaskEN.Status == "Running")
+                {
+                    objCopyTaskEN.Status = "Pending";
+                    bolNeedUpdate = true;
+                }
+
+                // 如果 CurrentStep 是空，补成合适值
+                if (string.IsNullOrEmpty(objCopyTaskEN.CurrentStep))
+                {
+                    objCopyTaskEN.CurrentStep = "Init";
+                    bolNeedUpdate = true;
+                }
+
+                // 如果需要更新
+                if (bolNeedUpdate)
+                {
+                    objCopyTaskEN.UpdatedTime = DateTime.Parse(clsDateTime.getTodayDateTimeStr(1));
+                    clsCopyTaskBL.UpdateBySql2(objCopyTaskEN);
+
+                    // 同步更新传入的对象
+                    objTask.Status = objCopyTaskEN.Status;
+                    objTask.CurrentStep = objCopyTaskEN.CurrentStep;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("修正任务状态失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 获取任务区域进度
+        /// </summary>
+        private static void GetTaskRegionProgress(long lngTaskId, out int intTotalRegions, out int intCompletedRegions)
+        {
+            intTotalRegions = 0;
+            intCompletedRegions = 0;
+
+            try
+            {
+                string strCondition = string.Format("TaskId = '{0}'", lngTaskId);
+                List<clsCopyTaskRegionEN> arrRegions = clsCopyTaskRegionBL.GetObjLst(strCondition);
+
+                if (arrRegions == null) return;
+
+                intTotalRegions = arrRegions.Count;
+
+                foreach (clsCopyTaskRegionEN objRegion in arrRegions)
+                {
+                    if (objRegion.CopyStatus == "Success" || objRegion.CopyStatus == "Reused")
+                    {
+                        if (objRegion.RelationStatus == "Success")
+                        {
+                            intCompletedRegions++;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("获取任务进度失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 取消复制任务
+        /// </summary>
+        public static bool CancelCopyTask(long lngTaskId, string strUserId)
+        {
+            try
+            {
+                clsCopyTaskEN objTask = GetCopyTaskById(lngTaskId);
+                if (objTask == null)
+                {
+                    return false;
+                }
+
+                // 只有 Pending 或 Failed 状态才能取消
+                if (objTask.Status != "Pending" && objTask.Status != "Failed")
+                {
+                    return false;
+                }
+
+                UpdateTaskField(lngTaskId, "Status", "Canceled");
+                UpdateTaskField(lngTaskId, "UpdatedBy", strUserId);
+                UpdateTaskField(lngTaskId, "UpdatedDate", clsDateTime.getTodayDateTimeStr(1));
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("取消任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 根据ID获取任务
+        /// </summary>
+        private static clsCopyTaskEN GetCopyTaskById(long lngTaskId)
+        {
+            try
+            {
+                // SELECT * FROM CopyTask WHERE TaskId = @TaskId
+                // 这里需要根据你的实际任务表实现
+                return null;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("获取任务失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 更新任务字段（独立事务）
+        /// </summary>
+        private static void UpdateTaskField(long lngTaskId, string strFieldName, string strValue)
+        {
+            try
+            {
+                // UPDATE CopyTask SET FieldName = @Value, UpdatedDate = GETDATE() WHERE TaskId = @TaskId
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("更新任务字段失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 获取任务区域状态列表
+        /// </summary>
+        private static List<CopyRegionStatusDto> GetTaskRegionStatuses(long lngTaskId)
+        {
+            List<CopyRegionStatusDto> regionStatuses = new List<CopyRegionStatusDto>();
+
+            try
+            {
+                // SELECT * FROM CopyTaskRegion WHERE TaskId = @TaskId ORDER BY StepOrder
+                // 转换为 CopyRegionStatusDto 列表
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("获取区域状态列表失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+
+            return regionStatuses;
+        }
+
+        /// <summary>
+        /// 执行复制核心逻辑（调用原来的方法）
+        /// </summary>
+        private static CopyViewWithRegionsResultDto ExecuteCopyViewWithRegionsCore(clsCopyTaskEN objTask)
+        {
+            // 这里调用之前实现的 CopyViewWithRegions 方法的核心逻辑
+            // 或者重构成独立的核心方法
+            return new CopyViewWithRegionsResultDto();
+        }
+
+
+
+        // ==================== 以下是所有辅助方法 ====================
+
+        /// <summary>
+        /// 按表名映射表ID
+        /// </summary>
+        private static string MapTabByName(string strSouTabId, string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouTabId)) return "";
+
+            clsPrjTabEN objSouTab = clsPrjTabBL.GetObjByTabIdCache(strSouTabId, strSouPrjId);
+            if (objSouTab == null) return "";
+
+            string strCondition = string.Format("PrjId = '{0}' and TabName = '{1}'",
+                strTarPrjId, objSouTab.TabName);
+
+            if (clsPrjTabBL.IsExistRecord(strCondition))
+            {
+                return clsPrjTabBL.GetFirstID_S(strCondition);
+            }
+            else
+            {
+                return clsPrjTabBLEx.CopyPrjTab(strTarPrjId, strSouTabId, strUserId);
+            }
+        }
+
+        /// <summary>
+        /// 构建表映射（按 TabName）
+        /// </summary>
+        private static bool BuildTabMapping(clsViewInfoEN objSouViewInfo, string strSouPrjId, string strTarPrjId,
+            string strUserId, Dictionary<string, string> dictTabMapping, out string strError)
+        {
+            strError = "";
+
+            try
+            {
+                if (!string.IsNullOrEmpty(objSouViewInfo.MainTabId))
+                {
+                    string strTargetTabId = MapTabByName(objSouViewInfo.MainTabId, strSouPrjId, strTarPrjId, strUserId);
+                    if (string.IsNullOrEmpty(strTargetTabId))
+                    {
+                        strError = "主表映射失败";
+                        return false;
+                    }
+                    dictTabMapping[objSouViewInfo.MainTabId] = strTargetTabId;
+                }
+
+                if (!string.IsNullOrEmpty(objSouViewInfo.InRelaTabId))
+                {
+                    string strTargetTabId = MapTabByName(objSouViewInfo.InRelaTabId, strSouPrjId, strTarPrjId, strUserId);
+                    if (string.IsNullOrEmpty(strTargetTabId))
+                    {
+                        strError = "输入表映射失败";
+                        return false;
+                    }
+                    dictTabMapping[objSouViewInfo.InRelaTabId] = strTargetTabId;
+                }
+
+                if (!string.IsNullOrEmpty(objSouViewInfo.OutRelaTabId))
+                {
+                    string strTargetTabId = MapTabByName(objSouViewInfo.OutRelaTabId, strSouPrjId, strTarPrjId, strUserId);
+                    if (string.IsNullOrEmpty(strTargetTabId))
+                    {
+                        strError = "输出表映射失败";
+                        return false;
+                    }
+                    dictTabMapping[objSouViewInfo.OutRelaTabId] = strTargetTabId;
+                }
+
+                if (!string.IsNullOrEmpty(objSouViewInfo.DetailTabId))
+                {
+                    string strTargetTabId = MapTabByName(objSouViewInfo.DetailTabId, strSouPrjId, strTarPrjId, strUserId);
+                    if (string.IsNullOrEmpty(strTargetTabId))
+                    {
+                        strError = "详细表映射失败";
+                        return false;
+                    }
+                    dictTabMapping[objSouViewInfo.DetailTabId] = strTargetTabId;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                strError = string.Format("表映射异常:{0}", ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除界面及其关系
+        /// </summary>
+        private static bool DeleteViewWithRelations(string strViewId, string strPrjId, string strUserId)
+        {
+            try
+            {
+                string strRelaCondition = string.Format("ViewId = '{0}'", strViewId);
+                List<clsViewRegionRelaEN> arrRelaLst = clsViewRegionRelaBL.GetObjLst(strRelaCondition);
+                foreach (clsViewRegionRelaEN objRela in arrRelaLst)
+                {
+                    clsViewRegionRelaBL.DelRecord(objRela.mId);
+                }
+
+                string strStyleCondition = string.Format("ViewId = '{0}'", strViewId);
+                clsViewStyleEN objStyle = clsViewStyleBL.GetFirstObj_S(strStyleCondition);
+                if (objStyle != null)
+                {
+
+                    clsViewStyleBL.DelRecord(objStyle.ViewId);
+                }
+
+                clsViewInfoEN objViewInfo = clsViewInfoBL.GetObjByViewId(strViewId);
+                if (objViewInfo != null)
+                {
+                    clsViewInfoBL.DelRecord(strViewId);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("删除界面失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 生成唯一的界面名称
+        /// </summary>
+        private static string GenerateUniqueViewName(string strPrjId, string strOriginalName)
+        {
+            string strNewName = strOriginalName + "_Copy";
+            int intCounter = 2;
+
+            while (true)
+            {
+                string strCondition = string.Format("PrjId = '{0}' and ViewName = '{1}'", strPrjId, strNewName);
+                if (!clsViewInfoBL.IsExistRecord(strCondition))
+                {
+                    return strNewName;
+                }
+                strNewName = strOriginalName + "_Copy" + intCounter;
+                intCounter++;
+            }
+        }
+
+        /// <summary>
+        /// 复制界面属性
+        /// </summary>
+        private static void CopyViewInfoProperties(clsViewInfoEN objSouViewInfo, clsViewInfoEN objNewViewInfo,
+            string strNewViewId, string strTarPrjId, string strFinalViewName, string strUserId,
+            Dictionary<string, string> dictTabMapping)
+        {
+            objNewViewInfo.ViewId = strNewViewId;
+            objNewViewInfo.ViewName = strFinalViewName;
+            objNewViewInfo.ViewCnName = objSouViewInfo.ViewCnName;
+            objNewViewInfo.PrjId = strTarPrjId;
+
+            objNewViewInfo.MainTabId = dictTabMapping.ContainsKey(objSouViewInfo.MainTabId) ?
+                dictTabMapping[objSouViewInfo.MainTabId] : "";
+            objNewViewInfo.InRelaTabId = dictTabMapping.ContainsKey(objSouViewInfo.InRelaTabId) ?
+                dictTabMapping[objSouViewInfo.InRelaTabId] : "";
+            objNewViewInfo.OutRelaTabId = dictTabMapping.ContainsKey(objSouViewInfo.OutRelaTabId) ?
+                dictTabMapping[objSouViewInfo.OutRelaTabId] : "";
+            objNewViewInfo.DetailTabId = dictTabMapping.ContainsKey(objSouViewInfo.DetailTabId) ?
+                dictTabMapping[objSouViewInfo.DetailTabId] : "";
+
+            objNewViewInfo.ApplicationTypeId = objSouViewInfo.ApplicationTypeId;
+
+            // 【关键】映射 FuncModuleAgcId（按 FuncModuleName）
+            if (!string.IsNullOrEmpty(objSouViewInfo.FuncModuleAgcId))
+            {
+                objNewViewInfo.FuncModuleAgcId = MapFuncModuleIdByName(objSouViewInfo.FuncModuleAgcId,
+                    objSouViewInfo.PrjId, strTarPrjId, strUserId);
+            }
+            else
+            {
+                objNewViewInfo.FuncModuleAgcId = "";
+            }
+            objNewViewInfo.DataBaseName = objSouViewInfo.DataBaseName;
+            objNewViewInfo.KeyForMainTab = objSouViewInfo.KeyForMainTab;
+            objNewViewInfo.KeyForDetailTab = objSouViewInfo.KeyForDetailTab;
+            objNewViewInfo.IsNeedSort = objSouViewInfo.IsNeedSort;
+            objNewViewInfo.IsNeedTransCode = objSouViewInfo.IsNeedTransCode;
+            objNewViewInfo.IsNeedSetExportFld = objSouViewInfo.IsNeedSetExportFld;
+            objNewViewInfo.UserId = strUserId;
+            objNewViewInfo.ViewFunction = objSouViewInfo.ViewFunction;
+            objNewViewInfo.ViewDetail = objSouViewInfo.ViewDetail;
+            objNewViewInfo.DefaMenuName = objSouViewInfo.DefaMenuName;
+            objNewViewInfo.FileName = objSouViewInfo.FileName;
+            objNewViewInfo.FilePath = objSouViewInfo.FilePath;
+            objNewViewInfo.ViewGroupId = objSouViewInfo.ViewGroupId;
+            objNewViewInfo.InSqlDsTypeId = objSouViewInfo.InSqlDsTypeId;
+            objNewViewInfo.OutSqlDsTypeId = objSouViewInfo.OutSqlDsTypeId;
+            objNewViewInfo.DetailTabType = objSouViewInfo.DetailTabType;
+            objNewViewInfo.DetailViewId = objSouViewInfo.DetailViewId;
+            objNewViewInfo.MainTabType = objSouViewInfo.MainTabType;
+            objNewViewInfo.MainViewId = objSouViewInfo.MainViewId;
+            objNewViewInfo.ViewMasterId = objSouViewInfo.ViewMasterId;
+            objNewViewInfo.IsShare = objSouViewInfo.IsShare;
+            objNewViewInfo.GeneCodeDate = clsDateTime.getTodayDateTimeStr(1);
+            objNewViewInfo.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+            objNewViewInfo.UpdUserId = strUserId;
+            objNewViewInfo.Memo = string.IsNullOrEmpty(objSouViewInfo.Memo) ?
+                "(复制)" : objSouViewInfo.Memo + "(复制)";
+            objNewViewInfo.ErrMsg = "";
+            objNewViewInfo.TaskId = null;
+            objNewViewInfo.KeyId4Test = null;
+            objNewViewInfo.RegionNum = objSouViewInfo.RegionNum;
+        }
+        /// <summary>
+        /// 按 FuncModuleName 映射 FuncModuleAgcId（从源工程到目标工程）
+        /// </summary>
+        private static string MapFuncModuleIdByName(string strSouFuncModuleId, string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouFuncModuleId)) return "";
+
+            try
+            {
+                // 1、获取源功能模块
+                clsFuncModule_AgcEN objSouFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(strSouFuncModuleId, strSouPrjId);
+                if (objSouFuncModule == null)
+                {
+                    string strLog = string.Format("源功能模块不存在，FuncModuleAgcId:[{0}]，PrjId:[{1}]", strSouFuncModuleId, strSouPrjId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                    return "";
+                }
+
+                // 2、在目标工程中按 FuncModuleName 查找（唯一键：PrjId + FuncModuleName）
+                string strCondition = string.Format("PrjId = '{0}' AND FuncModuleName = '{1}'",
+                    strTarPrjId, objSouFuncModule.FuncModuleName);
+
+                if (clsFuncModule_AgcBL.IsExistRecord(strCondition))
+                {
+                    // 已存在，直接返回
+                    string strTargetFuncModuleId = clsFuncModule_AgcBL.GetFirstID_S(strCondition);
+
+                    string strLog = string.Format("复用现有功能模块，源FuncModuleId:[{0}]，目标FuncModuleId:[{1}]，FuncModuleName:[{2}]",
+                        strSouFuncModuleId, strTargetFuncModuleId, objSouFuncModule.FuncModuleName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strTargetFuncModuleId;
+                }
+                else
+                {
+                    // 不存在，复制到目标工程
+                    string strNewFuncModuleId = clsGeneralTab.GetMaxStrId("FuncModule_Agc", "FuncModuleAgcId", 8, strTarPrjId);
+                    clsFuncModule_AgcEN objNewFuncModule = new clsFuncModule_AgcEN(strNewFuncModuleId);
+
+                    clsFuncModule_AgcBL.CopyTo(objSouFuncModule, objNewFuncModule);
+                    objNewFuncModule.FuncModuleAgcId = strNewFuncModuleId;
+                    objNewFuncModule.PrjId = strTarPrjId;
+                    objNewFuncModule.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewFuncModule.UpdUser = strUserId;
+
+                    if (!clsFuncModule_AgcBL.AddNewRecordBySql2(objNewFuncModule))
+                    {
+                        throw new Exception(string.Format("添加功能模块失败，FuncModuleName:[{0}]", objSouFuncModule.FuncModuleName));
+                    }
+
+                    string strLog = string.Format("创建新功能模块，源FuncModuleId:[{0}]，新FuncModuleId:[{1}]，FuncModuleName:[{2}]",
+                        strSouFuncModuleId, strNewFuncModuleId, objSouFuncModule.FuncModuleName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewFuncModuleId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("映射功能模块ID失败，源FuncModuleId:[{0}]，源PrjId:[{1}]，目标PrjId:[{2}]，错误:{3}",
+                    strSouFuncModuleId, strSouPrjId, strTarPrjId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+        /// <summary>
+        /// 复制界面样式
+        /// </summary>
+        private static void CopyViewStyle(string strSouViewId, string strNewViewId, string strUserId)
+        {
+            try
+            {
+                string strStyleCondition = string.Format("ViewId = '{0}'", strSouViewId);
+                clsViewStyleEN objSouViewStyle = clsViewStyleBL.GetFirstObj_S(strStyleCondition);
+
+                if (objSouViewStyle != null)
+                {
+                    clsViewStyleEN objNewViewStyle = new clsViewStyleEN();
+                    objNewViewStyle.ViewId = strNewViewId;
+                    objNewViewStyle.TitleStyleId = objSouViewStyle.TitleStyleId;
+                    objNewViewStyle.DgStyleId = objSouViewStyle.DgStyleId;
+
+                    clsViewStyleBL.AddNewRecordBySql2(objNewViewStyle);
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("复制界面样式失败:{0}", ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 复制区域相关的字段配置
+        /// </summary>
+        private static void CopyRegionFields(string strSouRegionId, string strNewRegionId, string strRegionTypeId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            try
+            {
+                switch (strRegionTypeId)
+                {
+                    case enumRegionType.EditRegion_0003:
+                        CopyEditRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                    case enumRegionType.ListRegion_0002:
+                        CopyListRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                    case enumRegionType.QueryRegion_0001:
+                        CopyQueryRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                    case enumRegionType.DetailRegion_0006:
+                        CopyDetailRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                    case enumRegionType.FeatureRegion_0008:
+                        CopyFeatureRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                    case enumRegionType.ExcelExportRegion_0007:
+                        CopyExcelExportRegionFields(strSouRegionId, strNewRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        break;
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("复制区域字段失败，区域类型:[{0}]，错误:{1}.(in {2})",
+                    strRegionTypeId, objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            }
+        }
+
+        private static void CopyEditRegionFields(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsEditRegionFldsEN> arrSouFieldsLst = clsEditRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsEditRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsEditRegionFldsEN objNewField = new clsEditRegionFldsEN();
+                clsEditRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+                objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
+                //objNewField.TabFeatureId4Ddl =
+                if (!string.IsNullOrEmpty(objSouField.FldIdCond1))
+                {
+                    objNewField.FldIdCond1 = CopyFieldToTargetProject(objSouField.FldIdCond1, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.FldIdCond2))
+                {
+                    objNewField.FldIdCond2 = CopyFieldToTargetProject(objSouField.FldIdCond2, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.DsTabId))
+                {
+                    objNewField.DsTabId = CopyTabIdToTargetProject(objSouField.DsTabId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                // 【关键】映射 TabFeatureId4Ddl（按 TabFeatureName）
+                if (!string.IsNullOrEmpty(objSouField.TabFeatureId4Ddl))
+                {
+                    objNewField.TabFeatureId4Ddl = MapTabFeatureIdByName(objSouField.TabFeatureId4Ddl, strSouPrjId, strTarPrjId, strUserId);
+                }
+                objNewField.ErrMsg = "";
+
+                clsEditRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+        /// <summary>
+        /// 按 TabFeatureName 映射 TabFeatureId（从源工程到目标工程）
+        /// </summary>
+        private static string MapTabFeatureIdByNameBak(string strSouTabFeatureId, string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouTabFeatureId)) return "";
+
+            try
+            {
+                // 1、获取源 TabFeature
+                clsTabFeatureEN objSouTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(strSouTabFeatureId, strSouPrjId);
+                if (objSouTabFeature == null)
+                {
+                    string strLog = string.Format("源 TabFeature 不存在，TabFeatureId:[{0}]，PrjId:[{1}]", strSouTabFeatureId, strSouPrjId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                    return "";
+                }
+
+                // 2、在目标工程中按 TabFeatureName 查找
+                string strCondition = string.Format("PrjId = '{0}' AND TabFeatureName = '{1}'",
+                    strTarPrjId, objSouTabFeature.TabFeatureName);
+
+                if (clsTabFeatureBL.IsExistRecord(strCondition))
+                {
+                    // 已存在，直接返回
+                    string strTargetTabFeatureId = clsTabFeatureBL.GetFirstID_S(strCondition);
+
+                    string strLog = string.Format("复用现有 TabFeature，源TabFeatureId:[{0}]，目标TabFeatureId:[{1}]，TabFeatureName:[{2}]",
+                        strSouTabFeatureId, strTargetTabFeatureId, objSouTabFeature.TabFeatureName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strTargetTabFeatureId;
+                }
+                else
+                {
+                    // 不存在，复制到目标工程
+                    string strNewTabFeatureId = clsGeneralTab.GetMaxStrId("TabFeature", "TabFeatureId", 8, strTarPrjId);
+                    clsTabFeatureEN objNewTabFeature = new clsTabFeatureEN(strNewTabFeatureId);
+
+                    clsTabFeatureBL.CopyTo(objSouTabFeature, objNewTabFeature);
+                    objNewTabFeature.TabFeatureId = strNewTabFeatureId;
+                    objNewTabFeature.PrjId = strTarPrjId;
+                    // 【关键】映射 TabId（按 TabName）
+                    if (!string.IsNullOrEmpty(objSouTabFeature.TabId))
+                    {
+                        objNewTabFeature.TabId = MapTabByName(objSouTabFeature.TabId, strSouPrjId, strTarPrjId, strUserId);
+                    }
+                    objNewTabFeature.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewTabFeature.UpdUser = strUserId;
+
+                    if (!clsTabFeatureBL.AddNewRecordBySql2(objNewTabFeature))
+                    {
+                        throw new Exception(string.Format("添加 TabFeature 失败，TabFeatureName:[{0}]", objSouTabFeature.TabFeatureName));
+                    }
+
+                    string strLog = string.Format("创建新 TabFeature，源TabFeatureId:[{0}]，新TabFeatureId:[{1}]，TabFeatureName:[{2}]",
+                        strSouTabFeatureId, strNewTabFeatureId, objSouTabFeature.TabFeatureName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewTabFeatureId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("映射 TabFeatureId 失败，源TabFeatureId:[{0}]，源PrjId:[{1}]，目标PrjId:[{2}]，错误:{3}",
+                    strSouTabFeatureId, strSouPrjId, strTarPrjId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 按 TabFeatureName 映射 TabFeatureId（从源工程到目标工程）
+        /// </summary>
+        private static string MapTabFeatureIdByName(string strSouTabFeatureId, string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouTabFeatureId)) return "";
+
+            try
+            {
+                // 1、获取源 TabFeature
+                clsTabFeatureEN objSouTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(strSouTabFeatureId, strSouPrjId);
+                if (objSouTabFeature == null)
+                {
+                    string strLog = string.Format("源 TabFeature 不存在，TabFeatureId:[{0}]，PrjId:[{1}]", strSouTabFeatureId, strSouPrjId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                    return "";
+                }
+
+                // 2、在目标工程中按 TabFeatureName 查找
+                string strCondition = string.Format("PrjId = '{0}' AND TabFeatureName = '{1}'",
+                    strTarPrjId, objSouTabFeature.TabFeatureName);
+
+                if (clsTabFeatureBL.IsExistRecord(strCondition))
+                {
+                    // 已存在，直接返回
+                    string strTargetTabFeatureId = clsTabFeatureBL.GetFirstID_S(strCondition);
+
+                    string strLog = string.Format("复用现有 TabFeature，源TabFeatureId:[{0}]，目标TabFeatureId:[{1}]，TabFeatureName:[{2}]",
+                        strSouTabFeatureId, strTargetTabFeatureId, objSouTabFeature.TabFeatureName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    // 【关键】检查是否有子表数据，如果没有则补充复制
+                    EnsureTabFeatureHasFields(strTargetTabFeatureId, strSouTabFeatureId, strSouPrjId, strTarPrjId, strUserId);
+
+                    return strTargetTabFeatureId;
+                }
+                else
+                {
+                    // 不存在，复制到目标工程
+                    string strNewTabFeatureId = clsGeneralTab.GetMaxStrId("TabFeature", "TabFeatureId", 8, strTarPrjId);
+                    clsTabFeatureEN objNewTabFeature = new clsTabFeatureEN(strNewTabFeatureId);
+
+                    clsTabFeatureBL.CopyTo(objSouTabFeature, objNewTabFeature);
+                    objNewTabFeature.TabFeatureId = strNewTabFeatureId;
+                    objNewTabFeature.PrjId = strTarPrjId;
+
+                    // 映射 TabId（按 TabName）
+                    if (!string.IsNullOrEmpty(objSouTabFeature.TabId))
+                    {
+                        objNewTabFeature.TabId = MapTabByName(objSouTabFeature.TabId, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    objNewTabFeature.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewTabFeature.UpdUser = strUserId;
+
+                    if (!clsTabFeatureBL.AddNewRecordBySql2(objNewTabFeature))
+                    {
+                        throw new Exception(string.Format("添加 TabFeature 失败，TabFeatureName:[{0}]", objSouTabFeature.TabFeatureName));
+                    }
+
+                    // 【关键】复制子表 TabFeatureFlds
+                    CopyTabFeatureFlds(strSouTabFeatureId, strNewTabFeatureId, strSouPrjId, strTarPrjId, strUserId);
+
+                    string strLog = string.Format("创建新 TabFeature，源TabFeatureId:[{0}]，新TabFeatureId:[{1}]，TabFeatureName:[{2}]，源TabId:[{3}]，新TabId:[{4}]",
+                        strSouTabFeatureId, strNewTabFeatureId, objSouTabFeature.TabFeatureName,
+                        objSouTabFeature.TabId, objNewTabFeature.TabId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewTabFeatureId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("映射 TabFeatureId 失败，源TabFeatureId:[{0}]，源PrjId:[{1}]，目标PrjId:[{2}]，错误:{3}",
+                    strSouTabFeatureId, strSouPrjId, strTarPrjId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 复制 TabFeature 的子表 TabFeatureFlds
+        /// </summary>
+        private static void CopyTabFeatureFlds(string strSouTabFeatureId, string strNewTabFeatureId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            try
+            {
+                string strCondition = string.Format("TabFeatureId = '{0}'", strSouTabFeatureId);
+                List<clsTabFeatureFldsEN> arrSouTabFeatureFlds = clsTabFeatureFldsBL.GetObjLst(strCondition);
+
+                if (arrSouTabFeatureFlds == null || arrSouTabFeatureFlds.Count == 0)
+                {
+                    string strLog = string.Format("TabFeature 没有子表数据，TabFeatureId:[{0}]", strSouTabFeatureId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                    return;
+                }
+
+                foreach (clsTabFeatureFldsEN objSouFld in arrSouTabFeatureFlds)
+                {
+                    clsTabFeatureFldsEN objNewFld = new clsTabFeatureFldsEN();
+                    clsTabFeatureFldsBL.CopyTo(objSouFld, objNewFld);
+
+                    objNewFld.TabFeatureId = strNewTabFeatureId;
+                    objNewFld.PrjId = strTarPrjId;
+                    objNewFld.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewFld.UpdUser = strUserId;
+
+                    // 复制字段ID（按字段名映射）
+                    if (!string.IsNullOrEmpty(objSouFld.FldId))
+                    {
+                        objNewFld.FldId = CopyFieldToTargetProject(objSouFld.FldId, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    //objNewFld._DispErrMsg = "";
+
+                    clsTabFeatureFldsBL.AddNewRecordBySql2(objNewFld);
+
+                    string strLog = string.Format("复制 TabFeatureFlds 成功，源TabFeatureId:[{0}]，新TabFeatureId:[{1}]，FldId:[{2}]",
+                        strSouTabFeatureId, strNewTabFeatureId, objNewFld.FldId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("复制 TabFeatureFlds 失败，源TabFeatureId:[{0}]，新TabFeatureId:[{1}]，错误:{2}",
+                    strSouTabFeatureId, strNewTabFeatureId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 确保 TabFeature 有子表数据（如果没有则从源复制）
+        /// </summary>
+        private static void EnsureTabFeatureHasFields(string strTargetTabFeatureId, string strSourceTabFeatureId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            try
+            {
+                // 检查目标 TabFeature 是否有子表数据
+                string strCheckCondition = string.Format("TabFeatureId = '{0}'", strTargetTabFeatureId);
+                bool bolHasFields = clsTabFeatureFldsBL.IsExistRecord(strCheckCondition);
+
+                if (!bolHasFields)
+                {
+                    // 没有子表数据，从源复制
+                    string strLog = string.Format("TabFeature [{0}] 没有子表数据，开始复制", strTargetTabFeatureId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    CopyTabFeatureFlds(strSourceTabFeatureId, strTargetTabFeatureId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                else
+                {
+                    string strLog = string.Format("TabFeature [{0}] 已有子表数据，跳过复制", strTargetTabFeatureId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("确保 TabFeature 有子表数据失败，TargetTabFeatureId:[{0}]，错误:{1}",
+                    strTargetTabFeatureId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        private static void CopyListRegionFields(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsDGRegionFldsEN> arrSouFieldsLst = clsDGRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsDGRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsDGRegionFldsEN objNewField = new clsDGRegionFldsEN();
+                clsDGRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+                objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
+                objNewField.OutFldId = CopyFieldToTargetProject(objSouField.OutFldId, strSouPrjId, strTarPrjId, strUserId);
+                                
+                clsDGRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+
+        private static void CopyQueryRegionFields(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsQryRegionFldsEN> arrSouFieldsLst = clsQryRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsQryRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsQryRegionFldsEN objNewField = new clsQryRegionFldsEN();
+                clsQryRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+                objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
+                if (!string.IsNullOrEmpty(objSouField.FldIdCond1))
+                {
+                    objNewField.FldIdCond1 = CopyFieldToTargetProject(objSouField.FldIdCond1, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.FldIdCond2))
+                {
+                    objNewField.FldIdCond2 = CopyFieldToTargetProject(objSouField.FldIdCond2, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.DsTabId))
+                {
+                    objNewField.DsTabId = CopyTabIdToTargetProject(objSouField.DsTabId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                // 【关键】映射 TabFeatureId4Ddl（按 TabFeatureName）
+                if (!string.IsNullOrEmpty(objSouField.TabFeatureId4Ddl))
+                {
+                    objNewField.TabFeatureId4Ddl = MapTabFeatureIdByName(objSouField.TabFeatureId4Ddl, strSouPrjId, strTarPrjId, strUserId);
+                }
+                clsQryRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+
+        private static void CopyDetailRegionFields(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsDetailRegionFldsEN> arrSouFieldsLst = clsDetailRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsDetailRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsDetailRegionFldsEN objNewField = new clsDetailRegionFldsEN();
+                clsDetailRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+                objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
+                objNewField.OutFldId = CopyFieldToTargetProject(objSouField.OutFldId, strSouPrjId, strTarPrjId, strUserId);
+
+                clsDetailRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+
+        private static void CopyFeatureRegionFieldsBak(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsFeatureRegionFldsEN> arrSouFieldsLst = clsFeatureRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsFeatureRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsFeatureRegionFldsEN objNewField = new clsFeatureRegionFldsEN();
+                clsFeatureRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+
+                if (!string.IsNullOrEmpty(objSouField.ReleTabId))
+                {
+                    objNewField.ReleTabId = CopyTabIdToTargetProject(objSouField.ReleTabId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.ReleFldId))
+                {
+                    objNewField.ReleFldId = CopyFieldToTargetProject(objSouField.ReleFldId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                objNewField.ErrMsg = "";
+
+                clsFeatureRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+
+        private static void CopyFeatureRegionFields(string strSouRegionId, string strNewRegionId,
+    string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsFeatureRegionFldsEN> arrSouFieldsLst = clsFeatureRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsFeatureRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsFeatureRegionFldsEN objNewField = new clsFeatureRegionFldsEN();
+                clsFeatureRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+
+                if (!string.IsNullOrEmpty(objSouField.ReleTabId))
+                {
+                    objNewField.ReleTabId = CopyTabIdToTargetProject(objSouField.ReleTabId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                if (!string.IsNullOrEmpty(objSouField.ReleFldId))
+                {
+                    objNewField.ReleFldId = CopyFieldToTargetProject(objSouField.ReleFldId, strSouPrjId, strTarPrjId, strUserId);
+                }
+                objNewField.ErrMsg = "";
+
+                clsFeatureRegionFldsBL.AddNewRecordBySql2(objNewField);
+
+                // 【关键】复制 ViewFeatureFlds 子表数据
+                CopyViewFeatureFlds(objSouField.ViewFeatureId, objNewField.ViewFeatureId, strSouPrjId, strTarPrjId, strUserId);
+            }
+        }
+
+        /// <summary>
+        /// 复制功能字段的子表 ViewFeatureFlds
+        /// </summary>
+        private static void CopyViewFeatureFlds(string strSouViewFeatureId, string strNewViewFeatureId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            try
+            {
+                string strCondition = string.Format("ViewFeatureId = '{0}'", strSouViewFeatureId);
+                List<clsViewFeatureFldsEN> arrSouViewFeatureFlds = clsViewFeatureFldsBL.GetObjLst(strCondition);
+
+                if (arrSouViewFeatureFlds == null || arrSouViewFeatureFlds.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (clsViewFeatureFldsEN objSouFld in arrSouViewFeatureFlds)
+                {
+                    clsViewFeatureFldsEN objNewFld = new clsViewFeatureFldsEN();
+                    clsViewFeatureFldsBL.CopyTo(objSouFld, objNewFld);
+
+                    objNewFld.ViewFeatureId = strNewViewFeatureId;
+                    objNewFld.PrjId = strTarPrjId;
+                    objNewFld.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewFld.UpdUser = strUserId;
+
+                    // 复制字段ID
+                    if (!string.IsNullOrEmpty(objSouFld.ReleFldId))
+                    {
+                        objNewFld.ReleFldId = CopyFieldToTargetProject(objSouFld.ReleFldId, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    // 复制条件字段1
+                    if (!string.IsNullOrEmpty(objSouFld.FldIdCond1))
+                    {
+                        objNewFld.FldIdCond1 = CopyFieldToTargetProject(objSouFld.FldIdCond1, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    // 复制条件字段2
+                    if (!string.IsNullOrEmpty(objSouFld.FldIdCond2))
+                    {
+                        objNewFld.FldIdCond2 = CopyFieldToTargetProject(objSouFld.FldIdCond2, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    // 复制数据源表ID
+                    if (!string.IsNullOrEmpty(objSouFld.DsTabId))
+                    {
+                        objNewFld.DsTabId = CopyTabIdToTargetProject(objSouFld.DsTabId, strSouPrjId, strTarPrjId, strUserId);
+                    }
+
+                    //objNewFld.ErrMsg = "";
+
+                    clsViewFeatureFldsBL.AddNewRecordBySql2(objNewFld);
+
+                    string strLog = string.Format("复制ViewFeatureFlds成功，源ViewFeatureId:[{0}]，新ViewFeatureId:[{1}]，字段:[{2}]",
+                        strSouViewFeatureId, strNewViewFeatureId, objSouFld.ReleFldId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("复制ViewFeatureFlds失败，源ViewFeatureId:[{0}]，新ViewFeatureId:[{1}]，错误:{2}",
+                    strSouViewFeatureId, strNewViewFeatureId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        private static void CopyExcelExportRegionFields(string strSouRegionId, string strNewRegionId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            string strCondition = string.Format("RegionId = '{0}'", strSouRegionId);
+            List<clsExcelExportRegionFldsEN> arrSouFieldsLst = clsExcelExportRegionFldsBL.GetObjLst(strCondition);
+
+            foreach (clsExcelExportRegionFldsEN objSouField in arrSouFieldsLst)
+            {
+                clsExcelExportRegionFldsEN objNewField = new clsExcelExportRegionFldsEN();
+                clsExcelExportRegionFldsBL.CopyTo(objSouField, objNewField);
+
+                objNewField.RegionId = strNewRegionId;
+                objNewField.PrjId = strTarPrjId;
+                objNewField.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objNewField.UpdUser = strUserId;
+                objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
+
+                clsExcelExportRegionFldsBL.AddNewRecordBySql2(objNewField);
+            }
+        }
+
+        private static string CopyFieldToTargetProject(string strSouFldId, string strSouPrjId,
+            string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouFldId)) return "";
+
+            try
+            {
+                return clsFieldTabBLEx.CopyField(strSouPrjId, strTarPrjId, strSouFldId, strUserId);
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("复制字段失败，字段ID:[{0}]，错误:{1}",
+                    strSouFldId, objException.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return "";
+            }
+        }
+
+        private static string CopyTabIdToTargetProject(string strSouTabId, string strSouPrjId,
+            string strTarPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strSouTabId)) return "";
+
+            try
+            {
+                clsPrjTabEN objSouTab = clsPrjTabBL.GetObjByTabIdCache(strSouTabId, strSouPrjId);
+                if (objSouTab == null) return "";
+
+                string strCondTabId = string.Format("PrjId = '{0}' and TabName = '{1}'",
+                    strTarPrjId, objSouTab.TabName);
+
+                if (clsPrjTabBL.IsExistRecord(strCondTabId))
+                {
+                    return clsPrjTabBL.GetFirstID_S(strCondTabId);
+                }
+                else
+                {
+                    return clsPrjTabBLEx.CopyPrjTab(strTarPrjId, strSouTabId, strUserId);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("复制表失败，表ID:[{0}]，错误:{1}",
+                    strSouTabId, objException.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// 根据目标工程和源界面查询复制任务状态
+        /// </summary>
+        /// <param name="strTarPrjId">目标工程ID</param>
+        /// <param name="strSouViewId">源界面ID</param>
+        /// <returns>返回任务状态</returns>
+        public static CopyTaskStatusResultDto GetCopyTaskStatusByViewBak(string strTarPrjId, string strSouViewId)
+        {
+            CopyTaskStatusResultDto result = new CopyTaskStatusResultDto();
+
+            try
+            {
+                // 1、获取源界面所属工程
+                clsViewInfoEN objSouViewInfo = clsViewInfoBL.GetObjByViewId(strSouViewId);
+                if (objSouViewInfo == null)
+                {
+                    result.taskId = 0;
+                    result.status = "NotStarted";
+                    result.message = "源界面不存在";
+                    return result;
+                }
+
+                string strSouPrjId = objSouViewInfo.PrjId;
+
+                // 2、查询所有任务（按 TaskId 倒序）
+                // TODO: 这里需要实现真实的数据库查询
+                // SELECT * FROM CopyTask 
+                // WHERE SourcePrjId = @SourcePrjId AND TargetPrjId = @TargetPrjId AND SourceViewId = @SourceViewId
+                // ORDER BY TaskId DESC
+                // 2、查询所有任务（按 TaskId 倒序）- 启用真实查询
+                string strCondition = string.Format(
+                    "SourcePrjId = '{0}' AND TargetPrjId = '{1}' AND SourceViewId = '{2}'",
+                    strSouPrjId, strTarPrjId, strSouViewId);
+
+                List<clsCopyTaskEN> arrTasks = clsCopyTaskBL.GetObjLst(strCondition);
+
+                // 3、优先找未完成任务
+                List<string> unfinishedStatuses = new List<string> { "Pending", "Running", "Failed", "Error" };
+                clsCopyTaskEN objTask = null;
+
+                foreach (clsCopyTaskEN task in arrTasks)
+                {
+                    if (unfinishedStatuses.Contains(task.Status))
+                    {
+                        objTask = task;
+                        break;
+                    }
+                }
+
+                // 4、若无未完成任务，取最近一条
+                if (objTask == null && arrTasks.Count > 0)
+                {
+                    objTask = arrTasks[0];
+                }
+
+                // 5、一条都没有，返回 NotStarted
+                if (objTask == null)
+                {
+                    result.taskId = 0;
+                    result.status = "NotStarted";
+                    result.currentStep = "";
+                    result.message = "当前界面在目标工程尚未开始复制任务";
+                    result.targetViewId = "";
+                    result.targetViewName = "";
+                    result.totalRegions = 0;
+                    result.completedRegions = 0;
+                    result.failedRegions = 0;
+                    result.relationCompletedCount = 0;
+                    result.regionStatuses = new List<CopyRegionStatusDto>();
+
+                    return result;
+                }
+
+                // 6、查询任务区域明细
+                //List<clsCopyTaskRegionEN> arrRegions = new List<clsCopyTaskRegionEN>(); // GetCopyTaskRegions(objTask.TaskId);
+                // 6、查询任务区域明细
+                List<clsCopyTaskRegionEN> arrRegions = GetCopyTaskRegions(objTask.TaskId);
+
+                // 7、统计完成情况
+                int intTotalRegions = arrRegions.Count;
+                int intCompletedRegions = 0;
+                int intFailedRegions = 0;
+                int intRelationCompleted = 0;
+
+                foreach (clsCopyTaskRegionEN region in arrRegions)
+                {
+                    if (region.CopyStatus == "Success" || region.CopyStatus == "Reused")
+                    {
+                        intCompletedRegions++;
+                    }
+                    if (region.CopyStatus == "Failed")
+                    {
+                        intFailedRegions++;
+                    }
+                    if (region.RelationStatus == "Success")
+                    {
+                        intRelationCompleted++;
+                    }
+                }
+                // 8、如果有目标界面，查询界面名称
+                string strTargetViewName = "";
+                if (!string.IsNullOrEmpty(objTask.TargetViewId))
+                {
+                    clsViewInfoEN objTargetView = clsViewInfoBL.GetObjByViewId(objTask.TargetViewId);
+                    if (objTargetView != null)
+                    {
+                        strTargetViewName = objTargetView.ViewName;
+                    }
+                }
+
+                // 8、组装返回对象
+                result.taskId = objTask.TaskId;
+                result.status = objTask.Status ?? "";
+                result.currentStep = objTask.CurrentStep ?? "";
+                result.message = objTask.ErrorMessage ?? "";
+                result.targetViewId = objTask.TargetViewId ?? "";
+                result.targetViewName = objTask.TargetViewName ?? "";
+                result.totalRegions = intTotalRegions;
+                result.completedRegions = intCompletedRegions;
+                result.failedRegions = intFailedRegions;
+                result.relationCompletedCount = intRelationCompleted;
+
+                // 转换区域状态列表
+                result.regionStatuses = new List<CopyRegionStatusDto>();
+                foreach (clsCopyTaskRegionEN region in arrRegions)
+                {
+                    CopyRegionStatusDto status = new CopyRegionStatusDto();
+                    status.sourceRegionId = region.SourceRegionId ?? "";
+                    status.clsName = region.SourceClsName ?? "";
+                    status.targetRegionId = region.TargetRegionId ?? "";
+                    status.copyStatus = region.CopyStatus ?? "";
+                    status.relationStatus = region.RelationStatus ?? "";
+                    status.errorMessage = region.ErrorMessage ?? "";
+                    result.regionStatuses.Add(status);
+                }
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("查询任务状态失败，错误:{0}.(in {1})",
+                    objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+
+                result.taskId = 0;
+                result.status = "Error";
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 根据目标工程和源界面查询复制任务状态
+        /// </summary>
+        public static CopyTaskStatusResultDto GetCopyTaskStatusByView(string strTarPrjId, string strSouViewId)
+        {
+            CopyTaskStatusResultDto result = new CopyTaskStatusResultDto();
+
+            try
+            {
+                // 1、获取源界面所属工程
+                clsViewInfoEN objSouViewInfo = clsViewInfoBL.GetObjByViewId(strSouViewId);
+                if (objSouViewInfo == null)
+                {
+                    result.taskId = 0;
+                    result.status = "NotStarted";
+                    result.message = "源界面不存在";
+                    return result;
+                }
+
+                string strSouPrjId = objSouViewInfo.PrjId;
+
+                // 2、查询所有任务（按 TaskId 倒序）
+                string strCondition = string.Format(
+                    "SourcePrjId = '{0}' AND TargetPrjId = '{1}' AND SourceViewId = '{2}'",
+                    strSouPrjId, strTarPrjId, strSouViewId);
+
+                List<clsCopyTaskEN> arrTasks = clsCopyTaskBL.GetObjLst(strCondition);
+
+                if (arrTasks != null && arrTasks.Count > 0)
+                {
+                    arrTasks.Sort((a, b) => b.TaskId.CompareTo(a.TaskId));
+                }
+
+                // 3、优先找未完成任务
+                List<string> unfinishedStatuses = new List<string> { "Pending", "Running", "Failed", "Error" };
+                clsCopyTaskEN objTask = null;
+
+                if (arrTasks != null)
+                {
+                    foreach (clsCopyTaskEN task in arrTasks)
+                    {
+                        if (unfinishedStatuses.Contains(task.Status))
+                        {
+                            objTask = task;
+                            break;
+                        }
+                    }
+                }
+
+                // 4、若无未完成任务，取最近一条
+                if (objTask == null && arrTasks != null && arrTasks.Count > 0)
+                {
+                    objTask = arrTasks[0];
+                }
+
+                // 5、一条都没有，返回 NotStarted
+                if (objTask == null)
+                {
+                    result.taskId = 0;
+                    result.status = "NotStarted";
+                    result.currentStep = "";
+                    result.message = "当前界面在目标工程尚未开始复制任务";
+                    result.targetViewId = "";
+                    result.targetViewName = "";
+                    result.totalRegions = 0;
+                    result.completedRegions = 0;
+                    result.failedRegions = 0;
+                    result.relationCompletedCount = 0;
+                    result.regionStatuses = new List<CopyRegionStatusDto>();
+
+                    return result;
+                }
+
+                // 6、查询源界面的所有区域（完整列表）
+                string strRegionCondition = string.Format("ViewId = '{0}'", strSouViewId);
+                List<clsViewRegionRelaEN> arrSouRegionRelaLst = clsViewRegionRelaBL.GetObjLst(strRegionCondition);
+
+                // 7、查询任务区域明细（已记录的部分）
+                List<clsCopyTaskRegionEN> arrTaskRegions = GetCopyTaskRegions(objTask.TaskId);
+
+                // 创建已记录区域的字典（用于快速查找）
+                Dictionary<string, clsCopyTaskRegionEN> dictTaskRegions = new Dictionary<string, clsCopyTaskRegionEN>();
+                foreach (clsCopyTaskRegionEN region in arrTaskRegions)
+                {
+                    dictTaskRegions[region.SourceRegionId] = region;
+                }
+
+                // 8、组装完整的区域状态列表（包含缺失的区域）
+                List<CopyRegionStatusDto> regionStatuses = new List<CopyRegionStatusDto>();
+                int intStepOrder = 1;
+                int intCompletedRegions = 0;
+                int intFailedRegions = 0;
+                int intRelationCompleted = 0;
+
+                foreach (clsViewRegionRelaEN objSouRegionRela in arrSouRegionRelaLst)
+                {
+                    clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objSouRegionRela.RegionId);
+                    if (objSouRegion == null) continue;
+
+                    CopyRegionStatusDto status = new CopyRegionStatusDto();
+                    status.sourceRegionId = objSouRegion.RegionId;
+                    status.clsName = objSouRegion.ClsName;
+
+                    // 检查是否已有任务记录
+                    if (dictTaskRegions.ContainsKey(objSouRegion.RegionId))
+                    {
+                        // 已有记录，使用实际状态
+                        clsCopyTaskRegionEN taskRegion = dictTaskRegions[objSouRegion.RegionId];
+                        status.targetRegionId = taskRegion.TargetRegionId ?? "";
+                        status.copyStatus = taskRegion.CopyStatus ?? "Pending";
+                        status.relationStatus = taskRegion.RelationStatus ?? "Pending";
+                        status.errorMessage = taskRegion.ErrorMessage ?? "";
+
+                        // 统计
+                        if (taskRegion.CopyStatus == "Success" || taskRegion.CopyStatus == "Reused")
+                        {
+                            intCompletedRegions++;
+                        }
+                        if (taskRegion.CopyStatus == "Failed")
+                        {
+                            intFailedRegions++;
+                        }
+                        if (taskRegion.RelationStatus == "Success")
+                        {
+                            intRelationCompleted++;
+                        }
+                    }
+                    else
+                    {
+                        // 没有记录，说明还未开始处理
+                        status.targetRegionId = "";
+                        status.copyStatus = "Pending";
+                        status.relationStatus = "Pending";
+                        status.errorMessage = "";
+                    }
+
+                    regionStatuses.Add(status);
+                }
+
+                // 9、如果有目标界面，查询界面名称
+                string strTargetViewName = "";
+                if (!string.IsNullOrEmpty(objTask.TargetViewId))
+                {
+                    clsViewInfoEN objTargetView = clsViewInfoBL.GetObjByViewId(objTask.TargetViewId);
+                    if (objTargetView != null)
+                    {
+                        strTargetViewName = objTargetView.ViewName;
+                    }
+                }
+
+                // 10、组装返回对象
+                result.taskId = objTask.TaskId;
+                result.status = objTask.Status ?? "";
+                result.currentStep = objTask.CurrentStep ?? "";
+                result.message = objTask.ErrorMessage ?? "";
+                result.targetViewId = objTask.TargetViewId ?? "";
+                result.targetViewName = strTargetViewName;
+                result.totalRegions = arrSouRegionRelaLst.Count; // 使用源界面的总区域数
+                result.completedRegions = intCompletedRegions;
+                result.failedRegions = intFailedRegions;
+                result.relationCompletedCount = intRelationCompleted;
+                result.regionStatuses = regionStatuses;
+
+                return result;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("查询任务状态失败，错误:{0}.(in {1})",
+                    objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+
+                result.taskId = 0;
+                result.status = "Error";
+                result.message = strMsg;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 解析或复制区域（按唯一键查找，存在则复用，不存在则复制）
+        /// </summary>
+        private static string ResolveOrCopyRegion(clsCopyTaskEN objTask, clsCopyTaskRegionEN objDetail)
+        {
+            try
+            {
+                // 获取源区域
+                clsViewRegionEN objSouRegion = clsViewRegionBL.GetObjByRegionId(objDetail.SourceRegionId);
+                if (objSouRegion == null)
+                {
+                    throw new Exception(string.Format("源区域不存在，RegionId:[{0}]", objDetail.SourceRegionId));
+                }
+
+                // 按唯一键 (PrjId, ClsName) 查找目标工程中是否已有对应区域
+                string strCheckCond = string.Format("PrjId = '{0}' AND ClsName = '{1}'",
+                    objTask.TargetPrjId, objSouRegion.ClsName);
+
+                if (clsViewRegionBL.IsExistRecord(strCheckCond))
+                {
+                    // 复用现有区域
+                    string strExistingRegionId = clsViewRegionBL.GetFirstID_S(strCheckCond);
+                    objDetail.CopyStatus = "Reused";
+
+                    string strLog = string.Format("复用现有区域，RegionId:[{0}]，ClsName:[{1}]",
+                        strExistingRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    // 【关键】检查区域是否有字段，如果没有则需要复制字段
+                    EnsureRegionHasFields(strExistingRegionId, objSouRegion.RegionId, objSouRegion.RegionTypeId,
+                        objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                    return strExistingRegionId;
+                }
+                else
+                {
+                    // 复制新区域
+                    string strNewRegionId = clsGeneralTab.GetMaxStrId("ViewRegion", "RegionId", 8, objTask.TargetPrjId);
+                    clsViewRegionEN objNewRegion = new clsViewRegionEN(strNewRegionId);
+
+                    clsViewRegionBL.CopyTo(objSouRegion, objNewRegion);
+                    objNewRegion.RegionId = strNewRegionId;
+                    objNewRegion.PrjId = objTask.TargetPrjId;
+                    objNewRegion.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                    objNewRegion.UpdUser = objTask.CreatedBy;
+
+                    // 映射区域的 TabId（按表名映射）
+                    if (!string.IsNullOrEmpty(objSouRegion.TabId))
+                    {
+                        string strTargetTabId = MapTabByName(objSouRegion.TabId, objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+                        objNewRegion.TabId = strTargetTabId;
+                    }
+
+                    if (!clsViewRegionBL.AddNewRecordBySql2(objNewRegion))
+                    {
+                        throw new Exception("添加区域记录失败");
+                    }
+
+                    // 复制区域字段
+                    CopyRegionFields(objSouRegion.RegionId, strNewRegionId, objSouRegion.RegionTypeId,
+                        objTask.SourcePrjId, objTask.TargetPrjId, objTask.CreatedBy);
+
+                    string strLog = string.Format("创建新区域成功，RegionId:[{0}]，ClsName:[{1}]",
+                        strNewRegionId, objSouRegion.ClsName);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+
+                    return strNewRegionId;
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("解析或复制区域失败，SourceRegionId:[{0}]，错误:{1}",
+                    objDetail.SourceRegionId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 确保区域有字段数据（如果没有则从源区域复制）
+        /// </summary>
+        private static void EnsureRegionHasFields(string strTargetRegionId, string strSourceRegionId, string strRegionTypeId,
+            string strSouPrjId, string strTarPrjId, string strUserId)
+        {
+            try
+            {
+                bool bolHasFields = false;
+
+                // 根据区域类型检查是否有字段
+                switch (strRegionTypeId)
+                {
+                    case enumRegionType.EditRegion_0003:
+                        string strEditCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsEditRegionFldsBL.IsExistRecord(strEditCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制编辑区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyEditRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+
+                    case enumRegionType.ListRegion_0002:
+                        string strListCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsDGRegionFldsBL.IsExistRecord(strListCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制列表区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyListRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+
+                    case enumRegionType.QueryRegion_0001:
+                        string strQueryCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsQryRegionFldsBL.IsExistRecord(strQueryCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制查询区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyQueryRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+
+                    case enumRegionType.DetailRegion_0006:
+                        string strDetailCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsDetailRegionFldsBL.IsExistRecord(strDetailCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制详细区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyDetailRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+
+                    case enumRegionType.FeatureRegion_0008:
+                        string strFeatureCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsFeatureRegionFldsBL.IsExistRecord(strFeatureCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制功能区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyFeatureRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+
+                    case enumRegionType.ExcelExportRegion_0007:
+                        string strExcelCondition = string.Format("RegionId = '{0}'", strTargetRegionId);
+                        bolHasFields = clsExcelExportRegionFldsBL.IsExistRecord(strExcelCondition);
+                        if (!bolHasFields)
+                        {
+                            string strLog = string.Format("区域 [{0}] 没有字段，开始复制Excel导出区域字段", strTargetRegionId);
+                            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                            CopyExcelExportRegionFields(strSourceRegionId, strTargetRegionId, strSouPrjId, strTarPrjId, strUserId);
+                        }
+                        break;
+                }
+
+                if (bolHasFields)
+                {
+                    string strLog = string.Format("区域 [{0}] 已有字段，跳过复制", strTargetRegionId);
+                    clsPubVar4BLEx.objLog4Error.WriteDebugLog(strLog);
+                }
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("确保区域有字段失败，TargetRegionId:[{0}]，错误:{1}",
+                    strTargetRegionId, ex.Message);
+                clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
         }
     }
 }

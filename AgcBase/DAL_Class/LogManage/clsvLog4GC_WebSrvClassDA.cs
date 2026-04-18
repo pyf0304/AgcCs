@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvLog4GC_WebSrvClassDA
  表名:vLog4GC_WebSrvClass(00050371)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:17:45
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:33
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:日志管理(LogManage)
- 框架-层名:数据处理层(CS)(DALCode)
+ 框架-层名:数据处理层(CS)(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -27,6 +27,7 @@ using com.taishsoft.common;
 using com.taishsoft.datetime;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.commdb;
+using PrjCommBase;
 using AGC.Entity;
 
 namespace AGC.DAL
@@ -98,7 +99,7 @@ return objSQL;
 
  /// <summary>
  /// 获取SQL服务器连接对象
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetSpecSQLObj_Obj)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetSpecSQLObj_Obj)
  /// </summary>
  /// <returns>SQL服务器连接对象</returns>
  public override clsSpecSQLforSql GetSpecSQLObj_Obj() 
@@ -128,7 +129,7 @@ return objSQL;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回数据表DataTable</returns>
@@ -154,7 +155,7 @@ return objDT;
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回数据表DataTable</returns>
@@ -181,7 +182,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(给定表名)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByTabName_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByTabName_S)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "strTabName">表名</param>
@@ -209,7 +210,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable_Exclude)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "lstExclude">排除的检查字符串列表</param>
@@ -236,7 +237,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByTabName_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByTabName_S_Exclude)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "strTabName">表名</param>
@@ -264,7 +265,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S)
  /// </summary>
  /// <param name = "objTopPara">获取顶部对象列表的参数对象</param>
  /// <returns>返回数据表DataTable</returns>
@@ -275,7 +276,7 @@ public System.Data.DataTable GetDataTable_Top(stuTopPara objTopPara)
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strCondition">条件串</param>
@@ -311,7 +312,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S_Exclude)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strCondition">条件串</param>
@@ -339,7 +340,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取分页记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByPager_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByPager_S)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -366,28 +367,22 @@ System.Data.DataTable objDT;
 int intPos_Dot = strOrderBy.IndexOf('|');
 if (intPos_Dot > 0)
 {
-var IsAscOrDesc = "Asc";
-if (strOrderBy.IndexOf(" Asc", StringComparison.InvariantCultureIgnoreCase) > 0)
+var sortInfo = clsSortLinkStrParse.ParseSortString(strOrderBy);
+if (sortInfo.SortDirection == "" || sortInfo.SortField == "")
 {
-strOrderBy = strOrderBy.Replace(" Asc", "");
-IsAscOrDesc = "Asc";
-}
-else if (strOrderBy.IndexOf(" Desc", StringComparison.InvariantCultureIgnoreCase) > 0)
-{
-strOrderBy = strOrderBy.Replace(" Desc", "");
-IsAscOrDesc = "Desc";
-}
-var arrPart = strOrderBy.Split('|');
-if (arrPart.Length != 3)
-{
-throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]应该有竖线(|)分隔的3部分组成,请检查!(in {1})",
+throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]格式不正确,请检查!(in {1})",
 strOrderBy, clsStackTrace.GetCurrClassFunction()));
 }
-string strTabName = arrPart[0];
-string strNewOrderBy = arrPart[1];
-string strOnCondition = arrPart[2];
-strSQL = string.Format("Select Top {0} vLog4GC_WebSrvClass.* from vLog4GC_WebSrvClass Left Join {1} on {2} where {3} and vLog4GC_WebSrvClass.mId not in (Select top {5} vLog4GC_WebSrvClass.mId from vLog4GC_WebSrvClass Left Join {1} on {2} where {3} order by {4} {6}) order by {4} {6} ",
-intPageSize, strTabName, strOnCondition, strCondition, strNewOrderBy, intTop_In, IsAscOrDesc);
+string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTables, sortInfo.JoinConditions);
+strSQL = $"Select Top {intPageSize} vLog4GC_WebSrvClass.* " + 
+$"from vLog4GC_WebSrvClass " + 
+$"{strLeftLinkStr} " + 
+$"where {strCondition} and vLog4GC_WebSrvClass.mId not in " + 
+$"(Select top {intTop_In} vLog4GC_WebSrvClass.mId from vLog4GC_WebSrvClass " + 
+$"{strLeftLinkStr} " +
+$" where {strCondition} " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection} ";
 }
 else
 {
@@ -406,7 +401,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取分页记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByPager_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByPager_S_Exclude)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -433,28 +428,22 @@ System.Data.DataTable objDT;
 int intPos_Dot = strOrderBy.IndexOf('|');
 if (intPos_Dot > 0)
 {
-var IsAscOrDesc = "Asc";
-if (strOrderBy.IndexOf(" Asc", StringComparison.InvariantCultureIgnoreCase) > 0)
+var sortInfo = clsSortLinkStrParse.ParseSortString(strOrderBy);
+if (sortInfo.SortDirection == "" || sortInfo.SortField == "")
 {
-strOrderBy = strOrderBy.Replace(" Asc", "");
-IsAscOrDesc = "Asc";
-}
-else if (strOrderBy.IndexOf(" Desc", StringComparison.InvariantCultureIgnoreCase) > 0)
-{
-strOrderBy = strOrderBy.Replace(" Desc", "");
-IsAscOrDesc = "Desc";
-}
-var arrPart = strOrderBy.Split('|');
-if (arrPart.Length != 3)
-{
-throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]应该有竖线(|)分隔的3部分组成,请检查!(in {1})",
+throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]格式不正确,请检查!(in {1})",
 strOrderBy, clsStackTrace.GetCurrClassFunction()));
 }
-string strTabName = arrPart[0];
-string strNewOrderBy = arrPart[1];
-string strOnCondition = arrPart[2];
-strSQL = string.Format("Select Top {0} vLog4GC_WebSrvClass.* from vLog4GC_WebSrvClass Left Join {1} on {2} where {3} and vLog4GC_WebSrvClass.mId not in (Select top {5} vLog4GC_WebSrvClass.mId from vLog4GC_WebSrvClass Left Join {1} on {2} where {3} order by {4} {6}) order by {4} {6} ",
-intPageSize, strTabName, strOnCondition, strCondition, strNewOrderBy, intTop_In, IsAscOrDesc);
+string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTables, sortInfo.JoinConditions);
+strSQL = $"Select Top {intPageSize} vLog4GC_WebSrvClass.* " + 
+$"from vLog4GC_WebSrvClass " + 
+$"{strLeftLinkStr} " + 
+$"where {strCondition} and vLog4GC_WebSrvClass.mId not in " + 
+$"(Select top {intTop_In} vLog4GC_WebSrvClass.mId from vLog4GC_WebSrvClass " + 
+$"{strLeftLinkStr} " +
+$" where {strCondition} " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection} ";
 }
 else
 {
@@ -477,7 +466,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetObjLst)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetObjLst)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <returns>返回对象列表</returns>
@@ -519,7 +508,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = TransNullToBool(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -539,7 +528,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetObjLstByTabName)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetObjLstByTabName)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <param name = "strTabName">表名</param>
@@ -582,7 +571,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = TransNullToBool(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -635,7 +624,7 @@ try
  objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objDT.Rows[0][convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id(字段类型:char,字段长度:8,是否可空:False)
  objvLog4GC_WebSrvClassEN.FuncModuleName = objDT.Rows[0][convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称(字段类型:varchar,字段长度:30,是否可空:False)
  objvLog4GC_WebSrvClassEN.IsNeedGene = TransNullToBool(objDT.Rows[0][convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成(字段类型:bit,字段长度:1,是否可空:True)
- objvLog4GC_WebSrvClassEN.PrjId = objDT.Rows[0][convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID(字段类型:char,字段长度:4,是否可空:False)
+ objvLog4GC_WebSrvClassEN.PrjId = objDT.Rows[0][convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
  objvLog4GC_WebSrvClassEN.PrjName = objDT.Rows[0][convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称(字段类型:varchar,字段长度:30,是否可空:False)
  objvLog4GC_WebSrvClassEN.FuncNum = TransNullToInt(objDT.Rows[0][convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数(字段类型:int,字段长度:4,是否可空:True)
  objvLog4GC_WebSrvClassEN.GeneCodeDate = objDT.Rows[0][convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
@@ -683,7 +672,7 @@ try
  objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id(字段类型:char,字段长度:8,是否可空:False)
  objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称(字段类型:varchar,字段长度:30,是否可空:False)
  objvLog4GC_WebSrvClassEN.IsNeedGene = clsEntityBase2.TransNullToBool_S(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成(字段类型:bit,字段长度:1,是否可空:True)
- objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID(字段类型:char,字段长度:4,是否可空:False)
+ objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
  objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称(字段类型:varchar,字段长度:30,是否可空:False)
  objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数(字段类型:int,字段长度:4,是否可空:True)
  objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
@@ -700,7 +689,7 @@ return objvLog4GC_WebSrvClassEN;
 
  /// <summary>
  /// 获取第一条满足条件的记录,以对象形式表示
- /// (AutoGCLib.clsGeneCodeBase:GenGetFirstCondRecObj)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetFirstCondRecObj)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <returns>返回满足条件的第一个对象</returns>
@@ -741,7 +730,7 @@ PageName = objRow[convLog4GC_WebSrvClass.PageName] == DBNull.Value ? null : objR
 FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(), //功能模块Id
 FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(), //功能模块名称
 IsNeedGene = TransNullToBool(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()), //是否需要生成
-PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(), //工程ID
+PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(), //工程Id
 PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(), //工程名称
 FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()), //函数个数
 GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(), //生成代码日期
@@ -760,7 +749,7 @@ throw new Exception(string.Format("在根据条件获取第一个对象时,发�
 
  /// <summary>
  /// 把DataRow转换成记录对象.
- /// (AutoGCLib.clsGeneCodeBase:GenGetRecValueObjByDataRow)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetRecValueObjByDataRow)
  /// </summary>
  /// <param name = "objRow">所给的DataRow</param>
  /// <returns>记录对象</returns>
@@ -783,7 +772,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = TransNullToBool(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -800,7 +789,7 @@ return objvLog4GC_WebSrvClassEN;
 }
  /// <summary>
  /// 把DataRowView转换成记录对象.
- /// (AutoGCLib.clsGeneCodeBase:GenGetRecValueObjByDataRow)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetRecValueObjByDataRow)
  /// </summary>
  /// <param name = "objRow">所给的DataRowView</param>
  /// <returns>记录对象</returns>
@@ -823,7 +812,7 @@ objvLog4GC_WebSrvClassEN.PageName = objRow[convLog4GC_WebSrvClass.PageName] == D
 objvLog4GC_WebSrvClassEN.FuncModuleAgcId = objRow[convLog4GC_WebSrvClass.FuncModuleAgcId].ToString().Trim(); //功能模块Id
 objvLog4GC_WebSrvClassEN.FuncModuleName = objRow[convLog4GC_WebSrvClass.FuncModuleName].ToString().Trim(); //功能模块名称
 objvLog4GC_WebSrvClassEN.IsNeedGene = TransNullToBool(objRow[convLog4GC_WebSrvClass.IsNeedGene].ToString().Trim()); //是否需要生成
-objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程ID
+objvLog4GC_WebSrvClassEN.PrjId = objRow[convLog4GC_WebSrvClass.PrjId].ToString().Trim(); //工程Id
 objvLog4GC_WebSrvClassEN.PrjName = objRow[convLog4GC_WebSrvClass.PrjName].ToString().Trim(); //工程名称
 objvLog4GC_WebSrvClassEN.FuncNum = objRow[convLog4GC_WebSrvClass.FuncNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[convLog4GC_WebSrvClass.FuncNum].ToString().Trim()); //函数个数
 objvLog4GC_WebSrvClassEN.GeneCodeDate = objRow[convLog4GC_WebSrvClass.GeneCodeDate] == DBNull.Value ? null : objRow[convLog4GC_WebSrvClass.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -845,7 +834,7 @@ return objvLog4GC_WebSrvClassEN;
 
  /// <summary>
  /// 获取当前表最大字符型关键字ID
- /// (AutoGCLib.clsGeneCodeBase:GenGetMaxStrID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetMaxStrID)
  /// </summary>
  /// <returns>返回的最大关键字值ID</returns>
 public static string GetMaxStrId()
@@ -859,7 +848,7 @@ return strMaxValue;
 
  /// <summary>
  /// 根据前缀获取当前表最大字符型关键字ID
- /// (AutoGCLib.clsGeneCodeBase:GenGetMaxStrIdByPrefix)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetMaxStrIdByPrefix)
  /// </summary>
  /// <returns>返回的最大关键字值ID</returns>
 public string GetMaxStrIdByPrefix(string strPrefix)
@@ -873,7 +862,7 @@ return strMaxValue;
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的关键字值
- /// (AutoGCLib.clsGeneCodeBase:GenGetFirstID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetFirstID)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回的第一条记录的关键字值</returns>
@@ -913,7 +902,7 @@ return long.Parse(strKeyValue);
 
  /// <summary>
  /// 获取当前表满足条件的所有记录的关键字值列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetPrimaryKeyID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetPrimaryKeyID)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回的关键字值列表</returns>
@@ -970,7 +959,7 @@ return arrList;
 
  /// <summary>
  /// 判断当前表中是否存在给定关键字值的记录
- /// (AutoGCLib.clsGeneCodeBase:GenIsExist_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExist_S)
  /// </summary>
  /// <param name = "lngmId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
@@ -991,7 +980,7 @@ return false;
 
  /// <summary>
  /// 功能:判断是否存在某一条件的记录
- /// (AutoGCLib.clsGeneCodeBase:GenIsExistCondRec_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExistCondRec_S)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>如果存在就返回TRUE,否则返回FALSE</returns>
@@ -1021,7 +1010,7 @@ return false;
 
  /// <summary>
  /// 检查是否存在当前表
- /// (AutoGCLib.clsGeneCodeBase:GenIsExistTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExistTable)
  /// </summary>
  /// <returns>存在就返回True,否则返回False</returns>
 public static bool IsExistTable()
@@ -1039,7 +1028,7 @@ return bolIsExist;
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
- /// (AutoGCLib.clsGeneCodeBase:GenCopyObj_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenCopyObj_S)
  /// </summary>
  /// <param name = "objvLog4GC_WebSrvClassENS">源对象</param>
  /// <param name = "objvLog4GC_WebSrvClassENT">目标对象</param>
@@ -1055,7 +1044,7 @@ objvLog4GC_WebSrvClassENT.PageName = objvLog4GC_WebSrvClassENS.PageName; //页�
 objvLog4GC_WebSrvClassENT.FuncModuleAgcId = objvLog4GC_WebSrvClassENS.FuncModuleAgcId; //功能模块Id
 objvLog4GC_WebSrvClassENT.FuncModuleName = objvLog4GC_WebSrvClassENS.FuncModuleName; //功能模块名称
 objvLog4GC_WebSrvClassENT.IsNeedGene = objvLog4GC_WebSrvClassENS.IsNeedGene; //是否需要生成
-objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程ID
+objvLog4GC_WebSrvClassENT.PrjId = objvLog4GC_WebSrvClassENS.PrjId; //工程Id
 objvLog4GC_WebSrvClassENT.PrjName = objvLog4GC_WebSrvClassENS.PrjName; //工程名称
 objvLog4GC_WebSrvClassENT.FuncNum = objvLog4GC_WebSrvClassENS.FuncNum; //函数个数
 objvLog4GC_WebSrvClassENT.GeneCodeDate = objvLog4GC_WebSrvClassENS.GeneCodeDate; //生成代码日期
@@ -1070,7 +1059,7 @@ objvLog4GC_WebSrvClassENT.ClsName = objvLog4GC_WebSrvClassENS.ClsName; //类名
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.clsGeneCodeBase:GenCheckProperty4Condition)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenCheckProperty4Condition)
  /// </summary>
 public void CheckProperty4Condition(clsvLog4GC_WebSrvClassEN objvLog4GC_WebSrvClassEN)
 {

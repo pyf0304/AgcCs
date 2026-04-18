@@ -86,12 +86,12 @@ namespace AGC
             this.cboUserId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboUserId.Location = new System.Drawing.Point(95, 3);
             this.cboUserId.Name = "cboUserId";
-            this.cboUserId.Size = new System.Drawing.Size(174, 22);
+            this.cboUserId.Size = new System.Drawing.Size(173, 22);
             this.cboUserId.TabIndex = 2;
             // 
             // lblPrjId
             // 
-            this.lblPrjId.Location = new System.Drawing.Point(275, 0);
+            this.lblPrjId.Location = new System.Drawing.Point(274, 0);
             this.lblPrjId.Name = "lblPrjId";
             this.lblPrjId.Size = new System.Drawing.Size(82, 21);
             this.lblPrjId.TabIndex = 3;
@@ -100,7 +100,7 @@ namespace AGC
             // cboPrjId
             // 
             this.cboPrjId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPrjId.Location = new System.Drawing.Point(381, 3);
+            this.cboPrjId.Location = new System.Drawing.Point(380, 3);
             this.cboPrjId.Name = "cboPrjId";
             this.cboPrjId.Size = new System.Drawing.Size(232, 22);
             this.cboPrjId.TabIndex = 4;
@@ -127,7 +127,7 @@ namespace AGC
             this.txtCodePath.Location = new System.Drawing.Point(95, 93);
             this.txtCodePath.Multiline = true;
             this.txtCodePath.Name = "txtCodePath";
-            this.txtCodePath.Size = new System.Drawing.Size(518, 52);
+            this.txtCodePath.Size = new System.Drawing.Size(517, 52);
             this.txtCodePath.TabIndex = 8;
             // 
             // lblMemo
@@ -144,7 +144,7 @@ namespace AGC
             this.txtMemo.Location = new System.Drawing.Point(95, 274);
             this.txtMemo.Multiline = true;
             this.txtMemo.Name = "txtMemo";
-            this.txtMemo.Size = new System.Drawing.Size(518, 52);
+            this.txtMemo.Size = new System.Drawing.Size(517, 52);
             this.txtMemo.TabIndex = 14;
             // 
             // lblMsg
@@ -181,7 +181,7 @@ namespace AGC
             this.btnBrowser4Path.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.05166F));
             this.btnBrowser4Path.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
             this.btnBrowser4Path.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 238F));
-            this.btnBrowser4Path.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.btnBrowser4Path.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             this.btnBrowser4Path.Controls.Add(this.txtIncludeXmlPath, 1, 5);
             this.btnBrowser4Path.Controls.Add(this.label2, 0, 5);
             this.btnBrowser4Path.Controls.Add(this.txtLogPath, 1, 6);
@@ -224,7 +224,7 @@ namespace AGC
             this.txtIncludeXmlPath.Location = new System.Drawing.Point(95, 213);
             this.txtIncludeXmlPath.Multiline = true;
             this.txtIncludeXmlPath.Name = "txtIncludeXmlPath";
-            this.txtIncludeXmlPath.Size = new System.Drawing.Size(518, 24);
+            this.txtIncludeXmlPath.Size = new System.Drawing.Size(517, 24);
             this.txtIncludeXmlPath.TabIndex = 20;
             // 
             // label2
@@ -241,7 +241,7 @@ namespace AGC
             this.txtLogPath.Location = new System.Drawing.Point(95, 243);
             this.txtLogPath.Multiline = true;
             this.txtLogPath.Name = "txtLogPath";
-            this.txtLogPath.Size = new System.Drawing.Size(518, 25);
+            this.txtLogPath.Size = new System.Drawing.Size(517, 25);
             this.txtLogPath.TabIndex = 19;
             // 
             // label3
@@ -255,7 +255,7 @@ namespace AGC
             // btnBrowserbackup
             // 
             this.btnBrowserbackup.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnBrowserbackup.Location = new System.Drawing.Point(619, 156);
+            this.btnBrowserbackup.Location = new System.Drawing.Point(618, 156);
             this.btnBrowserbackup.Name = "btnBrowserbackup";
             this.btnBrowserbackup.Size = new System.Drawing.Size(77, 35);
             this.btnBrowserbackup.TabIndex = 19;
@@ -273,7 +273,7 @@ namespace AGC
             // btnBrowser
             // 
             this.btnBrowser.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnBrowser.Location = new System.Drawing.Point(619, 93);
+            this.btnBrowser.Location = new System.Drawing.Point(618, 93);
             this.btnBrowser.Name = "btnBrowser";
             this.btnBrowser.Size = new System.Drawing.Size(77, 35);
             this.btnBrowser.TabIndex = 17;
@@ -286,7 +286,7 @@ namespace AGC
             this.txtCodePathBackup.Location = new System.Drawing.Point(95, 156);
             this.txtCodePathBackup.Multiline = true;
             this.txtCodePathBackup.Name = "txtCodePathBackup";
-            this.txtCodePathBackup.Size = new System.Drawing.Size(518, 51);
+            this.txtCodePathBackup.Size = new System.Drawing.Size(517, 51);
             this.txtCodePathBackup.TabIndex = 19;
             // 
             // chkIsUsePrjMainPath
@@ -318,7 +318,7 @@ namespace AGC
             // chkInUse
             // 
             this.chkInUse.AutoSize = true;
-            this.chkInUse.Location = new System.Drawing.Point(381, 63);
+            this.chkInUse.Location = new System.Drawing.Point(380, 63);
             this.chkInUse.Name = "chkInUse";
             this.chkInUse.Size = new System.Drawing.Size(15, 14);
             this.chkInUse.TabIndex = 25;
@@ -326,7 +326,7 @@ namespace AGC
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(275, 60);
+            this.label6.Location = new System.Drawing.Point(274, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 20);
             this.label6.TabIndex = 26;

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvQryRegionFldsDA
  表名:vQryRegionFlds(00050151)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:57
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:37
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:数据处理层(CS)(DALCode)
+ 框架-层名:数据处理层(CS)(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -27,6 +27,7 @@ using com.taishsoft.common;
 using com.taishsoft.datetime;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.commdb;
+using PrjCommBase;
 using AGC.Entity;
 
 namespace AGC.DAL
@@ -98,7 +99,7 @@ return objSQL;
 
  /// <summary>
  /// 获取SQL服务器连接对象
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetSpecSQLObj_Obj)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetSpecSQLObj_Obj)
  /// </summary>
  /// <returns>SQL服务器连接对象</returns>
  public override clsSpecSQLforSql GetSpecSQLObj_Obj() 
@@ -128,7 +129,7 @@ return objSQL;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回数据表DataTable</returns>
@@ -154,7 +155,7 @@ return objDT;
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回数据表DataTable</returns>
@@ -181,7 +182,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(给定表名)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByTabName_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByTabName_S)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "strTabName">表名</param>
@@ -209,7 +210,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTable_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTable_Exclude)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "lstExclude">排除的检查字符串列表</param>
@@ -236,7 +237,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByTabName_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByTabName_S_Exclude)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <param name = "strTabName">表名</param>
@@ -264,7 +265,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S)
  /// </summary>
  /// <param name = "objTopPara">获取顶部对象列表的参数对象</param>
  /// <returns>返回数据表DataTable</returns>
@@ -275,7 +276,7 @@ public System.Data.DataTable GetDataTable_Top(stuTopPara objTopPara)
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strCondition">条件串</param>
@@ -311,7 +312,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取顶部记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:Gen_GetDataTable_Top_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:Gen_GetDataTable_Top_S_Exclude)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strCondition">条件串</param>
@@ -339,7 +340,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取分页记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByPager_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByPager_S)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -366,28 +367,22 @@ System.Data.DataTable objDT;
 int intPos_Dot = strOrderBy.IndexOf('|');
 if (intPos_Dot > 0)
 {
-var IsAscOrDesc = "Asc";
-if (strOrderBy.IndexOf(" Asc", StringComparison.InvariantCultureIgnoreCase) > 0)
+var sortInfo = clsSortLinkStrParse.ParseSortString(strOrderBy);
+if (sortInfo.SortDirection == "" || sortInfo.SortField == "")
 {
-strOrderBy = strOrderBy.Replace(" Asc", "");
-IsAscOrDesc = "Asc";
-}
-else if (strOrderBy.IndexOf(" Desc", StringComparison.InvariantCultureIgnoreCase) > 0)
-{
-strOrderBy = strOrderBy.Replace(" Desc", "");
-IsAscOrDesc = "Desc";
-}
-var arrPart = strOrderBy.Split('|');
-if (arrPart.Length != 3)
-{
-throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]应该有竖线(|)分隔的3部分组成,请检查!(in {1})",
+throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]格式不正确,请检查!(in {1})",
 strOrderBy, clsStackTrace.GetCurrClassFunction()));
 }
-string strTabName = arrPart[0];
-string strNewOrderBy = arrPart[1];
-string strOnCondition = arrPart[2];
-strSQL = string.Format("Select Top {0} vQryRegionFlds.* from vQryRegionFlds Left Join {1} on {2} where {3} and vQryRegionFlds.mId not in (Select top {5} vQryRegionFlds.mId from vQryRegionFlds Left Join {1} on {2} where {3} order by {4} {6}) order by {4} {6} ",
-intPageSize, strTabName, strOnCondition, strCondition, strNewOrderBy, intTop_In, IsAscOrDesc);
+string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTables, sortInfo.JoinConditions);
+strSQL = $"Select Top {intPageSize} vQryRegionFlds.* " + 
+$"from vQryRegionFlds " + 
+$"{strLeftLinkStr} " + 
+$"where {strCondition} and vQryRegionFlds.mId not in " + 
+$"(Select top {intTop_In} vQryRegionFlds.mId from vQryRegionFlds " + 
+$"{strLeftLinkStr} " +
+$" where {strCondition} " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection} ";
 }
 else
 {
@@ -406,7 +401,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取分页记录的数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查(带排除)
- /// (AutoGCLib.clsGeneCodeBase:GenGetDataTableByPager_S_Exclude)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetDataTableByPager_S_Exclude)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -433,28 +428,22 @@ System.Data.DataTable objDT;
 int intPos_Dot = strOrderBy.IndexOf('|');
 if (intPos_Dot > 0)
 {
-var IsAscOrDesc = "Asc";
-if (strOrderBy.IndexOf(" Asc", StringComparison.InvariantCultureIgnoreCase) > 0)
+var sortInfo = clsSortLinkStrParse.ParseSortString(strOrderBy);
+if (sortInfo.SortDirection == "" || sortInfo.SortField == "")
 {
-strOrderBy = strOrderBy.Replace(" Asc", "");
-IsAscOrDesc = "Asc";
-}
-else if (strOrderBy.IndexOf(" Desc", StringComparison.InvariantCultureIgnoreCase) > 0)
-{
-strOrderBy = strOrderBy.Replace(" Desc", "");
-IsAscOrDesc = "Desc";
-}
-var arrPart = strOrderBy.Split('|');
-if (arrPart.Length != 3)
-{
-throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]应该有竖线(|)分隔的3部分组成,请检查!(in {1})",
+throw new Exception(string.Format("在带有特殊排序分页查询中,strOrderBy:[{0}]格式不正确,请检查!(in {1})",
 strOrderBy, clsStackTrace.GetCurrClassFunction()));
 }
-string strTabName = arrPart[0];
-string strNewOrderBy = arrPart[1];
-string strOnCondition = arrPart[2];
-strSQL = string.Format("Select Top {0} vQryRegionFlds.* from vQryRegionFlds Left Join {1} on {2} where {3} and vQryRegionFlds.mId not in (Select top {5} vQryRegionFlds.mId from vQryRegionFlds Left Join {1} on {2} where {3} order by {4} {6}) order by {4} {6} ",
-intPageSize, strTabName, strOnCondition, strCondition, strNewOrderBy, intTop_In, IsAscOrDesc);
+string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTables, sortInfo.JoinConditions);
+strSQL = $"Select Top {intPageSize} vQryRegionFlds.* " + 
+$"from vQryRegionFlds " + 
+$"{strLeftLinkStr} " + 
+$"where {strCondition} and vQryRegionFlds.mId not in " + 
+$"(Select top {intTop_In} vQryRegionFlds.mId from vQryRegionFlds " + 
+$"{strLeftLinkStr} " +
+$" where {strCondition} " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
+$"order by {sortInfo.SortField} {sortInfo.SortDirection} ";
 }
 else
 {
@@ -477,7 +466,7 @@ return objDT;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetObjLst)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetObjLst)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <returns>返回对象列表</returns>
@@ -539,7 +528,7 @@ objvQryRegionFldsEN.InUse = TransNullToBool(objRow[convQryRegionFlds.InUse].ToSt
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
  catch(Exception objException)
 {
@@ -553,7 +542,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetObjLstByTabName)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetObjLstByTabName)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <param name = "strTabName">表名</param>
@@ -616,7 +605,7 @@ objvQryRegionFldsEN.InUse = TransNullToBool(objRow[convQryRegionFlds.InUse].ToSt
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
  catch(Exception objException)
 {
@@ -683,7 +672,7 @@ try
  objvQryRegionFldsEN.UpdUser = objDT.Rows[0][convQryRegionFlds.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
  objvQryRegionFldsEN.UpdDate = objDT.Rows[0][convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
  objvQryRegionFldsEN.Memo = objDT.Rows[0][convQryRegionFlds.Memo].ToString().Trim(); //说明(字段类型:varchar,字段长度:1000,是否可空:True)
- objvQryRegionFldsEN.PrjId = objDT.Rows[0][convQryRegionFlds.PrjId].ToString().Trim(); //工程ID(字段类型:char,字段长度:4,是否可空:False)
+ objvQryRegionFldsEN.PrjId = objDT.Rows[0][convQryRegionFlds.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
 }
  catch(Exception objException)
 {
@@ -745,7 +734,7 @@ try
  objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
  objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
  objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明(字段类型:varchar,字段长度:1000,是否可空:True)
- objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID(字段类型:char,字段长度:4,是否可空:False)
+ objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
 }
  catch(Exception objException)
 {
@@ -756,7 +745,7 @@ return objvQryRegionFldsEN;
 
  /// <summary>
  /// 获取第一条满足条件的记录,以对象形式表示
- /// (AutoGCLib.clsGeneCodeBase:GenGetFirstCondRecObj)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetFirstCondRecObj)
  /// </summary>
  /// <param name = "strCondition">给定条件</param>
  /// <returns>返回满足条件的第一个对象</returns>
@@ -817,7 +806,7 @@ InUse = TransNullToBool(objRow[convQryRegionFlds.InUse].ToString().Trim()), //�
 UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(), //修改者
 UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(), //修改日期
 Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(), //说明
-PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim() //工程ID
+PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim() //工程Id
 };
 objvQryRegionFldsEN.ClearUpdateState();//清除修改状态,即清除脏字段信息
 return objvQryRegionFldsEN;
@@ -830,7 +819,7 @@ throw new Exception(string.Format("在根据条件获取第一个对象时,发�
 
  /// <summary>
  /// 把DataRow转换成记录对象.
- /// (AutoGCLib.clsGeneCodeBase:GenGetRecValueObjByDataRow)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetRecValueObjByDataRow)
  /// </summary>
  /// <param name = "objRow">所给的DataRow</param>
  /// <returns>记录对象</returns>
@@ -873,7 +862,7 @@ objvQryRegionFldsEN.InUse = TransNullToBool(objRow[convQryRegionFlds.InUse].ToSt
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
  catch(Exception objException)
 {
@@ -884,7 +873,7 @@ return objvQryRegionFldsEN;
 }
  /// <summary>
  /// 把DataRowView转换成记录对象.
- /// (AutoGCLib.clsGeneCodeBase:GenGetRecValueObjByDataRow)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetRecValueObjByDataRow)
  /// </summary>
  /// <param name = "objRow">所给的DataRowView</param>
  /// <returns>记录对象</returns>
@@ -927,7 +916,7 @@ objvQryRegionFldsEN.InUse = TransNullToBool(objRow[convQryRegionFlds.InUse].ToSt
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
  catch(Exception objException)
 {
@@ -943,7 +932,7 @@ return objvQryRegionFldsEN;
 
  /// <summary>
  /// 获取当前表最大字符型关键字ID
- /// (AutoGCLib.clsGeneCodeBase:GenGetMaxStrID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetMaxStrID)
  /// </summary>
  /// <returns>返回的最大关键字值ID</returns>
 public static string GetMaxStrId()
@@ -957,7 +946,7 @@ return strMaxValue;
 
  /// <summary>
  /// 根据前缀获取当前表最大字符型关键字ID
- /// (AutoGCLib.clsGeneCodeBase:GenGetMaxStrIdByPrefix)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetMaxStrIdByPrefix)
  /// </summary>
  /// <returns>返回的最大关键字值ID</returns>
 public string GetMaxStrIdByPrefix(string strPrefix)
@@ -971,7 +960,7 @@ return strMaxValue;
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的关键字值
- /// (AutoGCLib.clsGeneCodeBase:GenGetFirstID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetFirstID)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回的第一条记录的关键字值</returns>
@@ -1011,7 +1000,7 @@ return long.Parse(strKeyValue);
 
  /// <summary>
  /// 获取当前表满足条件的所有记录的关键字值列表
- /// (AutoGCLib.clsGeneCodeBase:GenGetPrimaryKeyID)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetPrimaryKeyID)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>返回的关键字值列表</returns>
@@ -1068,7 +1057,7 @@ return arrList;
 
  /// <summary>
  /// 判断当前表中是否存在给定关键字值的记录
- /// (AutoGCLib.clsGeneCodeBase:GenIsExist_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExist_S)
  /// </summary>
  /// <param name = "lngmId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
@@ -1089,7 +1078,7 @@ return false;
 
  /// <summary>
  /// 功能:判断是否存在某一条件的记录
- /// (AutoGCLib.clsGeneCodeBase:GenIsExistCondRec_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExistCondRec_S)
  /// </summary>
  /// <param name = "strCondition">条件串</param>
  /// <returns>如果存在就返回TRUE,否则返回FALSE</returns>
@@ -1119,7 +1108,7 @@ return false;
 
  /// <summary>
  /// 检查是否存在当前表
- /// (AutoGCLib.clsGeneCodeBase:GenIsExistTable)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExistTable)
  /// </summary>
  /// <returns>存在就返回True,否则返回False</returns>
 public static bool IsExistTable()
@@ -1137,7 +1126,7 @@ return bolIsExist;
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
- /// (AutoGCLib.clsGeneCodeBase:GenCopyObj_S)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenCopyObj_S)
  /// </summary>
  /// <param name = "objvQryRegionFldsENS">源对象</param>
  /// <param name = "objvQryRegionFldsENT">目标对象</param>
@@ -1173,7 +1162,7 @@ objvQryRegionFldsENT.InUse = objvQryRegionFldsENS.InUse; //是否在用
 objvQryRegionFldsENT.UpdUser = objvQryRegionFldsENS.UpdUser; //修改者
 objvQryRegionFldsENT.UpdDate = objvQryRegionFldsENS.UpdDate; //修改日期
 objvQryRegionFldsENT.Memo = objvQryRegionFldsENS.Memo; //说明
-objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程ID
+objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程Id
 }
 
  #endregion 克隆复制对象
@@ -1182,7 +1171,7 @@ objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程ID
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.clsGeneCodeBase:GenCheckProperty4Condition)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenCheckProperty4Condition)
  /// </summary>
 public void CheckProperty4Condition(clsvQryRegionFldsEN objvQryRegionFldsEN)
 {

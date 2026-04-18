@@ -677,7 +677,7 @@ namespace AGC_CSWin
             {
                 clsPrjDataBaseEN objPrjDataBaseEN = clsPrjDataBaseWApi.GetObjByPrjDataBaseIdCache(clsPubVar.CurrPrjDataBaseId);
                 //string strWebServiceSet = clsPubFun.GetWebServiceSet();
-                this.Text = string.Format("自动生成代码20250705 ",
+                this.Text = string.Format("自动生成代码20260329 ",
                     clsPubVar.objCurrSelProjectEN.PrjName,
                     clsPubVar.objCurrSelProjectEN.PrjId,
                     objPrjDataBaseEN.PrjDataBaseName,
@@ -687,7 +687,7 @@ namespace AGC_CSWin
             else
             {
                 //string strWebServiceSet = clsPubFun.GetWebServiceSet();
-                this.Text = string.Format("自动生成代码20250705",
+                this.Text = string.Format("自动生成代码20260329",
                     clsPubVar.objCurrSelProjectEN.PrjName,
                     clsPubVar.objCurrSelProjectEN.PrjId,
                     "无数据库",

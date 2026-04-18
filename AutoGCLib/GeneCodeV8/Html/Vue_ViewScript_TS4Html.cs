@@ -1,3 +1,4 @@
+using Scriban;
 using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
@@ -22,6 +23,7 @@ using System.Reflection.Emit;
 using Microsoft.SqlServer.Server;
 using System.Data.Common;
 using CodeStruct;
+using System.IO;
 
 namespace AutoGCLib
 {
@@ -30,6 +32,9 @@ namespace AutoGCLib
     /// </summary>
     partial class Vue_ViewScript_TS4Html : clsGeneCodeBase4View
     {
+        private readonly TemplateService _templateService;
+        private readonly RenderService _renderService;
+
         private CodeElement objCodeElement_Methods = null;
         
         private List<string> arrFuncName_Setup = new List<string>();
@@ -49,6 +54,8 @@ namespace AutoGCLib
             // 
             // TODO: 在此处添加构造函数逻辑
             //
+            _templateService = new TemplateService();
+            _renderService = new RenderService();
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
@@ -58,6 +65,8 @@ namespace AutoGCLib
             // 
             // TODO: 在此处添加构造函数逻辑
             //
+            _templateService = new TemplateService();
+            _renderService = new RenderService();
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
@@ -68,6 +77,8 @@ namespace AutoGCLib
             // 
             // TODO: 在此处添加构造函数逻辑
             //
+            _templateService = new TemplateService();
+            _renderService = new RenderService();
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
@@ -5211,7 +5222,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             objCodeElement_Method.CodeContent = strCodeForCs.ToString();
             return strCodeForCs.ToString();
         }
-        public string Gen_CRUD_setup_btnUpdate_Click(CodeElement objCodeElement_Parent)
+        public string Gen_CRUD_setup_btnUpdate_ClickBak(CodeElement objCodeElement_Parent)
         {
             if (objViewInfoENEx.objViewRegion_Edit == null) return "";
             string strFuncName = $"btnUpdate_Click";
@@ -5254,7 +5265,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
             strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "修改", this, this.strBaseUrl);
+            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "修改", "const", this, this.strBaseUrl);
             strCodeForCs.Append("\r\n" + strGetFirstCheckedValue);
             if (thisEditTabProp_TS.KeyFldCount == 1)
             {
@@ -5347,6 +5358,241 @@ TabName_In4Edit4GC, objKeyField.FldName);
             return strCodeForCs.ToString();
         }
 
+        public string GenKeyCheckCode(clsFeatureRegionFldsENEx objFeatureRegionFlds_Update)
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            if (thisEditTabProp_TS.KeyFldCount == 1)
+            {
+                if (objFeatureRegionFlds_Update == null
+                    || string.IsNullOrEmpty(objFeatureRegionFlds_Update.KeyIdGetModeId)
+                    || objFeatureRegionFlds_Update.KeyIdGetModeId == enumGCKeyIdGetMode.ListCheckedRecord_0001)
+                {
+                    if (objKeyField.IsNumberType())
+                    {
+                        strCodeForCs.Append("\r\n" + $"if ({objKeyField.PrivFuncName} == 0)");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty({objKeyField.PrivFuncName}) == true)");
+                        ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
+
+                        CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+                        clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+                    }
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.Append("\r\n" + "const strMsg = \"修改记录的关键字为空,请检查!\";");
+                    strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                    strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                    strCodeForCs.Append("\r\n" + "return;");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                else if (objFeatureRegionFlds_Update.KeyIdGetModeId == enumGCKeyIdGetMode.ViewStaticVariable_0002)
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "const strKeyId = {0}.{1}Static;", this.ClsName, objKeyField.FldName);
+                    if (objKeyField.IsNumberType() == true)
+                    {
+                        strCodeForCs.Append("\r\n" + "    if (strKeyId == 0)");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + "    if (strKeyId == \"\")");
+                    }
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.Append("\r\n" + "alert(\"请选择需要修改的记录!\");");
+                    strCodeForCs.Append("\r\n" + "return;");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+            }
+            return strCodeForCs.ToString();
+        }
+        public string GenUpdateCall()
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            if (thisEditTabProp_TS.KeyFldCount == 1)
+            {
+                if (objKeyField.TypeScriptType == "number")
+                {
+                    strCodeForCs.Append("\r\n" + $"const lngKeyId =  {objKeyField.PrivFuncName};");
+                    strCodeForCs.AppendFormat("\r\n" + "const update = await objPage_Edit.value.UpdateRecord(lngKeyId);",
+                     TabName_In4Edit4GC, TabName_In4Edit4GC.ToLower());
+                }
+                else
+                {
+                    strCodeForCs.Append("\r\n" + $"const update = await objPage_Edit.value.UpdateRecord({objKeyField.PrivFuncName});");
+                }
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n" + "const update = await objPage_Edit.value.UpdateRecord({0});",
+                    thisEditTabProp_TS.KeyPrivVarNameLstStr);
+            }
+            return strCodeForCs.ToString();
+        }
+        public string Gen_CRUD_setup_btnUpdate_Click(CodeElement objCodeElement_Parent)
+        {
+            if (objViewInfoENEx.objViewRegion_Edit == null) return "";
+
+            string strFuncName = $"btnUpdate_Click";
+            CodeElement objCodeElement_Method = new CodeElement { Name = strFuncName, ElementType = CodeElementType.Method, Modifiers = "export abstract" };
+            if (objCodeElement_Parent.ElementType != CodeElementType.Import) objCodeElement_Parent.Children.Add(objCodeElement_Method);
+
+            List<string> arrFeatureId = new List<string>() { enumPrjFeature.UpdateRecord_0137, enumPrjFeature.UpdateRecord_0199 };
+            var objFeatureRegionFlds_Update = objViewInfoENEx.arrFeatureRegionFlds.Find(x => arrFeatureId.Contains(x.FeatureId));
+
+
+            //var templateText = File.ReadAllText("Templates/Vue_ViewScript_TS4Html/Gen_CRUD_setup_btnUpdate_Click.sbn");
+            //var template = Template.Parse(templateText);
+            var template = _templateService.GetTemplate("Vue_ViewScript_TS4Html/Gen_CRUD_setup_btnUpdate_Click.sbn");
+            string strFuncPara = "";
+            if (thisEditTabProp_TS.KeyFldCount >= 1) strFuncPara = thisEditTabProp_TS.KeyVarDefineLstStr;
+            else strFuncPara = thisEditTabProp_TS.KeyVarDefineLstStr;
+            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "修改", "const", this, this.strBaseUrl);
+
+            var model = new
+            {
+                func_full_name = clsStackTrace.GetCurrClassFunction(),
+                edit_class = ThisEditClsName,
+                tab_name = TabName_In4Edit,
+                get_first_checked = strGetFirstCheckedValue,
+                key_check_code = GenKeyCheckCode(objFeatureRegionFlds_Update),
+                update_call = GenUpdateCall()
+            };
+
+            //return template.Render(model);
+            return _renderService.Render(template, model);
+            //            string strFuncName = $"btnUpdate_Click";
+            //            CodeElement objCodeElement_Method = new CodeElement { Name = strFuncName, ElementType = CodeElementType.Method, Modifiers = "export abstract" };
+            //            if (objCodeElement_Parent.ElementType != CodeElementType.Import) objCodeElement_Parent.Children.Add(objCodeElement_Method);
+
+            //            List<string> arrFeatureId = new List<string>() { enumPrjFeature.UpdateRecord_0137, enumPrjFeature.UpdateRecord_0199 };
+            //            var objFeatureRegionFlds_Update = objViewInfoENEx.arrFeatureRegionFlds.Find(x => arrFeatureId.Contains(x.FeatureId));
+
+            //            string strFuncPara = "";
+            //            if (thisEditTabProp_TS.KeyFldCount >= 1) strFuncPara = thisEditTabProp_TS.KeyVarDefineLstStr;
+            //            else strFuncPara = thisEditTabProp_TS.KeyVarDefineLstStr;
+            //            if (objFeatureRegionFlds_Update == null)
+            //            {
+            //                if (strFuncPara == "") strFuncPara = "strKeyId: string";
+            //            }
+            //            else if (objFeatureRegionFlds_Update.KeyIdGetModeId == enumGCKeyIdGetMode.ViewStaticVariable_0002)
+            //            {
+            //                strFuncPara = "";
+
+            //            }
+            //            StringBuilder strCodeForCs = new StringBuilder();
+
+            //            strCodeForCs.Append("\r\n /** 修改记录");
+            //            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            //            strCodeForCs.Append("\r\n" + " **/");
+
+            //            strCodeForCs.Append("\r\n" + $"const btnUpdate_Click = async () =>");
+            //            strCodeForCs.Append("\r\n" + "{");
+            //            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = btnUpdate_Click.name;",
+            //TabName_In4Edit4GC, objKeyField.FldName);
+            //            strCodeForCs.Append("\r\n" + "if (objPage.value == null)");
+            //            strCodeForCs.Append("\r\n" + "{");
+            //            strCodeForCs.Append("\r\n" + "alert('页面初始化不成功,请联系管理员!');");
+            //            strCodeForCs.Append("\r\n" + "return;");
+            //            strCodeForCs.Append("\r\n" + "}");
+            //            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex('{ThisEditClsName}Ex', objPage.value);");
+            //            strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
+            //            strCodeForCs.Append("\r\n" + "{");
+            //            strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
+            //            strCodeForCs.Append("\r\n" + "return;");
+            //            strCodeForCs.Append("\r\n" + "}");
+            //            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "修改","const", this, this.strBaseUrl);
+            //            strCodeForCs.Append("\r\n" + strGetFirstCheckedValue);
+            //            if (thisEditTabProp_TS.KeyFldCount == 1)
+            //            {
+            //                if (objFeatureRegionFlds_Update == null
+            //                    || string.IsNullOrEmpty(objFeatureRegionFlds_Update.KeyIdGetModeId)
+            //                    || objFeatureRegionFlds_Update.KeyIdGetModeId == enumGCKeyIdGetMode.ListCheckedRecord_0001)
+            //                {
+            //                    if (objKeyField.IsNumberType())
+            //                    {
+            //                        strCodeForCs.Append("\r\n" + $"if ({objKeyField.PrivFuncName} == 0)");
+            //                    }
+            //                    else
+            //                    {
+            //                        strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty({objKeyField.PrivFuncName}) == true)");
+            //                        ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
+
+            //                        CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+            //                        clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+            //                    }
+            //                    strCodeForCs.Append("\r\n" + "{");
+            //                    strCodeForCs.Append("\r\n" + "const strMsg = \"修改记录的关键字为空,请检查!\";");
+            //                    strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            //                    strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            //                    strCodeForCs.Append("\r\n" + "return;");
+            //                    strCodeForCs.Append("\r\n" + "}");
+            //                }
+            //                else if (objFeatureRegionFlds_Update.KeyIdGetModeId == enumGCKeyIdGetMode.ViewStaticVariable_0002)
+            //                {
+            //                    strCodeForCs.AppendFormat("\r\n" + "const strKeyId = {0}.{1}Static;", this.ClsName, objKeyField.FldName);
+            //                    if (objKeyField.IsNumberType() == true)
+            //                    {
+            //                        strCodeForCs.Append("\r\n" + "    if (strKeyId == 0)");
+            //                    }
+            //                    else
+            //                    {
+            //                        strCodeForCs.Append("\r\n" + "    if (strKeyId == \"\")");
+            //                    }
+            //                    strCodeForCs.Append("\r\n" + "{");
+            //                    strCodeForCs.Append("\r\n" + "alert(\"请选择需要修改的记录!\");");
+            //                    strCodeForCs.Append("\r\n" + "return;");
+            //                    strCodeForCs.Append("\r\n" + "}");
+            //                }
+            //            }
+            //            strCodeForCs.Append("\r\n" + "try {");
+
+            //            strCodeForCs.Append("\r\n" + "opType.value = \"Update\";");
+            //            strCodeForCs.Append("\r\n" + $"const bolIsSuccess = await objPage_Edit.value.ShowDialog_{TabName_In4Edit}(opType.value);");
+            //            strCodeForCs.Append("\r\n" + $"if (bolIsSuccess == false) return;");
+
+            //            //strCodeForCs.AppendFormat("\r\n" + "await objPage.value.BindDdl4EditRegionInDiv();", ThisClsName);
+
+            //            if (thisEditTabProp_TS.KeyFldCount == 1)
+            //            {
+            //                if (objKeyField.TypeScriptType == "number")
+            //                {
+            //                    strCodeForCs.Append("\r\n" + $"const lngKeyId =  {objKeyField.PrivFuncName};");
+
+            //                    strCodeForCs.AppendFormat("\r\n" + "const update = await objPage_Edit.value.UpdateRecord(lngKeyId);",
+            //                     TabName_In4Edit4GC, TabName_In4Edit4GC.ToLower());
+            //                }
+            //                else
+            //                {
+            //                    strCodeForCs.Append("\r\n" + $"const update = await objPage_Edit.value.UpdateRecord({objKeyField.PrivFuncName});");
+            //                }
+            //            }
+            //            else
+            //            {
+            //                strCodeForCs.AppendFormat("\r\n" + "const update = await objPage_Edit.value.UpdateRecord({0});",
+            //                    thisEditTabProp_TS.KeyPrivVarNameLstStr);
+            //            }
+            //            strCodeForCs.Append("\r\n" + "if (update == false)");
+            //            strCodeForCs.Append("\r\n" + "{");
+            //            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"在修改记录时,显示记录数据不成功!\");");
+            //            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            //            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            //            strCodeForCs.Append("\r\n" + "return;");
+            //            strCodeForCs.Append("\r\n" + "}");
+
+
+            //            strCodeForCs.Append("\r\n" + "}");
+            //            strCodeForCs.Append("\r\n" + "catch (e)");
+            //            strCodeForCs.Append("\r\n" + "{");
+            //            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"(errid: WiTsCs0034)在修改记录时出错!请联系管理员!{0}.(in {1}.{2})\", e, objPage_Edit.value.className, strThisFuncName);");
+            //            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            //            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            //            strCodeForCs.Append("\r\n" + "}");
+
+            //            strCodeForCs.Append("\r\n" + "}");
+            //            objCodeElement_Method.CodeContent = strCodeForCs.ToString();
+            //            return strCodeForCs.ToString();
+        }
+
         public string Gen_CRUD_setup_btnDetail_Click(CodeElement objCodeElement_Parent)
         {
 
@@ -5390,7 +5636,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
             strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "详细信息", this, this.strBaseUrl);
+            string strGetFirstCheckedValue = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, objEditTabProp_TS, "详细信息", "const", this, this.strBaseUrl);
             strCodeForCs.Append("\r\n" + strGetFirstCheckedValue);
 
             strCodeForCs.Append("\r\n" + "opType.value = \"Detail\";");

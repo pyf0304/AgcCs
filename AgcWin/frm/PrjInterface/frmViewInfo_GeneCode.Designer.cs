@@ -964,7 +964,7 @@ namespace AGC
             this.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "frmViewInfo_GeneCode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "界面－代码生成20250705";
+            this.Text = "界面－代码生成20260329";
             this.Load += new System.EventHandler(this.frmViewInfo_QD_Load);
             this.gbQueryCondition.ResumeLayout(false);
             this.tabAppType.ResumeLayout(false);

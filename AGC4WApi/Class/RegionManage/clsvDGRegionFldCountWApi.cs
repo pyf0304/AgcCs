@@ -712,7 +712,7 @@ public static DataTable ToDataTable(List<clsvDGRegionFldCountEN> arrObj)
 DataTable dataTable = new DataTable(); //实例化
 DataTable result;
 if (arrObj.Count == 0) return null;
-if (clsvDGRegionFldCountEN.AttributeName.Length == 0)
+if (clsvDGRegionFldCountEN._AttributeName.Length == 0)
 {
 result = dataTable;
 return result;
@@ -722,7 +722,7 @@ PropertyInfo[] arrPropertyInfo = type.GetProperties();
 try
 {
 //Columns
-foreach (string strAttrName in clsvDGRegionFldCountEN.AttributeName)
+foreach (string strAttrName in clsvDGRegionFldCountEN._AttributeName)
 {
 PropertyInfo proprety_Curr = arrPropertyInfo.Where(x => x.Name == strAttrName).First();
 dataTable.Columns.Add(strAttrName, proprety_Curr.PropertyType);
@@ -731,7 +731,7 @@ foreach (clsvDGRegionFldCountEN objInFor in arrObj)
 {
 //Rows
 DataRow dataRow = dataTable.NewRow();
-foreach (string strAttrName in clsvDGRegionFldCountEN.AttributeName)
+foreach (string strAttrName in clsvDGRegionFldCountEN._AttributeName)
 {
 dataRow[strAttrName] = objInFor[strAttrName];
 }

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvViewFeatureFldsBL
  表名:vViewFeatureFlds(00050454)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:40
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:41
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -1461,7 +1461,7 @@ objvViewFeatureFldsENT.DsCondStr = objvViewFeatureFldsENS.DsCondStr; //数据源
 objvViewFeatureFldsENT.DsSqlStr = objvViewFeatureFldsENS.DsSqlStr; //数据源SQL串
 objvViewFeatureFldsENT.ItemsString = objvViewFeatureFldsENS.ItemsString; //列表项串
 objvViewFeatureFldsENT.InUse = objvViewFeatureFldsENS.InUse; //是否在用
-objvViewFeatureFldsENT.PrjId = objvViewFeatureFldsENS.PrjId; //工程ID
+objvViewFeatureFldsENT.PrjId = objvViewFeatureFldsENS.PrjId; //工程Id
 objvViewFeatureFldsENT.UpdUser = objvViewFeatureFldsENS.UpdUser; //修改者
 objvViewFeatureFldsENT.UpdDate = objvViewFeatureFldsENS.UpdDate; //修改日期
 objvViewFeatureFldsENT.Memo = objvViewFeatureFldsENS.Memo; //说明
@@ -1530,7 +1530,7 @@ DsCondStr = objvViewFeatureFldsENS.DsCondStr, //数据源条件串
 DsSqlStr = objvViewFeatureFldsENS.DsSqlStr, //数据源SQL串
 ItemsString = objvViewFeatureFldsENS.ItemsString, //列表项串
 InUse = objvViewFeatureFldsENS.InUse, //是否在用
-PrjId = objvViewFeatureFldsENS.PrjId, //工程ID
+PrjId = objvViewFeatureFldsENS.PrjId, //工程Id
 UpdUser = objvViewFeatureFldsENS.UpdUser, //修改者
 UpdDate = objvViewFeatureFldsENS.UpdDate, //修改日期
 Memo = objvViewFeatureFldsENS.Memo, //说明
@@ -2190,7 +2190,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2285,7 +2285,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2364,7 +2364,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2404,7 +2404,7 @@ throw new Exception(strMsg);
 }
 List<clsvViewFeatureFldsEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvViewFeatureFldsEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convViewFeatureFlds.AttributeName)
+foreach (string strFldName in convViewFeatureFlds._AttributeName)
 {
 if (objvViewFeatureFldsCond.IsUpdated(strFldName) == false) continue;
 if (objvViewFeatureFldsCond.dicFldComparisonOp == null)
@@ -2511,7 +2511,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2590,7 +2590,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2713,7 +2713,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2792,7 +2792,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2885,7 +2885,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -2967,7 +2967,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -3044,7 +3044,7 @@ objvViewFeatureFldsEN.DsCondStr = objRow[convViewFeatureFlds.DsCondStr] == DBNul
 objvViewFeatureFldsEN.DsSqlStr = objRow[convViewFeatureFlds.DsSqlStr] == DBNull.Value ? null : objRow[convViewFeatureFlds.DsSqlStr].ToString().Trim(); //数据源SQL串
 objvViewFeatureFldsEN.ItemsString = objRow[convViewFeatureFlds.ItemsString] == DBNull.Value ? null : objRow[convViewFeatureFlds.ItemsString].ToString().Trim(); //列表项串
 objvViewFeatureFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convViewFeatureFlds.InUse].ToString().Trim()); //是否在用
-objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程ID
+objvViewFeatureFldsEN.PrjId = objRow[convViewFeatureFlds.PrjId] == DBNull.Value ? null : objRow[convViewFeatureFlds.PrjId].ToString().Trim(); //工程Id
 objvViewFeatureFldsEN.UpdUser = objRow[convViewFeatureFlds.UpdUser] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdUser].ToString().Trim(); //修改者
 objvViewFeatureFldsEN.UpdDate = objRow[convViewFeatureFlds.UpdDate] == DBNull.Value ? null : objRow[convViewFeatureFlds.UpdDate].ToString().Trim(); //修改日期
 objvViewFeatureFldsEN.Memo = objRow[convViewFeatureFlds.Memo] == DBNull.Value ? null : objRow[convViewFeatureFlds.Memo].ToString().Trim(); //说明
@@ -3368,7 +3368,7 @@ objvViewFeatureFldsENT.DsCondStr = objvViewFeatureFldsENS.DsCondStr; //数据源
 objvViewFeatureFldsENT.DsSqlStr = objvViewFeatureFldsENS.DsSqlStr; //数据源SQL串
 objvViewFeatureFldsENT.ItemsString = objvViewFeatureFldsENS.ItemsString; //列表项串
 objvViewFeatureFldsENT.InUse = objvViewFeatureFldsENS.InUse; //是否在用
-objvViewFeatureFldsENT.PrjId = objvViewFeatureFldsENS.PrjId; //工程ID
+objvViewFeatureFldsENT.PrjId = objvViewFeatureFldsENS.PrjId; //工程Id
 objvViewFeatureFldsENT.UpdUser = objvViewFeatureFldsENS.UpdUser; //修改者
 objvViewFeatureFldsENT.UpdDate = objvViewFeatureFldsENS.UpdDate; //修改日期
 objvViewFeatureFldsENT.Memo = objvViewFeatureFldsENS.Memo; //说明
@@ -3545,7 +3545,7 @@ objvViewFeatureFldsEN.InUse = objvViewFeatureFldsEN.InUse; //是否在用
 }
 if (arrFldSet.Contains(convViewFeatureFlds.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvViewFeatureFldsEN.PrjId = objvViewFeatureFldsEN.PrjId == "[null]" ? null :  objvViewFeatureFldsEN.PrjId; //工程ID
+objvViewFeatureFldsEN.PrjId = objvViewFeatureFldsEN.PrjId == "[null]" ? null :  objvViewFeatureFldsEN.PrjId; //工程Id
 }
 if (arrFldSet.Contains(convViewFeatureFlds.UpdUser, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -3630,7 +3630,7 @@ if (objvViewFeatureFldsEN.DsTabId == "[null]") objvViewFeatureFldsEN.DsTabId = n
 if (objvViewFeatureFldsEN.DsCondStr == "[null]") objvViewFeatureFldsEN.DsCondStr = null; //数据源条件串
 if (objvViewFeatureFldsEN.DsSqlStr == "[null]") objvViewFeatureFldsEN.DsSqlStr = null; //数据源SQL串
 if (objvViewFeatureFldsEN.ItemsString == "[null]") objvViewFeatureFldsEN.ItemsString = null; //列表项串
-if (objvViewFeatureFldsEN.PrjId == "[null]") objvViewFeatureFldsEN.PrjId = null; //工程ID
+if (objvViewFeatureFldsEN.PrjId == "[null]") objvViewFeatureFldsEN.PrjId = null; //工程Id
 if (objvViewFeatureFldsEN.UpdUser == "[null]") objvViewFeatureFldsEN.UpdUser = null; //修改者
 if (objvViewFeatureFldsEN.UpdDate == "[null]") objvViewFeatureFldsEN.UpdDate = null; //修改日期
 if (objvViewFeatureFldsEN.Memo == "[null]") objvViewFeatureFldsEN.Memo = null; //说明
@@ -3882,6 +3882,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}_{1}", clsvViewFeatureFldsEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
+clsvViewFeatureFldsEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -3891,6 +3892,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvViewFeatureFldsEN._RefreshTimeLst.Count == 0) return "";
+return clsvViewFeatureFldsEN._RefreshTimeLst[clsvViewFeatureFldsEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -3905,7 +3915,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3920,10 +3930,10 @@ if (strInFldName != convViewFeatureFlds.mId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convViewFeatureFlds.AttributeName.Contains(strOutFldName) == false)
+if (convViewFeatureFlds._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convViewFeatureFlds.AttributeName));
+strInFldName, string.Join(", ", convViewFeatureFlds._AttributeName));
 throw new Exception(strMsg);
 }
 var objvViewFeatureFlds = clsvViewFeatureFldsBL.GetObjBymIdCache(lngmId, strPrjId);
@@ -4008,7 +4018,7 @@ throw new Exception(strMsg);
 }
 List<clsvViewFeatureFldsEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvViewFeatureFldsEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convViewFeatureFlds.AttributeName)
+foreach (string strFldName in convViewFeatureFlds._AttributeName)
 {
 if (objvViewFeatureFldsCond.IsUpdated(strFldName) == false) continue;
 if (objvViewFeatureFldsCond.dicFldComparisonOp == null)

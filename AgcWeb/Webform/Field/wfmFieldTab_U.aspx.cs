@@ -496,7 +496,7 @@ namespace AGC.Webform
 
                                     try
                                     {
-                                        clsPrjTabFldBLEx.ReplaceFieldInPrjTabFld(clsCommonSession.qsTabId, strFldId_S, strFldId);
+                                        clsPrjTabFldBLEx.ReplaceFieldInPrjTabFld(clsCommonSession.qsTabId, strFldId_S, strFldId, clsCommonSession.UserId);
 
 
                                     }

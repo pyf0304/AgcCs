@@ -354,7 +354,7 @@ namespace AGC.Webform
             }
             else
             {
-                clsPrjTabFldBLEx.DelRecordEx(long.Parse(mid));
+                clsPrjTabFldBLEx.DelRecordEx(long.Parse(mid), clsCommonSession.UserId);
                 rd.Value = "";
                 BindDg_PrjTabFld();
             }

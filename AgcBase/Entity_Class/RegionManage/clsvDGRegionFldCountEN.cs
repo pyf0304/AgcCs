@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDGRegionFldCountEN
  表名:vDGRegionFldCount(00050577)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:48:01
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:23
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:实体层(CS)(EntityLayer)
+ 框架-层名:实体层(CS)(EntityLayer,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -25,6 +25,7 @@ using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace AGC.Entity
 {
@@ -75,21 +76,22 @@ return new K_RegionId_vDGRegionFldCount(value);
 [DataContractAttribute]
 public class clsvDGRegionFldCountEN : clsEntityBase2
 {
+public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "vDGRegionFldCount"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName = "RegionId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int mintAttributeCount = 3;
-public static string[] AttributeName = new string[] {"RegionId", "FldCount", "PrjId"};
+protected const int _AttributeCount = 3;
+public static string[] _AttributeName = new string[] {"RegionId", "FldCount", "PrjId"};
 
 protected string mstrRegionId;    //区域Id
 protected int? mintFldCount;    //字段数
-protected string mstrPrjId;    //工程ID
+protected string mstrPrjId;    //工程Id
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor1)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor1)
 /// </summary>
  public clsvDGRegionFldCountEN()
  {
@@ -100,7 +102,7 @@ protected string mstrPrjId;    //工程ID
 
 /// <summary>
 /// 构造函数
- /// (AutoGCLib.clsGeneCodeBase:GenClassConstructor2)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
 /// <param name = "strRegionId">关键字:区域Id</param>
 public clsvDGRegionFldCountEN(string strRegionId)
@@ -133,7 +135,7 @@ public static int AttributeCount
 {
 get
 {
-return mintAttributeCount;
+return _AttributeCount;
 }
 }
 public override object this[string strAttributeName]
@@ -177,15 +179,15 @@ public object this[int intIndex]
 {
 get
 {
-if (convDGRegionFldCount.RegionId  ==  AttributeName[intIndex])
+if (convDGRegionFldCount.RegionId  ==  _AttributeName[intIndex])
 {
 return mstrRegionId;
 }
-else if (convDGRegionFldCount.FldCount  ==  AttributeName[intIndex])
+else if (convDGRegionFldCount.FldCount  ==  _AttributeName[intIndex])
 {
 return mintFldCount;
 }
-else if (convDGRegionFldCount.PrjId  ==  AttributeName[intIndex])
+else if (convDGRegionFldCount.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
 }
@@ -193,17 +195,17 @@ return null;
 }
 set
 {
-if (convDGRegionFldCount.RegionId  ==  AttributeName[intIndex])
+if (convDGRegionFldCount.RegionId  ==  _AttributeName[intIndex])
 {
 mstrRegionId = value.ToString();
  AddUpdatedFld(convDGRegionFldCount.RegionId);
 }
-else if (convDGRegionFldCount.FldCount  ==  AttributeName[intIndex])
+else if (convDGRegionFldCount.FldCount  ==  _AttributeName[intIndex])
 {
 mintFldCount = TransNullToInt(value.ToString());
  AddUpdatedFld(convDGRegionFldCount.FldCount);
 }
-else if (convDGRegionFldCount.PrjId  ==  AttributeName[intIndex])
+else if (convDGRegionFldCount.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(convDGRegionFldCount.PrjId);
@@ -256,7 +258,7 @@ set
 }
 }
 /// <summary>
-/// 工程ID(说明:;字段类型:char;字段长度:4;是否可空:False)
+/// 工程Id(说明:;字段类型:char;字段长度:4;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -284,7 +286,7 @@ else
 
 /// <summary>
 /// 获取关键字Id(keyId)
- /// (AutoGCLib.clsGeneCodeBase:GenGetKeyId)
+ /// (AutoGCLib.clsGeneCodeBase4Tab:GenGetKeyId)
 /// </summary>
  public override string _KeyId
  {
@@ -302,7 +304,7 @@ public static class convDGRegionFldCount
 {
 public const string _CurrTabName = "vDGRegionFldCount"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "RegionId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] AttributeName = new string[] {"RegionId", "FldCount", "PrjId"};
+public static string[] _AttributeName = new string[] {"RegionId", "FldCount", "PrjId"};
 //以下是属性变量
 
 
@@ -322,7 +324,7 @@ public static string[] AttributeName = new string[] {"RegionId", "FldCount", "Pr
  /// 常量:"PrjId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string PrjId = "PrjId";    //工程ID
+ public const string PrjId = "PrjId";    //工程Id
 }
 
 }

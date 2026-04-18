@@ -80,6 +80,32 @@ namespace AGC.WebApi
 
             }
         }
+        /// <summary>
+        /// 统计并记录某TabId的字段数(FldNum)，即统计PrjTabFld中该TabId的字段数，并写入PrjTab.FldNum
+        /// 调用方法: Get /api/PrjTabExApiController/SetFldNumByTabId?strTabId=value&strPrjId=value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>返回是否成功</returns>
+        [HttpGet("SetFldNumByTabId")]
+        public ActionResult SetFldNumByTabId(string strTabId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsPrjTabBLEx.SetFldNumByTabId(strTabId, strPrjId);
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
 
         /// <summary>
         /// GetObjExLstByPrjIdEx
@@ -181,17 +207,18 @@ namespace AGC.WebApi
         /// </summary>
         /// <param name = "strTabId">表Id</param>
         /// <returns>返回是否存在?</returns>
-        [HttpGet("DelRecordEx")]
-        public ActionResult DelRecordEx(string strTabId)
+        [HttpGet("DelRecordExByTabId")]
+        public ActionResult DelRecordExByTabId(string strTabId, string strUpdUserId)
         {
 
             string strFunctionName = clsStackTrace.GetCurrFunction();
             Dictionary<string, string> dictParam = new Dictionary<string, string>();
             dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strUpdUserId", strUpdUserId);
             clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
             try
             {
-                var varResult = clsPrjTabBLEx.DelRecordEx(strTabId);
+                var varResult = clsPrjTabBLEx.DelRecordExByTabId(strTabId, strUpdUserId);
                 return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
             }
             catch (Exception objException)
@@ -668,6 +695,51 @@ namespace AGC.WebApi
             }
         }
 
+        /// <summary>
+        /// 复制工程表
+        /// 调用方法: Get /api/clsFieldTabBLExApi/CopyPrjTab?strTarPrjId=value&strSouTabId=value&strUserId=value
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strTarPrjId">目标工程Id</param>
+        /// <param name="strSouTabId">源表Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <returns>返回新表Id或结果信息</returns>
+        [HttpGet("CopyPrjTab")]
+        public ActionResult CopyPrjTab(string strTarPrjId, string strSouTabId, string strUserId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTarPrjId", strTarPrjId);
+            dictParam.Add("strSouTabId", strSouTabId);
+            dictParam.Add("strUserId", strUserId);
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                var varResult = clsFieldTabBLEx.CopyPrjTab(strTarPrjId, strSouTabId, strUserId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnStr = varResult
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})",
+                    objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+
+                return Ok(new
+                {
+                    errorId = 1,
+                    errorMsg = strMsg
+                });
+            }
+        }
 
         [HttpGet("IsAppiedInViewList4CmPrjId")]
         public ActionResult IsAppiedInViewList4CmPrjId(string strTabId, string strCmPrjId)

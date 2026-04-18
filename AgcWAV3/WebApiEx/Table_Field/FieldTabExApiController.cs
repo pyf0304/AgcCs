@@ -28,6 +28,7 @@ using Comm.WebApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -254,6 +255,50 @@ namespace AGC.WebApi
             {
                 string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
                 return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        
+        /// <summary>
+        /// 根据字段Id删除记录
+        /// 调用方法: Get /api/clsFieldTabBLExApi/DelRecordEx?strFldId=value&strUpdUserId=value
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strFldId">字段Id</param>
+        /// <param name="strUpdUserId">修改人Id</param>
+        /// <returns>返回是否删除成功</returns>
+        [HttpGet("DelRecordEx")]
+        public ActionResult DelRecordEx(string strFldId, string strUpdUserId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strFldId", strFldId);
+            dictParam.Add("strUpdUserId", strUpdUserId);
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                var varResult = clsFieldTabBLEx.DelRecordEx(strFldId, strUpdUserId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnBool = varResult
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})",
+                    objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+
+                return Ok(new
+                {
+                    errorId = 1,
+                    errorMsg = strMsg
+                });
             }
         }
 

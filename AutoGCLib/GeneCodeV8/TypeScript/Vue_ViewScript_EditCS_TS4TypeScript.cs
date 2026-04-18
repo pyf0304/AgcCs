@@ -2127,7 +2127,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
         /// <returns></returns>
         public string Gen_Vue_Ts_AddNewRecordWithMaxIdSave(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            string strFuncName = "";
+            string strFuncName = "AddNewRecordWithMaxIdSave";
             if (thisEditTabProp_TS.KeyFldCount > 1) return "";
 
             if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.CsType != "string") return "";
@@ -2292,6 +2292,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             {
                 strCodeForCs.Append("\r\n" + "public async AddNewRecordWithReturnKeySave(): Promise<string>{");
             }
+            strFuncName = "AddNewRecordWithReturnKeySave";
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.AddNewRecordWithReturnKeySave.name;",
 this.TabName_In4Edit4GC, objKeyField.FldName);
 

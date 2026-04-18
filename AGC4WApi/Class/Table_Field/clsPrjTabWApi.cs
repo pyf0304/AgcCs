@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabWApi
  表名:PrjTab(00050009)
- * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
- 日期:2026/03/07 22:18:52
+ * 版本:2026.04.01.1(服务器:WIN-SRV103-116)
+ 日期:2026/04/05 00:50:16
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -898,6 +898,7 @@ return objPrjTabEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabEN SetUpdUserId(this clsPrjTabEN objPrjTabEN, string strUpdUserId, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdUserId, conPrjTab.UpdUserId);
 clsCheckSql.CheckFieldLen(strUpdUserId, 20, conPrjTab.UpdUserId);
 objPrjTabEN.UpdUserId = strUpdUserId; //修改用户Id
 if (string.IsNullOrEmpty(strComparisonOp) == false)
@@ -924,6 +925,7 @@ return objPrjTabEN;
  /// <returns>返回对象,可以继续连写</returns>
 public static clsPrjTabEN SetUpdDate(this clsPrjTabEN objPrjTabEN, string strUpdDate, string strComparisonOp="")
 	{
+clsCheckSql.CheckFieldNotNull(strUpdDate, conPrjTab.UpdDate);
 clsCheckSql.CheckFieldLen(strUpdDate, 20, conPrjTab.UpdDate);
 objPrjTabEN.UpdDate = strUpdDate; //修改日期
 if (string.IsNullOrEmpty(strComparisonOp) == false)

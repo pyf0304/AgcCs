@@ -1174,7 +1174,7 @@ public static DataTable ToDataTable(List<clsvLog4GC_WebSrvClassEN> arrObj)
 DataTable dataTable = new DataTable(); //实例化
 DataTable result;
 if (arrObj.Count == 0) return null;
-if (clsvLog4GC_WebSrvClassEN.AttributeName.Length == 0)
+if (clsvLog4GC_WebSrvClassEN._AttributeName.Length == 0)
 {
 result = dataTable;
 return result;
@@ -1184,7 +1184,7 @@ PropertyInfo[] arrPropertyInfo = type.GetProperties();
 try
 {
 //Columns
-foreach (string strAttrName in clsvLog4GC_WebSrvClassEN.AttributeName)
+foreach (string strAttrName in clsvLog4GC_WebSrvClassEN._AttributeName)
 {
 PropertyInfo proprety_Curr = arrPropertyInfo.Where(x => x.Name == strAttrName).First();
 dataTable.Columns.Add(strAttrName, proprety_Curr.PropertyType);
@@ -1193,7 +1193,7 @@ foreach (clsvLog4GC_WebSrvClassEN objInFor in arrObj)
 {
 //Rows
 DataRow dataRow = dataTable.NewRow();
-foreach (string strAttrName in clsvLog4GC_WebSrvClassEN.AttributeName)
+foreach (string strAttrName in clsvLog4GC_WebSrvClassEN._AttributeName)
 {
 dataRow[strAttrName] = objInFor[strAttrName];
 }

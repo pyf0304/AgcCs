@@ -69,7 +69,7 @@ namespace AGC4WApi
         }
         public static string KeyFldName_Types(this clsvPrjTabEN objPrjTab, List<clsPrjTabFldEN> arrObjLst_P)
         {
-            var arrPrjTabFld = clsPrjTabFldWApi.GetObjLstCacheFromObjLst(objPrjTab.TabId, arrObjLst_P);
+            var arrPrjTabFld = clsPrjTabFldWApi.GetObjLstCacheFromObjLst(objPrjTab.PrjId, arrObjLst_P);
             var arrPrjTabFld_Sel = arrPrjTabFld.Where(x => x.FieldTypeId == enumFieldTypeWA.KeyField_02).ToList();
             if (arrPrjTabFld_Sel.Count == 0) return "";
             string strKeyFldName_Types = "";

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvQryRegionFldsBL
  表名:vQryRegionFlds(00050151)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:38:58
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:38
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -957,7 +957,7 @@ objvQryRegionFldsENT.InUse = objvQryRegionFldsENS.InUse; //是否在用
 objvQryRegionFldsENT.UpdUser = objvQryRegionFldsENS.UpdUser; //修改者
 objvQryRegionFldsENT.UpdDate = objvQryRegionFldsENS.UpdDate; //修改日期
 objvQryRegionFldsENT.Memo = objvQryRegionFldsENS.Memo; //说明
-objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程ID
+objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -1010,7 +1010,7 @@ InUse = objvQryRegionFldsENS.InUse, //是否在用
 UpdUser = objvQryRegionFldsENS.UpdUser, //修改者
 UpdDate = objvQryRegionFldsENS.UpdDate, //修改日期
 Memo = objvQryRegionFldsENS.Memo, //说明
-PrjId = objvQryRegionFldsENS.PrjId, //工程ID
+PrjId = objvQryRegionFldsENS.PrjId, //工程Id
 };
  return objvQryRegionFldsENT;
 }
@@ -1574,7 +1574,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -1653,7 +1653,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -1716,7 +1716,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -1745,7 +1745,7 @@ throw new Exception(strMsg);
 }
 List<clsvQryRegionFldsEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvQryRegionFldsEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convQryRegionFlds.AttributeName)
+foreach (string strFldName in convQryRegionFlds._AttributeName)
 {
 if (objvQryRegionFldsCond.IsUpdated(strFldName) == false) continue;
 if (objvQryRegionFldsCond.dicFldComparisonOp == null)
@@ -1847,7 +1847,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -1910,7 +1910,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2017,7 +2017,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2080,7 +2080,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2157,7 +2157,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2223,7 +2223,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2284,7 +2284,7 @@ objvQryRegionFldsEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[convQryRegio
 objvQryRegionFldsEN.UpdUser = objRow[convQryRegionFlds.UpdUser].ToString().Trim(); //修改者
 objvQryRegionFldsEN.UpdDate = objRow[convQryRegionFlds.UpdDate] == DBNull.Value ? null : objRow[convQryRegionFlds.UpdDate].ToString().Trim(); //修改日期
 objvQryRegionFldsEN.Memo = objRow[convQryRegionFlds.Memo] == DBNull.Value ? null : objRow[convQryRegionFlds.Memo].ToString().Trim(); //说明
-objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程ID
+objvQryRegionFldsEN.PrjId = objRow[convQryRegionFlds.PrjId] == DBNull.Value ? null : objRow[convQryRegionFlds.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -2592,7 +2592,7 @@ objvQryRegionFldsENT.InUse = objvQryRegionFldsENS.InUse; //是否在用
 objvQryRegionFldsENT.UpdUser = objvQryRegionFldsENS.UpdUser; //修改者
 objvQryRegionFldsENT.UpdDate = objvQryRegionFldsENS.UpdDate; //修改日期
 objvQryRegionFldsENT.Memo = objvQryRegionFldsENS.Memo; //说明
-objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程ID
+objvQryRegionFldsENT.PrjId = objvQryRegionFldsENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -2738,7 +2738,7 @@ objvQryRegionFldsEN.Memo = objvQryRegionFldsEN.Memo == "[null]" ? null :  objvQr
 }
 if (arrFldSet.Contains(convQryRegionFlds.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvQryRegionFldsEN.PrjId = objvQryRegionFldsEN.PrjId == "[null]" ? null :  objvQryRegionFldsEN.PrjId; //工程ID
+objvQryRegionFldsEN.PrjId = objvQryRegionFldsEN.PrjId == "[null]" ? null :  objvQryRegionFldsEN.PrjId; //工程Id
 }
 }
 catch (Exception objException)
@@ -2772,7 +2772,7 @@ if (objvQryRegionFldsEN.ChangeEvent == "[null]") objvQryRegionFldsEN.ChangeEvent
 if (objvQryRegionFldsEN.ClickEvent == "[null]") objvQryRegionFldsEN.ClickEvent = null; //Click事件
 if (objvQryRegionFldsEN.UpdDate == "[null]") objvQryRegionFldsEN.UpdDate = null; //修改日期
 if (objvQryRegionFldsEN.Memo == "[null]") objvQryRegionFldsEN.Memo = null; //说明
-if (objvQryRegionFldsEN.PrjId == "[null]") objvQryRegionFldsEN.PrjId = null; //工程ID
+if (objvQryRegionFldsEN.PrjId == "[null]") objvQryRegionFldsEN.PrjId = null; //工程Id
 }
 catch (Exception objException)
 {
@@ -2988,6 +2988,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}_{1}", clsvQryRegionFldsEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
+clsvQryRegionFldsEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -2997,6 +2998,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvQryRegionFldsEN._RefreshTimeLst.Count == 0) return "";
+return clsvQryRegionFldsEN._RefreshTimeLst[clsvQryRegionFldsEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -3011,7 +3021,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3026,10 +3036,10 @@ if (strInFldName != convQryRegionFlds.mId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convQryRegionFlds.AttributeName.Contains(strOutFldName) == false)
+if (convQryRegionFlds._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convQryRegionFlds.AttributeName));
+strInFldName, string.Join(", ", convQryRegionFlds._AttributeName));
 throw new Exception(strMsg);
 }
 var objvQryRegionFlds = clsvQryRegionFldsBL.GetObjBymIdCache(lngmId, strPrjId);
@@ -3114,7 +3124,7 @@ throw new Exception(strMsg);
 }
 List<clsvQryRegionFldsEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvQryRegionFldsEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convQryRegionFlds.AttributeName)
+foreach (string strFldName in convQryRegionFlds._AttributeName)
 {
 if (objvQryRegionFldsCond.IsUpdated(strFldName) == false) continue;
 if (objvQryRegionFldsCond.dicFldComparisonOp == null)

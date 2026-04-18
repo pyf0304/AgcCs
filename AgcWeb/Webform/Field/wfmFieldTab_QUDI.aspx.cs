@@ -1156,7 +1156,7 @@ var                         objFieldTab4CodeConv = new clsFieldTab4CodeConvEN(ob
                 if (strUserIp == "::1" || strUserIp == "127.0.0.1"
                     || strUserIp == "59.78.151.114" || strUserIp == "59.78.151.116")
                 {
-                    clsFieldTabBLEx.DelFieldTabEx2(lstFldID);
+                    clsFieldTabBLEx.DelFieldTabEx2(lstFldID, clsCommonSession.UserId);
                 }
                 else
                 {

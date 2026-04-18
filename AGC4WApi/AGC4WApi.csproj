@@ -117,6 +117,8 @@
     <Compile Include="ClassEx\PrjFunction\clsvFunction4Code_SimExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsvFunction4GeneCode_SimExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsvFunctionTemplateRela_SimExWApi.cs" />
+    <Compile Include="ClassEx\PrjInterface\clsCopyTaskExWApi.cs" />
+    <Compile Include="ClassEx\PrjInterface\clsCopyTaskRegionExWApi.cs" />
     <Compile Include="ClassEx\PrjInterface\clsCtlTypeExWApi.cs" />
     <Compile Include="ClassEx\PrjInterface\clsDDLItemsOptionExWApi.cs" />
     <Compile Include="ClassEx\PrjInterface\clsDropDownLstStyleExWApi.cs" />
@@ -706,6 +708,8 @@
     <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaWApi.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFunctionWApi.cs" />
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropWApi.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskRegionWApi.cs" />
+    <Compile Include="Class\PrjInterface\clsCopyTaskWApi.cs" />
     <Compile Include="Class\PrjInterface\clsCtlTypeWApi.cs" />
     <Compile Include="Class\PrjInterface\clsDataGridStyleWApi.cs" />
     <Compile Include="Class\PrjInterface\clsDDLItemsOptionWApi.cs" />

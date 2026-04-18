@@ -1677,7 +1677,7 @@ namespace AGC.Webform
                 switch (strCommandName)
                 {
                     case "Delete":
-                        clsPrjTabFldBLEx.DelRecordEx(lngMId);
+                        clsPrjTabFldBLEx.DelRecordEx(lngMId, clsCommonSession.UserId);
                         BindGv_vPrjTabFld();
                         break;
                     // Add other cases here, if there are multiple ButtonColumns in 
@@ -1890,7 +1890,7 @@ namespace AGC.Webform
             lblMsgList.Text = "";
             //1、显示该关键字的数据让用户修改该关键字记录；
 
-            arrmId.ForEach(x=> clsPrjTabFldBLEx.DelRecordEx(x));
+            arrmId.ForEach(x=> clsPrjTabFldBLEx.DelRecordEx(x, clsCommonSession.UserId));
             
             BindGv_vPrjTabFld();
         }
@@ -2425,7 +2425,7 @@ namespace AGC.Webform
                 intSeqNum = int.Parse(arrList[0].ToString());
 
                 string strFileFolder = Server.MapPath("~");
-                bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(vsTabId, intSeqNum, intNewSeqNum));
+                bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(vsTabId, intSeqNum, intNewSeqNum, clsCommonSession.UserId));
             }
             if (bolIsSuccess == true)
             {
@@ -2473,7 +2473,7 @@ namespace AGC.Webform
                 intNewSeqNum = int.Parse(txtRecSeqNum.Text);
 
                 string strFileFolder = Server.MapPath("~");
-                bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(vsTabId, intSeqNum, intNewSeqNum));
+                bolIsSuccess = (new clsPrjTabFldBLEx().MoveRecSeqTo(vsTabId, intSeqNum, intNewSeqNum, clsCommonSession.UserId));
             }
             if (bolIsSuccess == true)
             {

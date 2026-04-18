@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvDetailRegionFldCountInUseBL
  表名:vDetailRegionFldCountInUse(00050586)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 14:48:35
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:21
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -125,7 +125,7 @@ try
 {
 objvDetailRegionFldCountInUseENT.RegionId = objvDetailRegionFldCountInUseENS.RegionId; //区域Id
 objvDetailRegionFldCountInUseENT.FldCount = objvDetailRegionFldCountInUseENS.FldCount; //字段数
-objvDetailRegionFldCountInUseENT.PrjId = objvDetailRegionFldCountInUseENS.PrjId; //工程ID
+objvDetailRegionFldCountInUseENT.PrjId = objvDetailRegionFldCountInUseENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -150,7 +150,7 @@ try
 {
 RegionId = objvDetailRegionFldCountInUseENS.RegionId, //区域Id
 FldCount = objvDetailRegionFldCountInUseENS.FldCount, //字段数
-PrjId = objvDetailRegionFldCountInUseENS.PrjId, //工程ID
+PrjId = objvDetailRegionFldCountInUseENS.PrjId, //工程Id
 };
  return objvDetailRegionFldCountInUseENT;
 }
@@ -540,7 +540,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -591,7 +591,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -626,7 +626,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -655,7 +655,7 @@ throw new Exception(strMsg);
 }
 List<clsvDetailRegionFldCountInUseEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDetailRegionFldCountInUseEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convDetailRegionFldCountInUse.AttributeName)
+foreach (string strFldName in convDetailRegionFldCountInUse._AttributeName)
 {
 if (objvDetailRegionFldCountInUseCond.IsUpdated(strFldName) == false) continue;
 if (objvDetailRegionFldCountInUseCond.dicFldComparisonOp == null)
@@ -729,7 +729,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -764,7 +764,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -843,7 +843,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -878,7 +878,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -927,7 +927,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -965,7 +965,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -998,7 +998,7 @@ try
 {
 objvDetailRegionFldCountInUseEN.RegionId = objRow[convDetailRegionFldCountInUse.RegionId].ToString().Trim(); //区域Id
 objvDetailRegionFldCountInUseEN.FldCount = objRow[convDetailRegionFldCountInUse.FldCount] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[convDetailRegionFldCountInUse.FldCount].ToString().Trim()); //字段数
-objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objRow[convDetailRegionFldCountInUse.PrjId] == DBNull.Value ? null : objRow[convDetailRegionFldCountInUse.PrjId].ToString().Trim(); //工程Id
 }
 catch (Exception objException)
 {
@@ -1318,7 +1318,7 @@ try
 {
 objvDetailRegionFldCountInUseENT.RegionId = objvDetailRegionFldCountInUseENS.RegionId; //区域Id
 objvDetailRegionFldCountInUseENT.FldCount = objvDetailRegionFldCountInUseENS.FldCount; //字段数
-objvDetailRegionFldCountInUseENT.PrjId = objvDetailRegionFldCountInUseENS.PrjId; //工程ID
+objvDetailRegionFldCountInUseENT.PrjId = objvDetailRegionFldCountInUseENS.PrjId; //工程Id
 }
 catch (Exception objException)
 {
@@ -1352,7 +1352,7 @@ objvDetailRegionFldCountInUseEN.FldCount = objvDetailRegionFldCountInUseEN.FldCo
 }
 if (arrFldSet.Contains(convDetailRegionFldCountInUse.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvDetailRegionFldCountInUseEN.PrjId = objvDetailRegionFldCountInUseEN.PrjId == "[null]" ? null :  objvDetailRegionFldCountInUseEN.PrjId; //工程ID
+objvDetailRegionFldCountInUseEN.PrjId = objvDetailRegionFldCountInUseEN.PrjId == "[null]" ? null :  objvDetailRegionFldCountInUseEN.PrjId; //工程Id
 }
 }
 catch (Exception objException)
@@ -1373,7 +1373,7 @@ throw new Exception(strMsg);
 {
 try
 {
-if (objvDetailRegionFldCountInUseEN.PrjId == "[null]") objvDetailRegionFldCountInUseEN.PrjId = null; //工程ID
+if (objvDetailRegionFldCountInUseEN.PrjId == "[null]") objvDetailRegionFldCountInUseEN.PrjId = null; //工程Id
 }
 catch (Exception objException)
 {
@@ -1534,6 +1534,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}_{1}", clsvDetailRegionFldCountInUseEN._CurrTabName, strPrjId);
 CacheHelper.Remove(strKey);
+clsvDetailRegionFldCountInUseEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -1543,6 +1544,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvDetailRegionFldCountInUseEN._RefreshTimeLst.Count == 0) return "";
+return clsvDetailRegionFldCountInUseEN._RefreshTimeLst[clsvDetailRegionFldCountInUseEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -1557,7 +1567,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -1572,10 +1582,10 @@ if (strInFldName != convDetailRegionFldCountInUse.RegionId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convDetailRegionFldCountInUse.AttributeName.Contains(strOutFldName) == false)
+if (convDetailRegionFldCountInUse._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convDetailRegionFldCountInUse.AttributeName));
+strInFldName, string.Join(", ", convDetailRegionFldCountInUse._AttributeName));
 throw new Exception(strMsg);
 }
 var objvDetailRegionFldCountInUse = clsvDetailRegionFldCountInUseBL.GetObjByRegionIdCache(strRegionId, strPrjId);
@@ -1660,7 +1670,7 @@ throw new Exception(strMsg);
 }
 List<clsvDetailRegionFldCountInUseEN> arrObjLstCache = GetObjLstCache(strPrjId);
 IEnumerable <clsvDetailRegionFldCountInUseEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convDetailRegionFldCountInUse.AttributeName)
+foreach (string strFldName in convDetailRegionFldCountInUse._AttributeName)
 {
 if (objvDetailRegionFldCountInUseCond.IsUpdated(strFldName) == false) continue;
 if (objvDetailRegionFldCountInUseCond.dicFldComparisonOp == null)

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsvCMFunctionKeyWordBL
  表名:vCMFunctionKeyWord(00050516)
- * 版本:2024.01.24.1(服务器:WIN-SRV103-116)
- 日期:2024/01/26 16:18:26
+ * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
+ 日期:2026/03/26 01:29:49
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:103.116.76.183,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:代码管理(CodeMan)
- 框架-层名:业务逻辑层(CS)(BusinessLogic)
+ 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -456,7 +456,7 @@ if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldForeignKey(strPrjId, 4, convCMFunctionKeyWord.PrjId);
 }
-objvCMFunctionKeyWordEN.PrjId = strPrjId; //工程ID
+objvCMFunctionKeyWordEN.PrjId = strPrjId; //工程Id
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objvCMFunctionKeyWordEN.dicFldComparisonOp.ContainsKey(convCMFunctionKeyWord.PrjId) == false)
@@ -744,6 +744,34 @@ objvCMFunctionKeyWordEN.dicFldComparisonOp[convCMFunctionKeyWord.Memo] = strComp
 }
 return objvCMFunctionKeyWordEN;
 	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objvCMFunctionKeyWordEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsvCMFunctionKeyWordEN SetClsName(this clsvCMFunctionKeyWordEN objvCMFunctionKeyWordEN, string strClsName, string strComparisonOp="")
+	{
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strClsName, 100, convCMFunctionKeyWord.ClsName);
+}
+objvCMFunctionKeyWordEN.ClsName = strClsName; //类名
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objvCMFunctionKeyWordEN.dicFldComparisonOp.ContainsKey(convCMFunctionKeyWord.ClsName) == false)
+{
+objvCMFunctionKeyWordEN.dicFldComparisonOp.Add(convCMFunctionKeyWord.ClsName, strComparisonOp);
+}
+else
+{
+objvCMFunctionKeyWordEN.dicFldComparisonOp[convCMFunctionKeyWord.ClsName] = strComparisonOp;
+}
+}
+return objvCMFunctionKeyWordEN;
+	}
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
@@ -768,7 +796,7 @@ objvCMFunctionKeyWordENT.FilePath = objvCMFunctionKeyWordENS.FilePath; //文件�
 objvCMFunctionKeyWordENT.FileName = objvCMFunctionKeyWordENS.FileName; //文件名
 objvCMFunctionKeyWordENT.CodeTypeId = objvCMFunctionKeyWordENS.CodeTypeId; //代码类型Id
 objvCMFunctionKeyWordENT.UserId = objvCMFunctionKeyWordENS.UserId; //用户Id
-objvCMFunctionKeyWordENT.PrjId = objvCMFunctionKeyWordENS.PrjId; //工程ID
+objvCMFunctionKeyWordENT.PrjId = objvCMFunctionKeyWordENS.PrjId; //工程Id
 objvCMFunctionKeyWordENT.PrjName = objvCMFunctionKeyWordENS.PrjName; //工程名称
 objvCMFunctionKeyWordENT.FunctionName = objvCMFunctionKeyWordENS.FunctionName; //功能名称
 objvCMFunctionKeyWordENT.FuncContent = objvCMFunctionKeyWordENS.FuncContent; //函数内容
@@ -815,7 +843,7 @@ FilePath = objvCMFunctionKeyWordENS.FilePath, //文件路径
 FileName = objvCMFunctionKeyWordENS.FileName, //文件名
 CodeTypeId = objvCMFunctionKeyWordENS.CodeTypeId, //代码类型Id
 UserId = objvCMFunctionKeyWordENS.UserId, //用户Id
-PrjId = objvCMFunctionKeyWordENS.PrjId, //工程ID
+PrjId = objvCMFunctionKeyWordENS.PrjId, //工程Id
 PrjName = objvCMFunctionKeyWordENS.PrjName, //工程名称
 FunctionName = objvCMFunctionKeyWordENS.FunctionName, //功能名称
 FuncContent = objvCMFunctionKeyWordENS.FuncContent, //函数内容
@@ -1329,7 +1357,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1402,7 +1430,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1459,7 +1487,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1493,7 +1521,7 @@ public static IEnumerable<clsvCMFunctionKeyWordEN> GetSubObjLstCache(clsvCMFunct
 {
 List<clsvCMFunctionKeyWordEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvCMFunctionKeyWordEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convCMFunctionKeyWord.AttributeName)
+foreach (string strFldName in convCMFunctionKeyWord._AttributeName)
 {
 if (objvCMFunctionKeyWordCond.IsUpdated(strFldName) == false) continue;
 if (objvCMFunctionKeyWordCond.dicFldComparisonOp == null)
@@ -1578,7 +1606,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1635,7 +1663,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1736,7 +1764,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1793,7 +1821,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1864,7 +1892,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1924,7 +1952,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -1979,7 +2007,7 @@ objvCMFunctionKeyWordEN.FilePath = objRow[convCMFunctionKeyWord.FilePath].ToStri
 objvCMFunctionKeyWordEN.FileName = objRow[convCMFunctionKeyWord.FileName].ToString().Trim(); //文件名
 objvCMFunctionKeyWordEN.CodeTypeId = objRow[convCMFunctionKeyWord.CodeTypeId].ToString().Trim(); //代码类型Id
 objvCMFunctionKeyWordEN.UserId = objRow[convCMFunctionKeyWord.UserId] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.UserId].ToString().Trim(); //用户Id
-objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程ID
+objvCMFunctionKeyWordEN.PrjId = objRow[convCMFunctionKeyWord.PrjId].ToString().Trim(); //工程Id
 objvCMFunctionKeyWordEN.PrjName = objRow[convCMFunctionKeyWord.PrjName].ToString().Trim(); //工程名称
 objvCMFunctionKeyWordEN.FunctionName = objRow[convCMFunctionKeyWord.FunctionName] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FunctionName].ToString().Trim(); //功能名称
 objvCMFunctionKeyWordEN.FuncContent = objRow[convCMFunctionKeyWord.FuncContent] == DBNull.Value ? null : objRow[convCMFunctionKeyWord.FuncContent].ToString().Trim(); //函数内容
@@ -2281,7 +2309,7 @@ objvCMFunctionKeyWordENT.FilePath = objvCMFunctionKeyWordENS.FilePath; //文件�
 objvCMFunctionKeyWordENT.FileName = objvCMFunctionKeyWordENS.FileName; //文件名
 objvCMFunctionKeyWordENT.CodeTypeId = objvCMFunctionKeyWordENS.CodeTypeId; //代码类型Id
 objvCMFunctionKeyWordENT.UserId = objvCMFunctionKeyWordENS.UserId; //用户Id
-objvCMFunctionKeyWordENT.PrjId = objvCMFunctionKeyWordENS.PrjId; //工程ID
+objvCMFunctionKeyWordENT.PrjId = objvCMFunctionKeyWordENS.PrjId; //工程Id
 objvCMFunctionKeyWordENT.PrjName = objvCMFunctionKeyWordENS.PrjName; //工程名称
 objvCMFunctionKeyWordENT.FunctionName = objvCMFunctionKeyWordENS.FunctionName; //功能名称
 objvCMFunctionKeyWordENT.FuncContent = objvCMFunctionKeyWordENS.FuncContent; //函数内容
@@ -2370,7 +2398,7 @@ objvCMFunctionKeyWordEN.UserId = objvCMFunctionKeyWordEN.UserId == "[null]" ? nu
 }
 if (arrFldSet.Contains(convCMFunctionKeyWord.PrjId, new clsStrCompareIgnoreCase())  ==  true)
 {
-objvCMFunctionKeyWordEN.PrjId = objvCMFunctionKeyWordEN.PrjId; //工程ID
+objvCMFunctionKeyWordEN.PrjId = objvCMFunctionKeyWordEN.PrjId; //工程Id
 }
 if (arrFldSet.Contains(convCMFunctionKeyWord.PrjName, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -2695,6 +2723,7 @@ if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
 string strKey = string.Format("{0}", clsvCMFunctionKeyWordEN._CurrTabName);
 CacheHelper.Remove(strKey);
+clsvCMFunctionKeyWordEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
 else
 {
@@ -2704,6 +2733,15 @@ clsStackTrace.GetCurrClassFunctionByLevel(2),
 clsStackTrace.GetCurrClassFunctionByLevel(3));
 clsSysParaEN.objLog.WriteDebugLog(strMsg);
 }
+}
+/// <summary>
+/// 获取最新的缓存刷新时间
+/// </summary>
+/// <returns>最新的缓存刷新时间，字符串型</returns>
+public static string GetLastRefreshTime()
+{
+if (clsvCMFunctionKeyWordEN._RefreshTimeLst.Count == 0) return "";
+return clsvCMFunctionKeyWordEN._RefreshTimeLst[clsvCMFunctionKeyWordEN._RefreshTimeLst.Count - 1];
 }
 
 
@@ -2718,7 +2756,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2024-01-26
+ /// 日期:2026-03-26
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -2732,10 +2770,10 @@ if (strInFldName != convCMFunctionKeyWord.mId)
 string strMsg = string.Format("输入字段名:[{0}]不正确!", strInFldName);
 throw new Exception(strMsg);
 }
-if (convCMFunctionKeyWord.AttributeName.Contains(strOutFldName) == false)
+if (convCMFunctionKeyWord._AttributeName.Contains(strOutFldName) == false)
 {
 string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段范围之内!({1})",
-strInFldName, string.Join(", ", convCMFunctionKeyWord.AttributeName));
+strInFldName, string.Join(", ", convCMFunctionKeyWord._AttributeName));
 throw new Exception(strMsg);
 }
 var objvCMFunctionKeyWord = clsvCMFunctionKeyWordBL.GetObjBymIdCache(lngmId);
@@ -2814,7 +2852,7 @@ public static int GetRecCountByCondCache(clsvCMFunctionKeyWordEN objvCMFunctionK
 {
 List<clsvCMFunctionKeyWordEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsvCMFunctionKeyWordEN> arrObjLstSel = arrObjLstCache;
-foreach (string strFldName in convCMFunctionKeyWord.AttributeName)
+foreach (string strFldName in convCMFunctionKeyWord._AttributeName)
 {
 if (objvCMFunctionKeyWordCond.IsUpdated(strFldName) == false) continue;
 if (objvCMFunctionKeyWordCond.dicFldComparisonOp == null)

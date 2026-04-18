@@ -1011,11 +1011,13 @@ namespace AGC.BusinessLogicEx
         /// 设置修改时间
         /// </summary>
         /// <param name = "strTabId">表Id</param>
+        /// <param name = "strUpdUserId">修改用户Id</param>
         /// <returns>是否成功？</returns>
-        public static bool SetUpdDate(string strTabId)
+        public static bool SetUpdDateBak(string strTabId, string strUpdUserId)
         {
             clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabId(strTabId);
             objPrjTabEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+            objPrjTabEN.UpdUserId= strUpdUserId;
             if (string.IsNullOrEmpty(objPrjTabEN.RelaTabId4View) == true) objPrjTabEN.RelaTabId4View = null;
             return clsPrjTabBL.UpdateBySql2(objPrjTabEN);
         }
@@ -1454,7 +1456,7 @@ namespace AGC.BusinessLogicEx
                 //8、把源字段ID列表从源工程中复制到目标工程中,同时获取一个插入到目标工程中的字段ID
                 strTarFldId = clsFieldTabBLEx.CopyField(strSouPrjId, strTarPrjId, strSouFldId, strUserId);
                 //9、把获取的一个新字段ID列表添加到目标工程中的<工程表字段>表中。
-                clsPrjTabFldBLEx.CopyPrjTabFld(strSouPrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId);
+                clsPrjTabFldBLEx.CopyPrjTabFld(strSouPrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId, strUserId);
             }
             return strNewTabId;
         }
@@ -1582,7 +1584,7 @@ namespace AGC.BusinessLogicEx
                 {
                     continue;
                 }
-                clsPrjTabFldBLEx.CopyPrjTabFld(objSouPrjTab.PrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId);
+                clsPrjTabFldBLEx.CopyPrjTabFld(objSouPrjTab.PrjId, strTarPrjId, strSouTabId, strNewTabId, strSouFldId, strTarFldId, strUserId);
             }
             return strNewTabId;
         }
@@ -1611,11 +1613,11 @@ namespace AGC.BusinessLogicEx
             return true;
         }
 
-        public static bool DelRecordEx(string strTabId)
+        public static bool DelRecordExByTabId(string strTabId, string strUpdUserId)
         {
             string strSQL = "";
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
-            clsPrjTabFldBLEx.DelRecordEx(strTabId);
+            clsPrjTabFldBLEx.DelRecordExByTabId(strTabId, strUpdUserId);
             StringBuilder sbCondition = new StringBuilder();
             sbCondition.AppendFormat("{0} = '{1}'", conViewRegion.TabId, strTabId);
             List<string> arrRegionIdObjList = clsViewRegionBL.GetPrimaryKeyID_S(sbCondition.ToString());
@@ -3020,6 +3022,32 @@ namespace AGC.BusinessLogicEx
             }
             return null;
         }
+        
+        /// <summary>
+        /// 统计并记录某TabId的字段数(FldNum)，即统计PrjTabFld中该TabId的字段数，并写入PrjTab.FldNum
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>是否成功</returns>
+        public static bool SetFldNumByTabId(string strTabId, string strPrjId)
+        {
+            if (string.IsNullOrEmpty(strTabId) || string.IsNullOrEmpty(strPrjId))
+                return false;
+
+            // 获取字段数
+            var arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(strTabId, strPrjId);
+            int intFldNum = arrPrjTabFld.Count;
+
+            // 更新PrjTab表的FldNum字段
+            var objPrjTab = clsPrjTabBL.GetObjByTabId(strTabId);
+            objPrjTab.FldNum = intFldNum;
+            objPrjTab.UpdDate = clsDateTime.getTodayDateTimeStr(0);
+            objPrjTab.Update();
+
+            return true;
+        }
+
+
         public static bool p_Init_Log4GeneTabCode(string strPrjId, string strUserId)
         {
             clsSpecSQLforSql objSQL = null;
@@ -4554,6 +4582,8 @@ namespace AGC.BusinessLogicEx
                             objPrjTabFldEN.FieldTypeId = "02";
                             objPrjTabFldEN.PrjId = strPrjId;
                             objPrjTabFldEN.SequenceNumber = intOrderNum++;
+                            objPrjTabFldEN.UpdUser = strUserId;
+                            objPrjTabFldEN.UpdDate = clsDateTime.getTodayDateTimeStr(0);
                             if (bolIsIdentityColumn == true)
                             {
                                 objPrjTabFldEN.PrimaryTypeId = "02";
@@ -4687,11 +4717,11 @@ namespace AGC.BusinessLogicEx
                         if (objInFor.FuncMapModeId != enumFuncMapMode.Table_01) continue;
                         var objPrjTab_Edge = clsPrjTabBL.GetObjByTabIdCache(objInFor.TabId, objInFor.PrjId);
 
-                        if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyFieldTS) == false)
+                        if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyFieldTS) == false && string.IsNullOrEmpty(objPrjTab_Edge.ParaVar1TS) == true)
                         {
                             arrAddiFldId.Add(objPrjTab_Edge.CacheClassifyFieldTS);
                         }
-                        if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyField2TS) == false)
+                        if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyField2TS) == false && string.IsNullOrEmpty(objPrjTab_Edge.ParaVar2TS) == true)
                         {
                             arrAddiFldId.Add(objPrjTab_Edge.CacheClassifyField2TS);
                         }
