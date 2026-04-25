@@ -299,10 +299,10 @@ namespace AutoGCLib
                 strFuncName = "SortColumn";
                 strCodeForCs.Append("\r\n" + $"switch(sortColumnKey)");
                 strCodeForCs.Append("\r\n" + "{");
-                var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
-                foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+                var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
+                foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
                 {
-                    if (string.IsNullOrEmpty(objDGRegionFldsENEx.OutFldId) == true) continue;
+                    if (string.IsNullOrEmpty(objDGRegionFldsENEx.OutFldId) == true || objDGRegionFldsENEx.OutFldId == "0") continue;
                     string strOutFldName = clsString.FstLcaseS(objDGRegionFldsENEx.OutFldName());
                     strCodeForCs.Append("\r\n" + $"case \"{clsString.FirstLcaseS(strOutFldName)}|Ex\":");
                     string strRelaTabId = clsDnPathBLEx.GetLeftJoinTabIdByDnPathId(

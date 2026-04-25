@@ -2369,7 +2369,7 @@ namespace AutoGCLib
         {
             string strFuncName = "";
             StringBuilder strTemp = new StringBuilder();
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == enumDataTypeAbbr.image_08)
                 {
@@ -2494,7 +2494,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "switch (strKey)");
             strCodeForCs.Append("\r\n" + "{");
 
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -2571,7 +2571,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "switch (strKey)");
             strCodeForCs.Append("\r\n" + "{");
 
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -3095,7 +3095,7 @@ ThisTabName4GC)
         {
             string strFuncName = "";
             StringBuilder strTemp = new StringBuilder();
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {

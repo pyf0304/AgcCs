@@ -1212,7 +1212,7 @@ objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "switch (strFldName)");
             strCodeForCs.Append("\r\n" + "{");
 
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -1302,10 +1302,10 @@ objKeyField.FldName);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             //定义类中属性名称常量
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.IsGeneProp == false) continue;
-                
+
                 string strTemp = clsPrjTabFldBLEx.DefPropertyNameConst(objPrjTabENEx.LangType, objField, this.IsFstLcase, clsStackTrace.GetCurrClassFunction());
                 strFuncName = $"con_{objField.FldName}";
                 strCodeForCs.Append("\r\n" + strTemp);
@@ -1365,7 +1365,7 @@ objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "case \"CtrlId\":");
             strCodeForCs.Append("\r\n" + "return \"\";");
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -1410,7 +1410,7 @@ objKeyField.FldName);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             ///定义类中私有属性
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.IsGeneProp == false) continue;
                 //strCodeForCs.Append("\r\n" + clsPrjTabFldBLEx.DefPublicProperty(objPrjTabENEx.LangType, objField, this.IsFstLcase, this, this.strBaseUrl));

@@ -52,7 +52,7 @@ namespace AGC.Entity
         public List<clsFieldTabENEx> arrFieldTabExObjLst = null;			//界面相关详细表字段集合
 
         private List<clsPrjTabFldENEx> marrFldSet = null;
-        private List<clsPrjTabFldENEx> marrFldSetEx = null;
+        private List<clsPrjTabFldENEx> marrExtendFldSet = null;
 
         public List<clsPrjTabFldENEx> arrFldSet {
             get {
@@ -62,16 +62,18 @@ namespace AGC.Entity
                 this.marrFldSet = value;
             }         
         }
-
-        public List<clsPrjTabFldENEx> arrFldSetEx
+        /// <summary>
+        /// 扩展字段对象列表
+        /// </summary>
+        public List<clsPrjTabFldENEx> arrExtendFldSet
         {
             get
             {
-                return this.marrFldSetEx;
+                return this.marrExtendFldSet;
             }
             set
             {
-                this.marrFldSetEx = value;
+                this.marrExtendFldSet = value;
             }
         }
 

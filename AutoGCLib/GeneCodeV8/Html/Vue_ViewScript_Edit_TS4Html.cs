@@ -679,7 +679,7 @@ namespace AutoGCLib
 
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.IsNeedSort)
                 {

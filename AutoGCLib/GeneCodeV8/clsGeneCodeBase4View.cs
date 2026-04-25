@@ -780,7 +780,7 @@ namespace AutoGCLib
                 bool bolIsUseFunc0 = false;
                 if (strIsUseFunc == null)
                 {
-                    if (objViewInfoENEx.arrDGRegionFldSet != null && objViewInfoENEx.arrDGRegionFldSet.Where(x => x.IsUseFunc() == true).Count() > 0)
+                    if (objViewInfoENEx.arrListRegionFldSet != null && objViewInfoENEx.arrListRegionFldSet.Where(x => x.IsUseFunc() == true).Count() > 0)
                     {
                         bolIsUseFunc0 = true;
                         strIsUseFunc = "true";

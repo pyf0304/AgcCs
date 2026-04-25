@@ -2834,7 +2834,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                if (objViewInfoENEx.arrDGRegionFldSet == null || objViewInfoENEx.arrDGRegionFldSet.Count == 0)
+                if (objViewInfoENEx.arrListRegionFldSet == null || objViewInfoENEx.arrListRegionFldSet.Count == 0)
                 {
                     StringBuilder sbMessage = new StringBuilder();
                     string strViewName = objViewInfoENEx.ViewName;
@@ -3080,7 +3080,7 @@ namespace AutoGCLib
                   objViewInfoENEx.TabName_Out);
                 strCodeForCs.AppendFormat("\r\n" + "this.lv{0}.Columns.Clear();//清除原来所有列头信息",
                   objViewInfoENEx.TabName_Out);
-                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx == null) continue;
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx.CsType() == "byte[]") continue;
@@ -3112,7 +3112,7 @@ namespace AutoGCLib
                      objViewInfoENEx.TabName_Out,
                      objKeyField.ObjFieldTabENEx.FldName);
                 }
-                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx == null) continue;
                     if (objKeyField.FldId == ObjLstViewRegionFldsEx.ObjFieldTabENEx.FldId)
@@ -4050,7 +4050,7 @@ namespace AutoGCLib
 
         protected void CheckDGRegion()
         {
-            if (objViewInfoENEx.arrDGRegionFldSet == null || objViewInfoENEx.arrDGRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrListRegionFldSet == null || objViewInfoENEx.arrListRegionFldSet.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -4061,7 +4061,7 @@ namespace AutoGCLib
 
         protected void CheckListViewRegion()
         {
-            if (objViewInfoENEx.arrDGRegionFldSet == null || objViewInfoENEx.arrDGRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrListRegionFldSet == null || objViewInfoENEx.arrListRegionFldSet.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -4170,7 +4170,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Button btnExportExcel4Dg;");
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Label lblRecNum;");
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.DataGridTableStyle dataGridTableStyle1;");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -4234,7 +4234,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "this.btnExportExcel4Dg = new System.Windows.Forms.Button();");
                 strCodeForCs.Append("\r\n" + "this.lblRecNum = new System.Windows.Forms.Label();");
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1 = new System.Windows.Forms.DataGridTableStyle();");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -4327,7 +4327,7 @@ namespace AutoGCLib
                   objViewInfoENEx.TabName);
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.GridColumnStyles.AddRange(new System.Windows.Forms.DataGridColumnStyle[] {");
                 bool bolIsFirst = true;
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -4347,7 +4347,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.HeaderForeColor = System.Drawing.SystemColors.ControlText;");
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.MappingName = \"\";");
 
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -5270,7 +5270,7 @@ namespace AutoGCLib
                 sbMessage.AppendFormat("当前所选界面名称:{0},在该界面中没有编辑区域,或者编辑区域没有字段。请检查!", strViewName);
                 throw new clsDbObjException(sbMessage.ToString());
             }
-            if (objViewInfoENEx.arrDGRegionFldSet == null || objViewInfoENEx.arrDGRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrListRegionFldSet == null || objViewInfoENEx.arrListRegionFldSet.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -5350,7 +5350,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Button btnExportExcel4Dg;");
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Label lblRecNum;");
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.DataGridTableStyle dataGridTableStyle1;");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -5417,7 +5417,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "this.btnExportExcel4Dg = new System.Windows.Forms.Button();");
                 strCodeForCs.Append("\r\n" + "this.lblRecNum = new System.Windows.Forms.Label();");
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1 = new System.Windows.Forms.DataGridTableStyle();");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -5546,7 +5546,7 @@ namespace AutoGCLib
                   objViewInfoENEx.TabName);
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.GridColumnStyles.AddRange(new System.Windows.Forms.DataGridColumnStyle[] {");
                 bool bolIsFirst = true;
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 
@@ -5566,7 +5566,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.HeaderForeColor = System.Drawing.SystemColors.ControlText;");
                 strCodeForCs.Append("\r\n" + "this.dataGridTableStyle1.MappingName = \"\";");
 
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
 

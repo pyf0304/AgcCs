@@ -2536,7 +2536,7 @@ namespace AutoGCLib
             
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
  
                 if (objDGRegionFldsEx.IsNeedSort)
@@ -2643,7 +2643,7 @@ namespace AutoGCLib
             
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.IsNeedSort)
                 {
@@ -2762,7 +2762,7 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "</asp:TemplateField>");
                 }
 
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.IsNeedSort)   //判断是否需要排序
                     {
@@ -2890,7 +2890,7 @@ namespace AutoGCLib
             
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.IsNeedSort)
                 {
@@ -3013,7 +3013,7 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "</asp:TemplateField>");
                 }
 
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.IsNeedSort)   //判断是否需要排序
                     {
@@ -3981,7 +3981,7 @@ namespace AutoGCLib
                 mygrid.Columns.AddAt(intColNo++, tempCol);
 
             }
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
                 BoundColumn boundCol = new BoundColumn();
@@ -4043,7 +4043,7 @@ namespace AutoGCLib
             // Declare variables for DataColumn and DataRow objects.
             DataColumn myDataColumn;
             DataRow myDataRow;
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
                 // Create new DataColumn, set DataType, ColumnName and add to DataTable.  
@@ -4058,7 +4058,7 @@ namespace AutoGCLib
             for (int i = 0; i <= 2; i++)
             {
                 myDataRow = myDataTable.NewRow();
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (objDGRegionFldsEx.ObjFieldTabENEx == null) continue;
                     myDataRow[objDGRegionFldsEx.ObjFieldTabENEx.FldName] = i.ToString();
@@ -4422,7 +4422,7 @@ namespace AutoGCLib
 
             int intIndex = 1;
             tr = new TableRow();//创建一行
-            foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 //字段名(列名)
                 lbl1 = new Label();
@@ -4442,7 +4442,7 @@ namespace AutoGCLib
             {
                 tr = new TableRow();//创建一行
                 intIndex = 1;
-                int intFldNum = objViewInfoENEx.arrDGRegionFldSet.Count;
+                int intFldNum = objViewInfoENEx.arrListRegionFldSet.Count;
                 for (int j = 0; j < intFldNum; j++)
                 {
                     //字段名(列名)

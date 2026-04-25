@@ -24,6 +24,7 @@ using Microsoft.SqlServer.Server;
 using System.Data.Common;
 using CodeStruct;
 using System.IO;
+using AutoGCLib;
 
 namespace AutoGCLib
 {
@@ -33,7 +34,7 @@ namespace AutoGCLib
     partial class Vue_ViewScript_TS4Html : clsGeneCodeBase4View
     {
         private readonly TemplateService _templateService;
-        private readonly RenderService _renderService;
+        private readonly RenderServiceOld _renderService;
 
         private CodeElement objCodeElement_Methods = null;
         
@@ -55,7 +56,7 @@ namespace AutoGCLib
             // TODO: 在此处添加构造函数逻辑
             //
             _templateService = new TemplateService();
-            _renderService = new RenderService();
+            _renderService = new RenderServiceOld();
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
@@ -66,7 +67,7 @@ namespace AutoGCLib
             // TODO: 在此处添加构造函数逻辑
             //
             _templateService = new TemplateService();
-            _renderService = new RenderService();
+            _renderService = new RenderServiceOld();
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
@@ -78,7 +79,7 @@ namespace AutoGCLib
             // TODO: 在此处添加构造函数逻辑
             //
             _templateService = new TemplateService();
-            _renderService = new RenderService();
+            _renderService = new RenderServiceOld();
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
@@ -708,7 +709,7 @@ namespace AutoGCLib
 
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            //foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            //foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             //{
             //    if (objDGRegionFldsEx.IsNeedSort)
             //    {

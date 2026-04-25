@@ -25,7 +25,7 @@ namespace AGC.Entity
         public List<clsPrjTabFldENEx> arrRelaDetailTabFldSet = null;
         //public List<clsListViewRegionFldsENEx> arrListViewRegionFldSet = null;
         public List<clsQryRegionFldsENEx> arrQryRegionFldSet = null;
-        public List<clsDGRegionFldsENEx> arrDGRegionFldSet = null;
+        public List<clsDGRegionFldsENEx> arrListRegionFldSet = null;
         public List<clsEditRegionFldsENEx> arrEditRegionFldSet4InUse = null;
         public List<clsDetailRegionFldsENEx> arrDetailRegionFldSet4InUse = null;
 

@@ -1,0 +1,38 @@
+﻿import { TableCommandSpec } from '@/viewsBase/common/TableSpecCommand';
+
+/** Ai4 场景下可用的命令标识。 */
+export type {{ TableName }}CommandIdAi4 =
+{{~ for cmd in Commands ~}}
+  | '{{ cmd.Id }}'{{ if !for.last }}{{ end }}
+{{~ end ~}};
+
+/** Ai4 命令配置：复用通用表命令结构。 */
+export type {{ TableName }}CommandSpecAi4 = TableCommandSpec<{{ TableName }}CommandIdAi4>;
+
+/** Ai4 命令清单：用于统一渲染查询区与功能区按钮。 */
+export const {{ TableNameUpper }}_COMMAND_SPECS_AI4: Array<{{ TableName }}CommandSpecAi4> = [
+{{~ for cmd in Commands ~}}
+  {
+    id: '{{ cmd.Id }}',
+    region: '{{ cmd.Region }}',
+    text: '{{ cmd.Text }}',
+    elementId: '{{ cmd.ElementId }}',
+    btnClass: '{{ cmd.BtnClass }}',
+{{~ if cmd.NeedAuxControl ~}}
+    needAuxControl: true,
+{{~ end ~}}
+  }{{ if !for.last }},{{ end }}
+{{~ end ~}}
+];
+
+/** 获取查询区命令。 */
+export function getQueryCommandsAi4(): Array<{{ TableName }}CommandSpecAi4> {
+  return {{ TableNameUpper }}_COMMAND_SPECS_AI4.filter((x) => x.region === 'query' && x.visible !== false);
+}
+
+/** 获取功能区命令。 */
+export function getFeatureCommandsAi4(): Array<{{ TableName }}CommandSpecAi4> {
+  return {{ TableNameUpper }}_COMMAND_SPECS_AI4.filter(
+    (x) => x.region === 'feature' && x.visible !== false,
+  );
+}

@@ -192,9 +192,9 @@ namespace AutoGCLib
             StringBuilder sbTdFieldNames = new StringBuilder();
             sbTdFieldNames.Append("\r\n" + $"   const tdFieldNames = [");
             //strCodeForCs.Append("\r\n" + $"'constId',");
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
 
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 string strDataPropertyName = "";
                 if (string.IsNullOrEmpty(objDGRegionFldsENEx.DataPropertyName()) == false)
@@ -279,7 +279,7 @@ namespace AutoGCLib
             }
 
             //让用户设置属性;
-            if (objViewInfoENEx.arrDGRegionFldSet == null || objViewInfoENEx.arrDGRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrListRegionFldSet == null || objViewInfoENEx.arrListRegionFldSet.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -344,7 +344,7 @@ namespace AutoGCLib
 
             //			string strTemp ;     ///临时变量;
             ///判断DataGrid是否需要排序
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.IsNeedSort)
                 {
@@ -855,8 +855,8 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "orderNum: 1,");
             strCodeForCs.Append("\r\n" + "funcName: (strKey:string, strText:string) => { console.log(strKey, strText);return new HTMLElement();}");
             strCodeForCs.Append("\r\n" + "},");
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 if (objDGRegionFldsENEx.ObjFieldTabENEx == null) continue;
                 string strFldName4Bind = objDGRegionFldsENEx.PropertyName(this.IsFstLcase);
@@ -1065,12 +1065,12 @@ namespace AutoGCLib
             objCodeElement_Parent.Children.Add(objCodeElement_Tr);
             StringBuilder strCodeForCs = new StringBuilder();
 
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
             strCodeForCs.Append("\r\n" + $"<tr class=\"text-primary\">");
             strCodeForCs.Append("\r\n" + $"<th style = \"width: 30px\">");
             strCodeForCs.Append("\r\n" + $"<input v-model=\"selectAllChecked\" type=\"checkbox\" @change=\"selectAllRows\" />");
             strCodeForCs.Append("\r\n" + $"</th>");
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 strCodeForCs.Append("\r\n" + Gen_List_tabHead_OneColumn(objDGRegionFldsENEx));
             }
@@ -1087,7 +1087,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             StringBuilder sbChkKeyLst = new StringBuilder();
 
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
 
             if (objPrjTabEx_ListRegion.arrKeyFldSet.Count > 1)
             {
@@ -1133,7 +1133,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + $"class=\"CheckInTab\" ");
             strCodeForCs.Append("\r\n" + $" />");
             strCodeForCs.Append("\r\n" + $"</td>");
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 strCodeForCs.Append("\r\n" + Gen_List_tabBody_OneColumn(objDGRegionFldsENEx));
             }
@@ -1158,7 +1158,7 @@ namespace AutoGCLib
             else
             {
                 string strIsEx = "";
-                if (string.IsNullOrEmpty(objDGRegionFldsENEx.OutFldId) == false)
+                if (string.IsNullOrEmpty(objDGRegionFldsENEx.OutFldId) == false && objDGRegionFldsENEx.OutFldId != "0")
                 {
                     string strOutFldName = objDGRegionFldsENEx.OutFldName();
                     if (objDGRegionFldsENEx.SortExpression_FstLcase(this.IsFstLcase).IndexOf(strOutFldName, StringComparison.InvariantCultureIgnoreCase) > -1) strIsEx = "|Ex";

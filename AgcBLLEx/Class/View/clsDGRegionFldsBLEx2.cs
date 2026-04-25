@@ -40,18 +40,18 @@ namespace AGC.BusinessLogicEx
             }
             //objViewInfoENEx.objDGRegionENEx = new clsDGRegionENEx(lngRegionId);
             //clsDGRegionBLEx.GetDGRegionEx(ref objViewInfoENEx.objDGRegionENEx, objViewInfoENEx.PrjId);
-            objViewInfoENEx.arrDGRegionFldSet = clsDGRegionFldsBLEx.GetObjExList4InUse1(lngRegionId, objViewInfoENEx.PrjId);
+            objViewInfoENEx.arrListRegionFldSet = clsDGRegionFldsBLEx.GetObjExList4InUse1(lngRegionId, objViewInfoENEx.PrjId);
 
-            //objViewInfoENEx.objDGRegionENEx.FieldNum = objViewInfoENEx.arrDGRegionFldSet.Count;
+            //objViewInfoENEx.objDGRegionENEx.FieldNum = objViewInfoENEx.arrListRegionFldSet.Count;
 
-            clsDGRegionFldsENEx objDGRegionFlds_Sel = objViewInfoENEx.arrDGRegionFldSet.Find(x => x.IsDefaultSort == true);
+            clsDGRegionFldsENEx objDGRegionFlds_Sel = objViewInfoENEx.arrListRegionFldSet.Find(x => x.IsDefaultSort == true);
             if (objDGRegionFlds_Sel != null)
             {
                 //clsPrjTabFldENEx ObjPrjTabFldENEx = clsPrjTabFldBLEx.InitPrjTabFld(objDGRegionFlds_Sel.TabFldId, objViewInfoENEx.PrjId);         
                 objViewInfoENEx.FirstSortField = clsFieldTabBL.GetNameByFldIdCache(objDGRegionFlds_Sel.FldId, objDGRegionFlds_Sel.PrjId());
             }
 
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
             {
                 objDGRegionFldsEx.ObjFieldTabENEx = clsFieldTabBLEx.InitFieldTab(objDGRegionFldsEx.FldId, objViewInfoENEx.PrjId);
                 //if (objViewInfoENEx.objSortField_Out == null && objDGRegionFldsEx.ObjPrjTabFldENEx.PrimaryTypeId != enumPrimaryType.Identity_02)
@@ -87,14 +87,14 @@ namespace AGC.BusinessLogicEx
                 return null;
             }
 
-            List<clsDGRegionFldsENEx> arrDGRegionFldSet = clsDGRegionFldsBLEx.GetObjExList(lngRegionId, strPrjId);
+            List<clsDGRegionFldsENEx> arrListRegionFldSet = clsDGRegionFldsBLEx.GetObjExList(lngRegionId, strPrjId);
 
-            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in arrDGRegionFldSet)
+            foreach (clsDGRegionFldsENEx objDGRegionFldsEx in arrListRegionFldSet)
             {
                 //if (objDGRegionFldsEx.TabFldId == 0) continue;
                 objDGRegionFldsEx.ObjFieldTabENEx = clsFieldTabBLEx.InitFieldTab(objDGRegionFldsEx.FldId, strPrjId);
             }
-            return arrDGRegionFldSet;
+            return arrListRegionFldSet;
         }
 
 

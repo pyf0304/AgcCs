@@ -343,7 +343,7 @@ namespace AutoGCLib
 
                 //strCodeForCs.Append("\r\n" + "IEnumerable <cls{0}EN> arrObjLst2 = arrObjLst;", objMainPrjTab.TabName);
                 bool bolIsFirst = true;
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (bolIsFirst == true)
                     {
@@ -361,7 +361,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
                 bolIsFirst = true;
                 string strFirstFieldName = "";
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (bolIsFirst == true)
                     {

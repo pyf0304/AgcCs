@@ -2,6 +2,9 @@
 packages/
 **/packages/
 
+# 发布设置文件
+launchSettings.json
+
 # 编译输出目录（适配所有项目）
 **/bin/
 **/obj/

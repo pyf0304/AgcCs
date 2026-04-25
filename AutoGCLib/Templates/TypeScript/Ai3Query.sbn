@@ -1,0 +1,93 @@
+﻿import { Ref } from 'vue';
+{{~ for option in OptionsInfo ~}}
+import { {{ option.WApiClass }}_GetArr{{ option.WApiClass }} } from '@/ts/L3ForWApi/SysPara/cls{{ option.WApiClass }}WApi';
+{{~ end ~}}
+import { QueryControlType } from '@/viewsBase/common/TableSpecQuery';
+
+/** Ai3 查询字段键定义。 */
+export type {{ TableName }}QueryFieldKeyAi3 =
+{{~ for field in QueryFields ~}}
+  | '{{ field.Key }}'{{ if !for.last }}{{ end }}
+{{~ end ~}};
+
+export interface {{ TableName }}QueryFieldSpecAi3 {
+  key: {{ TableName }}QueryFieldKeyAi3;
+  label: string;
+  id: string;
+  controlType: QueryControlType;
+  width: number;
+  row: number;
+  order: number;
+  // false 时不在查询区渲染；不配置时默认显示
+  visibleInQuery?: boolean;
+{{~ if OptionsInfo.size > 0 ~}}
+  optionsKey?: {{~ for option in OptionsInfo ~}}'{{ option.Key }}'{{ if !for.last }} | {{ end }}{{~ end ~}};
+{{~ end ~}}
+}
+
+export const {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI3: Array<{{ TableName }}QueryFieldSpecAi3> = [
+{{~ for field in QueryFields ~}}
+  {
+    key: '{{ field.Key }}',
+    label: '{{ field.Label }}',
+    id: '{{ field.Id }}',
+    controlType: '{{ field.ControlType }}',
+    width: {{ field.Width }},
+    row: {{ field.Row }},
+    order: {{ field.Order }},
+{{~ if field.OptionsKey ~}}
+    optionsKey: '{{ field.OptionsKey }}',
+{{~ end ~}}
+  }{{ if !for.last }},{{ end }}
+{{~ end ~}}
+];
+
+export function initQueryDefaultsAi3(queryRefs: {
+{{~ for field in QueryFields ~}}
+  {{ field.Key }}: Ref<string>;
+{{~ end ~}}
+}) {
+{{~ for field in QueryFields ~}}
+  queryRefs.{{ field.Key }}.value = '{{ field.DefaultValue }}';
+{{~ end ~}}
+}
+
+export async function loadQueryOptionsAi3() {
+{{~ if OptionsInfo.size > 0 ~}}
+  const [{{~ for option in OptionsInfo ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}}] = await Promise.all([
+{{~ for option in OptionsInfo ~}}
+    {{ option.WApiClass }}_GetArr{{ option.WApiClass }}(){{ if !for.last }},{{ end }}
+{{~ end ~}}
+  ]);
+  return { {{~ for option in OptionsInfo ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}} };
+{{~ else ~}}
+  return {};
+{{~ end ~}}
+}
+
+export async function loadFeatureOptionsAi3() {
+{{~ 
+  feature_options = []
+  for option in OptionsInfo
+    if option.Key == "useState"
+      feature_options = feature_options | array.add option
+    end
+  end
+~}}
+{{~ if feature_options.size > 0 ~}}
+  const arr{{ feature_options[0].WApiClass }} = await {{ feature_options[0].WApiClass }}_GetArr{{ feature_options[0].WApiClass }}();
+  return { arr{{ feature_options[0].WApiClass }} };
+{{~ else ~}}
+  return {};
+{{~ end ~}}
+}
+
+export function getQueryRowsAi3() {
+  const row1 = {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI3.filter(
+    (x) => x.row === 1 && x.visibleInQuery !== false,
+  ).sort((a, b) => a.order - b.order);
+  const row2 = {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI3.filter(
+    (x) => x.row === 2 && x.visibleInQuery !== false,
+  ).sort((a, b) => a.order - b.order);
+  return { row1, row2 };
+}

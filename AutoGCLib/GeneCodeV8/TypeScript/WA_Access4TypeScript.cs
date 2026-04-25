@@ -10552,7 +10552,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "switch (strKey)");
             strCodeForCs.Append("\r\n" + "{");
 
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -10625,7 +10625,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "switch (strKey)");
             strCodeForCs.Append("\r\n" + "{");
 
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == "08")
                 {
@@ -10712,7 +10712,7 @@ ThisTabName4GC);
             if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//该表没有应用在界面视图的列表区,不需要生成[GetObjExLstByPagerCache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strTemp = new StringBuilder();
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSetEx)
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
             {
                 if (objField.ObjFieldTabENEx.DataTypeId == enumDataTypeAbbr.image_08)
                 {

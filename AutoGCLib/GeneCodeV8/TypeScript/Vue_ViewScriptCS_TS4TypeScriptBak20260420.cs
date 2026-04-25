@@ -36,12 +36,12 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScriptCS_TS4TypeScript : WA_ViewScriptCS_TS4TypeScript
+    partial class Vue_ViewScriptCS_TS4TypeScriptBak20260420 : WA_ViewScriptCS_TS4TypeScript
     {
         
         private bool bolIsGeneDispAllErrMsg;
         #region 构造函数
-        public Vue_ViewScriptCS_TS4TypeScript()
+        public Vue_ViewScriptCS_TS4TypeScriptBak20260420()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
@@ -49,7 +49,7 @@ namespace AutoGCLib
             this.arrImportClass = new List<ImportClass>();
             bolIsGeneDispAllErrMsg = false;
         }
-        public Vue_ViewScriptCS_TS4TypeScript(string strViewId)
+        public Vue_ViewScriptCS_TS4TypeScriptBak20260420(string strViewId)
        : base( strViewId, "", "")
         {
             // 
@@ -59,7 +59,7 @@ namespace AutoGCLib
             this.arrImportClass = new List<ImportClass>();
             bolIsGeneDispAllErrMsg = false;
         }
-        public Vue_ViewScriptCS_TS4TypeScript( string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScriptCS_TS4TypeScriptBak20260420( string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 

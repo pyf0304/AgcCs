@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:CodeTypeApiController
  表名:CodeType(00050203)
- * 版本:2023.08.19.1(服务器:WIN-SRV103-116)
- 日期:2023/08/23 10:16:34
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/22 07:15:21
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:109.244.40.104,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:生成代码(GeneCode)
- 框架-层名:WA_服务层(CS)(WA_Srv)
+ 框架-层名:WA_服务层(CS)(WA_Srv,0044)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -706,6 +706,216 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 bool bolResult = objCodeTypeEN.Update();
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
  }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 通过JSON对象来编辑记录对象，存在就修改，不存在就添加
+ /// 调用方法: Post /api/CodeTypeApi/EditRecordEx
+ /// 在Body区传输objCodeTypeEN的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_EditRecordEx)
+ /// </summary>
+ /// <param name = "strCodeTypeJSONObj">JSON对象字符串</param>
+ /// <returns>是否成功</returns>
+[HttpPost("EditRecordEx")]
+public ActionResult EditRecordEx([FromBody]clsCodeTypeEN objCodeTypeEN)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+string strCodeTypeJSONObj = clsJSON.GetJsonFromObj(objCodeTypeEN);
+dictParam.Add("strCodeTypeJSONObj", strCodeTypeJSONObj);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+ try
+ {
+    clsCodeTypeBL.SetUpdFlag(objCodeTypeEN);
+    clsCodeTypeBL.AccessFldValueNull(objCodeTypeEN);
+bool bolResult = objCodeTypeEN.EditRecordEx();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移顶
+ /// 调用方法: POST /api/CodeTypeApi/GoTop
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoTop)
+ /// </summary>
+ /// <param name = "objCodeTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoTop")]
+public ActionResult GoTop([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCodeTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置顶时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCodeTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+bool bolResult = clsCodeTypeBL.GoTop(lstCodeTypeId);
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录上移
+ /// 调用方法: POST /api/CodeTypeApi/UpMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_UpMove)
+ /// </summary>
+ /// <param name = "objCodeTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("UpMove")]
+public ActionResult UpMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCodeTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表上移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCodeTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+foreach(var x in lstCodeTypeId)
+{
+clsCodeTypeBL.AdjustOrderNum("UP", x);
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录下移
+ /// 调用方法: POST /api/CodeTypeApi/DownMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_DownMove)
+ /// </summary>
+ /// <param name = "objCodeTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("DownMove")]
+public ActionResult DownMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCodeTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表下移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCodeTypeId = new(objOrderByData.KeyIdLst);
+lstCodeTypeId.Reverse();
+try
+{
+foreach(var x in lstCodeTypeId)
+{
+clsCodeTypeBL.AdjustOrderNum("DOWN", x);
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/CodeTypeApi/GoBottom
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoBottom)
+ /// </summary>
+ /// <param name = "objCodeTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoBottom")]
+public ActionResult GoBottom([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCodeTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置底时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCodeTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+bool bolResult = clsCodeTypeBL.GoBottom(lstCodeTypeId);
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/CodeTypeApi/ReOrder
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_ReOrder)
+ /// </summary>
+ /// <param name = "objCodeTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("ReOrder")]
+public ActionResult ReOrder([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+try
+{
+bool bolResult = clsCodeTypeBL.ReOrder();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
  catch (Exception objException)
  {
 string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());

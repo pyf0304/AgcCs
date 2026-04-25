@@ -1,0 +1,74 @@
+﻿import { clsDataColumn } from '@/ts/PubFun/clsDataColumn';
+import { SortFun } from '@/ts/PubFun/clsCommFunc4Web';
+import { cls{{ TableName }}EN } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+{{~ if HasExtendFields ~}}
+import { cls{{ TableName }}ENEx } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}ENEx';
+{{~ end ~}}
+import { TableColumnSpec } from '@/viewsBase/common/TableSpecColumn';
+
+/** Ai2 列规格：复用通用表列规格。 */
+export type {{ TableName }}ColumnSpecAi2 = TableColumnSpec;
+
+/** 列定义主表：通过 includeInList/includeInExport 控制最终用途。 */
+export const {{ TableName | string.upcase }}_COLUMN_SPECS_AI2: Array<{{ TableName }}ColumnSpecAi2> = [
+{{~ for field in Fields ~}}
+  {
+    fldName: cls{{ field.EntityClass }}EN{{ field.ExSuffix }}.con_{{ field.Name }},
+    fieldSource: '{{ field.Source }}',
+    colHeader: '{{ field.Header }}',
+    sortBy: '{{ field.SortBy }}',
+    tdClass: '{{ field.TdClass }}',
+    orderNum: {{ field.OrderNum }},
+    includeInList: {{ field.IncludeInList | string.downcase }},
+    includeInExport: {{ field.IncludeInExport | string.downcase }},
+  }{{ if !for.last }},{{ end }}
+{{~ end ~}}
+];
+
+/** 把规格对象转换为前端表格列对象。 */
+function toDataColumn(spec: {{ TableName }}ColumnSpecAi2): clsDataColumn {
+  return {
+    fldName: spec.fldName,
+    sortBy: spec.sortBy,
+    sortFun: SortFun,
+    getDataSource: '',
+    colHeader: spec.colHeader,
+    text: '',
+    tdClass: spec.tdClass,
+    columnType: 'Label',
+    orderNum: spec.orderNum,
+    funcName: (strKey: string, strText: string) => {
+      console.log(strKey, strText);
+      return new HTMLElement();
+    },
+  };
+}
+
+/** 获取列表列（包含首列复选框）。 */
+export function getListColumnsAi2(): Array<clsDataColumn> {
+  const checkboxColumn: clsDataColumn = {
+    fldName: '',
+    sortBy: '',
+    sortFun: SortFun,
+    getDataSource: '',
+    colHeader: '',
+    text: '',
+    tdClass: 'text-left',
+    columnType: 'CheckBox',
+    orderNum: 1,
+    funcName: (strKey: string, strText: string) => {
+      console.log(strKey, strText);
+      return new HTMLElement();
+    },
+  };
+
+  return [
+    checkboxColumn,
+    ...{{ TableName | string.upcase }}_COLUMN_SPECS_AI2.filter((x) => x.includeInList).map(toDataColumn),
+  ];
+}
+
+/** 获取导出列规格。 */
+export function getExportColumnSpecsAi2(): Array<{{ TableName }}ColumnSpecAi2> {
+  return {{ TableName | string.upcase }}_COLUMN_SPECS_AI2.filter((x) => x.includeInExport);
+}

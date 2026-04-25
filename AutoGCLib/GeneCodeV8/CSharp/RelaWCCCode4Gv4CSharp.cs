@@ -1291,7 +1291,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.AppendFormat("\r\n" + "public void SetGvVisibility_AllShow()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
                 {
                     strCodeForCs.AppendFormat("\r\n" + "clsCommForWebForm.SetGvVisibility(gv{0}, con{1}.{2}, true);",
                     objViewInfoENEx.TabName, objViewInfoENEx.TabName_Out, objDGRegionFldsEx.ObjFieldTabENEx.FldName);
@@ -1319,7 +1319,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.AppendFormat("\r\n" + "public void SetGvVisibility_AllHide()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))
                 {
                     strCodeForCs.AppendFormat("\r\n" + "clsCommForWebForm.SetGvVisibility(gv{0}, con{1}.{2}, false);",
                     objViewInfoENEx.TabName, objViewInfoENEx.TabName_Out,  objDGRegionFldsEx.ObjFieldTabENEx.FldName);

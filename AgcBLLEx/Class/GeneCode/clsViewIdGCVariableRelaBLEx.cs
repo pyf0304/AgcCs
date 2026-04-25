@@ -1118,7 +1118,8 @@ namespace AGC.BusinessLogicEx
         {
             var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}'  ";
             var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
-            var intCount = arrViewIdGCVariableRela.Count(x => x.ViewId == strViewId && x.RegionTypeNames.Contains("CacheField"));
+            var arrViewIdGCVariableRela_ViewId = arrViewIdGCVariableRela.Where(x => x.ViewId == strViewId);
+            var intCount = arrViewIdGCVariableRela_ViewId.Count(x => x.RegionTypeNames.Contains("CacheField"));
 
             return intCount;
         }

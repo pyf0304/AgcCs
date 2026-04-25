@@ -2708,6 +2708,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n" + " **/");
             strCodeForCs.Append("\r\n" + "public async EditRecordExSave(): Promise<boolean> {");
+            strFuncName = "EditRecordExSave";
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.EditRecordExSave.name;",
 this.TabName_In4Edit4GC, objKeyField.FldName);
 

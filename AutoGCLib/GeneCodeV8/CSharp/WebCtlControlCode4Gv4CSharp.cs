@@ -1389,7 +1389,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.AppendFormat("\r\n" + "public void SetGvVisibility_AllShow()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet.FindAll(x => string.IsNullOrEmpty( x.FldId ) == false))
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet.FindAll(x => string.IsNullOrEmpty( x.FldId ) == false))
                 {
                     strCodeForCs.AppendFormat("\r\n" + "clsCommForWebForm.SetGvVisibility(gv{0}, con{0}.{1}, true);",
                     strTabName_Out, objDGRegionFldsEx.ObjFieldTabENEx.FldName);
@@ -1417,7 +1417,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.AppendFormat("\r\n" + "public void SetGvVisibility_AllHide()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))                    
+                foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet.FindAll(x => string.IsNullOrEmpty(x.FldId) == false))                    
                 {
                     strCodeForCs.AppendFormat("\r\n" + "clsCommForWebForm.SetGvVisibility(gv{0}, con{0}.{1}, false);",
                     strTabName_Out,  objDGRegionFldsEx.ObjFieldTabENEx.FldName);
@@ -3992,7 +3992,7 @@ namespace AutoGCLib
 
             strBuilder.AppendFormat("\r\n" + "cls{0}BL.CopyTo(obj{0}ENS, obj{0}ENT);",
                     strTabName_Out);
-            List<clsDGRegionFldsENEx> arrDGRegionFld_Sel = objViewInfoENEx.arrDGRegionFldSet.FindAll(x => x.IsUseFunc() == true);
+            List<clsDGRegionFldsENEx> arrDGRegionFld_Sel = objViewInfoENEx.arrListRegionFldSet.FindAll(x => x.IsUseFunc() == true);
             //Graph g1 = clsDataNodeBLEx.InitGraph(objViewInfoENEx.PrjId);
             foreach (clsDGRegionFldsENEx objDGRegionFldsEx in arrDGRegionFld_Sel)
             {

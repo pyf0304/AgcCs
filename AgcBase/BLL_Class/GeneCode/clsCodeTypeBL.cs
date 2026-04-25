@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCodeTypeBL
  表名:CodeType(00050203)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:02:07
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/22 07:11:04
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -2967,6 +2967,18 @@ public const string Vue_ViewScript_List_TS_0263 = "0263";
  /// Vue共享(TS)
  /// </summary>
 public const string Vue_Share_TS_0264 = "0264";
+ /// <summary>
+ /// Vue_界面后台-列表_TS(TS)
+ /// </summary>
+public const string Vue_ViewScriptColumns_TS_0265 = "0265";
+ /// <summary>
+ /// Vue_界面后台-查询_TS(TS)
+ /// </summary>
+public const string Vue_ViewScriptQuery_TS_0266 = "0266";
+ /// <summary>
+ /// Vue_界面后台-命令_TS(TS)
+ /// </summary>
+public const string Vue_ViewScriptCommands_TS_0267 = "0267";
 }
  /// <summary>
  /// 代码类型(CodeType)
@@ -5175,6 +5187,7 @@ public static void BindDdl_CodeTypeIdCache(System.Web.UI.WebControls.DropDownLis
 //为数据源于表的下拉框设置内容
 System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem("选[代码类型]...","0");
 List<clsCodeTypeEN> arrCodeTypeObjLst = GetAllCodeTypeObjLstCache(); 
+arrCodeTypeObjLst = arrCodeTypeObjLst.OrderBy(x=>x.OrderNum).ToList(); 
 objDDL.DataValueField = conCodeType.CodeTypeId;
 objDDL.DataTextField = conCodeType.CodeTypeName;
 objDDL.DataSource = arrCodeTypeObjLst;
@@ -5390,7 +5403,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-04-22
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -5785,6 +5798,243 @@ public static string GetCode4CreateTable()
 
 
  #endregion 表操作
+
+
+ #region 排序相关函数
+
+/// <summary>
+/// 重新排序。
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_ReOrder)
+/// </summary>
+/// <returns></returns>
+public static bool ReOrder()
+{
+try
+{
+string strCondition = string.Format("1 = 1 order by {0} ", conCodeType.OrderNum); 
+List<clsCodeTypeEN> arrCodeTypeObjList = new clsCodeTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCodeTypeEN objCodeType in arrCodeTypeObjList)
+{
+objCodeType.OrderNum = intIndex;
+UpdateBySql2(objCodeType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("重序出错, {0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 调整所给关键字记录的序号。
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_AdjustOrderNum)
+/// </summary>
+/// <param name="strDirect">方向：用"Up","Down"表示</param>
+/// <param name="strCodeTypeId">所给的关键字</param>
+/// <returns>是否成绩</returns>
+public static bool AdjustOrderNum(string strDirect, string strCodeTypeId)
+{
+try
+{
+//操作步骤：
+//1、根据所给定的关键字[CodeTypeId],获取相应的序号[OrderNum]；
+//2、如果当前序号是否是末端序号；
+//3、如果是末端序号,就退出；
+//   3.1、如果是向下移动,判断当前序号是否“小于”当前表中的字段数,
+//	   即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+//   3.2、如果是向上移动,就判断当前序号是否“大于”1,
+//	   即不是第一条记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+//4、获取下(上)一个序号记录的关键字CodeTypeId
+//5、把当前关键字CodeTypeId所对应记录的序号加(减)1
+//6、把下(上)一个序号关键字CodeTypeId所对应的记录序号减(加)1
+string strMsg;
+int intOrderNum;    //当前记录的序号
+int intPrevOrderNum, intNextOrderNum;   //上下两条记录的序号
+string strPrevCodeTypeId = "";    //上一条序号的关键字CodeTypeId
+string strNextCodeTypeId = "";    //下一条序号的关键字CodeTypeId
+int intTabRecNum;       //当前表中字段的记录数
+StringBuilder strCondition = new StringBuilder();
+//1、根据所给定的关键字[CodeTypeId],获取相应的序号[OrderNum]。
+
+clsCodeTypeEN objCodeType = clsCodeTypeBL.GetObjByCodeTypeId(strCodeTypeId);
+
+intOrderNum = objCodeType.OrderNum ?? 0;//当前序号
+intPrevOrderNum = intOrderNum - 1;//前一条记录的序号
+intNextOrderNum = intOrderNum + 1;//后一条记录的序号
+//3、如果当前序号是否是末端序号,
+//		3.1 如果是末端序号,就退出,
+
+intTabRecNum = clsCodeTypeBL.GetRecCountByCond(clsCodeTypeEN._CurrTabName, "1 = 1");    //获取当前表的记录数
+switch (strDirect)
+{
+case "UP":
+case "Up":
+case "up":
+//3、如果是末端序号,就退出；
+//  3.2、如果是向上移动,就判断当前序号是否“大于”1,
+//	     即不是第一条记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+if (intOrderNum <= 1)
+{
+strMsg = string.Format("已经是第一条记录,不能再上移.(from {0})", clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+//		3.2 如果不是,即如果是向下移动,就判断当前序号是否“小于”当前表中的字段数,
+//		    即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+//		    如果是向上移动,就判断当前序号是否“大于”1,
+//		    即不是最开始一个记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+strCondition.AppendFormat(" {0} = {1}", conCodeType.OrderNum, intOrderNum - 1);
+//4、获取上一个序号字段的关键字CodeTypeId
+strPrevCodeTypeId = clsCodeTypeBL.GetFirstID_S(strCondition.ToString());
+if (string.IsNullOrEmpty(strPrevCodeTypeId) == true)
+{
+strMsg = string.Format("获取上一条记录的关键字出错.(from {0})", clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+//5、把当前关键字CodeTypeId所对应记录的序号减1
+//6、把下(上)一个序号关键字CodeTypeId所对应的记录序号加1
+clsCodeTypeBL.SetFldValue(clsCodeTypeEN._CurrTabName, conCodeType.OrderNum,
+intOrderNum - 1,
+string.Format("{0} = '{1}'", conCodeType.CodeTypeId, strCodeTypeId));
+clsCodeTypeBL.SetFldValue(clsCodeTypeEN._CurrTabName, conCodeType.OrderNum,
+intPrevOrderNum + 1,
+string.Format("{0} = '{1}'", conCodeType.CodeTypeId, strPrevCodeTypeId));
+break;
+case "DOWN":
+case "Down":
+case "down":
+//3、如果是末端序号,就退出；
+//   3.1、如果是向下移动,判断当前序号是否“小于”当前表中的字段数,
+//	   即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+if (intOrderNum >= intTabRecNum)    //如果当前序号大于表记录数
+{
+strMsg = string.Format("已经是最后一条记录,不能再下移.(from {0})", clsStackTrace.GetCurrClassFunction());
+                            throw new Exception(strMsg);
+}
+
+//4、获取下一个序号字段的关键字CodeTypeId
+strCondition.AppendFormat(" {0} = {1}", conCodeType.OrderNum, intOrderNum + 1);
+
+strNextCodeTypeId = clsCodeTypeBL.GetFirstID_S(strCondition.ToString());
+if (string.IsNullOrEmpty(strNextCodeTypeId) == true)
+{
+strMsg = string.Format("获取下一条记录的关键字出错.(from {0})", clsStackTrace.GetCurrClassFunction());
+
+throw new Exception(strMsg);
+}
+//5、把当前关键字CodeTypeId所对应记录的序号加1
+//6、把下(上)一个序号关键字CodeTypeId所对应的记录序号减1
+clsCodeTypeBL.SetFldValue(clsCodeTypeEN._CurrTabName, conCodeType.OrderNum,
+intOrderNum + 1,
+string.Format("{0} = '{1}'", conCodeType.CodeTypeId, strCodeTypeId));
+clsCodeTypeBL.SetFldValue(clsCodeTypeEN._CurrTabName, conCodeType.OrderNum,
+ 	 	intNextOrderNum - 1,
+ 	 	string.Format("{0} = '{1}'", conCodeType.CodeTypeId, strNextCodeTypeId));
+break;
+default:
+strMsg = string.Format("方向参数出错!strDirect=[{0}]({1})",
+strDirect,
+clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+clsCodeTypeBL.ReFreshCache();
+if (clsCodeTypeBL.relatedActions != null)
+{
+clsCodeTypeBL.relatedActions.UpdRelaTabDate(objCodeType.CodeTypeId, "UpdRelaTabDate");
+}
+return true;
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("调整记录次序出错!错误:[{0}]({1})",
+objException.Message,
+clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 把所给的关键字列表所对应的对象置底。
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_GoBottom)
+/// </summary>
+/// <param name="arrKeyId">所给的关键字列表</param>
+/// <returns></returns>
+public static bool GoBottom(List<string> arrKeyId)
+{
+try
+{
+if (arrKeyId.Count == 0) return true;
+string strKeyList = clsArray.GetSqlInStrByArray(arrKeyId, true);
+string strCondition = string.Format("{0} in ({1})", conCodeType.CodeTypeId, strKeyList);
+List<clsCodeTypeEN> arrCodeTypeLst = GetObjLst(strCondition);
+foreach (clsCodeTypeEN objCodeType in arrCodeTypeLst)
+{
+objCodeType.OrderNum = objCodeType.OrderNum + 10000;
+UpdateBySql2(objCodeType);
+}
+strCondition = string.Format("1 = 1 order by {0} ", conCodeType.OrderNum); 
+List<clsCodeTypeEN> arrCodeTypeObjList = new clsCodeTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCodeTypeEN objCodeType in arrCodeTypeObjList)
+{
+objCodeType.OrderNum = intIndex;
+UpdateBySql2(objCodeType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("置顶出错, {0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 把所给的关键字列表所对应的对象置顶。
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_GoTop)
+/// </summary>
+/// <param name="arrKeyId">所给的关键字列表</param>
+/// <returns></returns>
+public static bool GoTop(List<string> arrKeyId)
+{
+try
+{
+if (arrKeyId.Count == 0) return true;
+string strKeyList = clsArray.GetSqlInStrByArray(arrKeyId, true);
+string strCondition = string.Format("{0} in ({1})", conCodeType.CodeTypeId, strKeyList);
+List<clsCodeTypeEN> arrCodeTypeLst = GetObjLst(strCondition);
+foreach (clsCodeTypeEN objCodeType in arrCodeTypeLst)
+{
+objCodeType.OrderNum = objCodeType.OrderNum - 10000;
+UpdateBySql2(objCodeType);
+}
+strCondition = string.Format("1 = 1 order by {0} ", conCodeType.OrderNum); 
+List<clsCodeTypeEN> arrCodeTypeObjList = new clsCodeTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCodeTypeEN objCodeType in arrCodeTypeObjList)
+{
+objCodeType.OrderNum = intIndex;
+UpdateBySql2(objCodeType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("置顶出错!错误:{0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+
+ #endregion 排序相关函数
 }
  /// <summary>
  /// 代码类型(CodeType)

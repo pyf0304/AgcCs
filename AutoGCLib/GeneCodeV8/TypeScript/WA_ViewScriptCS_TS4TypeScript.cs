@@ -1165,7 +1165,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
             arrPropertyDef4GC = new List<clsPropertyDef4GC>();
             var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(objViewInfoENEx.CodeTypeId);
             //让用户设置属性;
-            if (objViewInfoENEx.arrQryRegionFldSet == null && objViewInfoENEx.arrDGRegionFldSet == null)
+            if (objViewInfoENEx.arrQryRegionFldSet == null && objViewInfoENEx.arrListRegionFldSet == null)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -1832,7 +1832,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
 
         public string Gen_WApi_Ts_BindTab(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            if (objViewInfoENEx.arrDGRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrListRegionFldSet == null) return "";
             IEnumerable<clsFeatureRegionFldsENEx> arrFeatureRegionFlds_GridRegion = objViewInfoENEx.arrFeatureRegionFlds.Where(x => x.RegionId == objViewInfoENEx.objViewRegion_Feature.RegionId);
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -1877,8 +1877,8 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
             strCodeForCs.Append("\r\n" + "orderNum: 1,");
             strCodeForCs.Append("\r\n" + "funcName: (strKey:string, strText:string) => { console.log(strKey, strText);return new HTMLElement();}");
             strCodeForCs.Append("\r\n" + "},");
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 if (objDGRegionFldsENEx.ObjFieldTabENEx == null) continue;
 
@@ -2178,8 +2178,8 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
             strCodeForCs.Append("\r\n" + "orderNum: 1,");
             strCodeForCs.Append("\r\n" + "funcName: (strKey:string, strText:string) => { console.log(strKey, strText);return new HTMLElement();}");
             strCodeForCs.Append("\r\n" + "},");
-            var arrDGRegionFlds = objViewInfoENEx.arrDGRegionFldSet.OrderBy(x => x.SeqNum);
-            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrDGRegionFlds)
+            var arrListRegionFlds = objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum);
+            foreach (clsDGRegionFldsENEx objDGRegionFldsENEx in arrListRegionFlds)
             {
                 if (objDGRegionFldsENEx.ObjFieldTabENEx == null) continue;
                 string strFldName4Bind = objDGRegionFldsENEx.PropertyName(this.IsFstLcase);
@@ -4299,6 +4299,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
 
             strCodeForCs.AppendFormat("\r\n" + "public async ExportExcel_{0}Cache(): Promise<ExportExcelData> ",
                 TabName_Out4ExportExcel4GC);
+            strFuncName =$"ExportExcel_{TabName_Out4ExportExcel4GC}Cache";
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.ExportExcel_{0}Cache.name;", TabName_Out4ExportExcel4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (viewVarSet.sort{0}By == null)", TabName_Out4ListRegion4GC, ThisClsName);
@@ -4507,6 +4508,9 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
 
             strCodeForCs.AppendFormat("\r\n" + "public async ExportExcel_{0}(): Promise<ExportExcelData> ",
                 TabName_Out4ExportExcel4GC);
+
+            strFuncName = string.Format("ExportExcel_{0}", TabName_Out4ExportExcel4GC);
+
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.ExportExcel_{0}.name;", TabName_Out4ExportExcel4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (viewVarSet.sort{0}By == null)", TabName_Out4ListRegion4GC, ThisClsName);
@@ -10500,6 +10504,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n **/");
                 strCodeForCs.Append("\r\n" + "public async btnGoTop_Click()");
+                strFuncName = "btnGoTop_Click";
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnGoTop_Click.name;",
        ViewMainTabName4GC, objKeyField.FldName);
@@ -10662,6 +10667,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n **/");
                 strCodeForCs.Append("\r\n" + "public async btnUpMove_Click()");
+                strFuncName = "btnUpMove_Click";
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnUpMove_Click.name;",
        ViewMainTabName4GC, objKeyField.FldName);
@@ -10925,6 +10931,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n **/");
                 strCodeForCs.Append("\r\n" + "public async btnDownMove_Click()");
+                strFuncName = "btnDownMove_Click";
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnDownMove_Click.name;",
        ViewMainTabName4GC, objKeyField.FldName);
@@ -11306,6 +11313,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n **/");
                 strCodeForCs.Append("\r\n" + "public async btnGoBottum_Click()");
+                strFuncName = "btnGoBottum_Click";
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnGoBottum_Click.name;",
        ViewMainTabName4GC, objKeyField.FldName);
@@ -11466,6 +11474,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n **/");
                 strCodeForCs.Append("\r\n" + "public async btnReOrder_Click()");
+                strFuncName = "btnReOrder_Click";
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnReOrder_Click.name;",
        ViewMainTabName4GC, objKeyField.FldName);
@@ -12197,7 +12206,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.FuncMap.name;");
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
-            List<clsDGRegionFldsENEx> arrDGRegionFld_Sel = objViewInfoENEx.arrDGRegionFldSet.FindAll(x => x.IsUseFunc() == true);
+            List<clsDGRegionFldsENEx> arrDGRegionFld_Sel = objViewInfoENEx.arrListRegionFldSet.FindAll(x => x.IsUseFunc() == true);
             //Graph g1 = clsDataNodeBLEx.InitGraph(objViewInfoENEx.PrjId);
             foreach (clsDGRegionFldsENEx objDGRegionFldsEx in arrDGRegionFld_Sel)
             {

@@ -329,7 +329,7 @@ namespace AGC.BusinessLogicEx
 
             objPrjTabENEx.arrFldSetAll = new List<clsPrjTabFldENEx>();
             objPrjTabENEx.arrFldSet = new List<clsPrjTabFldENEx>();
-            objPrjTabENEx.arrFldSetEx = new List<clsPrjTabFldENEx>();
+            objPrjTabENEx.arrExtendFldSet = new List<clsPrjTabFldENEx>();
             objPrjTabENEx.arrKeyFldSet = new List<clsPrjTabFldENEx>();
             string strCondition = string.Format("{0}='{1}' and {2}='1'", conPrjConstraint.TabId, objPrjTabENEx.TabId, conPrjConstraint.InUse);
 
@@ -362,7 +362,7 @@ namespace AGC.BusinessLogicEx
                     }
                     else
                     {
-                        objPrjTabENEx.arrFldSetEx.Add(objPrjTabFldENEx);
+                        objPrjTabENEx.arrExtendFldSet.Add(objPrjTabFldENEx);
                     }
                 }
                 if (objPrjTabFldENEx.FieldTypeId == enumFieldType.KeyField_02)

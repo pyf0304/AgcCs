@@ -659,7 +659,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "this.dgv{0} = new System.Windows.Forms.DataGridView();",
                     objViewInfoENEx.TabName_Out);
 
-                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx.CsType() != "byte[]")
                     {
@@ -918,12 +918,12 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "this.dgv{0}.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] ",
                     objViewInfoENEx.TabName_Out);
                 strCodeForCs.Append("\r\n" + "{");
-                for (int i = 0; i < objViewInfoENEx.arrDGRegionFldSet.Count; i++)
+                for (int i = 0; i < objViewInfoENEx.arrListRegionFldSet.Count; i++)
                 {
-                    clsDGRegionFldsENEx ObjLstViewRegionFldsEx = objViewInfoENEx.arrDGRegionFldSet[i] as clsDGRegionFldsENEx;
+                    clsDGRegionFldsENEx ObjLstViewRegionFldsEx = objViewInfoENEx.arrListRegionFldSet[i] as clsDGRegionFldsENEx;
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx.CsType() != "byte[]")
                     {
-                        if (i + 1 == objViewInfoENEx.arrDGRegionFldSet.Count)
+                        if (i + 1 == objViewInfoENEx.arrListRegionFldSet.Count)
                         {
                             strCodeForCs.AppendFormat("\r\n" + "this.dgvc{0}",
                              ObjLstViewRegionFldsEx.ObjFieldTabENEx.FldName);
@@ -960,7 +960,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "this.dgv{0}.Click +=  new System.EventHandler(this.dgv{0}_Click);",
                     objViewInfoENEx.TabName_Out);
 
-                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx.CsType() != "byte[]")
                     {
@@ -1054,7 +1054,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.DataGridView dgv{0};",
                     objViewInfoENEx.TabName_Out);
 
-                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrDGRegionFldSet)
+                foreach (clsDGRegionFldsENEx ObjLstViewRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
                 {
                     if (ObjLstViewRegionFldsEx.ObjFieldTabENEx.CsType() != "byte[]")
                     {

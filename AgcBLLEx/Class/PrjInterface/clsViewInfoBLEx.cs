@@ -3045,7 +3045,7 @@ namespace AGC.BusinessLogicEx
                 }
 
                 // 创建新界面
-                strNewViewId = clsGeneralTab.GetMaxStrId("ViewInfo", "ViewId", 8, objTask.TargetPrjId);
+                strNewViewId = clsViewInfoBL.GetMaxStrIdByPrefix_S(objTask.TargetPrjId);
                 clsViewInfoEN objNewViewInfo = new clsViewInfoEN(strNewViewId);
 
                 CopyViewInfoProperties(objSouViewInfo, objNewViewInfo, strNewViewId, objTask.TargetPrjId,
@@ -4077,7 +4077,7 @@ namespace AGC.BusinessLogicEx
                 else
                 {
                     // 不存在，复制到目标工程
-                    string strNewFuncModuleId = clsGeneralTab.GetMaxStrId("FuncModule_Agc", "FuncModuleAgcId", 8, strTarPrjId);
+                    string strNewFuncModuleId = clsFuncModule_AgcBL.GetMaxStrIdByPrefix_S(strTarPrjId);
                     clsFuncModule_AgcEN objNewFuncModule = new clsFuncModule_AgcEN(strNewFuncModuleId);
 
                     clsFuncModule_AgcBL.CopyTo(objSouFuncModule, objNewFuncModule);
@@ -4246,7 +4246,7 @@ namespace AGC.BusinessLogicEx
                 else
                 {
                     // 不存在，复制到目标工程
-                    string strNewTabFeatureId = clsGeneralTab.GetMaxStrId("TabFeature", "TabFeatureId", 8, strTarPrjId);
+                    string strNewTabFeatureId = clsTabFeatureBL.GetMaxStrIdByPrefix_S(strTarPrjId);
                     clsTabFeatureEN objNewTabFeature = new clsTabFeatureEN(strNewTabFeatureId);
 
                     clsTabFeatureBL.CopyTo(objSouTabFeature, objNewTabFeature);
@@ -4320,7 +4320,7 @@ namespace AGC.BusinessLogicEx
                 else
                 {
                     // 不存在，复制到目标工程
-                    string strNewTabFeatureId = clsGeneralTab.GetMaxStrId("TabFeature", "TabFeatureId", 8, strTarPrjId);
+                    string strNewTabFeatureId = clsTabFeatureBL.GetMaxStrIdByPrefix_S(strTarPrjId);
                     clsTabFeatureEN objNewTabFeature = new clsTabFeatureEN(strNewTabFeatureId);
 
                     clsTabFeatureBL.CopyTo(objSouTabFeature, objNewTabFeature);
@@ -5096,7 +5096,7 @@ namespace AGC.BusinessLogicEx
                 else
                 {
                     // 复制新区域
-                    string strNewRegionId = clsGeneralTab.GetMaxStrId("ViewRegion", "RegionId", 8, objTask.TargetPrjId);
+                    string strNewRegionId = clsViewRegionBL.GetMaxStrId_S();
                     clsViewRegionEN objNewRegion = new clsViewRegionEN(strNewRegionId);
 
                     clsViewRegionBL.CopyTo(objSouRegion, objNewRegion);

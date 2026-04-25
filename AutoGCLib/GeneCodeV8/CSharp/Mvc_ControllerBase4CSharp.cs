@@ -320,7 +320,7 @@ namespace AutoGCLib
 
                 //strCodeForCs.Append("\r\n" + "IEnumerable <cls{0}EN> arrObjLst2 = arrObjLst;", objMainPrjTab.TabName);
                 bool bolIsFirst = true;
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet.Where(x=>x.ObjFieldTabENEx != null))
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet.Where(x=>x.ObjFieldTabENEx != null))
                 {
                     if (bolIsFirst == true)
                     {
@@ -338,7 +338,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
                 bolIsFirst = true;
                 string strFirstFieldName = "";
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
                 {
                     if (bolIsFirst == true)
                     {
@@ -417,7 +417,7 @@ namespace AutoGCLib
 
                 //strCodeForCs.Append("\r\n" + "IEnumerable <cls{0}EN> arrObjLst2 = arrObjLst;", objMainPrjTab.TabName);
                 bool bolIsFirst = true;
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
                 {
                     if (bolIsFirst == true)
                     {
@@ -435,7 +435,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
                 bolIsFirst = true;
                 string strFirstFieldName = "";
-                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrDGRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
+                foreach (clsDGRegionFldsENEx ObjInFor in objViewInfoENEx.arrListRegionFldSet.Where(x => x.ObjFieldTabENEx != null))
                 {
                     if (bolIsFirst == true)
                     {

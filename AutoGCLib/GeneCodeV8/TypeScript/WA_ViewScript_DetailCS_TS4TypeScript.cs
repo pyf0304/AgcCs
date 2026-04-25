@@ -1544,6 +1544,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
                  objKeyField.PrivFuncName,
                   objKeyField.TypeScriptType);
             }
+            strFuncName = "DetailRecord";
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.DetailRecord.name;",
 objViewInfoENEx.TabName, objKeyField.FldName);

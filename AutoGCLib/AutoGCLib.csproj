@@ -12,6 +12,13 @@
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Templates\TypeScript\Ai2Columns.sbn" />
+    <None Remove="Templates\TypeScript\Ai3Query.sbn" />
+    <None Remove="Templates\TypeScript\Ai4Base.sbn" />
+    <None Remove="Templates\TypeScript\Ai4Command.sbn" />
+    <None Remove="Templates\TypeScript\EditAi.sbn" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="GeneCodeV8\JavaScript\" />
     <Folder Include="PrjFunction\" />
     <Folder Include="Properties\" />
@@ -32,12 +39,29 @@
     <ProjectReference Include="..\TzAdvancedLib\TzAdvancedLib.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Templates\TypeScript\Ai2Columns.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TypeScript\Ai4Base.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TypeScript\Ai4Command.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TypeScript\EditAi.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\Vue_ViewScript_TS4Html\Gen_CRUD_setup_btnUpdate_Click.sbn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Scriban" Version="7.0.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\TypeScript\Ai3Query.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PubDataBase">
