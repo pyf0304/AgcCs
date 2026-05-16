@@ -46,7 +46,11 @@ namespace AutoGCLib
             //
         }
         #endregion
-            
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成Web服务层后台代码
         /// </summary>

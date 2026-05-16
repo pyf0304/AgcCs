@@ -40,7 +40,10 @@ namespace AutoGCLib
     class AutoGC6SilverLight_M : clsGeneCodeBase4Tab
     {
 
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         #region ¹¹Ôìº¯Êý
 
         public AutoGC6SilverLight_M(string strTabId,  string strPrjDataBaseId, string strPrjId)

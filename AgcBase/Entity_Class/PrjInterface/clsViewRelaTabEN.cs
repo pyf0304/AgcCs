@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRelaTabEN
  表名:ViewRelaTab(00050100)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:50
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:37:05
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -82,8 +82,8 @@ public new const string _CurrTabName = "ViewRelaTab"; //当前表名,与该类�
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 11;
-public static string[] _AttributeName = new string[] {"mId", "ViewId", "RegionId", "InOutTypeId", "ViewTabTypeId", "TabId", "TabFunction", "PrjId", "UpdDate", "UpdUser", "Memo"};
+protected const int _AttributeCount = 12;
+public static string[] _AttributeName = new string[] {"mId", "ViewId", "RegionId", "InOutTypeId", "ViewTabTypeId", "TabId", "TabFunction", "PrjId", "RelaFldNames", "UpdDate", "UpdUser", "Memo"};
 
 protected long mlngmId;    //mId
 protected string mstrViewId;    //界面Id
@@ -93,6 +93,7 @@ protected string mstrViewTabTypeId;    //界面表类型码
 protected string mstrTabId;    //表ID
 protected string mstrTabFunction;    //表功能说明
 protected string mstrPrjId;    //工程Id
+protected string mstrRelaFldNames;    //相关字段名s
 protected string mstrUpdDate;    //修改日期
 protected string mstrUpdUser;    //修改者
 protected string mstrMemo;    //说明
@@ -169,6 +170,10 @@ else if (strAttributeName  ==  conViewRelaTab.PrjId)
 {
 return mstrPrjId;
 }
+else if (strAttributeName  ==  conViewRelaTab.RelaFldNames)
+{
+return mstrRelaFldNames;
+}
 else if (strAttributeName  ==  conViewRelaTab.UpdDate)
 {
 return mstrUpdDate;
@@ -225,6 +230,11 @@ else if (strAttributeName  ==  conViewRelaTab.PrjId)
 mstrPrjId = value.ToString();
  AddUpdatedFld(conViewRelaTab.PrjId);
 }
+else if (strAttributeName  ==  conViewRelaTab.RelaFldNames)
+{
+mstrRelaFldNames = value.ToString();
+ AddUpdatedFld(conViewRelaTab.RelaFldNames);
+}
 else if (strAttributeName  ==  conViewRelaTab.UpdDate)
 {
 mstrUpdDate = value.ToString();
@@ -277,6 +287,10 @@ return mstrTabFunction;
 else if (conViewRelaTab.PrjId  ==  _AttributeName[intIndex])
 {
 return mstrPrjId;
+}
+else if (conViewRelaTab.RelaFldNames  ==  _AttributeName[intIndex])
+{
+return mstrRelaFldNames;
 }
 else if (conViewRelaTab.UpdDate  ==  _AttributeName[intIndex])
 {
@@ -333,6 +347,11 @@ else if (conViewRelaTab.PrjId  ==  _AttributeName[intIndex])
 {
 mstrPrjId = value.ToString();
  AddUpdatedFld(conViewRelaTab.PrjId);
+}
+else if (conViewRelaTab.RelaFldNames  ==  _AttributeName[intIndex])
+{
+mstrRelaFldNames = value.ToString();
+ AddUpdatedFld(conViewRelaTab.RelaFldNames);
 }
 else if (conViewRelaTab.UpdDate  ==  _AttributeName[intIndex])
 {
@@ -553,6 +572,32 @@ else
 }
 }
 /// <summary>
+/// 相关字段名s(说明:;字段类型:varchar;字段长度:500;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string RelaFldNames
+{
+get
+{
+return mstrRelaFldNames;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrRelaFldNames = value;
+}
+else
+{
+ mstrRelaFldNames = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conViewRelaTab.RelaFldNames);
+}
+}
+/// <summary>
 /// 修改日期(说明:;字段类型:varchar;字段长度:20;是否可空:True)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
@@ -651,7 +696,7 @@ public static class conViewRelaTab
 {
 public const string _CurrTabName = "ViewRelaTab"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"mId", "ViewId", "RegionId", "InOutTypeId", "ViewTabTypeId", "TabId", "TabFunction", "PrjId", "UpdDate", "UpdUser", "Memo"};
+public static string[] _AttributeName = new string[] {"mId", "ViewId", "RegionId", "InOutTypeId", "ViewTabTypeId", "TabId", "TabFunction", "PrjId", "RelaFldNames", "UpdDate", "UpdUser", "Memo"};
 //以下是属性变量
 
 
@@ -702,6 +747,12 @@ public static string[] _AttributeName = new string[] {"mId", "ViewId", "RegionId
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string PrjId = "PrjId";    //工程Id
+
+ /// <summary>
+ /// 常量:"RelaFldNames"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string RelaFldNames = "RelaFldNames";    //相关字段名s
 
  /// <summary>
  /// 常量:"UpdDate"

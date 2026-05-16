@@ -1,0 +1,399 @@
+﻿import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
+import {
+  
+    {{~ if HasCacheMode ~}}
+  Combine{{ TableName }}ConditionObj4ExportExcel,
+  Combine{{ TableName }}ConditionObj,
+  {{~ else ~}}
+  Combine{{ TableName }}Condition4ExportExcel,
+  Combine{{ TableName }}Condition,
+  {{~ end ~}}
+  {{~ if HasCacheMode ~}}
+  {{ TableName }}_DeleteKeyIdCache,
+  {{~ end ~}}
+  divVarSet,
+  viewVarSet,
+  dataColumn,
+  BindTabByList,
+  ref{{ TableName }}_List,
+} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+import {
+  {{~ if HasCacheMode ~}}
+  {{ TableName }}_GetRecCountByCondCache,
+  {{ TableName }}_GetSubObjLstCache,
+  {{ TableName }}_ReFreshCache,
+  {{ TableName }}_FuncMapByFldName,
+  {{ TableName }}_GetObjExLstByPagerCache,
+  {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ else ~}}
+  {{ TableName }}_GetRecCountByCondAsync,
+  {{ TableName }}_DelRecordAsync,
+  {{ TableName }}_GetObjBy{{ KeyField }}Async,
+  {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{ TableName }}_AddNewRecordAsync,
+  {{~ end ~}}
+  {{ TableName }}_UpdateRecordAsync,
+  {{ TableName }}_Del{{ TableName }}sAsync,
+} from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+{{~ if IsUseFunc ~}}
+import {
+  {{ TableName }}Ex_FuncMapByFldName,
+  {{ TableName }}Ex_GetObjExLstByPagerAsync,
+} from '@/ts/L3ForWApiEx/{{ ModuleName }}/cls{{ TableName }}ExWApi';
+{{~ end ~}}
+import {
+  GetCheckedKeyIdsInDivObj,
+  GetSelectValueInDivObj,
+  GetDivObjInDivObj,
+} from '@/ts/PubFun/clsCommFunc4Ctrl';
+import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
+import { cls{{ TableName }}ENEx } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}ENEx';
+import { cls{{ TableName }}EN } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+import { ObjectAssign, BindTab, confirmDel } from '@/ts/PubFun/clsCommFunc4Web';
+import { stuPagerPara } from '@/ts/PubFun/stuPagerPara';
+import { clsDataColumn } from '@/ts/PubFun/clsDataColumn';
+import { clsOperateList, GetCurrPageIndex } from '@/ts/PubFun/clsOperateList';
+import { AIOperateListBase } from '@/viewsBase/common/AIOperateListBase';
+import {
+  getExportColumnSpecsAi,
+  getListColumnsAi,
+} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiColumns';
+
+/**
+ * Ai版基类：
+ * 在Ai3基础上增加命令schema驱动，不改变原有基类行为。
+ */
+export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements clsOperateList {
+  public static vuebtn_Click: (strCommandName: string, strKeyId: any) => void;
+  public static GetPropValue: (strPropName: string) => string;
+  public static sortFunStatic: (ascOrDesc: string) => (x: any, y: any) => number;
+  public recCount = 0;
+
+  constructor() {
+    super(divVarSet.refDivLayout, divVarSet.refDivList);
+  }
+
+  public get thisTabName(): string {
+    return cls{{ TableName }}EN._CurrTabName;
+  }
+
+  public get dispAllErrMsg_q(): boolean {
+    return true;
+  }
+
+  public async InitVarSet(): Promise<void> {
+    // no-op
+  }
+
+  public async InitCtlVar(): Promise<void> {
+    // no-op
+  }
+
+  protected getListColumnsAi(): Array<clsDataColumn> {
+    return getListColumnsAi();
+  }
+
+  protected getExportColumnSpecsAi(): Array<{ colHeader: string }> {
+    return getExportColumnSpecsAi();
+  }
+
+  public abstract SortColumn(sortColumnKey: string, sortDirection: string): void;
+
+  /** 页面初始化 */
+  public async PageLoadCache() {
+    try {
+      await this.InitVarSet();
+      await this.InitCtlVar();
+      if (viewVarSet.sort{{ TableName }}By == '') {
+        viewVarSet.sort{{ TableName }}By = `${cls{{ TableName }}EN.con_{{ KeyField }}} Asc`;
+      }
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+    } catch (e) {
+      const strMsg = `页面启动不成功,${e}.(in ${this.constructor.name}.${this.PageLoadCache.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 查询按钮点击事件处理：调用基类QueryClickTemplate执行查询
+   *
+   * 职责：
+   * 1. 重置页码到第1页
+   * 2. 根据查询条件刷新数据
+   *
+   * 使用场景：用户点击查询按钮时触发
+   */
+  public async btnQuery_Click() {
+    await this.QueryClickTemplate(async () => {
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+    });
+  }
+
+{{~ for feature in SetFieldFeatures ~}}
+  public async SetDdl_{{ feature.FieldName }}InDivInFeature() {
+    await {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache(divVarSet.refDivFunction, '{{ feature.DdlId }}');
+  }
+
+  /**
+   * 设置{{ feature.FieldCnName }}按钮点击事件处理
+   *
+   * 流程：
+   * 1. 验证是否选中了记录
+   * 2. 验证是否选择了有效的{{ feature.FieldCnName }}
+   * 3. 执行批量设置操作
+   * 4. 操作完成后刷新数据列表
+   *
+   * 使用场景：用户选择多条记录后，点击"设置{{ feature.FieldCnName }}"按钮
+   */
+  public async {{ feature.ButtonMethodName }}() {
+    try {
+      const str{{ feature.FieldName }} = GetSelectValueInDivObj(
+        divVarSet.refDivFunction,
+        '{{ feature.DdlId }}_SetFldValue',
+      );
+      await this.ExecuteSelectionActionTemplate({
+        selectedKeys: GetCheckedKeyIdsInDivObj(divVarSet.refDivList),
+        emptySelectionMessage: `请选择需要设置{{ feature.FieldCnName }}的${this.thisTabName}记录!`,
+        beforeExecute: () => {
+          if (str{{ feature.FieldName }} == '') {
+            const strMsg = '请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!';
+            console.error(strMsg);
+            alert(strMsg);
+            return false;
+          }
+          return true;
+        },
+        execute: async (arrKeyIds) => {
+          await this.{{ feature.MethodName }}(arrKeyIds, str{{ feature.FieldName }});
+        },
+        onAfterExecute: async () => {
+          await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+        },
+      });
+    } catch (e) {
+      const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${this.{{ feature.ButtonMethodName }}.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+{{~ if HasDeleteFeature ~}}
+  /**
+   * 删除记录按钮点击事件处理
+   *
+   * 流程：
+   * 1. 验证是否选中了要删除的记录
+   * 2. 弹出确认对话框，要求用户确认删除
+   * 3. 执行批量删除操作
+   * 4. 操作完成后刷新数据列表
+   *
+   * 使用场景：用户选择多条记录后，点击"删除"按钮
+   */
+  public async btnDelRecord_Click() {
+    try {
+      await this.ExecuteSelectionActionTemplate({
+        selectedKeys: GetCheckedKeyIdsInDivObj(divVarSet.refDivList),
+        emptySelectionMessage: `请选择需要删除的${this.thisTabName}记录!`,
+        beforeExecute: (arrKeyIds) => confirmDel(arrKeyIds.length),
+        execute: async (arrKeyIds) => {
+          await this.DelMultiRecord(arrKeyIds);
+        },
+        onAfterExecute: async () => {
+          await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+        },
+      });
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${this.btnDelRecord_Click.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  public async DelMultiRecord(arr{{ TableName }}Id: Array<string>) {
+    const strThisFuncName = this.DelMultiRecord.name;
+    try {
+      const returnInt = await {{ TableName }}_Del{{ TableName }}sAsync(arr{{ TableName }}Id);
+      if (returnInt > 0) {
+        {{~ if HasCacheMode ~}}
+        {{ TableName }}_ReFreshCache();
+        {{~ end ~}}
+        alert(`删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`);
+      } else {
+        alert(`删除${this.thisTabName}记录不成功!`);
+      }
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+{{~ for feature in SetFieldFeatures ~}}
+  /** 批量设置{{ feature.FieldCnName }}。 */
+  public async {{ feature.MethodName }}(arr{{ TableName }}Id: Array<string>, str{{ feature.FieldName }}: string) {
+    const strThisFuncName = this.{{ feature.MethodName }}.name;
+    if (str{{ feature.FieldName }} == null || str{{ feature.FieldName }} == '') {
+      alert('请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!');
+      return '';
+    }
+    if (arr{{ TableName }}Id.length == 0) {
+      alert('没有选择记录,不能设置字段值!');
+      return '';
+    }
+
+    try {
+      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
+        arr{{ TableName }}Id,
+      );
+      let intCount = 0;
+      for (const objInFor of arr{{ TableName }}ObjLst) {
+        const obj{{ TableName }}EN = new cls{{ TableName }}EN();
+        ObjectAssign(obj{{ TableName }}EN, objInFor);
+        obj{{ TableName }}EN.Set{{ KeyField }}(objInFor.{{ KeyFieldCamel }});
+        obj{{ TableName }}EN.Set{{ feature.FieldName }}(str{{ feature.FieldName }});
+
+        let returnBool = false;
+        try {
+          obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
+          returnBool = await {{ TableName }}_UpdateRecordAsync(obj{{ TableName }}EN);
+        } catch (e) {
+          const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+          console.error(strMsg);
+          throw strMsg;
+        }
+
+        if (returnBool == true) {
+          {{~ if HasCacheMode ~}}
+          {{ TableName }}_DeleteKeyIdCache(objInFor.{{ KeyFieldCamel }});
+          {{~ end ~}}
+          intCount++;
+        } else {
+          alert('设置记录不成功!');
+        }
+      }
+
+      alert(`共设置了${intCount}条记录!`);
+      if (intCount > 0) {
+        {{~ if HasCacheMode ~}}
+        {{ TableName }}_ReFreshCache();
+        {{~ end ~}}
+      }
+    } catch (e) {
+      const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+  /** 按当前查询条件导出原始列表数据。 */
+  {{~ if HasCacheMode ~}}
+  public async ExportExcel_{{ TableName }}Cache(): Promise<ExportExcelData> {
+    const strThisFuncName = this.ExportExcel_{{ TableName }}Cache.name;
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}(): Promise<ExportExcelData> {
+    const strThisFuncName = this.ExportExcel_{{ TableName }}.name;
+  {{~ end ~}}
+    if (viewVarSet.sort{{ TableName }}By == null) {
+      const strMsg = Format(
+        '在显示列表时,排序字段(sort{{ TableName }}By)为空,请检查!(In BindGv_{{ TableName }}Cache)',
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    {{~ if HasCacheMode ~}}
+    const obj{{ TableName }}Cond = await Combine{{ TableName }}ConditionObj4ExportExcel();
+    {{~ else ~}}
+    const strWhereCond = await Combine{{ TableName }}Condition4ExportExcel();
+    {{~ end ~}}
+    let arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN> = [];
+    try {
+      {{~ if HasCacheMode ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond);
+      if (this.recCount == 0) {
+        const strMsg = Format(
+          '在绑定GvCache过程中,根据条件:[{0}]获取的对象列表数为0!',
+          obj{{ TableName }}Cond.whereCond,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        return { arrObjLst: [], sheetName: '', fileName: '' };
+      }
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetSubObjLstCache(obj{{ TableName }}Cond);
+      {{~ else ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
+      if (this.recCount == 0) {
+        const lblMsg: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
+        lblMsg.innerHTML = Format('根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        const strMsg = Format('在绑定Gv过程中,根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        console.error('Error: ', strMsg);
+        //console.trace();
+        alert(strMsg);
+        return { arrObjLst: [], sheetName: '', fileName: '' };
+      }
+
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstAsync(strWhereCond);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    if (arr{{ TableName }}ObjLst.length == 0) {
+      {{~ if !HasCacheMode ~}}
+      const strMsg = `在ExportExcel过程中,根据条件获取的${this.thisTabName}记录数为0!`;
+      console.error('Error: ', strMsg);
+      //console.trace();
+      alert(strMsg);
+      {{~ end ~}}
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    try {
+      const arrDataColumn = this.getListColumnsAi();
+      arr{{ TableName }}ObjLst = arr{{ TableName }}ObjLst.sort(this.SortFunExportExcel);
+      return this.CombineData(arr{{ TableName }}ObjLst, arrDataColumn);
+    } catch (e) {
+      const strMsg = `绑定${this.thisTabName}对象列表不成功, ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+  }
+
+  /** 按导出列规格整理导出结果。 */
+  {{~ if HasCacheMode ~}}
+  public async ExportExcel_{{ TableName }}CacheAi(): Promise<ExportExcelData> {
+    const raw = await this.ExportExcel_{{ TableName }}Cache();
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}Ai(): Promise<ExportExcelData> {
+    const raw = await this.ExportExcel_{{ TableName }}();
+  {{~ end ~}}
+    if (raw.arrObjLst.length === 0) return raw;
+    const normalizedRows = this.NormalizeExportRowsBySpecs(
+      raw.arrObjLst as Array<Record<string, any>>,
+      this.getExportColumnSpecsAi(),
+    );
+
+    return {
+      arrObjLst: normalizedRows,
+      sheetName: raw.sheetName,
+      fileName: raw.fileName,
+    };
+  }
+
+  /** 导出按钮入口。 */
+  public async btnExportExcel_Click() {
+    {{~ if HasCacheMode ~}}
+    await this.ExportExcel_{{ TableName }}Cache();
+    {{~ else ~}}
+    await this.ExportExcel_{{ TableName }}();
+    {{~ end ~}}
+  }

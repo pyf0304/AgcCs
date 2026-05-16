@@ -39,7 +39,10 @@ namespace AutoGCLib
     {
         private string strKeyFldName_ObjName = "";
 
-        
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public WA_ViewUTScriptCS4CSharp(string strTabId, string strPrjDataBaseId, string strPrjId)
           : base(strTabId, strPrjDataBaseId, strPrjId)
         {

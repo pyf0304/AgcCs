@@ -101,7 +101,7 @@ namespace AutoGCLib
                         objEditRegionFldsEx.CtrlId4Win = objEditRegionFldsEx.CtrlId4Win.Replace("ddl", "cbo");
                     }
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -257,11 +257,11 @@ namespace AutoGCLib
                 //strCodeForCs.Append(strTemp);
 
                 //第十六步:生成用于组合查询条件的函数
-                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
 
 

@@ -603,6 +603,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// </summary>
         /// <param name = "strPrjId">工程ID</param>
         /// <param name = "strFldName">字段名称</param>
+        /// <param name = "strFldTypeId">字段类型Id</param>   
         /// <returns>字段ID</returns>
         public static string GetFldId(string strPrjId, string strFldName, string strFldTypeId, int intFldLength)
         {
@@ -2341,8 +2342,90 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             }
             return strToday;
         }
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
+   
+
+        /// <summary>
+        /// 同步满足条件的记录，从Client到Server
+        /// </summary>
+        /// <param name="strCondition">同步的条件</param>
+        /// <param name="strOpUserId">操作同步的用户</param>
+        /// <returns></returns>
+        //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
         //public static bool CheckFieldTab(string strFldId)
         //{
+
+        //    if (string.IsNullOrEmpty(strOpUserId) == true)
+
+        //    if (string.IsNullOrEmpty(strOpUserId) == true)
+
+        //    if (string.IsNullOrEmpty(strOpUserId) == true)
+
+        //    if (string.IsNullOrEmpty(strOpUserId) == true)
+        //    {
+        //        throw new Exception("同步到服务端时，同步人不能为空！");
+        //    }
+        //    int intCount = 0;
+
+        //    string strCurrDate14 = clsDateTime_Db.GetDataBaseDateTime14();
+        //    clsSysParaEN.strConnectStrName = "ConnectionStringClient";
+
+        //    List<clsFieldTabEN> arrFieldTabENObjLst = clsFieldTabBL.GetObjLst(strCondition);
+
+        //    foreach (clsFieldTabEN objFieldTabEN4Web in arrFieldTabENObjLst)
         //  clsFieldTabENEx objFieldTabEN = clsFieldTabBL.GetObjByFldId(strFldId);
         //  string strFieldTypeName = GetFldType(strFldId);
         //  if (strFieldTypeName == "char" || strFieldTypeName == "varchar")

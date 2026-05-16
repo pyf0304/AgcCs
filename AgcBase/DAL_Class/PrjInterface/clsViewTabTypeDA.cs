@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewTabTypeDA
  表名:ViewTabType(00050103)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:09:22
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/29 01:21:47
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -527,8 +527,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
  catch(Exception objException)
 {
@@ -576,8 +577,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
  catch(Exception objException)
 {
@@ -615,8 +617,9 @@ return false;
 try
 {
  objViewTabTypeEN.ViewTabTypeId = objDT.Rows[0][conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码(字段类型:varchar,字段长度:4,是否可空:False)
- objViewTabTypeEN.ViewTabTypeName = objDT.Rows[0][conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName(字段类型:varchar,字段长度:20,是否可空:False)
- objViewTabTypeEN.TabTypeFunction = objDT.Rows[0][conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction(字段类型:varchar,字段长度:500,是否可空:True)
+ objViewTabTypeEN.ViewTabTypeName = objDT.Rows[0][conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名(字段类型:varchar,字段长度:20,是否可空:False)
+ objViewTabTypeEN.ViewTabTypeEnName = objDT.Rows[0][conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名(字段类型:varchar,字段长度:100,是否可空:True)
+ objViewTabTypeEN.TabTypeFunction = objDT.Rows[0][conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能(字段类型:varchar,字段长度:500,是否可空:True)
 }
  catch(Exception objException)
 {
@@ -650,8 +653,9 @@ clsViewTabTypeEN objViewTabTypeEN = new clsViewTabTypeEN();
 try
 {
  objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码(字段类型:varchar,字段长度:4,是否可空:False)
- objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName(字段类型:varchar,字段长度:20,是否可空:False)
- objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction(字段类型:varchar,字段长度:500,是否可空:True)
+ objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名(字段类型:varchar,字段长度:20,是否可空:False)
+ objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名(字段类型:varchar,字段长度:100,是否可空:True)
+ objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能(字段类型:varchar,字段长度:500,是否可空:True)
 }
  catch(Exception objException)
 {
@@ -694,8 +698,9 @@ try
 	clsViewTabTypeEN objViewTabTypeEN = new clsViewTabTypeEN()
 {
 ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(), //界面表类型码
-ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(), //ViewTabTypeName
-TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim() //TabTypeFunction
+ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(), //界面表类型名
+ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(), //界面表类型英文名
+TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim() //表类型功能
 };
 objViewTabTypeEN.ClearUpdateState();//清除修改状态,即清除脏字段信息
 return objViewTabTypeEN;
@@ -722,8 +727,9 @@ return null;
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
  catch(Exception objException)
 {
@@ -748,8 +754,9 @@ return null;
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
  catch(Exception objException)
 {
@@ -983,10 +990,11 @@ objCB = new System.Data.SqlClient.SqlCommandBuilder(objDA);
 objDA.Fill(objDS, "ViewTabType");
 objRow = objDS.Tables["ViewTabType"].NewRow();
 objRow[conViewTabType.ViewTabTypeId] = objViewTabTypeEN.ViewTabTypeId; //界面表类型码
-objRow[conViewTabType.ViewTabTypeName] = objViewTabTypeEN.ViewTabTypeName; //ViewTabTypeName
+objRow[conViewTabType.ViewTabTypeName] = objViewTabTypeEN.ViewTabTypeName; //界面表类型名
+objRow[conViewTabType.ViewTabTypeEnName] = objViewTabTypeEN.ViewTabTypeEnName; //界面表类型英文名
  if (objViewTabTypeEN.TabTypeFunction !=  "")
  {
-objRow[conViewTabType.TabTypeFunction] = objViewTabTypeEN.TabTypeFunction; //TabTypeFunction
+objRow[conViewTabType.TabTypeFunction] = objViewTabTypeEN.TabTypeFunction; //表类型功能
  }
 objDS.Tables[clsViewTabTypeEN._CurrTabName].Rows.Add(objRow);
 try
@@ -1037,6 +1045,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewTabType.ViewTabTypeName);
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strViewTabTypeName + "'");
+ }
+ 
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ arrFieldListForInsert.Add(conViewTabType.ViewTabTypeEnName);
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strViewTabTypeEnName + "'");
  }
  
  if (objViewTabTypeEN.TabTypeFunction !=  null)
@@ -1092,6 +1107,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewTabType.ViewTabTypeName);
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strViewTabTypeName + "'");
+ }
+ 
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ arrFieldListForInsert.Add(conViewTabType.ViewTabTypeEnName);
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strViewTabTypeEnName + "'");
  }
  
  if (objViewTabTypeEN.TabTypeFunction !=  null)
@@ -1152,6 +1174,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strViewTabTypeName + "'");
  }
  
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ arrFieldListForInsert.Add(conViewTabType.ViewTabTypeEnName);
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strViewTabTypeEnName + "'");
+ }
+ 
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  arrFieldListForInsert.Add(conViewTabType.TabTypeFunction);
@@ -1210,6 +1239,13 @@ public bool AddNewRecordBySQL2(clsViewTabTypeEN objViewTabTypeEN, SqlConnection 
  arrValueListForInsert.Add("'" + strViewTabTypeName + "'");
  }
  
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ arrFieldListForInsert.Add(conViewTabType.ViewTabTypeEnName);
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strViewTabTypeEnName + "'");
+ }
+ 
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  arrFieldListForInsert.Add(conViewTabType.TabTypeFunction);
@@ -1266,8 +1302,9 @@ foreach(System.Data.DataRow oRow in oDT.Rows)
 {
 objRow = objDS.Tables[clsViewTabTypeEN._CurrTabName ].NewRow();
 objRow[conViewTabType.ViewTabTypeId] = oRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objRow[conViewTabType.ViewTabTypeName] = oRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objRow[conViewTabType.TabTypeFunction] = oRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objRow[conViewTabType.ViewTabTypeName] = oRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objRow[conViewTabType.ViewTabTypeEnName] = oRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objRow[conViewTabType.TabTypeFunction] = oRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
  objDS.Tables[clsViewTabTypeEN._CurrTabName].Rows.Add(objRow);
 }
 try
@@ -1326,11 +1363,15 @@ objRow[conViewTabType.ViewTabTypeId] = objViewTabTypeEN.ViewTabTypeId; //界面�
  }
  if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeName))
  {
-objRow[conViewTabType.ViewTabTypeName] = objViewTabTypeEN.ViewTabTypeName; //ViewTabTypeName
+objRow[conViewTabType.ViewTabTypeName] = objViewTabTypeEN.ViewTabTypeName; //界面表类型名
+ }
+ if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeEnName))
+ {
+objRow[conViewTabType.ViewTabTypeEnName] = objViewTabTypeEN.ViewTabTypeEnName; //界面表类型英文名
  }
  if (objViewTabTypeEN.IsUpdated(conViewTabType.TabTypeFunction))
  {
-objRow[conViewTabType.TabTypeFunction] = objViewTabTypeEN.TabTypeFunction; //TabTypeFunction
+objRow[conViewTabType.TabTypeFunction] = objViewTabTypeEN.TabTypeFunction; //表类型功能
  }
 try
 {
@@ -1374,11 +1415,24 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.ViewTabTypeName !=  null)
  {
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeName, conViewTabType.ViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeName, conViewTabType.ViewTabTypeName); //界面表类型名
  }
  else
  {
- sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeName); //界面表类型名
+ }
+ }
+ 
+ if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeEnName))
+ {
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeEnName, conViewTabType.ViewTabTypeEnName); //界面表类型英文名
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeEnName); //界面表类型英文名
  }
  }
  
@@ -1387,11 +1441,11 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  var strTabTypeFunction = objViewTabTypeEN.TabTypeFunction.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strTabTypeFunction, conViewTabType.TabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat("{1} = '{0}',", strTabTypeFunction, conViewTabType.TabTypeFunction); //表类型功能
  }
  else
  {
- sbSQL.AppendFormat("{0} = null,",conViewTabType.TabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.TabTypeFunction); //表类型功能
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
@@ -1437,11 +1491,24 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.ViewTabTypeName !=  null)
  {
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" ViewTabTypeName = '{0}',", strViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat(" ViewTabTypeName = '{0}',", strViewTabTypeName); //界面表类型名
  }
  else
  {
- sbSQL.Append(" ViewTabTypeName = null,"); //ViewTabTypeName
+ sbSQL.Append(" ViewTabTypeName = null,"); //界面表类型名
+ }
+ }
+ 
+ if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeEnName))
+ {
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" ViewTabTypeEnName = '{0}',", strViewTabTypeEnName); //界面表类型英文名
+ }
+ else
+ {
+ sbSQL.Append(" ViewTabTypeEnName = null,"); //界面表类型英文名
  }
  }
  
@@ -1450,11 +1517,11 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  var strTabTypeFunction = objViewTabTypeEN.TabTypeFunction.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" TabTypeFunction = '{0}',", strTabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat(" TabTypeFunction = '{0}',", strTabTypeFunction); //表类型功能
  }
  else
  {
- sbSQL.Append(" TabTypeFunction = null,"); //TabTypeFunction
+ sbSQL.Append(" TabTypeFunction = null,"); //表类型功能
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
@@ -1502,11 +1569,24 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.ViewTabTypeName !=  null)
  {
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" ViewTabTypeName = '{0}',", strViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat(" ViewTabTypeName = '{0}',", strViewTabTypeName); //界面表类型名
  }
  else
  {
- sbSQL.Append(" ViewTabTypeName = null,"); //ViewTabTypeName
+ sbSQL.Append(" ViewTabTypeName = null,"); //界面表类型名
+ }
+ }
+ 
+ if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeEnName))
+ {
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" ViewTabTypeEnName = '{0}',", strViewTabTypeEnName); //界面表类型英文名
+ }
+ else
+ {
+ sbSQL.Append(" ViewTabTypeEnName = null,"); //界面表类型英文名
  }
  }
  
@@ -1515,11 +1595,11 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  var strTabTypeFunction = objViewTabTypeEN.TabTypeFunction.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" TabTypeFunction = '{0}',", strTabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat(" TabTypeFunction = '{0}',", strTabTypeFunction); //表类型功能
  }
  else
  {
- sbSQL.Append(" TabTypeFunction = null,"); //TabTypeFunction
+ sbSQL.Append(" TabTypeFunction = null,"); //表类型功能
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
@@ -1568,11 +1648,24 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.ViewTabTypeName !=  null)
  {
  var strViewTabTypeName = objViewTabTypeEN.ViewTabTypeName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeName, conViewTabType.ViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeName, conViewTabType.ViewTabTypeName); //界面表类型名
  }
  else
  {
- sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeName); //ViewTabTypeName
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeName); //界面表类型名
+ }
+ }
+ 
+ if (objViewTabTypeEN.IsUpdated(conViewTabType.ViewTabTypeEnName))
+ {
+ if (objViewTabTypeEN.ViewTabTypeEnName !=  null)
+ {
+ var strViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strViewTabTypeEnName, conViewTabType.ViewTabTypeEnName); //界面表类型英文名
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.ViewTabTypeEnName); //界面表类型英文名
  }
  }
  
@@ -1581,11 +1674,11 @@ sbSQL.AppendFormat("Update ViewTabType Set ");
  if (objViewTabTypeEN.TabTypeFunction !=  null)
  {
  var strTabTypeFunction = objViewTabTypeEN.TabTypeFunction.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strTabTypeFunction, conViewTabType.TabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat("{1} = '{0}',", strTabTypeFunction, conViewTabType.TabTypeFunction); //表类型功能
  }
  else
  {
- sbSQL.AppendFormat("{0} = null,",conViewTabType.TabTypeFunction); //TabTypeFunction
+ sbSQL.AppendFormat("{0} = null,",conViewTabType.TabTypeFunction); //表类型功能
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
@@ -1785,8 +1878,9 @@ return bolResult;
 public void CopyTo(clsViewTabTypeEN objViewTabTypeENS, clsViewTabTypeEN objViewTabTypeENT)
 {
 objViewTabTypeENT.ViewTabTypeId = objViewTabTypeENS.ViewTabTypeId; //界面表类型码
-objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //ViewTabTypeName
-objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //TabTypeFunction
+objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //界面表类型名
+objViewTabTypeENT.ViewTabTypeEnName = objViewTabTypeENS.ViewTabTypeEnName; //界面表类型英文名
+objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //表类型功能
 }
 
  #endregion 克隆复制对象
@@ -1801,9 +1895,11 @@ public void CheckPropertyNew(clsViewTabTypeEN objViewTabTypeEN)
 {
 //检查字段不能为空(NULL)
 clsCheckSql.CheckFieldNotNull(objViewTabTypeEN.ViewTabTypeName, conViewTabType.ViewTabTypeName);
+clsCheckSql.CheckFieldNotNull(objViewTabTypeEN.ViewTabTypeEnName, conViewTabType.ViewTabTypeEnName);
 //检查字段长度
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeId, 4, conViewTabType.ViewTabTypeId);
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeName, 20, conViewTabType.ViewTabTypeName);
+clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeEnName, 100, conViewTabType.ViewTabTypeEnName);
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.TabTypeFunction, 500, conViewTabType.TabTypeFunction);
 //检查字段外键固定长度
  objViewTabTypeEN._IsCheckProperty = true;
@@ -1816,6 +1912,7 @@ public void CheckProperty4Update(clsViewTabTypeEN objViewTabTypeEN)
 {
 //检查字段长度
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeName, 20, conViewTabType.ViewTabTypeName);
+clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeEnName, 100, conViewTabType.ViewTabTypeEnName);
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.TabTypeFunction, 500, conViewTabType.TabTypeFunction);
 //检查外键字段长度
  objViewTabTypeEN._IsCheckProperty = true;
@@ -1830,10 +1927,12 @@ public void CheckProperty4Condition(clsViewTabTypeEN objViewTabTypeEN)
 //检查字段长度
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeId, 4, conViewTabType.ViewTabTypeId);
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeName, 20, conViewTabType.ViewTabTypeName);
+clsCheckSql.CheckFieldLen(objViewTabTypeEN.ViewTabTypeEnName, 100, conViewTabType.ViewTabTypeEnName);
 clsCheckSql.CheckFieldLen(objViewTabTypeEN.TabTypeFunction, 500, conViewTabType.TabTypeFunction);
 //检查Sql注入
 clsCheckSql.CheckSqlInjection4Field(objViewTabTypeEN.ViewTabTypeId, conViewTabType.ViewTabTypeId);
 clsCheckSql.CheckSqlInjection4Field(objViewTabTypeEN.ViewTabTypeName, conViewTabType.ViewTabTypeName);
+clsCheckSql.CheckSqlInjection4Field(objViewTabTypeEN.ViewTabTypeEnName, conViewTabType.ViewTabTypeEnName);
 clsCheckSql.CheckSqlInjection4Field(objViewTabTypeEN.TabTypeFunction, conViewTabType.TabTypeFunction);
 //检查外键字段长度
  objViewTabTypeEN._IsCheckProperty = true;

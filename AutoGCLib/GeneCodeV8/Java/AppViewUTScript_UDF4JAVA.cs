@@ -47,10 +47,13 @@ namespace AutoGCLib
         }
         #endregion
 
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
-    
-     
-      
+
+
         private AndroidLinearLayoutEx GetLinearLayout4Function1(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
             AndroidLinearLayoutEx objAndroidLinearLayoutENEx = new AndroidLinearLayoutEx();

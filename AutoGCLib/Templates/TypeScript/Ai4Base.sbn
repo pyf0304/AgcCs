@@ -1,8 +1,18 @@
 ﻿import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
 import {
+  {{~ if HasCacheMode ~}}
+    {{~ if HasExportFeature ~}}
   Combine{{ TableName }}ConditionObj4ExportExcel,
+  {{~ end ~}}
   Combine{{ TableName }}ConditionObj,
+  {{~ else ~}}
+
+  
+  Combine{{ TableName }}Condition,
+  {{~ end ~}}
+  {{~ if HasCacheMode ~}}
   {{ TableName }}_DeleteKeyIdCache,
+  {{~ end ~}}
   divVarSet,
   viewVarSet,
   dataColumn,
@@ -10,18 +20,43 @@ import {
   ref{{ TableName }}_List,
 } from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
 import {
+  {{~ if HasCacheMode ~}}
   {{ TableName }}_GetRecCountByCondCache,
+  {{~ if HasExportFeature ~}}
   {{ TableName }}_GetSubObjLstCache,
+  {{~ end ~}}
   {{ TableName }}_ReFreshCache,
   {{ TableName }}_FuncMapByFldName,
   {{ TableName }}_GetObjExLstByPagerCache,
-  {{ TableName }}_GetObjLstBy{{ TableName }}IdLstAsync,
+  {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ else ~}}
+  {{ TableName }}_GetRecCountByCondAsync,
+  {{~ if HasExportFeature ~}}
+  {{ TableName }}_GetObjLstAsync,
+  {{~ end ~}}
+  {{~ if HasDeleteInTabFeature ~}}
+  {{ TableName }}_DelRecordAsync,
+  {{~ end ~}}
+  {{~ if HasCopyFeature ~}}
+  {{ TableName }}_GetObjBy{{ KeyField }}Async,
+  {{ TableName }}_AddNewRecordAsync,
+  {{~ end ~}}
+    {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ end ~}}
   {{ TableName }}_UpdateRecordAsync,
   {{ TableName }}_Del{{ TableName }}sAsync,
 } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
-{{~ for feature in SetFieldFeatures ~}}
-import { {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache } from '@/ts/L3ForWApi/SysPara/cls{{ feature.RelatedTableName }}WApi';
+{{~ if IsUseFunc ~}}
+import {
+  {{ TableName }}Ex_FuncMapByFldName,
+  {{ TableName }}Ex_GetObjExLstByPagerAsync,
+} from '@/ts/L3ForWApiEx/{{ ModuleName }}/cls{{ TableName }}ExWApi';
 {{~ end ~}}
+{{~ for feature in SetFieldFeatures ~}}
+import { {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache } from '@/ts/L3ForWApi/{{ feature.RelatedModuleName }}/cls{{ feature.RelatedTableName }}WApi';
+{{~ end ~}}
+
+
 import {
   GetCheckedKeyIdsInDivObj,
   GetSelectValueInDivObj,
@@ -36,15 +71,15 @@ import { clsDataColumn } from '@/ts/PubFun/clsDataColumn';
 import { clsOperateList, GetCurrPageIndex } from '@/ts/PubFun/clsOperateList';
 import { AIOperateListBase } from '@/viewsBase/common/AIOperateListBase';
 import {
-  getExportColumnSpecsAi2,
-  getListColumnsAi2,
-} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAi2Columns';
+  getExportColumnSpecsAi,
+  getListColumnsAi,
+} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiColumns';
 
 /**
- * Ai4版基类：
+ * Ai版基类：
  * 在Ai3基础上增加命令schema驱动，不改变原有基类行为。
  */
-export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implements clsOperateList {
+export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements clsOperateList {
   public static vuebtn_Click: (strCommandName: string, strKeyId: any) => void;
   public static GetPropValue: (strPropName: string) => string;
   public static sortFunStatic: (ascOrDesc: string) => (x: any, y: any) => number;
@@ -71,11 +106,11 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
   }
 
   protected getListColumnsAi(): Array<clsDataColumn> {
-    return getListColumnsAi2();
+    return getListColumnsAi();
   }
 
   protected getExportColumnSpecsAi(): Array<{ colHeader: string }> {
-    return getExportColumnSpecsAi2();
+    return getExportColumnSpecsAi();
   }
 
   public abstract SortColumn(sortColumnKey: string, sortDirection: string): void;
@@ -197,7 +232,9 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
     try {
       const returnInt = await {{ TableName }}_Del{{ TableName }}sAsync(arr{{ TableName }}Id);
       if (returnInt > 0) {
+        {{~ if HasCacheMode ~}}
         {{ TableName }}_ReFreshCache();
+        {{~ end ~}}
         alert(`删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`);
       } else {
         alert(`删除${this.thisTabName}记录不成功!`);
@@ -224,14 +261,14 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
     }
 
     try {
-      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ TableName }}IdLstAsync(
+      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
         arr{{ TableName }}Id,
       );
       let intCount = 0;
       for (const objInFor of arr{{ TableName }}ObjLst) {
         const obj{{ TableName }}EN = new cls{{ TableName }}EN();
         ObjectAssign(obj{{ TableName }}EN, objInFor);
-        obj{{ TableName }}EN.Set{{ KeyField }}(objInFor.{{ TableNameCamel }}Id);
+        obj{{ TableName }}EN.Set{{ KeyField }}(objInFor.{{ KeyFieldCamel }});
         obj{{ TableName }}EN.Set{{ feature.FieldName }}(str{{ feature.FieldName }});
 
         let returnBool = false;
@@ -245,7 +282,9 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
         }
 
         if (returnBool == true) {
-          {{ TableName }}_DeleteKeyIdCache(objInFor.{{ TableNameCamel }}Id);
+          {{~ if HasCacheMode ~}}
+          {{ TableName }}_DeleteKeyIdCache(objInFor.{{ KeyFieldCamel }});
+          {{~ end ~}}
           intCount++;
         } else {
           alert('设置记录不成功!');
@@ -254,7 +293,11 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
 
       alert(`共设置了${intCount}条记录!`);
       if (intCount > 0) {
+        {{~ if HasCacheMode ~}}
         {{ TableName }}_ReFreshCache();
+          {{~ else ~}}
+                  //{{ TableName }}_ReFreshCache();
+        {{~ end ~}}
       }
     } catch (e) {
       const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
@@ -265,8 +308,13 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
 
 {{~ end ~}}
   /** 按当前查询条件导出原始列表数据。 */
+  {{~ if HasCacheMode ~}}
   public async ExportExcel_{{ TableName }}Cache(): Promise<ExportExcelData> {
     const strThisFuncName = this.ExportExcel_{{ TableName }}Cache.name;
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}(): Promise<ExportExcelData> {
+    const strThisFuncName = this.ExportExcel_{{ TableName }}.name;
+  {{~ end ~}}
     if (viewVarSet.sort{{ TableName }}By == null) {
       const strMsg = Format(
         '在显示列表时,排序字段(sort{{ TableName }}By)为空,请检查!(In BindGv_{{ TableName }}Cache)',
@@ -276,9 +324,14 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
       return { arrObjLst: [], sheetName: '', fileName: '' };
     }
 
+    {{~ if HasCacheMode ~}}
     const obj{{ TableName }}Cond = await Combine{{ TableName }}ConditionObj4ExportExcel();
+    {{~ else ~}}
+    const strWhereCond = await Combine{{ TableName }}Condition();
+    {{~ end ~}}
     let arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN> = [];
     try {
+      {{~ if HasCacheMode ~}}
       this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond);
       if (this.recCount == 0) {
         const strMsg = Format(
@@ -290,6 +343,20 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
         return { arrObjLst: [], sheetName: '', fileName: '' };
       }
       arr{{ TableName }}ObjLst = await {{ TableName }}_GetSubObjLstCache(obj{{ TableName }}Cond);
+      {{~ else ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
+      if (this.recCount == 0) {
+        const lblMsg: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
+        lblMsg.innerHTML = Format('根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        const strMsg = Format('在绑定Gv过程中,根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        console.error('Error: ', strMsg);
+        //console.trace();
+        alert(strMsg);
+        return { arrObjLst: [], sheetName: '', fileName: '' };
+      }
+
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstAsync(strWhereCond);
+      {{~ end ~}}
     } catch (e) {
       const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
       console.error(strMsg);
@@ -298,6 +365,12 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
     }
 
     if (arr{{ TableName }}ObjLst.length == 0) {
+      {{~ if !HasCacheMode ~}}
+      const strMsg = `在ExportExcel过程中,根据条件获取的${this.thisTabName}记录数为0!`;
+      console.error('Error: ', strMsg);
+      //console.trace();
+      alert(strMsg);
+      {{~ end ~}}
       return { arrObjLst: [], sheetName: '', fileName: '' };
     }
 
@@ -314,8 +387,13 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
   }
 
   /** 按导出列规格整理导出结果。 */
-  public async ExportExcel_{{ TableName }}CacheAi2(): Promise<ExportExcelData> {
+  {{~ if HasCacheMode ~}}
+  public async ExportExcel_{{ TableName }}CacheAi(): Promise<ExportExcelData> {
     const raw = await this.ExportExcel_{{ TableName }}Cache();
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}Ai(): Promise<ExportExcelData> {
+    const raw = await this.ExportExcel_{{ TableName }}();
+  {{~ end ~}}
     if (raw.arrObjLst.length === 0) return raw;
     const normalizedRows = this.NormalizeExportRowsBySpecs(
       raw.arrObjLst as Array<Record<string, any>>,
@@ -331,9 +409,156 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
 
   /** 导出按钮入口。 */
   public async btnExportExcel_Click() {
+    {{~ if HasCacheMode ~}}
     await this.ExportExcel_{{ TableName }}Cache();
+    {{~ else ~}}
+    await this.ExportExcel_{{ TableName }}();
+    {{~ end ~}}
   }
 
+  
+{{~ if HasCopyFeature ~}}
+  /**
+   * 复制记录按钮点击事件处理
+   * 
+   * 流程：
+   * 1. 验证是否选中了要复制的记录
+   * 2. 执行复制操作
+   * 3. 操作完成后刷新数据列表
+   * 
+   * 使用场景：用户选择记录后，点击"复制"按钮
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnCopyRecord_Click)
+   */
+  public async btnCopyRecord_Click() {
+    const strThisFuncName = this.btnCopyRecord_Click.name;
+    try {
+      const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+      if (arrKeyIds.length == 0) {
+        alert(`请选择需要克隆的${this.thisTabName}记录!`);
+        return '';
+      }
+      await this.CopyRecord(arrKeyIds);
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+    } catch (e) {
+      const strMsg = `复制记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 复制记录的具体实现（需要子类实现）
+   * @param arrKeyIds 要复制的记录主键列表
+   */
+  public abstract CopyRecord(arrKeyIds: Array<string>): Promise<void>;
+
+{{~ end ~}}
+{{~ if HasDeleteInTabFeature ~}}
+  /**
+   * 在数据表里删除记录
+   * @param strKeyId 表关键字
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnDelRecordInTab_Click)
+   */
+  public async btnDelRecordInTab_Click(strKeyId: string) {
+    const strThisFuncName = this.btnDelRecordInTab_Click.name;
+    try {
+      if (strKeyId == '') {
+        alert(`请选择需要删除的${this.thisTabName}记录!`);
+        return '';
+      }
+      if (confirmDel(0) == false) {
+        return;
+      }
+      await this.DelRecord(strKeyId);
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 根据关键字删除记录
+   * @param keyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_DelRecord)
+   */
+  public async DelRecord(keyId: string) {
+    const strThisFuncName = this.DelRecord.name;
+    try {
+      {{~ if KeyField | string.ends_with "Id" ~}}
+      const lng{{ KeyField }} = Number(keyId);
+      const returnInt = await {{ TableName }}_DelRecordAsync(lng{{ KeyField }});
+      {{~ else ~}}
+      const returnInt = await {{ TableName }}_DelRecordAsync(keyId);
+      {{~ end ~}}
+      if (returnInt > 0) {
+        {{~ if HasCacheMode ~}}
+        {{ TableName }}_ReFreshCache();
+        {{~ end ~}}
+        const strInfo = `删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`;
+        alert(strInfo);
+      } else {
+        const strInfo = `删除${this.thisTabName}记录不成功!`;
+        alert(strInfo);
+      }
+      console.log('完成DelRecord!');
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+{{~ if HasSelectInTabFeature ~}}
+  /**
+   * 在数据表里选择记录
+   * @param strKeyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnSelectRecordInTab_Click)
+   */
+  public async btnSelectRecordInTab_Click(strKeyId: string) {
+    const strThisFuncName = this.btnSelectRecordInTab_Click.name;
+    try {
+      if (strKeyId == '') {
+        const strMsg = '请选择相关记录,请检查!';
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      {{~ if KeyField | string.ends_with "Id" ~}}
+      const lng{{ KeyField }} = Number(strKeyId);
+      this.SelectRecord(lng{{ KeyField }});
+      {{~ else ~}}
+      this.SelectRecord(strKeyId);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `选择记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 根据关键字选择相应的记录
+   * @param keyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_SelectRecord)
+   */
+  public async SelectRecord(keyId: {{~ if KeyField | string.ends_with "Id" ~}}number{{~ else ~}}string{{~ end ~}}) {
+    const strThisFuncName = this.SelectRecord.name;
+    try {
+      const obj{{ TableName }}EN = await {{ TableName }}_GetObjBy{{ KeyField }}Async(keyId);
+      console.log('完成SelectRecord!', obj{{ TableName }}EN);
+      // 这里可以添加具体的选择记录后的处理逻辑
+      // 例如：跳转到详情页或执行回调
+    } catch (e) {
+      const strMsg = `根据关键字获取相应的${this.thisTabName}记录的对象不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error('Error: ', strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
   /** 把实体列表组装成导出文件数据。 */
   public CombineData(
     arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN>,
@@ -404,6 +629,19 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
   /** 按当前条件获取并绑定分页列表。 */
   public async BindGv_{{ TableName }}4Func(divList: HTMLDivElement) {
     const strThisFuncName = this.BindGv_{{ TableName }}4Func.name;
+    {{~ if !HasCacheMode ~}}
+    if (divList == null) {
+      const strMsg = Format(
+        '用于显示列表的div为空,请检查!(in {0}.{1})',
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+    this.listPara.listDiv = divList;
+    {{~ end ~}}
     if (viewVarSet.sort{{ TableName }}By == null) {
       const strMsg = Format(
         '在显示列表时,排序字段(sort{{ TableName }}By)为空,请检查!(In BindGv_{{ TableName }}Cache)',
@@ -413,29 +651,46 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
       return;
     }
 
+    {{~ if HasCacheMode ~}}
     const obj{{ TableName }}Cond = await Combine{{ TableName }}ConditionObj();
     const strWhereCond = JSON.stringify(obj{{ TableName }}Cond);
+    {{~ else ~}}
+    const strWhereCond = await Combine{{ TableName }}Condition();
+    {{~ end ~}}
     const intCurrPageIndex = GetCurrPageIndex(this.objPager.currPageIndex);
     let arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx> = [];
 
     try {
+      {{~ if HasCacheMode ~}}
       this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond);
+      {{~ else ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
+      {{~ end ~}}
       if (this.recCount == 0) {
+        {{~ if HasCacheMode ~}}
         const strMsg = Format(
           '在绑定GvCache过程中,根据条件:[{0}]获取的对象列表数为0!',
           obj{{ TableName }}Cond.whereCond,
         );
         console.error(strMsg);
         alert(strMsg);
+        {{~ else ~}}
+        const lblMsg: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
+        lblMsg.innerHTML = Format('根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        const strMsg = Format('在绑定Gv过程中,根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        console.error('Error: ', strMsg);
+        alert(strMsg);
+        {{~ end ~}}
         BindTabByList(arr{{ TableName }}ExObjLst, true);
         return;
       }
 
+      {{~ if HasCacheMode ~}}
       let strSortFun = (x: any, y: any) => {
         console.log(x, y);
         return 0;
       };
-      const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi4;
+      const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi;
       if (currentCtor.sortFunStatic != undefined) {
         strSortFun = currentCtor.sortFunStatic(viewVarSet.ascOrDesc4SortFun);
       }
@@ -448,6 +703,21 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
         sortFun: strSortFun,
       };
       arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara);
+      {{~ else ~}}
+      const objPagerPara: stuPagerPara = {
+        pageIndex: intCurrPageIndex,
+        pageSize: this.pageSize,
+        whereCond: strWhereCond,
+        orderBy: viewVarSet.sort{{ TableName }}By,
+        sortFun: (x, y) => {
+          console.log(x, y);
+          return 0;
+        },
+      };
+      arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerAsync(
+        objPagerPara,
+      );
+      {{~ end ~}}
     } catch (e) {
       const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
       console.error(strMsg);
@@ -456,6 +726,11 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
     }
 
     if (arr{{ TableName }}ExObjLst.length == 0) {
+      {{~ if !HasCacheMode ~}}
+      const strKey = Format('{0}', cls{{ TableName }}EN._CurrTabName);
+      const strMsg = `根据条件获取的${this.thisTabName}记录数为0!(Key=${strKey})`;
+      console.error('Error: ', strMsg);
+      {{~ end ~}}
       this.objPager.Hide(divList, this.divName4Pager);
       return;
     }
@@ -479,7 +754,9 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
       if (IsNullOrEmpty(objDataColumn.fldName) == true) continue;
       if (arrFldName.indexOf(objDataColumn.fldName) > -1) continue;
       for (const objInFor of arr{{ TableName }}ExObjLst) {
-        await {{ TableName }}_FuncMapByFldName(objDataColumn.fldName, objInFor);
+        {{~ if IsUseFunc ~}}
+        await {{ TableName }}Ex_FuncMapByFldName(objDataColumn.fldName, objInFor);
+        {{~ end ~}}
       }
     }
   }
@@ -499,21 +776,40 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
       if (arrFldName.indexOf(normalizedFldName) > -1) continue;
 
       for (const objInFor of arr{{ TableName }}ExObjLst) {
-        await {{ TableName }}_FuncMapByFldName(normalizedFldName, objInFor);
+        {{~ if IsUseFunc ~}}
+        await {{ TableName }}Ex_FuncMapByFldName(normalizedFldName, objInFor);
+        {{~ end ~}}
       }
     }
   }
 
-  /** 导出时使用的默认排序规则。 */
+  /**
+   * 导出时使用的默认排序规则。
+   * ⚠️ 这是一个示例方法，使用从导出区域字段中选择的前 2 个字段。
+   * ⚠️ 请根据实际业务需求修改排序逻辑和字段选择。
+   * 
+   * 当前示例使用的字段：
+   * - {{ SortField1 }} ({{ SortField1Type }})
+   * - {{ SortField2 }} ({{ SortField2Type }})
+   * 
+   * 表中可用的所有字段：
+   {{~ for field in AvailableFields ~}}
+   * - {{ field.FieldName }} ({{ field.TypeScriptType }})
+   {{~ end ~}}
+   * 
+   * 作者: AutoGCLib
+   * 日期: {{ date.now | date.to_string '%Y-%m-%d' }}
+   */
   public SortFunExportExcel(a: cls{{ TableName }}EN, b: cls{{ TableName }}EN): number {
-    if (a.userId == b.userId) {
-      if (a.userId == null) return -1;
-      if (b.userId == null) return 1;
-      return a.userId.localeCompare(b.userId);
+    // 第一级排序：{{ SortField2 }}
+    if (a.{{ SortField2 }} == b.{{ SortField2 }}) {
+      if (a.{{ SortField2 }} == null) return -1;
+      if (b.{{ SortField2 }} == null) return 1;
+      return {{ SortField2CompareExpr }};
     } else {
-      if (b.dataBaseName == null) return -1;
-      if (a.dataBaseName == null) return 1;
-      return a.dataBaseName.localeCompare(b.dataBaseName);
+      if (b.{{ SortField1 }} == null) return -1;
+      if (a.{{ SortField1 }} == null) return 1;
+      return {{ SortField1CompareExpr }};
     }
   }
 
@@ -533,7 +829,7 @@ export abstract class {{ TableName }}CRUDAi4 extends AIOperateListBase implement
       onApplySortState: (sortBy, ascOrDesc4SortFun, sortFun) => {
         viewVarSet.sort{{ TableName }}By = sortBy;
         viewVarSet.ascOrDesc4SortFun = ascOrDesc4SortFun;
-        const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi4;
+        const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi;
         currentCtor.sortFunStatic = sortFun;
       },
       onRefresh: async () => {

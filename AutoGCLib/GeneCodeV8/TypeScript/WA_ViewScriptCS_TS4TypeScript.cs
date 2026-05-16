@@ -820,12 +820,12 @@ namespace AutoGCLib
         public string Gen_WApi_Ts_SetBindDdl4QryRegion()
         {
             string strFuncName = "";
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
                 List<string> arrDropDownTypeLst = new List<string> { enumCtlType.DropDownList_06, enumCtlType.DropDownList_Bool_18 };
-                IEnumerable<clsQryRegionFldsENEx> arrERF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet
+                IEnumerable<clsQryRegionFldsENEx> arrERF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet4InUse
                     .Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId) && x.InUse == true);
                 IEnumerable<ASPDropDownListEx> arrASPDropDownListObj = arrERF4DropDownLst.Select(GetDdlObj);
 
@@ -914,7 +914,7 @@ namespace AutoGCLib
             try
             {
                 List<string> arrDropDownTypeLst = new List<string> { enumCtlType.DropDownList_06, enumCtlType.DropDownList_Bool_18 };
-                //IEnumerable<clsQryRegionFldsENEx> arrERF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet
+                //IEnumerable<clsQryRegionFldsENEx> arrERF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet4InUse
                 //    .Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId) && x.InUse == true);
                 //IEnumerable<ASPDropDownListEx> arrASPDropDownListObj = arrERF4DropDownLst.Select(GetDdlObj);
                 IEnumerable<clsViewFeatureFldsENEx> arrWFF4DropDownLst = objViewInfoENEx.arrViewFeatureFlds.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
@@ -1165,7 +1165,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
             arrPropertyDef4GC = new List<clsPropertyDef4GC>();
             var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(objViewInfoENEx.CodeTypeId);
             //让用户设置属性;
-            if (objViewInfoENEx.arrQryRegionFldSet == null && objViewInfoENEx.arrListRegionFldSet == null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null && objViewInfoENEx.arrListRegionFldSet == null)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -3481,6 +3481,7 @@ objViewInfoENEx.ViewId, this, this.strBaseUrl);
 
             strCodeForCs.AppendFormat("\r\n" + "public async BindGv_{0}Cache(divList: HTMLDivElement) ",
                 TabName_Out4ListRegion4GC);
+            strFuncName = string.Format( "BindGv_{0}Cache",                TabName_Out4ListRegion4GC);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.BindGv_{0}Cache.name;", TabName_Out4ListRegion4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (viewVarSet.sort{0}By == null)", TabName_Out4ListRegion4GC, ThisClsName);
@@ -6392,7 +6393,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 //}
 
 
-                //foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                //foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 //{
                 //    if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                 //    {
@@ -6546,7 +6547,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 //}
 
 
-                //foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                //foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 //{
                 //    if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                 //    {
@@ -6620,7 +6621,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_CombineCondition(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -6644,7 +6645,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
                 StringBuilder sbTemp = new StringBuilder();
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 if (arrQryRegionFlds.Count() > 0)
                 {
 
@@ -6694,7 +6695,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 }
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -6717,7 +6718,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
                 strCodeForCs.Append("\r\n" + sbTemp.ToString());
 
-                if (objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                 {
                     ImportClass objImportClass = AddImportClass(TabId_Out4ListRegion, TabName_Out4ListRegion4GC, string.Format("cls{0}EN", TabName_Out4ListRegion4GC), enumImportObjType.ENClass, this.strBaseUrl);
 
@@ -6729,7 +6730,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
 
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -7022,7 +7023,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_CombineConditionObj(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -7042,7 +7043,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -7057,7 +7058,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}Cond.SetCondFldValue(cls{0}EN.con_IsDeleted, false, \"=\");", TabName_Out4ListRegion4GC);
                 }
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 var arrQryRegionFldsEx = arrQryRegionFlds.Select(clsQryRegionFldsBLEx.CopyToEx);
                 if (arrQryRegionFlds.Count() > 0)
                 {
@@ -7098,14 +7099,14 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 }
 
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                if (objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                 {
 
                     if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
                     {
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -7488,8 +7489,8 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
         }
         public string Gen_WApi_Ts_GetConditionInFldValueLst(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
-            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
+            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
             if (arrQryRegionFldSetEx.Count == 0) return "";
             clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
@@ -7527,7 +7528,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
                     strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
                     strCodeForCs.AppendFormat("\r\n" + "let arr{0}Include: Array<{1}> = [];", objFieldTab.FldName, strInFldIdType);
-                    //if (objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                    //if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                     //{
 
                     //    if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
@@ -7825,7 +7826,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_CombineConditionInFldValueLst()
         {
-            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
             if (arrQryRegionFldSetEx.Count == 0) return "";
             clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
@@ -7902,7 +7903,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -7923,7 +7924,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}Cond.SetCondFldValue(cls{0}EN.con_IsDeleted, false, \"=\");", TabName_Out4ListRegion4GC);
                 }
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 if (arrQryRegionFlds.Count() > 0)
                 {
 
@@ -7967,13 +7968,13 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 }
 
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                if (objViewInfoENEx.arrQryRegionFldSet.Count() > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count() > 0)
                 {
                     if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
                     {
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -9574,7 +9575,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -9591,7 +9592,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
             ///生成专门用于查询的界面控件的代码;
             ///
             bool bolIsTrEnd = true;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intFieldNum % objViewInfoENEx.objViewRegion_Query.ColNum == 0)
                 {
@@ -12652,7 +12653,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_SetEventFunc()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             try
@@ -12672,7 +12673,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
 
-                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ChangeEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -12686,7 +12687,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
                 });
 
-                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -12748,7 +12749,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
         public string Gen_WApi_Ts_GeneEventFunc()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -12756,7 +12757,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
             {
 
 
-                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ChangeEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -12772,7 +12773,7 @@ strCodeForCs.Append("\r\n" + "//console.log(\"arrData\", arrData);");
 
                 strCodeForCs.Append("\r\n" + "");
 
-                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);

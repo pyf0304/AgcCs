@@ -36,7 +36,10 @@ namespace AutoGCLib
         //protected CommProgramSet.clsComm objComm = new CommProgramSet.clsComm();
 
         //public string ClsName;
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         private bool mbolIsHaveImageField;
         private string mstrImageFieldName;
         protected string mstrFolderName; // '文件目录名

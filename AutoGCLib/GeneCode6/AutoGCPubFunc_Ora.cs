@@ -38,8 +38,11 @@ namespace AutoGCLib
     /// </summary>
     class AutoGCPubFunc_Ora : clsGeneCodeBase4Tab
     {
-       
 
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         #region ¹¹Ôìº¯Êý
 
 

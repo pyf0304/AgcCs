@@ -343,7 +343,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
 
             
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                    
                     string strFldName = objQryRegionFldsEx.FldName;
@@ -560,7 +560,7 @@ namespace AutoGCLib
            
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     string strFldName = objQryRegionFldsEx.FldName;
                     switch (objQryRegionFldsEx.ObjFieldTabENEx.objDataTypeAbbrEN.DataTypeId) //objEditRegionFldsEx.objCtlType.CtlTypeName

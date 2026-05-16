@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:ViewRelaTabApiController
  表名:ViewRelaTab(00050100)
- * 版本:2023.08.19.1(服务器:WIN-SRV103-116)
- 日期:2023/08/23 10:15:48
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:22:18
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:109.244.40.104,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:界面管理(PrjInterface)
- 框架-层名:WA_服务层(CS)(WA_Srv)
+ 框架-层名:WA_服务层(CS)(WA_Srv,0044)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -564,8 +564,9 @@ clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  {
 clsViewRelaTabEN objViewRelaTabCond = new();
 string strCondition = objViewRelaTabCond
-.SetViewId(objViewRelaTabEN.ViewId, "=")
 .SetTabId(objViewRelaTabEN.TabId, "=")
+.SetViewId(objViewRelaTabEN.ViewId, "=")
+.SetRegionId(objViewRelaTabEN.RegionId, "=")
 .GetCombineCondition();
 bool bolIsExist = clsViewRelaTabBL.IsExistRecord(strCondition);
 if (bolIsExist)
@@ -648,6 +649,37 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
     clsViewRelaTabBL.SetUpdFlag(objViewRelaTabEN);
     clsViewRelaTabBL.AccessFldValueNull(objViewRelaTabEN);
 bool bolResult = objViewRelaTabEN.Update();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 通过JSON对象来编辑记录对象，存在就修改，不存在就添加
+ /// 调用方法: Post /api/ViewRelaTabApi/EditRecordEx
+ /// 在Body区传输objViewRelaTabEN的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_EditRecordEx)
+ /// </summary>
+ /// <param name = "strViewRelaTabJSONObj">JSON对象字符串</param>
+ /// <returns>是否成功</returns>
+[HttpPost("EditRecordEx")]
+public ActionResult EditRecordEx([FromBody]clsViewRelaTabEN objViewRelaTabEN)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+string strViewRelaTabJSONObj = clsJSON.GetJsonFromObj(objViewRelaTabEN);
+dictParam.Add("strViewRelaTabJSONObj", strViewRelaTabJSONObj);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+ try
+ {
+    clsViewRelaTabBL.SetUpdFlag(objViewRelaTabEN);
+    clsViewRelaTabBL.AccessFldValueNull(objViewRelaTabEN);
+bool bolResult = objViewRelaTabEN.EditRecordEx();
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
  }
  catch (Exception objException)

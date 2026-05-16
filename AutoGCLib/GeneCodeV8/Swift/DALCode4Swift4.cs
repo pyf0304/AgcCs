@@ -54,6 +54,11 @@ namespace AutoGCLib
         }
         #endregion
 
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
+
         public string FileName
         {
             get

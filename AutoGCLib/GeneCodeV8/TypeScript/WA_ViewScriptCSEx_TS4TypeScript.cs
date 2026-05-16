@@ -70,7 +70,7 @@ namespace AutoGCLib
                 ///生成仅有变量;
 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -632,7 +632,7 @@ namespace AutoGCLib
             {
 
 
-                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ChangeEvent.ForEach(x => {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
 
@@ -648,7 +648,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "");
 
-                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ClickEvent.ForEach(x => {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
                     strCodeForCs.Append("\r\n /** 函数功能:系统生成的Click事件函数");

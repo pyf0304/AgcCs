@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCacheUseStateDA
  表名:CacheUseState(00050566)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:59
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:20:30
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -2190,8 +2190,8 @@ public string GetUniCondStr(clsCacheUseStateEN objCacheUseStateEN)
 {
 StringBuilder sbCondition = new StringBuilder();
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and CacheKey = '{0}'", objCacheUseStateEN.CacheKey);
+ sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and UserId = '{0}'", objCacheUseStateEN.UserId);
 return sbCondition.ToString();
 }

@@ -1607,7 +1607,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName) //objEditRegionFldsEx.objCtlType.CtlTypeName
                     {
@@ -3341,7 +3341,7 @@ namespace AutoGCLib
             try
             {
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.IsTabForeignKey() == true)
                     {
@@ -4039,7 +4039,7 @@ namespace AutoGCLib
                 }
                 else
                 {
-                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                     {
                         if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                         {
@@ -4279,7 +4279,7 @@ namespace AutoGCLib
                 }
 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                     {

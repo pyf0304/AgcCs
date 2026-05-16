@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRelaTabBL
  表名:ViewRelaTab(00050100)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:51
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:20:12
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -67,7 +67,7 @@ public static bool AddNewRecord(this clsViewRelaTabEN objViewRelaTabEN, bool bol
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objViewRelaTabEN) == false)
 {
-var strMsg = string.Format("记录已经存在!界面Id = [{0}],表ID = [{1}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecord)", objViewRelaTabEN.ViewId,objViewRelaTabEN.TabId);
+var strMsg = string.Format("记录已经存在!表ID = [{0}],界面Id = [{1}],区域Id = [{2}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecord)", objViewRelaTabEN.TabId,objViewRelaTabEN.ViewId,objViewRelaTabEN.RegionId);
 throw new Exception(strMsg);
 }
 try
@@ -112,7 +112,7 @@ objViewRelaTabEN.CheckPropertyNew();
  ///5.2、检查唯一性
 if (bolIsNeedCheckUniqueness == true && objViewRelaTabEN.CheckUniqueness() == false)
 {
-strMsg = string.Format("(界面Id(ViewId)=[{0}],表ID(TabId)=[{1}])已经存在,不能重复!", objViewRelaTabEN.ViewId, objViewRelaTabEN.TabId);
+strMsg = string.Format("(表ID(TabId)=[{0}],界面Id(ViewId)=[{1}],区域Id(RegionId)=[{2}])已经存在,不能重复!", objViewRelaTabEN.TabId, objViewRelaTabEN.ViewId, objViewRelaTabEN.RegionId);
 throw new Exception(strMsg);
 }
 //6、把数据实体层的数据存贮到数据库中
@@ -137,7 +137,7 @@ public static string AddNewRecordWithReturnKey(this clsViewRelaTabEN objViewRela
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objViewRelaTabEN) == false)
 {
-var strMsg = string.Format("记录已经存在!界面Id = [{0}],表ID = [{1}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordWithReturnKey)", objViewRelaTabEN.ViewId,objViewRelaTabEN.TabId);
+var strMsg = string.Format("记录已经存在!表ID = [{0}],界面Id = [{1}],区域Id = [{2}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordWithReturnKey)", objViewRelaTabEN.TabId,objViewRelaTabEN.ViewId,objViewRelaTabEN.RegionId);
 throw new Exception(strMsg);
 }
 try
@@ -415,6 +415,34 @@ return objViewRelaTabEN;
  /// <param name = "objViewRelaTabEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
  /// <returns>返回对象,可以继续连写</returns>
+public static clsViewRelaTabEN SetRelaFldNames(this clsViewRelaTabEN objViewRelaTabEN, string strRelaFldNames, string strComparisonOp="")
+	{
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strRelaFldNames, 500, conViewRelaTab.RelaFldNames);
+}
+objViewRelaTabEN.RelaFldNames = strRelaFldNames; //相关字段名s
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objViewRelaTabEN.dicFldComparisonOp.ContainsKey(conViewRelaTab.RelaFldNames) == false)
+{
+objViewRelaTabEN.dicFldComparisonOp.Add(conViewRelaTab.RelaFldNames, strComparisonOp);
+}
+else
+{
+objViewRelaTabEN.dicFldComparisonOp[conViewRelaTab.RelaFldNames] = strComparisonOp;
+}
+}
+return objViewRelaTabEN;
+	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objViewRelaTabEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
 public static clsViewRelaTabEN SetUpdDate(this clsViewRelaTabEN objViewRelaTabEN, string strUpdDate, string strComparisonOp="")
 	{
 if (strComparisonOp != "in")
@@ -512,8 +540,9 @@ objViewRelaTabEN.CheckPropertyNew();
 clsViewRelaTabEN objViewRelaTabCond = new clsViewRelaTabEN();
 string strCondition = objViewRelaTabCond
 .SetmId(objViewRelaTabEN.mId, "<>")
-.SetViewId(objViewRelaTabEN.ViewId, "=")
 .SetTabId(objViewRelaTabEN.TabId, "=")
+.SetViewId(objViewRelaTabEN.ViewId, "=")
+.SetRegionId(objViewRelaTabEN.RegionId, "=")
 .GetCombineCondition();
 objViewRelaTabEN._IsCheckProperty = true;
 bool bolIsExist = clsViewRelaTabBL.IsExistRecord(strCondition);
@@ -547,8 +576,9 @@ public static bool EditRecordEx(this clsViewRelaTabEN objViewRelaTab)
 //3、把数据实体层的数据存贮到数据库中
 clsViewRelaTabEN objViewRelaTabCond = new clsViewRelaTabEN();
 string strCondition = objViewRelaTabCond
-.SetViewId(objViewRelaTab.ViewId, "=")
 .SetTabId(objViewRelaTab.TabId, "=")
+.SetViewId(objViewRelaTab.ViewId, "=")
+.SetRegionId(objViewRelaTab.RegionId, "=")
 .GetCombineCondition();
 objViewRelaTab._IsCheckProperty = true;
 bool bolIsExist = clsViewRelaTabBL.IsExistRecord(strCondition);
@@ -751,6 +781,7 @@ objViewRelaTabENT.ViewTabTypeId = objViewRelaTabENS.ViewTabTypeId; //界面表�
 objViewRelaTabENT.TabId = objViewRelaTabENS.TabId; //表ID
 objViewRelaTabENT.TabFunction = objViewRelaTabENS.TabFunction; //表功能说明
 objViewRelaTabENT.PrjId = objViewRelaTabENS.PrjId; //工程Id
+objViewRelaTabENT.RelaFldNames = objViewRelaTabENS.RelaFldNames; //相关字段名s
 objViewRelaTabENT.UpdDate = objViewRelaTabENS.UpdDate; //修改日期
 objViewRelaTabENT.UpdUser = objViewRelaTabENS.UpdUser; //修改者
 objViewRelaTabENT.Memo = objViewRelaTabENS.Memo; //说明
@@ -784,6 +815,7 @@ ViewTabTypeId = objViewRelaTabENS.ViewTabTypeId, //界面表类型码
 TabId = objViewRelaTabENS.TabId, //表ID
 TabFunction = objViewRelaTabENS.TabFunction, //表功能说明
 PrjId = objViewRelaTabENS.PrjId, //工程Id
+RelaFldNames = objViewRelaTabENS.RelaFldNames, //相关字段名s
 UpdDate = objViewRelaTabENS.UpdDate, //修改日期
 UpdUser = objViewRelaTabENS.UpdUser, //修改者
 Memo = objViewRelaTabENS.Memo, //说明
@@ -868,6 +900,11 @@ if (objViewRelaTabCond.IsUpdated(conViewRelaTab.PrjId) == true)
 string strComparisonOpPrjId = objViewRelaTabCond.dicFldComparisonOp[conViewRelaTab.PrjId];
 strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRelaTab.PrjId, objViewRelaTabCond.PrjId, strComparisonOpPrjId);
 }
+if (objViewRelaTabCond.IsUpdated(conViewRelaTab.RelaFldNames) == true)
+{
+string strComparisonOpRelaFldNames = objViewRelaTabCond.dicFldComparisonOp[conViewRelaTab.RelaFldNames];
+strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRelaTab.RelaFldNames, objViewRelaTabCond.RelaFldNames, strComparisonOpRelaFldNames);
+}
 if (objViewRelaTabCond.IsUpdated(conViewRelaTab.UpdDate) == true)
 {
 string strComparisonOpUpdDate = objViewRelaTabCond.dicFldComparisonOp[conViewRelaTab.UpdDate];
@@ -888,7 +925,7 @@ strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRelaTab.Memo, objView
 
  /// <summary>
  /// 检查唯一性(Uniqueness)--ViewRelaTab(界面相关表), 如果不唯一,即存在相同的记录,就返回False
- /// 唯一性条件:ViewId_TabId
+ /// 唯一性条件:TabId_ViewId_RegionId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CheckConstraint)
  /// </summary>
  /// <param name = "objViewRelaTabEN">要求唯一的对象</param>
@@ -902,8 +939,9 @@ if (objViewRelaTabEN == null) return true;
 if (objViewRelaTabEN.mId == 0)
 {
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
  sbCondition.AppendFormat(" and TabId = '{0}'", objViewRelaTabEN.TabId);
+ sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
+ sbCondition.AppendFormat(" and RegionId = '{0}'", objViewRelaTabEN.RegionId);
 if (clsViewRelaTabBL.IsExistRecord(sbCondition.ToString())  ==  true)
 {
  bolIsUniqueness = false;
@@ -915,8 +953,9 @@ else
 }
  else {
 sbCondition.AppendFormat("mId !=  {0}", objViewRelaTabEN.mId);
- sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
  sbCondition.AppendFormat(" and TabId = '{0}'", objViewRelaTabEN.TabId);
+ sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
+ sbCondition.AppendFormat(" and RegionId = '{0}'", objViewRelaTabEN.RegionId);
 if (clsViewRelaTabBL.IsExistRecord(sbCondition.ToString())  ==  true)
 {
  bolIsUniqueness = false;
@@ -931,7 +970,7 @@ return bolIsUniqueness;
 
  /// <summary>
  /// 获取唯一性条件串--ViewRelaTab(界面相关表), 即由对象中唯一性条件字段关键字与值组成的条件串
- /// 唯一性条件:ViewId_TabId
+ /// 唯一性条件:TabId_ViewId_RegionId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_GetConditionString4Constraint)
  /// </summary>
  /// <param name = "objViewRelaTabEN">要求唯一的对象</param>
@@ -944,14 +983,16 @@ if (objViewRelaTabEN == null) return "";
 if (objViewRelaTabEN.mId == 0)
 {
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
  sbCondition.AppendFormat(" and TabId = '{0}'", objViewRelaTabEN.TabId);
+ sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
+ sbCondition.AppendFormat(" and RegionId = '{0}'", objViewRelaTabEN.RegionId);
 return sbCondition.ToString();
 }
  else {
 sbCondition.AppendFormat("mId !=  {0}", objViewRelaTabEN.mId);
- sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
  sbCondition.AppendFormat(" and TabId = '{0}'", objViewRelaTabEN.TabId);
+ sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
+ sbCondition.AppendFormat(" and RegionId = '{0}'", objViewRelaTabEN.RegionId);
  return sbCondition.ToString();
 }
 }
@@ -1307,6 +1348,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1366,6 +1408,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1409,6 +1452,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1520,6 +1564,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1563,6 +1608,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1650,6 +1696,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1693,6 +1740,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1750,6 +1798,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1796,6 +1845,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1837,6 +1887,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -2132,7 +2183,7 @@ public static bool AddNewRecordBySql2(clsViewRelaTabEN objViewRelaTabEN, bool bo
 {
 if (bolIsNeedCheckUniqueness == true && objViewRelaTabEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!界面Id = [{0}],表ID = [{1}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordBySql2)", objViewRelaTabEN.ViewId,objViewRelaTabEN.TabId);
+var strMsg = string.Format("记录已经存在!表ID = [{0}],界面Id = [{1}],区域Id = [{2}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordBySql2)", objViewRelaTabEN.TabId,objViewRelaTabEN.ViewId,objViewRelaTabEN.RegionId);
 throw new Exception(strMsg);
 }
 try
@@ -2167,7 +2218,7 @@ public static string AddNewRecordBySql2WithReturnKey(clsViewRelaTabEN objViewRel
 {
 if (bolIsNeedCheckUniqueness == true && objViewRelaTabEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!界面Id = [{0}],表ID = [{1}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordBySql2WithReturnKey)", objViewRelaTabEN.ViewId,objViewRelaTabEN.TabId);
+var strMsg = string.Format("记录已经存在!表ID = [{0}],界面Id = [{1}],区域Id = [{2}]的数据已经存在!(in clsViewRelaTabBL.AddNewRecordBySql2WithReturnKey)", objViewRelaTabEN.TabId,objViewRelaTabEN.ViewId,objViewRelaTabEN.RegionId);
 throw new Exception(strMsg);
 }
 try
@@ -2532,6 +2583,7 @@ objViewRelaTabENT.ViewTabTypeId = objViewRelaTabENS.ViewTabTypeId; //界面表�
 objViewRelaTabENT.TabId = objViewRelaTabENS.TabId; //表ID
 objViewRelaTabENT.TabFunction = objViewRelaTabENS.TabFunction; //表功能说明
 objViewRelaTabENT.PrjId = objViewRelaTabENS.PrjId; //工程Id
+objViewRelaTabENT.RelaFldNames = objViewRelaTabENS.RelaFldNames; //相关字段名s
 objViewRelaTabENT.UpdDate = objViewRelaTabENS.UpdDate; //修改日期
 objViewRelaTabENT.UpdUser = objViewRelaTabENS.UpdUser; //修改者
 objViewRelaTabENT.Memo = objViewRelaTabENS.Memo; //说明
@@ -2590,6 +2642,10 @@ if (arrFldSet.Contains(conViewRelaTab.PrjId, new clsStrCompareIgnoreCase())  == 
 {
 objViewRelaTabEN.PrjId = objViewRelaTabEN.PrjId; //工程Id
 }
+if (arrFldSet.Contains(conViewRelaTab.RelaFldNames, new clsStrCompareIgnoreCase())  ==  true)
+{
+objViewRelaTabEN.RelaFldNames = objViewRelaTabEN.RelaFldNames == "[null]" ? null :  objViewRelaTabEN.RelaFldNames; //相关字段名s
+}
 if (arrFldSet.Contains(conViewRelaTab.UpdDate, new clsStrCompareIgnoreCase())  ==  true)
 {
 objViewRelaTabEN.UpdDate = objViewRelaTabEN.UpdDate == "[null]" ? null :  objViewRelaTabEN.UpdDate; //修改日期
@@ -2622,6 +2678,7 @@ throw new Exception(strMsg);
 try
 {
 if (objViewRelaTabEN.TabFunction == "[null]") objViewRelaTabEN.TabFunction = null; //表功能说明
+if (objViewRelaTabEN.RelaFldNames == "[null]") objViewRelaTabEN.RelaFldNames = null; //相关字段名s
 if (objViewRelaTabEN.UpdDate == "[null]") objViewRelaTabEN.UpdDate = null; //修改日期
 if (objViewRelaTabEN.UpdUser == "[null]") objViewRelaTabEN.UpdUser = null; //修改者
 if (objViewRelaTabEN.Memo == "[null]") objViewRelaTabEN.Memo = null; //说明
@@ -2851,7 +2908,7 @@ clsViewRelaTabBL.objCommFun4BL.ReFreshCache(strPrjId);
 
  /// <summary>
  /// 获取检查唯一性条件串(Uniqueness)--ViewRelaTab(界面相关表)
- /// 唯一性条件:ViewId_TabId
+ /// 唯一性条件:TabId_ViewId_RegionId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetUniquenessConditionString)
  /// </summary>
  /// <param name = "objViewRelaTabEN">要求唯一的对象</param>
@@ -2869,7 +2926,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-04-28
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3195,6 +3252,8 @@ public static string GetCode4CreateTable()
  strCreateTabCode.Append(" TabFunction varchar(500) Null, "); 
  // /**工程Id*/ 
  strCreateTabCode.Append(" PrjId char(4) not Null, "); 
+ // /**相关字段名s*/ 
+ strCreateTabCode.Append(" RelaFldNames varchar(500) Null, "); 
  // /**修改日期*/ 
  strCreateTabCode.Append(" UpdDate varchar(20) Null, "); 
  // /**修改者*/ 
@@ -3214,7 +3273,9 @@ public static string GetCode4CreateTable()
  // /**ViewTabTypeName*/ 
  strCreateTabCode.Append(" ViewTabTypeName varchar(20) not Null, "); 
  // /**表名*/ 
- strCreateTabCode.Append(" TabName varchar(100) not Null ");
+ strCreateTabCode.Append(" TabName varchar(100) not Null, "); 
+ // /**Cm工程Id*/ 
+ strCreateTabCode.Append(" CmPrjId char(6) Null ");
  strCreateTabCode.Append(") "); 
   strCreateTabCode.Append("ON [PRIMARY] ");
   return strCreateTabCode.ToString();

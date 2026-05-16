@@ -50,7 +50,11 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
         }
         #endregion
-               
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 为字段设置条件字段值
         /// </summary>

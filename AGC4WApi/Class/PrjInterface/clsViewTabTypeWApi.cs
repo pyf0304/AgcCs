@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewTabTypeWApi
  表名:ViewTabType(00050103)
- * 版本:2026.02.25.1(服务器:WIN-SRV103-116)
- 日期:2026/03/07 22:19:38
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/29 01:22:22
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -75,14 +75,14 @@ return objViewTabTypeEN;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewTabTypeEN">需要设置字段值的实体对象</param>
- /// <param name = "strViewTabTypeName">ViewTabTypeName</param>
+ /// <param name = "strViewTabTypeName">界面表类型名</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
  /// <returns>返回对象,可以继续连写</returns>
 public static clsViewTabTypeEN SetViewTabTypeName(this clsViewTabTypeEN objViewTabTypeEN, string strViewTabTypeName, string strComparisonOp="")
 	{
 clsCheckSql.CheckFieldNotNull(strViewTabTypeName, conViewTabType.ViewTabTypeName);
 clsCheckSql.CheckFieldLen(strViewTabTypeName, 20, conViewTabType.ViewTabTypeName);
-objViewTabTypeEN.ViewTabTypeName = strViewTabTypeName; //ViewTabTypeName
+objViewTabTypeEN.ViewTabTypeName = strViewTabTypeName; //界面表类型名
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.ViewTabTypeName) == false)
@@ -102,13 +102,40 @@ return objViewTabTypeEN;
  /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewTabTypeEN">需要设置字段值的实体对象</param>
- /// <param name = "strTabTypeFunction">TabTypeFunction</param>
+ /// <param name = "strViewTabTypeEnName">界面表类型英文名</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsViewTabTypeEN SetViewTabTypeEnName(this clsViewTabTypeEN objViewTabTypeEN, string strViewTabTypeEnName, string strComparisonOp="")
+	{
+clsCheckSql.CheckFieldNotNull(strViewTabTypeEnName, conViewTabType.ViewTabTypeEnName);
+clsCheckSql.CheckFieldLen(strViewTabTypeEnName, 100, conViewTabType.ViewTabTypeEnName);
+objViewTabTypeEN.ViewTabTypeEnName = strViewTabTypeEnName; //界面表类型英文名
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.ViewTabTypeEnName) == false)
+{
+objViewTabTypeEN.dicFldComparisonOp.Add(conViewTabType.ViewTabTypeEnName, strComparisonOp);
+}
+else
+{
+objViewTabTypeEN.dicFldComparisonOp[conViewTabType.ViewTabTypeEnName] = strComparisonOp;
+}
+}
+return objViewTabTypeEN;
+	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objViewTabTypeEN">需要设置字段值的实体对象</param>
+ /// <param name = "strTabTypeFunction">表类型功能</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
  /// <returns>返回对象,可以继续连写</returns>
 public static clsViewTabTypeEN SetTabTypeFunction(this clsViewTabTypeEN objViewTabTypeEN, string strTabTypeFunction, string strComparisonOp="")
 	{
 clsCheckSql.CheckFieldLen(strTabTypeFunction, 500, conViewTabType.TabTypeFunction);
-objViewTabTypeEN.TabTypeFunction = strTabTypeFunction; //TabTypeFunction
+objViewTabTypeEN.TabTypeFunction = strTabTypeFunction; //表类型功能
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.TabTypeFunction) == false)
@@ -143,6 +170,11 @@ if (objViewTabTypeCond.IsUpdated(conViewTabType.ViewTabTypeName) == true)
 {
 string strComparisonOpViewTabTypeName = objViewTabTypeCond.dicFldComparisonOp[conViewTabType.ViewTabTypeName];
 strWhereCond += string.Format(" And {0} {2} '{1}'", conViewTabType.ViewTabTypeName, objViewTabTypeCond.ViewTabTypeName, strComparisonOpViewTabTypeName);
+}
+if (objViewTabTypeCond.IsUpdated(conViewTabType.ViewTabTypeEnName) == true)
+{
+string strComparisonOpViewTabTypeEnName = objViewTabTypeCond.dicFldComparisonOp[conViewTabType.ViewTabTypeEnName];
+strWhereCond += string.Format(" And {0} {2} '{1}'", conViewTabType.ViewTabTypeEnName, objViewTabTypeCond.ViewTabTypeEnName, strComparisonOpViewTabTypeEnName);
 }
 if (objViewTabTypeCond.IsUpdated(conViewTabType.TabTypeFunction) == true)
 {
@@ -294,6 +326,69 @@ throw new Exception(strMsg);
 }
 }
  /// <summary>
+ /// 根据表内容设置enum列表
+ /// (AutoGCLib.WA_Access4CSharp:Gen_4WA_GeneEnumConstList)
+ /// </summary>
+public class enumViewTabTypeWA
+{
+ /// <summary>
+ /// 未确定
+ /// </summary>
+public const string Undetermined_0000 = "0000";
+ /// <summary>
+ /// 界面主表
+ /// </summary>
+public const string Interface_Master_Table_0001 = "0001";
+ /// <summary>
+ /// 界面明细表
+ /// </summary>
+public const string Interface_Detail_Table_0002 = "0002";
+ /// <summary>
+ /// 查询区主表
+ /// </summary>
+public const string Query_Area_Master_Table_0003 = "0003";
+ /// <summary>
+ /// 编辑区主表
+ /// </summary>
+public const string Edit_Area_Master_Table_0004 = "0004";
+ /// <summary>
+ /// 列表区主表
+ /// </summary>
+public const string List_Area_Master_Table_0005 = "0005";
+ /// <summary>
+ /// 功能区主表
+ /// </summary>
+public const string Function_Area_Master_Table_0006 = "0006";
+ /// <summary>
+ /// 详细区主表
+ /// </summary>
+public const string Detail_Area_Master_Table_0007 = "0007";
+ /// <summary>
+ /// 导出区主表
+ /// </summary>
+public const string Export_Area_Master_Table_0008 = "0008";
+ /// <summary>
+ /// 父表
+ /// </summary>
+public const string Parent_Table_0009 = "0009";
+ /// <summary>
+ /// 参考表
+ /// </summary>
+public const string Reference_Table_0010 = "0010";
+ /// <summary>
+ /// 相关表
+ /// </summary>
+public const string Related_Table_0011 = "0011";
+ /// <summary>
+ /// 平行表
+ /// </summary>
+public const string Parallel_Table_0012 = "0012";
+ /// <summary>
+ /// 主表视图
+ /// </summary>
+public const string Master_Table_View_0013 = "0013";
+}
+ /// <summary>
  /// 界面表类型(ViewTabType)
  /// (AutoGCLib.WA_Access4CSharp:GeneCode)
  /// </summary>
@@ -367,11 +462,15 @@ if (!Object.Equals(null, objViewTabTypeEN.ViewTabTypeId) && GetStrLen(objViewTab
 }
 if (!Object.Equals(null, objViewTabTypeEN.ViewTabTypeName) && GetStrLen(objViewTabTypeEN.ViewTabTypeName) > 20)
 {
- throw new Exception("字段[ViewTabTypeName]的长度不能超过20!");
+ throw new Exception("字段[界面表类型名]的长度不能超过20!");
+}
+if (!Object.Equals(null, objViewTabTypeEN.ViewTabTypeEnName) && GetStrLen(objViewTabTypeEN.ViewTabTypeEnName) > 100)
+{
+ throw new Exception("字段[界面表类型英文名]的长度不能超过100!");
 }
 if (!Object.Equals(null, objViewTabTypeEN.TabTypeFunction) && GetStrLen(objViewTabTypeEN.TabTypeFunction) > 500)
 {
- throw new Exception("字段[TabTypeFunction]的长度不能超过500!");
+ throw new Exception("字段[表类型功能]的长度不能超过500!");
 }
  objViewTabTypeEN._IsCheckProperty = true;
  }
@@ -1454,8 +1553,9 @@ return len;
 try
 {
 objViewTabTypeENT.ViewTabTypeId = objViewTabTypeENS.ViewTabTypeId; //界面表类型码
-objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //ViewTabTypeName
-objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //TabTypeFunction
+objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //界面表类型名
+objViewTabTypeENT.ViewTabTypeEnName = objViewTabTypeENS.ViewTabTypeEnName; //界面表类型英文名
+objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //表类型功能
 }
 catch (Exception objException)
 {
@@ -1583,12 +1683,14 @@ public static DataTable GetDataTableByObjLst(List<clsViewTabTypeEN> arrObjLst)
 DataTable objDT = new DataTable();
 objDT.Columns.Add(conViewTabType.ViewTabTypeId, Type.GetType("System.String"));
 objDT.Columns.Add(conViewTabType.ViewTabTypeName, Type.GetType("System.String"));
+objDT.Columns.Add(conViewTabType.ViewTabTypeEnName, Type.GetType("System.String"));
 objDT.Columns.Add(conViewTabType.TabTypeFunction, Type.GetType("System.String"));
 foreach (clsViewTabTypeEN objInFor in arrObjLst)
 {
 DataRow objDR = objDT.NewRow();
 objDR[conViewTabType.ViewTabTypeId] = objInFor[conViewTabType.ViewTabTypeId];
 objDR[conViewTabType.ViewTabTypeName] = objInFor[conViewTabType.ViewTabTypeName];
+objDR[conViewTabType.ViewTabTypeEnName] = objInFor[conViewTabType.ViewTabTypeEnName];
 objDR[conViewTabType.TabTypeFunction] = objInFor[conViewTabType.TabTypeFunction];
 objDT.Rows.Add(objDR);
 }

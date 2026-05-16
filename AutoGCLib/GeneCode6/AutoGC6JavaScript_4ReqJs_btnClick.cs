@@ -39,7 +39,10 @@ namespace AutoGCLib
     partial class AutoGC6_WApi : clsGeneCodeBase4Tab
     {
 
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         #region ¹¹Ôìº¯Êý
 
         public AutoGC6_WApi(string strTabId,  string strPrjDataBaseId, string strPrjId)

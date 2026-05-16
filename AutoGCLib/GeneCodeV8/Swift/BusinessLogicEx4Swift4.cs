@@ -45,6 +45,11 @@ namespace AutoGCLib
             clsErrorIdManageBLEx.arrErrIdLstCache = null;
         }
         #endregion
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 把一个JSON串转化为一个对象.
         /// </summary>

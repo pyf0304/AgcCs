@@ -51,6 +51,11 @@ namespace AutoGCLib
             clsErrorIdManageBLEx.arrErrIdLstCache = null;
         }
         #endregion
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成业务逻辑层代码－－C#.NET
         /// </summary>

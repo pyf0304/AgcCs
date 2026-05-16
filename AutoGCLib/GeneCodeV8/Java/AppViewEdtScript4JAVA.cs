@@ -1947,7 +1947,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;//该区域定义的列数
             tr = new TableRow();//创建一行
             //bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intCol == intColNum)
                 {
@@ -2033,7 +2033,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;
             tr = new TableRow();//创建一行
             bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (iCtlNum % (intColNum * 2) == 0)
                 {
@@ -2210,7 +2210,7 @@ namespace AutoGCLib
 
         public void InitQueryRegion()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null || objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -2232,7 +2232,7 @@ namespace AutoGCLib
             objAndroidConstraintLayoutENEx.layout_height = "wrap_content";
 
             arrCtrlLst4Query.Add(objAndroidConstraintLayoutENEx);
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 AndroidControlEx objAndroidControlENEx = clsAndroidControlBLEx.GetAndroidControlObjByQryFld(objQryRegionFldsEx);
                 arrCtrlLst4Query.Add(objAndroidControlENEx);
@@ -2611,7 +2611,7 @@ namespace AutoGCLib
         public string Gen_AppView_Java_FieldVarBind4List()
         {
             StringBuilder strCodeForCs = new StringBuilder();
-            if (objViewInfoENEx.arrQryRegionFldSet == null || objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -2636,7 +2636,7 @@ namespace AutoGCLib
         public string Gen_AppView_Java_FieldVarBind4ListView()
         {
             StringBuilder strCodeForCs = new StringBuilder();
-            if (objViewInfoENEx.arrQryRegionFldSet == null || objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -4090,7 +4090,7 @@ namespace AutoGCLib
         
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName) //objEditRegionFldsEx.objCtlType.CtlTypeName
                     {
@@ -4429,7 +4429,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             AndroidControlEx objAndroidControlENEx = null;
             ///定义类属性
-            foreach (clsQryRegionFldsENEx objQryRegionFldsENEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsENEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 try
                 {
@@ -4458,7 +4458,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             AndroidControlEx objAndroidControlENEx = null;
             ///定义类属性
-            foreach (clsQryRegionFldsENEx objQryRegionFldsENEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsENEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 try
                 {

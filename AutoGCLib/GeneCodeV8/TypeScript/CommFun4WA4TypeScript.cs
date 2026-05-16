@@ -46,7 +46,10 @@ namespace AutoGCLib
         }
         #endregion
 
-      
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
         /// <summary>
         /// 生成通用逻辑层代码

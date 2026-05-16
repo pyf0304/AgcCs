@@ -75,7 +75,7 @@ namespace AutoGCLib
                 ///生成仅有变量;
 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -823,7 +823,7 @@ namespace AutoGCLib
      
         public string Gen_Vue_Ts_GeneEventFuncEx()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -831,7 +831,7 @@ namespace AutoGCLib
             {
 
 
-                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ChangeEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -848,7 +848,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "");
 
-                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -961,7 +961,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "case \"AddNewRecord\":            //添加记录");
                 strCodeForCs.Append("\r\n" + "case \"Create\":            //添加记录");
 
-                    strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex('{ThisEditClsName}Ex', objPage);//初始化编辑类,设置当前类为编辑类的父类，编辑返回的类" );
+                    strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//初始化编辑类,设置当前类为编辑类的父类，编辑返回的类" );
                     strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
 
                 strCodeForCs.Append("\r\n" + $"ref{ThisEditClsName}.value.btn{TabName_In4Edit}_Edit_Click(strCommandName, strKeyId);");
@@ -974,7 +974,7 @@ namespace AutoGCLib
                 }
                 strCodeForCs.Append("\r\n" + "case \"UpdateRecord\":            //修改记录");
                 strCodeForCs.Append("\r\n" + "case \"Update\":            //修改记录");
-                strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex('{ThisEditClsName}Ex',objPage);//初始化编辑类,设置当前类为编辑类的父类，编辑返回的类");
+                strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//初始化编辑类,设置当前类为编辑类的父类，编辑返回的类");
                 strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
                 string strGetFirstCheckedStr = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, thisEditTabProp_TS, "修改","", this, this.strBaseUrl);
                 strCodeForCs.Append("\r\n" + strGetFirstCheckedStr);

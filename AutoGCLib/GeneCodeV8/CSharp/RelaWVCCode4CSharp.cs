@@ -521,7 +521,7 @@ namespace AutoGCLib
                 if (IsHaveEditRegion)
                 {
                     List<string> arrDropDownTypeLst = new List<string> { enumCtlType.DropDownList_06, enumCtlType.DropDownList_Bool_18 };
-                    IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
+                    IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
                     IEnumerable<ASPDropDownListEx> arrASPDropDownListObj = arrQRF4DropDownLst
                         .Select(GetDdlObj);
 
@@ -658,7 +658,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName) //objEditRegionFldsEx.objCtlType.CtlTypeName
                     {
@@ -3446,7 +3446,7 @@ if (objEditField_OrderNum != null)
             try
             {
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.IsTabForeignKey() == true)
                     {
@@ -5140,7 +5140,7 @@ if (objEditField_OrderNum != null)
 
                 //clsASPDropDownListBLEx.
                 List<string> arrDropDownTypeLst = new List<string> { enumCtlType.DropDownList_06, enumCtlType.DropDownList_Bool_18 };
-                IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
+                IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
                 IEnumerable<ASPDropDownListEx> arrASPDropDownListObj = arrQRF4DropDownLst
                     .Select(GetDdlObj);
 

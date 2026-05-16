@@ -1,0 +1,42 @@
+﻿/** 
+ * 类名:{{ TableName }}_EditAi(界面:{{ ViewName }},{{ ViewId }})
+ * 表名:{{ TableName }}
+ * 版本:{{ date.now | date.to_string '%Y.%m.%d' }}
+ * 生成者:
+ * 模块中文名:{{ ModuleName }}
+ * 编程语言:TypeScript
+ **/
+import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
+import {
+  {{~ if IsStringAutoIncrement ~}}
+  {{ TableName }}_GetMaxStrIdAsync,
+  {{ TableName }}_AddNewRecordWithMaxIdAsync,
+  {{~ else if NeedReturnKeyMethod ~}}
+  {{ TableName }}_AddNewRecordWithReturnKeyAsync,
+  {{ TableName }}_AddNewRecordAsync,
+  {{~ else ~}}
+  {{ TableName }}_AddNewRecordAsync,
+  {{~ end ~}}
+  {{ TableName }}_CheckPropertyNew,
+  {{~ if NeedRefreshCache ~}}
+  {{ TableName }}_ReFreshCache,
+  {{~ end ~}}
+  {{ TableName }}_GetUniCondStr,
+  {{ TableName }}_IsExistRecordAsync,
+  {{ TableName }}_GetUniCondStr4Update,
+  {{ TableName }}_IsExistAsync,
+  {{ TableName }}_GetObjBy{{ KeyField }}Async,
+  {{ TableName }}_CheckProperty4Update,
+  {{ TableName }}_UpdateRecordAsync,
+  {{ TableName }}_EditRecordExAsync,
+} from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+import { cls{{ TableName }}EN } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+import {
+  {{~ if NeedRefreshCache ~}}
+  {{ TableName }}_DeleteKeyIdCache,
+  {{~ end ~}}
+  divVarSet,
+  ref{{ TableName }}_Edit,
+} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+import { IShowList } from '@/ts/PubFun/IShowList';
+import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';

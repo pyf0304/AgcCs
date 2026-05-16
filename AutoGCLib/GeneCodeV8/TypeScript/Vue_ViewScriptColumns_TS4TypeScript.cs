@@ -24,7 +24,7 @@ namespace AutoGCLib
         {
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
-            strRe_ClsName = strRe_ClsName + "Ai2Columns";
+            strRe_ClsName = strRe_ClsName + "AiColumns";
             strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
 
             var model = BuildTemplateModel();
@@ -39,9 +39,9 @@ namespace AutoGCLib
             return result;
         }
 
-        private Ai2ColumnsTemplateModel BuildTemplateModel()
+        private AiColumnsTemplateModel BuildTemplateModel()
         {
-            var model = new Ai2ColumnsTemplateModel
+            var model = new AiColumnsTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
@@ -112,18 +112,22 @@ namespace AutoGCLib
                         sortBy = ToCamelCase(fldName);
                     }
 
-                    var field = new Ai2ColumnField
+                    var field = new AiColumnField
                     {
-                        Name = fieldNameForConst,  // 🔥 使用计算后的字段名
+                        Name = fieldNameForConst,
                         EntityClass = TabName_Out4ListRegion4GC,
-                        ExSuffix = isExtendField ? "Ex" : "",  // 🔥 扩展字段使用 "Ex"
+                        ExSuffix = isExtendField ? "Ex" : "",
                         Source = isExtendField ? "related" : "entity",
                         Header = fld.HeaderText ?? objFieldTab?.FldCnName ?? "",
                         SortBy = sortBy,
                         TdClass = GetTdClassByDataType(objFieldTab?.DataTypeId ?? ""),
-                        OrderNum = fld.SeqNum + 1,  // 🔥 使用 SeqNum + 1（与原代码一致）
-                        IncludeInList = fld.IsVisible,
-                        IncludeInExport = !isExtendField  // 🔥 扩展字段不导出
+                        OrderNum = fld.SeqNum + 1,
+                        // 🔥 修复：使用 InUse 判断是否包含在列表中
+                        // InUse = true 表示字段启用，应该包含在列表定义中
+                        // IsVisible 只控制前端是否显示，不影响列定义
+                        IncludeInList = fld.InUse,
+                        // 🔥 修复：所有启用的字段都应该可以导出（包括扩展字段）
+                        IncludeInExport = fld.InUse
                     };
 
                     model.Fields.Add(field);

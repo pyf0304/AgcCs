@@ -33,7 +33,10 @@ namespace AutoGCLib
     /// </summary>
     partial class BusinessLogic4Mvc4CSharp : clsGeneCodeBase4Tab
     {
-     
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
         #region ¹¹Ôìº¯Êý
 

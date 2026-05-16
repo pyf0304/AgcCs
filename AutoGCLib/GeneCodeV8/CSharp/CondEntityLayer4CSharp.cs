@@ -53,8 +53,11 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
         }
         #endregion
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
-        
 
         /// <summary>
         /// 生成用于查询条件的Entity层代码

@@ -11,12 +11,28 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
+	<ItemGroup>
+		<!-- 将 .sbn 模板文件标记为内容文件，复制到输出目录 -->
+		<Content Include="Templates\**\*.sbn">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+
+		<!-- 或者标记为嵌入资源 -->
+		<EmbeddedResource Include="Templates\**\*.sbn" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Remove="Templates\TypeScript\Ai4BaseBak.sbn" />
+	  <EmbeddedResource Remove="Templates\TypeScript\ListAi4Html.sbn" />
+	</ItemGroup>
   <ItemGroup>
     <None Remove="Templates\TypeScript\Ai2Columns.sbn" />
     <None Remove="Templates\TypeScript\Ai3Query.sbn" />
     <None Remove="Templates\TypeScript\Ai4Base.sbn" />
     <None Remove="Templates\TypeScript\Ai4Command.sbn" />
+    <None Remove="Templates\TypeScript\Ai4Html.sbn" />
     <None Remove="Templates\TypeScript\EditAi.sbn" />
+    <None Remove="Templates\TypeScript\EditEx.sbn" />
+    <None Remove="Templates\TypeScript\ExAi4.sbn" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GeneCodeV8\JavaScript\" />
@@ -48,7 +64,16 @@
     <Content Include="Templates\TypeScript\Ai4Command.sbn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\TypeScript\Ai4Html.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\TypeScript\EditAi.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TypeScript\EditEx.sbn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TypeScript\ExAi4.sbn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Vue_ViewScript_TS4Html\Gen_CRUD_setup_btnUpdate_Click.sbn">

@@ -41,7 +41,7 @@ namespace AutoGCLib
     class DALCode4CSharp : clsGeneCodeBase4Tab
     {
 
-
+       
         #region ¹¹Ôìº¯Êý
 
         public DALCode4CSharp(string strTabId,  string strPrjDataBaseId, string strPrjId)
@@ -53,7 +53,10 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
         }
         #endregion
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
 
         /// <summary>

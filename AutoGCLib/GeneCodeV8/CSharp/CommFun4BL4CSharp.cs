@@ -32,10 +32,13 @@ namespace AutoGCLib
     /// </summary>
     partial class CommFun4BL4CSharp : clsGeneCodeBase4Tab
     {
-     
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         #region ¹¹Ôìº¯Êý
 
-       
+
         public CommFun4BL4CSharp(string strTabId,  string strPrjDataBaseId, string strPrjId)
           : base(strTabId, strPrjDataBaseId, strPrjId)
         {

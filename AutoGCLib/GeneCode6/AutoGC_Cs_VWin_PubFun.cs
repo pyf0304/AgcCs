@@ -1403,7 +1403,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.Append("\r\n" + "private void SetAllComboBox()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -1452,7 +1452,7 @@ namespace AutoGCLib
 
             try
             {
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -1825,7 +1825,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "/// </summary>	");
                 strCodeForCs.Append("\r\n" + "public void Clear()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -2036,7 +2036,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.Append("\r\n" + "public void SetDefaultValue()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -2143,7 +2143,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// <returns></returns>");
                 strCodeForCs.Append("\r\n" + "public bool IsValid(ref string strResult)");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -3897,7 +3897,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "//例如 1 = 1 && UserName = '张三'");
                 strCodeForCs.Append("\r\n" + "string strWhereCond = \" 1 = 1 \";");
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4073,7 +4073,7 @@ namespace AutoGCLib
 
         protected void CheckQueryRegion()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null || objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -4422,7 +4422,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "// 在此处放置用户代码以初始化页面");
 
                 strCodeForCs.Append("\r\n" + "//1、为下拉框设置数据源,绑定列表数据");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4564,7 +4564,7 @@ namespace AutoGCLib
             objViewInfoENEx.FileName = objViewInfoENEx.WinUserCtlCsFName;
 
 
-            //			if (objViewInfoENEx.arrQryRegionFldSet == null || objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+            //			if (objViewInfoENEx.arrQryRegionFldSet4InUse == null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
             //			{
             //				StringBuilder sbMessage = new StringBuilder();
             //				string strViewName = objViewInfoENEx.ViewName;
@@ -4578,7 +4578,7 @@ namespace AutoGCLib
             {
 
                 //第0步:把控件中下拉框ComboBox转换成ComboBox
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4621,7 +4621,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "public class uc{0}Query : System.Windows.Forms.UserControl", objViewInfoENEx.TabName);
                 strCodeForCs.Append("\r\n" + "{");
                 //第三步:生成控件中内部控件变量的名称
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4670,7 +4670,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n /// </summary>");
                 strCodeForCs.Append("\r\n" + "private void InitializeComponent()");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4691,7 +4691,7 @@ namespace AutoGCLib
                 objBiDimDistribue.LineHeight = 30;
                 int intFieldIndex = 0;
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4857,7 +4857,7 @@ namespace AutoGCLib
                 //strTemp = GenComboBoxBindFunction();
                 //strCodeForCs.Append(strTemp);
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -4896,11 +4896,11 @@ namespace AutoGCLib
                 //strCodeForCs.Append(strTemp);
 
                 //第十六步:生成用于组合查询条件的函数
-                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
 
                 //最后一步:生成类的结束符和域名空间的结束符
@@ -5661,7 +5661,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "uc{0}1.SetCbo_{1}();",
                       objViewInfoENEx.TabName, objEditRegionFldsEx.FldName);
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 

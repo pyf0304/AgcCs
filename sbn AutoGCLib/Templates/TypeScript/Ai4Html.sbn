@@ -1,0 +1,36 @@
+{{~ # 静态变量初始化逻辑
+# 根据 FunctionTemplateRelaCRUD 配置生成静态变量的初始化代码
+# 规则：
+# - ProgLangTypeId: CondField(E,CodeTypeId) -> 清空值
+# - CodeTypeId: CondField(E,FuncId4GC) -> 清空值  
+# - FunctionTemplateId: CacheField -> 保留缓存值
+~}}
+
+{{~ # 遍历静态变量配置 ~}}
+{{~ for rela in FunctionTemplateRelaList ~}}
+  {{~ if rela.VariableType == "静态变量" ~}}
+
+    {{~ # 根据 ConditionRelation 判断是否需要清空 ~}}
+    {{~ if rela.ConditionRelation | string.contains "CondField" ~}}
+      {{~ # CondField 类型：清空值 ~}}
+  {{ rela.FieldName }}_Static.value = '';
+    {{~ else if rela.ConditionRelation | string.contains "CacheField" ~}}
+      {{~ # CacheField 类型：如果有初始值就赋初始值，否则保留缓存 ~}}
+      {{~ if rela.InitialValue ~}}
+  if (!{{ rela.FieldName }}_Static.value) {
+    {{ rela.FieldName }}_Static.value = '{{ rela.InitialValue }}';
+  }
+      {{~ else ~}}
+  // {{ rela.FieldName }}_Static.value 保留缓存值
+      {{~ end ~}}
+    {{~ else ~}}
+      {{~ # 其他类型：根据是否有初始值决定 ~}}
+      {{~ if rela.InitialValue ~}}
+  {{ rela.FieldName }}_Static.value = '{{ rela.InitialValue }}';
+      {{~ else ~}}
+  {{ rela.FieldName }}_Static.value = '';
+      {{~ end ~}}
+    {{~ end ~}}
+
+  {{~ end ~}}
+{{~ end ~}}

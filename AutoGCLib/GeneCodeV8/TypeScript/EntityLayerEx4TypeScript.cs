@@ -42,7 +42,10 @@ namespace AutoGCLib
             this.arrImportClass = new List<ImportClass>();
         }
         #endregion
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public string FileName
         {
             get

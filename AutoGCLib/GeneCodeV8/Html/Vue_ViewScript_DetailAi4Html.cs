@@ -783,7 +783,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;

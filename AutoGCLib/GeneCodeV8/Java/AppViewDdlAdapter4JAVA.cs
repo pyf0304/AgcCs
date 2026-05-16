@@ -48,8 +48,11 @@ namespace AutoGCLib
         }
         #endregion
 
-       
-       
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
+
         /// <summary>
         /// 生成Ddl绑定文件函数 
         /// </summary>

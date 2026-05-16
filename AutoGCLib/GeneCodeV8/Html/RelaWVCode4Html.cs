@@ -178,7 +178,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -189,7 +189,7 @@ namespace AutoGCLib
             Func<clsQryRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4SingleModel = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, "");
 
 
-            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet.Select(GetControlGroup_Asp4SingleModel);
+            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Select(GetControlGroup_Asp4SingleModel);
             //把查询按钮加进来
             ASPControlGroupEx objASPControlGroup = clsASPControlGroupBLEx.GetbtnQuery();
             List<ASPControlGroupEx> arrButtonObjLst = new List<ASPControlGroupEx>();
@@ -222,7 +222,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -4485,7 +4485,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;//该区域定义的列数
             tr = new TableRow();//创建一行
             //bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intCol == intColNum)
                 {
@@ -4571,7 +4571,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;
             tr = new TableRow();//创建一行
             bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (iCtlNum % (intColNum * 2) == 0)
                 {

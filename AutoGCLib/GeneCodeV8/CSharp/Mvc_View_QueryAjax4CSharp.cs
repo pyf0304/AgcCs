@@ -282,7 +282,7 @@ namespace AutoGCLib
                 intZIndex = 101;
                 //				intCurrLeft = 10;
                 intCurrTop = 50;
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId() == clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
@@ -732,7 +732,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -744,7 +744,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.StartX = (int)intCurrLeft;
             objBiDimDistribue4Qry.StartY = (int)intCurrTop;
             ///生成专门用于查询的界面控件的代码;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                 {
@@ -797,7 +797,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -812,7 +812,7 @@ namespace AutoGCLib
             ///生成专门用于查询的界面控件的代码;
             ///
             bool bolIsTrEnd = true;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intFieldNum % objViewInfoENEx.objViewRegion_Query.ColNum == 0)
                 {
@@ -3800,7 +3800,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;//该区域定义的列数
             tr = new TableRow();//创建一行
             //bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intCol == intColNum)
                 {
@@ -3886,7 +3886,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;
             tr = new TableRow();//创建一行
             bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (iCtlNum % (intColNum * 2) == 0)
                 {

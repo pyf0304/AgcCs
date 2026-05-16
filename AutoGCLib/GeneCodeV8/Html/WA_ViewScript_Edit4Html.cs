@@ -7,7 +7,6 @@ using AgcCommBase;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.commexception;
 using com.taishsoft.common;
-using com.taishsoft.util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,19 +32,20 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class WA_ViewScript_Detail_TS4Html : clsGeneCodeBase4View
+    partial class WA_ViewScript_Edit4Html : clsGeneCodeBase4View
     {
         private string strJSPath = "";
-        clsBiDimDistribute objBiDimDistribue4Qry = null;
+
+        //clsBiDimDistribute objBiDimDistribue4Qry = null;
         #region 构造函数
-        public WA_ViewScript_Detail_TS4Html()
+        public WA_ViewScript_Edit4Html()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
             InitPageSetup();
         }
-        public WA_ViewScript_Detail_TS4Html(string strViewId)
+        public WA_ViewScript_Edit4Html(string strViewId)
        : base(strViewId, "", "")
         {
             // 
@@ -54,7 +54,7 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
         }
-        public WA_ViewScript_Detail_TS4Html( string strViewId, string strPrjDataBaseId, string strPrjId)
+        public WA_ViewScript_Edit4Html( string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -77,7 +77,53 @@ namespace AutoGCLib
 
 
 
-      
+        public string Gen_WApi_JS_mySubmit(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n  提交编辑");
+            strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n **/");
+            strCodeForCs.AppendFormat("\r\n" + "function Submit_{0}(pstrOp) {{  ", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "//    alert(\"提交\" + strOp);");
+            strCodeForCs.AppendFormat("\r\n" + "   require([\"{2}/{0}Ex.js\"], function({1}) {{",
+                objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower(), strJSPath);
+
+            strCodeForCs.AppendFormat("\r\n" + "const objPage = new {1}.{0}Ex();", objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower());
+
+            strCodeForCs.AppendFormat("\r\n" + "           objPage.btnSubmit_Click();",
+                objViewInfoENEx.TabName, objViewInfoENEx.TabName.ToLower());
+            strCodeForCs.Append("\r\n" + "    });");
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
+
+        public string Gen_WApi_JS_btnEdit_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n  按钮单击,用于调用Js函数中btnEdit_Click");
+            strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n **/");
+            strCodeForCs.AppendFormat("\r\n" + "function btn{0}_Edit_Click(strCommandName, strKeyId) {{", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + "   require([\"{2}/{0}Ex.js\"], function({1}) {{",
+        objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower(), strJSPath);
+
+            //strCodeForCs.AppendFormat("\r\n" + "const objPageEdit = new {0}.{1}Ex();",
+            //    objViewInfoENEx.TabName.ToLower(), objViewInfoENEx.ClsName);
+            strCodeForCs.AppendFormat("\r\n" + "{0}.{1}Ex.btnEdit_Click(strCommandName, strKeyId);",
+                objViewInfoENEx.TabName.ToLower(), objViewInfoENEx.ClsName);
+
+            //strCodeForCs.AppendFormat("\r\n" + "{1}.{0}Ex.btnEdit_Click(strCommandName, strKeyId);",
+            //    objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower());
+            strCodeForCs.Append("\r\n" + "});");
+
+            strCodeForCs.Append("\r\n" + "}");
+
+
+            return strCodeForCs.ToString();
+        }
+
 
         public string Gen_WApi_JS_Page_Load(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
@@ -108,28 +154,35 @@ namespace AutoGCLib
             return strCodeForCs.ToString();
         }
 
-        public string Gen_WApi_JS_btnQuery_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        public string Gen_WApi_JS_ShowDialog(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  查询记录");
+            strCodeForCs.Append("\r\n  显示对话框");
             strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
-            strCodeForCs.Append("\r\n" + "function btnQuery_Click()");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "   require([\"{2}/{0}Ex.js\"], function({1}) {{",
-                objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower(), strJSPath);
-            strCodeForCs.Append("\r\n" + "$(\"#Text1\").val(\"进入函数：btnQuery_Click\");");
-            strCodeForCs.AppendFormat("\r\n" + "const objPage = new {1}.{0}Ex();", objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower());
-
-            strCodeForCs.AppendFormat("\r\n" + "objPage.btnQuery_Click();",
-                objViewInfoENEx.TabName, objViewInfoENEx.TabName_Out, objViewInfoENEx.TabName.ToLower());
-            strCodeForCs.Append("\r\n" + "});");
-
+            strCodeForCs.AppendFormat("\r\n" + "function ShowDialog(strDialogName) {{", objViewInfoENEx.TabName_In);     
+            strCodeForCs.Append("\r\n" + "   require(['jquery', 'bootstrap'], function($) {");
+            strCodeForCs.AppendFormat("\r\n" + " $(strDialogName).modal('show');", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "  });");
             strCodeForCs.Append("\r\n" + "}");
             return strCodeForCs.ToString();
         }
-                  
+
+        public string Gen_WApi_JS_HideDialog(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n  隐藏对话框");
+            strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n **/");
+            strCodeForCs.AppendFormat("\r\n" + "function HideDialog(strDialogName) {{", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "  require(['jquery', 'bootstrap'], function($) {");
+            strCodeForCs.AppendFormat("\r\n" + "      $(strDialogName).modal('hide');", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "  });");
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
 
         public string Gen_WApi_JS_JumpToPage(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
@@ -145,7 +198,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "//console.log(\"跳转到\" + intPageIndex + \"页\");");
             strCodeForCs.AppendFormat("\r\n" + "require([\"{2}/{0}Ex.js\"], function({1}) {{",
                 objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower(), strJSPath);
-            
+
             strCodeForCs.AppendFormat("\r\n" + "const objPage = new {1}.{0}Ex();", objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower());
 
             strCodeForCs.AppendFormat("\r\n" + "objPage.IndexPage(intPageIndex);",
@@ -167,7 +220,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "//console.log(\"按：\" + strFldName + \"排序\");");
             strCodeForCs.AppendFormat("\r\n" + "require([\"{2}/{0}Ex.js\"], function({1}) {{",
                 objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower(), strJSPath);
-            
+
             strCodeForCs.AppendFormat("\r\n" + "const objPage = new {1}.{0}Ex();", objViewInfoENEx.ClsName, objViewInfoENEx.TabName.ToLower());
 
             strCodeForCs.AppendFormat("\r\n" + "objPage.SortBy(strFldName);",
@@ -192,6 +245,7 @@ namespace AutoGCLib
             return strCodeForCs.ToString();
         }
 
+       
         private void GC_GetInputValue4Para_TS(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, StringBuilder strCodeForCs)
         {
             clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
@@ -280,69 +334,65 @@ namespace AutoGCLib
 
         }
 
-        private string GetCode4FieldInPutDataToClass(clsDetailRegionFldsENEx objDetailRegionFldsEx, clsViewInfoENEx objViewInfoENEx)
+        private string GetCode4FieldInPutDataToClass(clsEditRegionFldsENEx objEditRegionFldsEx, clsViewInfoENEx objViewInfoENEx)
         {
             StringBuilder sbCodeForCs = new StringBuilder();
-            if (objDetailRegionFldsEx.ObjFieldTabENEx.FieldTypeId == enumFieldType.KeyField_02
-                  && objDetailRegionFldsEx.PrimaryTypeId() == clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
+            if (objEditRegionFldsEx.ObjFieldTabENEx.FieldTypeId == enumFieldType.KeyField_02
+                  && objEditRegionFldsEx.PrimaryTypeId()== clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
             {
                 return "";
             }
 
             sbCodeForCs.AppendFormat("\r\n" + "pobj{0}EN.{1} = $(\"#{2}\").val();",
             objViewInfoENEx.TabName,
-            objDetailRegionFldsEx.FldName,
-            objDetailRegionFldsEx.CtrlId);
-            sbCodeForCs.AppendFormat("// {0}", objDetailRegionFldsEx.LabelCaption);
+            objEditRegionFldsEx.FldName,
+            objEditRegionFldsEx.CtrlId);
+            sbCodeForCs.AppendFormat("// {0}", objEditRegionFldsEx.LabelCaption);
 
             return sbCodeForCs.ToString();
         }
-           private string GetCode4FieldInGetDataFromClass(clsDetailRegionFldsENEx objDetailRegionFldsEx, clsViewInfoENEx objViewInfoENEx)
+          private string GetCode4FieldInGetDataFromClass(clsEditRegionFldsENEx objEditRegionFldsEx, clsViewInfoENEx objViewInfoENEx)
         {
 
             StringBuilder sbCodeForCs = new StringBuilder();
 
 
-            if (objDetailRegionFldsEx.ObjFieldTabENEx.FieldTypeId == enumFieldType.KeyField_02
-                  && objDetailRegionFldsEx.PrimaryTypeId() == clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
+            if (objEditRegionFldsEx.ObjFieldTabENEx.FieldTypeId == enumFieldType.KeyField_02
+                  && objEditRegionFldsEx.PrimaryTypeId()== clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
             {
                 return "";
             }
 
             sbCodeForCs.AppendFormat("\r\n" + "$(\"#{0}\").val(pobj{1}EN.{2});",
-                        objDetailRegionFldsEx.CtrlId,
+                        objEditRegionFldsEx.CtrlId,
                         objViewInfoENEx.TabName,
-                        objDetailRegionFldsEx.FldName);
-            sbCodeForCs.AppendFormat("// {0}", objDetailRegionFldsEx.LabelCaption);
+                        objEditRegionFldsEx.FldName);
+            sbCodeForCs.AppendFormat("// {0}", objEditRegionFldsEx.LabelCaption);
 
             return sbCodeForCs.ToString();
         }
-
         /// <summary>
         /// 功能:单表的查询、修改、插入、删除
         /// </summary>
         /// <returns></returns>
         public override string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
         {
+            if (objViewInfoENEx.objViewRegion_Edit == null || objViewInfoENEx.objViewRegion_Edit.IsDispInViewInfo(objViewInfoENEx) == false)
+            {
+                return "";
+            }
             string strFuncName = "";
             string strTemp = "";
             //让用户设置属性;
-            if (objViewInfoENEx.arrDetailRegionFldSet4InUse == null)
-            {
-                return "";
-                //StringBuilder sbMessage = new StringBuilder();
-                //string strViewName = objViewInfoENEx.ViewName;
-                //sbMessage.AppendFormat("当前所选界面名称:{0},在该界面中没有详细信息区域,或者详细信息区域没有字段。请检查!", strViewName);
-                //throw new clsDbObjException(sbMessage.ToString());
-            }
-            if (objViewInfoENEx.arrDetailRegionFldSet4InUse.Count == 0)
+            if (objViewInfoENEx.arrEditRegionFldSet4InUse == null || objViewInfoENEx.arrEditRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
-                sbMessage.AppendFormat("当前所选界面名称:{0},在该界面中详细信息区域没有字段,请检查!", strViewName);
+                sbMessage.AppendFormat("当前所选界面名称:{0},在该界面中没有编辑区域,或者编辑区域没有字段。请检查!", strViewName);
+                sbMessage.Append("\r\n当前界面的功能:查询(Q)、修改(U)、删除(D)、添加(I)。");
                 throw new clsDbObjException(sbMessage.ToString());
             }
-
+          
             StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
             //			string strTemp ;     ///临时变量;
             clsPubFun4BLEx.CheckDgStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.DgStyleId);
@@ -352,9 +402,9 @@ namespace AutoGCLib
 
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
-  objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
-                        
+                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                        objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
+
             objViewInfoENEx.WebFormName = string.Format("{0}", objViewInfoENEx.ClsName);
             objViewInfoENEx.WebFormFName = string.Format("{0}{1}.cshtml",
                 objViewInfoENEx.FolderName, objViewInfoENEx.ClsName);
@@ -394,8 +444,8 @@ namespace AutoGCLib
                 {
 
                     strCodeForCs.Append("\r\n" + "@page");
-                    
-                    
+
+
                     strCodeForCs.Append("\r\n" + "@{");
                     strCodeForCs.Append("\r\n" + "Layout = \"\";");
                     strCodeForCs.Append("\r\n" + "}");
@@ -412,7 +462,13 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "    <script src=\"../lib/bootstrap/dist/js/popper.js\"></script>");
                 strCodeForCs.Append("\r\n" + "    <script src=\"../lib/require/require.js\" data-main=\"../js/src/config\"></script>");
                 strCodeForCs.Append("\r\n" + "}");
-       
+
+                strCodeForCs.Append("\r\n" + "<script>");
+
+                strCodeForCs.Append("\r\n" + "//所有用户自定义的JS函数建议都放在这里");
+                strCodeForCs.Append("\r\n" + "");
+                strCodeForCs.Append("\r\n" + "");
+                strCodeForCs.Append("\r\n" + "</script>");
 
                 strCodeForCs.Append("\r\n" + "     <script>    ");
 
@@ -457,30 +513,43 @@ namespace AutoGCLib
                 //0003:QUDI模式
 
 
-                strCodeForCs.Append("\r\n" + "<div id = \"tabLayout\" class = \"tab_layout\" ");
+                strCodeForCs.Append("\r\n" + "<div id = \"divEditLayout\" class = \"tab_layout\" ");
                 strCodeForCs.Append("\r\n" + ">");
 
                 //生成编辑区域代码-------------------------------
-
-                ///生成用于布局的表格代码;
-                strCodeForCs.Append("\r\n" + "@*-- 详细信息层 --*@");
-                clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
-                if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true)
+                if (objViewInfoENEx.objViewRegion_Feature.IsHaveAddNewRecord()
+                  || objViewInfoENEx.objViewRegion_Feature.IsHaveUpdateRecord())
                 {
 
-                    if (objViewRegion.PageDispModeId == enumPageDispMode.PopupBox_01)
+                    intZIndex += 1;
+                    intCurrTop += 25;
+                    ///生成用于布局的表格代码;
+                    strCodeForCs.Append("\r\n" + "@*-- 编辑层 --*@");
+                    switch (objViewInfoENEx.objViewRegion_Edit.PageDispModeId)
                     {
-                        strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4DetailRegion());
+                        case enumPageDispMode.PopupBox_01:
+
+                            strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4EditRegion4Popup());
+                            break;
+                        case enumPageDispMode.Below_03:
+                        case enumPageDispMode.FullPage_05:
+                        case enumPageDispMode.Left_04:
+                        case enumPageDispMode.Right_02:
+                            strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4EditRegion());
+                            break;
+                        default:
+                            strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4EditRegion4Popup());
+                            break;
                     }
-                    else
-                    {
-                        strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4DetailRegion4NotPopup());
-                    }
+                    intZIndex += 1;
+                    intCurrLeft = 460;
+
                 }
                 //生成编辑区域代码 == == == == == == == == == == == == == == 
-
+                strCodeForCs.Append("\r\n" + "<input id=\"hidOpType\" type=\"hidden\" />");                ;
+                strCodeForCs.Append("\r\n" + "<input id=\"hidKeyId\" type=\"hidden\" />");
                 strCodeForCs.Append("\r\n" + "</div>");
-              
+         
             }
             catch (Exception ex)
             {
@@ -678,17 +747,7 @@ namespace AutoGCLib
                     ASPLabelEx objLabel_ErrMsg = clsASPLabelBLEx.GetLabel4ErrMsg("lblMsg_List", true);
                     objDiv.arrSubAspControlLst2.Add(objLabel_ErrMsg);
                     objDiv.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    //strCodeForCs.AppendFormat("\r\n" + "<div style = \"position: relative; width: 648px; height: 37px; left: 0px; top: 0px;\">");
-                    //strCodeForCs.AppendFormat("\r\n" + "<asp:Label ID = \"lblViewTitle\" runat = \"server\" CssClass = \"h5\" >{0}",
-                    //  strTitle);
-                    //strCodeForCs.AppendFormat("\r\n" + "</asp:Label>");
-                    ////如果有查询区域
-                    //if (objViewInfoENEx.objViewTypeCodeTab.IsHaveQuery)
-                    //{
-                    //    strCodeForCs.AppendFormat("\r\n" + "<asp:Label ID = \"lblMsg_List\" runat = \"server\" CssClass = \"text-warning\"  Style = \"z-index: 105;");
-                    //    strCodeForCs.AppendFormat("\r\n" + "left: 54px; position: relative; top: 4px\" Width = \"347px\"></asp:Label>");
-                    //}
-                    //strCodeForCs.AppendFormat("\r\n" + "	</div>");
+                    
                     break;
             }
 
@@ -696,67 +755,6 @@ namespace AutoGCLib
             return strCodeForCs.ToString();
         }
 
-        /// <summary>
-        /// 生成查询区域相关代码
-        /// </summary>
-        /// <returns></returns>
-        public string GenQryRegionCode4Table()
-        {
-            StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
-            //用来定义正文的标签类型
-            clsLabelStyleEN objLabelStyle_Text = clsLabelStyleBL.GetObjByLabelStyleIdCache("0001");
-            clsGenCtlStyleEN objGenCtlStyle = clsGenCtlStyleBL.GetObjByGenCtlStyleIdCache("0001");
-            clsCheckStyleEN objCheckStyle = clsCheckStyleBL.GetObjByCheckStyleIdCache("0001");
-            clsButtonStyleEN objButtonStyle = clsButtonStyleBL.GetObjByButtonStyleIdCache("0001");
-            float intDivHeight;
-            int intQueryFldNum = 0;
-
-            objBiDimDistribue4Qry = new clsBiDimDistribute();
-
-            objBiDimDistribue4Qry.ColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;
-            objBiDimDistribue4Qry.ColWidth = 250;
-            objBiDimDistribue4Qry.LineHeight = 30;
-            float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
-
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
-
-            //			intDivHeight = intQueryFldNum * 28 +40;
-            intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
-
-            strCodeForCs.AppendFormat("\r\n" + "<div id = \"divQuery\" class = \"div_query\"> ",
-              objViewInfoENEx.TabName, intDivHeight);
-
-
-            intCurrTop -= 30;//因为这是在层(div)中
-            //int intFieldNum = 0;
-            objBiDimDistribue4Qry.StartX = (int)intCurrLeft;
-            objBiDimDistribue4Qry.StartY = (int)intCurrTop;
-            ///生成专门用于查询的界面控件的代码;
-            ///
-            //bool bolIsTrEnd = true;
-            IEnumerable<clsViewRegionENEx> arrViewRegion = objViewInfoENEx.arrViewRegion.Where(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
-            if (arrViewRegion.Count() == 0)
-            {
-                string strMsg = string.Format("界面功能区为空,请添加界面功能!界面:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-
-            }
-            string lngRegionId = arrViewRegion.First().RegionId;
-
-            IEnumerable<ASPControlGroupEx> arrControlGroups = clsQryRegionFldsBLEx.GetControlGroup(lngRegionId, objViewInfoENEx, "Item1");
-            //foreach(ASPControlGroupEx objInFor in arrControlGroups)
-            //{
-
-            //}
-            ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.PackageByTable4QueryRegion(arrControlGroups, objViewInfoENEx.objViewRegion_Query.ColNum ?? 0);
-            objTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-
-
-            strCodeForCs.Append("\r\n" + "</div>");
-
-            intCurrTop += 40;
-            return strCodeForCs.ToString();
-        }
         /// <summary>
         /// 生成CheckBox控件
         /// </summary>
@@ -923,135 +921,78 @@ namespace AutoGCLib
         /// </summary>
         /// <param name="objvFunction4GeneCodeEN"></param>
         /// <returns></returns>
-        public string Gen_WApi_Cs4Ts_DefDiv4DetailRegion4NotPopup()
+        public string Gen_WApi_Cs4Ts_DefDiv4EditRegion4Popup()
         {
-            clsViewRegionENEx objViewRegionEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+            clsViewRegionENEx objViewRegionEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
 
             StringBuilder strCodeForCs = new StringBuilder();
 
-            
-            strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal-content\" style=\"width: {0}px;\">", objViewRegionEx.Width + 35);
-            if (objViewRegionEx.ContainerTypeId == enumGCContainerType.TableContainer_0001)
-            {
-                strCodeForCs.Append("\r\n" + " <div class=\"modal-header\">");
-                strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">模态框（Modal）标题</h4>", objViewInfoENEx.TabName_In);
-                strCodeForCs.Append("\r\n" + " <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
-                strCodeForCs.Append("\r\n" + " </div>");
-                strCodeForCs.Append("\r\n" + " <div class=\"modal-body\">");
-            }
-            //ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.GetObj4DetailRegion(objViewInfoENEx.objMainPrjTab.TabName);
-
-            Func<clsDetailRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4PureHtml = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, true);
-
-            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst
-                = objViewInfoENEx.arrDetailRegionFldSet4InUse
-                .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
-                .Select(GetControlGroup_Asp4PureHtml);
-
-            //封装Td
-            //arrASPControlGroupObjLst = arrASPControlGroupObjLst.Select(clsASPControlGroupBLEx.PackageTr4Wuc);
-            var objViewRegion = objViewInfoENEx.objViewRegion_Detail;
-            switch (objViewRegion.ContainerTypeId)
-            {
-                case enumGCContainerType.TableContainer_0001:
-                    ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.PackageByTable4DetailRegion(arrASPControlGroupObjLst, objViewInfoENEx.objViewRegion_Detail.ColNum ?? 0);
-                    objTable.Width = objViewRegionEx.Width ?? 0;
-                    objTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                case enumGCContainerType.FormControl_0002:
-                    ASPDivEx objDiv_FormControl = clsASPDivBLEx.PackageByFormControl4DetailRegion(arrASPControlGroupObjLst, objViewRegion.ColNum ?? 0);
-
-                    objDiv_FormControl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                case enumGCContainerType.FormInline_0003:
-                    ASPDivEx objFormInline = clsASPDivBLEx.PackageByFormInline4DetailRegion(arrASPControlGroupObjLst, objViewRegion.ColNum ?? 0);
-
-                    objFormInline.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                case enumGCContainerType.DivTable_0004:
-                    ASPDivEx objDivTable = clsASPDivBLEx.PackageByDivTable4DetailRegion(arrASPControlGroupObjLst, objViewRegion.ColNum ?? 0);
-
-                    objDivTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                case enumGCContainerType.HorizontalListLi_0005:
-                    ASPUlEx objUl = clsASPUlBLEx.PackageByUl4DetailRegion_H(arrASPControlGroupObjLst, objViewRegion.ColNum ?? 0);
-
-                    objUl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                case enumGCContainerType.VerticalListLi_0006:
-                    ASPUlEx objUl2 = clsASPUlBLEx.PackageByUl4DetailRegion_V(arrASPControlGroupObjLst, objViewRegion.ColNum ?? 0);
-                    objUl2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                    break;
-                default:
-                 
-                    ASPHtmlTableEx objTable2 = clsASPHtmlTableBLEx.PackageByTable4DetailRegion(arrASPControlGroupObjLst, objViewInfoENEx.objViewRegion_Detail.ColNum ?? 0);
-                    objTable2.Width = objViewRegionEx.Width ?? 0;
-                    objTable2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-
-                    break;
-            }
-            if (objViewRegionEx.ContainerTypeId == enumGCContainerType.TableContainer_0001)
-            {
-                strCodeForCs.Append("\r\n" + " </div>");
-                strCodeForCs.Append("\r\n" + " <div class=\"modal-footer\">");
-                strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnCancel{0}\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>", objViewInfoENEx.TabName_In);
-                //strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnSubmit{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"Submit_{0}()\">添加</button>", objViewInfoENEx.TabName_In);
-                strCodeForCs.Append("\r\n" + " </div>");
-            }
-            strCodeForCs.Append("\r\n" + " </div>");
-       
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 定义用于编辑的层Div,该层可以被弹出
-        /// </summary>
-        /// <param name="objvFunction4GeneCodeEN"></param>
-        /// <returns></returns>
-        public string Gen_WApi_Cs4Ts_DefDiv4DetailRegion()
-        {
-            clsViewRegionENEx objViewRegionEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
-
-            StringBuilder strCodeForCs = new StringBuilder();
-
-            strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal fade\" id=\"divDetailDialog_{0}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"lblDialogTitle_{0}\" aria-hidden=\"true\">", 
-                objViewInfoENEx.TabName_Out);
+            strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal fade\" id=\"divEditDialog_{0}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"lblDialogTitle_{0}\" aria-hidden=\"true\">",
+                objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\">");
 
             strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal-content\" style=\"width: {0}px;\">", objViewRegionEx.Width + 35);
             strCodeForCs.Append("\r\n" + " <div class=\"modal-header\">");
-            strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">模态框（Modal）标题</h4>", objViewInfoENEx.TabName_Out);
+            strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">模态框（Modal）标题</h4>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " <div class=\"modal-body\">");
 
-            //ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.GetObj4DetailRegion(objViewInfoENEx.objMainPrjTab.TabName);
-            foreach(var objInFor in objViewInfoENEx.arrDetailRegionFldSet4InUse)
-            {
-                objInFor.objPrjTabFld = objInFor.ObjPrjTabFld();
-            }
-            Func<clsDetailRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4PureHtml = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, true);
-            
+            //ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.GetObj4EditRegion(objViewInfoENEx.objMainPrjTab.TabName);
+
+            Func<clsEditRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4PureHtml = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, true);
+
             IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst
-                = objViewInfoENEx.arrDetailRegionFldSet4InUse
+                = objViewInfoENEx.arrEditRegionFldSet4InUse
                 .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
                 .Select(GetControlGroup_Asp4PureHtml);
-    
+
             //封装Td
-            //arrASPControlGroupObjLst = arrASPControlGroupObjLst.Select(clsASPControlGroupBLEx.PackageTr4Wuc);
-            ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.PackageByTable4DetailRegion(arrASPControlGroupObjLst, objViewInfoENEx.objViewRegion_Detail.ColNum ?? 0);
-            objTable.Width = objViewRegionEx.Width ?? 0;
-            //foreach (ASPControlEx objInFor in arrASPControlGroupObjLst)
-            //{
-            //    objTable.arrSubAspControlLst2.Add(objInFor);
-            //}
-            objTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-           
+            switch (objViewRegionEx.ContainerTypeId)
+            {
+                case enumGCContainerType.TableContainer_0001:
+                    ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.PackageByTable4EditRegion(arrASPControlGroupObjLst, objViewInfoENEx.objViewRegion_Edit.ColNum ?? 0);
+                    objTable.Width = objViewRegionEx.Width ?? 0;
+                    objTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+
+                    break;
+                case enumGCContainerType.FormControl_0002:
+                    ASPDivEx objFormControl = clsASPDivBLEx.PackageByFormControl4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objFormControl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+
+                case enumGCContainerType.FormInline_0003:
+                    ASPDivEx objFormInline = clsASPDivBLEx.PackageByFormInline4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objFormInline.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.DivTable_0004:
+                    ASPDivEx objDivTable = clsASPDivBLEx.PackageByDivTable4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objDivTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.HorizontalListLi_0005:
+                    ASPUlEx objUl = clsASPUlBLEx.PackageByUl4EditRegion_H(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objUl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.VerticalListLi_0006:
+                    ASPUlEx objUl2 = clsASPUlBLEx.PackageByUl4EditRegion_V(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+                    objUl2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                default:
+                    ASPHtmlTableEx objTable2 = clsASPHtmlTableBLEx.PackageByTable4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+                    objTable2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs); ;
+                    break;
+            }
+
+
 
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " <div class=\"modal-footer\">");
             strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnCancel{0}\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>", objViewInfoENEx.TabName_In);
-            //strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnOKUpd{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"Submit_{0}()\">添加</button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnSubmit{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"btn{0}_Edit_Click('Submit')\">添加</button>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " <!-- /.modal-content -->");
@@ -1061,13 +1002,97 @@ namespace AutoGCLib
 
             return strCodeForCs.ToString();
         }
+
+        public string Gen_WApi_Cs4Ts_DefDiv4EditRegion()
+        {
+            clsViewRegionENEx objViewRegionEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            //strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal fade\" id=\"divEditDialog_{0}\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"lblDialogTitle_{0}\" aria-hidden=\"true\">",
+            //    objViewInfoENEx.TabName_In);
+            //strCodeForCs.Append("\r\n" + " <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\">");
+
+            strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal-content\" style=\"width: {0}px;\">", objViewRegionEx.Width + 35);
+            strCodeForCs.Append("\r\n" + " <div class=\"modal-header\">");
+            strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">模态框（Modal）标题</h4>", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + " <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
+            strCodeForCs.Append("\r\n" + " </div>");
+            strCodeForCs.Append("\r\n" + " <div class=\"modal-body\">");
+
+            //ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.GetObj4EditRegion(objViewInfoENEx.objMainPrjTab.TabName);
+
+            Func<clsEditRegionFldsENEx, ASPControlGroupEx> GetControlGroup_Asp4PureHtml = obj => clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, true);
+
+            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst
+                = objViewInfoENEx.arrEditRegionFldSet4InUse
+                .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
+                .Select(GetControlGroup_Asp4PureHtml);
+
+            //封装Td
+            switch (objViewRegionEx.ContainerTypeId)
+            {
+                case enumGCContainerType.TableContainer_0001:
+                    ASPHtmlTableEx objTable = clsASPHtmlTableBLEx.PackageByTable4EditRegion(arrASPControlGroupObjLst, objViewInfoENEx.objViewRegion_Edit.ColNum ?? 0);
+                    objTable.Width = objViewRegionEx.Width ?? 0;
+                    objTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+
+                    break;
+                case enumGCContainerType.FormControl_0002:
+                    ASPDivEx objFormControl = clsASPDivBLEx.PackageByFormControl4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objFormControl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+
+                case enumGCContainerType.FormInline_0003:
+                    ASPDivEx objFormInline = clsASPDivBLEx.PackageByFormInline4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objFormInline.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.DivTable_0004:
+                    ASPDivEx objDivTable = clsASPDivBLEx.PackageByDivTable4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objDivTable.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.HorizontalListLi_0005:
+                    ASPUlEx objUl = clsASPUlBLEx.PackageByUl4EditRegion_H(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+
+                    objUl.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                case enumGCContainerType.VerticalListLi_0006:
+                    ASPUlEx objUl2 = clsASPUlBLEx.PackageByUl4EditRegion_V(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+                    objUl2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
+                    break;
+                default:
+                    ASPHtmlTableEx objTable2 = clsASPHtmlTableBLEx.PackageByTable4EditRegion(arrASPControlGroupObjLst, objViewRegionEx.ColNum ?? 0);
+                    objTable2.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs); ;
+                    break;
+            }
+
+
+
+            strCodeForCs.Append("\r\n" + " </div>");
+            strCodeForCs.Append("\r\n" + " <div class=\"modal-footer\">");
+            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnCancel{0}\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnSubmit{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"btn{0}_Edit_Click('Submit')\">添加</button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + " </div>");
+            strCodeForCs.Append("\r\n" + " </div>");
+            //strCodeForCs.Append("\r\n" + " <!-- /.modal-content -->");
+            //strCodeForCs.Append("\r\n" + " </div>");
+            //strCodeForCs.Append("\r\n" + " <!-- /.modal -->");
+            //strCodeForCs.Append("\r\n" + " </div>");
+
+            return strCodeForCs.ToString();
+        }
+
+
         public override string A_GeneFuncCode(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, ref clsFunction4CodeEN Re_objFunction4Code)
         {
             string strFuncName = objvFunction4GeneCodeEN.FuncName;
             try
             {
                 string strCode = "";
-                Type t = typeof(WA_ViewScript_Detail_TS4Html);
+                Type t = typeof(WA_ViewScript_Edit4Html);
                 MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
                 if (mt == null)
@@ -1109,8 +1134,8 @@ namespace AutoGCLib
         }
         public override void GetClsName()
         {
-            string strClassName = string.Format("WA_{0}_Detail", objViewInfoENEx.TabName);
-            clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+            string strClassName = string.Format("WA_{0}_Edit", objViewInfoENEx.TabName);
+            clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
             if (objViewRegionENEx != null && string.IsNullOrEmpty(objViewRegionENEx.ClsName) == false)
             {
                 strClassName = objViewRegionENEx.ClsName;
@@ -1118,7 +1143,7 @@ namespace AutoGCLib
             this.ClsName = strClassName;
             objViewInfoENEx.ClsName = this.ClsName;
         }
-  
+        
         
         public string Gen_WebView_WA_Code4FeatureRegion()
         {
@@ -1145,54 +1170,15 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "</div>");
             return strCodeForCs.ToString();
         }
-        public string Gen_WebView_WA_Code4DetailRegion()
+        public string Gen_WebView_WA_Code4EditRegion()
         {
             StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
             //			string strTemp ;     ///临时变量;
-            strCodeForCs.Append("\r\n" + "@*-- 详细信息层 --*@");
-            strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4DetailRegion());
+            strCodeForCs.Append("\r\n" + "@*-- 编辑层 --*@");
+            strCodeForCs.Append("\r\n" + Gen_WApi_Cs4Ts_DefDiv4EditRegion());
 
             return strCodeForCs.ToString();
         }
-        public string Gen_WebView_WA_Code4QueryRegion()
-        {
-            StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
-            //			string strTemp ;     ///临时变量;
-            strCodeForCs.Append("\r\n" + "@*-- 查询层 --*@");
-
-            strCodeForCs.Append("\r\n" + GenQryRegionCode4Table());
-            return strCodeForCs.ToString();
-        }
-
-        public string Gen_WApi_JS_ShowDialog(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
-        {
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  显示对话框");
-            strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n **/");
-            strCodeForCs.AppendFormat("\r\n" + "function ShowDialog(strDialogName) {{", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "   require(['jquery', 'bootstrap'], function($) {");
-            strCodeForCs.AppendFormat("\r\n" + " $(strDialogName).modal('show');", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "  });");
-            strCodeForCs.Append("\r\n" + "}");
-            return strCodeForCs.ToString();
-        }
-
-        public string Gen_WApi_JS_HideDialog(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
-        {
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  隐藏对话框");
-            strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n **/");
-            strCodeForCs.AppendFormat("\r\n" + "function HideDialog(strDialogName) {{", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "  require(['jquery', 'bootstrap'], function($) {");
-            strCodeForCs.AppendFormat("\r\n" + "      $(strDialogName).modal('hide');", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "  });");
-            strCodeForCs.Append("\r\n" + "}");
-            return strCodeForCs.ToString();
-        }
-
+      
     }
 }

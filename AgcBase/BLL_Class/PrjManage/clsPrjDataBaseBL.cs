@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjDataBaseBL
  表名:PrjDataBase(00050176)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:08:08
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:20:27
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -3152,7 +3152,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-04-28
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3482,7 +3482,11 @@ public static string GetCode4CreateTable()
  // /**修改日期*/ 
  strCreateTabCode.Append(" UpdDate varchar(20) Null, "); 
  // /**说明*/ 
- strCreateTabCode.Append(" Memo varchar(1000) Null ");
+ strCreateTabCode.Append(" Memo varchar(1000) Null, "); 
+ // /**数据库类型名*/ 
+ strCreateTabCode.Append(" DataBaseTypeName varchar(30) Null, "); 
+ // /**使用状态名称*/ 
+ strCreateTabCode.Append(" UseStateName varchar(30) Null ");
  strCreateTabCode.Append(") "); 
   strCreateTabCode.Append("ON [PRIMARY] ");
   return strCreateTabCode.ToString();

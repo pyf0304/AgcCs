@@ -1,27 +1,16 @@
-using System;
-using System.Text;
-using System.Data;
-using System.Collections;
-using System.IO;
-using com.taishsoft.commexception;
-using com.taishsoft.file;
-using com.taishsoft.common;
-using com.taishsoft.comm_db_obj;
-
-
-using AGC.Entity;
-
-using com.taishsoft.datetime;
 using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
-using System.Collections.Generic;
-using com.taishsoft.util;
+using AGC.Entity;
 using AgcCommBase;
-using System.Reflection;
-using System.Linq;
-using AGC.PureClass;
-using AGC.PureClassEx;
 using CodeStruct;
+using com.taishsoft.comm_db_obj;
+using com.taishsoft.commexception;
+using com.taishsoft.common;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace AutoGCLib
 {
@@ -41,76 +30,51 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScript_EditCSEx_TS4TypeScript : clsGeneCodeBase4View
+    partial class Vue_ViewScript_DetailEx_TS4TypeScript : clsGeneCodeBase4View
     {
+
         //private string objPrjTabENEx = "";
-
-
-        public Vue_ViewScript_EditCSEx_TS4TypeScript()
+        //clsBiDimDistribute objBiDimDistribue4Qry = null;
+       
+        public Vue_ViewScript_DetailEx_TS4TypeScript()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
-            this.strBaseUrl = "../../TS";
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_EditCSEx_TS4TypeScript(string strViewId)
+        public Vue_ViewScript_DetailEx_TS4TypeScript(string strViewId)
        : base( strViewId, "", "")
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
-            this.strBaseUrl = "../../TS";
             this.strDataBaseType = clsPubConst.con_MsSql;
             this.arrImportClass = new List<ImportClass>();
-        }
 
-        public Vue_ViewScript_EditCSEx_TS4TypeScript( string strViewId, string strPrjDataBaseId, string strPrjId)
-        : base(strViewId, strPrjDataBaseId, strPrjId)
+        }
+        public Vue_ViewScript_DetailEx_TS4TypeScript( string strViewId, string strPrjDataBaseId, string strPrjId)
+        : base( strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
-            this.strBaseUrl = "../../TS";
             this.strDataBaseType = clsPubConst.con_MsSql;
             this.arrImportClass = new List<ImportClass>();
         }
-
-        public void GetImportClassLst(clsFuncModule_AgcEN objFuncModule)
-        {
-            //List<ImportClass> arrImportClass = new List<ImportClass>();
-
-
-            arrImportClass.Add(new ImportClass
-            {
-                ClsName =  string.Format("Format", this.TabName_In4Edit4GC),
-                FilePath = string.Format("{0}/PubFun/clsString.js", this.strBaseUrl, objFuncModule.FuncModuleEnName4GC(),
- this.TabName_In4Edit4GC)
-            });
-
-         
-            arrImportClass.Add(new ImportClass
-            {
-                ClsName =  string.Format("{0}", this.BaseClsName),
-                FilePath = string.Format("@/viewsBase/{0}/{1}", objFuncModule.FuncModuleEnName4GC(), this.BaseClsName)
-            });
-
-         
-        }
-
-
+        
         /// <summary>
         /// 生成App页面后台代码
         /// </summary>
         /// <returns></returns>
         public override string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
         {
-            if (objViewInfoENEx.objViewRegion_Edit == null || objViewInfoENEx.objViewRegion_Edit.IsDispInViewInfo(objViewInfoENEx) == false)
+            if (objViewInfoENEx.objViewRegion_Detail == null || objViewInfoENEx.objViewRegion_Detail.InUseInViewInfo(objViewInfoENEx) == false)
             {
                 return "";
             }
             //让用户设置属性;
-            if (objViewInfoENEx.arrEditRegionFldSet4InUse == null || objViewInfoENEx.arrEditRegionFldSet4InUse.Count == 0)
+            if (objViewInfoENEx.arrDetailRegionFldSet4InUse == null || objViewInfoENEx.arrDetailRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
@@ -118,13 +82,17 @@ namespace AutoGCLib
                 sbMessage.Append("\r\n当前界面的功能:查询(Q)、修改(U)、删除(D)、添加(I)。");
                 throw new clsDbObjException(sbMessage.ToString());
             }
-            //string strResult = "";
             this.objCodeElement_Root = new CodeElement { Name = "Root", ElementType = CodeElementType.Root };
             this.objCodeElement_Imports = new CodeElement { Name = "imports", ElementType = CodeElementType.Import, Modifiers = "export abstract" };
             this.objCodeElement_Root.Children.Add(this.objCodeElement_Imports);
 
             this.objCodeElement_Class = new CodeElement { Name = ThisClsName, ElementType = CodeElementType.Class, Modifiers = "export abstract" };
             this.objCodeElement_Root.Children.Add(this.objCodeElement_Class);
+
+            //string strResult = "";
+            string strIsShare = "";
+            if (objViewInfoENEx.IsShare) strIsShare = "Share";
+
             string strFuncName = "";
             string strTemp = ""; ///临时变量;
             StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
@@ -133,13 +101,13 @@ namespace AutoGCLib
             clsPubFun4BLEx.CheckTitleStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.TitleStyleId);
 
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
-           
+          
             objViewInfoENEx.WebFormName = ThisClsName;
             objViewInfoENEx.WebFormFName = string.Format("{0}.ts", ThisClsName);
 
 
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
-
+                
             strRe_ClsName = objViewInfoENEx.WebFormName;
             clsFuncModule_AgcEN objFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
 
@@ -156,9 +124,62 @@ namespace AutoGCLib
                 strCodeForCs.Append(clsPubFun4GC.GenUserInfoAndDate4WebApi(objViewInfoENEx.CurrUserName,
                     objViewInfoENEx, this.CmPrjId));
 
+                //strCodeForCs.AppendFormat("\r\n" + "///// <reference path=\"../../scripts/typings/jquery/jquery.d.ts\" />");
+                //strCodeForCs.AppendFormat("\r\n" + "///// <reference path=\"../../scripts/typings/q/q.d.ts\" />");
+                //strCodeForCs.AppendFormat("\r\n" + "///// <reference path=\"../../scripts/typings/handlebars/handlebars.d.ts\" />");
+                strCodeForCs.AppendFormat("\r\n" + "//import * as $ from \"jquery\";");
+                strCodeForCs.AppendFormat("\r\n" + "//import * as QQ from \"q\";");
+                strCodeForCs.AppendFormat("\r\n" + "import {{ {0} }} from \"@/viewsBase/{1}/{0}\";",
+                    this.BaseClsName, objFuncModule.FuncModuleEnName4GC());
+                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                {
+                    Name = $"{this.BaseClsName}",
+                    ElementType = CodeElementType.Import,
+                    CodeContent = $"import {{ {this.BaseClsName} }} from \"@/viewsBase/{objFuncModule.FuncModuleEnName4GC()}/{this.BaseClsName};",
+                    Modifiers = "import",
+                    isPublic = true,
+                    From = $"@/viewsBase/{objFuncModule.FuncModuleEnName4GC()}/{this.BaseClsName}",
+                });
+
+                strCodeForCs.Append("\r\n" + $"import {objViewInfoENEx.ViewName}Ex from \"@/views{strIsShare}/{objFuncModule.FuncModuleEnName4GC()}/{objViewInfoENEx.ViewName}Ex\";");
+                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                {
+                    Name = $"{objViewInfoENEx.ViewName}Ex",
+                    ElementType = CodeElementType.Import,
+                    CodeContent = $"import {objViewInfoENEx.ViewName}Ex from \"@/views{strIsShare}/{objFuncModule.FuncModuleEnName4GC()}/{objViewInfoENEx.ViewName}Ex;",
+                    Modifiers = "import",
+                    isPublic = true,
+                    From = $"@/views{strIsShare}/{objFuncModule.FuncModuleEnName4GC()}/{objViewInfoENEx.ViewName}Ex",
+                });
+              
+                strCodeForCs.AppendFormat("\r\n /* {0} 的摘要说明。其中Q代表查询,U代表修改",
+                    ThisClsName);
+                strCodeForCs.AppendFormat("\r\n  ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.Append("\r\n" + "*/");
+                strCodeForCs.AppendFormat("\r\n" + "export default class  {0} extends {1}", ThisClsName, this.BaseClsName);
+                strCodeForCs.Append("\r\n" + "{");
+                //strCodeForCs.Append("\r\n" + "private strInfo = \"\";");
+                //strCodeForCs.Append("\r\n" + "private strWhereCond = \"\";");
+                         
+                strCodeForCs.Append("\r\n" + "");
+                /////生成界面中PageLoad代码;
+                //strCodeForCs.Append("\r\n" + "#region 页面启动函数");
+
+                /////生成界面中PageLoad代码;
+                //strTemp = GenPageLoadCode(false);
+                //strCodeForCs.Append(strTemp);
+                //strCodeForCs.Append("\r\n" + "#endregion 页面启动函数");
                 //生成所有的函数
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
            clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+
+                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
+                //  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                //  objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
+                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLstByFeature = objViewInfoENEx.arrvFunction4GeneCodeSetByFeatureLst;
+                //arrvFunction4GeneCodeObjLstByFeature = arrvFunction4GeneCodeObjLstByFeature.Where(x => x.CodeTypeId == objViewInfoENEx.CodeTypeId);
+                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_All = arrvFunction4GeneCodeObjLst.Union(arrvFunction4GeneCodeObjLstByFeature, new VFunction4GeneCodeComparer());
+                //arrvFunction4GeneCodeObjLst_All = arrvFunction4GeneCodeObjLst_All.OrderBy(x => x.FuncName4Code);
 
                 //为所有的函数定义相关输入控件
                 List<string> arrValueLst = new List<string>();
@@ -166,76 +187,31 @@ namespace AutoGCLib
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
                 {
                     strFuncName = objvFunction4GeneCodeEN.FuncName;
-
+                    //string strTemp = "";
+                    //if (strFuncName.IndexOf("TS_ScriptCS") > 0)
+                    //{
+                    //string strFuncName4Code = objvFunction4GeneCodeEN.FuncName4Code;
+                    //if (strFuncName4Code.Contains("AddNew") == true
+                    //    || strFuncName4Code.Contains("Update") == true
+                    //    || strFuncName4Code.Contains("GetObjByKey") == true)
+                    //{
                     strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
+                    //string strSource = string.Format("ac{0}_UnitTest", objViewInfoENEx.TabName);
+                    //string strTarget = string.Format("ac{0}_UTScript", objViewInfoENEx.TabName);
 
-                    objvFunction4GeneCodeEN.CodeText = strTemp;
-
-                }
-
-
-                strCodeForCs.AppendFormat("\r\n" + "//import $ from \"jquery\";");
-                strCodeForCs.Append("\r\n" + "import { message } from '@/utils/myMessage';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                {
-                    Name = "message",
-                    ElementType = CodeElementType.Import,
-                    CodeContent = "import { message } from '@/utils/myMessage';",
-                    Modifiers = "import",
-                    isPublic = true,
-                    From = "@/utils/myMessage"
-                });
-                GetImportClassLst(objFuncModule);
-
-                arrImportClass = arrImportClass.Distinct(new ImportClass4GCComparer()).ToList();
-                foreach (var objInFor in arrImportClass)
-                {
-                    objInFor.ClsName = objInFor.ClsName;
-                    objInFor.FilePath = objInFor.FilePath.Replace(".js", "")
-                              .Replace("../../TS/", "@/ts/")
-                              .Replace("../TS/", "@/ts/");
-                }
-
-                var arrImportClass_RemoveDup = clsPubFun4GC.ImportClass_RemoveDup(arrImportClass);
-                foreach (var objInFor in arrImportClass_RemoveDup)
-                {
-                    CodeElement objCodeElement_Import2 = clsPubFun4GC.GetCodeElementByImportClass(objInFor);
-                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import2);
-
-                }
-                foreach (var objInFor in arrImportClass_RemoveDup)
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "import {{ {0} }} from \"{1}\";",
-                      objInFor.ClsName,
-                        objInFor.FilePath.Replace(".js", "")
-                        .Replace("../../TS/", "@/ts/")
-                        .Replace("../TS/", "@/ts/"));
-                }
-
-
-
-                strCodeForCs.AppendFormat("\r\n /* {0} 的摘要说明。其中Q代表查询,U代表修改",
-                    ThisClsName);
-                strCodeForCs.AppendFormat("\r\n  ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.Append("\r\n" + "*/");
-                strCodeForCs.AppendFormat("\r\n" + "export default class  {0} extends {1}", ThisClsName, this.BaseClsName);
-                strCodeForCs.Append("\r\n" + "{");
-
-                strCodeForCs.Append("\r\n" + "");
-
-                //生成所有的函数
-
-                foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
-                {
-                    strFuncName = objvFunction4GeneCodeEN.FuncName;
-
-                    strTemp = objvFunction4GeneCodeEN.CodeText;
+                    //strTemp = strTemp.Replace(strSource, strTarget);
+                    //}
+                    //else
+                    //{
+                    //    strTemp = "";
+                    //}
+                    //strTemp = A_GeneFuncCode_Java(strFuncName);
                     if (string.IsNullOrEmpty(strTemp) == false)
                     {
                         strCodeForCs.Append("\r\n" + strTemp);
                     }
                 }
-
+                //strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "}");
             }
             catch (Exception ex)
@@ -245,9 +221,23 @@ namespace AutoGCLib
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
             }
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
             return strCodeForCs.ToString();
         }
-
+        
 
         /// <summary>
         /// 功能:单表的查询、修改、插入、删除
@@ -310,27 +300,56 @@ namespace AutoGCLib
 
         public override string A_GeneFuncCode(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, ref clsFunction4CodeEN Re_objFunction4Code)
         {
-            return A_GeneFuncCodeBase(objvFunction4GeneCodeEN, typeof(Vue_ViewScript_EditCSEx_TS4TypeScript));
+            return A_GeneFuncCodeBase(objvFunction4GeneCodeEN, typeof(Vue_ViewScript_DetailEx_TS4TypeScript));
+            //string strFuncName = objvFunction4GeneCodeEN.FuncName;
+            //try
+            //{
+            //    string strCode = "";
+            //    Type t = typeof(Vue_ViewScript_DetailCSEx_TS4TypeScript);
+            //    MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
+
+            //    if (mt == null)
+            //    {
+            //        string strMsg = string.Format("在类中没有相应的函数:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //        throw new Exception(strMsg);
+            //    }
+            //    else
+            //    {
+            //        //                string str = (string)mt.Invoke(null, new object[] { "1234567890123"    });
+            //        if (mt.GetParameters().Length == 0)
+            //        {
+            //            strCode = (string)mt.Invoke(this, null);
+            //        }
+            //        else if (mt.GetParameters().Length == 1)
+            //        {
+            //            strCode = (string)mt.Invoke(this, new object[] { objvFunction4GeneCodeEN });
+            //        }
+            //        //Console.WriteLine(str);
+            //    }
+
+            //    return strCode;
+            //}
+            //catch (Exception objException)
+            //{
+            //    StringBuilder sbMessage = new StringBuilder();
+            //    string strMsg = "";
+            //    if (objException.InnerException != null && string.IsNullOrEmpty(objException.InnerException.Message) == false)
+            //    {
+            //        strMsg = objException.InnerException.Message;
+            //    }
+            //    else
+            //    {
+            //        strMsg = objException.Message;
+            //    }
+            //    sbMessage.AppendFormat("在生成函数:{0}时出错. \r\n出错信息:{1}.", strFuncName, strMsg);
+            //    throw new Exception(sbMessage.ToString());
+            //}
         }
         public override void GetClsName()
         {
 
-            //if (PrjTabEx_ListRegion.IsUseCache_TS())
-            //{
-            //    this.ClsName = string.Format("WApi{0}_QUDICacheEx", objViewInfoENEx.TabName);
-            //    this.BaseClsName = string.Format("WApi{0}_QUDICache", objViewInfoENEx.TabName);
-
-            //    ThisClsName = this.ClsName;
-
-            //}
-            //else
-            //{
-            //    this.ClsName = string.Format("WApi{0}_QUDI_JSEx", objViewInfoENEx.TabName);
-            //    this.BaseClsName = string.Format("WApi{0}_QUDI_JS", objViewInfoENEx.TabName);
-            //    objViewInfoENEx.ClsName = this.ClsName;
-            //}
-            string strClassName = string.Format("WA_{0}_Edit", objViewInfoENEx.TabName);
-            clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+            string strClassName = string.Format("WA_{0}_Detail", objViewInfoENEx.TabName);
+            clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
             if (objViewRegionENEx != null && string.IsNullOrEmpty(objViewRegionENEx.ClsName) == false)
             {
                 strClassName = objViewRegionENEx.ClsName;
@@ -352,9 +371,8 @@ namespace AutoGCLib
             {
 
 
-                var arrEditRegionFlds_ChangeEvent = objViewInfoENEx.arrEditRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
-                arrEditRegionFlds_ChangeEvent.ForEach(x =>
-                {
+                var arrDetailRegionFlds_ChangeEvent = objViewInfoENEx.arrDetailRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                arrDetailRegionFlds_ChangeEvent.ForEach(x => {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
 
                     strCodeForCs.Append("\r\n /* 函数功能:系统生成的Change事件函数");
@@ -362,17 +380,31 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "*/");
                     strCodeForCs.AppendFormat("\r\n" + "public async {0}()",
                        x.ChangeEvent);
+                    strFuncName = $"{x.ChangeEvent}";
                     strCodeForCs.Append("\r\n" + "{");
-                    //strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;", x.ChangeEvent);
+                    //strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;",       x.ChangeEvent);
                     strCodeForCs.AppendFormat("\r\n" + "alert('请在扩展层:{0}Ex中重写该函数!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "}");
+
+                    clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+                    {
+                        Name = strFuncName,
+                        CodeContent = strCodeForCs.ToString(),
+                        ElementType = CodeElementType.Method,
+                        Modifiers = "public async",
+                        ReturnType = "void",
+                    });
+                    if (strFuncName == "")
+                    {
+                        string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                        throw new Exception(strMsg);
+                    }
                 });
 
                 strCodeForCs.Append("\r\n" + "");
 
-                var arrEditRegionFlds_ClickEvent = objViewInfoENEx.arrEditRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
-                arrEditRegionFlds_ClickEvent.ForEach(x =>
-                {
+                var arrDetailRegionFlds_ClickEvent = objViewInfoENEx.arrDetailRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                arrDetailRegionFlds_ClickEvent.ForEach(x => {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
                     strCodeForCs.Append("\r\n /* 函数功能:系统生成的Click事件函数");
                     strCodeForCs.AppendFormat("\r\n  ({0})", clsStackTrace.GetCurrClassFunction());
@@ -380,9 +412,24 @@ namespace AutoGCLib
 
                     strCodeForCs.AppendFormat("\r\n" + "public  async {0}(){{;",
                        x.ClickEvent, ThisClsName);
-                    strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;", x.ClickEvent);
+                    strFuncName = $"{x.ClickEvent}";
+                    strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;",       x.ClickEvent);
                     strCodeForCs.AppendFormat("\r\n" + "alert('请在扩展层:{0}Ex中重写该函数!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "}");
+
+                    clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+                    {
+                        Name = strFuncName,
+                        CodeContent = strCodeForCs.ToString(),
+                        ElementType = CodeElementType.Method,
+                        Modifiers = "public async",
+                        ReturnType = "void",
+                    });
+                    if (strFuncName == "")
+                    {
+                        string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                        throw new Exception(strMsg);
+                    }
                 });
 
                 strCodeForCs.Append("\r\n" + "");
@@ -396,23 +443,23 @@ namespace AutoGCLib
                 throw new Exception(strMsg);
             }
 
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
+            //clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            //{
+            //    Name = strFuncName,
+            //    CodeContent = strCodeForCs.ToString(),
+            //    ElementType = CodeElementType.Method,
+            //    Modifiers = "public async",
+            //    ReturnType = "void",
+            //});
+            //if (strFuncName == "")
+            //{
+            //    string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    throw new Exception(strMsg);
+            //}
             return strCodeForCs.ToString();
         }
 
-        public string Gen_Vue_TS_btnEdit_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        public string Gen_Vue_TS_btnDetail_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
             string strFuncName = "";
             IEnumerable<clsFeatureRegionFldsENEx> arrFeatureRegionFldsObjLst = objViewInfoENEx.arrFeatureRegionFlds;
@@ -423,117 +470,38 @@ namespace AutoGCLib
 
             }
             List<string> arrButtonName = arrFeatureRegionFldsObjLst.Select(x => x.ButtonName)
-                .Select(x => x.Substring(3))
+                .Select(x=>x.Substring(3))
                 .ToList();
-            var arr = new List<string> { enumPrjFeature.DefaultFeature_0240, enumPrjFeature.SetFieldValue_0148 };
-            List<clsFeatureRegionFldsENEx> arrFeatureRegionFldsObjLst_DefaultFeature = objViewInfoENEx.arrFeatureRegionFlds.Where(x => arr.Contains(x.FeatureId)).ToList();
+            var arr = new List<string>  { enumPrjFeature.DefaultFeature_0240, enumPrjFeature.SetFieldValue_0148 };
+            List<clsFeatureRegionFldsENEx> arrFeatureRegionFldsObjLst_DefaultFeature = objViewInfoENEx.arrFeatureRegionFlds.Where(x=> arr.Contains( x.FeatureId)).ToList();
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
             strCodeForCs.Append("\r\n  按钮单击,用于调用Js函数中btnClick");
             strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
-            strCodeForCs.AppendFormat("\r\n" + "public static btnEdit_Click(strCommandName: string, strKeyId: string) {{", ThisClsName);
-            strFuncName = $"btnEdit_Click";
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnEdit_Click.name;",
-          objViewInfoENEx.TabName, objKeyField.FldName);
-            //strCodeForCs.AppendFormat("\r\n" + "const objPage = {0}.objPageEdit;", ThisBaseClsName);
-            strCodeForCs.Append("\r\n" + $"const objPage: {ThisClsName} = <{ThisClsName}> (");
-            strCodeForCs.Append("\r\n" + $"{ThisBaseClsName}.GetPageEditObj('{ThisClsName}')");
-            strCodeForCs.Append("\r\n" + ");");
-            strCodeForCs.Append("\r\n" + "if (objPage == null)");
+            strCodeForCs.AppendFormat("\r\n" + "public static btnDetail_Click(strCommandName: string, strKeyId: string) {{", ThisClsName);
+            strFuncName =$"btnDetail_Click";
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnDetail_Click.name;",
+        objViewInfoENEx.TabName, objKeyField.FldName);
+
+            strCodeForCs.AppendFormat("\r\n" + "const obj{0}:{0}Ex = new {0}Ex();", objViewInfoENEx.ViewName);
+            strCodeForCs.AppendFormat("\r\n" + "const objPage:{0} = new {0}(obj{1});", 
+                ThisClsName, objViewInfoENEx.ViewName);
+
+            strCodeForCs.Append("\r\n" + "console.log(strKeyId, strThisFuncName, objPage);"); 
+           strCodeForCs.Append("\r\n" + "let strMsg;");
+
+           strCodeForCs.Append("\r\n" + "switch (strCommandName)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strMsg = `从预存编辑类获取关键字:[{ThisClsName}]的对象为空，请在调用编辑类(父类)的定义一下！`;");
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-            strCodeForCs.Append("\r\n" + "message.warning(strMsg);");
-            strCodeForCs.Append("\r\n" + "return;");
-            strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.Append("\r\n" + "if (objPage.divEdit.id == 'temp')");
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.Append("\r\n" + "objPage.divEdit = divEdit;");
-            //strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.AppendFormat("\r\n" + "let strMsg = '';");
-            if (thisEditTabProp_TS.KeyFldCount > 1)
-            {
-                strCodeForCs.Append("\r\n" + "let objKeyLst;");
-                strCodeForCs.Append("\r\n" + "const strKeyLst = strKeyId;");
-
-            }
-            //strCodeForCs.AppendFormat("\r\n" + "const obj{0}:{0}Ex = new {0}Ex();", objViewInfoENEx.ViewName);
-            //strCodeForCs.AppendFormat("\r\n" + "const objPage:{0} = new {0}(obj{1});", 
-            //    ThisClsName, objViewInfoENEx.ViewName);
-            strCodeForCs.Append("\r\n" + "switch (strCommandName)");
-            strCodeForCs.Append("\r\n" + "{");
-
-
-            strCodeForCs.Append("\r\n" + "case \"Submit\":            //提交");
-
-            strCodeForCs.Append("\r\n" + "objPage.btnSubmit_Click();");
+                       
+            strCodeForCs.Append("\r\n" + "case \"Detail\":    //详细信息");
+            strCodeForCs.AppendFormat("\r\n" + "objPage.btnDetailRecord_Click(strKeyId);", arrButtonName.Contains("AddNewRecordWithMaxId") ? "" : "//");
             strCodeForCs.Append("\r\n" + "break;");
-
-            strCodeForCs.Append("\r\n" + "case \"CreateWithMaxId\":    //添加记录使用最大关键字");
-            //strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnAddNewRecordWithMaxId_Click();", arrButtonName.Contains("CreateWithMaxId") ? "" : "//");
-            //strCodeForCs.Append("\r\n" + "break;");
-            strCodeForCs.Append("\r\n" + "case \"AddNewRecord\":            //添加记录");
-            strCodeForCs.Append("\r\n" + "case \"Create\":            //添加记录");
-
-            strCodeForCs.Append("\r\n" + "objPage.btnAddNewRecord_Click();");
-            strCodeForCs.Append("\r\n" + "break;");
-            strCodeForCs.Append("\r\n" + "case \"UpdateRecord\":            //修改记录");
-            strCodeForCs.Append("\r\n" + "case \"Update\":            //修改记录");
-            strCodeForCs.Append("\r\n" + "case \"UpdateRecordInTab\":            //修改记录InTab");
-            if (thisEditTabProp_TS.KeyFldCount == 1)
-            {
-                strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty( strKeyId )== true)");
-                ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
-
-                CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
-
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = \"请选择需要修改的记录!\";");
-                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-                strCodeForCs.Append("\r\n" + "alert(strMsg);");
-                strCodeForCs.Append("\r\n" + "return;");
-                strCodeForCs.Append("\r\n" + "}");
-                strCodeForCs.Append("\r\n" + "if (strCommandName == \"UpdateRecordInTab\")");
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "objPage.btnUpdateRecordInTab_Click(strKeyId);");
-                strCodeForCs.Append("\r\n" + "}");
-                strCodeForCs.Append("\r\n" + "else");
-                strCodeForCs.Append("\r\n" + "{");
-                if (objKeyField.IsNumberType())
-                {
-                    strCodeForCs.Append("\r\n" + "objPage.btnUpdateRecord_Click(Number(strKeyId));");
-                }
-                else
-                {
-                    strCodeForCs.Append("\r\n" + "objPage.btnUpdateRecord_Click(strKeyId);");
-                }
-                strCodeForCs.Append("\r\n" + "}");
-            }
-            else
-            {
-
-                strCodeForCs.AppendFormat("\r\n" + "objKeyLst = {0}_SplitKeyLst(strKeyLst);", TabName_In4Edit);
-                ImportClass objImportClass = AddImportClass(TabId_In4Edit, TabName_In4Edit4GC, string.Format("SplitKeyLst", TabName_In4Edit), enumImportObjType.WApiClassFunc, this.strBaseUrl);
-
-                CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
-
-                strCodeForCs.Append("\r\n" + "if (strCommandName == \"UpdateRecordInTab\")");
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "objPage.btnUpdateRecordInTab_Click({0});", thisEditTabProp_TS.KeyPropNameLstStrWithKeyLst);
-                strCodeForCs.Append("\r\n" + "}");
-                strCodeForCs.Append("\r\n" + "else");
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "objPage.btnUpdateRecord_Click({0});", thisEditTabProp_TS.KeyPropNameLstStrWithKeyLst);
-                strCodeForCs.Append("\r\n" + "}");
-            }
-            strCodeForCs.Append("\r\n" + "break;");
+                        
 
             strCodeForCs.Append("\r\n" + "default:");
-            strCodeForCs.Append("\r\n" + "strMsg =Format(\"命令:{0}, 关键字: {1}, 在函数({2}.{3})中没有被处理!\", strCommandName, strKeyId, this.constructor.name, strThisFuncName);");
+            strCodeForCs.AppendFormat("\r\n" + "strMsg = `命令:${{strCommandName}} 在函数({0}.btnClick)中没有被处理!`;", this.BaseClsName);
             strCodeForCs.Append("\r\n" + "console.error(strMsg)");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
             strCodeForCs.Append("\r\n" + "break;");
@@ -558,9 +526,6 @@ namespace AutoGCLib
             }
             return strCodeForCs.ToString();
         }
-        //public bool AddImportClass(string strTabId, string strClassName, string strFuncName, string strImportObjType, string strBasePath)
-        //{
-        //    return clsPubFun4GC.AddImportClass(strTabId, strClassName, strFuncName, strImportObjType, strBasePath, arrImportClass, objViewInfoENEx.PrjId);
-        //}
+
     }
 }

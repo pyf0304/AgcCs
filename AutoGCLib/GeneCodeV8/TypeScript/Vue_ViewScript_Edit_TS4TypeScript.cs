@@ -32,10 +32,10 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScript_EditCS_TS4TypeScript : WA_ViewScript_EditCS_TS4TypeScript
+    partial class Vue_ViewScript_Edit_TS4TypeScript : WA_ViewScript_EditCS_TS4TypeScript
     {
         #region 构造函数
-        public Vue_ViewScript_EditCS_TS4TypeScript()
+        public Vue_ViewScript_Edit_TS4TypeScript()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
@@ -43,7 +43,7 @@ namespace AutoGCLib
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_EditCS_TS4TypeScript(string strViewId)
+        public Vue_ViewScript_Edit_TS4TypeScript(string strViewId)
        : base(strViewId, "", "")
         {
             // 
@@ -53,7 +53,7 @@ namespace AutoGCLib
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_EditCS_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript_Edit_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -2949,7 +2949,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
         public override string A_GeneFuncCode(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, ref clsFunction4CodeEN Re_objFunction4Code)
         {
-            return A_GeneFuncCodeBase(objvFunction4GeneCodeEN, typeof(Vue_ViewScript_EditCS_TS4TypeScript));
+            return A_GeneFuncCodeBase(objvFunction4GeneCodeEN, typeof(Vue_ViewScript_Edit_TS4TypeScript));
         }
         public override void GetClsName()
         {

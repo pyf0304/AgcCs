@@ -50,7 +50,10 @@ namespace AutoGCLib
             clsErrorIdManageBLEx.arrErrIdLstCache = null;
         }
         #endregion
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成指定的函数
         /// </summary>

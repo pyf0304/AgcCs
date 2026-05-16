@@ -275,7 +275,7 @@ namespace AutoGCLib
                 intZIndex = 101;
                 //				intCurrLeft = 10;
                 intCurrTop = 50;
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId() == clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
@@ -2503,7 +2503,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;//该区域定义的列数
             tr = new TableRow();//创建一行
             //bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intCol == intColNum)
                 {
@@ -2589,7 +2589,7 @@ namespace AutoGCLib
             int intColNum = objViewInfoENEx.objViewRegion_Query.ColNum ?? 0;
             tr = new TableRow();//创建一行
             bool bolIsEndRow = false;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (iCtlNum % (intColNum * 2) == 0)
                 {

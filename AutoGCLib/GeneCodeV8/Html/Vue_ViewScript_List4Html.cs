@@ -34,7 +34,7 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScript_List_TS4Html : clsGeneCodeBase4View
+    partial class Vue_ViewScript_List4Html : clsGeneCodeBase4View
     {
         protected clsPrjTabENEx objPrjTabEx_ListRegion = null;
         protected string strSqlDsTypeId4ListRegion = "";
@@ -42,14 +42,14 @@ namespace AutoGCLib
         private clsFuncModule_AgcEN objFuncModule_Gc = null;
         //clsBiDimDistribute objBiDimDistribue4Qry = null;
         #region 构造函数
-        public Vue_ViewScript_List_TS4Html()
+        public Vue_ViewScript_List4Html()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
 
         }
-        public Vue_ViewScript_List_TS4Html(string strViewId)
+        public Vue_ViewScript_List4Html(string strViewId)
        : base( strViewId, "", "")
         {
             // 
@@ -58,7 +58,7 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
 
         }
-        public Vue_ViewScript_List_TS4Html( string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript_List4Html( string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -725,7 +725,7 @@ namespace AutoGCLib
             try
             {
                 string strCode = "";
-                Type t = typeof(Vue_ViewScript_List_TS4Html);
+                Type t = typeof(Vue_ViewScript_List4Html);
                 MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
                 if (mt == null)

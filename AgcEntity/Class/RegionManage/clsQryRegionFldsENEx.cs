@@ -89,7 +89,19 @@ namespace AGC.Entity
                 mstrCtrlId = value;
             }
         }
+        public string CtrlId4Web
+        {
+            get
+            {
+                mstrCtrlId = this.objCtlType.CtlTypeAbbr + this.ObjFieldTabENEx.FldName;
 
+                return mstrCtrlId.Replace("ddl", "cbo");
+            }
+            set
+            {
+                mstrCtrlId = value;
+            }
+        }
         private string mstrCtrlId;
 
         //public string CtrlId

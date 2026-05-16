@@ -166,7 +166,7 @@ namespace AutoGCLib
                     objViewInfoENEx.MvcModel4QueryName, objMainPrjTab.TabName);
                 strCodeForCs.Append("\r\n" + "{");
 
-                IEnumerable<ASPControlEx> arrControls = objViewInfoENEx.arrQryRegionFldSet
+                IEnumerable<ASPControlEx> arrControls = objViewInfoENEx.arrQryRegionFldSet4InUse
                     .Select(x=>clsASPControlBLEx.GetControl_Asp(x, objViewInfoENEx.PrjId))
                     .Distinct(new ControlIdComparer());
                 strCodeForCs.Append("\r\n" + arrControls.GC_ViewModel());

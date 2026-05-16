@@ -44,7 +44,10 @@ namespace AutoGCLib
             clsErrorIdManageBLEx.arrErrIdLstCache = null;
         }
         #endregion
-      
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public override string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
         {
             string strFuncName = "";

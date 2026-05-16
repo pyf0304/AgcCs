@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewTabTypeEN
  表名:ViewTabType(00050103)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:09:21
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/29 01:21:46
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -85,12 +85,13 @@ public new const string _CurrTabName = "ViewTabType"; //当前表名,与该类�
 public const string _CurrTabKeyFldName = "ViewTabTypeId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 3;
-public static string[] _AttributeName = new string[] {"ViewTabTypeId", "ViewTabTypeName", "TabTypeFunction"};
+protected const int _AttributeCount = 4;
+public static string[] _AttributeName = new string[] {"ViewTabTypeId", "ViewTabTypeName", "ViewTabTypeEnName", "TabTypeFunction"};
 
 protected string mstrViewTabTypeId;    //界面表类型码
-protected string mstrViewTabTypeName;    //ViewTabTypeName
-protected string mstrTabTypeFunction;    //TabTypeFunction
+protected string mstrViewTabTypeName;    //界面表类型名
+protected string mstrViewTabTypeEnName;    //界面表类型英文名
+protected string mstrTabTypeFunction;    //表类型功能
 
 /// <summary>
 /// 构造函数
@@ -153,6 +154,10 @@ else if (strAttributeName  ==  conViewTabType.ViewTabTypeName)
 {
 return mstrViewTabTypeName;
 }
+else if (strAttributeName  ==  conViewTabType.ViewTabTypeEnName)
+{
+return mstrViewTabTypeEnName;
+}
 else if (strAttributeName  ==  conViewTabType.TabTypeFunction)
 {
 return mstrTabTypeFunction;
@@ -170,6 +175,11 @@ else if (strAttributeName  ==  conViewTabType.ViewTabTypeName)
 {
 mstrViewTabTypeName = value.ToString();
  AddUpdatedFld(conViewTabType.ViewTabTypeName);
+}
+else if (strAttributeName  ==  conViewTabType.ViewTabTypeEnName)
+{
+mstrViewTabTypeEnName = value.ToString();
+ AddUpdatedFld(conViewTabType.ViewTabTypeEnName);
 }
 else if (strAttributeName  ==  conViewTabType.TabTypeFunction)
 {
@@ -190,6 +200,10 @@ else if (conViewTabType.ViewTabTypeName  ==  _AttributeName[intIndex])
 {
 return mstrViewTabTypeName;
 }
+else if (conViewTabType.ViewTabTypeEnName  ==  _AttributeName[intIndex])
+{
+return mstrViewTabTypeEnName;
+}
 else if (conViewTabType.TabTypeFunction  ==  _AttributeName[intIndex])
 {
 return mstrTabTypeFunction;
@@ -207,6 +221,11 @@ else if (conViewTabType.ViewTabTypeName  ==  _AttributeName[intIndex])
 {
 mstrViewTabTypeName = value.ToString();
  AddUpdatedFld(conViewTabType.ViewTabTypeName);
+}
+else if (conViewTabType.ViewTabTypeEnName  ==  _AttributeName[intIndex])
+{
+mstrViewTabTypeEnName = value.ToString();
+ AddUpdatedFld(conViewTabType.ViewTabTypeEnName);
 }
 else if (conViewTabType.TabTypeFunction  ==  _AttributeName[intIndex])
 {
@@ -243,7 +262,7 @@ else
 }
 }
 /// <summary>
-/// ViewTabTypeName(说明:;字段类型:varchar;字段长度:20;是否可空:False)
+/// 界面表类型名(说明:;字段类型:varchar;字段长度:20;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -269,7 +288,33 @@ else
 }
 }
 /// <summary>
-/// TabTypeFunction(说明:;字段类型:varchar;字段长度:500;是否可空:True)
+/// 界面表类型英文名(说明:;字段类型:varchar;字段长度:100;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string ViewTabTypeEnName
+{
+get
+{
+return mstrViewTabTypeEnName;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrViewTabTypeEnName = value;
+}
+else
+{
+ mstrViewTabTypeEnName = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conViewTabType.ViewTabTypeEnName);
+}
+}
+/// <summary>
+/// 表类型功能(说明:;字段类型:varchar;字段长度:500;是否可空:True)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -327,7 +372,7 @@ public static class conViewTabType
 {
 public const string _CurrTabName = "ViewTabType"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "ViewTabTypeId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"ViewTabTypeId", "ViewTabTypeName", "TabTypeFunction"};
+public static string[] _AttributeName = new string[] {"ViewTabTypeId", "ViewTabTypeName", "ViewTabTypeEnName", "TabTypeFunction"};
 //以下是属性变量
 
 
@@ -341,13 +386,19 @@ public static string[] _AttributeName = new string[] {"ViewTabTypeId", "ViewTabT
  /// 常量:"ViewTabTypeName"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string ViewTabTypeName = "ViewTabTypeName";    //ViewTabTypeName
+ public const string ViewTabTypeName = "ViewTabTypeName";    //界面表类型名
+
+ /// <summary>
+ /// 常量:"ViewTabTypeEnName"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string ViewTabTypeEnName = "ViewTabTypeEnName";    //界面表类型英文名
 
  /// <summary>
  /// 常量:"TabTypeFunction"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string TabTypeFunction = "TabTypeFunction";    //TabTypeFunction
+ public const string TabTypeFunction = "TabTypeFunction";    //表类型功能
 }
 
 }

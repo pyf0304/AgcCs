@@ -101,7 +101,7 @@ namespace AutoGCLib
                         objEditRegionFldsEx.CtrlId4Win = objEditRegionFldsEx.CtrlId4Win.Replace("ddl", "cbo");
                     }
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -257,11 +257,11 @@ namespace AutoGCLib
                 //strCodeForCs.Append(strTemp);
 
                 //第十六步:生成用于组合查询条件的函数
-                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                strTemp = GenCombineCondition(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithSel(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
-                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet, objViewInfoENEx);
+                //strTemp = GenCombineConditionWithTabName(objViewInfoENEx.arrQryRegionFldSet4InUse, objViewInfoENEx);
                 //strCodeForCs.Append(strTemp);
 
 
@@ -430,7 +430,7 @@ namespace AutoGCLib
                         }
                     }
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -481,7 +481,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "private void InitializeComponent()");
                 strCodeForCs.Append("\r\n" + "{");
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "this.lbl{0} = new System.Windows.Forms.Label();",
                       objQryRegionFldsEx.FldName);
@@ -523,7 +523,7 @@ namespace AutoGCLib
                 objBiDimDistribue.LineHeight = 30;
                 int intFieldIndex = 0;
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId() != clsPrimaryTypeNameENEx.IDENTITY_PRIMARYKEY)
@@ -880,7 +880,7 @@ namespace AutoGCLib
 
                 //第三步:生成控件中内部控件变量的名称
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Label {0};", "lbl" + objQryRegionFldsEx.FldName);
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.{1} {0};", objQryRegionFldsEx.CtrlId4Win, objQryRegionFldsEx.objCtlType.CtlTypeName);

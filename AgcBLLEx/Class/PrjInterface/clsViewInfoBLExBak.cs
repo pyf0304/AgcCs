@@ -386,10 +386,10 @@ namespace AGC.BusinessLogicEx
             Func<clsViewFeatureFldsENEx, ASPDropDownListEx> GetDdlObj2 = obj => clsASPDropDownListBLEx.GetDropDownLst_Asp(obj, new clsGetTabFieldObj());
             List<string> arrDropDownTypeLst = new List<string> { enumCtlType.DropDownList_06, enumCtlType.DropDownList_Bool_18 };
 
-            if (objViewInfoENEx.arrQryRegionFldSet != null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
             {
                 //获取下拉框对象列表
-                IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
+                IEnumerable<clsQryRegionFldsENEx> arrQRF4DropDownLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrDropDownTypeLst.Contains(x.CtlTypeId));
                 objViewInfoENEx.arrASPDropDownListObj = arrQRF4DropDownLst
                     .Select(GetDdlObj_Qry);
                 if (objViewInfoENEx.arrEditRegionFldSet4InUse != null)
@@ -1465,7 +1465,7 @@ namespace AGC.BusinessLogicEx
             ASPBoundFieldEx objASPBoundFieldENEx = null;
 
 
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
 
                 objASPBoundFieldENEx = new ASPBoundFieldEx();
@@ -1607,7 +1607,7 @@ namespace AGC.BusinessLogicEx
             ASPColEx objASPColENEx = null;
             ASPLabelEx objASPLabelENEx = null;
             ASPTextBoxEx objASPTextBoxENEx = null;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 objASPColENEx = new ASPColEx();
                 objASPColENEx.AspControlId = string.Format("tdQryCol_{0}_{1}", intCurrRow, intCurrCol);

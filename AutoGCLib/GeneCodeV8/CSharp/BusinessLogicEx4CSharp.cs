@@ -35,7 +35,10 @@ namespace AutoGCLib
     {
         private string strKeyFldName_ObjName = "";
 
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         #region ¹¹Ôìº¯Êý
 
         public BusinessLogicEx4CSharp(string strTabId,  string strPrjDataBaseId, string strPrjId)

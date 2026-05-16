@@ -127,14 +127,14 @@ namespace AutoGCLib
             string strFuncName = "";
             try
             {
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (string.IsNullOrEmpty(objQryRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId(objQryRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase);
                     strCodeForCs.Append("\r\n" + $"const arr{objTabFeature4Ddl.TabName4GC} = ref<cls{objTabFeature4Ddl.TabName4GC}EN[]>([]);");
                 }
                 //针对每一个表功能--下拉框
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (string.IsNullOrEmpty(objQryRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId(objQryRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase);
@@ -408,9 +408,9 @@ namespace AutoGCLib
 
                 //strCodeForCs.Append("\r\n" + $"import {{ cls{TabName_Out4ListRegion}EN }} from \"@/ts/L0Entity/{objFuncModule.FuncModuleEnName4GC()}/cls{TabName_Out4ListRegion}EN\";");
                 //strCodeForCs.Append("\r\n" + $"import {{ cls{TabName_Out4ListRegion}ENEx }} from \"@/ts/L0Entity/{objFuncModule.FuncModuleEnName4GC()}/cls{TabName_Out4ListRegion}ENEx\";");
-                if (objViewInfoENEx.arrQryRegionFldSet != null)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
                 {
-                    var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+                    var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
                     if (arrQryRegionFldSetEx.Count > 0)
                     {
                         bool bolIsAddintersectSets_Number = false;
@@ -706,7 +706,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -857,7 +857,7 @@ namespace AutoGCLib
 
         public string Gen_Share_method_CombineConditionObj()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -884,7 +884,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "//例如 1 = 1 && UserName = '张三'");
 
                 strCodeForCs.AppendFormat("\r\n" + "const obj{0}Cond = new ConditionCollection();", TabName_Out4ListRegion4GC);
-                if (objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "return obj{0}Cond;", TabName_Out4ListRegion4GC);
                     strCodeForCs.Append("\r\n" + "};");
@@ -915,7 +915,7 @@ namespace AutoGCLib
                 }
                 //处理条件中的界面变量
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 var arrQryRegionFldsEx = arrQryRegionFlds_ViewVar.Select(clsQryRegionFldsBLEx.CopyToEx);
                 if (arrQryRegionFlds_ViewVar.Count() > 0)
                 {
@@ -959,7 +959,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
 
                     if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -1217,14 +1217,14 @@ namespace AutoGCLib
 
         public string Gen_Share_const_QryVarDef()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n" + "//查询区变量定义");
 
             StringBuilder sbCode_Export = new StringBuilder();
             sbCode_Export.Append("const qryVarSet = reactive({");
             List<string> arrCheck = new List<string>();
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (objQryRegionFldsEx.InUse == false) continue;
                 if (objQryRegionFldsEx.IsUseFunc() == true && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false)
@@ -1814,7 +1814,7 @@ namespace AutoGCLib
         private string Gen_Ts_CombineConditionInFldValueLst(EnumConditionType intConditionType)
         {
             bolIsNeedGeneReMapFunc = false;
-            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
             if (arrQryRegionFldSetEx.Count == 0) return "";
             clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
@@ -1871,8 +1871,8 @@ namespace AutoGCLib
         public string Gen_Share_method_CombineConditionInFldValueLst_GeneFun()
         {
             if (bolIsNeedGeneReMapFunc == false) return "";
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
-            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
+            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
             if (arrQryRegionFldSetEx.Count == 0) return "";
             clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
@@ -2172,7 +2172,7 @@ namespace AutoGCLib
 
         public string Gen_Share_method_CombineCondition()
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
 
             StringBuilder strCodeForCs = new StringBuilder();
@@ -2197,9 +2197,9 @@ namespace AutoGCLib
 
                 StringBuilder sbTemp = new StringBuilder();
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
 
-                if (objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
                 {
                     strCodeForCs.Append("\r\n" + "const strWhereCond = \" 1 = 1 \";");
                     strCodeForCs.Append("\r\n" + "return strWhereCond;");
@@ -2313,7 +2313,7 @@ namespace AutoGCLib
                 }
 
 
-                if (sbTemp.Length > 0 || objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                if (sbTemp.Length > 0 || objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -2339,7 +2339,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
                     string strFldName_T = "";
@@ -2681,7 +2681,7 @@ namespace AutoGCLib
                 clsViewRegionEN objViewRegion_Qry = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
                 strCodeForCs.AppendFormat("\r\n" + "const obj{0}Cond = new ConditionCollection();", TabName_Out4ExportExcel4GC);
-                if (objViewInfoENEx.arrQryRegionFldSet.Count == 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count == 0)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "return obj{0}Cond;", TabName_Out4ListRegion4GC);
                     strCodeForCs.Append("\r\n" + "};");
@@ -2715,7 +2715,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}Cond.SetCondFldValue(cls{0}EN.con_IsDeleted, false, \"=\");", TabName_Out4ListRegion4GC);
                 }
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds_ViewVar = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
 
 
                 foreach (var objInFor in arrQryRegionFlds_ViewVar)
@@ -2755,7 +2755,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
                 //处理没有使用函数转换的字段
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
 
                     if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;

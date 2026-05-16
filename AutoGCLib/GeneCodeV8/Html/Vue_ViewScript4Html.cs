@@ -31,7 +31,7 @@ namespace AutoGCLib
     /// <summary>
     /// 该类专门用生成数据表的表代理层,该代理层是逻辑层的一部分,体系结构从下到下,
     /// </summary>
-    partial class Vue_ViewScript_TS4Html : clsGeneCodeBase4View
+    partial class Vue_ViewScript4Html : clsGeneCodeBase4View
     {
         private readonly TemplateService _templateService;
         private readonly RenderServiceOld _renderService;
@@ -50,7 +50,7 @@ namespace AutoGCLib
         clsBiDimDistribute objBiDimDistribue4Qry = null;
         protected string strFuncName4BindGv = "";
         #region 构造函数
-        public Vue_ViewScript_TS4Html()
+        public Vue_ViewScript4Html()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
@@ -60,7 +60,7 @@ namespace AutoGCLib
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_TS4Html(string strViewId)
+        public Vue_ViewScript4Html(string strViewId)
        : base(strViewId, "", "")
         {
             // 
@@ -72,7 +72,7 @@ namespace AutoGCLib
             InitPageSetup();
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_TS4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -127,7 +127,7 @@ namespace AutoGCLib
             if (arrTabName4GC_DefVar4Ddl == null) arrTabName4GC_DefVar4Ddl = new List<string>();
             try
             {
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (string.IsNullOrEmpty(objQryRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objQryRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
@@ -138,7 +138,7 @@ namespace AutoGCLib
                 }
                 arrTabName4GC_DefVar4Ddl.RemoveRange(0, arrTabName4GC_DefVar4Ddl.Count);
                 //针对每一个表功能--下拉框
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (string.IsNullOrEmpty(objQryRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objQryRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
@@ -291,7 +291,7 @@ namespace AutoGCLib
             if (arrTabName4GC_DefVar4Ddl == null) arrTabName4GC_DefVar4Ddl = new List<string>();
             try
             {
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_06 &&
     objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_Bool_18) continue;
@@ -930,7 +930,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -1199,7 +1199,7 @@ namespace AutoGCLib
             try
             {
                 string strCode = "";
-                Type t = typeof(Vue_ViewScript_TS4Html);
+                Type t = typeof(Vue_ViewScript4Html);
                 MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
                 if (mt == null)
@@ -1435,7 +1435,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
 
                 //针对每一个表功能--下拉框
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (string.IsNullOrEmpty(objQryRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objQryRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
@@ -1674,7 +1674,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             StringBuilder sbCode_Export = new StringBuilder();
             sbCode_Export.Append("const qryVarSet = reactive({");
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (objQryRegionFldsEx.InUse == false) continue;
                 if (string.IsNullOrEmpty(objQryRegionFldsEx.TabFeatureId4Ddl) == false)
@@ -1777,7 +1777,7 @@ namespace AutoGCLib
         }
         public string Gen_vue_ts_setup_fun_CombineConditionObj(CodeElement objCodeElement_Parent)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -1797,7 +1797,7 @@ namespace AutoGCLib
                 clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -1812,7 +1812,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}Cond.SetCondFldValue(cls{0}EN.con_IsDeleted, false, \"=\");", TabName_Out4ListRegion4GC);
                 }
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 var arrQryRegionFldsEx = arrQryRegionFlds.Select(clsQryRegionFldsBLEx.CopyToEx);
                 if (arrQryRegionFlds.Count() > 0)
                 {
@@ -1853,14 +1853,14 @@ namespace AutoGCLib
                 }
 
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                if (objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                 {
 
                     if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
                     {
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -2165,7 +2165,7 @@ namespace AutoGCLib
 
         private string Gen_Ts_CombineConditionInFldValueLst()
         {
-            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
+            var arrQryRegionFldSetEx = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => x.IsUseFunc() == true && string.IsNullOrEmpty(x.DataPropertyName()) == false).ToList();
             if (arrQryRegionFldSetEx.Count == 0) return "";
             clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
@@ -2208,7 +2208,7 @@ namespace AutoGCLib
 
         public string Gen_vue_ts_setup_fun_CombineCondition(CodeElement objCodeElement_Parent)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -2232,7 +2232,7 @@ namespace AutoGCLib
 
                 StringBuilder sbTemp = new StringBuilder();
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38 };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 if (arrQryRegionFlds.Count() > 0)
                 {
 
@@ -2280,7 +2280,7 @@ namespace AutoGCLib
                 }
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -2303,7 +2303,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + sbTemp.ToString());
 
-                if (objViewInfoENEx.arrQryRegionFldSet.Count > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0)
                 {
                     ImportClass objImportClass = AddImportClass(TabId_Out4ListRegion, TabName_Out4ListRegion4GC, string.Format("cls{0}EN", TabName_Out4ListRegion4GC), enumImportObjType.ENClass, this.strBaseUrl);
 
@@ -2314,7 +2314,7 @@ namespace AutoGCLib
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
 
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -2636,7 +2636,7 @@ namespace AutoGCLib
 
 
             //strCodeForCs.Append("\r\n" + Gen_Vue_setup_var_ts_DataListVarDef());
-            if (objViewInfoENEx.arrQryRegionFldSet != null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
             {
                 strCodeForCs.Append("\r\n" + Gen_CRUD_setup_DefineDdlDataVarName(objCodeElement_Setup));
             }
@@ -2826,7 +2826,7 @@ namespace AutoGCLib
                 clsViewRegionEN objViewRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.QueryRegion_0001);
 
                 if ((objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
-                    && (objViewInfoENEx.arrQryRegionFldSet.Count > 0))
+                    && (objViewInfoENEx.arrQryRegionFldSet4InUse.Count > 0))
                 {
                     strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
                 }
@@ -2845,7 +2845,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}Cond.SetCondFldValue(cls{0}EN.con_IsDeleted, false, \"=\");", TabName_Out4ListRegion4GC);
                 }
                 List<string> arrCtlType = new List<string>() { enumCtlType.ViewVariable_38, };
-                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet.Where(x => arrCtlType.Contains(x.CtlTypeId));
+                var arrQryRegionFlds = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => arrCtlType.Contains(x.CtlTypeId));
                 if (arrQryRegionFlds.Count() > 0)
                 {
 
@@ -2887,13 +2887,13 @@ namespace AutoGCLib
                 }
 
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                if (objViewInfoENEx.arrQryRegionFldSet.Count() > 0)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse.Count() > 0)
                 {
                     if (objViewRegion != null && objViewRegion.InUseInViewInfo(objViewInfoENEx) == true && objViewRegion.IsDispInViewInfo(objViewInfoENEx))
                     {
                         strCodeForCs.Append("\r\n" + "try");
                         strCodeForCs.Append("\r\n" + "{");
-                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                         {
 
                             if (objQryRegionFldsEx.IsUseFunc() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName()) == false) continue;
@@ -3498,9 +3498,9 @@ namespace AutoGCLib
             });
 
             StringBuilder sbClassName = new StringBuilder();
-            if (objViewInfoENEx.arrQryRegionFldSet != null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
             {
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.InUse == false) continue;
                     if (string.IsNullOrEmpty(objQryRegionFldsEx.OutFldId))
@@ -3774,9 +3774,9 @@ namespace AutoGCLib
 
             bool bolIsNeedBindTrueAndFalse = false;
             List<string> arrTabFeatureId4Add = new List<string>();
-            if (objViewInfoENEx.arrQryRegionFldSet != null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
             {
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_06 &&
                     objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_Bool_18) continue;
@@ -3834,10 +3834,10 @@ namespace AutoGCLib
 
             }
             arrTabFeatureId4Add.RemoveRange(0, arrTabFeatureId4Add.Count);
-            if (objViewInfoENEx.arrQryRegionFldSet != null)
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
             {
                 //针对每一个表功能--下拉框
-                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_06 &&
                         objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_Bool_18) continue;
@@ -5184,7 +5184,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "alert('页面初始化不成功,请联系管理员!');");
             strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex('{ThisEditClsName}Ex', objPage.value);");
+            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex(objPage.value);");
             strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
@@ -5260,7 +5260,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "alert('页面初始化不成功,请联系管理员!');");
             strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex('{ThisEditClsName}Ex', objPage.value);");
+            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex(objPage.value);");
             strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
@@ -5495,7 +5495,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             //            strCodeForCs.Append("\r\n" + "alert('页面初始化不成功,请联系管理员!');");
             //            strCodeForCs.Append("\r\n" + "return;");
             //            strCodeForCs.Append("\r\n" + "}");
-            //            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex('{ThisEditClsName}Ex', objPage.value);");
+            //            strCodeForCs.Append("\r\n" + $"objPage_Edit.value = new {ThisEditClsName}Ex(objPage.value);");
             //            strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
             //            strCodeForCs.Append("\r\n" + "{");
             //            strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
@@ -5738,7 +5738,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
 
         public string Gen_CRUD_method_GeneEventFuncEx(CodeElement objCodeElement_Parent)
         {
-            if (objViewInfoENEx.arrQryRegionFldSet == null) return "";
+            if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
@@ -5746,7 +5746,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
             {
 
 
-                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ChangeEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ChangeEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ChangeEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -5775,7 +5775,7 @@ TabName_In4Edit4GC, objKeyField.FldName);
 
                 strCodeForCs.Append("\r\n" + "");
 
-                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
+                var arrQryRegionFlds_ClickEvent = objViewInfoENEx.arrQryRegionFldSet4InUse.Where(x => string.IsNullOrEmpty(x.ClickEvent) == false && x.InUse == true).ToList();
                 arrQryRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
@@ -6156,9 +6156,9 @@ TabName_In4Edit4GC, objKeyField.FldName);
                 if (IsHasEditRegion) strCodeForCs.AppendFormat("\r\n" + "ref{0},", ThisEditClsName);
                 if (IsHasDetailRegion) strCodeForCs.AppendFormat("\r\n" + "ref{0},", ThisDetailClsName);
                 if (IsHasListRegion) strCodeForCs.AppendFormat("\r\n" + "ref{0},", ThisListClsName);
-                if (objViewInfoENEx.arrQryRegionFldSet != null)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
                 {
-                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                     {
                         if (objQryRegionFldsEx.InUse == false) continue;
                         if (string.IsNullOrEmpty(objQryRegionFldsEx.OutFldId) == false)
@@ -6178,9 +6178,9 @@ TabName_In4Edit4GC, objKeyField.FldName);
                     strCodeForCs.AppendFormat("\r\n" + "{0}_f,", objViewFeatureFldsEx.ObjFieldTabENEx.PropertyName_TS(this.IsFstLcase));
                 }
                 var arrTabName4GC = new List<string>();
-                if (objViewInfoENEx.arrQryRegionFldSet != null)
+                if (objViewInfoENEx.arrQryRegionFldSet4InUse != null)
                 {
-                    foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet)
+                    foreach (var objQryRegionFld in objViewInfoENEx.arrQryRegionFldSet4InUse)
                     {
                         if (objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_06 &&
                       objQryRegionFld.CtlTypeId != enumCtlType.DropDownList_Bool_18) continue;

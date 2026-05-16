@@ -143,6 +143,8 @@ namespace AutoGCLib
         public clsWebSrvClassENEx objWebSrvClassENEx { get => mobjWebSrvClassENEx; set => mobjWebSrvClassENEx = value; }
         public string WebSrvClassId { get => mstrWebSrvClassId; set => mstrWebSrvClassId = value; }
         public string ClsName { get => mstrClsName; set => mstrClsName = value; }
+        public string ExtendedClsName { get ; set; }
+
         public string BaseClsName { get; set; }
     
         
@@ -662,7 +664,7 @@ namespace AutoGCLib
         }
 
         public abstract void GetClsName();
-
+        public abstract void GetExtendedClsName();
         public bool IsFstLcase { get => isFstLcase; set => isFstLcase = value; }
 
         public abstract string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName);

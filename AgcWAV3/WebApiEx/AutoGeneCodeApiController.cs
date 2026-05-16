@@ -244,6 +244,7 @@ namespace AGC.WebApiEx
                 string strMsg = string.Format("(ErrId:0001)在生成表Id:[{0}],界面Id：[{1}]时出错！错误：{2}.({3})",
                     objGCPara.tabId, objGCPara.viewId, strErrMsg, clsStackTrace.GetCurrClassFunction());
                 clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                if (objGCResult == null) objGCResult = new clsGCResult();
                 objGCResult.errorMsg = strMsg;
                 objGCResult.errorId = -1;
                 return objGCResult;

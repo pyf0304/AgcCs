@@ -783,36 +783,43 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId && x.InUse == true)
         public static List<clsEditRegionFldsENEx> GetObjExLstByRegionId4InUse2(string lngRegionId, bool bolIsFstLcase, string strPrjId, string strViewId)
         {
             //string strCondition = string.Format("RegionId = {0} And {1}1='1' order by SeqNum", lngRegionId, conEditRegionFlds.InUse);
-
-            List<clsEditRegionFldsENEx> arrObjENExList = new List<clsEditRegionFldsENEx>();
-            List<clsEditRegionFldsEN> arrObjList = GetObjLstByRegionIdCache4InUseEx2(lngRegionId, strPrjId);
-            foreach (clsEditRegionFldsEN objEditRegionFldsEN in arrObjList)
+            try
             {
-                clsEditRegionFldsENEx objEditRegionFldsENEx = new clsEditRegionFldsENEx();
-                CopyTo(objEditRegionFldsEN, objEditRegionFldsENEx);
-                objEditRegionFldsENEx.ObjFieldTabENEx = clsFieldTabBLEx.InitFieldTab(objEditRegionFldsENEx.FldId, objEditRegionFldsENEx.PrjId());
-                if (string.IsNullOrEmpty( objEditRegionFldsEN.TabFeatureId4Ddl ) == false)
+                List<clsEditRegionFldsENEx> arrObjENExList = new List<clsEditRegionFldsENEx>();
+                List<clsEditRegionFldsEN> arrObjList = GetObjLstByRegionIdCache4InUseEx2(lngRegionId, strPrjId);
+                foreach (clsEditRegionFldsEN objEditRegionFldsEN in arrObjList)
                 {
-                    clsTabFeatureENEx4Ddl objTabFeatureENEx4Ddl;
-                    try
+                    clsEditRegionFldsENEx objEditRegionFldsENEx = new clsEditRegionFldsENEx();
+                    CopyTo(objEditRegionFldsEN, objEditRegionFldsENEx);
+                    objEditRegionFldsENEx.ObjFieldTabENEx = clsFieldTabBLEx.InitFieldTab(objEditRegionFldsENEx.FldId, objEditRegionFldsENEx.PrjId());
+                    if (string.IsNullOrEmpty(objEditRegionFldsEN.TabFeatureId4Ddl) == false)
                     {
-                        objTabFeatureENEx4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFldsEN.TabFeatureId4Ddl, objEditRegionFldsENEx.PrjId(), bolIsFstLcase, strViewId);
-                    }
-                    catch(Exception objException)
-                    {
-                        string strMsg = $"在获取编辑区的扩展对象列表，获取下拉框的表功能时，出错:【{objException.Message}】.in ({clsStackTrace.GetCurrClassFunction()})";
-                        throw new Exception(strMsg);
-                    }
-                    if (objTabFeatureENEx4Ddl != null)
-                    {
-                        objEditRegionFldsENEx.ValueFieldName = objTabFeatureENEx4Ddl.ValueFieldName;
-                        objEditRegionFldsENEx.TextFieldName = objTabFeatureENEx4Ddl.TextFieldName;
+                        clsTabFeatureENEx4Ddl objTabFeatureENEx4Ddl;
+                        try
+                        {
+                            objTabFeatureENEx4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFldsEN.TabFeatureId4Ddl, objEditRegionFldsENEx.PrjId(), bolIsFstLcase, strViewId);
+                        }
+                        catch (Exception objException)
+                        {
+                            string strMsg = $"在获取编辑区的扩展对象列表，获取下拉框的表功能时，出错:【{objException.Message}】.in ({clsStackTrace.GetCurrClassFunction()})";
+                            throw new Exception(strMsg);
+                        }
+                        if (objTabFeatureENEx4Ddl != null)
+                        {
+                            objEditRegionFldsENEx.ValueFieldName = objTabFeatureENEx4Ddl.ValueFieldName;
+                            objEditRegionFldsENEx.TextFieldName = objTabFeatureENEx4Ddl.TextFieldName;
 
+                        }
                     }
+                    arrObjENExList.Add(objEditRegionFldsENEx);
                 }
-                arrObjENExList.Add(objEditRegionFldsENEx);
+                return arrObjENExList;
             }
-            return arrObjENExList;
+            catch(Exception objException)
+            {
+                string strMsg = $"在获取编辑区的扩展对象列表，获取下拉框的表功能时，出错:【{objException.Message}】.in ({clsStackTrace.GetCurrClassFunction()})";
+                throw new Exception(strMsg);
+            }
         }
 
         public static List<clsEditRegionFldsENEx> GetObjExLstByRegionId1(string lngRegionId, string strCmPrjId)

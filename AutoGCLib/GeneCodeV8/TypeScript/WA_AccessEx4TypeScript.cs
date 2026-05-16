@@ -52,6 +52,11 @@ namespace AutoGCLib
 
         }
         #endregion
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成Web Service转换层代码
         /// </summary>
@@ -1143,8 +1148,12 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "//如果排序字段名[OrderBy]为空,就调用排序函数");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}Sel = arr{0}Sel.sort(objPagerPara.sortFun);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
-                        
-            strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "const intPageSize =objPagerPara.pageSize > 0 ? objPagerPara.pageSize : arr{0}Sel.length;", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "const intPageIndex = objPagerPara.pageIndex > 0 ? objPagerPara.pageIndex : 1;");
+            strCodeForCs.Append("\r\n" + "const intStartIndex = (intPageIndex - 1) * intPageSize;");
+            strCodeForCs.Append("\r\n" + "const intEndIndex = intStartIndex + intPageSize;");
+            strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel.slice(intStartIndex, intEndIndex);");
+
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
             strCodeForCs.Append("\r\n" + "const strMsg = Format(\"错误:[{0}]. \\n根据条件:[{1}]获取分页对象列表不成功!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorNameEx + ", strThisFuncName);");

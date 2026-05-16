@@ -53,8 +53,11 @@ namespace AutoGCLib
         }
         #endregion
 
-            
-   
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
+
         /// <summary>
         /// 生成App页面后台代码
         /// </summary>

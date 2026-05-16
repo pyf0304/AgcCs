@@ -148,7 +148,10 @@ namespace AutoGCLib
 
     public class clsPubFun4GC : clsGeneCodeBase4Tab
     {
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public clsPubFun4GC(string strTabId, string strPrjDataBaseId, string strPrjId)
          : base(strTabId, strPrjDataBaseId, strPrjId)
         {

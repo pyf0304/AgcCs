@@ -1448,7 +1448,7 @@ namespace AutoGCLib
 
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -3187,7 +3187,7 @@ namespace AutoGCLib
             try
             {
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -3370,7 +3370,7 @@ namespace AutoGCLib
                 }
                 else
                 {
-                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                    foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                     {
                         if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 
@@ -3613,7 +3613,7 @@ namespace AutoGCLib
                 //}
 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.QueryOptionId == enumQueryOption.NonQueryField_04) continue;
 

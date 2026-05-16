@@ -98,7 +98,7 @@ namespace AutoGCLib
                         objEditRegionFldsEx.CtrlId4Win = objEditRegionFldsEx.CtrlId4Win.Replace("ddl", "cbo");
                     }
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -149,7 +149,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "private void InitializeComponent()");
                 strCodeForCs.Append("\r\n" + "{");
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "this.lbl{0} = new System.Windows.Forms.Label();",
                         objQryRegionFldsEx.FldName);
@@ -183,7 +183,7 @@ namespace AutoGCLib
                 objBiDimDistribue.LineHeight = 30;
                 int intFieldIndex = 0;
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId() != clsPrimaryTypeENEx.IDENTITY_PRIMARYKEY)
@@ -488,7 +488,7 @@ namespace AutoGCLib
 
                 //第三步:生成控件中内部控件变量的名称
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Label {0};", "lbl" + objQryRegionFldsEx.FldName);
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.{1} {0};", objQryRegionFldsEx.CtrlId4Win, objQryRegionFldsEx.objCtlType.CtlTypeName);
@@ -589,7 +589,7 @@ namespace AutoGCLib
                         objEditRegionFldsEx.CtrlId4Win = objEditRegionFldsEx.CtrlId4Win.Replace("ddl", "cbo");
                     }
                 }
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName == "DropDownList")
                     {
@@ -640,7 +640,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "private void InitializeComponent()");
                 strCodeForCs.Append("\r\n" + "{");
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "this.lbl{0} = new System.Windows.Forms.Label();",
                         objQryRegionFldsEx.FldName);
@@ -683,7 +683,7 @@ namespace AutoGCLib
                 objBiDimDistribue.LineHeight = 30;
                 int intFieldIndex = 0;
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId() != clsPrimaryTypeENEx.IDENTITY_PRIMARYKEY)
@@ -1035,7 +1035,7 @@ namespace AutoGCLib
 
                 //第三步:生成控件中内部控件变量的名称
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.Label {0};", "lbl" + objQryRegionFldsEx.FldName);
                     strCodeForCs.AppendFormat("\r\n" + "private System.Windows.Forms.{1} {0};", objQryRegionFldsEx.CtrlId4Win, objQryRegionFldsEx.objCtlType.CtlTypeName);
@@ -1569,7 +1569,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "//例如 1 = 1 && UserName = '张三'");
                 strCodeForCs.Append("\r\n" + "string strWhereCond = \" 1 = 1 \";");
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                     {
@@ -1701,7 +1701,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
                 strCodeForCs.Append("\r\n" + "if (bolIsWithTabName  ==  true)");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                     {
@@ -1806,7 +1806,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "else");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                     {
@@ -1936,7 +1936,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "//例如 1 = 1 && UserName = '张三'");
                 strCodeForCs.Append("\r\n" + "string strWhereCond = \" 1 = 1 \";");
                 strCodeForCs.Append("\r\n" + "//如果该条件控件的内容不为空,就组成一个条件并添加到总条件串中。");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                     {

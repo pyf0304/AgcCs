@@ -1110,6 +1110,8 @@ namespace AutoGCLib
 
             //this.mobjKeyField = objPrjTabENEx.objKeyField0;
             this.GetClsName();
+            this.GetExtendedClsName();
+
             return true;
         }
 
@@ -1307,7 +1309,10 @@ namespace AutoGCLib
             this.ClsName = objViewInfoENEx.ViewName;
             objViewInfoENEx.ClsName = this.ClsName;
         }
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = objViewInfoENEx.ViewName +"Ex";            
+        }
 
         public static clsGeneCodeBase4View GetClassByName(string strClassName)
         {

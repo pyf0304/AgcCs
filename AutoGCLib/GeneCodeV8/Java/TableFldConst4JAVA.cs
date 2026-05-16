@@ -49,7 +49,10 @@ namespace AutoGCLib
         }
         #endregion
 
-             
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成表字段常量
         /// </summary>

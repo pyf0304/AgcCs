@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewTabTypeBL
  表名:ViewTabType(00050103)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:09:22
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/29 01:21:49
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -67,7 +67,7 @@ public static bool AddNewRecord(this clsViewTabTypeEN objViewTabTypeEN, bool bol
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objViewTabTypeEN) == false)
 {
-var strMsg = string.Format("记录已经存在!ViewTabTypeName = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecord)", objViewTabTypeEN.ViewTabTypeName);
+var strMsg = string.Format("记录已经存在!界面表类型名 = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecord)", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 try
@@ -123,7 +123,7 @@ objViewTabTypeEN.CheckPropertyNew();
  ///5.2、检查唯一性
 if (bolIsNeedCheckUniqueness == true && objViewTabTypeEN.CheckUniqueness() == false)
 {
-strMsg = string.Format("(ViewTabTypeName(ViewTabTypeName)=[{0}])已经存在,不能重复!", objViewTabTypeEN.ViewTabTypeName);
+strMsg = string.Format("(界面表类型名(ViewTabTypeName)=[{0}])已经存在,不能重复!", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 //因为是字符型自增主键,所以在添加时,自动获取主键值。
@@ -153,7 +153,7 @@ public static string AddNewRecordWithMaxId(this clsViewTabTypeEN objViewTabTypeE
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objViewTabTypeEN) == false)
 {
-var strMsg = string.Format("记录已经存在!ViewTabTypeName = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordWithMaxId)", objViewTabTypeEN.ViewTabTypeName);
+var strMsg = string.Format("记录已经存在!界面表类型名 = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordWithMaxId)", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 try
@@ -193,7 +193,7 @@ public static string AddNewRecordWithReturnKey(this clsViewTabTypeEN objViewTabT
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objViewTabTypeEN) == false)
 {
-var strMsg = string.Format("记录已经存在!ViewTabTypeName = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordWithReturnKey)", objViewTabTypeEN.ViewTabTypeName);
+var strMsg = string.Format("记录已经存在!界面表类型名 = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordWithReturnKey)", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 try
@@ -264,7 +264,7 @@ if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldLen(strViewTabTypeName, 20, conViewTabType.ViewTabTypeName);
 }
-objViewTabTypeEN.ViewTabTypeName = strViewTabTypeName; //ViewTabTypeName
+objViewTabTypeEN.ViewTabTypeName = strViewTabTypeName; //界面表类型名
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.ViewTabTypeName) == false)
@@ -286,13 +286,42 @@ return objViewTabTypeEN;
  /// <param name = "objViewTabTypeEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
  /// <returns>返回对象,可以继续连写</returns>
+public static clsViewTabTypeEN SetViewTabTypeEnName(this clsViewTabTypeEN objViewTabTypeEN, string strViewTabTypeEnName, string strComparisonOp="")
+	{
+clsCheckSql.CheckFieldNotNull(strViewTabTypeEnName, conViewTabType.ViewTabTypeEnName);
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strViewTabTypeEnName, 100, conViewTabType.ViewTabTypeEnName);
+}
+objViewTabTypeEN.ViewTabTypeEnName = strViewTabTypeEnName; //界面表类型英文名
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.ViewTabTypeEnName) == false)
+{
+objViewTabTypeEN.dicFldComparisonOp.Add(conViewTabType.ViewTabTypeEnName, strComparisonOp);
+}
+else
+{
+objViewTabTypeEN.dicFldComparisonOp[conViewTabType.ViewTabTypeEnName] = strComparisonOp;
+}
+}
+return objViewTabTypeEN;
+	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objViewTabTypeEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
 public static clsViewTabTypeEN SetTabTypeFunction(this clsViewTabTypeEN objViewTabTypeEN, string strTabTypeFunction, string strComparisonOp="")
 	{
 if (strComparisonOp != "in")
 {
 clsCheckSql.CheckFieldLen(strTabTypeFunction, 500, conViewTabType.TabTypeFunction);
 }
-objViewTabTypeEN.TabTypeFunction = strTabTypeFunction; //TabTypeFunction
+objViewTabTypeEN.TabTypeFunction = strTabTypeFunction; //表类型功能
 if (string.IsNullOrEmpty(strComparisonOp) == false)
 {
 if (objViewTabTypeEN.dicFldComparisonOp.ContainsKey(conViewTabType.TabTypeFunction) == false)
@@ -558,8 +587,9 @@ throw new Exception(strMsg);
 try
 {
 objViewTabTypeENT.ViewTabTypeId = objViewTabTypeENS.ViewTabTypeId; //界面表类型码
-objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //ViewTabTypeName
-objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //TabTypeFunction
+objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //界面表类型名
+objViewTabTypeENT.ViewTabTypeEnName = objViewTabTypeENS.ViewTabTypeEnName; //界面表类型英文名
+objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //表类型功能
 }
 catch (Exception objException)
 {
@@ -583,8 +613,9 @@ try
  clsViewTabTypeEN objViewTabTypeENT = new clsViewTabTypeEN()
 {
 ViewTabTypeId = objViewTabTypeENS.ViewTabTypeId, //界面表类型码
-ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName, //ViewTabTypeName
-TabTypeFunction = objViewTabTypeENS.TabTypeFunction, //TabTypeFunction
+ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName, //界面表类型名
+ViewTabTypeEnName = objViewTabTypeENS.ViewTabTypeEnName, //界面表类型英文名
+TabTypeFunction = objViewTabTypeENS.TabTypeFunction, //表类型功能
 };
  return objViewTabTypeENT;
 }
@@ -635,6 +666,11 @@ if (objViewTabTypeCond.IsUpdated(conViewTabType.ViewTabTypeName) == true)
 {
 string strComparisonOpViewTabTypeName = objViewTabTypeCond.dicFldComparisonOp[conViewTabType.ViewTabTypeName];
 strWhereCond += string.Format(" And {0} {2} '{1}'", conViewTabType.ViewTabTypeName, objViewTabTypeCond.ViewTabTypeName, strComparisonOpViewTabTypeName);
+}
+if (objViewTabTypeCond.IsUpdated(conViewTabType.ViewTabTypeEnName) == true)
+{
+string strComparisonOpViewTabTypeEnName = objViewTabTypeCond.dicFldComparisonOp[conViewTabType.ViewTabTypeEnName];
+strWhereCond += string.Format(" And {0} {2} '{1}'", conViewTabType.ViewTabTypeEnName, objViewTabTypeCond.ViewTabTypeEnName, strComparisonOpViewTabTypeEnName);
 }
 if (objViewTabTypeCond.IsUpdated(conViewTabType.TabTypeFunction) == true)
 {
@@ -720,6 +756,69 @@ public virtual bool UpdRelaTabDate(string strViewTabTypeId, string strOpUser)
 {
 return true;
 }
+}
+ /// <summary>
+ /// 根据表内容设置enum列表
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GeneEnumConstList)
+ /// </summary>
+public class enumViewTabType
+{
+ /// <summary>
+ /// 未确定
+ /// </summary>
+public const string Undetermined_0000 = "0000";
+ /// <summary>
+ /// 界面主表
+ /// </summary>
+public const string Interface_Master_Table_0001 = "0001";
+ /// <summary>
+ /// 界面明细表
+ /// </summary>
+public const string Interface_Detail_Table_0002 = "0002";
+ /// <summary>
+ /// 查询区主表
+ /// </summary>
+public const string Query_Area_Master_Table_0003 = "0003";
+ /// <summary>
+ /// 编辑区主表
+ /// </summary>
+public const string Edit_Area_Master_Table_0004 = "0004";
+ /// <summary>
+ /// 列表区主表
+ /// </summary>
+public const string List_Area_Master_Table_0005 = "0005";
+ /// <summary>
+ /// 功能区主表
+ /// </summary>
+public const string Function_Area_Master_Table_0006 = "0006";
+ /// <summary>
+ /// 详细区主表
+ /// </summary>
+public const string Detail_Area_Master_Table_0007 = "0007";
+ /// <summary>
+ /// 导出区主表
+ /// </summary>
+public const string Export_Area_Master_Table_0008 = "0008";
+ /// <summary>
+ /// 父表
+ /// </summary>
+public const string Parent_Table_0009 = "0009";
+ /// <summary>
+ /// 参考表
+ /// </summary>
+public const string Reference_Table_0010 = "0010";
+ /// <summary>
+ /// 相关表
+ /// </summary>
+public const string Related_Table_0011 = "0011";
+ /// <summary>
+ /// 平行表
+ /// </summary>
+public const string Parallel_Table_0012 = "0012";
+ /// <summary>
+ /// 主表视图
+ /// </summary>
+public const string Master_Table_View_0013 = "0013";
 }
  /// <summary>
  /// 界面表类型(ViewTabType)
@@ -1054,8 +1153,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1105,8 +1205,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1140,8 +1241,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1237,8 +1339,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1272,8 +1375,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1351,8 +1455,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1386,8 +1491,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1435,8 +1541,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1473,8 +1580,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1506,8 +1614,9 @@ foreach(DataRow objRow in objDT.Rows)
 try
 {
 objViewTabTypeEN.ViewTabTypeId = objRow[conViewTabType.ViewTabTypeId].ToString().Trim(); //界面表类型码
-objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //ViewTabTypeName
-objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //TabTypeFunction
+objViewTabTypeEN.ViewTabTypeName = objRow[conViewTabType.ViewTabTypeName].ToString().Trim(); //界面表类型名
+objViewTabTypeEN.ViewTabTypeEnName = objRow[conViewTabType.ViewTabTypeEnName].ToString().Trim(); //界面表类型英文名
+objViewTabTypeEN.TabTypeFunction = objRow[conViewTabType.TabTypeFunction] == DBNull.Value ? null : objRow[conViewTabType.TabTypeFunction].ToString().Trim(); //表类型功能
 }
 catch (Exception objException)
 {
@@ -1826,7 +1935,7 @@ public static bool AddNewRecordBySql2(clsViewTabTypeEN objViewTabTypeEN, bool bo
 {
 if (bolIsNeedCheckUniqueness == true && objViewTabTypeEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!ViewTabTypeName = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordBySql2)", objViewTabTypeEN.ViewTabTypeName);
+var strMsg = string.Format("记录已经存在!界面表类型名 = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordBySql2)", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 try
@@ -1865,7 +1974,7 @@ public static string AddNewRecordBySql2WithReturnKey(clsViewTabTypeEN objViewTab
 {
 if (bolIsNeedCheckUniqueness == true && objViewTabTypeEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!ViewTabTypeName = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordBySql2WithReturnKey)", objViewTabTypeEN.ViewTabTypeName);
+var strMsg = string.Format("记录已经存在!界面表类型名 = [{0}]的数据已经存在!(in clsViewTabTypeBL.AddNewRecordBySql2WithReturnKey)", objViewTabTypeEN.ViewTabTypeName);
 throw new Exception(strMsg);
 }
 try
@@ -2221,8 +2330,9 @@ objConnection.Close();
 try
 {
 objViewTabTypeENT.ViewTabTypeId = objViewTabTypeENS.ViewTabTypeId; //界面表类型码
-objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //ViewTabTypeName
-objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //TabTypeFunction
+objViewTabTypeENT.ViewTabTypeName = objViewTabTypeENS.ViewTabTypeName; //界面表类型名
+objViewTabTypeENT.ViewTabTypeEnName = objViewTabTypeENS.ViewTabTypeEnName; //界面表类型英文名
+objViewTabTypeENT.TabTypeFunction = objViewTabTypeENS.TabTypeFunction; //表类型功能
 }
 catch (Exception objException)
 {
@@ -2252,11 +2362,15 @@ objViewTabTypeEN.ViewTabTypeId = objViewTabTypeEN.ViewTabTypeId; //界面表类�
 }
 if (arrFldSet.Contains(conViewTabType.ViewTabTypeName, new clsStrCompareIgnoreCase())  ==  true)
 {
-objViewTabTypeEN.ViewTabTypeName = objViewTabTypeEN.ViewTabTypeName; //ViewTabTypeName
+objViewTabTypeEN.ViewTabTypeName = objViewTabTypeEN.ViewTabTypeName; //界面表类型名
+}
+if (arrFldSet.Contains(conViewTabType.ViewTabTypeEnName, new clsStrCompareIgnoreCase())  ==  true)
+{
+objViewTabTypeEN.ViewTabTypeEnName = objViewTabTypeEN.ViewTabTypeEnName; //界面表类型英文名
 }
 if (arrFldSet.Contains(conViewTabType.TabTypeFunction, new clsStrCompareIgnoreCase())  ==  true)
 {
-objViewTabTypeEN.TabTypeFunction = objViewTabTypeEN.TabTypeFunction == "[null]" ? null :  objViewTabTypeEN.TabTypeFunction; //TabTypeFunction
+objViewTabTypeEN.TabTypeFunction = objViewTabTypeEN.TabTypeFunction == "[null]" ? null :  objViewTabTypeEN.TabTypeFunction; //表类型功能
 }
 }
 catch (Exception objException)
@@ -2277,7 +2391,7 @@ throw new Exception(strMsg);
 {
 try
 {
-if (objViewTabTypeEN.TabTypeFunction == "[null]") objViewTabTypeEN.TabTypeFunction = null; //TabTypeFunction
+if (objViewTabTypeEN.TabTypeFunction == "[null]") objViewTabTypeEN.TabTypeFunction = null; //表类型功能
 }
 catch (Exception objException)
 {
@@ -2566,7 +2680,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-04-29
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -2871,9 +2985,11 @@ public static string GetCode4CreateTable()
  strCreateTabCode.Append(" ( "); 
  // /**界面表类型码*/ 
  strCreateTabCode.Append(" ViewTabTypeId varchar(4) primary key, "); 
- // /**ViewTabTypeName*/ 
+ // /**界面表类型名*/ 
  strCreateTabCode.Append(" ViewTabTypeName varchar(20) not Null, "); 
- // /**TabTypeFunction*/ 
+ // /**界面表类型英文名*/ 
+ strCreateTabCode.Append(" ViewTabTypeEnName varchar(100) not Null, "); 
+ // /**表类型功能*/ 
  strCreateTabCode.Append(" TabTypeFunction varchar(500) Null ");
  strCreateTabCode.Append(") "); 
   strCreateTabCode.Append("ON [PRIMARY] ");

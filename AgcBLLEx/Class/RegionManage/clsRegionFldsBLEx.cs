@@ -69,6 +69,7 @@ namespace AGC.BusinessLogicEx
         {
             try
             {
+                if (string.IsNullOrEmpty(objRegionFlds.FldId)) return null;
                 clsFieldTabEN objFieldTab = clsFieldTabBL.GetObjByFldIdCache(objRegionFlds.FldId, objRegionFlds.PrjId);
                 return objFieldTab;
             }
@@ -116,17 +117,18 @@ namespace AGC.BusinessLogicEx
         public static string CtrlId(this IRegionFlds objRegionFlds)
         {
             string strCtrlId;
-                if (objRegionFlds.IsUseFunc() && string.IsNullOrEmpty(objRegionFlds.DataPropertyName()) == false)
-                {
-                    strCtrlId = objRegionFlds.ObjCtlType().CtlTypeAbbr + objRegionFlds.DataPropertyName() + "_q";
-                }
-                else
-                {
-                    strCtrlId = objRegionFlds.ObjCtlType().CtlTypeAbbr + objRegionFlds.ObjFieldTab().FldName + "_q";
-                }
-                return strCtrlId;
-            
-            
+            if (objRegionFlds.IsUseFunc() && string.IsNullOrEmpty(objRegionFlds.DataPropertyName()) == false)
+            {
+                strCtrlId = objRegionFlds.ObjCtlType().CtlTypeAbbr + objRegionFlds.DataPropertyName() + "_q";
+            }
+            else
+            {
+                if (objRegionFlds.ObjFieldTab() == null) return "";
+                strCtrlId = objRegionFlds.ObjCtlType().CtlTypeAbbr + objRegionFlds.ObjFieldTab().FldName + "_q";
+            }
+            return strCtrlId;
+
+
         }
         public static string PrjId(this IRegionFlds objRegionFlds)
         {

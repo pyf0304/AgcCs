@@ -41,6 +41,11 @@ namespace AutoGCLib
             //
         }
         #endregion
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 根据关键字获取相应的记录的对象
         /// </summary>

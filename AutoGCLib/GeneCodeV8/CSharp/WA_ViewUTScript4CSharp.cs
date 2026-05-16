@@ -39,7 +39,10 @@ namespace AutoGCLib
     /// </summary>
     partial class WA_ViewUTScript4CSharp : clsGeneCodeBase4Tab
     {
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public WA_ViewUTScript4CSharp(string strTabId,  string strPrjDataBaseId, string strPrjId)
           : base(strTabId, strPrjDataBaseId, strPrjId)
         {

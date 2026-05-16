@@ -308,7 +308,7 @@ namespace AutoGCLib
                 intZIndex = 101;
                 //				intCurrLeft = 10;
                 intCurrTop = 50;
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     ///如果该字段不是标识递增型就生成控件,否则就不生成;
                     if (objQryRegionFldsEx.PrimaryTypeId()  ==  clsPrimaryTypeENEx.IDENTITY_PRIMARYKEY)
@@ -836,7 +836,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -848,7 +848,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.StartX = intCurrLeft;
             objBiDimDistribue4Qry.StartY = intCurrTop;
             ///生成专门用于查询的界面控件的代码;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 switch (objQryRegionFldsEx.objCtlType.CtlTypeName)
                 {
@@ -901,7 +901,7 @@ namespace AutoGCLib
             objBiDimDistribue4Qry.LineHeight = 30;
             float intDivWidth = objBiDimDistribue4Qry.GetCtlWidth();
 
-            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
+            intQueryFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
 
             //			intDivHeight = intQueryFldNum * 28 +40;
             intDivHeight = objBiDimDistribue4Qry.GetCtlHeigh(intQueryFldNum) + 40;
@@ -915,7 +915,7 @@ namespace AutoGCLib
             ///生成专门用于查询的界面控件的代码;
             ///
             bool bolIsTrEnd = true;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 if (intFieldNum % objViewInfoENEx.objViewRegion_Query.ColNum  ==  0)
                 {

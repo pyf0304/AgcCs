@@ -6,11 +6,11 @@ import { cls{{ TableName }}ENEx } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ Tab
 {{~ end ~}}
 import { TableColumnSpec } from '@/viewsBase/common/TableSpecColumn';
 
-/** Ai2 列规格：复用通用表列规格。 */
-export type {{ TableName }}ColumnSpecAi2 = TableColumnSpec;
+/** Ai 列规格：复用通用表列规格。 */
+export type {{ TableName }}ColumnSpecAi = TableColumnSpec;
 
 /** 列定义主表：通过 includeInList/includeInExport 控制最终用途。 */
-export const {{ TableName | string.upcase }}_COLUMN_SPECS_AI2: Array<{{ TableName }}ColumnSpecAi2> = [
+export const {{ TableName | string.upcase }}_COLUMN_SPECS_AI: Array<{{ TableName }}ColumnSpecAi> = [
 {{~ for field in Fields ~}}
   {
     fldName: cls{{ field.EntityClass }}EN{{ field.ExSuffix }}.con_{{ field.Name }},
@@ -26,7 +26,7 @@ export const {{ TableName | string.upcase }}_COLUMN_SPECS_AI2: Array<{{ TableNam
 ];
 
 /** 把规格对象转换为前端表格列对象。 */
-function toDataColumn(spec: {{ TableName }}ColumnSpecAi2): clsDataColumn {
+function toDataColumn(spec: {{ TableName }}ColumnSpecAi): clsDataColumn {
   return {
     fldName: spec.fldName,
     sortBy: spec.sortBy,
@@ -45,7 +45,7 @@ function toDataColumn(spec: {{ TableName }}ColumnSpecAi2): clsDataColumn {
 }
 
 /** 获取列表列（包含首列复选框）。 */
-export function getListColumnsAi2(): Array<clsDataColumn> {
+export function getListColumnsAi(): Array<clsDataColumn> {
   const checkboxColumn: clsDataColumn = {
     fldName: '',
     sortBy: '',
@@ -64,11 +64,11 @@ export function getListColumnsAi2(): Array<clsDataColumn> {
 
   return [
     checkboxColumn,
-    ...{{ TableName | string.upcase }}_COLUMN_SPECS_AI2.filter((x) => x.includeInList).map(toDataColumn),
+    ...{{ TableName | string.upcase }}_COLUMN_SPECS_AI.filter((x) => x.includeInList).map(toDataColumn),
   ];
 }
 
 /** 获取导出列规格。 */
-export function getExportColumnSpecsAi2(): Array<{{ TableName }}ColumnSpecAi2> {
-  return {{ TableName | string.upcase }}_COLUMN_SPECS_AI2.filter((x) => x.includeInExport);
+export function getExportColumnSpecsAi(): Array<{{ TableName }}ColumnSpecAi> {
+  return {{ TableName | string.upcase }}_COLUMN_SPECS_AI.filter((x) => x.includeInExport);
 }

@@ -46,7 +46,9 @@ namespace AGC.WebApi
     /// UserPrjGrantExApiController 的摘要说明
     /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
     /// </summary>
-    public class UserPrjGrantExApiController : UserPrjGrantApiController
+    [ApiController]
+    [Route("[controller]")]
+    public class UserPrjGrantExApiController : ControllerBase
     {
 
         /// <summary>

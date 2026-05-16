@@ -4,6 +4,7 @@ using AGC.BusinessLogicEx;
 using com.taishsoft.common;
 using Comm.WebApi;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -24,6 +25,40 @@ namespace AGC.WebApi
         {
         }
 
+        /// <summary>
+        /// 添加“调整记录次序”表功能（后端实现调用）— 调用方法示例: GET /api/TabFeatureExApi/AddAdjustOrderNum? strTabId = value & strFeatureId = value & strPrjId = value & strOpUserId = value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <param name="strFeatureId">功能Id（通常为 enumPrjFeature.Tab_AdjustOrderNum_0167）</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strOpUserId">操作用户Id</param>
+        [HttpGet("AddAdjustOrderNum")]
+        public ActionResult AddAdjustOrderNum(string strTabId, string strFeatureId, string strPrjId, string strOpUserId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strFeatureId", strFeatureId);
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strOpUserId", strOpUserId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                var varResult = clsTabFeatureFldsBLEx.AddAdjustOrderNum(strTabId, strFeatureId, strPrjId, strOpUserId);
+
+                // 刷新相关缓存，保持一致性
+                clsTabFeatureBL.ReFreshCache(strPrjId);
+                clsTabFeatureFldsBL.ReFreshCache(strPrjId);
+
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
         /// <summary>
         /// 扩展删除表功能
         /// 调用方法: Get /api/clsTabFeatureBLExApi/DelRecordEx?strTabFeatureId=value&strPrjId=value
@@ -75,7 +110,7 @@ namespace AGC.WebApi
             try
             {
                 var varResult = clsTabFeatureBLEx.GC_DdlBindFunction4CSharp(strTabFeatureId);
-                
+
                 return Ok(new { errorId = 0, errorMsg = "", returnStr = varResult });
             }
             catch (Exception objException)
@@ -105,7 +140,7 @@ namespace AGC.WebApi
             try
             {
                 var varResult = clsTabFeatureBLEx.GC_DdlBindFunctionInDiv4TypeScript(strTabFeatureId);
-                
+
                 return Ok(new { errorId = 0, errorMsg = "", returnStr = varResult });
             }
             catch (Exception objException)

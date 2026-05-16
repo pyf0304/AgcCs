@@ -92,6 +92,13 @@ namespace AGC.BusinessLogicEx
             return objPrjTabFldENEx;
         }
 
+        public static clsFuncModule_AgcEN ObjFuncModule(this clsPrjTabEN objPrjTab)
+        {
+            var objFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache( objPrjTab.FuncModuleAgcId, objPrjTab.PrjId);
+            if (objFuncModule == null) return null;
+            return objFuncModule;
+        }
+
         public static clsPrjTabFldEN CacheClassifyFldTS(this clsPrjTabEN objPrjTab)
         {
             var arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(objPrjTab.TabId, objPrjTab.PrjId);
@@ -1282,6 +1289,30 @@ namespace AGC.BusinessLogicEx
             clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
             return arrPrjTabObjLst_Sel[0].TabId;
 
+        }
+        
+
+        /// <summary>
+        /// 根据关键字获取相关对象, 从缓存的对象列表中获取.
+        /// </summary>
+        /// <param name = "strPrjId">所给的关键字</param>
+        /// <param name = "strTabName">所给的关键字</param>
+        /// <returns>根据关键字获取的对象</returns>
+        public static clsPrjTabEN GetObjByTabNameAndPrjId(string strTabName, string strPrjId)
+        {
+            //InitListCache();
+            //string strKey = string.Format("{0}_{1}", clsPrjTabEN._CurrTabName, strPrjId);
+            List<clsPrjTabEN> arrPrjTabObjLstCache = GetObjLstCache(strPrjId);
+            var arrPrjTabObjLst_Sel = arrPrjTabObjLstCache.Where(x => x.TabName.Equals(strTabName, StringComparison.InvariantCultureIgnoreCase) == true).ToList();
+            if (arrPrjTabObjLst_Sel.Count == 0)
+            {
+                return null;
+            }
+            string strMsg = string.Format("PrjId:[{0}] + TabName:[{1}]==>TabId:[{2}].({3})",
+                strPrjId, strTabName,
+                    arrPrjTabObjLst_Sel[0].TabId, clsStackTrace.GetCurrClassFunction());
+            clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
+            return arrPrjTabObjLst_Sel[0];
         }
 
         /// <summary>

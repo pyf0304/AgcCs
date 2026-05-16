@@ -48,6 +48,10 @@ namespace AutoGCLib
             // TODO: 在此处添加构造函数逻辑
             //
         }
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
         /// <summary>
         /// 生成指定的函数

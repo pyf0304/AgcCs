@@ -34,15 +34,16 @@ namespace AGC.BusinessLogicEx
             //clsQueryRegionBLEx.GetQueryRegionEx(ref objViewInfoENEx.objQueryRegionENEx, objViewInfoENEx.PrjId);
 
             //objViewInfoENEx.objQueryRegionENEx.InitViewRegion();
-            objViewInfoENEx.arrQryRegionFldSet = clsQryRegionFldsBLEx.GetObjExLstByRegionIdCache4InUse2(lngRegionId, bolIsFstLcase, objViewInfoENEx.PrjId, objViewInfoENEx.ViewId);
-            //if (objViewInfoENEx.arrQryRegionFldSet  ==  null || objViewInfoENEx.arrQryRegionFldSet.Count  ==  0)
+            //objViewInfoENEx.arrQryRegionFldSet4InUse = clsQryRegionFldsBLEx.GetObjExLstByRegionIdCache4InUse2(lngRegionId, bolIsFstLcase, objViewInfoENEx.PrjId, objViewInfoENEx.ViewId);
+            objViewInfoENEx.arrQryRegionFldSet4InUse = clsQryRegionFldsBLEx.GetObjExLstByRegionIdCache4InUse2(lngRegionId, bolIsFstLcase, objViewInfoENEx.PrjId, objViewInfoENEx.ViewId);
+            //if (objViewInfoENEx.arrQryRegionFldSet4InUse  ==  null || objViewInfoENEx.arrQryRegionFldSet4InUse.Count  ==  0)
             //{
             //    intViewFldNum = 0;
             //    return;
             //}
-            //objViewInfoENEx.objQueryRegionENEx.FieldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
-            objViewInfoENEx.ViewFldNum = objViewInfoENEx.arrQryRegionFldSet.Count;
-            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+            //objViewInfoENEx.objQueryRegionENEx.FieldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
+            objViewInfoENEx.ViewFldNum = objViewInfoENEx.arrQryRegionFldSet4InUse.Count;
+            foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
                 //objQryRegionFldsEx.arrFieldTabExObjLstBak = objViewInfoENEx.arrFieldTabExObjLstBak;
                 if (string.IsNullOrEmpty(objQryRegionFldsEx.FldId) == true) continue;
@@ -531,7 +532,7 @@ namespace AGC.BusinessLogicEx
         public static List<ASPControlGroupEx> GetControlGroup(string lngRegionId, clsViewInfoENEx objViewInfoENEx, string strItemName4MultiModel)
         {
                        
-            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet.Select(obj=> clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, strItemName4MultiModel));
+            IEnumerable<ASPControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Select(obj=> clsASPControlGroupBLEx.GetControlGroup_Asp(obj, objViewInfoENEx.PrjId, strItemName4MultiModel));
             //把查询按钮加进来
             //ASPControlGroupEx objASPControlGroup = clsASPControlGroupBLEx.GetbtnQuery();
             //List<ASPControlGroupEx> arrButtonObjLst = new List<ASPControlGroupEx>();
@@ -565,7 +566,7 @@ namespace AGC.BusinessLogicEx
         //public static IEnumerable<VueControlGroupEx> GetControlGroup_Vue(string lngRegionId, clsViewInfoENEx objViewInfoENEx, string strItemName4MultiModel, bool bolIs4PureHtml = false)
         //{
 
-        //    IEnumerable<VueControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet.Select(obj => clsVueControlGroupBLEx.GetControlGroup_Asp(obj, strItemName4MultiModel, bolIs4PureHtml));
+        //    IEnumerable<VueControlGroupEx> arrASPControlGroupObjLst = objViewInfoENEx.arrQryRegionFldSet4InUse.Select(obj => clsVueControlGroupBLEx.GetControlGroup_Asp(obj, strItemName4MultiModel, bolIs4PureHtml));
         //    //把查询按钮加进来
         //    //VueControlGroupEx objASPControlGroup = clsVueControlGroupBLEx.GetbtnQuery();
         //    //List<VueControlGroupEx> arrButtonObjLst = new List<VueControlGroupEx>();

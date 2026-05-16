@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCacheUseStateBL
  表名:CacheUseState(00050566)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:59
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:20:32
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -67,14 +67,14 @@ public static bool AddNewRecord(this clsCacheUseStateEN objCacheUseStateEN, bool
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objCacheUseStateEN) == false)
 {
-var strMsg = string.Format("记录已经存在!缓存方式Id = [{0}],缓存关键字 = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecord)", objCacheUseStateEN.CacheModeId,objCacheUseStateEN.CacheKey,objCacheUseStateEN.UserId);
+var strMsg = string.Format("记录已经存在!缓存关键字 = [{0}],缓存方式Id = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecord)", objCacheUseStateEN.CacheKey,objCacheUseStateEN.CacheModeId,objCacheUseStateEN.UserId);
 throw new Exception(strMsg);
 }
 try
 {
 bool bolResult = clsCacheUseStateBL.CacheUseStateDA.AddNewRecordBySQL2(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -112,7 +112,7 @@ objCacheUseStateEN.CheckPropertyNew();
  ///5.2、检查唯一性
 if (bolIsNeedCheckUniqueness == true && objCacheUseStateEN.CheckUniqueness() == false)
 {
-strMsg = string.Format("(缓存方式Id(CacheModeId)=[{0}],缓存关键字(CacheKey)=[{1}],用户Id(UserId)=[{2}])已经存在,不能重复!", objCacheUseStateEN.CacheModeId, objCacheUseStateEN.CacheKey, objCacheUseStateEN.UserId);
+strMsg = string.Format("(缓存关键字(CacheKey)=[{0}],缓存方式Id(CacheModeId)=[{1}],用户Id(UserId)=[{2}])已经存在,不能重复!", objCacheUseStateEN.CacheKey, objCacheUseStateEN.CacheModeId, objCacheUseStateEN.UserId);
 throw new Exception(strMsg);
 }
 //6、把数据实体层的数据存贮到数据库中
@@ -137,14 +137,14 @@ public static string AddNewRecordWithReturnKey(this clsCacheUseStateEN objCacheU
 {
 if (bolIsNeedCheckUniqueness == true && CheckUniqueness(objCacheUseStateEN) == false)
 {
-var strMsg = string.Format("记录已经存在!缓存方式Id = [{0}],缓存关键字 = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordWithReturnKey)", objCacheUseStateEN.CacheModeId,objCacheUseStateEN.CacheKey,objCacheUseStateEN.UserId);
+var strMsg = string.Format("记录已经存在!缓存关键字 = [{0}],缓存方式Id = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordWithReturnKey)", objCacheUseStateEN.CacheKey,objCacheUseStateEN.CacheModeId,objCacheUseStateEN.UserId);
 throw new Exception(strMsg);
 }
 try
 {
 string strKey = clsCacheUseStateBL.CacheUseStateDA.AddNewRecordBySQL2WithReturnKey(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -377,8 +377,8 @@ objCacheUseStateEN.CheckPropertyNew();
 clsCacheUseStateEN objCacheUseStateCond = new clsCacheUseStateEN();
 string strCondition = objCacheUseStateCond
 .SetmId(objCacheUseStateEN.mId, "<>")
-.SetCacheModeId(objCacheUseStateEN.CacheModeId, "=")
 .SetCacheKey(objCacheUseStateEN.CacheKey, "=")
+.SetCacheModeId(objCacheUseStateEN.CacheModeId, "=")
 .SetUserId(objCacheUseStateEN.UserId, "=")
 .GetCombineCondition();
 objCacheUseStateEN._IsCheckProperty = true;
@@ -413,8 +413,8 @@ public static bool EditRecordEx(this clsCacheUseStateEN objCacheUseState)
 //3、把数据实体层的数据存贮到数据库中
 clsCacheUseStateEN objCacheUseStateCond = new clsCacheUseStateEN();
 string strCondition = objCacheUseStateCond
-.SetCacheModeId(objCacheUseState.CacheModeId, "=")
 .SetCacheKey(objCacheUseState.CacheKey, "=")
+.SetCacheModeId(objCacheUseState.CacheModeId, "=")
 .SetUserId(objCacheUseState.UserId, "=")
 .GetCombineCondition();
 objCacheUseState._IsCheckProperty = true;
@@ -450,7 +450,7 @@ try
 {
 bool bolResult = clsCacheUseStateBL.CacheUseStateDA.UpdateBySql2(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -490,7 +490,7 @@ try
 {
 bool bolResult = clsCacheUseStateBL.CacheUseStateDA.UpdateBySql2(objCacheUseStateEN, objSqlConnection, objSqlTransaction);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -521,7 +521,7 @@ try
 {
 bool bolResult = clsCacheUseStateBL.CacheUseStateDA.UpdateBySqlWithCondition(objCacheUseStateEN, strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -554,7 +554,7 @@ try
 {
 bool bolResult = clsCacheUseStateBL.CacheUseStateDA.UpdateBySqlWithConditionTransaction(objCacheUseStateEN, strWhereCond, objSqlConnection, objSqlTransaction);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -583,7 +583,7 @@ try
 {
 int intRecNum = clsCacheUseStateBL.CacheUseStateDA.DelRecord(objCacheUseStateEN.mId);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -727,7 +727,7 @@ strWhereCond += string.Format(" And {0} {2} '{1}'", conCacheUseState.Memo, objCa
 
  /// <summary>
  /// 检查唯一性(Uniqueness)--CacheUseState(缓存使用状态), 如果不唯一,即存在相同的记录,就返回False
- /// 唯一性条件:UserId_CacheModeId_CacheKey
+ /// 唯一性条件:CacheKey_CacheModeId_UserId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CheckConstraint)
  /// </summary>
  /// <param name = "objCacheUseStateEN">要求唯一的对象</param>
@@ -741,8 +741,8 @@ if (objCacheUseStateEN == null) return true;
 if (objCacheUseStateEN.mId == 0)
 {
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and CacheKey = '{0}'", objCacheUseStateEN.CacheKey);
+ sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and UserId = '{0}'", objCacheUseStateEN.UserId);
 if (clsCacheUseStateBL.IsExistRecord(sbCondition.ToString())  ==  true)
 {
@@ -755,8 +755,8 @@ else
 }
  else {
 sbCondition.AppendFormat("mId !=  {0}", objCacheUseStateEN.mId);
- sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and CacheKey = '{0}'", objCacheUseStateEN.CacheKey);
+ sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and UserId = '{0}'", objCacheUseStateEN.UserId);
 if (clsCacheUseStateBL.IsExistRecord(sbCondition.ToString())  ==  true)
 {
@@ -772,7 +772,7 @@ return bolIsUniqueness;
 
  /// <summary>
  /// 获取唯一性条件串--CacheUseState(缓存使用状态), 即由对象中唯一性条件字段关键字与值组成的条件串
- /// 唯一性条件:UserId_CacheModeId_CacheKey
+ /// 唯一性条件:CacheKey_CacheModeId_UserId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_GetConditionString4Constraint)
  /// </summary>
  /// <param name = "objCacheUseStateEN">要求唯一的对象</param>
@@ -785,15 +785,15 @@ if (objCacheUseStateEN == null) return "";
 if (objCacheUseStateEN.mId == 0)
 {
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and CacheKey = '{0}'", objCacheUseStateEN.CacheKey);
+ sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and UserId = '{0}'", objCacheUseStateEN.UserId);
 return sbCondition.ToString();
 }
  else {
 sbCondition.AppendFormat("mId !=  {0}", objCacheUseStateEN.mId);
- sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and CacheKey = '{0}'", objCacheUseStateEN.CacheKey);
+ sbCondition.AppendFormat(" and CacheModeId = '{0}'", objCacheUseStateEN.CacheModeId);
  sbCondition.AppendFormat(" and UserId = '{0}'", objCacheUseStateEN.UserId);
  return sbCondition.ToString();
 }
@@ -843,7 +843,7 @@ return uniqueInstance;
 /// 专门在逻辑层用于处理缓存等公共函数的对象
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DefineObjCommFun4BL)
 /// </summary>
-public static clsCommFun4BLV2 objCommFun4BL = null;
+public static clsCommFun4BL objCommFun4BL = null;
 
  /// <summary>
  /// 类的构造函数
@@ -1167,10 +1167,10 @@ return arrObjLst;
  /// </summary>
  /// <param name = "arrMIdLst">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象列表</returns>
-public static IEnumerable<clsCacheUseStateEN> GetObjLstByMIdLstCache(List<long> arrMIdLst, string strUserId)
+public static IEnumerable<clsCacheUseStateEN> GetObjLstByMIdLstCache(List<long> arrMIdLst)
 {
-string strKey = string.Format("{0}_{1}", clsCacheUseStateEN._CurrTabName, strUserId);
-List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache(strUserId);
+string strKey = string.Format("{0}", clsCacheUseStateEN._CurrTabName);
+List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache();
 IEnumerable <clsCacheUseStateEN> arrCacheUseStateObjLst_Sel =
 arrCacheUseStateObjLstCache
 .Where(x => arrMIdLst.Contains(x.mId));
@@ -1263,13 +1263,7 @@ return arrObjLst;
  /// <returns>对象列表子集</returns>
 public static IEnumerable<clsCacheUseStateEN> GetSubObjLstCache(clsCacheUseStateEN objCacheUseStateCond)
 {
- string strUserId = objCacheUseStateCond.UserId;
- if (string.IsNullOrEmpty(strUserId) == true)
-{
-string strMsg = string.Format("(errid:Busi000172)在表中,缓存分类字段值不能为空!(clsCacheUseStateBL:GetSubObjLstCache)");
-throw new Exception(strMsg);
-}
-List<clsCacheUseStateEN> arrObjLstCache = GetObjLstCache(strUserId);
+List<clsCacheUseStateEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsCacheUseStateEN> arrObjLstSel = arrObjLstCache;
 foreach (string strFldName in conCacheUseState._AttributeName)
 {
@@ -1921,14 +1915,14 @@ public static bool AddNewRecordBySql2(clsCacheUseStateEN objCacheUseStateEN, boo
 {
 if (bolIsNeedCheckUniqueness == true && objCacheUseStateEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!缓存方式Id = [{0}],缓存关键字 = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordBySql2)", objCacheUseStateEN.CacheModeId,objCacheUseStateEN.CacheKey,objCacheUseStateEN.UserId);
+var strMsg = string.Format("记录已经存在!缓存关键字 = [{0}],缓存方式Id = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordBySql2)", objCacheUseStateEN.CacheKey,objCacheUseStateEN.CacheModeId,objCacheUseStateEN.UserId);
 throw new Exception(strMsg);
 }
 try
 {
 bool bolResult = CacheUseStateDA.AddNewRecordBySQL2(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -1956,14 +1950,14 @@ public static string AddNewRecordBySql2WithReturnKey(clsCacheUseStateEN objCache
 {
 if (bolIsNeedCheckUniqueness == true && objCacheUseStateEN.CheckUniqueness() == false)
 {
-var strMsg = string.Format("记录已经存在!缓存方式Id = [{0}],缓存关键字 = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordBySql2WithReturnKey)", objCacheUseStateEN.CacheModeId,objCacheUseStateEN.CacheKey,objCacheUseStateEN.UserId);
+var strMsg = string.Format("记录已经存在!缓存关键字 = [{0}],缓存方式Id = [{1}],用户Id = [{2}]的数据已经存在!(in clsCacheUseStateBL.AddNewRecordBySql2WithReturnKey)", objCacheUseStateEN.CacheKey,objCacheUseStateEN.CacheModeId,objCacheUseStateEN.UserId);
 throw new Exception(strMsg);
 }
 try
 {
 string strKey = CacheUseStateDA.AddNewRecordBySQL2WithReturnKey(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -1999,7 +1993,7 @@ try
 {
 bool bolResult = CacheUseStateDA.Update(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -2035,7 +2029,7 @@ try
 {
 bool bolResult = CacheUseStateDA.UpdateBySql2(objCacheUseStateEN);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshCache(objCacheUseStateEN.UserId);
+clsCacheUseStateBL.ReFreshCache();
 
 if (clsCacheUseStateBL.relatedActions != null)
 {
@@ -2078,7 +2072,7 @@ if (objCacheUseStateEN != null)
 {
 int intRecNum = CacheUseStateDA.DelRecord(lngmId);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-ReFreshCache(objCacheUseStateEN.UserId);
+ReFreshCache();
 return intRecNum;
 }
             else
@@ -2100,9 +2094,8 @@ throw new Exception(strMsg);
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecordEx)
 /// </summary>
 /// <param name="lngmId">表关键字</param>
- /// <param name = "strUserId">缓存的分类字段</param>
 /// <returns></returns>
-public static bool DelRecordEx(long lngmId , string strUserId)
+public static bool DelRecordEx(long lngmId )
 {
 clsSpecSQLforSql objSQL;
 //获取连接对象
@@ -2123,7 +2116,7 @@ objSqlTransaction = objConnection.BeginTransaction();
 //lngmId);
 //        clsCacheUseStateBL.DelCacheUseStatesByCondWithTransaction_S(strCondition, objConnection, objSqlTransaction);
 //
-clsCacheUseStateBL.DelRecord(lngmId, strUserId, objConnection, objSqlTransaction);
+clsCacheUseStateBL.DelRecord(lngmId, objConnection, objSqlTransaction);
 objSqlTransaction.Commit();
 return true;
 }
@@ -2154,7 +2147,7 @@ objConnection.Close();
  /// <param name = "objSqlConnection">Sql连接对象</param>
  /// <param name = "objSqlTransaction">Sql事务对象</param>
  /// <returns>返回删除是否成功?</returns>
-public static bool DelRecord(long lngmId, string strUserId, SqlConnection objSqlConnection, SqlTransaction objSqlTransaction)
+public static bool DelRecord(long lngmId, SqlConnection objSqlConnection, SqlTransaction objSqlTransaction)
 {
 try
 {
@@ -2164,7 +2157,7 @@ clsCacheUseStateBL.relatedActions.UpdRelaTabDate(lngmId, "UpdRelaTabDate");
 }
 bool bolResult = CacheUseStateDA.DelRecord(lngmId,objSqlConnection,objSqlTransaction);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-ReFreshCache(strUserId);
+ReFreshCache();
 return bolResult;
 }
 catch (Exception objException)
@@ -2195,10 +2188,9 @@ long lngmId = long.Parse(strmId);
 clsCacheUseStateBL.relatedActions.UpdRelaTabDate(lngmId, "UpdRelaTabDate");
 }
 }
- clsCacheUseStateEN objCacheUseStateEN = clsCacheUseStateBL.GetObjBymId(long.Parse(arrmIdLst[0]));
 int intDelRecNum = CacheUseStateDA.DelCacheUseState(arrmIdLst);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-ReFreshCache(objCacheUseStateEN.UserId);
+ReFreshCache();
 return intDelRecNum;
 }
 catch (Exception objException)
@@ -2229,10 +2221,9 @@ long lngmId = long.Parse(strmId);
 clsCacheUseStateBL.relatedActions.UpdRelaTabDate(lngmId, "UpdRelaTabDate");
 }
 }
-List<string> arrUserId = GetFldValue(conCacheUseState.UserId, strWhereCond);
 int intRecNum = CacheUseStateDA.DelCacheUseState(strWhereCond);
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-arrUserId.ForEach(x => ReFreshCache(x));
+ReFreshCache();
 return intRecNum;
 }
 catch (Exception objException)
@@ -2251,9 +2242,8 @@ throw new Exception(strMsg);
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecord4MultiTab)
 /// </summary>
 /// <param name="lngmId">表关键字</param>
- /// <param name = "strUserId">缓存的分类字段</param>
 /// <returns></returns>
-public static bool DelRecord4MultiTab(long lngmId, string strUserId)
+public static bool DelRecord4MultiTab(long lngmId)
 {
 clsSpecSQLforSql objSQL;
 //获取连接对象
@@ -2274,7 +2264,7 @@ objSqlTransaction = objConnection.BeginTransaction();
 //strid_College);
 //        clsStudentBL.DelStudentsByCondWithTransaction_S(strCondition, objConnection, objSqlTransaction);
 //
-clsCacheUseStateBL.DelRecord(lngmId, strUserId, objConnection, objSqlTransaction);
+clsCacheUseStateBL.DelRecord(lngmId, objConnection, objSqlTransaction);
                 objSqlTransaction.Commit();
 return true;
 }
@@ -2438,13 +2428,11 @@ public static void CheckProperty4Condition(clsCacheUseStateEN objCacheUseStateEN
  /// </summary>
  /// <param name = "objComboBox">需要绑定当前表的下拉框</param>
 
- /// <param name = "strUserId"></param>
-public static void BindCbo_mId(System.Windows.Forms.ComboBox objComboBox , string strUserId)
+public static void BindCbo_mId(System.Windows.Forms.ComboBox objComboBox )
 {
 //为数据源为表的下拉框设置内容
 string strCondition = string.Format("1 =1 Order By {0}", conCacheUseState.mId); 
 List<clsCacheUseStateEN> arrObjLst = clsCacheUseStateBL.GetObjLst(strCondition);
-var arrObjLstSel = arrObjLst.Where(x=>x.UserId == strUserId).ToList();
 //初始化一个对象列表
 //插入第0项。在第0项中插入“请选择...”,为了方便用户,与WEB方式类似。
 clsCacheUseStateEN objCacheUseStateEN = new clsCacheUseStateEN()
@@ -2452,11 +2440,11 @@ clsCacheUseStateEN objCacheUseStateEN = new clsCacheUseStateEN()
 mId = 0,
 UserId = "选[缓存使用状态]..."
 };
-arrObjLstSel.Insert(0, objCacheUseStateEN);
+arrObjLst.Insert(0, objCacheUseStateEN);
 //设置下拉框的数据源、以及设置值项、显示项
 objComboBox.ValueMember = conCacheUseState.mId;
 objComboBox.DisplayMember = conCacheUseState.UserId;
-objComboBox.DataSource = arrObjLstSel;
+objComboBox.DataSource = arrObjLst;
 objComboBox.SelectedIndex = 0;
 }
 
@@ -2466,17 +2454,15 @@ objComboBox.SelectedIndex = 0;
  /// </summary>
  /// <param name = "objDDL">需要绑定当前表的下拉框</param>
 
- /// <param name = "strUserId"></param>
-public static void BindDdl_mId(System.Web.UI.WebControls.DropDownList objDDL , string strUserId)
+public static void BindDdl_mId(System.Web.UI.WebControls.DropDownList objDDL )
 {
 //为数据源于表的下拉框设置内容
 System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem("选[缓存使用状态]...","0");
 string strCondition = string.Format("1 =1 Order By {0}", conCacheUseState.mId); 
 IEnumerable<clsCacheUseStateEN> arrObjLst = clsCacheUseStateBL.GetObjLst(strCondition);
-var arrObjLstSel = arrObjLst.Where(x=>x.UserId == strUserId).ToList();
 objDDL.DataValueField = conCacheUseState.mId;
 objDDL.DataTextField = conCacheUseState.UserId;
-objDDL.DataSource = arrObjLstSel;
+objDDL.DataSource = arrObjLst;
 objDDL.DataBind();
 objDDL.Items.Insert(0, li);
 objDDL.SelectedIndex = 0;
@@ -2487,11 +2473,11 @@ objDDL.SelectedIndex = 0;
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DdlBindFunctionCache)
  /// </summary>
  /// <param name = "objDDL">需要绑定当前表的下拉框</param>
-public static void BindDdl_mIdCache(System.Web.UI.WebControls.DropDownList objDDL, string strUserId)
+public static void BindDdl_mIdCache(System.Web.UI.WebControls.DropDownList objDDL)
 {
 //为数据源于表的下拉框设置内容
 System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem("选[缓存使用状态]...","0");
-List<clsCacheUseStateEN> arrCacheUseStateObjLst = GetAllCacheUseStateObjLstCache(strUserId); 
+List<clsCacheUseStateEN> arrCacheUseStateObjLst = GetAllCacheUseStateObjLstCache(); 
 objDDL.DataValueField = conCacheUseState.mId;
 objDDL.DataTextField = conCacheUseState.UserId;
 objDDL.DataSource = arrCacheUseStateObjLst;
@@ -2532,20 +2518,12 @@ throw new Exception(strMsg);
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjByKeyCache)
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
- /// <param name = "strUserId">缓存的分类字段</param>
  /// <returns>根据关键字获取的对象</returns>
-public static clsCacheUseStateEN GetObjBymIdCache(long lngmId, string strUserId)
+public static clsCacheUseStateEN GetObjBymIdCache(long lngmId)
 {
-
-if (string.IsNullOrEmpty(strUserId) == true)
-{
-  var strMsg = string.Format("参数:[strUserId]不能为空!(In {0})", clsStackTrace.GetCurrClassFunction());
-clsSysParaEN.objLog.WriteDebugLog(strMsg);
- throw new Exception (strMsg);
-}
 //获取缓存中的对象列表
-string strKey = string.Format("{0}_{1}", clsCacheUseStateEN._CurrTabName, strUserId);
-List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache(strUserId);
+string strKey = string.Format("{0}", clsCacheUseStateEN._CurrTabName);
+List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache();
 IEnumerable <clsCacheUseStateEN> arrCacheUseStateObjLst_Sel =
 arrCacheUseStateObjLstCache
 .Where(x=> x.mId == lngmId 
@@ -2555,17 +2533,7 @@ if (arrCacheUseStateObjLst_Sel.Count() == 0)
    clsCacheUseStateEN obj = clsCacheUseStateBL.GetObjBymId(lngmId);
    if (obj != null)
  {
-if (obj.UserId == strUserId)
-{
 CacheHelper.Remove(strKey);
-     return obj;
-}
-else
-{
-string strMsg = string.Format("错误: 关键字:{0}不属于分类:{1},请检查!(In {2})", lngmId, strUserId, clsStackTrace.GetCurrClassFunction());
-clsSysParaEN.objLog.WriteDebugLog(strMsg);
-throw new Exception(strMsg);
-}
  }
 return null;
 }
@@ -2578,10 +2546,10 @@ return arrCacheUseStateObjLst_Sel.First();
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetUserIdBymIdCache(long lngmId, string strUserId)
+public static string GetUserIdBymIdCache(long lngmId)
 {
 //获取缓存中的对象列表
-clsCacheUseStateEN objCacheUseState = GetObjBymIdCache(lngmId, strUserId);
+clsCacheUseStateEN objCacheUseState = GetObjBymIdCache(lngmId);
 if (objCacheUseState == null) return "";
 return objCacheUseState.UserId;
 }
@@ -2591,10 +2559,10 @@ return objCacheUseState.UserId;
  /// </summary>
  /// <param name = "lngmId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
-public static string GetNameBymIdCache(long lngmId, string strUserId)
+public static string GetNameBymIdCache(long lngmId)
 {
 //获取缓存中的对象列表
-clsCacheUseStateEN objCacheUseState = GetObjBymIdCache(lngmId, strUserId);
+clsCacheUseStateEN objCacheUseState = GetObjBymIdCache(lngmId);
 if (objCacheUseState == null) return "";
 return objCacheUseState.UserId;
 }
@@ -2604,10 +2572,10 @@ return objCacheUseState.UserId;
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetAllRecObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCacheUseStateEN> GetAllCacheUseStateObjLstCache(string strUserId)
+public static List<clsCacheUseStateEN> GetAllCacheUseStateObjLstCache()
 {
 //获取缓存中的对象列表
-List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache(strUserId); 
+List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = GetObjLstCache(); 
 return arrCacheUseStateObjLstCache;
 }
 
@@ -2616,20 +2584,12 @@ return arrCacheUseStateObjLstCache;
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
-public static List<clsCacheUseStateEN> GetObjLstCache(string strUserId)
+public static List<clsCacheUseStateEN> GetObjLstCache()
 {
-
-if (string.IsNullOrEmpty(strUserId) == true)
-{
-  var strMsg = string.Format("参数:[strUserId]不能为空!(In {0})", clsStackTrace.GetCurrClassFunction());
-clsSysParaEN.objLog.WriteDebugLog(strMsg);
- throw new Exception (strMsg);
-}
 //初始化列表缓存
 //InitListCache(); 
-string strKey = string.Format("{0}_{1}", clsCacheUseStateEN._CurrTabName, strUserId);
-string strCondition = string.Format("UserId='{0}'", strUserId);
-List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst(strCondition); });
+string strKey = string.Format("{0}", clsCacheUseStateEN._CurrTabName);
+List<clsCacheUseStateEN> arrCacheUseStateObjLstCache = CacheHelper.GetCache(strKey, () => { return GetObjLst("1=1"); });
 return arrCacheUseStateObjLstCache;
 }
 
@@ -2637,12 +2597,12 @@ return arrCacheUseStateObjLstCache;
  /// 刷新本类中的缓存.
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ReFreshThisCache)
  /// </summary>
-public static void ReFreshThisCache(string strUserId = "")
+public static void ReFreshThisCache()
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == true)
 {
-string strKey = string.Format("{0}_{1}", clsCacheUseStateEN._CurrTabName, strUserId);
+string strKey = string.Format("{0}", clsCacheUseStateEN._CurrTabName);
 CacheHelper.Remove(strKey);
 clsCacheUseStateEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
 }
@@ -2669,22 +2629,16 @@ return clsCacheUseStateEN._RefreshTimeLst[clsCacheUseStateEN._RefreshTimeLst.Cou
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ReFreshCache)
  /// </summary>
-public static void ReFreshCache(string strUserId)
+public static void ReFreshCache()
 {
 
-
-if (string.IsNullOrEmpty(strUserId) == true)
-{
-  var strMsg = string.Format("参数:[strUserId]不能为空！(In clsCacheUseStateBL.ReFreshCache)");
- throw new Exception  (strMsg);
-}
 if (clsCacheUseStateBL.objCommFun4BL != null) 
 {
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-string strKey = string.Format("{0}_{1}", clsCacheUseStateEN._CurrTabName, strUserId);
+string strKey = string.Format("{0}", clsCacheUseStateEN._CurrTabName);
 CacheHelper.Remove(strKey);
 clsCacheUseStateEN._RefreshTimeLst.Add(clsDateTime.getTodayDateTimeStr(0));
-clsCacheUseStateBL.objCommFun4BL.ReFreshCache(strUserId);
+clsCacheUseStateBL.objCommFun4BL.ReFreshCache();
 }
 }
 
@@ -2696,7 +2650,7 @@ clsCacheUseStateBL.objCommFun4BL.ReFreshCache(strUserId);
 
  /// <summary>
  /// 获取检查唯一性条件串(Uniqueness)--CacheUseState(缓存使用状态)
- /// 唯一性条件:UserId_CacheModeId_CacheKey
+ /// 唯一性条件:CacheKey_CacheModeId_UserId
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetUniquenessConditionString)
  /// </summary>
  /// <param name = "objCacheUseStateEN">要求唯一的对象</param>
@@ -2714,15 +2668,14 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-04-28
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
  /// <param name = "strOutFldName">输出字段名</param>
  /// <param name = "strInValue">输入字段值</param>
- /// <param name = "strUserId">缓存的分类字段</param>
  /// <returns>返回一个输出字段值</returns>
-public static string Func(string strInFldName, string strOutFldName, long lngmId, string strUserId)
+public static string Func(string strInFldName, string strOutFldName, long lngmId)
 {
 if (strInFldName != conCacheUseState.mId)
 {
@@ -2735,7 +2688,7 @@ string strMsg = string.Format("输出字段名:[{0}]不正确,不在输出字段
 strInFldName, string.Join(", ", conCacheUseState._AttributeName));
 throw new Exception(strMsg);
 }
-var objCacheUseState = clsCacheUseStateBL.GetObjBymIdCache(lngmId, strUserId);
+var objCacheUseState = clsCacheUseStateBL.GetObjBymIdCache(lngmId);
 if (objCacheUseState == null) return "";
 return objCacheUseState[strOutFldName].ToString();
 }
@@ -2809,13 +2762,7 @@ return intRecCount;
  /// <returns>对象列表子集</returns>
 public static int GetRecCountByCondCache(clsCacheUseStateEN objCacheUseStateCond)
 {
- string strUserId = objCacheUseStateCond.UserId;
- if (string.IsNullOrEmpty(strUserId) == true)
-{
-string strMsg = string.Format("(errid:Busi000174)在表中,缓存分类字段值不能为空!(clsCacheUseStateBL:GetRecCountByCondCache)");
-throw new Exception(strMsg);
-}
-List<clsCacheUseStateEN> arrObjLstCache = GetObjLstCache(strUserId);
+List<clsCacheUseStateEN> arrObjLstCache = GetObjLstCache();
 IEnumerable <clsCacheUseStateEN> arrObjLstSel = arrObjLstCache;
 foreach (string strFldName in conCacheUseState._AttributeName)
 {
@@ -3056,14 +3003,14 @@ public static string GetCode4CreateTable()
  /// 数据源类型:表
  /// (AutoGCLib.CommFun4BL4CSharp:GeneCode_This)
  /// </summary>
-public class  clsCommFun4BL4CacheUseState : clsCommFun4BLV2
+public class  clsCommFun4BL4CacheUseState : clsCommFun4BL
 {
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
  /// (AutoGCLib.CommFun4BL4CSharp:Gen_4CFBL_ReFreshCache)
  /// </summary>
-public override void ReFreshCache(string strUserId)
+public override void ReFreshCache()
 {
 string strMsg;
 if (clsSysParaEN.spSetRefreshCacheOn == false)
@@ -3076,7 +3023,7 @@ clsSysParaEN.objLog.WriteDebugLog(strMsg);
 return;
 }
 // 静态的对象列表,用于清空相关缓存,针对记录较少,作为参数表可以使用
-clsCacheUseStateBL.ReFreshThisCache(strUserId);
+clsCacheUseStateBL.ReFreshThisCache();
 }
 }
 

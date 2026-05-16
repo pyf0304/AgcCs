@@ -53,6 +53,11 @@ namespace AutoGCLib
             this.arrImportClass = new List<ImportClass>();
         }
         #endregion
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         /// <summary>
         /// 生成Web Service转换层代码
         /// </summary>
@@ -5812,7 +5817,7 @@ ThisTabName4GC);
 
 
                     strCodeForCs.Append("\r\n/**");
-                    strCodeForCs.Append("\r\n * 绑定基于Web的下拉框");
+                    strCodeForCs.Append($"\r\n * 绑定基于Web的下拉框(TabFeatureId:{objTabFeature.TabFeatureId})");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                     strCodeForCs.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");
                     strCodeForCs.Append("\r\n" + objTabFeature4Ddl.FuncRemark);
@@ -6235,7 +6240,7 @@ ThisTabName4GC);
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     
                     sbTempFun.Append("\r\n/**");
-                    sbTempFun.Append("\r\n * 绑定基于Web的下拉框,在某一层下的下拉框");
+                    sbTempFun.Append($"\r\n * 绑定基于Web的下拉框,在某一层下的下拉框(TabFeatureId:{objTabFeature.TabFeatureId})");
                     sbTempFun.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
                     sbTempFun.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");
@@ -6482,7 +6487,7 @@ ThisTabName4GC);
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
 
                     sbTempFun.Append("\r\n/**");
-                    sbTempFun.Append("\r\n * 绑定基于Web的下拉框,在某一层下的下拉框");
+                    sbTempFun.Append($"\r\n * 绑定基于Web的下拉框,在某一层下的下拉框(TabFeatureId:{objTabFeature.TabFeatureId})");
                     sbTempFun.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
                     sbTempFun.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");

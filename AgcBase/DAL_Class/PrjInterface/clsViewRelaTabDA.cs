@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRelaTabDA
  表名:ViewRelaTab(00050100)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:50
+ * 版本:2026.04.19(服务器:WIN-SRV103-116)
+ 日期:2026/04/28 23:20:11
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -506,6 +506,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -563,6 +564,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -610,6 +612,7 @@ try
  objViewRelaTabEN.TabId = objDT.Rows[0][conViewRelaTab.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
  objViewRelaTabEN.TabFunction = objDT.Rows[0][conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明(字段类型:varchar,字段长度:500,是否可空:True)
  objViewRelaTabEN.PrjId = objDT.Rows[0][conViewRelaTab.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
+ objViewRelaTabEN.RelaFldNames = objDT.Rows[0][conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s(字段类型:varchar,字段长度:500,是否可空:True)
  objViewRelaTabEN.UpdDate = objDT.Rows[0][conViewRelaTab.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
  objViewRelaTabEN.UpdUser = objDT.Rows[0][conViewRelaTab.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
  objViewRelaTabEN.Memo = objDT.Rows[0][conViewRelaTab.Memo].ToString().Trim(); //说明(字段类型:varchar,字段长度:1000,是否可空:True)
@@ -652,6 +655,7 @@ try
  objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
  objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明(字段类型:varchar,字段长度:500,是否可空:True)
  objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
+ objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s(字段类型:varchar,字段长度:500,是否可空:True)
  objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:20,是否可空:True)
  objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者(字段类型:varchar,字段长度:20,是否可空:True)
  objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明(字段类型:varchar,字段长度:1000,是否可空:True)
@@ -704,6 +708,7 @@ ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString().Trim(), //界面
 TabId = objRow[conViewRelaTab.TabId].ToString().Trim(), //表ID
 TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(), //表功能说明
 PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(), //工程Id
+RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(), //相关字段名s
 UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(), //修改日期
 UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(), //修改者
 Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim() //说明
@@ -740,6 +745,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -774,6 +780,7 @@ objViewRelaTabEN.ViewTabTypeId = objRow[conViewRelaTab.ViewTabTypeId].ToString()
 objViewRelaTabEN.TabId = objRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objViewRelaTabEN.TabFunction = objRow[conViewRelaTab.TabFunction] == DBNull.Value ? null : objRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objViewRelaTabEN.PrjId = objRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objViewRelaTabEN.RelaFldNames = objRow[conViewRelaTab.RelaFldNames] == DBNull.Value ? null : objRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objViewRelaTabEN.UpdDate = objRow[conViewRelaTab.UpdDate] == DBNull.Value ? null : objRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objViewRelaTabEN.UpdUser = objRow[conViewRelaTab.UpdUser] == DBNull.Value ? null : objRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objViewRelaTabEN.Memo = objRow[conViewRelaTab.Memo] == DBNull.Value ? null : objRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1019,6 +1026,10 @@ objRow[conViewRelaTab.TabId] = objViewRelaTabEN.TabId; //表ID
 objRow[conViewRelaTab.TabFunction] = objViewRelaTabEN.TabFunction; //表功能说明
  }
 objRow[conViewRelaTab.PrjId] = objViewRelaTabEN.PrjId; //工程Id
+ if (objViewRelaTabEN.RelaFldNames !=  "")
+ {
+objRow[conViewRelaTab.RelaFldNames] = objViewRelaTabEN.RelaFldNames; //相关字段名s
+ }
  if (objViewRelaTabEN.UpdDate !=  "")
  {
 objRow[conViewRelaTab.UpdDate] = objViewRelaTabEN.UpdDate; //修改日期
@@ -1125,6 +1136,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewRelaTab.PrjId);
  var strPrjId = objViewRelaTabEN.PrjId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strPrjId + "'");
+ }
+ 
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRelaTab.RelaFldNames);
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strRelaFldNames + "'");
  }
  
  if (objViewRelaTabEN.UpdDate !=  null)
@@ -1239,6 +1257,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewRelaTab.PrjId);
  var strPrjId = objViewRelaTabEN.PrjId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strPrjId + "'");
+ }
+ 
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRelaTab.RelaFldNames);
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strRelaFldNames + "'");
  }
  
  if (objViewRelaTabEN.UpdDate !=  null)
@@ -1358,6 +1383,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strPrjId + "'");
  }
  
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRelaTab.RelaFldNames);
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strRelaFldNames + "'");
+ }
+ 
  if (objViewRelaTabEN.UpdDate !=  null)
  {
  arrFieldListForInsert.Add(conViewRelaTab.UpdDate);
@@ -1475,6 +1507,13 @@ public bool AddNewRecordBySQL2(clsViewRelaTabEN objViewRelaTabEN, SqlConnection 
  arrValueListForInsert.Add("'" + strPrjId + "'");
  }
  
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRelaTab.RelaFldNames);
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strRelaFldNames + "'");
+ }
+ 
  if (objViewRelaTabEN.UpdDate !=  null)
  {
  arrFieldListForInsert.Add(conViewRelaTab.UpdDate);
@@ -1551,6 +1590,7 @@ objRow[conViewRelaTab.ViewTabTypeId] = oRow[conViewRelaTab.ViewTabTypeId].ToStri
 objRow[conViewRelaTab.TabId] = oRow[conViewRelaTab.TabId].ToString().Trim(); //表ID
 objRow[conViewRelaTab.TabFunction] = oRow[conViewRelaTab.TabFunction].ToString().Trim(); //表功能说明
 objRow[conViewRelaTab.PrjId] = oRow[conViewRelaTab.PrjId].ToString().Trim(); //工程Id
+objRow[conViewRelaTab.RelaFldNames] = oRow[conViewRelaTab.RelaFldNames].ToString().Trim(); //相关字段名s
 objRow[conViewRelaTab.UpdDate] = oRow[conViewRelaTab.UpdDate].ToString().Trim(); //修改日期
 objRow[conViewRelaTab.UpdUser] = oRow[conViewRelaTab.UpdUser].ToString().Trim(); //修改者
 objRow[conViewRelaTab.Memo] = oRow[conViewRelaTab.Memo].ToString().Trim(); //说明
@@ -1634,6 +1674,10 @@ objRow[conViewRelaTab.TabFunction] = objViewRelaTabEN.TabFunction; //表功能�
  if (objViewRelaTabEN.IsUpdated(conViewRelaTab.PrjId))
  {
 objRow[conViewRelaTab.PrjId] = objViewRelaTabEN.PrjId; //工程Id
+ }
+ if (objViewRelaTabEN.IsUpdated(conViewRelaTab.RelaFldNames))
+ {
+objRow[conViewRelaTab.RelaFldNames] = objViewRelaTabEN.RelaFldNames; //相关字段名s
  }
  if (objViewRelaTabEN.IsUpdated(conViewRelaTab.UpdDate))
  {
@@ -1781,6 +1825,19 @@ sbSQL.AppendFormat("Update ViewRelaTab Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conViewRelaTab.PrjId); //工程Id
+ }
+ }
+ 
+ if (objViewRelaTabEN.IsUpdated(conViewRelaTab.RelaFldNames))
+ {
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strRelaFldNames, conViewRelaTab.RelaFldNames); //相关字段名s
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewRelaTab.RelaFldNames); //相关字段名s
  }
  }
  
@@ -1957,6 +2014,19 @@ sbSQL.AppendFormat("Update ViewRelaTab Set ");
  else
  {
  sbSQL.Append(" PrjId = null,"); //工程Id
+ }
+ }
+ 
+ if (objViewRelaTabEN.IsUpdated(conViewRelaTab.RelaFldNames))
+ {
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" RelaFldNames = '{0}',", strRelaFldNames); //相关字段名s
+ }
+ else
+ {
+ sbSQL.Append(" RelaFldNames = null,"); //相关字段名s
  }
  }
  
@@ -2138,6 +2208,19 @@ sbSQL.AppendFormat("Update ViewRelaTab Set ");
  }
  }
  
+ if (objViewRelaTabEN.IsUpdated(conViewRelaTab.RelaFldNames))
+ {
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" RelaFldNames = '{0}',", strRelaFldNames); //相关字段名s
+ }
+ else
+ {
+ sbSQL.Append(" RelaFldNames = null,"); //相关字段名s
+ }
+ }
+ 
  if (objViewRelaTabEN.IsUpdated(conViewRelaTab.UpdDate))
  {
  if (objViewRelaTabEN.UpdDate !=  null)
@@ -2314,6 +2397,19 @@ sbSQL.AppendFormat("Update ViewRelaTab Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conViewRelaTab.PrjId); //工程Id
+ }
+ }
+ 
+ if (objViewRelaTabEN.IsUpdated(conViewRelaTab.RelaFldNames))
+ {
+ if (objViewRelaTabEN.RelaFldNames !=  null)
+ {
+ var strRelaFldNames = objViewRelaTabEN.RelaFldNames.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strRelaFldNames, conViewRelaTab.RelaFldNames); //相关字段名s
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewRelaTab.RelaFldNames); //相关字段名s
  }
  }
  
@@ -2556,6 +2652,7 @@ objViewRelaTabENT.ViewTabTypeId = objViewRelaTabENS.ViewTabTypeId; //界面表�
 objViewRelaTabENT.TabId = objViewRelaTabENS.TabId; //表ID
 objViewRelaTabENT.TabFunction = objViewRelaTabENS.TabFunction; //表功能说明
 objViewRelaTabENT.PrjId = objViewRelaTabENS.PrjId; //工程Id
+objViewRelaTabENT.RelaFldNames = objViewRelaTabENS.RelaFldNames; //相关字段名s
 objViewRelaTabENT.UpdDate = objViewRelaTabENS.UpdDate; //修改日期
 objViewRelaTabENT.UpdUser = objViewRelaTabENS.UpdUser; //修改者
 objViewRelaTabENT.Memo = objViewRelaTabENS.Memo; //说明
@@ -2586,6 +2683,7 @@ clsCheckSql.CheckFieldLen(objViewRelaTabEN.ViewTabTypeId, 4, conViewRelaTab.View
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabId, 8, conViewRelaTab.TabId);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabFunction, 500, conViewRelaTab.TabFunction);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.PrjId, 4, conViewRelaTab.PrjId);
+clsCheckSql.CheckFieldLen(objViewRelaTabEN.RelaFldNames, 500, conViewRelaTab.RelaFldNames);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdDate, 20, conViewRelaTab.UpdDate);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdUser, 20, conViewRelaTab.UpdUser);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.Memo, 1000, conViewRelaTab.Memo);
@@ -2608,6 +2706,7 @@ clsCheckSql.CheckFieldLen(objViewRelaTabEN.ViewTabTypeId, 4, conViewRelaTab.View
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabId, 8, conViewRelaTab.TabId);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabFunction, 500, conViewRelaTab.TabFunction);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.PrjId, 4, conViewRelaTab.PrjId);
+clsCheckSql.CheckFieldLen(objViewRelaTabEN.RelaFldNames, 500, conViewRelaTab.RelaFldNames);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdDate, 20, conViewRelaTab.UpdDate);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdUser, 20, conViewRelaTab.UpdUser);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.Memo, 1000, conViewRelaTab.Memo);
@@ -2631,6 +2730,7 @@ clsCheckSql.CheckFieldLen(objViewRelaTabEN.ViewTabTypeId, 4, conViewRelaTab.View
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabId, 8, conViewRelaTab.TabId);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.TabFunction, 500, conViewRelaTab.TabFunction);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.PrjId, 4, conViewRelaTab.PrjId);
+clsCheckSql.CheckFieldLen(objViewRelaTabEN.RelaFldNames, 500, conViewRelaTab.RelaFldNames);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdDate, 20, conViewRelaTab.UpdDate);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.UpdUser, 20, conViewRelaTab.UpdUser);
 clsCheckSql.CheckFieldLen(objViewRelaTabEN.Memo, 1000, conViewRelaTab.Memo);
@@ -2642,6 +2742,7 @@ clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.ViewTabTypeId, conViewRelaT
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.TabId, conViewRelaTab.TabId);
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.TabFunction, conViewRelaTab.TabFunction);
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.PrjId, conViewRelaTab.PrjId);
+clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.RelaFldNames, conViewRelaTab.RelaFldNames);
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.UpdDate, conViewRelaTab.UpdDate);
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.UpdUser, conViewRelaTab.UpdUser);
 clsCheckSql.CheckSqlInjection4Field(objViewRelaTabEN.Memo, conViewRelaTab.Memo);
@@ -2669,8 +2770,9 @@ public string GetUniCondStr(clsViewRelaTabEN objViewRelaTabEN)
 {
 StringBuilder sbCondition = new StringBuilder();
 sbCondition.AppendFormat("1 = 1");
- sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
  sbCondition.AppendFormat(" and TabId = '{0}'", objViewRelaTabEN.TabId);
+ sbCondition.AppendFormat(" and ViewId = '{0}'", objViewRelaTabEN.ViewId);
+ sbCondition.AppendFormat(" and RegionId = '{0}'", objViewRelaTabEN.RegionId);
 return sbCondition.ToString();
 }
 

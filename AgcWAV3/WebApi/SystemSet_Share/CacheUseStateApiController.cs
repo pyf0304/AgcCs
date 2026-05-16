@@ -130,7 +130,7 @@ Dictionary<string, string> dictParam = new()
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
-List<clsCacheUseStateEN> arrCacheUseStateObjLst = clsCacheUseStateBL.GetObjLstCache(strUserId);
+List<clsCacheUseStateEN> arrCacheUseStateObjLst = clsCacheUseStateBL.GetObjLstCache();
 return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrCacheUseStateObjLst });
  }
  catch (Exception objException)
@@ -202,7 +202,7 @@ List<string> lstMId_Str = new List<string>(arrMId);
 List<long> lstMId = lstMId_Str.Select(x=>long.Parse(x)).ToList();
  try
  {
-IEnumerable<clsCacheUseStateEN> arrCacheUseStateObjLst = clsCacheUseStateBL.GetObjLstByMIdLstCache(lstMId, UserId);
+IEnumerable<clsCacheUseStateEN> arrCacheUseStateObjLst = clsCacheUseStateBL.GetObjLstByMIdLstCache(lstMId);
 return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrCacheUseStateObjLst });
  }
  catch (Exception objException)

@@ -2838,7 +2838,7 @@ string strMsg = string.Format("//表：[{0}]的删除标志字段(DeletedDate, IsDeleted)
                 }
 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                     {
@@ -2956,7 +2956,7 @@ string strMsg = string.Format("//表：[{0}]的删除标志字段(DeletedDate, IsDeleted)
             {
                 
 
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                     {
@@ -3023,7 +3023,7 @@ string strMsg = string.Format("//表：[{0}]的删除标志字段(DeletedDate, IsDeleted)
             try
             {
 
-                IEnumerable<ASPDropDownListEx> arrASPDropDownListENEx = objViewInfoENEx.arrQryRegionFldSet
+                IEnumerable<ASPDropDownListEx> arrASPDropDownListENEx = objViewInfoENEx.arrQryRegionFldSet4InUse
                     .Where(x=>x.objCtlType.CtlTypeName.Contains("DropDownList"))
                     .Select(GetDdlObj).Distinct(new DsTabNameComparer());
 
@@ -3032,7 +3032,7 @@ string strMsg = string.Format("//表：[{0}]的删除标志字段(DeletedDate, IsDeleted)
                     strCodeForCs.Append("\r\n" + objASPDropDownListENEx.GC_BindDdl4Mvc());
                     
                 }
-                //        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                //        foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 //    {
                 //        if (objQryRegionFldsEx.objCtlType.CtlTypeName.Contains("DropDownList") == true)
                 //        {
@@ -3146,7 +3146,7 @@ string strMsg = string.Format("//表：[{0}]的删除标志字段(DeletedDate, IsDeleted)
                 
                 strCodeForCs.Append("\r\n" + "try");
                 strCodeForCs.Append("\r\n" + "{");
-                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet)
+                foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
                 {
                     string strFldName = objQryRegionFldsEx.FldName;
                     switch (objQryRegionFldsEx.objCtlType.CtlTypeName) //objEditRegionFldsEx.objCtlType.CtlTypeName

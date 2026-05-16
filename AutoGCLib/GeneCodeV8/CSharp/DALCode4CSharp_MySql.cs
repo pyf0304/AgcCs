@@ -54,7 +54,10 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MySql;
         }
         #endregion
-
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
 
         /// <summary>
         /// 生成DAL(数据处理层)代码

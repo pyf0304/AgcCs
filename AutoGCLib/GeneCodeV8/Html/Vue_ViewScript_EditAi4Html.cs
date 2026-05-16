@@ -34,14 +34,14 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScript_Edit_TS4Html : clsGeneCodeBase4View
+    partial class Vue_ViewScript_EditAi4Html : clsGeneCodeBase4View
     {
         private CodeElement objCodeElement_Methods = null;
         private List<string> arrFuncName_Setup = new List<string>();
         private string strJSPath = "";
         //clsBiDimDistribute objBiDimDistribue4Qry = null;
         #region 构造函数
-        public Vue_ViewScript_Edit_TS4Html()
+        public Vue_ViewScript_EditAi4Html()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
@@ -49,7 +49,7 @@ namespace AutoGCLib
 
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_Edit_TS4Html(string strViewId)
+        public Vue_ViewScript_EditAi4Html(string strViewId)
        : base(strViewId, "", "")
         {
             // 
@@ -59,7 +59,7 @@ namespace AutoGCLib
 
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_Edit_TS4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript_EditAi4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -99,8 +99,15 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n **/");
             strFuncName = $"btn{objViewInfoENEx.TabName_In}_Edit_Click";
             strCodeForCs.AppendFormat("\r\n" + "btn{0}_Edit_Click(strCommandName:string, strKeyId:string) {{", objViewInfoENEx.TabName_In);
-            strCodeForCs.AppendFormat("\r\n" + "{0}Ex.btnEdit_Click(strCommandName, strKeyId);",
-                 ThisClsName);
+            strCodeForCs.AppendFormat("\r\n" + "const objPageEdit = this.objPage_Edit as {0}Ex | undefined;",                 ThisClsName);
+            strCodeForCs.Append("\r\n" + "if (objPageEdit == null)");
+            strCodeForCs.Append("\r\n" + "{");
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = '编辑页面初始化不成功,请联系管理员!(in btn{0}_Edit_Click)';", objViewInfoENEx.TabName_In);
+                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                strCodeForCs.Append("\r\n" + "return;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, strKeyId);",               ThisClsName);
 
 
             strCodeForCs.Append("\r\n" + "},");
@@ -1280,7 +1287,7 @@ namespace AutoGCLib
             try
             {
                 string strCode = "";
-                Type t = typeof(Vue_ViewScript_Edit_TS4Html);
+                Type t = typeof(Vue_ViewScript_EditAi4Html);
                 MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
                 if (mt == null)
@@ -1322,14 +1329,24 @@ namespace AutoGCLib
         }
         public override void GetClsName()
         {
-            string strClassName = string.Format("WA_{0}_Edit", objViewInfoENEx.TabName);
+            string strClassName = string.Format("{0}_EditAi", objViewInfoENEx.TabName);
             clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
             if (objViewRegionENEx != null && string.IsNullOrEmpty(objViewRegionENEx.ClsName) == false)
             {
                 strClassName = objViewRegionENEx.ClsName;
             }
+            //如果结尾没有Ai,就加上
+            if (!string.IsNullOrEmpty(strClassName) && !strClassName.EndsWith("Ai", StringComparison.Ordinal))
+            {
+                strClassName = strClassName + "Ai";
+            }
             this.ClsName = strClassName;
             objViewInfoENEx.ClsName = this.ClsName;
+        }
+
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
         }
 
         public string Gen_WebView_Vue_Code4FeatureRegion()
@@ -2136,7 +2153,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
 
-                strCodeForCs.Append("\r\n" + $"const showDialog =async (pobjPage_Edit: {ThisEditClsName}Ex) => {{");
+                strCodeForCs.Append("\r\n" + $"const showDialog =async (pobjPage_Edit: {this.ExtendedClsName}) => {{");
                 //strCodeForCs.Append("\r\n" + "dialogVisible.value = true;");
                 strCodeForCs.AppendFormat("\r\n" + "objPage_Edit.value = pobjPage_Edit;");
 
@@ -2407,7 +2424,7 @@ namespace AutoGCLib
 this.TabName_In4Edit4GC, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!');");
+                strCodeForCs.Append("\r\n" + "alert('编辑页面初始化不成功,请联系管理员!(in btnSubmit_Click)');");
                 strCodeForCs.Append("\r\n" + "return;");
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "const strCommandText: string = strSubmitButtonText.value;");
@@ -2787,11 +2804,11 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
                 //strCodeForCs.Append("\r\n" + "import { Format } from \"@/ts/PubFun/clsString\"");
 
-                strCodeForCs.AppendFormat("\r\n" + $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";");
+                strCodeForCs.AppendFormat("\r\n" + $"import {this.ExtendedClsName} from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ExtendedClsName}\";");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
-                    Name = $"{ThisClsName}Ex",
-                    CodeContent = $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";",
+                    Name = $"{this.ExtendedClsName}",
+                    CodeContent = $"import {this.ExtendedClsName} from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ExtendedClsName}\";",
                     From = $"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex",
                     ElementType = CodeElementType.Import,
                     Modifiers = "import"
@@ -2918,15 +2935,16 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                     Modifiers = "import"
                 });
 
-                strCodeForCs.Append("\r\n" + $"import {{ {ThisEditClsName} }}                from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisEditClsName}';");
+                strCodeForCs.Append("\r\n" + $"import {{ {this.ClsName} }}                from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
-                    Name = $"{ThisEditClsName}",
-                    CodeContent = $"import {{ {ThisEditClsName} }} from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisEditClsName}';",
-                    From = $"@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisEditClsName}",
+                    Name = $"{this.ClsName}",
+                    CodeContent = $"import {{ {this.ClsName} }} from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';",
+                    From = $"@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}",
                     ElementType = CodeElementType.Import,
                     Modifiers = "import"
                 });
+
 
                 strCodeForCs.Append("\r\n" + "import { enumPageDispMode }                from '@/ts/PubFun/enumPageDispMode';");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
@@ -3003,7 +3021,9 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + "return {");
 
                 strCodeForCs.Append("\r\n" + "refDivEdit,");
+                strCodeForCs.Append("\r\n" + "objPage_Edit,");
                 strCodeForCs.Append("\r\n" + "strTitle,");
+
                 strCodeForCs.Append("\r\n" + "dialogVisible,");
                 strCodeForCs.Append("\r\n" + "dialogWidth,");
                 strCodeForCs.Append("\r\n" + "showDialog,");
@@ -3116,11 +3136,11 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
-            strCodeForCs.AppendFormat("\r\n" + $" const objPage_Edit = ref<{ThisEditClsName}Ex>();");
+            strCodeForCs.AppendFormat("\r\n" + $" const objPage_Edit = ref<{this.ExtendedClsName}>();");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
                 Name = "objPage_Edit",
-                CodeContent = $" const objPage_Edit = ref<{ThisEditClsName}Ex>();",
+                CodeContent = $" const objPage_Edit = ref<{this.ExtendedClsName}>();",
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
@@ -3202,6 +3222,8 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                     strCodeForCs.Append("\r\n" + strTemp);
                 }
             }
+            
+            strCodeForCs.Append("\r\n" + Gen_Edit_Methods_btnEdit_Click(null));
             strCodeForCs.Append("\r\n" + Gen_Edit_Mothods_GeneEventFuncEx());
             strCodeForCs.Append("\r\n" + "        },");
 

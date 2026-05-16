@@ -40,6 +40,10 @@ namespace AutoGCLib
     partial class WA_ViewUTScript4Html : clsGeneCodeBase4Tab
     {
         private clsPrjTabENEx objPrjTabENEx = null;
+        public override void GetExtendedClsName()
+        {
+            this.ExtendedClsName = this.ClsName + "Ex";
+        }
         public WA_ViewUTScript4Html()
         {
 
