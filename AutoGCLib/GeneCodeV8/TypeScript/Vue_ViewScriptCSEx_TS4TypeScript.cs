@@ -1,4 +1,4 @@
-using AGC.BusinessLogic;
+ï»¿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AgcCommBase;
@@ -15,24 +15,24 @@ using System.Text;
 namespace AutoGCLib
 {
     /// <summary>
-    /// ¸ÃÀà×¨ÃÅÓÃÉú³ÉÊı¾İ±íµÄ±í´úÀí²ã,¸Ã´úÀí²ãÊÇÂß¼­²ãµÄÒ»²¿·Ö,ÌåÏµ½á¹¹´ÓÏÂµ½ÏÂ,
-    /// ¹²·ÖÒÔÏÂ¼¸²ã:
-    ///		1¡¢½çÃæ²ã
-    ///			Í¨ÓÃ½çÃæ²ã,×¨ÃÅÌá¹©Ò»Ğ©½çÃæ¿Ø¼şµÄ¹«¹²²Ù×÷º¯Êı
-    ///		2¡¢Âß¼­²ã
-    ///			2.1 ÒµÎñÂß¼­²ã
-    ///			2.2 ±í´úÀí²ã¡£°üÀ¨:
-    ///					1)±í¼ÇÂ¼µÄÌí¼Ó¡¢
-    ///					2)±í¼ÇÂ¼µÄÉ¾³ı
-    ///					3)±í¼ÇÂ¼µÄĞŞ¸Ä
-    ///					4)±í¼ÇÂ¼µÄ²éÑ¯
-    ///					5)»ñÈ¡Ä³Ğ©±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔ
-    ///					6)ÉèÖÃ±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔµÈ¡£
-    ///		3¡¢Êı¾İ²ã,¼´Í¨ÓÃÊı¾İ²ã,×¨ÃÅÓÃÓÚ²Ù×÷Êı¾İ¿âµÄÒ»Ğ©²Ù×÷,ÒÔ¼°²Ù×÷±íµÄÒ»Ğ©Í¨ÓÃ²Ù×÷
+    /// è¯¥ç±»ä¸“é—¨ç”¨ç”Ÿæˆæ•°æ®è¡¨çš„è¡¨ä»£ç†å±‚,è¯¥ä»£ç†å±‚æ˜¯é€»è¾‘å±‚çš„ä¸€éƒ¨åˆ†,ä½“ç³»ç»“æ„ä»ä¸‹åˆ°ä¸‹,
+    /// å…±åˆ†ä»¥ä¸‹å‡ å±‚:
+    ///		1ã€ç•Œé¢å±‚
+    ///			é€šç”¨ç•Œé¢å±‚,ä¸“é—¨æä¾›ä¸€äº›ç•Œé¢æ§ä»¶çš„å…¬å…±æ“ä½œå‡½æ•°
+    ///		2ã€é€»è¾‘å±‚
+    ///			2.1 ä¸šåŠ¡é€»è¾‘å±‚
+    ///			2.2 è¡¨ä»£ç†å±‚ã€‚åŒ…æ‹¬:
+    ///					1)è¡¨è®°å½•çš„æ·»åŠ ã€
+    ///					2)è¡¨è®°å½•çš„åˆ é™¤
+    ///					3)è¡¨è®°å½•çš„ä¿®æ”¹
+    ///					4)è¡¨è®°å½•çš„æŸ¥è¯¢
+    ///					5)è·å–æŸäº›è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§
+    ///					6)è®¾ç½®è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§ç­‰ã€‚
+    ///		3ã€æ•°æ®å±‚,å³é€šç”¨æ•°æ®å±‚,ä¸“é—¨ç”¨äºæ“ä½œæ•°æ®åº“çš„ä¸€äº›æ“ä½œ,ä»¥åŠæ“ä½œè¡¨çš„ä¸€äº›é€šç”¨æ“ä½œ
     /// </summary>
-    partial class Vue_ViewScriptCSEx_TS4TypeScript : clsGeneCodeBase4View   
+    partial class Vue_ViewScriptCSEx_TS4TypeScript : clsGeneCodeBase4View
     {
-        
+
         //private string objPrjTabENEx = "";
 
         //clsBiDimDistribute objBiDimDistribue4Qry = null;
@@ -43,7 +43,7 @@ namespace AutoGCLib
         public Vue_ViewScriptCSEx_TS4TypeScript()
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.arrImportClass = new List<ImportClass>();
         }
@@ -51,16 +51,16 @@ namespace AutoGCLib
        : base(strViewId, "", "")
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.strDataBaseType = clsPubConst.con_MsSql;
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScriptCSEx_TS4TypeScript( string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScriptCSEx_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.strDataBaseType = clsPubConst.con_MsSql;
             this.arrImportClass = new List<ImportClass>();
@@ -72,7 +72,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                ///Éú³É½öÓĞ±äÁ¿;
+                ///ç”Ÿæˆä»…æœ‰å˜é‡;
 
 
                 foreach (clsQryRegionFldsENEx objQryRegionFldsEx in objViewInfoENEx.arrQryRegionFldSet4InUse)
@@ -99,15 +99,15 @@ namespace AutoGCLib
                             catch (Exception objException)
                             {
                                 StringBuilder sbMsg = new StringBuilder();
-                                sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, »ñÈ¡Êı¾İÔ´±íÃû³ö´í:{2}.",
-                                objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", objException.Message);
+                                sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, è·å–æ•°æ®æºè¡¨åå‡ºé”™:{2}.",
+                                objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", objException.Message);
                                 throw new Exception(sbMsg.ToString());
                             }
                             if (string.IsNullOrEmpty(strDsTabName) == true)
                             {
                                 StringBuilder sbMsg = new StringBuilder();
-                                sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, Êı¾İÔ´±íÃûÎª¿Õ,Çë¼ì²é!({2}).",
-                                objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", clsStackTrace.GetCurrClassFunction());
+                                sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, æ•°æ®æºè¡¨åä¸ºç©º,è¯·æ£€æŸ¥!({2}).",
+                                objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", clsStackTrace.GetCurrClassFunction());
                                 throw new Exception(sbMsg.ToString());
                             }
                             //try
@@ -117,15 +117,15 @@ namespace AutoGCLib
                             //catch (Exception objException)
                             //{
                             //    StringBuilder sbMsg = new StringBuilder();
-                            //    sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, »ñÈ¡Êı¾İÔ´Öµ×Ö¶ÎÃûÊ±³ö´í:{2}.<br/>Êı¾İÔ´±íÃûÎª:{3}.",
-                            //    objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", objException.Message, strDsTabName);
+                            //    sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, è·å–æ•°æ®æºå€¼å­—æ®µåæ—¶å‡ºé”™:{2}.<br/>æ•°æ®æºè¡¨åä¸º:{3}.",
+                            //    objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", objException.Message, strDsTabName);
                             //    throw new Exception(sbMsg.ToString());
                             //}
                             //if (string.IsNullOrEmpty(strDS_DataValueField) == true)
                             //{
                             //    StringBuilder sbMsg = new StringBuilder();
-                            //    sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, »ñÈ¡Êı¾İÔ´Öµ×Ö¶ÎÃûÊ±³ö´í.<br/>Êı¾İÔ´±íÃûÎª:{2}.({3})",
-                            //        objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", strDsTabName,
+                            //    sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, è·å–æ•°æ®æºå€¼å­—æ®µåæ—¶å‡ºé”™.<br/>æ•°æ®æºè¡¨åä¸º:{2}.({3})",
+                            //        objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", strDsTabName,
                             //        clsStackTrace.GetCurrClassFunction());
                             //    throw new Exception(sbMsg.ToString());
                             //}
@@ -136,15 +136,15 @@ namespace AutoGCLib
                             //catch (Exception objException)
                             //{
                             //    StringBuilder sbMsg = new StringBuilder();
-                            //    sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, »ñÈ¡Êı¾İÔ´ÎÄ±¾×Ö¶ÎÃûÊ±³ö´í:{2}.<br/>Êı¾İÔ´±íÃûÎª:{3},Öµ×Ö¶ÎÃûÎª:{4}.",
-                            //    objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", objException.Message, strDsTabName, strDS_DataValueField);
+                            //    sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, è·å–æ•°æ®æºæ–‡æœ¬å­—æ®µåæ—¶å‡ºé”™:{2}.<br/>æ•°æ®æºè¡¨åä¸º:{3},å€¼å­—æ®µåä¸º:{4}.",
+                            //    objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", objException.Message, strDsTabName, strDS_DataValueField);
                             //    throw new Exception(sbMsg.ToString());
                             //}
                             //if (string.IsNullOrEmpty(strDS_DataTextField) == true)
                             //{
                             //    StringBuilder sbMsg = new StringBuilder();
-                            //    sbMsg.AppendFormat("ÔÚÉú³É½çÃæ{0}ÇøÓò:{1}Ê±,Éú³ÉÏÂÀ­¿ò, »ñÈ¡Êı¾İÔ´ÎÄ±¾×Ö¶ÎÃûÊ±³ö´í.<br/>Êı¾İÔ´±íÃûÎª:{2},Öµ×Ö¶ÎÃûÎª:{3}.({4})",
-                            //          objViewInfoENEx.ViewName, "²éÑ¯ÇøÓò", strDsTabName, strDS_DataValueField,
+                            //    sbMsg.AppendFormat("åœ¨ç”Ÿæˆç•Œé¢{0}åŒºåŸŸ:{1}æ—¶,ç”Ÿæˆä¸‹æ‹‰æ¡†, è·å–æ•°æ®æºæ–‡æœ¬å­—æ®µåæ—¶å‡ºé”™.<br/>æ•°æ®æºè¡¨åä¸º:{2},å€¼å­—æ®µåä¸º:{3}.({4})",
+                            //          objViewInfoENEx.ViewName, "æŸ¥è¯¢åŒºåŸŸ", strDsTabName, strDS_DataValueField,
                             //          clsStackTrace.GetCurrClassFunction());
                             //    throw new Exception(sbMsg.ToString());
                             //}
@@ -158,7 +158,7 @@ namespace AutoGCLib
                             //}
                             switch (objQryRegionFldsEx.DdlItemsOptionId)
                             {
-                                case "01": ///ÁĞ±íÏî´®;
+                                case "01": ///åˆ—è¡¨é¡¹ä¸²;
                                     //									string strTemp2 ;
                                     string delimStr = " ,.:";
                                     char[] delimiter = delimStr.ToCharArray();
@@ -167,14 +167,14 @@ namespace AutoGCLib
                                     int iItemNums;
                                     int i;
 
-                                    strCodeForCs.AppendFormat("\r\n /** °ó¶¨ÏÂÀ­¿ò:ddl{0}µÄº¯Êı¡£", objQryRegionFldsEx.FldName);
+                                    strCodeForCs.AppendFormat("\r\n /** ç»‘å®šä¸‹æ‹‰æ¡†:ddl{0}çš„å‡½æ•°ã€‚", objQryRegionFldsEx.FldName);
                                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                                     strCodeForCs.Append("\r\n" + " **/");
 
                                     strCodeForCs.AppendFormat("\r\n" + "public void BindDdl_{0}(System.Web.UI.WebControls.DropDownList objDDL)",
                                         objQryRegionFldsEx.FldName);
                                     strCodeForCs.Append("\r\n" + "{");
-                                    strCodeForCs.Append("\r\n" + "ListItem li = new ListItem(\"ÇëÑ¡Ôñ...\",\"0\");");
+                                    strCodeForCs.Append("\r\n" + "ListItem li = new ListItem(\"è¯·é€‰æ‹©...\",\"0\");");
                                     split = objQryRegionFldsEx.ItemsString.Split(delimiter);
                                     iItemNums = split.GetUpperBound(0);
                                     for (i = split.GetLowerBound(0); i <= iItemNums; i++)
@@ -183,19 +183,19 @@ namespace AutoGCLib
                                     }
                                     strCodeForCs.Append("\r\n" + "objDDL.Items.Insert(0, li);");
                                     strCodeForCs.Append("\r\n" + "objDDL.SelectedIndex = 0;");
-                                    strCodeForCs.Append("\r\n" + "//ÎªÏÂÀ­¿òÉèÖÃÄÚÈİµÄÑùÀı,¸ÃÏÂÀ­¿òµÄÁĞ±íÏîÊÇÖ±½ÓÌí¼ÓµÄ");
-                                    strCodeForCs.Append("\r\n ///objDDL.Items.Add(\"ÄĞ\");");
-                                    strCodeForCs.Append("\r\n ///objDDL.Items.Add(\"Å®\");");
+                                    strCodeForCs.Append("\r\n" + "//ä¸ºä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹çš„æ ·ä¾‹,è¯¥ä¸‹æ‹‰æ¡†çš„åˆ—è¡¨é¡¹æ˜¯ç›´æ¥æ·»åŠ çš„");
+                                    strCodeForCs.Append("\r\n ///objDDL.Items.Add(\"ç”·\");");
+                                    strCodeForCs.Append("\r\n ///objDDL.Items.Add(\"å¥³\");");
                                     strCodeForCs.Append("\r\n" + "}");
                                     break;
-                                case "02": ///ÁĞ±íÏîÊı¾İÔ´±í;
+                                case "02": ///åˆ—è¡¨é¡¹æ•°æ®æºè¡¨;
 
                                     strCodeForCs.Append("\r\n" + "/**");
-                                    strCodeForCs.AppendFormat("\r\n" + "* ÎªÏÂÀ­¿ò»ñÈ¡Êı¾İ,´Ó±í:[{0}]ÖĞ»ñÈ¡",
+                                    strCodeForCs.AppendFormat("\r\n" + "* ä¸ºä¸‹æ‹‰æ¡†è·å–æ•°æ®,ä»è¡¨:[{0}]ä¸­è·å–",
                                       strDsTabName);
                                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-                                    strCodeForCs.Append("\r\n" + "* returns:»ñÈ¡Ö÷¼ü×Ö¶Î¡¢Ãû³Æ×Ö¶ÎÁ½ÁĞµÄËùÓĞ¼ÇÂ¼¼ÇÂ¼µÄDataTable");
+                                    strCodeForCs.Append("\r\n" + "* returns:è·å–ä¸»é”®å­—æ®µã€åç§°å­—æ®µä¸¤åˆ—çš„æ‰€æœ‰è®°å½•è®°å½•çš„DataTable");
                                     strCodeForCs.Append("\r\n" + " **/");
                                     //strCodeForCs.AppendFormat("\r\n" + "public static BindDdl_{1}(ddl{1}: string, strWhereCond:string=\"1=1\") {{",
                                     //  strDsTabName, strDS_DataValueField, strDS_DataTextField);
@@ -204,7 +204,7 @@ namespace AutoGCLib
                                     //    strDsTabName, strDS_DataValueField, strDS_DataTextField);
                                     //strCodeForCs.Append("\r\n" + "if (objDdl == null)");
                                     //strCodeForCs.Append("\r\n" + "{");
-                                    //strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!\", ddl{1});",
+                                    //strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!\", ddl{1});",
                                     //    strDsTabName, strDS_DataValueField, strDS_DataTextField);
                                     strCodeForCs.Append("\r\n" + "alert(strMsg);");
                                     strCodeForCs.Append("\r\n" + "console.error(strMsg);");
@@ -218,7 +218,7 @@ namespace AutoGCLib
                                     strCodeForCs.Append("\r\n" + "}");
                                     strCodeForCs.Append("\r\n" + "catch (e)");
                                     strCodeForCs.Append("\r\n" + "{");
-                                    strCodeForCs.Append("\r\n" + "const strMsg = Format(\"°ó¶¨ÏÂÀ­¿ò(²éÑ¯Çø)²»³É¹¦,{0}.\",e);");
+                                    strCodeForCs.Append("\r\n" + "const strMsg = Format(\"ç»‘å®šä¸‹æ‹‰æ¡†(æŸ¥è¯¢åŒº)ä¸æˆåŠŸ,{0}.\",e);");
                                     strCodeForCs.Append("\r\n" + "console.error(strMsg)");
                                     strCodeForCs.Append("\r\n" + "alert(strMsg);");
                                     strCodeForCs.Append("\r\n" + "}");
@@ -227,18 +227,18 @@ namespace AutoGCLib
 
 
                                     break;
-                                case "03": ///ÁĞ±íÏîÊı¾İÔ´SQL´®;
+                                case "03": ///åˆ—è¡¨é¡¹æ•°æ®æºSQLä¸²;
                                     strCodeForCs.Append("\r\n" + "/**");
-                                    strCodeForCs.AppendFormat("\r\n" + "*  ÎªÏÂÀ­¿ò»ñÈ¡Êı¾İ,´ÓSql´®:[{0}]ÖĞ»ñÈ¡",
+                                    strCodeForCs.AppendFormat("\r\n" + "*  ä¸ºä¸‹æ‹‰æ¡†è·å–æ•°æ®,ä»Sqlä¸²:[{0}]ä¸­è·å–",
                                        objQryRegionFldsEx.DsSqlStr);
                                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-                                    strCodeForCs.Append("\r\n" + "* returns:»ñÈ¡×Ô¶¨ÒåµÄSql´®ÖĞÁ½ÁĞµÄËùÓĞ¼ÇÂ¼¼ÇÂ¼µÄDataTable");
+                                    strCodeForCs.Append("\r\n" + "* returns:è·å–è‡ªå®šä¹‰çš„Sqlä¸²ä¸­ä¸¤åˆ—çš„æ‰€æœ‰è®°å½•è®°å½•çš„DataTable");
                                     strCodeForCs.Append("\r\n" + " **/");
                                     strCodeForCs.AppendFormat("\r\n" + "public System.Data.DataTable Get{0}(string strCondition)",
                                     objQryRegionFldsEx.FldName);
                                     strCodeForCs.Append("\r\n" + "{");
-                                    strCodeForCs.Append("\r\n" + "//»ñÈ¡Ä³Ñ§ÔºËùÓĞ×¨ÒµĞÅÏ¢");
+                                    strCodeForCs.Append("\r\n" + "//è·å–æŸå­¦é™¢æ‰€æœ‰ä¸“ä¸šä¿¡æ¯");
                                     //strCodeForCs.Append("\r\n" + "clsSpecSQLforSql mySql = new 1clsSpecSQLforSql();");
                                     strCodeForCs.AppendFormat("\r\n clsSpecSQLforSql mySql = cls{0}BL.GetSpecSQLObj();", objViewInfoENEx.TabName);
 
@@ -247,16 +247,16 @@ namespace AutoGCLib
                                     strCodeForCs.Append("\r\n" + "return objDT;");
                                     strCodeForCs.Append("\r\n" + "}");
 
-                                    strCodeForCs.Append("\r\n /** °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò");
+                                    strCodeForCs.Append("\r\n /** ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†");
                                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                                    strCodeForCs.Append("\r\n * @param objDDL\">ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò</param>");
+                                    strCodeForCs.Append("\r\n * @param objDDL\">éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†</param>");
                                     strCodeForCs.Append("\r\n" + " **/");
 
                                     strCodeForCs.AppendFormat("\r\n" + "public void BindDdl_{0}(System.Web.UI.WebControls.DropDownList objDDL)",
                                     objQryRegionFldsEx.FldName);
                                     strCodeForCs.Append("\r\n" + "{");
-                                    strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                                    strCodeForCs.Append("\r\n" + "ListItem li = new ListItem(\"ÇëÑ¡Ôñ...\",\"0\");");
+                                    strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                                    strCodeForCs.Append("\r\n" + "ListItem li = new ListItem(\"è¯·é€‰æ‹©...\",\"0\");");
                                     strCodeForCs.AppendFormat("\r\n" + "System.Data.DataTable objDT = Get{0}();",
                                     objQryRegionFldsEx.FldName);
                                     //strCodeForCs.AppendFormat("\r\n" + "objDDL.DataValueField = cls{0}EN.con_{1};",
@@ -277,7 +277,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -289,12 +289,12 @@ namespace AutoGCLib
         {
             string strFuncName = $"SortColumn";
             CodeElement objCodeElement_Method = new CodeElement { Name = strFuncName, ElementType = CodeElementType.Method, Modifiers = "export abstract" };
-            
+
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
                 string strFuncName_Temp = getBindGvFuncName();
-                ///Éú³É½öÓĞ±äÁ¿;
+                ///ç”Ÿæˆä»…æœ‰å˜é‡;
                 strCodeForCs.Append("\r\n" + "public async SortColumn(sortColumnKey: string, sortDirection: string) {");
                 strFuncName = "SortColumn";
                 strCodeForCs.Append("\r\n" + $"switch(sortColumnKey)");
@@ -340,7 +340,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -355,14 +355,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
 
         }
         /// <summary>
-        /// Éú³ÉAppÒ³ÃæºóÌ¨´úÂë
+        /// ç”ŸæˆAppé¡µé¢åå°ä»£ç 
         /// </summary>
         /// <returns></returns>
         public override string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
@@ -373,14 +373,14 @@ namespace AutoGCLib
             string strIsShare = "";
             if (objViewInfoENEx.IsShare) strIsShare = "Share";
             string strFuncName = "";
-            string strTemp = ""; ///ÁÙÊ±±äÁ¿;
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
+            string strTemp = ""; ///ä¸´æ—¶å˜é‡;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
             clsPubFun4BLEx.CheckDgStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.DgStyleId);
             clsPubFun4BLEx.CheckTitleStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.TitleStyleId);
 
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
-         
+
 
             objViewInfoENEx.WebFormName = ThisClsName;
             objViewInfoENEx.WebFormFName = string.Format("{0}.ts", ThisClsName);
@@ -402,10 +402,10 @@ namespace AutoGCLib
             this.objCodeElement_Root.Children.Add(this.objCodeElement_Class);
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 strCodeForCs.Append(clsPubFun4GC.GenUserInfoAndDate4WebApi(objViewInfoENEx.CurrUserName,
                     objViewInfoENEx, this.CmPrjId));
-                
+
                 //strCodeForCs.AppendFormat("\r\n" + "import $ from \"jquery\";");
                 strCodeForCs.AppendFormat("\r\n" + "//import * as QQ from \"q\";");
 
@@ -525,16 +525,16 @@ namespace AutoGCLib
                     isPublic = true,
                     From = "@/ts/PubFun/IShowList"
                 });
-                strCodeForCs.AppendFormat("\r\n /** {0} µÄÕªÒªËµÃ÷¡£ÆäÖĞQ´ú±í²éÑ¯,U´ú±íĞŞ¸Ä",
+                strCodeForCs.AppendFormat("\r\n /** {0} çš„æ‘˜è¦è¯´æ˜ã€‚å…¶ä¸­Qä»£è¡¨æŸ¥è¯¢,Uä»£è¡¨ä¿®æ”¹",
                     ThisClsName);
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.AppendFormat("\r\n" + "export default class  {0} extends {1} implements IShowList", ThisClsName, this.BaseClsName);
                 strCodeForCs.Append("\r\n" + "{");
-                               
+
                 StringBuilder sbFuncComment = new StringBuilder();
                 sbFuncComment.AppendFormat("\r\n /**");
-                sbFuncComment.AppendFormat("\r\n * Ã¿Ò³¼ÇÂ¼Êı,ÔÚÀ©Õ¹Àà¿ÉÒÔĞŞ¸Ä");
+                sbFuncComment.AppendFormat("\r\n * æ¯é¡µè®°å½•æ•°,åœ¨æ‰©å±•ç±»å¯ä»¥ä¿®æ”¹");
                 sbFuncComment.Append("\r\n" + " **/");
                 strCodeForCs.Append(sbFuncComment);
                 StringBuilder sbFuncCode = new StringBuilder();
@@ -557,7 +557,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "");
                 sbFuncComment = new StringBuilder();
                 sbFuncComment.Append("\r\n" + "/**");
-                sbFuncComment.Append("\r\n" + "* º¯Êı¹¦ÄÜ:³õÊ¼ÉèÖÃ£¬ÓÃÀ´³õÊ¼»¯Ò»Ğ©±äÁ¿Öµ");
+                sbFuncComment.Append("\r\n" + "* å‡½æ•°åŠŸèƒ½:åˆå§‹è®¾ç½®ï¼Œç”¨æ¥åˆå§‹åŒ–ä¸€äº›å˜é‡å€¼");
                 sbFuncComment.Append("\r\n" + "**/");
                 strCodeForCs.Append(sbFuncComment);
                 sbFuncCode = new StringBuilder();
@@ -578,13 +578,13 @@ namespace AutoGCLib
 
                 sbFuncComment = new StringBuilder();
                 sbFuncComment.Append("\r\n" + "/** ");
-                sbFuncComment.Append("\r\n" + "* º¯Êı¹¦ÄÜ:³õÊ¼»¯½çÃæ¿Ø¼şÖµ£¬·ÅÔÚ°ó¶¨ÏÂÀ­¿òÖ®ºó");
+                sbFuncComment.Append("\r\n" + "* å‡½æ•°åŠŸèƒ½:åˆå§‹åŒ–ç•Œé¢æ§ä»¶å€¼ï¼Œæ”¾åœ¨ç»‘å®šä¸‹æ‹‰æ¡†ä¹‹å");
                 sbFuncComment.Append("\r\n" + "**/");
                 strCodeForCs.Append(sbFuncComment);
                 sbFuncCode = new StringBuilder();
                 sbFuncCode.Append("\r\n" + "  public async InitCtlVar() : Promise<void> {");
                 sbFuncCode.Append("\r\n" + $"console.log('InitCtlVar in {ThisClsName}');");
-                sbFuncCode.Append("\r\n" + "}");                
+                sbFuncCode.Append("\r\n" + "}");
                 strCodeForCs.Append(sbFuncCode);
 
                 clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
@@ -602,7 +602,7 @@ namespace AutoGCLib
                 sbFuncCode.Append("\r\n" + "BindGv(strType: string, strPara: string) {");
                 if (PrjTabEx_ListRegion.IsUseCache_TS() == true)
                 {
-                    sbFuncCode.AppendFormat("\r\n" + "alert(`¸ÃÀàÃ»ÓĞ°ó¶¨¸Ãº¯Êı£º[this.BindGv_{0}]!${{strType}}${{strPara}}`);", objViewInfoENEx.TabName_Out);
+                    sbFuncCode.AppendFormat("\r\n" + "alert(`è¯¥ç±»æ²¡æœ‰ç»‘å®šè¯¥å‡½æ•°ï¼š[this.BindGv_{0}]!${{strType}}${{strPara}}`);", objViewInfoENEx.TabName_Out);
                     sbFuncCode.Append("\r\n" + $"//{strFuncName_Temp}(divVarSet.refDivList);");
                 }
                 else
@@ -630,14 +630,14 @@ namespace AutoGCLib
                 sbFuncCode.Append("\r\n" + "switch(strType)");
                 sbFuncCode.Append("\r\n" + "{");
                 sbFuncCode.AppendFormat("\r\n" + "case \"{0}\":", objViewInfoENEx.TabName_Out);
-           
+
                 if (PrjTabEx_ListRegion.IsUseCache_TS() == true)
                 {
                     sbFuncCode.Append("\r\n" + $"{strFuncName_Temp}(divVarSet.refDivList);");
                 }
                 else
                 {
-                    sbFuncCode.Append("\r\n" + $"alert('¸ÃÀàÃ»ÓĞ°ó¶¨¸Ãº¯Êı£º[{strFuncName_Temp}]!');");
+                    sbFuncCode.Append("\r\n" + $"alert('è¯¥ç±»æ²¡æœ‰ç»‘å®šè¯¥å‡½æ•°ï¼š[{strFuncName_Temp}]!');");
                     sbFuncCode.Append("\r\n" + $"//{strFuncName_Temp}(divVarSet.refDivList);");
                 }
                 sbFuncCode.Append("\r\n" + "break;");
@@ -659,32 +659,32 @@ namespace AutoGCLib
                     CodeContent = sbFuncCode.ToString()
                 });
 
-                //Éú³ÉËùÓĞµÄº¯Êı
+                //ç”Ÿæˆæ‰€æœ‰çš„å‡½æ•°
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
            clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
 
-              
-                //ÎªËùÓĞµÄº¯Êı¶¨ÒåÏà¹ØÊäÈë¿Ø¼ş
+
+                //ä¸ºæ‰€æœ‰çš„å‡½æ•°å®šä¹‰ç›¸å…³è¾“å…¥æ§ä»¶
                 List<string> arrValueLst = new List<string>();
 
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
                 {
                     strFuncName = objvFunction4GeneCodeEN.FuncName;
-                
+
                     strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
-                
+
                     if (string.IsNullOrEmpty(strTemp) == false)
                     {
                         strCodeForCs.Append("\r\n" + strTemp);
                     }
                 }
-                strCodeForCs.Append( Gen_Vue_Ts_SortColumn());
-                
+                strCodeForCs.Append(Gen_Vue_Ts_SortColumn());
+
                 strCodeForCs.Append("\r\n" + "}");
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -694,7 +694,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// ¹¦ÄÜ:µ¥±íµÄ²éÑ¯¡¢ĞŞ¸Ä¡¢²åÈë¡¢É¾³ı
+        /// åŠŸèƒ½:å•è¡¨çš„æŸ¥è¯¢ã€ä¿®æ”¹ã€æ’å…¥ã€åˆ é™¤
         /// </summary>
         /// <returns></returns>
 
@@ -703,18 +703,18 @@ namespace AutoGCLib
             if (string.IsNullOrEmpty(objViewInfoENEx.objViewStyleEN.TitleStyleId) == true)
             {
                 StringBuilder sbMsg = new StringBuilder();
-                sbMsg.AppendFormat("ÔÚ½çÃæ:{0}ÖĞ,Ã»ÓĞÉèÖÃ±êÌâÀàĞÍ,Çë¼ì²é!", objViewInfoENEx.ViewName);
+                sbMsg.AppendFormat("åœ¨ç•Œé¢:{0}ä¸­,æ²¡æœ‰è®¾ç½®æ ‡é¢˜ç±»å‹,è¯·æ£€æŸ¥!", objViewInfoENEx.ViewName);
                 throw new Exception(sbMsg.ToString());
             }
             clsTitleStyleEN objTitleStyle = clsTitleStyleBL.GetObjByTitleStyleIdCache(objViewInfoENEx.objViewStyleEN.TitleStyleId);
             if (objTitleStyle == null)
             {
-                string strMsg = string.Format("(errid:BlEx000044)±êÌâÄ£Ê½Id:[{0}]Ã»ÓĞÏàÓ¦µÄ¶ÔÏó,Çë¼ì²é!(AutoGC6Cs_VWeb_Net2005:GenViewTitle)", objViewInfoENEx.objViewStyleEN.TitleStyleId);
+                string strMsg = string.Format("(errid:BlEx000044)æ ‡é¢˜æ¨¡å¼Id:[{0}]æ²¡æœ‰ç›¸åº”çš„å¯¹è±¡,è¯·æ£€æŸ¥!(AutoGC6Cs_VWeb_Net2005:GenViewTitle)", objViewInfoENEx.objViewStyleEN.TitleStyleId);
                 throw new Exception(strMsg);
             }
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
-            ///Éú³ÉLabelµÄ´úÂë;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
+            ///ç”ŸæˆLabelçš„ä»£ç ;
             switch (objTitleStyle.TitleTypeId)
             {
                 case "01":
@@ -724,7 +724,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "<tr>");
                     strCodeForCs.AppendFormat("\r\n" + "<td bgColor = \"{0}\">",
                       objTitleStyle.BackColor);
-                    strCodeForCs.AppendFormat("\r\n" + "<asp:Label id = \"lblViewTile\" runat = \"server\" Font-Size = \"Small\" Font-Names = \"ËÎÌå\" ForeColor = \"{1}\" Font-Bold = \"True\">{0}</asp:Label>",
+                    strCodeForCs.AppendFormat("\r\n" + "<asp:Label id = \"lblViewTile\" runat = \"server\" Font-Size = \"Small\" Font-Names = \"å®‹ä½“\" ForeColor = \"{1}\" Font-Bold = \"True\">{0}</asp:Label>",
                       strTitle, objTitleStyle.ForeColor);
                     strCodeForCs.AppendFormat("\r\n" + "</td>");
                     strCodeForCs.AppendFormat("\r\n" + "</tr>");
@@ -738,7 +738,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "<asp:Label ID = \"lblViewTitle\" runat = \"server\" CssClass = \"h5\" >{0}",
                       strTitle);
                     strCodeForCs.AppendFormat("\r\n" + "</asp:Label>");
-                    //Èç¹ûÓĞ²éÑ¯ÇøÓò
+                    //å¦‚æœæœ‰æŸ¥è¯¢åŒºåŸŸ
                     if (objViewInfoENEx.objViewTypeCodeTab.IsHaveQuery)
                     {
                         strCodeForCs.AppendFormat("\r\n" + "<asp:Label ID = \"lblMsg_List\" runat = \"server\" CssClass = \"text-warning\"  Style = \"z-index: 105;");
@@ -764,7 +764,7 @@ namespace AutoGCLib
 
             //    if (mt == null)
             //    {
-            //        string strMsg = string.Format("ÔÚÀàÖĞÃ»ÓĞÏàÓ¦µÄº¯Êı:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //        string strMsg = string.Format("åœ¨ç±»ä¸­æ²¡æœ‰ç›¸åº”çš„å‡½æ•°:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //        throw new Exception(strMsg);
             //    }
             //    else
@@ -795,7 +795,7 @@ namespace AutoGCLib
             //    {
             //        strMsg = objException.Message;
             //    }
-            //    sbMessage.AppendFormat("ÔÚÉú³Éº¯Êı:{0}Ê±³ö´í. \r\n³ö´íĞÅÏ¢:{1}.", strFuncName, strMsg);
+            //    sbMessage.AppendFormat("åœ¨ç”Ÿæˆå‡½æ•°:{0}æ—¶å‡ºé”™. \r\nå‡ºé”™ä¿¡æ¯:{1}.", strFuncName, strMsg);
             //    throw new Exception(sbMessage.ToString());
             //}
         }
@@ -820,7 +820,7 @@ namespace AutoGCLib
             this.BaseClsName = string.Format("{0}", objViewInfoENEx.ViewName);
             objViewInfoENEx.ClsName = this.ClsName;
         }
-     
+
         public string Gen_Vue_Ts_GeneEventFuncEx()
         {
             if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return "";
@@ -836,13 +836,13 @@ namespace AutoGCLib
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
 
-                    strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:ÏµÍ³Éú³ÉµÄChangeÊÂ¼şº¯Êı");
+                    strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:ç³»ç»Ÿç”Ÿæˆçš„Changeäº‹ä»¶å‡½æ•°");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                     strCodeForCs.Append("\r\n" + " **/");
                     strCodeForCs.AppendFormat("\r\n" + "public async {0}()",
                        x.ChangeEvent);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.AppendFormat("\r\n" + "alert('ÇëÔÚÀ©Õ¹²ã:{0}ExÖĞÖØĞ´¸Ãº¯Êı!');", ThisClsName);
+                    strCodeForCs.AppendFormat("\r\n" + "alert('è¯·åœ¨æ‰©å±•å±‚:{0}Exä¸­é‡å†™è¯¥å‡½æ•°!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "}");
                 });
 
@@ -852,13 +852,13 @@ namespace AutoGCLib
                 arrQryRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
-                    strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:ÏµÍ³Éú³ÉµÄClickÊÂ¼şº¯Êı");
+                    strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:ç³»ç»Ÿç”Ÿæˆçš„Clickäº‹ä»¶å‡½æ•°");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                     strCodeForCs.Append("\r\n" + " **/");
 
                     strCodeForCs.AppendFormat("\r\n" + "public  async {0}(){{;",
                        x.ClickEvent, ThisClsName);
-                    strCodeForCs.AppendFormat("\r\n" + "alert('ÇëÔÚÀ©Õ¹²ã:{0}ExÖĞÖØĞ´¸Ãº¯Êı!');", ThisClsName);
+                    strCodeForCs.AppendFormat("\r\n" + "alert('è¯·åœ¨æ‰©å±•å±‚:{0}Exä¸­é‡å†™è¯¥å‡½æ•°!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "}");
                 });
 
@@ -867,7 +867,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -876,13 +876,13 @@ namespace AutoGCLib
         }
         public string Gen_Vue_TS_btn_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            
+
             string strFuncName = $"btn_Click";
-            
+
             IEnumerable<clsFeatureRegionFldsENEx> arrFeatureRegionFldsObjLst = objViewInfoENEx.arrFeatureRegionFlds;
             if (objViewInfoENEx.arrFeatureRegionFlds == null)
             {
-                string strMsg = string.Format("½çÃæ¹¦ÄÜÇøÎª¿Õ,ÇëÌí¼Ó½çÃæ¹¦ÄÜ!½çÃæ:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("ç•Œé¢åŠŸèƒ½åŒºä¸ºç©º,è¯·æ·»åŠ ç•Œé¢åŠŸèƒ½!ç•Œé¢:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
 
             }
@@ -896,7 +896,7 @@ namespace AutoGCLib
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n * °´Å¥µ¥»÷,ÓÃÓÚµ÷ÓÃJsº¯ÊıÖĞbtnClick");
+            strCodeForCs.Append("\r\n * æŒ‰é’®å•å‡»,ç”¨äºè°ƒç”¨Jså‡½æ•°ä¸­btnClick");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
 
@@ -904,10 +904,10 @@ namespace AutoGCLib
             strFuncName = "btn_Click";
             //strCodeForCs.AppendFormat("\r\n" + "const objPage:{0} = new {0}();", ThisClsName);
             strCodeForCs.AppendFormat("\r\n" + "let objPage: {0};", ThisClsName);
-            
+
             strCodeForCs.Append("\r\n" + "let objPageEdit;");
             strCodeForCs.AppendFormat("\r\n" + "if ({0}.objPageCRUD == null)", this.BaseClsName);
-            
+
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "{0}.objPageCRUD = new {1}();", this.BaseClsName, ThisClsName);
             strCodeForCs.AppendFormat("\r\n" + "objPage = <{0}> {0}.objPageCRUD;", ThisClsName, this.BaseClsName);
@@ -917,8 +917,8 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n" + "objPage = <{0}> {0}.objPageCRUD;", ThisClsName, this.BaseClsName);
             strCodeForCs.Append("\r\n" + "}");
 
-           
-            if (PrjTabEx_View.SqlDsTypeId == enumSQLDSType.SqlTab_01)   strCodeForCs.Append("\r\n" + "let strMsg = '';");
+
+            if (PrjTabEx_View.SqlDsTypeId == enumSQLDSType.SqlTab_01) strCodeForCs.Append("\r\n" + "let strMsg = '';");
 
             //strCodeForCs.Append("\r\n" + "const strKeyId = clsCommFunc4Ctrl.GetFirstCheckedKeyId(objPage.divName4List);");
             string strKeyLstName = "arrKeyIds";
@@ -942,7 +942,7 @@ namespace AutoGCLib
             arrFeatureRegionFldsObjLst_DefaultFeature.ForEach(x =>
             {
                 string strCommandName = x.CommandName;
-                strCodeForCs.AppendFormat("\r\n" + "case \"{0}\":    //×Ô¶¨Òå¹¦ÄÜ:{1}", strCommandName, x.Text);
+                strCodeForCs.AppendFormat("\r\n" + "case \"{0}\":    //è‡ªå®šä¹‰åŠŸèƒ½:{1}", strCommandName, x.Text);
                 if (string.IsNullOrEmpty(x.FuncName) == false)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "objPage.{0}();", x.FuncName.Replace("()", ""));
@@ -950,33 +950,33 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "break;");
             });
 
-            strCodeForCs.Append("\r\n" + "case \"Query\":    //²éÑ¯¼ÇÂ¼");
+            strCodeForCs.Append("\r\n" + "case \"Query\":    //æŸ¥è¯¢è®°å½•");
             strCodeForCs.Append("\r\n" + "objPage.btnQuery_Click();");
             strCodeForCs.Append("\r\n" + "break;");
 
             if (IsHasEditRegion == true)
             {
-                strCodeForCs.Append("\r\n" + "case \"AddNewRecordWithMaxId\":    //Ìí¼Ó¼ÇÂ¼Ê¹ÓÃ×î´ó¹Ø¼ü×Ö");
-                strCodeForCs.Append("\r\n" + "case \"CreateWithMaxId\":    //Ìí¼Ó¼ÇÂ¼Ê¹ÓÃ×î´ó¹Ø¼ü×Ö");
-                strCodeForCs.Append("\r\n" + "case \"AddNewRecord\":            //Ìí¼Ó¼ÇÂ¼");
-                strCodeForCs.Append("\r\n" + "case \"Create\":            //Ìí¼Ó¼ÇÂ¼");
+                strCodeForCs.Append("\r\n" + "case \"AddNewRecordWithMaxId\":    //æ·»åŠ è®°å½•ä½¿ç”¨æœ€å¤§å…³é”®å­—");
+                strCodeForCs.Append("\r\n" + "case \"CreateWithMaxId\":    //æ·»åŠ è®°å½•ä½¿ç”¨æœ€å¤§å…³é”®å­—");
+                strCodeForCs.Append("\r\n" + "case \"AddNewRecord\":            //æ·»åŠ è®°å½•");
+                strCodeForCs.Append("\r\n" + "case \"Create\":            //æ·»åŠ è®°å½•");
 
-                    strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//³õÊ¼»¯±à¼­Àà,ÉèÖÃµ±Ç°ÀàÎª±à¼­ÀàµÄ¸¸Àà£¬±à¼­·µ»ØµÄÀà" );
-                    strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
+                strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//åˆå§‹åŒ–ç¼–è¾‘ç±»,è®¾ç½®å½“å‰ç±»ä¸ºç¼–è¾‘ç±»çš„çˆ¶ç±»ï¼Œç¼–è¾‘è¿”å›çš„ç±»");
+                strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
 
                 strCodeForCs.Append("\r\n" + $"ref{ThisEditClsName}.value.btn{TabName_In4Edit}_Edit_Click(strCommandName, strKeyId);");
                 strCodeForCs.Append("\r\n" + "break;");
                 if (IsHasDetailRegion)
                 {
-                    strCodeForCs.Append("\r\n" + "case \"Detail\":            //ÏêÏ¸ĞÅÏ¢");
-                    strCodeForCs.Append("\r\n" + $"ref{ThisDetailClsName}.value.btn{TabName_Out4DetailRegion}_Detail_Click(strCommandName, strKeyId);");                 
+                    strCodeForCs.Append("\r\n" + "case \"Detail\":            //è¯¦ç»†ä¿¡æ¯");
+                    strCodeForCs.Append("\r\n" + $"ref{ThisDetailClsName}.value.btn{TabName_Out4DetailRegion}_Detail_Click(strCommandName, strKeyId);");
                     strCodeForCs.Append("\r\n" + "break;");
                 }
-                strCodeForCs.Append("\r\n" + "case \"UpdateRecord\":            //ĞŞ¸Ä¼ÇÂ¼");
-                strCodeForCs.Append("\r\n" + "case \"Update\":            //ĞŞ¸Ä¼ÇÂ¼");
-                strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//³õÊ¼»¯±à¼­Àà,ÉèÖÃµ±Ç°ÀàÎª±à¼­ÀàµÄ¸¸Àà£¬±à¼­·µ»ØµÄÀà");
+                strCodeForCs.Append("\r\n" + "case \"UpdateRecord\":            //ä¿®æ”¹è®°å½•");
+                strCodeForCs.Append("\r\n" + "case \"Update\":            //ä¿®æ”¹è®°å½•");
+                strCodeForCs.Append("\r\n" + $"objPageEdit = new {ThisEditClsName}Ex(objPage);//åˆå§‹åŒ–ç¼–è¾‘ç±»,è®¾ç½®å½“å‰ç±»ä¸ºç¼–è¾‘ç±»çš„çˆ¶ç±»ï¼Œç¼–è¾‘è¿”å›çš„ç±»");
                 strCodeForCs.AppendFormat("\r\n" + "console.log(objPageEdit);", ThisEditClsName);
-                string strGetFirstCheckedStr = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, thisEditTabProp_TS, "ĞŞ¸Ä","", this, this.strBaseUrl);
+                string strGetFirstCheckedStr = clsPubFun4GC.Gen_GetFirstCheckedValue(this.objCodeElement_Imports, thisEditTabProp_TS, "ä¿®æ”¹", "", this, this.strBaseUrl);
                 strCodeForCs.Append("\r\n" + strGetFirstCheckedStr);
                 if (thisEditTabProp_TS.KeyFldCount > 1)
                 {
@@ -989,7 +989,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "break;");
                 if (objViewInfoENEx.objViewRegion_Feature.IsHaveUpdateRecord_Gv())
                 {
-                    strCodeForCs.Append("\r\n" + "case \"UpdateRecordInTab\":            //ĞŞ¸Ä¼ÇÂ¼InTab");
+                    strCodeForCs.Append("\r\n" + "case \"UpdateRecordInTab\":            //ä¿®æ”¹è®°å½•InTab");
                     if (thisEditTabProp_TS.KeyFldCount > 1)
                     {
                         strCodeForCs.Append("\r\n" + $"ref{ThisEditClsName}.value.btn{TabName_In4Edit}_Edit_Click(strCommandName, strKeyLst);");
@@ -1003,13 +1003,13 @@ namespace AutoGCLib
             }
             if (objViewInfoENEx.objViewRegion_Feature.IsHaveCopyRecord())
             {
-                strCodeForCs.Append("\r\n" + "case \"CopyRecord\":            //¸´ÖÆ¼ÇÂ¼");
-                strCodeForCs.Append("\r\n" + "case \"Clone\":            //¸´ÖÆ¼ÇÂ¼");
+                strCodeForCs.Append("\r\n" + "case \"CopyRecord\":            //å¤åˆ¶è®°å½•");
+                strCodeForCs.Append("\r\n" + "case \"Clone\":            //å¤åˆ¶è®°å½•");
 
 
                 strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒª¸´ÖÆµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦å¤åˆ¶çš„[${objPage.thisTabName}]è®°å½•!`);");
                 strCodeForCs.Append("\r\n" + "return;");
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnCopyRecord_Click();", arrButtonName.Contains("CopyRecord") ? "" : "//");
@@ -1017,23 +1017,23 @@ namespace AutoGCLib
             }
             if (objViewInfoENEx.objViewRegion_Feature.IsHaveExportToFile())
             {
-                strCodeForCs.Append("\r\n" + "case \"ExportExcel\":            //µ¼³öExcel");
+                strCodeForCs.Append("\r\n" + "case \"ExportExcel\":            //å¯¼å‡ºExcel");
                 var objViewRegion_ExportExcel = objViewInfoENEx.objViewRegion_ExportExcel;
                 var bolIsHasExcelExport = objViewRegion_ExportExcel != null && arrButtonName.Contains("ExportExcel");
                 strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnExportExcel_Click();", bolIsHasExcelExport ? "" : "//");
 
-                strCodeForCs.Append("\r\n" + "//alert(\"µ¼³öExcel¹¦ÄÜ»¹Ã»ÓĞ¿ªÍ¨!\");");
+                strCodeForCs.Append("\r\n" + "//alert(\"å¯¼å‡ºExcelåŠŸèƒ½è¿˜æ²¡æœ‰å¼€é€š!\");");
                 //strCodeForCs.Append("\r\n" + "return;");
                 strCodeForCs.Append("\r\n" + "break;");
             }
             if (PrjTabEx_View.SqlDsTypeId == enumSQLDSType.SqlTab_01)
             {
-                strCodeForCs.Append("\r\n" + "case \"DelRecord\":            //É¾³ı¼ÇÂ¼");
-                strCodeForCs.Append("\r\n" + "case \"Delete\":            //É¾³ı¼ÇÂ¼");
+                strCodeForCs.Append("\r\n" + "case \"DelRecord\":            //åˆ é™¤è®°å½•");
+                strCodeForCs.Append("\r\n" + "case \"Delete\":            //åˆ é™¤è®°å½•");
 
                 strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒªÉ¾³ıµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦åˆ é™¤çš„[${objPage.thisTabName}]è®°å½•!`);");
                 strCodeForCs.Append("\r\n" + "return;");
                 strCodeForCs.Append("\r\n" + "}");
 
@@ -1041,7 +1041,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "break;");
                 if (objViewInfoENEx.objViewRegion_Feature.IsHaveDetailRecord_Gv())
                 {
-                    strCodeForCs.Append("\r\n" + "case \"DelRecordInTab\":   //É¾³ı¼ÇÂ¼InTab ");
+                    strCodeForCs.Append("\r\n" + "case \"DelRecordInTab\":   //åˆ é™¤è®°å½•InTab ");
                     if (PrjTabEx_EditRegion != null && thisEditTabProp_TS.KeyFldCount > 1)
                     {
                         strCodeForCs.AppendFormat("\r\n" + "objKeyLst = {0}_SplitKeyLst(strKeyId);", TabName_In4Edit);
@@ -1069,24 +1069,24 @@ namespace AutoGCLib
                 }
                 if (objViewInfoENEx.objViewRegion_Feature.IsHaveDelRecordBySign())
                 {
-                    strCodeForCs.Append("\r\n" + "case \"DelRecordBySign\":            //°´±êÖ¾É¾³ı¼ÇÂ¼");
-                    strCodeForCs.Append("\r\n" + "case \"DeleteBySign\":            //°´±êÖ¾É¾³ı¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"DelRecordBySign\":            //æŒ‰æ ‡å¿—åˆ é™¤è®°å½•");
+                    strCodeForCs.Append("\r\n" + "case \"DeleteBySign\":            //æŒ‰æ ‡å¿—åˆ é™¤è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒª°´±êÖ¾É¾³ıµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦æŒ‰æ ‡å¿—åˆ é™¤çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnDelRecordBySign_Click();", arrButtonName.Contains("DelRecordBySign") ? "" : "//");
                     strCodeForCs.Append("\r\n" + "break;");
 
 
-                    strCodeForCs.Append("\r\n" + "case \"UnDelRecordBySign\":            //°´±êÖ¾»Ö¸´É¾³ı¼ÇÂ¼");
-                    strCodeForCs.Append("\r\n" + "case \"UnDeleteBySign\":            //°´±êÖ¾»Ö¸´É¾³ı¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"UnDelRecordBySign\":            //æŒ‰æ ‡å¿—æ¢å¤åˆ é™¤è®°å½•");
+                    strCodeForCs.Append("\r\n" + "case \"UnDeleteBySign\":            //æŒ‰æ ‡å¿—æ¢å¤åˆ é™¤è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒª»Ö¸´É¾³ıµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦æ¢å¤åˆ é™¤çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnUnDelRecordBySign_Click();",
@@ -1095,11 +1095,11 @@ namespace AutoGCLib
                 }
                 if (objViewInfoENEx.objViewRegion_Feature.IsHaveAdjustOrderNum())
                 {
-                    strCodeForCs.Append("\r\n" + "case \"GoTop\":            //ÖÃ¶¥¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"GoTop\":            //ç½®é¡¶è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒªÖÃ¶¥µÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦ç½®é¡¶çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnGoTop_Click();",
@@ -1107,11 +1107,11 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "break;");
 
 
-                    strCodeForCs.Append("\r\n" + "case \"GoBottum\":            //ÒÆµ×¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"GoBottum\":            //ç§»åº•è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒªÒÆµ×µÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦ç§»åº•çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnGoBottum_Click();",
@@ -1119,11 +1119,11 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "break;");
 
 
-                    strCodeForCs.Append("\r\n" + "case \"UpMove\":            //ÉÏÒÆ¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"UpMove\":            //ä¸Šç§»è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒªÉÏÒÆµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦ä¸Šç§»çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnUpMove_Click();",
@@ -1131,11 +1131,11 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "break;");
 
 
-                    strCodeForCs.Append("\r\n" + "case \"DownMove\":            //ÏÂÒÆ¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"DownMove\":            //ä¸‹ç§»è®°å½•");
 
                     strCodeForCs.AppendFormat("\r\n" + "if ({0}.length == 0)", strKeyLstName);
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "alert(`ÇëÑ¡ÔñĞèÒªÏÂÒÆµÄ[${objPage.thisTabName}]¼ÇÂ¼!`);");
+                    strCodeForCs.Append("\r\n" + "alert(`è¯·é€‰æ‹©éœ€è¦ä¸‹ç§»çš„[${objPage.thisTabName}]è®°å½•!`);");
                     strCodeForCs.Append("\r\n" + "return;");
                     strCodeForCs.Append("\r\n" + "}");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnDownMove_Click();",
@@ -1143,13 +1143,13 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + "break;");
 
 
-                    strCodeForCs.Append("\r\n" + "case \"ReOrder\":            //ÖØĞò¼ÇÂ¼");
+                    strCodeForCs.Append("\r\n" + "case \"ReOrder\":            //é‡åºè®°å½•");
                     strCodeForCs.AppendFormat("\r\n" + "{0}objPage.btnReOrder_Click();",
                         arrButtonName.Contains("ReOrder") ? "" : "//");
                     strCodeForCs.Append("\r\n" + "break;");
                 }
                 strCodeForCs.Append("\r\n" + "default:");
-                strCodeForCs.AppendFormat("\r\n" + "strMsg = `ÃüÁî:${{strCommandName}}ÔÚº¯Êı({0}.btnClick)ÖĞÃ»ÓĞ±»´¦Àí!`;", this.ClsName);
+                strCodeForCs.AppendFormat("\r\n" + "strMsg = `å‘½ä»¤:${{strCommandName}}åœ¨å‡½æ•°({0}.btnClick)ä¸­æ²¡æœ‰è¢«å¤„ç†!`;", this.ClsName);
                 strCodeForCs.Append("\r\n" + "console.error(strMsg)");
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "break;");
@@ -1167,12 +1167,12 @@ namespace AutoGCLib
                     if (string.IsNullOrEmpty(x.FuncName) == false)
                     {
                         strCodeForCs.Append("\r\n /**");
-                        strCodeForCs.AppendFormat("\r\n * ×Ô¶¨Òå¹¦ÄÜ:{0}", x.Text);
+                        strCodeForCs.AppendFormat("\r\n * è‡ªå®šä¹‰åŠŸèƒ½:{0}", x.Text);
                         strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                         strCodeForCs.Append("\r\n **/");
-                        strCodeForCs.AppendFormat("\r\n" + "public {0}()", x.FuncName.Replace("()",""));
+                        strCodeForCs.AppendFormat("\r\n" + "public {0}()", x.FuncName.Replace("()", ""));
                         strCodeForCs.Append("\r\n" + "{");
-                        strCodeForCs.Append("\r\n" + "//×Ô¶¨Òå¹¦ÄÜ;");
+                        strCodeForCs.Append("\r\n" + "//è‡ªå®šä¹‰åŠŸèƒ½;");
                         strCodeForCs.Append("\r\n" + "};");
                     }
                 }
@@ -1187,18 +1187,18 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
-            }            
+            }
             return strCodeForCs.ToString();
         }
 
         public string Gen_Vue_TS_btn_ClickBak(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
             return new WA_ViewScriptCSEx_TS4TypeScript().Gen_WApi_TS_btn_Click(objvFunction4GeneCodeEN);
-       
+
         }
-public string getBindGvFuncName()
+        public string getBindGvFuncName()
         {
             string strSuffix = "";
             string strFuncName_Temp = $"this.BindGv_{TabName_Out4ListRegion}";

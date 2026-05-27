@@ -35,11 +35,11 @@ namespace AutoGCLib
                 case WA_F.GetObjByKeyId:
                     if (objPrjTabENEx.arrKeyFldSet.Count > 1)
                     {
-                        return string.Format($"{ThisTabName4GC}_GetObjByKeyLstAsync");
+                        return string.Format($"{ThisTabName4GC}_GetObjByKeyAsync");
                     }
                     else
                     {
-                        return string.Format($"{ThisTabName4GC}_GetObjBy{thisTabProp_TS.ByInFuncName}Async");
+                        return string.Format($"{ThisTabName4GC}_GetObjByKeyAsync");
                     }
                 case WA_F.GetObjByKeyId_Cache:
                     return string.Format($"{ThisTabName4GC}_GetObjBy{thisTabProp_TS.ByInFuncName}Cache");

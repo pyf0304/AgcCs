@@ -377,6 +377,19 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
+    /// 关键字段信息（用于多关键字段循环）
+    /// </summary>
+    public class KeyFieldInfo
+    {
+        public string FieldName { get; set; }           // 字段名称（如：mId）
+        public string FieldNameCamel { get; set; }      // 驼峰命名（如：mId）
+        public string PropertyName { get; set; }        // 属性名称（如：MId）
+        public bool IsNumeric { get; set; }             // 是否为数字类型
+        public string TypeScriptType { get; set; }      // TypeScript 类型
+        public string InitValue { get; set; }           // 🔥 初始值（'0' 或 ''）
+    }
+
+    /// <summary>
     /// Edit 编辑区模板数据模型
     /// </summary>
     public class EditAiTemplateModel
@@ -393,10 +406,13 @@ namespace AutoGCLib.Templates
         public string KeyFieldPrefixOnly { get; set; }
         public string KeyFieldInitValue { get; set; }
         public bool IsKeyFieldNumeric { get; set; }
-        public bool NeedReturnKeyMethod { get; set; }           // 🔥 是否需要 WithReturnKey/WithMaxId 方法（'02','03','06'）
-        public bool IsStringAutoIncrement { get; set; }         // 🔥 是否为字符串自增（字符串+'02','03','06'）
-        public string ReturnKeyMethodReturnType { get; set; }   // 🔥 返回类型（number 或 string）
-        public bool NeedRefreshCache { get; set; }              // 🔥 是否需要刷新缓存（CacheModeId='03'或'04'）
+        public bool IsMultiKey { get; set; }                     // 🔥 是否为多关键字段（联合主键）
+        public List<KeyFieldInfo> KeyFields { get; set; }        // 🔥 关键字段列表
+        public bool NeedCheckKeyExist { get; set; }              // 🔥 是否需要检查关键字存在性
+        public bool NeedReturnKeyMethod { get; set; }
+        public bool IsStringAutoIncrement { get; set; }
+        public string ReturnKeyMethodReturnType { get; set; }
+        public bool NeedRefreshCache { get; set; }
         public string PrimaryTypeId { get; set; }
         public string ViewId { get; set; }
         public string ViewName { get; set; }
@@ -650,19 +666,24 @@ namespace AutoGCLib.Templates
         public string ModuleName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
-        public bool HasCacheMode { get; set; }              // 🔥 新增：是否使用缓存模式
+        public bool HasCacheMode { get; set; }
+        public bool IsKeyFieldNumeric { get; set; }
+        public string KeyFieldInitValue { get; set; }
+        
+        // 🔥 NEW: 添加绑定函数名称
+        public string BindGvFuncName { get; set; }
         
         public List<ExAi4SortColumn> SortColumns { get; set; } = new List<ExAi4SortColumn>();
         public List<ExAi4CommandMapping> CommandMappings { get; set; } = new List<ExAi4CommandMapping>();
     }
 
     /// <summary>
-    /// ExAi4 排序字段定义
+    /// 排序列配置
     /// </summary>
     public class ExAi4SortColumn
     {
-        public string ColumnKey { get; set; }           // dataBaseTypeName|Ex
-        public string SortExpression { get; set; }      // dataBaseTypeName {0}|(DataBaseType)...
+        public string ColumnKey { get; set; }           // 列键名（如 "functionTemplateName|Ex"）
+        public string SortExpression { get; set; }      // 排序表达式（包含关联信息）
     }
 
     /// <summary>
@@ -759,5 +780,36 @@ namespace AutoGCLib.Templates
         /// 功能命令按钮列表
         /// </summary>
         public List<Ai4HtmlCommand> FeatureCommands { get; set; } = new List<Ai4HtmlCommand>();
+    }
+
+    /// <summary>
+    /// DetailEx 扩展类模板数据模型
+    /// </summary>
+    public class DetailExTemplateModel
+    {
+        // 基础字段
+        public string TableName { get; set; }
+        public string TableId { get; set; }
+        public string TableCnName { get; set; }
+        public string ModuleName { get; set; }
+        public string ViewId { get; set; }
+        public string ViewName { get; set; }
+        public bool IsMultiKey { get; set; }  // 🔥 是否为多关键字表
+        
+        // 详细注释字段（Verbose 模式）
+        public string GenerateDate { get; set; }
+        public string GenerateDateShort { get; set; }
+        public string ServerName { get; set; }
+        public string DatabaseServer { get; set; }
+        public string DatabaseName { get; set; }
+        public string PrjDataBaseId { get; set; }
+        public string PrjId { get; set; }
+        public string PrjName { get; set; }
+        public string CMProjectId { get; set; }
+        public string CMProjectName { get; set; }
+        public string FrameworkLayer { get; set; }
+        public string Generator { get; set; }
+        
+        public CommentVerbosity CommentMode { get; set; } = CommentVerbosity.Compact;
     }
 }

@@ -1152,7 +1152,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "const intPageIndex = objPagerPara.pageIndex > 0 ? objPagerPara.pageIndex : 1;");
             strCodeForCs.Append("\r\n" + "const intStartIndex = (intPageIndex - 1) * intPageSize;");
             strCodeForCs.Append("\r\n" + "const intEndIndex = intStartIndex + intPageSize;");
-            strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel.slice(intStartIndex, intEndIndex);");
+            strCodeForCs.Append("\r\n" + $"return arr{ThisTabName4GC}Sel.slice(intStartIndex, intEndIndex);");
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
@@ -2422,6 +2422,7 @@ namespace AutoGCLib
             ImportClass objImportClass = AddImportClass(objPrjTabENEx.TabId, ThisTabName4GC, string.Format("cls{0}EN", ThisTabName4GC), enumImportObjType.ENExClass, this.strBaseUrl);
 
             CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+            
             clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
             strCodeForCs.Append("\r\n" + "{");

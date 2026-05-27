@@ -1,4 +1,4 @@
-using AGC.BusinessLogic;
+ï»¿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AGC.PureClass;
@@ -19,20 +19,20 @@ using System.Text;
 namespace AutoGCLib
 {
     /// <summary>
-    /// ¸ÃÀà×¨ÃÅÓÃÉú³ÉÊı¾İ±íµÄ±í´úÀí²ã,¸Ã´úÀí²ãÊÇÂß¼­²ãµÄÒ»²¿·Ö,ÌåÏµ½á¹¹´ÓÏÂµ½ÏÂ,
-    /// ¹²·ÖÒÔÏÂ¼¸²ã:
-    ///		1¡¢½çÃæ²ã
-    ///			Í¨ÓÃ½çÃæ²ã,×¨ÃÅÌá¹©Ò»Ğ©½çÃæ¿Ø¼şµÄ¹«¹²²Ù×÷º¯Êı
-    ///		2¡¢Âß¼­²ã
-    ///			2.1 ÒµÎñÂß¼­²ã
-    ///			2.2 ±í´úÀí²ã¡£°üÀ¨:
-    ///					1)±í¼ÇÂ¼µÄÌí¼Ó¡¢
-    ///					2)±í¼ÇÂ¼µÄÉ¾³ı
-    ///					3)±í¼ÇÂ¼µÄĞŞ¸Ä
-    ///					4)±í¼ÇÂ¼µÄ²éÑ¯
-    ///					5)»ñÈ¡Ä³Ğ©±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔ
-    ///					6)ÉèÖÃ±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔµÈ¡£
-    ///		3¡¢Êı¾İ²ã,¼´Í¨ÓÃÊı¾İ²ã,×¨ÃÅÓÃÓÚ²Ù×÷Êı¾İ¿âµÄÒ»Ğ©²Ù×÷,ÒÔ¼°²Ù×÷±íµÄÒ»Ğ©Í¨ÓÃ²Ù×÷
+    /// è¯¥ç±»ä¸“é—¨ç”¨ç”Ÿæˆæ•°æ®è¡¨çš„è¡¨ä»£ç†å±‚,è¯¥ä»£ç†å±‚æ˜¯é€»è¾‘å±‚çš„ä¸€éƒ¨åˆ†,ä½“ç³»ç»“æ„ä»ä¸‹åˆ°ä¸‹,
+    /// å…±åˆ†ä»¥ä¸‹å‡ å±‚:
+    ///		1ã€ç•Œé¢å±‚
+    ///			é€šç”¨ç•Œé¢å±‚,ä¸“é—¨æä¾›ä¸€äº›ç•Œé¢æ§ä»¶çš„å…¬å…±æ“ä½œå‡½æ•°
+    ///		2ã€é€»è¾‘å±‚
+    ///			2.1 ä¸šåŠ¡é€»è¾‘å±‚
+    ///			2.2 è¡¨ä»£ç†å±‚ã€‚åŒ…æ‹¬:
+    ///					1)è¡¨è®°å½•çš„æ·»åŠ ã€
+    ///					2)è¡¨è®°å½•çš„åˆ é™¤
+    ///					3)è¡¨è®°å½•çš„ä¿®æ”¹
+    ///					4)è¡¨è®°å½•çš„æŸ¥è¯¢
+    ///					5)è·å–æŸäº›è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§
+    ///					6)è®¾ç½®è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§ç­‰ã€‚
+    ///		3ã€æ•°æ®å±‚,å³é€šç”¨æ•°æ®å±‚,ä¸“é—¨ç”¨äºæ“ä½œæ•°æ®åº“çš„ä¸€äº›æ“ä½œ,ä»¥åŠæ“ä½œè¡¨çš„ä¸€äº›é€šç”¨æ“ä½œ
     /// </summary>
     partial class Vue_ViewScript_EditAi4Html : clsGeneCodeBase4View
     {
@@ -40,11 +40,11 @@ namespace AutoGCLib
         private List<string> arrFuncName_Setup = new List<string>();
         private string strJSPath = "";
         //clsBiDimDistribute objBiDimDistribue4Qry = null;
-        #region ¹¹Ôìº¯Êı
+        #region æ„é€ å‡½æ•°
         public Vue_ViewScript_EditAi4Html()
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
 
             this.arrImportClass = new List<ImportClass>();
@@ -53,7 +53,7 @@ namespace AutoGCLib
        : base(strViewId, "", "")
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.strDataBaseType = clsPubConst.con_MsSql;
 
@@ -63,7 +63,7 @@ namespace AutoGCLib
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.strDataBaseType = clsPubConst.con_MsSql;
 
@@ -77,11 +77,11 @@ namespace AutoGCLib
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  * Ìá½»±à¼­");
+            strCodeForCs.Append("\r\n  * æäº¤ç¼–è¾‘");
             strCodeForCs.AppendFormat("\r\n *({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
             strCodeForCs.AppendFormat("\r\n" + "Submit_{0}(strOp:string) {{  ", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "alert(`Ìá½»${ strOp }`);");
+            strCodeForCs.Append("\r\n" + "alert(`æäº¤${ strOp }`);");
             strCodeForCs.AppendFormat("\r\n" + "const objPage = new {0}Ex('{0}Ex', new {1}CRUDEx());", ThisClsName, objViewInfoENEx.TabName_In);
             strCodeForCs.AppendFormat("\r\n" + "           objPage.btnSubmit_Click();",
                 objViewInfoENEx.TabName, objViewInfoENEx.TabName.ToLower());
@@ -94,7 +94,7 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  *°´Å¥µ¥»÷,ÓÃÓÚµ÷ÓÃJsº¯ÊıÖĞbtnEdit_Click");
+            strCodeForCs.Append("\r\n  *æŒ‰é’®å•å‡»,ç”¨äºè°ƒç”¨Jså‡½æ•°ä¸­btnEdit_Click");
             strCodeForCs.AppendFormat("\r\n *({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
             strFuncName = $"btn{objViewInfoENEx.TabName_In}_Edit_Click";
@@ -102,13 +102,35 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n" + "const objPageEdit = this.objPage_Edit as {0}Ex | undefined;",                 ThisClsName);
             strCodeForCs.Append("\r\n" + "if (objPageEdit == null)");
             strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = '±à¼­Ò³Ãæ³õÊ¼»¯²»³É¹¦,ÇëÁªÏµ¹ÜÀíÔ±!(in btn{0}_Edit_Click)';", objViewInfoENEx.TabName_In);
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = 'ç¼–è¾‘é¡µé¢åˆå§‹åŒ–ä¸æˆåŠŸ,è¯·è”ç³»ç®¡ç†å‘˜!(in btn{0}_Edit_Click)';", objViewInfoENEx.TabName_In);
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, strKeyId);",               ThisClsName);
-
+            //strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, strKeyId);",               ThisClsName);
+            // ğŸ”¥ æ ¹æ®å…³é”®å­—ç±»å‹ç”Ÿæˆä¸åŒçš„ä»£ç 
+            if (objKeyField.IsNumberType())
+            {
+                // æ•°å€¼å‹å…³é”®å­—
+                strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty(strKeyId) == false) {");
+                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: Number(strKeyId) }});",
+                    objKeyField.FldName_FstLcase0);
+                strCodeForCs.Append("\r\n" + "} else {");
+                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: 0 }});",
+                    objKeyField.FldName_FstLcase0);
+                strCodeForCs.Append("\r\n" + "}");
+            }
+            else
+            {
+                // å­—ç¬¦ä¸²å‹å…³é”®å­—
+                strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty(strKeyId) == false) {");
+                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: strKeyId }});",
+                    objKeyField.FldName_FstLcase0);
+                strCodeForCs.Append("\r\n" + "} else {");
+                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: '' }});",
+                    objKeyField.FldName_FstLcase0);
+                strCodeForCs.Append("\r\n" + "}");
+            }
 
             strCodeForCs.Append("\r\n" + "},");
             objCodeElement_Methods.Children.Add(new CodeElement
@@ -127,7 +149,7 @@ namespace AutoGCLib
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  Ò³Ãæµ¼Èë-ÔÚµ¼ÈëÒ³ÃæºóÔËĞĞµÄº¯Êı");
+            strCodeForCs.Append("\r\n  é¡µé¢å¯¼å…¥-åœ¨å¯¼å…¥é¡µé¢åè¿è¡Œçš„å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
 
@@ -153,12 +175,12 @@ namespace AutoGCLib
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  * ÏÔÊ¾¶Ô»°¿ò");
+            strCodeForCs.Append("\r\n  * æ˜¾ç¤ºå¯¹è¯æ¡†");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
             strCodeForCs.AppendFormat("\r\n" + "ShowDialog(strDialogName:string) {{", objViewInfoENEx.TabName_In);
             strCodeForCs.AppendFormat("\r\n" + "            objPage_Edit.value = new {0}Ex();", ThisClsName);
-            strCodeForCs.Append("\r\n" + "alert(\"ÏÔÊ¾¶Ô»°¿ò\" + strDialogName);");
+            strCodeForCs.Append("\r\n" + "alert(\"æ˜¾ç¤ºå¯¹è¯æ¡†\" + strDialogName);");
             strCodeForCs.AppendFormat("\r\n" + " //$(strDialogName).modal('show');", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + "},");
             return strCodeForCs.ToString();
@@ -168,11 +190,11 @@ namespace AutoGCLib
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n  * Òş²Ø¶Ô»°¿ò");
+            strCodeForCs.Append("\r\n  * éšè—å¯¹è¯æ¡†");
             strCodeForCs.AppendFormat("\r\n *({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
             strCodeForCs.AppendFormat("\r\n" + "HideDialog(strDialogName:string) {{", objViewInfoENEx.TabName_In);
-            strCodeForCs.Append("\r\n" + "alert(\"Òş²Ø¶Ô»°¿ò\" + strDialogName);");
+            strCodeForCs.Append("\r\n" + "alert(\"éšè—å¯¹è¯æ¡†\" + strDialogName);");
             strCodeForCs.AppendFormat("\r\n" + "      //$(strDialogName).modal('hide');", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + "},");
             return strCodeForCs.ToString();
@@ -198,14 +220,14 @@ namespace AutoGCLib
                         objSelfDefDataTypeEN_Para = clsSelfDefDataTypeBLEx.getSelfDefDataTypeByDataTypeName(objFuncPara4CodeEN.ParameterType);
                         if (objSelfDefDataTypeEN_Para == null)
                         {
-                            strMsg = string.Format("º¯Êı²ÎÊıµÄÊı¾İÀàĞÍ£º[{0}({1})]Ã»ÓĞ´¦Àí,²»ÄÜÉú³ÉÏàÓ¦´úÂë¡£", objDataTypeAbbrEN.DataTypeId,
+                            strMsg = string.Format("å‡½æ•°å‚æ•°çš„æ•°æ®ç±»å‹ï¼š[{0}({1})]æ²¡æœ‰å¤„ç†,ä¸èƒ½ç”Ÿæˆç›¸åº”ä»£ç ã€‚", objDataTypeAbbrEN.DataTypeId,
                                 objFuncPara4CodeEN.ParameterType);
                             throw new Exception(strMsg);
                         }
                     }
                     if (objFuncPara4CodeEN.IsByRef == true)
                     {
-                        strMsg = string.Format("Javaº¯Êı²ÎÊıµÄ²»½ÓÊÜÒıÓÃĞÍ²ÎÊı¡£²ÎÊıÃû£º[{0}],Êı¾İÀàĞÍ£º[{1}]Ã»ÓĞ´¦Àí,²»ÄÜÉú³ÉÏàÓ¦´úÂë¡£",
+                        strMsg = string.Format("Javaå‡½æ•°å‚æ•°çš„ä¸æ¥å—å¼•ç”¨å‹å‚æ•°ã€‚å‚æ•°åï¼š[{0}],æ•°æ®ç±»å‹ï¼š[{1}]æ²¡æœ‰å¤„ç†,ä¸èƒ½ç”Ÿæˆç›¸åº”ä»£ç ã€‚",
                            objFuncPara4CodeEN.ParaName,
                              objFuncPara4CodeEN.ParameterType);
                         throw new Exception(strMsg);
@@ -241,7 +263,7 @@ namespace AutoGCLib
                                         objvFunction4GeneCodeEN.OrderNum);
                                     break;
                                 default:
-                                    strMsg = string.Format("Êı¾İÀàĞÍ£º[{0}({1})](TypeScript:{2})ÔÚº¯ÊıÖĞÃ»ÓĞ´¦Àí!({3})",
+                                    strMsg = string.Format("æ•°æ®ç±»å‹ï¼š[{0}({1})](TypeScript:{2})åœ¨å‡½æ•°ä¸­æ²¡æœ‰å¤„ç†!({3})",
                                         objDataTypeAbbrEN.DataTypeName, objDataTypeAbbrEN.DataTypeId,
                                         objDataTypeAbbrEN.TypeScriptType,
                                         clsStackTrace.GetCurrClassFunction());
@@ -268,7 +290,7 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// ¹¦ÄÜ:µ¥±íµÄ²éÑ¯¡¢ĞŞ¸Ä¡¢²åÈë¡¢É¾³ı
+        /// åŠŸèƒ½:å•è¡¨çš„æŸ¥è¯¢ã€ä¿®æ”¹ã€æ’å…¥ã€åˆ é™¤
         /// </summary>
         /// <returns></returns>
         public override string GeneCode(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
@@ -281,19 +303,19 @@ namespace AutoGCLib
             string strIsShare = "";
             if (objViewInfoENEx.IsShare) strIsShare = "Share";
             string strFuncName = "";
-            //ÈÃÓÃ»§ÉèÖÃÊôĞÔ;
+            //è®©ç”¨æˆ·è®¾ç½®å±æ€§;
             if (objViewInfoENEx.arrEditRegionFldSet4InUse == null || objViewInfoENEx.arrEditRegionFldSet4InUse.Count == 0)
             {
                 StringBuilder sbMessage = new StringBuilder();
                 string strViewName = objViewInfoENEx.ViewName;
-                sbMessage.AppendFormat("µ±Ç°ËùÑ¡½çÃæÃû³Æ:{0},ÔÚ¸Ã½çÃæÖĞÃ»ÓĞ±à¼­ÇøÓò,»òÕß±à¼­ÇøÓòÃ»ÓĞ×Ö¶Î¡£Çë¼ì²é!", strViewName);
-                sbMessage.Append("\r\nµ±Ç°½çÃæµÄ¹¦ÄÜ:²éÑ¯(Q)¡¢ĞŞ¸Ä(U)¡¢É¾³ı(D)¡¢Ìí¼Ó(I)¡£");
+                sbMessage.AppendFormat("å½“å‰æ‰€é€‰ç•Œé¢åç§°:{0},åœ¨è¯¥ç•Œé¢ä¸­æ²¡æœ‰ç¼–è¾‘åŒºåŸŸ,æˆ–è€…ç¼–è¾‘åŒºåŸŸæ²¡æœ‰å­—æ®µã€‚è¯·æ£€æŸ¥!", strViewName);
+                sbMessage.Append("\r\nå½“å‰ç•Œé¢çš„åŠŸèƒ½:æŸ¥è¯¢(Q)ã€ä¿®æ”¹(U)ã€åˆ é™¤(D)ã€æ·»åŠ (I)ã€‚");
                 throw new clsDbObjException(sbMessage.ToString());
             }
             this.objCodeElement_Root = new CodeElement { Name = "Root", ElementType = CodeElementType.Root };
             this.objCodeElement_Imports = new CodeElement { Name = "imports", ElementType = CodeElementType.Import, Modifiers = "export abstract" };
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
             clsPubFun4BLEx.CheckDgStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.DgStyleId);
             clsPubFun4BLEx.CheckTitleStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.TitleStyleId);
 
@@ -317,14 +339,14 @@ namespace AutoGCLib
             {
                 if (string.IsNullOrEmpty(this.TabId_In4Edit) == false) this.GetViewPubVarLst(this.TabId_In4Edit);
 
-                //0003:QUDIÄ£Ê½
+                //0003:QUDIæ¨¡å¼
                 strCodeForCs.Append("\r\n" + Gen_Edit_Template_DefDiv4EditRegion(objCodeElement_Root));
                 strCodeForCs.Append("\r\n" + Gen_Edit_Script_DefDiv4EditRegion(objCodeElement_Root));
                 strCodeForCs.Append("\r\n" + Gen_Edit_Style_DefDiv4EditRegion(objCodeElement_Root));
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -357,7 +379,7 @@ namespace AutoGCLib
 
                 }
                 arrTemp.RemoveRange(0, arrTemp.Count);
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objEditRegionFld in objViewInfoENEx.arrEditRegionFldSet4InUse)
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
@@ -386,7 +408,7 @@ namespace AutoGCLib
 
                     string strFuncPara = objFuncParaLst.GetCondFldLst4Para();
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
                     if (objTabFeature4Ddl.IsHasErr)
                     {
                         throw new Exception(objTabFeature4Ddl.ErrMsg_Ddl);
@@ -394,11 +416,11 @@ namespace AutoGCLib
 
 
                     strCodeForCs.Append("\r\n/**");
-                    strCodeForCs.Append("\r\n * »ñÈ¡°ó¶¨ÏÂÀ­¿òµÄÊı¾İ");
+                    strCodeForCs.Append("\r\n * è·å–ç»‘å®šä¸‹æ‹‰æ¡†çš„æ•°æ®");
                     strCodeForCs.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
-                    strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
-                    //Éú³ÉÓëÌõ¼ş²ÎÊıµÄº¯ÊıËµÃ÷
+                    strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
+                    //ç”Ÿæˆä¸æ¡ä»¶å‚æ•°çš„å‡½æ•°è¯´æ˜
                     strCodeForCs.Append("\r\n" + objTabFeature4Ddl.FuncRemark);
                     strCodeForCs.Append("\r\n*/");
 
@@ -452,12 +474,12 @@ namespace AutoGCLib
                     string strToolTipText = $"{objTabFeature4Ddl.ToolTipText ?? ""}...".Replace("......", "...");
                     if (string.IsNullOrEmpty(objTabFeature4Ddl.ToolTipText) == true)
                     {
-                        strToolTipText = $"Ñ¡{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
+                        strToolTipText = $"é€‰{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
                     }
 
                     strCodeForCs.Append("\r\n" + $"obj0.{clsString.FstLcaseS(objTabFeature4Ddl.TextFieldName)} = '{strToolTipText}...';");
                     strCodeForCs.Append("\r\n" + $"arr{objTabFeature4Ddl.TabName4GC}.value.push(obj0);");
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     //string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     if (objPrjTabENEx_Ddl.IsUseCache_TS() == true)
                     {
@@ -484,7 +506,7 @@ namespace AutoGCLib
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³É»ñÈ¡ÏÂÀ­¿òÊı¾İ:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆè·å–ä¸‹æ‹‰æ¡†æ•°æ®:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -625,7 +647,7 @@ namespace AutoGCLib
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³É»ñÈ¡ÏÂÀ­¿òÊı¾İ:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆè·å–ä¸‹æ‹‰æ¡†æ•°æ®:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -669,7 +691,7 @@ namespace AutoGCLib
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³É»ñÈ¡ÏÂÀ­¿òÊı¾İ:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆè·å–ä¸‹æ‹‰æ¡†æ•°æ®:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -682,10 +704,10 @@ namespace AutoGCLib
         {
             string strFuncName = "";
             string lngRegionId = "";
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
 
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
-            ///ÅĞ¶ÏDataGridÊÇ·ñĞèÒªÅÅĞò
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
+            ///åˆ¤æ–­DataGridæ˜¯å¦éœ€è¦æ’åº
             foreach (clsDGRegionFldsENEx objDGRegionFldsEx in objViewInfoENEx.arrListRegionFldSet)
             {
                 if (objDGRegionFldsEx.IsNeedSort)
@@ -704,7 +726,7 @@ namespace AutoGCLib
                 IEnumerable<clsFeatureRegionFldsENEx> arrFeatureRegionFldsObjLst = objViewInfoENEx.arrFeatureRegionFlds;
                 if (objViewInfoENEx.arrFeatureRegionFlds == null)
                 {
-                    string strMsg = string.Format("½çÃæ¹¦ÄÜÇøÎª¿Õ,ÇëÌí¼Ó½çÃæ¹¦ÄÜ!½çÃæ:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("ç•Œé¢åŠŸèƒ½åŒºä¸ºç©º,è¯·æ·»åŠ ç•Œé¢åŠŸèƒ½!ç•Œé¢:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
 
                 }
@@ -712,7 +734,7 @@ namespace AutoGCLib
                     .Where(x => x.RegionTypeId == enumRegionType.FeatureRegion_0008);
                 if (arrViewRegion.Count() == 0)
                 {
-                    string strMsg = string.Format("½çÃæ¹¦ÄÜÇøÎª¿Õ,ÇëÌí¼Ó½çÃæ¹¦ÄÜ!½çÃæ:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("ç•Œé¢åŠŸèƒ½åŒºä¸ºç©º,è¯·æ·»åŠ ç•Œé¢åŠŸèƒ½!ç•Œé¢:{0}. (In {1})", objViewInfoENEx.ViewName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
 
                 }
@@ -729,7 +751,7 @@ namespace AutoGCLib
                 IEnumerable<ASPControlGroupEx> arrControlGroupLst_New = clsASPControlGroupBLEx.MergeControlGroup(arrControlGroupLst);
 
 
-                //Ìí¼Ó²ãdiv
+                //æ·»åŠ å±‚div
                 ASPUlEx objASPUlENEx = clsASPUlBLEx.GetEmptyUl();
                 objASPUlENEx.Class = "nav";
                 objASPDivENEx_Function.arrSubAspControlLst2.Add(objASPUlENEx);
@@ -737,7 +759,7 @@ namespace AutoGCLib
                 ASPLiEx objASPLiENEx = clsASPLiBLEx.GetEmptyLi();
                 objASPLiENEx.Class = "nav-item";
                 objASPUlENEx.arrSubAspControlLst2.Add(objASPLiENEx);
-                //ÁĞ±í±êÌâ
+                //åˆ—è¡¨æ ‡é¢˜
                 ASPLabelEx objASPNETLabelENEx = clsASPLabelBLEx.GetDataListTitle(objViewInfoENEx, true);
                 objASPLiENEx.arrSubAspControlLst2.Add(objASPNETLabelENEx);
 
@@ -769,12 +791,12 @@ namespace AutoGCLib
                 }
 
                 objASPDivENEx_Function.GeneCode((enumApplicationType)objViewInfoENEx.ApplicationTypeId, strCodeForCs);
-                //Éú³ÉGridViewµÄ´úÂë;
+                //ç”ŸæˆGridViewçš„ä»£ç ;
 
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -789,9 +811,9 @@ namespace AutoGCLib
         private string gfunRadioClick()
         {
             clsTitleStyleEN objTitleStyle = clsTitleStyleBL.GetObjByTitleStyleIdCache(objViewInfoENEx.objViewStyleEN.TitleStyleId);
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
-            ///Éú³ÉLabelµÄ´úÂë;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
+            ///ç”ŸæˆLabelçš„ä»£ç ;
             strCodeForCs.Append("\r\n" + "<script language = \"javascript\">");
             strCodeForCs.Append("\r\n" + "<!--");
             strCodeForCs.Append("\r\n" + "function radioClick()");
@@ -822,18 +844,18 @@ namespace AutoGCLib
             if (string.IsNullOrEmpty(objViewInfoENEx.objViewStyleEN.TitleStyleId) == true)
             {
                 StringBuilder sbMsg = new StringBuilder();
-                sbMsg.AppendFormat("ÔÚ½çÃæ:{0}ÖĞ,Ã»ÓĞÉèÖÃ±êÌâÀàĞÍ,Çë¼ì²é!", objViewInfoENEx.ViewName);
+                sbMsg.AppendFormat("åœ¨ç•Œé¢:{0}ä¸­,æ²¡æœ‰è®¾ç½®æ ‡é¢˜ç±»å‹,è¯·æ£€æŸ¥!", objViewInfoENEx.ViewName);
                 throw new Exception(sbMsg.ToString());
             }
             clsTitleStyleEN objTitleStyle = clsTitleStyleBL.GetObjByTitleStyleIdCache(objViewInfoENEx.objViewStyleEN.TitleStyleId);
             if (objTitleStyle == null)
             {
-                string strMsg = string.Format("(errid:BlEx000044)±êÌâÄ£Ê½Id:[{0}]Ã»ÓĞÏàÓ¦µÄ¶ÔÏó,Çë¼ì²é!(AutoGC6Cs_VWeb_Net2005:GenViewTitle)", objViewInfoENEx.objViewStyleEN.TitleStyleId);
+                string strMsg = string.Format("(errid:BlEx000044)æ ‡é¢˜æ¨¡å¼Id:[{0}]æ²¡æœ‰ç›¸åº”çš„å¯¹è±¡,è¯·æ£€æŸ¥!(AutoGC6Cs_VWeb_Net2005:GenViewTitle)", objViewInfoENEx.objViewStyleEN.TitleStyleId);
                 throw new Exception(strMsg);
             }
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
-            ///Éú³ÉLabelµÄ´úÂë;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
+            ///ç”ŸæˆLabelçš„ä»£ç ;
             switch (objTitleStyle.TitleTypeId)
             {
                 case "01":
@@ -843,7 +865,7 @@ namespace AutoGCLib
                     strCodeForCs.AppendFormat("\r\n" + "<tr>");
                     strCodeForCs.AppendFormat("\r\n" + "<td bgColor = \"{0}\">",
                       objTitleStyle.BackColor);
-                    strCodeForCs.AppendFormat("\r\n" + "<asp:Label id = \"lblViewTile\" runat = \"server\" Font-Size = \"Small\" Font-Names = \"ËÎÌå\" ForeColor = \"{1}\" Font-Bold = \"True\">{0}</asp:Label>",
+                    strCodeForCs.AppendFormat("\r\n" + "<asp:Label id = \"lblViewTile\" runat = \"server\" Font-Size = \"Small\" Font-Names = \"å®‹ä½“\" ForeColor = \"{1}\" Font-Bold = \"True\">{0}</asp:Label>",
                       strTitle, objTitleStyle.ForeColor);
                     strCodeForCs.AppendFormat("\r\n" + "</td>");
                     strCodeForCs.AppendFormat("\r\n" + "</tr>");
@@ -873,43 +895,43 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// Éú³ÉCheckBox¿Ø¼ş
+        /// ç”ŸæˆCheckBoxæ§ä»¶
         /// </summary>
         /// <param name = "objCheckStyle"></param>
         /// <returns></returns>
         public string GenCheckBoxNoPosition(clsCheckStyleEN objCheckStyle, string strCheckId, string strCheckText)
         {
             string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
             try
             {
                 objCheckStyle.StyleZindex = intZIndex + 1;
                 objCheckStyle.StyleLeft = (int)intCurrLeft;
                 objCheckStyle.StyleTop = (int)intCurrTop;
 
-                ///Éú³ÉCheckBoxµÄ´úÂë;
+                ///ç”ŸæˆCheckBoxçš„ä»£ç ;
                 ///
-                //Éú³É¿Ø¼şµÄ<¿ªÊ¼±êÖ¾>ºÍ<ID>
+                //ç”Ÿæˆæ§ä»¶çš„<å¼€å§‹æ ‡å¿—>å’Œ<ID>
                 strCodeForCs.Append("\r\n" + "<td>");
                 strCodeForCs.AppendFormat("\r\n" + "<asp:CheckBox id = \"{0}\" ",
                   strCheckId);
-                //Éú³É<¿Ø¼şÑùÊ½Style>
-                //Éú³É<¸ß¶È>ºÍ<¿í¶È>
+                //ç”Ÿæˆ<æ§ä»¶æ ·å¼Style>
+                //ç”Ÿæˆ<é«˜åº¦>å’Œ<å®½åº¦>
                 strCodeForCs.AppendFormat("\r\n" + "style = \"z-index: {0}; Width:{1}px; Height:{2}px;\" ",
                   objCheckStyle.StyleZindex,
                   objCheckStyle.Width, objCheckStyle.Height);
-                //Éú³ÉÔËĞĞÄ£Ê½ÊÇ·ñÔÚ·şÎñÆ÷ÔËĞĞ
+                //ç”Ÿæˆè¿è¡Œæ¨¡å¼æ˜¯å¦åœ¨æœåŠ¡å™¨è¿è¡Œ
                 strCodeForCs.AppendFormat("\r\n" + "runat = \"{0}\" ",
                   objCheckStyle.Runat);
 
-                //Éú³É<×ÖºÅ>ºÍ<×ÖÌå>
+                //ç”Ÿæˆ<å­—å·>å’Œ<å­—ä½“>
                 //strCodeForCs.AppendFormat("\r\n" + "Font-Size = \"{0}\" Font-Names = \"{1}\" ", 
                 //  objCheckStyle.FontSize, objCheckStyle.FontName);
-                //Éú³É<ÏÔÊ¾ÎÄ±¾> 
+                //ç”Ÿæˆ<æ˜¾ç¤ºæ–‡æœ¬> 
                 strCodeForCs.AppendFormat("\r\n" + "Text = \"{0}\" ", strCheckText);
 
-                //Éú³É<½áÊø±êÖ¾>
+                //ç”Ÿæˆ<ç»“æŸæ ‡å¿—>
                 strCodeForCs.Append("\r\n" + "CssClass = \"Check_Defa\"></asp:CheckBox>");
 
                 strCodeForCs.Append("\r\n" + "</td>");
@@ -919,7 +941,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -927,7 +949,7 @@ namespace AutoGCLib
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// Éú³É{×éºÏ¿Ø¼ş},¼´×ó±ßµÄ±êÇ©,ºÍÓÒ±ßµÄÊäÈëÌõ¼şµÄ¿Ø¼ş
+        /// ç”Ÿæˆ{ç»„åˆæ§ä»¶},å³å·¦è¾¹çš„æ ‡ç­¾,å’Œå³è¾¹çš„è¾“å…¥æ¡ä»¶çš„æ§ä»¶
         /// </summary>
         /// <param name = "objLabelStyle"></param>
         /// <param name = "strLabelId"></param>
@@ -939,12 +961,12 @@ namespace AutoGCLib
         public string GenCombineCtlNoPosition(clsLabelStyleEN objLabelStyle, string strLabelId, string strLabelText,
           clsGenCtlStyleEN objGenCtlStyle, string strCtlTypeName, string strCtlId)
         {
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
             objLabelStyle.StyleZindex = intZIndex + 1;
             objLabelStyle.StyleLeft = (int)intCurrLeft;
             objLabelStyle.StyleTop = (int)intCurrTop;
-            ///Éú³ÉLabelµÄ´úÂë;
+            ///ç”ŸæˆLabelçš„ä»£ç ;
             ///      
             strCodeForCs.Append("\r\n" + "<td>");
 
@@ -962,7 +984,7 @@ namespace AutoGCLib
             objGenCtlStyle.StyleLeft = (int)intCurrLeft + objLabelStyle.Width + 5;
             //objGenCtlStyle.StyleLeft = (int)intCurrLeft + 5;
             objGenCtlStyle.StyleTop = (int)intCurrTop;
-            ///Éú³ÉÓÒ±ß¿Ø¼şµÄ´úÂë;
+            ///ç”Ÿæˆå³è¾¹æ§ä»¶çš„ä»£ç ;
             strCodeForCs.Append("\r\n" + "<td>");
 
             strCodeForCs.AppendFormat("\r\n" + "<asp:{0} id = \"{1}\" style = \"z-index: {2}; \" ",
@@ -979,45 +1001,45 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// Éú³ÉButton¿Ø¼ş
+        /// ç”ŸæˆButtonæ§ä»¶
         /// </summary>
         /// <param name = "objCheckStyle"></param>
         /// <returns></returns>
         public string GenButtonNoPosition(clsButtonStyleEN objButtonStyle, string strButtonId, string strButtonText, string strOnClick)
         {
             string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp;     ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp;     ///ä¸´æ—¶å˜é‡;
             try
             {
                 objButtonStyle.StyleZindex = intZIndex + 1;
                 objButtonStyle.StyleLeft = (int)intCurrLeft;
                 objButtonStyle.StyleTop = (int)intCurrTop;
 
-                ///Éú³ÉButtonµÄ´úÂë;
+                ///ç”ŸæˆButtonçš„ä»£ç ;
                 ///
-                //Éú³É¿Ø¼şµÄ<¿ªÊ¼±êÖ¾>ºÍ<ID>
+                //ç”Ÿæˆæ§ä»¶çš„<å¼€å§‹æ ‡å¿—>å’Œ<ID>
                 strCodeForCs.AppendFormat("\r\n" + "<asp:Button id = \"{0}\" ",
                   strButtonId);
-                //Éú³É<¿Ø¼şÑùÊ½Style>
-                //Éú³É<¸ß¶È>ºÍ<¿í¶È>
+                //ç”Ÿæˆ<æ§ä»¶æ ·å¼Style>
+                //ç”Ÿæˆ<é«˜åº¦>å’Œ<å®½åº¦>
                 strCodeForCs.AppendFormat("\r\n" + "style = \"z-index: {0}; Width:{2}px; Height:{3}px;\" ",
                   objButtonStyle.StyleZindex, objButtonStyle.StyleLeft,
                   objButtonStyle.Width, objButtonStyle.Height);
 
-                //Éú³ÉÔËĞĞÄ£Ê½ÊÇ·ñÔÚ·şÎñÆ÷ÔËĞĞ
+                //ç”Ÿæˆè¿è¡Œæ¨¡å¼æ˜¯å¦åœ¨æœåŠ¡å™¨è¿è¡Œ
                 strCodeForCs.AppendFormat("\r\n" + "runat = \"{0}\" ",
                   objButtonStyle.Runat);
 
-                //Éú³É<×ÖºÅ>ºÍ<×ÖÌå>
+                //ç”Ÿæˆ<å­—å·>å’Œ<å­—ä½“>
                 //				strCodeForCs.AppendFormat("\r\n" + "Font-Size = \"{0}\" Font-Names = \"{1}\" ", 
                 //					objButtonStyle.FontSize, objButtonStyle.FontName);
-                //Éú³É<ÏÔÊ¾ÎÄ±¾> 
+                //ç”Ÿæˆ<æ˜¾ç¤ºæ–‡æœ¬> 
                 strCodeForCs.AppendFormat("\r\n" + "Text = \"{0}\" CssClass = \"btn btn-primary btn-sm\" ", strButtonText);
-                //Éú³Éµ¥»÷ÊÂ¼ş
+                //ç”Ÿæˆå•å‡»äº‹ä»¶
                 strCodeForCs.AppendFormat("\r\n" + "OnClick = \"{0}\" ", strOnClick);
 
-                //Éú³É<½áÊø±êÖ¾>
+                //ç”Ÿæˆ<ç»“æŸæ ‡å¿—>
                 strCodeForCs.Append("\r\n" + "></asp:Button>");
 
                 intZIndex += 1;
@@ -1025,7 +1047,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -1034,7 +1056,7 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// ¶¨ÒåÓÃÓÚ±à¼­µÄ²ãDiv,¸Ã²ã¿ÉÒÔ±»µ¯³ö
+        /// å®šä¹‰ç”¨äºç¼–è¾‘çš„å±‚Div,è¯¥å±‚å¯ä»¥è¢«å¼¹å‡º
         /// </summary>
         /// <param name="objvFunction4GeneCodeEN"></param>
         /// <returns></returns>
@@ -1045,7 +1067,7 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n" + " <el-dialog v-model = \"dialogVisible\" :width=\"dialogWidth\" :show-close=\"false\" >", objViewInfoENEx.ViewCnName);
 
-            strCodeForCs.Append("\r\n" + "<!--Ê¹ÓÃÍ·²¿²å²ÛÀ´×Ô¶¨Òå¶Ô»°¿òµÄ±êÌâ-->");
+            strCodeForCs.Append("\r\n" + "<!--ä½¿ç”¨å¤´éƒ¨æ’æ§½æ¥è‡ªå®šä¹‰å¯¹è¯æ¡†çš„æ ‡é¢˜-->");
             strCodeForCs.Append("\r\n" + "<template #header>");
             strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
             strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
@@ -1065,7 +1087,7 @@ namespace AutoGCLib
                 .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
                 .Select(GetControlGroup_Asp4PureHtml);
 
-            //·â×°Td
+            //å°è£…Td
             switch (objViewRegionEx.ContainerTypeId)
             {
                 case enumGCContainerType.TableContainer_0001:
@@ -1107,8 +1129,8 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + "      <template #footer>");
-            //       < a - button @click = "dialogVisible = false" > ¹Ø±Õ </ a - button >
-            //< a - button type = "primary" @click = "handleSave" > ±£´æ </ a - button >
+            //       < a - button @click = "dialogVisible = false" > å…³é—­ </ a - button >
+            //< a - button type = "primary" @click = "handleSave" > ä¿å­˜ </ a - button >
             strCodeForCs.AppendFormat("\r\n" + " <el-button  id=\"btnCancel{0}\" @click = \"dialogVisible = false\">{{{{ strCancelButtonText }}}}</el-button>", objViewInfoENEx.TabName_In);
             strCodeForCs.AppendFormat("\r\n" + " <el-button  id=\"btnSubmit{0}\" type = \"primary\" @click=\"btnSubmit_Click\">{{{{ strSubmitButtonText }}}}</el-button>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " </template>");
@@ -1125,7 +1147,7 @@ namespace AutoGCLib
             //< a - modal v - model:visible = "dialogVisible" :width = "dialogWidth" :title = "strTitle" >
             strCodeForCs.AppendFormat("\r\n" + " <a-modal v-model:visible = \"dialogVisible\" :width=\"dialogWidth\" :title=\"strTitle\" >", objViewInfoENEx.ViewCnName);
 
-            strCodeForCs.Append("\r\n" + "<!--Ê¹ÓÃÍ·²¿²å²ÛÀ´×Ô¶¨Òå¶Ô»°¿òµÄ±êÌâ-->");
+            strCodeForCs.Append("\r\n" + "<!--ä½¿ç”¨å¤´éƒ¨æ’æ§½æ¥è‡ªå®šä¹‰å¯¹è¯æ¡†çš„æ ‡é¢˜-->");
             strCodeForCs.Append("\r\n" + "<template #header>");
             strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
             strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
@@ -1145,7 +1167,7 @@ namespace AutoGCLib
                 .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
                 .Select(GetControlGroup_Asp4PureHtml);
 
-            //·â×°Td
+            //å°è£…Td
             switch (objViewRegionEx.ContainerTypeId)
             {
                 case enumGCContainerType.TableContainer_0001:
@@ -1187,8 +1209,8 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + "      <template #footer>");
-            //       < a - button @click = "dialogVisible = false" > ¹Ø±Õ </ a - button >
-            //< a - button type = "primary" @click = "handleSave" > ±£´æ </ a - button >
+            //       < a - button @click = "dialogVisible = false" > å…³é—­ </ a - button >
+            //< a - button type = "primary" @click = "handleSave" > ä¿å­˜ </ a - button >
             strCodeForCs.AppendFormat("\r\n" + " <a-button  id=\"btnCancel{0}\" @click = \"dialogVisible = false\">{{{{ strCancelButtonText }}}}</a-button>", objViewInfoENEx.TabName_In);
             strCodeForCs.AppendFormat("\r\n" + " <a-button  id=\"btnSubmit{0}\" type = \"primary\" @click=\"btn{0}_Edit_Click('Submit','')\">{{{{ strSubmitButtonText }}}}</a-button>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " </template>");
@@ -1210,7 +1232,7 @@ namespace AutoGCLib
 
             strCodeForCs.AppendFormat("\r\n" + " <div class=\"modal-content\" style=\"width: {0}px;\">", objViewRegionEx.Width + 35);
             strCodeForCs.Append("\r\n" + " <div class=\"modal-header\">");
-            strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">Ä£Ì¬¿ò£¨Modal£©±êÌâ</h4>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <h4 class=\"modal-title\" id=\"lblDialogTitle_{0}\">æ¨¡æ€æ¡†ï¼ˆModalï¼‰æ ‡é¢˜</h4>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " <div class=\"modal-body\">");
@@ -1224,7 +1246,7 @@ namespace AutoGCLib
                 .Where(x => x.IsLogUpdDateOrUpdUser(objViewInfoENEx.PrjId) == false)
                 .Select(GetControlGroup_Asp4PureHtml);
 
-            //·â×°Td
+            //å°è£…Td
             switch (objViewRegionEx.ContainerTypeId)
             {
                 case enumGCContainerType.TableContainer_0001:
@@ -1268,8 +1290,8 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " <div class=\"modal-footer\">");
-            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnCancel{0}\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">¹Ø±Õ</button>", objViewInfoENEx.TabName_In);
-            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnSubmit{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"btn{0}_Edit_Click('Submit')\">Ìí¼Ó</button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnCancel{0}\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">å…³é—­</button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <button  id=\"btnSubmit{0}\" type=\"button\" class=\"btn btn-primary\" onclick=\"btn{0}_Edit_Click('Submit')\">æ·»åŠ </button>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " </div>");
             strCodeForCs.Append("\r\n" + " </div>");
             //strCodeForCs.Append("\r\n" + " <!-- /.modal-content -->");
@@ -1292,7 +1314,7 @@ namespace AutoGCLib
 
                 if (mt == null)
                 {
-                    string strMsg = string.Format("ÔÚÀàÖĞÃ»ÓĞÏàÓ¦µÄº¯Êı:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç±»ä¸­æ²¡æœ‰ç›¸åº”çš„å‡½æ•°:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 else
@@ -1323,7 +1345,7 @@ namespace AutoGCLib
                 {
                     strMsg = objException.Message;
                 }
-                sbMessage.AppendFormat("ÔÚÉú³Éº¯Êı:{0}Ê±³ö´í. \r\n³ö´íĞÅÏ¢:{1}.", strFuncName, strMsg);
+                sbMessage.AppendFormat("åœ¨ç”Ÿæˆå‡½æ•°:{0}æ—¶å‡ºé”™. \r\nå‡ºé”™ä¿¡æ¯:{1}.", strFuncName, strMsg);
                 throw new Exception(sbMessage.ToString());
             }
         }
@@ -1335,7 +1357,7 @@ namespace AutoGCLib
             {
                 strClassName = objViewRegionENEx.ClsName;
             }
-            //Èç¹û½áÎ²Ã»ÓĞAi,¾Í¼ÓÉÏ
+            //å¦‚æœç»“å°¾æ²¡æœ‰Ai,å°±åŠ ä¸Š
             if (!string.IsNullOrEmpty(strClassName) && !strClassName.EndsWith("Ai", StringComparison.Ordinal))
             {
                 strClassName = strClassName + "Ai";
@@ -1351,18 +1373,18 @@ namespace AutoGCLib
 
         public string Gen_WebView_Vue_Code4FeatureRegion()
         {
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
-            strCodeForCs.Append("\r\n" + "<!-- ¹¦ÄÜÇø -->");
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
+            strCodeForCs.Append("\r\n" + "<!-- åŠŸèƒ½åŒº -->");
             strCodeForCs.Append("\r\n" + GenFeatureRegion(objViewInfoENEx.objViewRegion_List, objViewInfoENEx));
 
             return strCodeForCs.ToString();
         }
         public string Gen_WebView_Vue_Code4ListRegion()
         {
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
-            strCodeForCs.Append("\r\n" + "<!-- ÁĞ±í²ã -->");
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
+            strCodeForCs.Append("\r\n" + "<!-- åˆ—è¡¨å±‚ -->");
             strCodeForCs.Append("\r\n" + "<div id = \"divList\" class = \"div_List\" >");
 
             strCodeForCs.Append("\r\n" + "<div id = \"divDataLst\" class = \"div_List\" >");
@@ -1376,9 +1398,9 @@ namespace AutoGCLib
         }
         public string Gen_WebView_Vue_Code4EditRegion()
         {
-            StringBuilder strCodeForCs = new StringBuilder();  ///ÓÃÀ´´æ·ÅWebFormµÄ´úÂë;
-            //			string strTemp ;     ///ÁÙÊ±±äÁ¿;
-            strCodeForCs.Append("\r\n" + "<!-- ±à¼­²ã -->");
+            StringBuilder strCodeForCs = new StringBuilder();  ///ç”¨æ¥å­˜æ”¾WebFormçš„ä»£ç ;
+            //			string strTemp ;     ///ä¸´æ—¶å˜é‡;
+            strCodeForCs.Append("\r\n" + "<!-- ç¼–è¾‘å±‚ -->");
             strCodeForCs.Append("\r\n" + Gen_Edit_Html_Dialog());
 
             return strCodeForCs.ToString();
@@ -1392,20 +1414,20 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:Îª±à¼­Çø°ó¶¨ÏÂÀ­¿ò");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:ä¸ºç¼–è¾‘åŒºç»‘å®šä¸‹æ‹‰æ¡†");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.AppendFormat("\r\n" + " async function BindDdl4EditRegionInDiv()", ThisClsName);
                 strCodeForCs.Append("\r\n" + "{");
 
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objEditRegionFld in objViewInfoENEx.arrEditRegionFldSet4InUse)
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
                     if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
                     if (objTabFeature4Ddl.IsHasErr)
                     {
                         throw new Exception(objTabFeature4Ddl.ErrMsg_Ddl);
@@ -1423,7 +1445,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -1443,7 +1465,7 @@ namespace AutoGCLib
                 = objViewInfoENEx.arrASPDropDownListObj.Where(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ToList();
             try
             {
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:Îª±à¼­Çø°ó¶¨ÏÂÀ­¿ò");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:ä¸ºç¼–è¾‘åŒºç»‘å®šä¸‹æ‹‰æ¡†");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.AppendFormat("\r\n" + "async function BindDdl4EditRegionInDiv()", ThisClsName);
@@ -1497,7 +1519,7 @@ namespace AutoGCLib
                         }
 
                         string strVar4Cond = tup.Item1;
-                        string strFuncParaLst_Additional = tup.Item2;//º¯Êı²ÎÊı±äÁ¿ÁĞ±í
+                        string strFuncParaLst_Additional = tup.Item2;//å‡½æ•°å‚æ•°å˜é‡åˆ—è¡¨
 
                         if (objInfor.CsType == "bool")
                         {
@@ -1553,7 +1575,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -1619,9 +1641,9 @@ namespace AutoGCLib
             try
             {
 
-                strCodeForCs.Append("\r\n /** º¯1Êı¹¦ÄÜ:°Ñ½çÃæÉÏµÄÊôĞÔÊı¾İ´«µ½Àà¶ÔÏóÖĞ");
+                strCodeForCs.Append("\r\n /** å‡½1æ•°åŠŸèƒ½:æŠŠç•Œé¢ä¸Šçš„å±æ€§æ•°æ®ä¼ åˆ°ç±»å¯¹è±¡ä¸­");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">Êı¾İ´«ÊäµÄÄ¿µÄÀà¶ÔÏó</param>",
+                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">æ•°æ®ä¼ è¾“çš„ç›®çš„ç±»å¯¹è±¡</param>",
                 this.TabName_In4Edit4GC);
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.AppendFormat("\r\n" + " async function PutDataTo{0}Class(pobj{2}EN: cls{1}EN)",
@@ -1665,7 +1687,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -1684,9 +1706,9 @@ namespace AutoGCLib
             try
             {
 
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:°Ñ½çÃæÉÏµÄÊôĞÔÊı¾İ´«µ½Àà¶ÔÏóÖĞ");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:æŠŠç•Œé¢ä¸Šçš„å±æ€§æ•°æ®ä¼ åˆ°ç±»å¯¹è±¡ä¸­");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">Êı¾İ´«ÊäµÄÄ¿µÄÀà¶ÔÏó</param>",
+                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">æ•°æ®ä¼ è¾“çš„ç›®çš„ç±»å¯¹è±¡</param>",
                 this.TabName_In4Edit4GC);
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + $" async function {strFuncName}()");
@@ -1731,7 +1753,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -1940,9 +1962,9 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                //Éú³ÉË½ÓĞ´úÂë;
+                //ç”Ÿæˆç§æœ‰ä»£ç ;
                 strCodeForCs.Append("\r\n" + "/**");
-                strCodeForCs.Append("\r\n" + " * Çå³ıÓÃ»§×Ô¶¨Òå¿Ø¼şÖĞ,ËùÓĞ¿Ø¼şµÄÖµ");
+                strCodeForCs.Append("\r\n" + " * æ¸…é™¤ç”¨æˆ·è‡ªå®šä¹‰æ§ä»¶ä¸­,æ‰€æœ‰æ§ä»¶çš„å€¼");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "function Clear()");
@@ -2007,7 +2029,7 @@ namespace AutoGCLib
                                 break;
                             case enumCtlType.DataList_05:
                                 break;
-                            case enumCtlType.DropDownList_06: ///Èç¹û¿Ø¼şÊÇÏÂÀ­¿ò;
+                            case enumCtlType.DropDownList_06: ///å¦‚æœæ§ä»¶æ˜¯ä¸‹æ‹‰æ¡†;
                                 //strCodeForCs.AppendFormat("\r\n" + " ClearSelectValueByIdInDivObj(this.divEdit, \"{1}\");", ThisClsName, objEditRegionFldsEx.CtrlId);
                                 //AddImportClass("", "/PubFun/clsCommFunc4Ctrl.js", "ClearSelectValueByIdInDivObj", enumImportObjType.CustomFunc, strBaseUrl);
                                 if (objEditRegionFldsEx.IsNumberType())
@@ -2020,7 +2042,7 @@ namespace AutoGCLib
                                 }
 
                                 break;
-                            case enumCtlType.DropDownList_Bool_18: ///Èç¹û¿Ø¼şÊÇÏÂÀ­¿ò;
+                            case enumCtlType.DropDownList_Bool_18: ///å¦‚æœæ§ä»¶æ˜¯ä¸‹æ‹‰æ¡†;
                                 //strCodeForCs.AppendFormat("\r\n" + " ClearSelectValueByIdInDivObj(this.divEdit, \"{1}\");", ThisClsName, objEditRegionFldsEx.CtrlId);
                                 //AddImportClass("", "/PubFun/clsCommFunc4Ctrl.js", "ClearSelectValueByIdInDivObj", enumImportObjType.CustomFunc, strBaseUrl);
                                 if (objEditRegionFldsEx.ObjFieldTab().TypeScriptType() == "boolean")
@@ -2051,7 +2073,7 @@ namespace AutoGCLib
                                 break;
                             case enumCtlType.RadioButtonList_15:
                                 break;
-                            case enumCtlType.TextBox_16: ///Èç¹û¿Ø¼şÀàĞÍÊÇÎÄ±¾¿ò;
+                            case enumCtlType.TextBox_16: ///å¦‚æœæ§ä»¶ç±»å‹æ˜¯æ–‡æœ¬æ¡†;
                                 if (objEditRegionFldsEx.ObjFieldTabENEx.DefaultValue == null || objEditRegionFldsEx.ObjFieldTabENEx.DefaultValue.Trim() == "")
                                 {
                                     strCodeForCs.Append("\r\n" + $"{objEditRegionFldsEx.PropertyName(this.IsFstLcase)}.value = {strInitValue};");
@@ -2068,7 +2090,7 @@ namespace AutoGCLib
                     }
                     catch (Exception objException)
                     {
-                        string strMsg = string.Format("Éú³É×Ö¶Î:{0}Ê±³ö´í!{1}(In {2})", objEditRegionFldsEx.FldName,
+                        string strMsg = string.Format("ç”Ÿæˆå­—æ®µ:{0}æ—¶å‡ºé”™!{1}(In {2})", objEditRegionFldsEx.FldName,
                             objException.Message,
                             clsStackTrace.GetCurrClassFunction());
                         clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
@@ -2094,11 +2116,11 @@ namespace AutoGCLib
             {
 
                 strCodeForCs.Append("\r\n" + "/**");
-                strCodeForCs.Append("\r\n" + " * ´¦Àí±£´æÂß¼­");
+                strCodeForCs.Append("\r\n" + " * å¤„ç†ä¿å­˜é€»è¾‘");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "const handleSave = () => {");
-                strCodeForCs.Append("\r\n" + "// ÔÚÕâÀï´¦Àí±£´æÂß¼­");
+                strCodeForCs.Append("\r\n" + "// åœ¨è¿™é‡Œå¤„ç†ä¿å­˜é€»è¾‘");
                 strCodeForCs.Append("\r\n" + "dialogVisible.value = false;");
                 strCodeForCs.Append("\r\n" + "};");
 
@@ -2122,7 +2144,7 @@ namespace AutoGCLib
             {
 
                 strCodeForCs.Append("\r\n" + "/**");
-                strCodeForCs.Append("\r\n" + " * Òş²Ø¶Ô»°¿ò");
+                strCodeForCs.Append("\r\n" + " * éšè—å¯¹è¯æ¡†");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "const hideDialog = () => {");
@@ -2147,9 +2169,9 @@ namespace AutoGCLib
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                //Éú³ÉË½ÓĞ´úÂë;
+                //ç”Ÿæˆç§æœ‰ä»£ç ;
                 strCodeForCs.Append("\r\n" + "/**");
-                strCodeForCs.Append("\r\n" + " * ÏÔÊ¾¶Ô»°¿ò");
+                strCodeForCs.Append("\r\n" + " * æ˜¾ç¤ºå¯¹è¯æ¡†");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
 
@@ -2158,7 +2180,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + "objPage_Edit.value = pobjPage_Edit;");
 
 
-                strCodeForCs.Append("\r\n" + "// Ö´ĞĞ´ò¿ª¶Ô»°¿òµÄ²Ù×÷");
+                strCodeForCs.Append("\r\n" + "// æ‰§è¡Œæ‰“å¼€å¯¹è¯æ¡†çš„æ“ä½œ");
                 strCodeForCs.Append("\r\n" + "dialogVisible.value = true;");
                 strCodeForCs.Append("\r\n" + "await BindDdl4EditRegionInDiv();");
 
@@ -2184,11 +2206,11 @@ namespace AutoGCLib
             try
             {
 
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:°ÑÀà¶ÔÏóµÄÊôĞÔÄÚÈİÏÔÊ¾µ½½çÃæÉÏ");
-                strCodeForCs.Append("\r\n * ×¢Òâ:Èç¹ûÓĞÁ½¸öÏÂÀ­¿ò,²¢ÇÒÊÇÒ»¼¶¡¢¶ş¼¶Á¬´ø¹ØÏµµÄ,ÇëÏÈÎªÒ»¼¶ÏÂÀ­¿ò¸³Öµ,È»ºóÔÙÎª¶ş¼¶ÏÂÀ­¿ò¸³Öµ");
-                strCodeForCs.Append("\r\n * Èç¹ûÔÚÉèÖÃÊı¾İ¿âÊ±,¾ÍÓ¦¸ÃÒ»¼¶×Ö¶ÎÔÚÇ°,¶ş¼¶×Ö¶ÎÔÚºó");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:æŠŠç±»å¯¹è±¡çš„å±æ€§å†…å®¹æ˜¾ç¤ºåˆ°ç•Œé¢ä¸Š");
+                strCodeForCs.Append("\r\n * æ³¨æ„:å¦‚æœæœ‰ä¸¤ä¸ªä¸‹æ‹‰æ¡†,å¹¶ä¸”æ˜¯ä¸€çº§ã€äºŒçº§è¿å¸¦å…³ç³»çš„,è¯·å…ˆä¸ºä¸€çº§ä¸‹æ‹‰æ¡†èµ‹å€¼,ç„¶åå†ä¸ºäºŒçº§ä¸‹æ‹‰æ¡†èµ‹å€¼");
+                strCodeForCs.Append("\r\n * å¦‚æœåœ¨è®¾ç½®æ•°æ®åº“æ—¶,å°±åº”è¯¥ä¸€çº§å­—æ®µåœ¨å‰,äºŒçº§å­—æ®µåœ¨å");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">±íÊµÌåÀà¶ÔÏó</param>",
+                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">è¡¨å®ä½“ç±»å¯¹è±¡</param>",
                 this.TabName_In4Edit4GC);
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + $" async function {strFuncName}(pobj{this.TabName_In4Edit4GC}EN: cls{this.TabName_In4Edit4GC}EN )");
@@ -2214,7 +2236,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -2229,11 +2251,11 @@ namespace AutoGCLib
             try
             {
 
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:°ÑÀà¶ÔÏóµÄÊôĞÔÄÚÈİÏÔÊ¾µ½½çÃæÉÏ");
-                strCodeForCs.Append("\r\n * ×¢Òâ:Èç¹ûÓĞÁ½¸öÏÂÀ­¿ò,²¢ÇÒÊÇÒ»¼¶¡¢¶ş¼¶Á¬´ø¹ØÏµµÄ,ÇëÏÈÎªÒ»¼¶ÏÂÀ­¿ò¸³Öµ,È»ºóÔÙÎª¶ş¼¶ÏÂÀ­¿ò¸³Öµ");
-                strCodeForCs.Append("\r\n * Èç¹ûÔÚÉèÖÃÊı¾İ¿âÊ±,¾ÍÓ¦¸ÃÒ»¼¶×Ö¶ÎÔÚÇ°,¶ş¼¶×Ö¶ÎÔÚºó");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:æŠŠç±»å¯¹è±¡çš„å±æ€§å†…å®¹æ˜¾ç¤ºåˆ°ç•Œé¢ä¸Š");
+                strCodeForCs.Append("\r\n * æ³¨æ„:å¦‚æœæœ‰ä¸¤ä¸ªä¸‹æ‹‰æ¡†,å¹¶ä¸”æ˜¯ä¸€çº§ã€äºŒçº§è¿å¸¦å…³ç³»çš„,è¯·å…ˆä¸ºä¸€çº§ä¸‹æ‹‰æ¡†èµ‹å€¼,ç„¶åå†ä¸ºäºŒçº§ä¸‹æ‹‰æ¡†èµ‹å€¼");
+                strCodeForCs.Append("\r\n * å¦‚æœåœ¨è®¾ç½®æ•°æ®åº“æ—¶,å°±åº”è¯¥ä¸€çº§å­—æ®µåœ¨å‰,äºŒçº§å­—æ®µåœ¨å");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">±íÊµÌåÀà¶ÔÏó</param>",
+                strCodeForCs.AppendFormat("\r\n * @param pobj{0}EN\">è¡¨å®ä½“ç±»å¯¹è±¡</param>",
                 this.TabName_In4Edit4GC);
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.AppendFormat("\r\n" + " async function GetDataFrom{0}Class(pobj{2}EN: cls{1}EN )",
@@ -2260,7 +2282,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -2284,10 +2306,10 @@ namespace AutoGCLib
             switch (objEditRegionFldsEx.CtlTypeId)
             {
                 case enumCtlType.CheckBox_02:
-                    //7¡¢ÉèÖÃcheckboxÎªÑ¡ÖĞ×´Ì¬
+                    //7ã€è®¾ç½®checkboxä¸ºé€‰ä¸­çŠ¶æ€
                     //$('input:checkbox').attr("checked", 'checked');//or
                     //$('input:checkbox').attr("checked", true);
-                    //8¡¢ÉèÖÃcheckboxÎª²»Ñ¡ÖĞ×´Ì¬
+                    //8ã€è®¾ç½®checkboxä¸ºä¸é€‰ä¸­çŠ¶æ€
                     //$('input:checkbox').attr("checked", '');//or
                     //$('input:checkbox').attr("checked", false);
                     sbCodeForCs.AppendFormat("\r\n" + "{2}.value = pobj{1}EN.{2};",
@@ -2414,8 +2436,8 @@ namespace AutoGCLib
             try
             {
 
-                strCodeForCs.Append("\r\n /** º¯Êı¹¦ÄÜ:ÊÂ¼şº¯Êı,µ±µ¥»÷<È·¶¨ĞŞ¸Ä>Ê±·¢ÉúµÄÊÂ¼şº¯Êı,");
-                strCodeForCs.Append("\r\n * ¾ßÌå¹¦ÄÜÎª°Ñ½çÃæÄÚÈİÍ¬²½Êı¾İ¿âÖĞ,°Ñ½çÃæÄÚÈİ±£´æµ½Êı¾İ¿âÖĞ");
+                strCodeForCs.Append("\r\n /** å‡½æ•°åŠŸèƒ½:äº‹ä»¶å‡½æ•°,å½“å•å‡»<ç¡®å®šä¿®æ”¹>æ—¶å‘ç”Ÿçš„äº‹ä»¶å‡½æ•°,");
+                strCodeForCs.Append("\r\n * å…·ä½“åŠŸèƒ½ä¸ºæŠŠç•Œé¢å†…å®¹åŒæ­¥æ•°æ®åº“ä¸­,æŠŠç•Œé¢å†…å®¹ä¿å­˜åˆ°æ•°æ®åº“ä¸­");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "const btnSubmit_Click =  async ()=>");
@@ -2424,7 +2446,7 @@ namespace AutoGCLib
 this.TabName_In4Edit4GC, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + "if (objPage_Edit.value == null)");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "alert('±à¼­Ò³Ãæ³õÊ¼»¯²»³É¹¦,ÇëÁªÏµ¹ÜÀíÔ±!(in btnSubmit_Click)');");
+                strCodeForCs.Append("\r\n" + "alert('ç¼–è¾‘é¡µé¢åˆå§‹åŒ–ä¸æˆåŠŸ,è¯·è”ç³»ç®¡ç†å‘˜!(in btnSubmit_Click)');");
                 strCodeForCs.Append("\r\n" + "return;");
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "const strCommandText: string = strSubmitButtonText.value;");
@@ -2436,7 +2458,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 //    CtrlId = string.Format("btnSubmit{0}", this.TabName_In4Edit4GC),
                 //    RefVarName = "strSubmitButtonText",
                 //    PropertyName = string.Format("btnSubmit{0}", this.TabName_In4Edit4GC),
-                //    Comment = "»ñÈ¡°´Å¥µÄ±êÌâ",
+                //    Comment = "è·å–æŒ‰é’®çš„æ ‡é¢˜",
                 //    DataType = "string",
                 //    ParentDivName = "",
                 //    ThisClsName = ThisEditClsName,
@@ -2459,16 +2481,16 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 sbCodeNext.Append("\r\n" + "switch(strCommandText)");
                 sbCodeNext.Append("\r\n" + "{");
 
-                sbCodeNext.Append("\r\n" + "case \"Ìí¼Ó\":");
-                sbCodeNext.AppendFormat("\r\n" + "strSubmitButtonText.value = \"È·ÈÏÌí¼Ó\";", this.TabName_In4Edit4GC);
-                sbCodeNext.AppendFormat("\r\n" + "strCancelButtonText.value = \"È¡ÏûÌí¼Ó\";", this.TabName_In4Edit4GC);
+                sbCodeNext.Append("\r\n" + "case \"æ·»åŠ \":");
+                sbCodeNext.AppendFormat("\r\n" + "strSubmitButtonText.value = \"ç¡®è®¤æ·»åŠ \";", this.TabName_In4Edit4GC);
+                sbCodeNext.AppendFormat("\r\n" + "strCancelButtonText.value = \"å–æ¶ˆæ·»åŠ \";", this.TabName_In4Edit4GC);
 
                 sbCodeNext.AppendFormat("\r\n" + " await objPage_Edit.value.AddNewRecord();",
                 this.TabName_In4Edit4GC);
                 sbCodeNext.Append("\r\n" + "break;				");
-                sbCodeNext.Append("\r\n" + "case \"È·ÈÏÌí¼Ó\":");
-                sbCodeNext.Append("\r\n" + "//ÕâÊÇÒ»¸öµ¥±íµÄ²åÈëµÄ´úÂë,ÓÉÓÚÂß¼­²ãÌ«¼òµ¥,");
-                sbCodeNext.Append("\r\n" + "//¾Í°ÑÂß¼­²ãºÏ²¢µ½¿ØÖÆ²ã,");
+                sbCodeNext.Append("\r\n" + "case \"ç¡®è®¤æ·»åŠ \":");
+                sbCodeNext.Append("\r\n" + "//è¿™æ˜¯ä¸€ä¸ªå•è¡¨çš„æ’å…¥çš„ä»£ç ,ç”±äºé€»è¾‘å±‚å¤ªç®€å•,");
+                sbCodeNext.Append("\r\n" + "//å°±æŠŠé€»è¾‘å±‚åˆå¹¶åˆ°æ§åˆ¶å±‚,");
                 if (thisEditTabProp_TS.KeyFldCount > 1)
                 {
                     sbCodeNext.Append("\r\n" + "returnBool = await objPage_Edit.value.AddNewRecordSave();");
@@ -2539,7 +2561,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                         iShowList_BindGv(sbCodeNext, "returnKeyId");
 
                         sbCodeNext.Append("\r\n" + "}");
-                        //¶¨Òå±äÁ¿returnKeyId
+                        //å®šä¹‰å˜é‡returnKeyId
                         sbDefVar.Append("\r\n" + "let returnKeyId = \"\";");
 
                         //sbCodeNext.Append("\r\n" + "});");
@@ -2572,18 +2594,18 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 }
                 sbCodeNext.Append("\r\n" + "break;");
 
-                sbCodeNext.Append("\r\n" + "case \"È·ÈÏĞŞ¸Ä\":");
-                sbCodeNext.Append("\r\n" + "//ÕâÊÇÒ»¸öµ¥±íµÄĞŞ¸ÄµÄ´úÂë,ÓÉÓÚÂß¼­²ãÌ«¼òµ¥,");
+                sbCodeNext.Append("\r\n" + "case \"ç¡®è®¤ä¿®æ”¹\":");
+                sbCodeNext.Append("\r\n" + "//è¿™æ˜¯ä¸€ä¸ªå•è¡¨çš„ä¿®æ”¹çš„ä»£ç ,ç”±äºé€»è¾‘å±‚å¤ªç®€å•,");
                 //sbCodeNext.AppendFormat("\r\n" + "obj{0}EN = (cls{0}EN) Session[\"obj{0}EN\"];",
                 //this.TabName_In4Edit4GC);
                 sbCodeNext.AppendFormat("\r\n" + "returnBool = await objPage_Edit.value.UpdateRecordSave();",
                 this.TabName_In4Edit4GC);
                 //sbCodeNext.Append("\r\n" + "const returnBool: boolean = jsonData;");
-                sbCodeNext.Append("\r\n" + "strInfo = returnBool ? \"ĞŞ¸Ä³É¹¦!\" : \"ĞŞ¸Ä²»³É¹¦!\";");
+                sbCodeNext.Append("\r\n" + "strInfo = returnBool ? \"ä¿®æ”¹æˆåŠŸ!\" : \"ä¿®æ”¹ä¸æˆåŠŸ!\";");
                 sbCodeNext.AppendFormat("\r\n" + "strInfo += \"(In {0}.btnSubmit_Click)\";",
                     ThisClsName);
 
-                sbCodeNext.Append("\r\n" + "//ÏÔÊ¾ĞÅÏ¢¿ò");
+                sbCodeNext.Append("\r\n" + "//æ˜¾ç¤ºä¿¡æ¯æ¡†");
                 sbCodeNext.Append("\r\n" + "//console.log(strInfo);");
                 sbCodeNext.Append("\r\n" + "alert(strInfo);");
 
@@ -2610,7 +2632,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 //sbCodeNext.Append("\r\n" + "});");
                 sbCodeNext.Append("\r\n" + "break;");
                 sbCodeNext.Append("\r\n" + "default:");
-                sbCodeNext.Append("\r\n" + "strMsg = Format(\"strCommandText:{0}ÔÚswitchÖĞÃ»ÓĞ´¦Àí!(In btnSubmit_Click())\", strCommandText);");
+                sbCodeNext.Append("\r\n" + "strMsg = Format(\"strCommandText:{0}åœ¨switchä¸­æ²¡æœ‰å¤„ç†!(In btnSubmit_Click())\", strCommandText);");
                 sbCodeNext.Append("\r\n" + "console.error(strMsg);");
                 sbCodeNext.Append("\r\n" + "alert(strMsg);");
                 sbCodeNext.Append("\r\n" + "break;");
@@ -2620,7 +2642,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 sbCodeNext.Append("\r\n" + "}");
                 sbCodeNext.Append("\r\n" + "catch (e)");
                 sbCodeNext.Append("\r\n" + "{");
-                sbCodeNext.Append("\r\n" + "const strMsg = Format(\"(errid: WiTsCs0033)ÔÚ±£´æ¼ÇÂ¼Ê±({3})Ê±³ö´í!ÇëÁªÏµ¹ÜÀíÔ±!{0}.(in {1}.{2})\", e, objPage_Edit.value.className, strThisFuncName, strCommandText);");
+                sbCodeNext.Append("\r\n" + "const strMsg = Format(\"(errid: WiTsCs0033)åœ¨ä¿å­˜è®°å½•æ—¶({3})æ—¶å‡ºé”™!è¯·è”ç³»ç®¡ç†å‘˜!{0}.(in {1}.{2})\", e, objPage_Edit.value.className, strThisFuncName, strCommandText);");
                 sbCodeNext.Append("\r\n" + "console.error(strMsg);");
                 sbCodeNext.Append("\r\n" + "alert(strMsg);");
                 sbCodeNext.Append("\r\n" + "}");
@@ -2632,7 +2654,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -2674,7 +2696,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
 
-                    strCodeForCs.Append("\r\n /* º¯Êı¹¦ÄÜ:ÏµÍ³Éú³ÉµÄChangeÊÂ¼şº¯Êı");
+                    strCodeForCs.Append("\r\n /* å‡½æ•°åŠŸèƒ½:ç³»ç»Ÿç”Ÿæˆçš„Changeäº‹ä»¶å‡½æ•°");
                     strCodeForCs.AppendFormat("\r\n  ({0})", clsStackTrace.GetCurrClassFunction());
                     strCodeForCs.Append("\r\n" + "*/");
                     strCodeForCs.Append("\r\n" + $" async  {x.ChangeEvent} (e: Event)  ");
@@ -2683,7 +2705,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                     strCodeForCs.Append("\r\n" + "console.log(e)");
 
                     //strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;", x.ChangeEvent);
-                    strCodeForCs.AppendFormat("\r\n" + "alert('ÇëÔÚÊÂ¼şº¯ÊıÖĞÖØĞ´¸Ãº¯Êı!');", ThisClsName);
+                    strCodeForCs.AppendFormat("\r\n" + "alert('è¯·åœ¨äº‹ä»¶å‡½æ•°ä¸­é‡å†™è¯¥å‡½æ•°!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "},");
                 });
 
@@ -2693,7 +2715,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 arrEditRegionFlds_ClickEvent.ForEach(x =>
                 {
                     var objCtlTypeAbbr = clsCtlTypeBL.GetObjByCtlTypeIdCache(x.CtlTypeId);
-                    strCodeForCs.Append("\r\n /* º¯Êı¹¦ÄÜ:ÏµÍ³Éú³ÉµÄClickÊÂ¼şº¯Êı");
+                    strCodeForCs.Append("\r\n /* å‡½æ•°åŠŸèƒ½:ç³»ç»Ÿç”Ÿæˆçš„Clickäº‹ä»¶å‡½æ•°");
                     strCodeForCs.AppendFormat("\r\n  ({0})", clsStackTrace.GetCurrClassFunction());
                     strCodeForCs.Append("\r\n" + "*/");
 
@@ -2701,7 +2723,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                        x.ClickEvent, ThisClsName);
                     arrFuncName_Setup.Add(x.ClickEvent);
                     strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.{0}.name;", x.ClickEvent);
-                    strCodeForCs.AppendFormat("\r\n" + "alert('ÇëÔÚÀ©Õ¹²ã:{0}ExÖĞÖØĞ´¸Ãº¯Êı!');", ThisClsName);
+                    strCodeForCs.AppendFormat("\r\n" + "alert('è¯·åœ¨æ‰©å±•å±‚:{0}Exä¸­é‡å†™è¯¥å‡½æ•°!');", ThisClsName);
                     strCodeForCs.Append("\r\n" + "}");
                 });
 
@@ -2710,7 +2732,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -2725,13 +2747,13 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n" + "<template>");
 
-            //Éú³É±à¼­ÇøÓò´úÂë-------------------------------
+            //ç”Ÿæˆç¼–è¾‘åŒºåŸŸä»£ç -------------------------------
 
 
             intZIndex += 1;
             intCurrTop += 25;
-            ///Éú³ÉÓÃÓÚ²¼¾ÖµÄ±í¸ñ´úÂë;
-            strCodeForCs.Append("\r\n" + "<!-- ±à¼­²ã -->");
+            ///ç”Ÿæˆç”¨äºå¸ƒå±€çš„è¡¨æ ¼ä»£ç ;
+            strCodeForCs.Append("\r\n" + "<!-- ç¼–è¾‘å±‚ -->");
             var objCmProject = clsCMProjectBL.GetObjByCmPrjIdCache(CmPrjId);
             switch (objViewInfoENEx.objViewRegion_Edit.PageDispModeId)
             {
@@ -2775,7 +2797,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
-            //Éú³É±à¼­ÇøÓò´úÂë == == == == == == == == == == == == == == 
+            //ç”Ÿæˆç¼–è¾‘åŒºåŸŸä»£ç  == == == == == == == == == == == == == == 
             try
             {
 
@@ -2850,7 +2872,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
                 }
                 arrTemp.RemoveRange(0, arrTemp.Count);
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objEditRegionFld in objViewInfoENEx.arrEditRegionFldSet4InUse)
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
@@ -2966,10 +2988,10 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + Gen_Edit_Setup_Define(objCodeElement_Script));
 
                 strCodeForCs.Append("\r\n" + "        watch: {");
-                strCodeForCs.Append("\r\n" + "            // Êı¾İ¼àÌı");
+                strCodeForCs.Append("\r\n" + "            // æ•°æ®ç›‘å¬");
                 strCodeForCs.Append("\r\n" + "        },");
                 strCodeForCs.Append("\r\n" + "        mounted() {");
-                strCodeForCs.Append("\r\n" + "            // el ±»ĞÂ´´½¨µÄ vm.$el Ìæ»»,²¢¹ÒÔØµ½ÊµÀıÉÏÈ¥Ö®ºóµ÷ÓÃ¸Ã¹³×Ó¡£");
+                strCodeForCs.Append("\r\n" + "            // el è¢«æ–°åˆ›å»ºçš„ vm.$el æ›¿æ¢,å¹¶æŒ‚è½½åˆ°å®ä¾‹ä¸Šå»ä¹‹åè°ƒç”¨è¯¥é’©å­ã€‚");
                 //strCodeForCs.AppendFormat("\r\n" + "            var objPage = new {0}Ex();", ThisClsName);
                 //strCodeForCs.Append("\r\n" + "            objPage.PageLoadCache();");
 
@@ -2981,7 +3003,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -3016,7 +3038,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                //Éú³ÉË½ÓĞ´úÂë;
+                //ç”Ÿæˆç§æœ‰ä»£ç ;
 
                 strCodeForCs.Append("\r\n" + "return {");
 
@@ -3104,27 +3126,27 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 ElementType = CodeElementType.Constant,
                 Modifiers = "const"
             });
-            strCodeForCs.Append("\r\n" + $"const strTitle = ref ('{TabCnName_In4Edit}±à¼­');");
+            strCodeForCs.Append("\r\n" + $"const strTitle = ref ('{TabCnName_In4Edit}ç¼–è¾‘');");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
                 Name = "strTitle",
-                CodeContent = $"const strTitle = ref ('{TabCnName_In4Edit}±à¼­');",
+                CodeContent = $"const strTitle = ref ('{TabCnName_In4Edit}ç¼–è¾‘');",
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
-            strCodeForCs.Append("\r\n" + "const strSubmitButtonText = ref ('Ìí¼Ó');");
+            strCodeForCs.Append("\r\n" + "const strSubmitButtonText = ref ('æ·»åŠ ');");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
                 Name = "strSubmitButtonText",
-                CodeContent = "const strSubmitButtonText = ref ('Ìí¼Ó');",
+                CodeContent = "const strSubmitButtonText = ref ('æ·»åŠ ');",
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
-            strCodeForCs.Append("\r\n" + "const strCancelButtonText = ref ('È¡Ïû');");
+            strCodeForCs.Append("\r\n" + "const strCancelButtonText = ref ('å–æ¶ˆ');");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
                 Name = "strCancelButtonText",
-                CodeContent = "const strCancelButtonText = ref ('È¡Ïû');",
+                CodeContent = "const strCancelButtonText = ref ('å–æ¶ˆ');",
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
@@ -3152,11 +3174,11 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
-            strCodeForCs.Append("\r\n" + "const dialogWidth = ref ('800px'); // ÉèÖÃ¶Ô»°¿òµÄ¿í¶È");
+            strCodeForCs.Append("\r\n" + "const dialogWidth = ref ('800px'); // è®¾ç½®å¯¹è¯æ¡†çš„å®½åº¦");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
                 Name = "dialogWidth",
-                CodeContent = "const dialogWidth = ref ('800px'); // ÉèÖÃ¶Ô»°¿òµÄ¿í¶È",
+                CodeContent = "const dialogWidth = ref ('800px'); // è®¾ç½®å¯¹è¯æ¡†çš„å®½åº¦",
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
@@ -3190,7 +3212,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             StringBuilder strCodeForCs = new StringBuilder();
 
             strCodeForCs.Append("\r\n" + "        components: {");
-            strCodeForCs.Append("\r\n" + "            // ×é¼ş×¢²á");
+            strCodeForCs.Append("\r\n" + "            // ç»„ä»¶æ³¨å†Œ");
             //strCodeForCs.AppendFormat("\r\n" + "{0}", objViewRegion_Edit.ClsName);
             strCodeForCs.Append("\r\n" + "        },");
             objCodeElement_Components.CodeContent = strCodeForCs.ToString();
@@ -3204,7 +3226,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             string strFuncName = "";
             string strTemp = "";
             strCodeForCs.Append("\r\n" + "        methods: {");
-            strCodeForCs.Append("\r\n" + "            // ·½·¨¶¨Òå");
+            strCodeForCs.Append("\r\n" + "            // æ–¹æ³•å®šä¹‰");
 
             strJSPath = string.Format("../js/{0}", this.objFuncModuleEN.FuncModuleEnName4GC());
 

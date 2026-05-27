@@ -57,7 +57,7 @@ namespace AutoGCLib
             {
                 try
                 {
-                    // 🔥 跳过没有 ObjFieldTabENEx 的字段（与原代码一致）
+                    // 🔥 跳过没有 ObjFieldTabENEx 的字段
                     if (fld.ObjFieldTabENEx == null) continue;
 
                     var objPrjTabFld = fld.ObjPrjTabFld();
@@ -70,46 +70,50 @@ namespace AutoGCLib
                     var fldName = objPrjTabFld.FldName();
                     var objFieldTab = objPrjTabFld.ObjFieldTab();
                     
+                    // 🔥 与 Gen_Vue_Ts_SortColumn 完全一致的判断逻辑
+                    // 关键判断：OutFldId 不为空且不为 "0" 说明是扩展字段
+                    bool isExtendField = !string.IsNullOrEmpty(fld.OutFldId) && fld.OutFldId != "0";
+                    
                     // 🔥 确定字段名称（用于生成 con_XXX）
                     string fieldNameForConst;
-                    bool isExtendField = false;
                     
-                    // 判断是否是扩展字段（与原代码逻辑一致）
-                    if (!string.IsNullOrEmpty(fld.DataPropertyName()))
+                    if (isExtendField)
                     {
-                        // 有 DataPropertyName，使用扩展类
-                        fieldNameForConst = fld.DataPropertyName4GC();
-                        isExtendField = true;
-                    }
-                    else if (objPrjTabFld.IsForExtendClass)
-                    {
-                        // 标记为扩展类字段
-                        fieldNameForConst = fldName;
-                        isExtendField = true;
+                        // 扩展字段：使用 OutFldName 或 DataPropertyName
+                        if (!string.IsNullOrEmpty(fld.DataPropertyName()))
+                        {
+                            fieldNameForConst = fld.DataPropertyName4GC();
+                        }
+                        else
+                        {
+                            fieldNameForConst = fld.OutFldName();
+                        }
                     }
                     else
                     {
-                        // 普通字段
+                        // 普通字段：使用 FldName
                         fieldNameForConst = fldName;
-                        isExtendField = false;
                     }
 
-                    // 🔥 确定 sortBy
+                    // 🔥 确定 sortBy - 与 Gen_Vue_Ts_SortColumn 一致
                     string sortBy;
                     if (!string.IsNullOrEmpty(fld.SortExpression))
                     {
                         // 使用明确指定的排序表达式
                         sortBy = fld.SortExpression_FstLcase(this.IsFstLcase);
                     }
-                    else if (isExtendField)
-                    {
-                        // 扩展字段使用字段名
-                        sortBy = ToCamelCase(fieldNameForConst);
-                    }
                     else
                     {
-                        // 普通字段使用字段名
-                        sortBy = ToCamelCase(fldName);
+                        sortBy = ToCamelCase(fieldNameForConst);
+                    }
+                    
+                    // 🔥 关键修复：扩展字段统一添加 |Ex 后缀
+                    // 参考 Gen_Vue_Ts_SortColumn 的逻辑：
+                    // if (string.IsNullOrEmpty(objDGRegionFldsENEx.OutFldId) == true || objDGRegionFldsENEx.OutFldId == "0") continue;
+                    // 即：OutFldId 不为空且不为 "0" 的字段才加 |Ex
+                    if (isExtendField)
+                    {
+                        sortBy += "|Ex";
                     }
 
                     var field = new AiColumnField
@@ -122,11 +126,7 @@ namespace AutoGCLib
                         SortBy = sortBy,
                         TdClass = GetTdClassByDataType(objFieldTab?.DataTypeId ?? ""),
                         OrderNum = fld.SeqNum + 1,
-                        // 🔥 修复：使用 InUse 判断是否包含在列表中
-                        // InUse = true 表示字段启用，应该包含在列表定义中
-                        // IsVisible 只控制前端是否显示，不影响列定义
                         IncludeInList = fld.InUse,
-                        // 🔥 修复：所有启用的字段都应该可以导出（包括扩展字段）
                         IncludeInExport = fld.InUse
                     };
 

@@ -2546,6 +2546,7 @@ namespace AutoGCLib
         }
         public static void AddCodeElement_Import(CodeElement objCodeElement_Parent, CodeElement objCodeElement_Import)
         {
+            if (objCodeElement_Parent == null) return;
             objCodeElement_Import.CodeContent = ReplaceImportStr(objCodeElement_Import.CodeContent);
             objCodeElement_Import.From = ReplaceImportStr(objCodeElement_Import.From);
 
@@ -2614,7 +2615,7 @@ namespace AutoGCLib
 
         public static void AddCodeElement_Method(CodeElement objCodeElement_Parent, CodeElement objCodeElement_Method)
         {
-
+            if (objCodeElement_Parent == null) return;
             //if (objCodeElement_Parent.ElementType != CodeElementType.Import) return;
             if (objCodeElement_Method == null ||
                string.IsNullOrEmpty(objCodeElement_Method.Name) == true)
@@ -2722,6 +2723,39 @@ namespace AutoGCLib
                               .Replace("../../L3ForWApi/", "@/ts/L3ForWApi/")
                               .Replace("../../L3ForWApiEx/", "@/ts/L3ForWApiEx/");
             return strTarget;
+        }
+
+        /// <summary>
+        /// 生成调用 IsExistAsync 的代码 (TypeScript)
+        /// </summary>
+        public static string Gc_CallIsExistAsync_Ts(clsPrjTabENEx objPrjTabENEx, string strObjVarName, string strTabNameHead, bool isFstLcase)
+        {
+            StringBuilder sbCode = new StringBuilder();
+            
+            // 统一使用 key 对象参数调用
+            sbCode.AppendFormat("\r\n  const bolIsExist = await {0}IsExistAsync({{", strTabNameHead);
+            
+            // 构建 key 对象
+            var keyFields = objPrjTabENEx.arrKeyFldSet;
+            for (int i = 0; i < keyFields.Count; i++)
+            {
+                var objKeyFld = keyFields[i];
+                string strPropertyName = objKeyFld.PropertyName(isFstLcase);
+                
+                sbCode.AppendFormat("\r\n      {0}: {1}.{2}", 
+                    strPropertyName,
+                    strObjVarName, 
+                    strPropertyName);
+                
+                if (i < keyFields.Count - 1)
+                {
+                    sbCode.Append(",");
+                }
+            }
+            
+            sbCode.Append("\r\n    });");
+            
+            return sbCode.ToString();
         }
     }
 }

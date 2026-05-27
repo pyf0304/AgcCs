@@ -104,18 +104,43 @@ namespace AutoGCLib
             // 🔥 获取数据类型信息
             string dataTypePrefix = objKeyField.ObjFieldTabENEx?.objDataTypeAbbrEN?.DataTypeAbbr ?? "str";
             string tsType = objKeyField.TypeScriptType;
-            bool isNumeric = objKeyField.IsNumberType();  // 🔥 使用扩展方法判断是否为数值类型
+            bool isNumeric = objKeyField.IsNumberType();
             string initValue = isNumeric ? "0" : "''";
             string primaryTypeId = objKeyField.PrimaryTypeId;
             
-            // 🔥 判断是否需要 WithReturnKey/WithMaxId 方法（PrimaryTypeId 为 '02', '03', '06'）
+            // 🔥 判断是否需要 WithReturnKey/WithMaxId 方法
             bool needReturnKeyMethod = (primaryTypeId == "02" || primaryTypeId == "03" || primaryTypeId == "06");
             
-            // 🔥 判断是否为字符串自增（只有字符串才需要 GetMaxStrIdAsync 和 AddNewRecordWithMaxIdAsync）
+            // 🔥 判断是否为字符串自增
             bool isStringAutoIncrement = !isNumeric && needReturnKeyMethod;
 
-            // 🔥 判断是否需要刷新缓存（只有 localStorage(03) 和 sessionStorage(04) 需要）
+            // 🔥 判断是否需要刷新缓存
             bool needRefreshCache = NeedRefreshCache();
+            
+            // 🔥 判断是否为多关键字段（联合主键）
+            bool isMultiKey = PrjTabEx_EditRegion?.arrKeyFldSet?.Count > 1;
+            
+            // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
+            var keyFields = new List<KeyFieldInfo>();
+            if (PrjTabEx_EditRegion?.arrKeyFldSet != null)
+            {
+                foreach (var keyFld in PrjTabEx_EditRegion.arrKeyFldSet)
+                {
+                    var objFieldTab = keyFld.ObjFieldTab0();
+                    var isFieldNumeric = objFieldTab.IsNumberType();
+                    var fieldInitValue = isFieldNumeric ? "0" : "''";
+                    
+                    keyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = objFieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(objFieldTab.FldName),
+                        PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
+                        IsNumeric = isFieldNumeric,
+                        TypeScriptType = objFieldTab.TypeScriptType(),
+                        InitValue = fieldInitValue  // 🔥 添加初始值
+                    });
+                }
+            }
             
             var model = new EditAiTemplateModel
             {
@@ -130,10 +155,12 @@ namespace AutoGCLib
                 KeyFieldPrefixOnly = dataTypePrefix,
                 KeyFieldInitValue = initValue,
                 IsKeyFieldNumeric = isNumeric,
-                NeedReturnKeyMethod = needReturnKeyMethod,              // 🔥 是否需要 ReturnKey 相关方法
-                IsStringAutoIncrement = isStringAutoIncrement,          // 🔥 是否为字符串自增
-                ReturnKeyMethodReturnType = tsType,                     // 🔥 返回类型与主键类型一致
-                NeedRefreshCache = needRefreshCache,                    // 🔥 是否需要刷新缓存
+                IsMultiKey = isMultiKey,                            // 🔥 是否为多关键字段
+                KeyFields = keyFields,                              // 🔥 关键字段列表（用于循环）
+                NeedReturnKeyMethod = needReturnKeyMethod,
+                IsStringAutoIncrement = isStringAutoIncrement,
+                ReturnKeyMethodReturnType = tsType,
+                NeedRefreshCache = needRefreshCache,
                 PrimaryTypeId = primaryTypeId,
                 ViewId = objViewInfoENEx.ViewId,
                 ViewName = objViewInfoENEx.ViewName,

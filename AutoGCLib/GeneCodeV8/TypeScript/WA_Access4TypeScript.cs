@@ -334,6 +334,14 @@ namespace AutoGCLib
                 FilePath = string.Format("../../L0Entity/{0}{2}/cls{1}EN.js", objFuncModule.FuncModuleEnName4GC(),
                    ThisTabName4GC, strIsShare_GC)
             });
+
+            arrImportClass.Add(new ImportClass
+            {
+                ClsName = string.Format("{0}Key", ThisTabName4GC),
+                FilePath = string.Format("../../L0Entity/{0}{2}/cls{1}EN.js", objFuncModule.FuncModuleEnName4GC(),
+               ThisTabName4GC, strIsShare_GC)
+            });
+
             //arrImportClass.Add(new ImportClass
             //{
             //    ClsName = string.Format("cls{0}EN_Sim", ThisTabName4GC),
@@ -9310,20 +9318,22 @@ ThisTabName4GC);
             }
             else
             {
-                if (thisTabProp_TS.KeyFldCount > 1)
-                {
-                    var arrTemp = thisTabProp_TS.PropertyNameLstrStr.Split(",".ToCharArray());
-                    StringBuilder sbTemp = new StringBuilder();
-                    foreach (string strInFor in arrTemp)
-                    {
-                        sbTemp.Append($"{ThisObjName4EN}.{strInFor},");
-                    }
-                    strCodeForCs.Append("\r\n" + $"const bolIsExist = await {thisWA_F(WA_F.IsExistAsync)}({sbTemp.ToString()});");
-                }
-                else
-                {
-                    strCodeForCs.Append("\r\n" + $"const bolIsExist = await {thisWA_F(WA_F.IsExistAsync)}({ThisObjName4EN}.{objKeyField.PropertyName(this.IsFstLcase)});");
-                }
+                //if (thisTabProp_TS.KeyFldCount > 1)
+                //{
+                //    var arrTemp = thisTabProp_TS.PropertyNameLstrStr.Split(",".ToCharArray());
+                //    StringBuilder sbTemp = new StringBuilder();
+                //    foreach (string strInFor in arrTemp)
+                //    {
+                //        sbTemp.Append($"{ThisObjName4EN}.{strInFor},");
+                //    }
+                //    strCodeForCs.Append("\r\n" + $"const bolIsExist = await {thisWA_F(WA_F.IsExistAsync)}({sbTemp.ToString()});");
+                //}
+                //else
+                //{
+                //    strCodeForCs.Append("\r\n" + $"const bolIsExist = await {thisWA_F(WA_F.IsExistAsync)}({ThisObjName4EN}.{objKeyField.PropertyName(this.IsFstLcase)});");
+                //}
+                // 统一使用 key 对象
+                strCodeForCs.Append(clsPubFun4GC.Gc_CallIsExistAsync_Ts(objPrjTabENEx, $"obj{ThisTabName4GC}EN", this.tabNameHead, this.IsFstLcase));
                 strCodeForCs.Append("\r\n" + "if (bolIsExist == true)");
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"添加记录时,关键字：{{0}}已经存在!\", obj{0}EN.{1});",

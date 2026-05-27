@@ -3695,12 +3695,374 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-
         /// <summary>
         /// 根据关键字获取相应的记录的对象
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetObjByKeyIdAsync()
+        {
+            // 统一使用 key 对象参数，无论单关键字还是多关键字
+            Re_objFunction4Code.FuncName4Code = string.Format($"export async function {thisWA_F(WA_F.GetObjByKeyId)}(key: {ThisClsName4EN}Key): Promise<{ThisClsName4EN} | null>  ");
+            Re_objFunction4Code.FuncCHName4Code = "根据关键字获取相应记录的对象.";
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strCodeForCs.Append("\r\n /**");
+                strCodeForCs.Append("\r\n * 把多关键字值分解为单独关键字的值,并且以对象形式返回");
+                strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.Append("\r\n * @param strKeyLst:多关键字值");
+                strCodeForCs.Append("\r\n * @returns 分解后的单独关键字值对象");
+                strCodeForCs.Append("\r\n **/");
+                strCodeForCs.Append("\r\n" + "export function " + this.tabNameHead + "SplitKeyLst(strKeyLst: string)  ");
+                strCodeForCs.Append("\r\n" + "{");
+
+                strCodeForCs.Append("\r\n" + "const arrKey = strKeyLst.split('|');");
+                strCodeForCs.AppendFormat("\r\n" + "if (arrKey.length != {0})", objPrjTabENEx.arrKeyFldSet.Count);
+                strCodeForCs.Append("\r\n" + "{");
+                strCodeForCs.Append("\r\n" + "const strMsg = \"请选择需要修改的记录!\";");
+                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                strCodeForCs.Append("\r\n" + "throw (strMsg);");
+                strCodeForCs.Append("\r\n" + "}");
+                strCodeForCs.Append("\r\n" + "const objKeyLst = {");
+                int intIndex = 0;
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    if (objInFor.IsNumberType() == true)
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "{0}: Number(arrKey[{1}]),", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase), intIndex);
+                    }
+                    else
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "{0}: arrKey[{1}],", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase), intIndex);
+                    }
+                    intIndex++;
+                }
+                strCodeForCs.Append("\r\n" + "};");
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    if (objInFor.IsNumberType() == true)
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "if (objKeyLst.{0} == 0)", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    }
+                    else
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(objKeyLst.{0})== true)", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    }
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = \"关键字段({0})值不能为空!\";", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                    strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                    strCodeForCs.Append("\r\n" + "throw (strMsg);");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                strCodeForCs.Append("\r\n" + "return objKeyLst;");
+                strCodeForCs.Append("\r\n" + "}");
+            }
+
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n * 根据关键字获取相应记录的对象");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n * @param key:包含关键字的对象");
+            strCodeForCs.Append("\r\n * @returns 对象");
+            strCodeForCs.Append("\r\n **/");
+
+            // 统一使用 key 对象参数
+            strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId)}(key: {ThisTabName4GC}Key): Promise<{ThisClsName4EN}|null>  ");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strThisFuncName = \"GetObjByKeyAsync\";");
+
+            // 验证 key 对象中的每个关键字字段
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                var strPropertyName = objInFor.PropertyName(this.IsFstLcase);
+                if (objInFor.IsNumberType())
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "if (key.{0} === undefined || key.{0} === null || key.{0} === 0)", strPropertyName);
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "if (key.{0} === undefined || key.{0} === null || key.{0} === \"\")", strPropertyName);
+                }
+                strCodeForCs.Append("\r\n" + "{");
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"关键字段[{0}]不能为空!(in {{0}}.{{1}})\", {1}, strThisFuncName);",
+                    objInFor.FldName, this.constructorName);
+                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
+                strCodeForCs.Append("\r\n" + "}");
+            }
+
+            // 根据关键字数量设置不同的 Action
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strCodeForCs.Append("\r\n" + "const strAction = \"GetObjByKeyLst\";");
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetObjBy{0}\";", objKeyField.FldName);
+            }
+
+            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
+            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
+            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
+            strCodeForCs.Append("\r\n" + "const config = {");
+            strCodeForCs.Append("\r\n" + "headers: {");
+            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "params: {");
+
+            // 从 key 对象中解构所有关键字字段
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                strCodeForCs.AppendFormat("\r\n" + "{0}: key.{1},",
+                    objInFor.PrivFuncName,
+                    objInFor.PropertyName(this.IsFstLcase));
+            }
+
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "};");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
+            strCodeForCs.Append("\r\n" + "const data = response.data;");
+
+            strCodeForCs.Append("\r\n" + "if (data.errorId == 0)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const returnObj = data.returnObj;");
+            strCodeForCs.Append("\r\n" + "if (returnObj == null)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "//console.log(returnObj);");
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = {thisWA_F(WA_F.GetObjFromJsonObj)}(returnObj);");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "console.error(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "throw(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
+
+            strCodeForCs.Append("\r\n" + "console.error(error);");
+
+            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw error;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
+
+        /// <summary>
+        /// 根据关键字获取相应的记录的对象
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyIdAsyncBak2()
+        {
+            // 统一使用 GetObjByKeyAsync 作为方法名，无论单关键字还是多关键字
+            Re_objFunction4Code.FuncName4Code = string.Format($"export  async function {thisWA_F(WA_F.GetObjByKeyId)}({objPrjTabENEx.KeyVarDefineLstStr_TS}): Promise<{ThisClsName4EN} | null>  ");
+
+            Re_objFunction4Code.FuncCHName4Code = "根据关键字获取相应记录的对象.";
+
+            StringBuilder strCodeForCs = new StringBuilder();
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strCodeForCs.Append("\r\n /**");
+                strCodeForCs.Append("\r\n * 把多关键字值分解为单独关键字的值,并且以对象形式返回");
+                strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.AppendFormat("\r\n * @param strKeyLst:多关键字值", objKeyField.PrivFuncName);
+
+                strCodeForCs.Append("\r\n * @returns 分解后的单独关键字值对象");
+                strCodeForCs.Append("\r\n **/");
+                strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + "SplitKeyLst(strKeyLst: string)  ");
+                strCodeForCs.Append("\r\n" + "{");
+
+                strCodeForCs.Append("\r\n" + "const arrKey = strKeyLst.split('|');");
+                strCodeForCs.AppendFormat("\r\n" + "if (arrKey.length != {0})", objPrjTabENEx.arrKeyFldSet.Count);
+                strCodeForCs.Append("\r\n" + "{");
+                strCodeForCs.Append("\r\n" + "const strMsg = \"请选择需要修改的记录!\";");
+                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                strCodeForCs.Append("\r\n" + "throw (strMsg);");
+                strCodeForCs.Append("\r\n" + "}");
+                strCodeForCs.Append("\r\n" + "const objKeyLst = {");
+                int intIndex = 0;
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    if (objInFor.IsNumberType() == true)
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "{0}: Number(arrKey[{1}]),", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase), intIndex);
+                    }
+                    else
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "{0}: arrKey[{1}],", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase), intIndex);
+                    }
+                    intIndex++;
+                }
+                strCodeForCs.Append("\r\n" + "};");
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    if (objInFor.IsNumberType() == true)
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "if (objKeyLst.{0} == 0)", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    }
+                    else
+                    {
+                        strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(objKeyLst.{0})== true)", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    }
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = \"关键字段({0})值不能为空!\";", objInFor.ObjFieldTab0().PropertyName(this.IsFstLcase));
+                    strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                    strCodeForCs.Append("\r\n" + "alert(strMsg);");
+                    strCodeForCs.Append("\r\n" + "throw (strMsg);");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                strCodeForCs.Append("\r\n" + "return objKeyLst;");
+                strCodeForCs.Append("\r\n" + "}");
+
+            }
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n * 根据关键字获取相应记录的对象");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param {0}:关键字", objKeyField.PrivFuncName);
+
+            strCodeForCs.Append("\r\n * @returns 对象");
+            strCodeForCs.Append("\r\n **/");
+
+            // 统一使用 GetObjByKeyAsync 作为函数名
+            strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetObjByKeyId)}({objPrjTabENEx.KeyVarDefineLstStr_TS}): Promise<{ThisClsName4EN}|null>  ");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // 根据关键字数量设置不同的函数名称字符串（用于日志和调试）
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strCodeForCs.Append("\r\n" + "const strThisFuncName = \"GetObjByKeyAsync\";");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + "const strThisFuncName = \"GetObjByKeyAsync\";");
+            }
+
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(objInFor.PrivFuncName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                    this.ClsName, "GetObjByKeyAsync", objInFor.ObjFieldTab().FldLength, true, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            // Action 名称根据关键字数量不同而不同
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strCodeForCs.Append("\r\n" + "const strAction = \"GetObjByKeyLst\";");
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetObjBy{0}\";",
+                  objKeyField.FldName);
+            }
+
+            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
+
+            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
+            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
+            strCodeForCs.Append("\r\n" + "const config = {");
+            strCodeForCs.Append("\r\n" + "headers: {");
+            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "params: {");
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                strCodeForCs.AppendFormat("\r\n" + "{0},", objInFor.PrivFuncName);
+            }
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "};");
+
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
+            strCodeForCs.Append("\r\n" + "const data = response.data;");
+
+            strCodeForCs.Append("\r\n" + "if (data.errorId == 0)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const returnObj = data.returnObj;");
+            strCodeForCs.Append("\r\n" + "if (returnObj == null)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "//console.log(returnObj);");
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = {thisWA_F(WA_F.GetObjFromJsonObj)}(returnObj);");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "console.error(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "throw(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
+
+            strCodeForCs.Append("\r\n" + "console.error(error);");
+
+            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw error;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
+        /// <summary>
+        /// 根据关键字获取相应的记录的对象
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyIdAsyncBak()
         {
             Re_objFunction4Code.FuncName4Code = string.Format($"export  async function {thisWA_F(WA_F.GetObjByKeyId)}({objPrjTabENEx.KeyVarDefineLstStr_TS}): Promise<{ThisClsName4EN} | null>  ");
 
@@ -5856,6 +6218,96 @@ StringBuilder strCodeForCs = new StringBuilder();
             return strCodeForCs.ToString();
         }
         public string Gen_4WA_Ts_IsExistAsync()
+        {
+            // 统一使用 key 对象参数，无论单关键字还是多关键字
+            Re_objFunction4Code.FuncName4Code = string.Format("export async function " + this.tabNameHead + "IsExistAsync(key: {0}Key): Promise<boolean> ", ThisClsName4EN);
+            Re_objFunction4Code.FuncCHName4Code = "根据关键字判断是否存在记录";
+
+            StringBuilder strCodeForCs = new StringBuilder();
+            strCodeForCs.Append("\r\n /**");
+            strCodeForCs.Append("\r\n * 根据关键字判断是否存在记录");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n * @param key:包含关键字的对象");
+            strCodeForCs.Append("\r\n * @returns 是否存在?存在返回True");
+            strCodeForCs.Append("\r\n **/");
+            strCodeForCs.Append("\r\n" + $"export async function {this.tabNameHead}IsExistAsync(key: {this.TabName}Key): Promise<boolean> ");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExistAsync\";");
+
+            strCodeForCs.Append("\r\n" + "//检测记录是否存在");
+            strCodeForCs.Append("\r\n" + "const strAction = \"IsExist\";");
+            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
+            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
+            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
+            strCodeForCs.Append("\r\n" + "const config = {");
+            strCodeForCs.Append("\r\n" + "headers: {");
+            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "params: {");
+
+            // 无论单关键字还是多关键字，都从 key 对象中解构
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                // 多关键字：从 key 对象中解构所有关键字
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "{0}: key.{1},",
+                        objInFor.PrivFuncName,
+                        objInFor.PropertyName(this.IsFstLcase));
+                }
+            }
+            else
+            {
+                // 单关键字：也从 key 对象中解构
+                strCodeForCs.AppendFormat("\r\n" + "{0}: key.{1},",
+                    objKeyField.PrivFuncName,
+                    objKeyField.PropertyName(this.IsFstLcase));
+            }
+
+            strCodeForCs.Append("\r\n" + "},");
+            strCodeForCs.Append("\r\n" + "};");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
+            strCodeForCs.Append("\r\n" + "const data = response.data;");
+            strCodeForCs.Append("\r\n" + "if (data.errorId == 0)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return (data.returnBool);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "console.error(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "throw(data.errorMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
+            strCodeForCs.Append("\r\n" + "console.error(error);");
+            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw error;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
+            strCodeForCs.Append("\r\n" + "throw(strInfo);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
+
+        public string Gen_4WA_Ts_IsExistAsyncBak()
         {
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "IsExistAsync({0}: {1}): Promise<boolean> ",
                         objKeyField.PrivFuncName, KeyDataType);

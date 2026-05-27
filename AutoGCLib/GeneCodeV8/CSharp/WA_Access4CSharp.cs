@@ -1846,6 +1846,115 @@ objPrjTabENEx.TabName);
             return strCodeForCs.ToString();
         }
 
+        public string Gen_4WA_GetObjByKeyIdV2()
+        {
+            StringBuilder strCodeForCs = new StringBuilder();
+            strCodeForCs.AppendFormat("\r\n /// <summary>");
+            strCodeForCs.AppendFormat("\r\n /// 获取当前关键字的记录对象,用对象的形式表示.");
+            strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n /// </summary>");
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objInFor.PrivFuncName);
+                }
+                strCodeForCs.AppendFormat("\r\n /// <returns>表对象</returns>");
+                strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjByKey({2})",
+                objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr);
+                strCodeForCs.Append("\r\n" + "{");
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    if (objInFor.IsNumberType())
+                    {
+                        strCodeForCs.Append("\r\n" + $"if ({objInFor.PrivFuncName} == 0) return null;");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + $"if ({objInFor.PrivFuncName} == \"\") return null;");
+                    }
+                }
+                strCodeForCs.AppendFormat("\r\n" + "string strAction = \"GetObjByKeyLst\";", objKeyField.FldName);
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n /// <param name = \"{0}\">表关键字</param>", objKeyField.PrivFuncName);
+                strCodeForCs.AppendFormat("\r\n /// <returns>表对象</returns>");
+                strCodeForCs.AppendFormat("\r\n" + "public static cls{0}EN GetObjByKey({2})",
+                objPrjTabENEx.TabName, objKeyField.FldName, objPrjTabENEx.KeyVarDefineLstStr);
+                strCodeForCs.Append("\r\n" + "{");
+                if (objKeyField.IsNumberType())
+                {
+                    strCodeForCs.Append("\r\n" + $"if ({objKeyField.PrivFuncName} == 0) return null;");
+                }
+                else
+                {
+                    strCodeForCs.Append("\r\n" + $"if ({objKeyField.PrivFuncName} == \"\") return null;");
+                }
+                strCodeForCs.AppendFormat("\r\n" + "string strAction = \"GetObjBy{0}\";", objKeyField.FldName);
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "cls{0}EN obj{0}EN;", objPrjTabENEx.TabName);
+
+            strCodeForCs.Append("\r\n" + "Dictionary<string, string> dictParam = new Dictionary<string, string>()");
+            strCodeForCs.Append("\r\n" + "{");
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                if (objInFor.IsNumberType() == true)
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "[\"{0}\"] = {0}.ToString(),", objInFor.PrivFuncName);
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "[\"{0}\"] = {0},", objInFor.PrivFuncName);
+                }
+            }
+            strCodeForCs.Append("\r\n" + "};");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "if (clsPubFun4WApi.Get4WebApi(mstrApiControllerName, strAction, dictParam, out string strResult, out string strErrMsg) == true)");
+            strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.AppendFormat("\r\n" + "obj{0}EN = clsJSON.GetObjFromJson<cls{0}EN>(strResult);", objPrjTabENEx.TabName);
+
+            strCodeForCs.Append("\r\n" + "JObject jobjReturn0 = JObject.Parse(strResult);");
+            strCodeForCs.Append("\r\n" + "if ((int)jobjReturn0[\"errorId\"] == 0)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "string strJson = JsonConvert.SerializeObject(jobjReturn0[\"returnObj\"]);");
+            strCodeForCs.AppendFormat("\r\n" + "obj{0}EN = JsonConvert.DeserializeObject<cls{0}EN>(strJson);",
+                objPrjTabENEx.TabName);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}EN;", objPrjTabENEx.TabName);
+
+            //strCodeForCs.Append("\r\n" + "return bolReturnBool;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "string strMsg = string.Format(\"{0}\", jobjReturn0[\"errorMsg\"]);");
+            strCodeForCs.Append("\r\n" + "throw new Exception(strMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else return null;");
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (Exception objException)");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "string strMsg = string.Format(\"获取条件记录出错,{0}.(from {1})\", HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction());");
+            strCodeForCs.Append("\r\n" + "throw new Exception(strMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+
+
+            //strCodeForCs.AppendFormat("\r\n" + "{0}ServiceSoapClient obj{0}Service = Get{0}ServiceSoapClient();",
+            //objPrjTabENEx.TabName);
+
+            //strCodeForCs.AppendFormat("\r\n" + "cls{0}EN obj{0}EN = obj{0}Service.GetObjBy{2}({1});",
+            //objPrjTabENEx.TabName, objKeyField.PrivFuncName, objKeyField.FldName);
+            //strCodeForCs.AppendFormat("\r\n" + "return obj{0}EN;", objPrjTabENEx.TabName);
+
+            strCodeForCs.Append("\r\n" + "}");
+            return strCodeForCs.ToString();
+        }
+
         /// <summary>
         /// 获取表对象的所有属性
         /// </summary>

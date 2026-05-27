@@ -3,6 +3,7 @@ using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AutoGCLib.Templates;
 using CodeStruct;
+using com.taishsoft.common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,11 +17,11 @@ namespace AutoGCLib
     /// 继承自 Ai 基类，实现命令模式和 CRUD 操作
     /// 使用 Scriban 模板引擎实现代码与模板分离
     /// </summary>
-    partial class Vue_ViewScriptExAi_TS4TypeScript : clsGeneCodeBase4View
+    partial class Vue_ViewScriptAiEx_TS4TypeScript : clsGeneCodeBase4View
     {
         private readonly RenderService _renderService;
 
-        public Vue_ViewScriptExAi_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScriptAiEx_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
             : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             _renderService = new RenderService();
@@ -36,8 +37,8 @@ namespace AutoGCLib
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
 
 
-            objViewInfoENEx.WebFormName = ThisClsName + "ExAi"; 
-            objViewInfoENEx.WebFormFName = string.Format("{0}ExAi.ts", ThisClsName);
+            objViewInfoENEx.WebFormName = ThisClsName + "AiEx"; 
+            objViewInfoENEx.WebFormFName = string.Format("{0}AiEx.ts", ThisClsName);
 
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
 
@@ -85,6 +86,10 @@ namespace AutoGCLib
         {
             // 🔥 判断列表区域是否需要刷新缓存
             bool needRefreshCache = NeedRefreshCache();
+            
+            // 🔥 判断关键字类型
+            bool isNumeric = objKeyField.IsNumberType();
+            string initValue = isNumeric ? "0" : "''";
 
             var model = new ExAi4TemplateModel
             {
@@ -94,7 +99,12 @@ namespace AutoGCLib
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
-                HasCacheMode = needRefreshCache  // 🔥 新增：设置缓存模式标志
+                HasCacheMode = needRefreshCache,
+                IsKeyFieldNumeric = isNumeric,
+                KeyFieldInitValue = initValue,
+                
+                // 🔥 NEW: 设置绑定函数名称
+                BindGvFuncName = GetBindGvFuncName()
             };
 
             // 提取排序字段
@@ -139,18 +149,22 @@ namespace AutoGCLib
         {
             if (objViewInfoENEx.arrListRegionFldSet == null) return;
 
-            foreach (var field in objViewInfoENEx.arrListRegionFldSet)
+            foreach (var field in objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum))
             {
-                // 检查是否是扩展字段（关联表字段）
-                if (field.FldName().Contains("|Ex"))
+                // 只处理扩展字段（关联表字段）
+                if (string.IsNullOrEmpty(field.OutFldId) || field.OutFldId == "0") 
+                    continue;
+
+                string strOutFldName = clsString.FstLcaseS(field.OutFldName());
+                string columnKey = $"{clsString.FirstLcaseS(strOutFldName)}|Ex";
+                
+                var sortColumn = new ExAi4SortColumn
                 {
-                    var sortColumn = new ExAi4SortColumn
-                    {
-                        ColumnKey = field.FldName(),
-                        SortExpression = GetSortExpression(field)
-                    };
-                    model.SortColumns.Add(sortColumn);
-                }
+                    ColumnKey = columnKey,
+                    SortExpression = GetSortExpression(field)
+                };
+
+                model.SortColumns.Add(sortColumn);
             }
         }
 
@@ -159,30 +173,65 @@ namespace AutoGCLib
         /// </summary>
         private string GetSortExpression(clsDGRegionFldsENEx field)
         {
-            // 示例：dataBaseTypeName|Ex -> dataBaseTypeName {0}|(DataBaseType)PrjDataBase.DataBaseTypeId = DataBaseType.DataBaseTypeId|
-            string fieldName = field.FldName().Replace("|Ex", "");
-            string tableName = field.ObjViewRegion().TabName() ?? "UnknownTable";
+            string strOutFldName = clsString.FstLcaseS(field.OutFldName());
+            
+            // 获取关联表信息
+            string strRelaTabId = clsDnPathBLEx.GetLeftJoinTabIdByDnPathId(
+                field.TabId(),
+                field.DnPathId(),
+                field.PrjId
+            );
 
-            // 尝试从字段名推断关联表名
-            string relatedTableName = InferRelatedTableName(fieldName);
+            List<(string, string)> arrOnCondition = clsDnPathBLEx.GetOnConditionByDnPathId(
+                field.DnPathId(),
+                field.PrjId
+            );
 
-            return $"{fieldName} {{0}}|({relatedTableName}){TabName_Out4ListRegion4GC}.{fieldName}Id = {relatedTableName}.{fieldName}Id|";
+            // 如果有关联条件，生成复杂排序表达式
+            if (arrOnCondition != null && arrOnCondition.Count > 0 && !string.IsNullOrEmpty(strRelaTabId))
+            {
+                StringBuilder sortExpr = new StringBuilder();
+                sortExpr.Append($"`{strOutFldName} ${{sortDirection}}|");
+                
+                foreach (var condition in arrOnCondition)
+                {
+                    sortExpr.Append($"({condition.Item1}){condition.Item2}|");
+                }
+                
+                sortExpr.Append("`");
+                return sortExpr.ToString();
+            }
+            else
+            {
+                // 简单排序表达式
+                return "Format('{0} {1}', sortColumnKey, sortDirection)";
+            }
         }
 
         /// <summary>
-        /// 从字段名推断关联表名
-        /// 例如：dataBaseTypeName -> DataBaseType
+        /// 获取绑定列表的函数名称
         /// </summary>
-        private string InferRelatedTableName(string fieldName)
+        private string GetBindGvFuncName()
         {
-            // 移除 Name 后缀
-            if (fieldName.EndsWith("Name", StringComparison.OrdinalIgnoreCase))
+            string strFuncName = "";
+            
+            if (PrjTabEx_ListRegion.IsUseCache_TS())
             {
-                fieldName = fieldName.Substring(0, fieldName.Length - 4);
+                strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}Cache";
             }
-
-            // 首字母大写
-            return char.ToUpper(fieldName[0]) + fieldName.Substring(1);
+            else
+            {
+                if (this.IsUseFunc)
+                {
+                    strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}4Func";
+                }
+                else
+                {
+                    strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}";
+                }
+            }
+            
+            return strFuncName;
         }
 
         /// <summary>

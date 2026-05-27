@@ -38,7 +38,7 @@ import {
   {{ TableName }}_DelRecordAsync,
   {{~ end ~}}
   {{~ if HasCopyFeature ~}}
-  {{ TableName }}_GetObjBy{{ KeyField }}Async,
+  {{ TableName }}_GetObjByKeyAsync,
   {{ TableName }}_AddNewRecordAsync,
   {{~ end ~}}
     {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
@@ -547,7 +547,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   public async SelectRecord(keyId: {{~ if KeyField | string.ends_with "Id" ~}}number{{~ else ~}}string{{~ end ~}}) {
     const strThisFuncName = this.SelectRecord.name;
     try {
-      const obj{{ TableName }}EN = await {{ TableName }}_GetObjBy{{ KeyField }}Async(keyId);
+      const obj{{ TableName }}EN = await {{ TableName }}_GetObjByKeyAsync(keyId);
       console.log('完成SelectRecord!', obj{{ TableName }}EN);
       // 这里可以添加具体的选择记录后的处理逻辑
       // 例如：跳转到详情页或执行回调

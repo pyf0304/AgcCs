@@ -17,14 +17,14 @@ namespace AutoGCLib
     /// 继承自 EditAi 基类，提供业务扩展点和统一的按钮事件路由
     /// 用户可以在生成的类中添加自定义逻辑
     /// </summary>
-    partial class Vue_ViewScript_EditExAi_TS4TypeScript : WA_ViewScript_EditCS_TS4TypeScript
+    partial class Vue_ViewScript_EditAiEx_TS4TypeScript : WA_ViewScript_EditCS_TS4TypeScript
     {
         private readonly RenderService _renderService;
 
         // 🔥 TypeScript 注释模式（EditEx 总是使用详细注释）
         public static CommentVerbosity TypeScriptCommentMode { get; set; } = CommentVerbosity.Verbose;
 
-        public Vue_ViewScript_EditExAi_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript_EditAiEx_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
             : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             _renderService = new RenderService();
@@ -51,12 +51,11 @@ namespace AutoGCLib
             }
 
             // 设置类名和文件名
-            objViewInfoENEx.WebFormName = ThisClsName + "ExAi";
-            objViewInfoENEx.WebFormFName = string.Format("{0}ExAi.ts", ThisClsName);
+            objViewInfoENEx.WebFormName = ThisClsName + "AiEx";
+            objViewInfoENEx.WebFormFName = string.Format("{0}AiEx.ts", ThisClsName);
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
 
-            strRe_ClsName = ThisClsName + "ExAi";
-
+            strRe_ClsName = ThisClsName + "AiEx";
             // 获取功能模块
             objFuncModuleEN = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(
                 objViewInfoENEx.FuncModuleAgcId,
@@ -132,8 +131,8 @@ namespace AutoGCLib
                 PrjName = objProjectsENEx?.PrjName ?? "未指定",
                 CMProjectId = this.CmPrjId,
                 CMProjectName = objCMProjectEN?.CmPrjName ?? "未指定",
-                FrameworkLayer = $"Vue_编辑区后台ExAi_TS(Vue_ViewScript_EditCSExAi_TS,{objViewInfoENEx.CodeTypeId})",
-                Generator = "AutoGCLib.Vue_ViewScript_EditCSExAi_TS4TypeScript",
+                FrameworkLayer = $"Vue_编辑区后台AiEx_TS(Vue_ViewScript_EditCSAiEx_TS,{objViewInfoENEx.CodeTypeId})",
+                Generator = "AutoGCLib.Vue_ViewScript_EditCSAiEx_TS4TypeScript",
 
                 // 🔥 注释模式（EditEx 总是详细）
                 CommentMode = CommentVerbosity.Verbose

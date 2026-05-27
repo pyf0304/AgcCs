@@ -141,6 +141,15 @@ namespace AutoGCLib
                     sbImport = sbImport.Replace("../../PubFun", "@/ts/PubFun");
                 }
                 strCodeForCs.AppendLine(sbImport.ToString());
+
+                // 在它后面,在生成类定义之前添加:
+                // 生成主键类型定义
+                strTemp = Gen_EN_KeyType();
+                if (!string.IsNullOrEmpty(strTemp))
+                {
+                    strCodeForCs.Append(strTemp);
+                }
+
                 if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
                 {
                     strCodeForCs.AppendFormat("\r\n" + "export class  {0} extends clsGeneralTabV",
@@ -1195,5 +1204,56 @@ objKeyField.FldName);
             }
             return strCodeForCs.ToString();
         }
+        // 在 Gen_EN_ClassConstructor1() 方法之前添加新方法
+
+        /// <summary>
+        /// 生成主键类型定义
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_EN_KeyType()
+        {
+            string strFuncName = "";
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            // 获取所有关键字段
+            var keyFields = objPrjTabENEx.arrFldSet.Where(f => f.FieldTypeId == enumFieldType.KeyField_02).ToList();
+
+            if (keyFields.Count == 0)
+            {
+                return "";
+            }
+
+            // 生成主键类型名称
+            string strKeyTypeName = ThisTabName4GC + "Key";
+            strFuncName = strKeyTypeName;
+
+            strCodeForCs.Append("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * {0}主键类型定义", objPrjTabENEx.TabCnName);
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n **/");
+            strCodeForCs.AppendFormat("\r\nexport type {0} = {{", strKeyTypeName);
+
+            foreach (var objField in keyFields)
+            {
+                strCodeForCs.AppendFormat("\r\n  {0}: {1};",
+                    objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
+                    objField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType.ToLower());
+            }
+
+            strCodeForCs.Append("\r\n};");
+
+            //clsPubFun4GC.AddCodeElement_Type(objCodeElement_Root, new CodeElement
+            //{
+            //    Name = strKeyTypeName,
+            //    CodeContent = strCodeForCs.ToString(),
+            //    ElementType = CodeElementType.Type,
+            //    Modifiers = "export"
+            //});
+
+            return strCodeForCs.ToString();
+        }
+
     }
+
 }
+

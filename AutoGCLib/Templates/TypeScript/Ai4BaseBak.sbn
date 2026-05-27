@@ -28,7 +28,7 @@ import {
   {{~ else ~}}
   {{ TableName }}_GetRecCountByCondAsync,
   {{ TableName }}_DelRecordAsync,
-  {{ TableName }}_GetObjBy{{ KeyField }}Async,
+  {{ TableName }}_GetObjByKeyAsync,
   {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
   {{ TableName }}_AddNewRecordAsync,
   {{~ end ~}}

@@ -482,12 +482,12 @@ namespace AutoGCLib
                 case WA_F.GetObjLst_Cache:
                     return string.Format($"{TabName_Out4DetailRegion}_GetObjLstCache");
                 case WA_F.GetObjByKeyId:
-                    ImportClass objImportClass = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion, string.Format("GetObjBy{0}Async", thisDetailTabProp_TS.ByInFuncName), enumImportObjType.WApiClassFunc, this.strBaseUrl);
+                    ImportClass objImportClass = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion, string.Format("GetObjByKeyAsync", thisDetailTabProp_TS.ByInFuncName), enumImportObjType.WApiClassFunc, this.strBaseUrl);
 
                     CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
                     clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
-                    return string.Format($"{TabName_Out4DetailRegion}_GetObjBy{thisDetailTabProp_TS.ByInFuncName}Async");
+                    return string.Format($"{TabName_Out4DetailRegion}_GetObjByKeyAsync");
                 case WA_F.GetObjByKeyId_Cache:
                     return string.Format($"{TabName_Out4DetailRegion}_GetObjBy{thisDetailTabProp_TS.ByInFuncName}Cache");
                 case WA_F.GetObjByKeyLstAsync:
