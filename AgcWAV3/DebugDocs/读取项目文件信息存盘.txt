@@ -1,0 +1,20 @@
+﻿{
+  "userId": "pyf",
+  "machineName": "PYF-AI",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "applicationTypeId": 30,
+  "serverIp": ""
+}
+
+用户计算
+
+{
+  "userId": "pyf",
+  "machineName": "PYF-AI",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "applicationTypeId": 30,  
+    "serverIp": "192.168.1.20",
+  "useGitIgnore": true
+}

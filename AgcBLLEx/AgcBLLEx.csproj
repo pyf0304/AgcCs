@@ -367,6 +367,7 @@
     <Compile Include="Class\RegionManage\clsvViewRegionRelaBLEx.cs" />
     <Compile Include="Class\ResourceMan\clsFileResExcludePathBLEx.cs" />
     <Compile Include="Class\ResourceMan\clsFileResourceBLEx.cs" />
+    <Compile Include="Class\ResourceMan\clsGitIgnoreParser.cs" />
     <Compile Include="Class\ResourceMan\clsvFileResourceBLEx.cs" />
     <Compile Include="Class\SQLTabField\clsSqlFunctionBLEx.cs" />
     <Compile Include="Class\SQLTabField\clsSqlSP_ParaBLEx.cs" />
