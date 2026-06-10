@@ -241,5 +241,19 @@ namespace AGC.BusinessLogicEx
             }
             return intCount;
         }
+        /// <summary>
+        /// 替换字段,在整个工程中替换字段
+        /// </summary>
+        /// <param name = "strPrjId">工程Id</param>
+        /// <param name = "strSourceFldId">源字段Id</param>
+        /// <param name = "strTargetFldId">目标字段Id</param>
+        /// <returns></returns>
+        //public static bool ReplaceField(string strPrjId, string strSourceFldId, string strTargetFldId)
+        //{
+        //    clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+        //    string strSQL;
+        //    strSQL = $"Update Function4GeneCode Set FldId = '{strTargetFldId}' where PrjId = '{strPrjId}' And {conFunction4GeneCode.FldId} = '{strSourceFldId}'";
+        //    return objSQL.ExecSql(strSQL);
+        //}
     }
 }

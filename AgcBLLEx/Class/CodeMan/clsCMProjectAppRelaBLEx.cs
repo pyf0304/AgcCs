@@ -40,6 +40,22 @@ namespace AGC.BusinessLogicEx
 {
     public static class clsCMProjectAppRelaBLEx_Static
     {
+             
+        public static string ApplicationTypeName(this clsCMProjectAppRelaEN objCMProjectAppRelaEN)
+        {
+            try
+            {
+                clsApplicationTypeEN objApplicationTypeEN = clsApplicationTypeBL.GetObjByApplicationTypeIdCache(objCMProjectAppRelaEN.ApplicationTypeId);
+                return objApplicationTypeEN.ApplicationTypeName;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("(errid:Watl000069)获取ApplicationTypeName数据出错,{1}.({0})",
+                clsStackTrace.GetCurrClassFunction(),
+                objException.Message);
+                throw new Exception(strMsg);
+            }
+        }
 
         /// <summary>
         /// 把同一个类的对象,复制到另一个对象

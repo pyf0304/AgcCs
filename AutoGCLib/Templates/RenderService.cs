@@ -271,6 +271,7 @@ namespace AutoGCLib.Templates
         public string ModuleName { get; set; }
         public List<AiQueryField> QueryFields { get; set; } = new List<AiQueryField>();
         public List<AiOptionsInfo> OptionsInfo { get; set; } = new List<AiOptionsInfo>();  // 🔥 替换 OptionsKeys
+        public List<AiOptionsInfo> OptionsInfo4DS { get; set; } = new List<AiOptionsInfo>();  // 🔥 替换 OptionsKeys
     }
 
     /// <summary>
@@ -279,6 +280,11 @@ namespace AutoGCLib.Templates
     public class AiOptionsInfo
     {
         public string Key { get; set; }              // 如 dataBaseType
+        public string ControlType { get; set; }
+        public string ArrayVariableName { get; set; }  // 如 arrFunctionTemplate
+        public string ValueFieldName { get; set; }
+        public string TextFieldName { get; set; }
+        public string OptionsKey { get; set; }       // 如 dataBaseType
         public string WApiClass { get; set; }        // 如 DataBaseType
         public string ModuleName { get; set; }       // 如 SysPara
         public string FunctionName { get; set; }     // 完整函数名
@@ -288,6 +294,17 @@ namespace AutoGCLib.Templates
         public List<AiOptionParam> Parameters { get; set; } = new List<AiOptionParam>();  // 🔥 新增：函数参数列表
     }
 
+    public class AiOptionsInfo4DSBak
+    {
+        public string ArrayVariableName { get; set; }  // 如 arrFunctionTemplate
+        public string WApiClass { get; set; }        // 如 DataBaseType
+        public string ModuleName { get; set; }       // 如 SysPara
+        public string FunctionName { get; set; }     // 完整函数名
+        public bool IsExtendedClass { get; set; }    // 是否在扩展类
+        public string WApiPath { get; set; }         // WApi 路径
+        public string WApiFileName { get; set; }     // WApi 文件名
+        public List<AiOptionParam> Parameters { get; set; } = new List<AiOptionParam>();  // 🔥 新增：函数参数列表
+    }
     /// <summary>
     /// 🔥 新增：选项函数参数信息
     /// </summary>
@@ -321,19 +338,25 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
-    /// Ai4 命令配置模板数据模型
+    /// Ai 命令配置模板数据模型
     /// </summary>
-    public class Ai4CommandTemplateModel
+    public class AiCommandTemplateModel
     {
         public string TableName { get; set; }
         public string TableNameUpper { get; set; }
-        public List<Ai4Command> Commands { get; set; } = new List<Ai4Command>();
+        public List<AiCommand> Commands { get; set; } = new List<AiCommand>();
+
+        /// <summary>
+        /// 🔥 新增：功能区下拉框选项信息
+        /// </summary>
+        public List<AiOptionsInfo> FeatureOptions { get; set; } = new List<AiOptionsInfo>();
+        public List<AiOptionsInfo> FeatureOptions4DS { get; set; } = new List<AiOptionsInfo>();
     }
 
     /// <summary>
     /// 命令定义
     /// </summary>
-    public class Ai4Command
+    public class AiCommand
     {
         public string Id { get; set; }
         public string Region { get; set; }
@@ -341,10 +364,35 @@ namespace AutoGCLib.Templates
         public string ElementId { get; set; }
         public string BtnClass { get; set; }
         public bool NeedAuxControl { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：辅助控件ID（如：ddlInUse_SetFldValue）
+        /// </summary>
+        public string AuxControlId { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：辅助控件类型（select4Bool、select、text）
+        /// </summary>
+        public string AuxControlType { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：辅助控件选项键（用于获取下拉框数据源）
+        /// </summary>
+        public string AuxControlOptionsKey { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：字段名（用于关联 VueShare 中的响应式变量）
+        /// </summary>
+        public string FieldName { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：驼峰式字段名（如：inUse）
+        /// </summary>
+        public string FieldNameCamel { get; set; }
     }
 
     /// <summary>
-    /// Ai4 基类模板数据模型
+    /// Ai 基类模板数据模型
     /// </summary>
     public class AiBaseTemplateModel
     {
@@ -356,8 +404,15 @@ namespace AutoGCLib.Templates
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
         public bool HasCacheMode { get; set; }              // 是否使用缓存模式（CacheModeId='03'或'04'）
+                                                            // 🔥 新增：缓存分类字段信息
+        public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
+        public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
+        public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+
+
         public bool IsUseFunc { get; set; }                 // 🔥 新增：是否有字段映射转换（需要Ex函数）
-        
+        public bool IsMultiKey { get; set; }                // 🔥 新增：是否为多关键字
+        public string strIsShare { get; set; }
         public bool HasDeleteFeature { get; set; }          // 是否有删除功能（功能区按钮）
         public bool HasExportFeature { get; set; }          // 是否有导出功能
         public bool HasCopyFeature { get; set; }            // 🔥 新增：是否有复制记录功能
@@ -367,26 +422,22 @@ namespace AutoGCLib.Templates
         public List<AiSetFieldFeature> SetFieldFeatures { get; set; } = new List<AiSetFieldFeature>();
         
         // 🔥 排序示例字段（从导出区域字段中选择前两个）
-        public string SortField1 { get; set; }                  // 第一个排序字段名称
-        public string SortField1Type { get; set; }              // 第一个字段的 TypeScript 类型
-        public string SortField1CompareExpr { get; set; }       // 第一个字段的比较表达式
-        public string SortField2 { get; set; }                  // 第二个排序字段名称
-        public string SortField2Type { get; set; }              // 第二个字段的 TypeScript 类型
-        public string SortField2CompareExpr { get; set; }       // 第二个字段的比较表达式
-        public List<FieldInfo> AvailableFields { get; set; } = new List<FieldInfo>(); // 🔥 修正：所有可用字段
-    }
+        public string SortField1 { get; set; }
+        public string SortField1Type { get; set; }
+        public string SortField1CompareExpr { get; set; }
+        public string SortField2 { get; set; }
+        public string SortField2Type { get; set; }
+        public string SortField2CompareExpr { get; set; }
+        public List<FieldInfo> AvailableFields { get; set; } = new List<FieldInfo>();
+        public List<string> CacheCondVarLst { get; set; }
+        public List<string> CacheImportVarLst { get; set; }
+        public string CacheImportVars { get; set; }
+        public string CacheCondVars { get; set; }
+        public string CacheCondVars4Fst { get; set; }
 
-    /// <summary>
-    /// 关键字段信息（用于多关键字段循环）
-    /// </summary>
-    public class KeyFieldInfo
-    {
-        public string FieldName { get; set; }           // 字段名称（如：mId）
-        public string FieldNameCamel { get; set; }      // 驼峰命名（如：mId）
-        public string PropertyName { get; set; }        // 属性名称（如：MId）
-        public bool IsNumeric { get; set; }             // 是否为数字类型
-        public string TypeScriptType { get; set; }      // TypeScript 类型
-        public string InitValue { get; set; }           // 🔥 初始值（'0' 或 ''）
+        public bool HasCacheCondVar { get; set; }
+        public bool HasCacheImportVar { get; set; }
+        public string KeyTypeName { get; set; }
     }
 
     /// <summary>
@@ -406,13 +457,20 @@ namespace AutoGCLib.Templates
         public string KeyFieldPrefixOnly { get; set; }
         public string KeyFieldInitValue { get; set; }
         public bool IsKeyFieldNumeric { get; set; }
-        public bool IsMultiKey { get; set; }                     // 🔥 是否为多关键字段（联合主键）
-        public List<KeyFieldInfo> KeyFields { get; set; }        // 🔥 关键字段列表
-        public bool NeedCheckKeyExist { get; set; }              // 🔥 是否需要检查关键字存在性
+        public bool IsMultiKey { get; set; }
+        public string strIsShare { get; set; }
+        public List<KeyFieldInfo> KeyFields { get; set; }
+        public bool NeedCheckKeyExist { get; set; }
         public bool NeedReturnKeyMethod { get; set; }
         public bool IsStringAutoIncrement { get; set; }
         public string ReturnKeyMethodReturnType { get; set; }
         public bool NeedRefreshCache { get; set; }
+        
+        // 🔥 新增：缓存分类字段信息
+        public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
+        public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
+        public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+        
         public string PrimaryTypeId { get; set; }
         public string ViewId { get; set; }
         public string ViewName { get; set; }
@@ -442,7 +500,9 @@ namespace AutoGCLib.Templates
         public string ModuleName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
-        public bool IsKeyFieldNumeric { get; set; }         // 🔥 新增：关键字段是否为数字类型
+        public bool IsKeyFieldNumeric { get; set; }         // 🔥 关键字段是否为数字类型
+        public bool IsMultiKey { get; set; }                // 🔥 新增：是否为多关键字段（复合主键）
+        public List<KeyFieldInfo> KeyFields { get; set; }   // 🔥 新增：关键字段列表
         public string PrimaryTypeId { get; set; }
         public string ViewId { get; set; }
         public string ViewName { get; set; }
@@ -461,6 +521,42 @@ namespace AutoGCLib.Templates
         public string FrameworkLayer { get; set; }
         public string Generator { get; set; }
         public CommentVerbosity CommentMode { get; set; } = CommentVerbosity.Verbose;
+    }
+
+    /// <summary>
+    /// 🔥 NEW: 关键字字段信息
+    /// </summary>
+    public class KeyFieldInfo
+    {
+        /// <summary>
+        /// 字段名：ConstId, PrjId
+        /// </summary>
+        public string FieldName { get; set; }
+        
+        /// <summary>
+        /// 驼峰式字段名：constId, prjId
+        /// </summary>
+        public string FieldNameCamel { get; set; }
+        
+        /// <summary>
+        /// 属性名（根据 IsFstLcase）：constId 或 ConstId
+        /// </summary>
+        public string PropertyName { get; set; }
+        
+        /// <summary>
+        /// 是否为数字类型
+        /// </summary>
+        public bool IsNumeric { get; set; }
+        
+        /// <summary>
+        /// TypeScript 类型：string, number, boolean
+        /// </summary>
+        public string TypeScriptType { get; set; }
+        
+        /// <summary>
+        /// 初始值：'0' 或 "''"
+        /// </summary>
+        public string InitValue { get; set; }
     }
 
     /// <summary>
@@ -513,7 +609,7 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
-    /// 设置字段值功能定义（用于 Ai4Base 模板）
+    /// 设置字段值功能定义（用于 AiBase 模板）
     /// 在列表中批量设置某个字段的值
     /// </summary>
     public class AiSetFieldFeature
@@ -562,12 +658,27 @@ namespace AutoGCLib.Templates
         /// 🔥 新增：关联表所属模块名（如：SysPara, PrjFunction）
         /// </summary>
         public string RelatedModuleName { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：字段的 TypeScript 类型（如：string, number, boolean）
+        /// </summary>
+        public string FieldTypeScript { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：参数前缀（如：str, bol, num）
+        /// </summary>
+        public string ParamPrefix { get; set; }
+        
+        /// <summary>
+        /// 🔥 新增：是否需要空值验证（布尔类型不需要）
+        /// </summary>
+        public bool NeedsValidation { get; set; }
     }
 
     /// <summary>
-    /// Ai4 HTML 模板数据模型（用于生成 .vue 文件）
+    /// Ai HTML 模板数据模型（用于生成 .vue 文件）
     /// </summary>
-    public class Ai4HtmlTemplateModel
+    public class AiHtmlTemplateModel
     {
         public string TableName { get; set; }
         public string TableNameCamel { get; set; }
@@ -593,12 +704,13 @@ namespace AutoGCLib.Templates
         public string ViewVariablesInitCode { get; set; } = string.Empty;
     }
     /// <summary>
-    /// Ai4 查询选项数组信息
+    /// Ai 查询选项数组信息
     /// </summary>
-    public class Ai4HtmlQueryOption
+    public class AiHtmlQueryOption
     {
         public string ArrayVariableName { get; set; }  // 如 arrFunctionTemplate
         public string OptionsKey { get; set; }         // 如 functionTemplate
+        public string OptionsWApiClass { get; set; }   // 🔥 新增：WApi 类名，如 FunctionTemplate, vCodeType_Sim
         public string ModuleName { get; set; }         // 🔥 新增：模块名，如 PrjFunction
         
         /// <summary>
@@ -615,9 +727,9 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
-    /// Ai4 HTML 查询字段
+    /// Ai HTML 查询字段
     /// </summary>
-    public class Ai4HtmlQueryField
+    public class AiHtmlQueryField
     {
         public string Key { get; set; }
         public string Label { get; set; }
@@ -644,9 +756,9 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
-    /// Ai4 HTML 命令按钮定义
+    /// Ai HTML 命令按钮定义
     /// </summary>
-    public class Ai4HtmlCommand
+    public class AiHtmlCommand
     {
         public string Id { get; set; }              // query / create / delete
         public string Text { get; set; }            // 查询 / 添加 / 删除
@@ -656,10 +768,11 @@ namespace AutoGCLib.Templates
     }
 
     /// <summary>
-    /// ExAi4 扩展类模板数据模型
+    /// ExAi 扩展类模板数据模型
     /// </summary>
-    public class ExAi4TemplateModel
+    public class ExAiTemplateModel
     {
+        public string strIsShare { get; set; }
         public string TableName { get; set; }
         public string TableNameCamel { get; set; }
         public string TableCnName { get; set; }
@@ -669,27 +782,40 @@ namespace AutoGCLib.Templates
         public bool HasCacheMode { get; set; }
         public bool IsKeyFieldNumeric { get; set; }
         public string KeyFieldInitValue { get; set; }
-        
-        // 🔥 NEW: 添加绑定函数名称
+
+        public bool IsUseFunc { get; set; }                 // 🔥 新增：是否有字段映射转换（需要Ex函数）
+        public bool IsMultiKey { get; set; }  // 🔥 NEW: 是否为多关键字表
+
+        // 绑定函数名称
         public string BindGvFuncName { get; set; }
-        
-        public List<ExAi4SortColumn> SortColumns { get; set; } = new List<ExAi4SortColumn>();
-        public List<ExAi4CommandMapping> CommandMappings { get; set; } = new List<ExAi4CommandMapping>();
+
+        // 🔥 CRUD 功能标志
+        public bool HasQueryFeature { get; set; }
+        public bool HasCreateFeature { get; set; }
+        public bool HasDetailFeature { get; set; }
+        public bool HasUpdateFeature { get; set; }
+        public bool HasDeleteFeature { get; set; }
+        public bool HasExportFeature { get; set; }
+        public bool HasCopyFeature { get; set; }
+
+        public List<ExAiSortColumn> SortColumns { get; set; } = new List<ExAiSortColumn>();
+        public List<ExAiCommandMapping> CommandMappings { get; set; } = new List<ExAiCommandMapping>();
+        public List<KeyFieldInfo> KeyFields { get; set; } = new List<KeyFieldInfo>();  // 🔥 NEW: 多关键字字段列表
     }
 
     /// <summary>
     /// 排序列配置
     /// </summary>
-    public class ExAi4SortColumn
+    public class ExAiSortColumn
     {
         public string ColumnKey { get; set; }           // 列键名（如 "functionTemplateName|Ex"）
         public string SortExpression { get; set; }      // 排序表达式（包含关联信息）
     }
 
     /// <summary>
-    /// ExAi4 命令映射定义
+    /// ExAi 命令映射定义
     /// </summary>
-    public class ExAi4CommandMapping
+    public class ExAiCommandMapping
     {
         public string CommandName { get; set; }         // SetUseStateId / SetFuncModuleId
         public string CommandId { get; set; }           // setUseState / setFuncModule
@@ -712,10 +838,9 @@ namespace AutoGCLib.Templates
     #endregion
  
     /// <summary>
-    /// 🔥 Ai4 HTML 列表模板数据模型（用于生成完整的 .vue 文件，包含列表功能）
-    /// 相比 Ai4HtmlTemplateModel，增加了 QueryFields、QueryCommands、FeatureCommands 等列表相关属性
+    /// 🔥 Ai HTML 列表模板数据模型（用于生成完整的 .vue 文件，包含列表功能）
     /// </summary>
-    public class ListAi4HtmlTemplateModel
+    public class ListAiHtmlTemplateModelBak
     {
         public string TableName { get; set; }
         public string TableNameCamel { get; set; }
@@ -724,7 +849,16 @@ namespace AutoGCLib.Templates
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
         public string ViewTitle { get; set; }
+        
+        /// <summary>
+        /// 是否需要 userStore
+        /// </summary>
+        public bool NeedsUserStore { get; set; } = false;
 
+        /// <summary>
+        /// 是否需要 route (useRoute)
+        /// </summary>
+        public bool NeedsRoute { get; set; } = false;
         /// <summary>
         /// 是否有设置字段值功能
         /// </summary>
@@ -737,7 +871,6 @@ namespace AutoGCLib.Templates
 
         /// <summary>
         /// 界面变量列表（需要从 VueShare 导入的变量名）
-        /// 例如：["ProgLangTypeId_Static", "CodeTypeId_Static", "FunctionTemplateId_Static"]
         /// </summary>
         public List<string> ViewVariables { get; set; } = new List<string>();
 
@@ -747,41 +880,112 @@ namespace AutoGCLib.Templates
         public List<ViewVariableDetail> ViewVariableDetails { get; set; } = new List<ViewVariableDetail>();
 
         /// <summary>
-        /// 界面变量初始化代码（完整的 TypeScript 代码字符串）
+        /// 🔥 界面变量初始化代码（字符串形式 - 已废弃，使用 ViewVariablesInitCodeLines）
         /// </summary>
+        [Obsolete("使用 ViewVariablesInitCodeLines 替代")]
         public string ViewVariablesInitCode { get; set; } = string.Empty;
 
         /// <summary>
-        /// VueShare 文件名（如 FunctionTemplateRelaVueShare）
+        /// 🔥 界面变量初始化代码行数组（用于模板逐行输出）
+        /// </summary>
+        public List<string> ViewVariablesInitCodeLines { get; set; } = new List<string>();
+
+        /// <summary>
+        /// VueShare 文件名
         /// </summary>
         public string VueShareFileName { get; set; } = string.Empty;
 
         /// <summary>
-        /// VueShare 导入路径（如 @/views/PrjFunction/FunctionTemplateRelaVueShare）
+        /// VueShare 导入路径
         /// </summary>
         public string VueShareImportPath { get; set; } = string.Empty;
 
         /// <summary>
         /// 查询选项数组列表
         /// </summary>
-        public List<Ai4HtmlQueryOption> QueryOptionsArrays { get; set; } = new List<Ai4HtmlQueryOption>();
+        public List<AiHtmlQueryOption> QueryOptionsArrays { get; set; } = new List<AiHtmlQueryOption>();
 
         /// <summary>
         /// 查询字段列表
         /// </summary>
-        public List<Ai4HtmlQueryField> QueryFields { get; set; } = new List<Ai4HtmlQueryField>();
+        public List<AiHtmlQueryField> QueryFields { get; set; } = new List<AiHtmlQueryField>();
 
         /// <summary>
         /// 查询命令按钮列表
         /// </summary>
-        public List<Ai4HtmlCommand> QueryCommands { get; set; } = new List<Ai4HtmlCommand>();
+        public List<AiHtmlCommand> QueryCommands { get; set; } = new List<AiHtmlCommand>();
 
         /// <summary>
         /// 功能命令按钮列表
         /// </summary>
-        public List<Ai4HtmlCommand> FeatureCommands { get; set; } = new List<Ai4HtmlCommand>();
+        public List<AiHtmlCommand> FeatureCommands { get; set; } = new List<AiHtmlCommand>();
+
+        /// <summary>
+        /// 选项键列表
+        /// </summary>
+        public List<string> OptionKeys { get; set; } = new List<string>();
     }
 
+    public class ListAiHtmlTemplateModel
+    {
+        public string TableName { get; set; }
+        public string TableNameCamel { get; set; }
+        public string TableCnName { get; set; }
+        public string ModuleName { get; set; }
+        public string KeyField { get; set; }
+        public string KeyFieldCamel { get; set; }
+        public string ViewTitle { get; set; }
+        public string strIsShare { get; set; }
+        // 🔥 新增：多关键字支持
+        public bool IsMultiKey { get; set; }
+        public List<KeyFieldInfo> KeyFields { get; set; } = new List<KeyFieldInfo>();
+
+        /// <summary>
+        /// 是否有设置字段值功能
+        /// </summary>
+        public bool HasSetFieldFeature { get; set; }
+
+        /// <summary>
+        /// 🔥 是否有详细信息功能
+        /// </summary>
+        public bool HasDetailFeature { get; set; }
+        public bool HasExportFeature { get; set; }
+
+        public List<string> SetFieldVariables { get; set; } = new List<string>();
+        public List<string> ViewVariables { get; set; } = new List<string>();
+        public List<ViewVariableDetail> ViewVariableDetails { get; set; } = new List<ViewVariableDetail>();
+
+        public string ViewVariablesInitCode { get; set; } = string.Empty;
+        public bool NeedsUserStore { get; set; } = false;
+        public bool NeedsRoute { get; set; } = false;
+        public bool NeedsSessionStorage { get; set; } = false;
+
+        public string VueShareFileName { get; set; } = string.Empty;
+        public string VueShareImportPath { get; set; } = string.Empty;
+
+        public List<AiHtmlQueryOption> QueryOptionsArrays { get; set; } = new List<AiHtmlQueryOption>();
+        public List<AiHtmlQueryOption> QueryOptionsArrays4Import { get; set; } = new List<AiHtmlQueryOption>();
+
+        public List<AiHtmlQueryOption> FeatureOptionsArrays { get; set; } = new List<AiHtmlQueryOption>();
+        public List<AiHtmlQueryOption> FeatureOptionsArrays4Import { get; set; } = new List<AiHtmlQueryOption>();
+
+
+        public List<AiHtmlQueryField> QueryFields { get; set; } = new List<AiHtmlQueryField>();
+
+        /// <summary>
+        /// 🔥 新增：功能区下拉框选项信息
+        /// </summary>
+        public List<AiOptionsInfo> FeatureOptions { get; set; } = new List<AiOptionsInfo>();
+        public List<AiOptionsInfo> FeatureOptions4DS { get; set; } = new List<AiOptionsInfo>();
+
+
+        public List<AiHtmlCommand> QueryCommands { get; set; } = new List<AiHtmlCommand>();
+        public List<AiHtmlCommand> FeatureCommands { get; set; } = new List<AiHtmlCommand>();
+        public List<string> OptionKeys { get; set; } = new List<string>();
+        public List<string> OptionKeysInFeature { get; set; } = new List<string>();
+        public List<string> OptionKeysInFeature4DS { get; set; } = new List<string>();
+
+    }
     /// <summary>
     /// DetailEx 扩展类模板数据模型
     /// </summary>

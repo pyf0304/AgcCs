@@ -17,6 +17,7 @@ namespace AgcCommBase
         public string FldName_FstLCase;
         public string PriVarName;
         public string TypeScriptType;
+        
         public string KeyFldNameLstStr;
         /// <summary>
         /// ts属性名(首字母小写)列表

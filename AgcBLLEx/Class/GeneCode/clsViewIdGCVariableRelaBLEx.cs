@@ -462,7 +462,7 @@ namespace AGC.BusinessLogicEx
                 if (string.IsNullOrEmpty(objInFor.TabFeatureId4Ddl) == false)
                 {
                     var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(objInFor.TabFeatureId4Ddl, objInFor.PrjId);
-
+                    if (objTabFeature == null) continue;
                     var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, objInFor.PrjId);
 
                     var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
@@ -1092,6 +1092,7 @@ namespace AGC.BusinessLogicEx
         public static string GetEditRegionViewVarNames(string strViewId, string strPrjId)
         {
             var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariableRela.RegionTypeNames} like '%EditRegion%' ";
+
             //var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBL.GetObjLst(strWhere);
             var arrViewIdGCVariableRelaCache = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
             var arr_Sel = arrViewIdGCVariableRelaCache.Where(x => x.ViewId == strViewId && x.RegionTypeNames.Contains("EditRegion")).ToList();
@@ -1106,6 +1107,27 @@ namespace AGC.BusinessLogicEx
             string result = string.Join(",", arrVarNames);
             return result;
         }
+
+        public static string GetEditRegionCondFlds(string strViewId, string strPrjId)
+        {
+            var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariableRela.RegionTypeNames} like '%CondField%' ";
+
+            //var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBL.GetObjLst(strWhere);
+            var arrViewIdGCVariableRelaCache = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
+            var arr_Sel = arrViewIdGCVariableRelaCache.Where(x => x.ViewId == strViewId && x.RegionTypeNames.Contains("CondField")).ToList();
+
+
+            List<string> arrVarNames = new List<string>();
+            foreach (var objInFor in arr_Sel)
+            {
+                var objGCVariable = clsGCVariableBL.GetObjByVarIdCache(objInFor.VarId);
+                arrVarNames.Add(objGCVariable.GetVarName4View());
+            }
+            string result = string.Join(",", arrVarNames);
+            return result;
+        }
+
+
         public static List<clsViewIdGCVariableRelaEN> GetQryRegionViewVarLst(string strViewId, string strPrjId)
         {
             var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariableRela.RegionTypeNames} like '%QueryRegion%' ";

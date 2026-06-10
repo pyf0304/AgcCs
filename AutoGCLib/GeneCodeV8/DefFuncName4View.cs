@@ -204,7 +204,7 @@ namespace AutoGCLib
             string strTabName_Copy = TabName_Out4ListRegion4GC;
             string strTabId_Copy = TabId_Out4ListRegion;
 
-            if (objPrjTabEx_ListRegion.SqlDsTypeId == enumSQLDSType.SqlView_02)
+            if (PrjTabEx_ListRegion.SqlDsTypeId == enumSQLDSType.SqlView_02)
             {
                 if (strTabName_Copy.Substring(0, 1) != "v")
                 {
@@ -290,13 +290,13 @@ namespace AutoGCLib
                     clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import7);
 
                     return string.Format($"{TabName_Out4ListRegion4GC}_GetObjLstByPagerAsync");
-                case WA_F.DelMultiRecordAsync:
+                case WA_F.DelKeysAsync:
                     ImportClass objImportClass8 = AddImportClass(strTabId_Copy, strTabName_Copy, string.Format($"Del{strTabName_Copy}sAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
 
                     CodeElement objCodeElement_Import8 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass8);
                     clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import8);
 
-                    return string.Format($"{strTabName_Copy}_Del{strTabName_Copy}sAsync");
+                    return string.Format($"{strTabName_Copy}_DelKeysAsync");
 
                 case WA_F.DelMultiRecordByCondAsync:
                     ImportClass objImportClass9 = AddImportClass(strTabId_Copy, strTabName_Copy, string.Format($"Del{strTabName_Copy}sByCondAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
@@ -491,12 +491,12 @@ namespace AutoGCLib
                 case WA_F.GetObjByKeyId_Cache:
                     return string.Format($"{TabName_Out4DetailRegion}_GetObjBy{thisDetailTabProp_TS.ByInFuncName}Cache");
                 case WA_F.GetObjByKeyLstAsync:
-                    ImportClass objImportClass2 = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion, string.Format("GetObjByKeyLstAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
+                    ImportClass objImportClass2 = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion, string.Format("GetObjByKeyAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
 
                     CodeElement objCodeElement_Import2 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass2);
                     clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import2);
 
-                    return string.Format($"{TabName_Out4DetailRegion}_GetObjByKeyLstAsync");
+                    return string.Format($"{TabName_Out4DetailRegion}_GetObjByKeyAsync");
                 case WA_F.FuncMapByFldName:
                     ImportClass objImportClass3 = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion + "Ex", "FuncMapByFldName", enumImportObjType.WApiExtendClassFunc, this.strBaseUrl);
 

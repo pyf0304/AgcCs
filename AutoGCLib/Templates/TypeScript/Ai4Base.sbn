@@ -1,59 +1,77 @@
 ﻿import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
 import {
   {{~ if HasCacheMode ~}}
-    {{~ if HasExportFeature ~}}
-  Combine{{ TableName }}ConditionObj4ExportExcel,
+        {{~ if HasExportFeature ~}}
+            Combine{{ TableName }}ConditionObj4ExportExcel,
+        {{~ end ~}}
+        Combine{{ TableName }}ConditionObj,          
+        {{ TableName }}_DeleteKeyIdCache,                 
+  {{~ else ~}}  
+        Combine{{ TableName }}Condition,
   {{~ end ~}}
-  Combine{{ TableName }}ConditionObj,
-  {{~ else ~}}
 
-  
-  Combine{{ TableName }}Condition,
-  {{~ end ~}}
-  {{~ if HasCacheMode ~}}
-  {{ TableName }}_DeleteKeyIdCache,
-  {{~ end ~}}
   divVarSet,
   viewVarSet,
   dataColumn,
   BindTabByList,
-  ref{{ TableName }}_List,
-} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+  ref{{ TableName }}_List
+  {{CacheImportVars}}
+} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 import {
   {{~ if HasCacheMode ~}}
-  {{ TableName }}_GetRecCountByCondCache,
-  {{~ if HasExportFeature ~}}
-  {{ TableName }}_GetSubObjLstCache,
-  {{~ end ~}}
-  {{ TableName }}_ReFreshCache,
-  {{ TableName }}_FuncMapByFldName,
-  {{ TableName }}_GetObjExLstByPagerCache,
-  {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+        {{ TableName }}_GetRecCountByCondCache,
+        {{~ if HasExportFeature ~}}
+            {{ TableName }}_GetSubObjLstCache,
+        {{~ end ~}}
+        {{ TableName }}_ReFreshCache,
+
+        {{ TableName }}_GetObjExLstByPagerCache,        
   {{~ else ~}}
-  {{ TableName }}_GetRecCountByCondAsync,
-  {{~ if HasExportFeature ~}}
-  {{ TableName }}_GetObjLstAsync,
+        {{ TableName }}_GetRecCountByCondAsync,
+        {{~ if HasExportFeature ~}}
+            {{ TableName }}_GetObjLstAsync,
+        {{~ end ~}}
+        {{~ if HasDeleteInTabFeature ~}}
+            {{ TableName }}_DelRecordAsync,
+        {{~ end ~}}
   {{~ end ~}}
-  {{~ if HasDeleteInTabFeature ~}}
-  {{ TableName }}_DelRecordAsync,
-  {{~ end ~}}
+
   {{~ if HasCopyFeature ~}}
-  {{ TableName }}_GetObjByKeyAsync,
-  {{ TableName }}_AddNewRecordAsync,
+        {{ TableName }}_GetObjByKeyAsync,
+        {{ TableName }}_AddNewRecordAsync,
+
+        {{~ if KeyTypeName == "StringAutoAddPrimaryKey" ~}}        
+                {{ TableName }}_GetMaxStrIdAsync,
+        {{~ else if KeyTypeName == "StringAutoAddPrimaryKeyWithPrefix" ~}}
+                {{ TableName }}_GetMaxStrIdByPrefixAsync, 
+        {{~ end ~}}
   {{~ end ~}}
-    {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+
+  {{~ if !IsUseFunc ~}}
+          {{ TableName }}_GetObjLstByPagerAsync,
+  {{~ else ~}}
+          {{ TableName }}_FuncMapByFldName,
   {{~ end ~}}
-  {{ TableName }}_UpdateRecordAsync,
-  {{ TableName }}_Del{{ TableName }}sAsync,
+  {{~ if HasCopyFeature || SetFieldFeatures.size>0  ~}}
+        {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ end ~}}
+  {{ TableName }}_UpdateRecordAsync,  
+  
+  {{~ if IsMultiKey ~}}
+        {{ TableName }}_DelRecKeyLstsAsync,
+  {{~ else ~}}
+        {{ TableName }}_DelKeysAsync,
+  {{~ end ~}}
 } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
 {{~ if IsUseFunc ~}}
 import {
   {{ TableName }}Ex_FuncMapByFldName,
+    {{~ if HasCacheMode ~}}
+      {{ TableName }}Ex_GetObjExLstByPagerCache,
+      {{~ else ~}}
   {{ TableName }}Ex_GetObjExLstByPagerAsync,
+    {{~ end ~}}
 } from '@/ts/L3ForWApiEx/{{ ModuleName }}/cls{{ TableName }}ExWApi';
-{{~ end ~}}
-{{~ for feature in SetFieldFeatures ~}}
-import { {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache } from '@/ts/L3ForWApi/{{ feature.RelatedModuleName }}/cls{{ feature.RelatedTableName }}WApi';
 {{~ end ~}}
 
 
@@ -123,7 +141,14 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
       if (viewVarSet.sort{{ TableName }}By == '') {
         viewVarSet.sort{{ TableName }}By = `${cls{{ TableName }}EN.con_{{ KeyField }}} Asc`;
       }
+      
+      {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
     } catch (e) {
       const strMsg = `页面启动不成功,${e}.(in ${this.constructor.name}.${this.PageLoadCache.name}`;
       console.error(strMsg);
@@ -142,21 +167,24 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
    */
   public async btnQuery_Click() {
     await this.QueryClickTemplate(async () => {
+  
+         {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
     });
   }
 
-{{~ for feature in SetFieldFeatures ~}}
-  public async SetDdl_{{ feature.FieldName }}InDivInFeature() {
-    await {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache(divVarSet.refDivFunction, '{{ feature.DdlId }}');
-  }
-
+    {{~ for feature in SetFieldFeatures ~}}
   /**
    * 设置{{ feature.FieldCnName }}按钮点击事件处理
    *
    * 流程：
    * 1. 验证是否选中了记录
-   * 2. 验证是否选择了有效的{{ feature.FieldCnName }}
+   * 2. {{~ if feature.NeedsValidation ~}}验证是否选择了有效的{{ feature.FieldCnName }}{{~ else ~}}获取{{ feature.FieldCnName }}值{{~ end ~}}
    * 3. 执行批量设置操作
    * 4. 操作完成后刷新数据列表
    *
@@ -164,27 +192,39 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
    */
   public async {{ feature.ButtonMethodName }}() {
     try {
-      const str{{ feature.FieldName }} = GetSelectValueInDivObj(
+      {{~ if feature.FieldTypeScript == "boolean" ~}}
+      const {{ feature.ParamPrefix }}{{ feature.FieldName }}: boolean = $('#{{ feature.DdlId }}_SetFldValue').prop('checked'); // 布尔型下拉框直接获取checked属性
+      {{~ else ~}}
+      const {{ feature.ParamPrefix }}{{ feature.FieldName }} = GetSelectValueInDivObj(
         divVarSet.refDivFunction,
         '{{ feature.DdlId }}_SetFldValue',
       );
+      {{~ end ~}}
       await this.ExecuteSelectionActionTemplate({
         selectedKeys: GetCheckedKeyIdsInDivObj(divVarSet.refDivList),
         emptySelectionMessage: `请选择需要设置{{ feature.FieldCnName }}的${this.thisTabName}记录!`,
         beforeExecute: () => {
-          if (str{{ feature.FieldName }} == '') {
+          {{~ if feature.NeedsValidation ~}}
+          if ({{ feature.ParamPrefix }}{{ feature.FieldName }} == '') {
             const strMsg = '请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!';
             console.error(strMsg);
             alert(strMsg);
             return false;
           }
+          {{~ end ~}}
           return true;
         },
         execute: async (arrKeyIds) => {
-          await this.{{ feature.MethodName }}(arrKeyIds, str{{ feature.FieldName }});
+          await this.{{ feature.MethodName }}(arrKeyIds, {{ feature.ParamPrefix }}{{ feature.FieldName }});
         },
         onAfterExecute: async () => {
+          {{~ if IsUseFunc ~}}
           await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+          {{~ else if HasCacheMode ~}}
+          await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+          {{~ else ~}}
+          await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+          {{~ end ~}}
         },
       });
     } catch (e) {
@@ -195,6 +235,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   }
 
 {{~ end ~}}
+
 {{~ if HasDeleteFeature ~}}
   /**
    * 删除记录按钮点击事件处理
@@ -217,7 +258,13 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
           await this.DelMultiRecord(arrKeyIds);
         },
         onAfterExecute: async () => {
+         {{~ if IsUseFunc ~}}
           await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+          {{~ else if HasCacheMode ~}}
+          await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+          {{~ else ~}}
+          await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+          {{~ end ~}}
         },
       });
     } catch (e) {
@@ -227,13 +274,22 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     }
   }
 
-  public async DelMultiRecord(arr{{ TableName }}Id: Array<string>) {
+  public async DelMultiRecord(arr{{ KeyField }}: Array<string>) {
     const strThisFuncName = this.DelMultiRecord.name;
     try {
-      const returnInt = await {{ TableName }}_Del{{ TableName }}sAsync(arr{{ TableName }}Id);
+        {{~ if IsMultiKey ~}}
+      const returnInt = await {{ TableName }}_DelRecKeyLstsAsync(arr{{ KeyField }});
+      {{~ else ~}}
+      const returnInt = await {{ TableName }}_DelKeysAsync(arr{{ KeyField }});
+      {{~ end ~}}
       if (returnInt > 0) {
         {{~ if HasCacheMode ~}}
+         {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache({{ CacheCondVars4Fst }});   
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+      
+        {{~ end ~}}
         {{~ end ~}}
         alert(`删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`);
       } else {
@@ -247,29 +303,32 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   }
 
 {{~ end ~}}
+
 {{~ for feature in SetFieldFeatures ~}}
   /** 批量设置{{ feature.FieldCnName }}。 */
-  public async {{ feature.MethodName }}(arr{{ TableName }}Id: Array<string>, str{{ feature.FieldName }}: string) {
+  public async {{ feature.MethodName }}(arr{{ KeyField }}: Array<string>, {{ feature.ParamPrefix }}{{ feature.FieldName }}: {{ feature.FieldTypeScript }}) {
     const strThisFuncName = this.{{ feature.MethodName }}.name;
-    if (str{{ feature.FieldName }} == null || str{{ feature.FieldName }} == '') {
+    {{~ if feature.NeedsValidation ~}}
+    if ({{ feature.ParamPrefix }}{{ feature.FieldName }} == null || {{ feature.ParamPrefix }}{{ feature.FieldName }} == '') {
       alert('请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!');
       return '';
     }
-    if (arr{{ TableName }}Id.length == 0) {
+    {{~ end ~}}
+    if (arr{{ KeyField }}.length == 0) {
       alert('没有选择记录,不能设置字段值!');
       return '';
     }
 
     try {
       const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
-        arr{{ TableName }}Id,
+        arr{{ KeyField }},
       );
       let intCount = 0;
       for (const objInFor of arr{{ TableName }}ObjLst) {
         const obj{{ TableName }}EN = new cls{{ TableName }}EN();
         ObjectAssign(obj{{ TableName }}EN, objInFor);
         obj{{ TableName }}EN.Set{{ KeyField }}(objInFor.{{ KeyFieldCamel }});
-        obj{{ TableName }}EN.Set{{ feature.FieldName }}(str{{ feature.FieldName }});
+        obj{{ TableName }}EN.Set{{ feature.FieldName }}({{ feature.ParamPrefix }}{{ feature.FieldName }});
 
         let returnBool = false;
         try {
@@ -282,8 +341,8 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         }
 
         if (returnBool == true) {
-          {{~ if HasCacheMode ~}}
-          {{ TableName }}_DeleteKeyIdCache(objInFor.{{ KeyFieldCamel }});
+          {{~ if HasCacheMode ~}}          
+          {{ TableName }}_DeleteKeyIdCache({ {{ KeyFieldCamel }}: objInFor.{{ KeyFieldCamel }} });        
           {{~ end ~}}
           intCount++;
         } else {
@@ -294,9 +353,13 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
       alert(`共设置了${intCount}条记录!`);
       if (intCount > 0) {
         {{~ if HasCacheMode ~}}
-        {{ TableName }}_ReFreshCache();
-          {{~ else ~}}
-                  //{{ TableName }}_ReFreshCache();
+               {{~ if HasCacheClassifyField ~}}
+                     {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+               {{~ else ~}}
+                    {{ TableName }}_ReFreshCache();
+               {{~ end ~}}
+        {{~ else ~}}
+                //{{ TableName }}_ReFreshCache();
         {{~ end ~}}
       }
     } catch (e) {
@@ -307,6 +370,8 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   }
 
 {{~ end ~}}
+
+{{~ if HasExportFeature ~}}
   /** 按当前查询条件导出原始列表数据。 */
   {{~ if HasCacheMode ~}}
   public async ExportExcel_{{ TableName }}Cache(): Promise<ExportExcelData> {
@@ -332,7 +397,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     let arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN> = [];
     try {
       {{~ if HasCacheMode ~}}
-      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond);
+      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond{{CacheCondVars}});
       if (this.recCount == 0) {
         const strMsg = Format(
           '在绑定GvCache过程中,根据条件:[{0}]获取的对象列表数为0!',
@@ -342,7 +407,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         alert(strMsg);
         return { arrObjLst: [], sheetName: '', fileName: '' };
       }
-      arr{{ TableName }}ObjLst = await {{ TableName }}_GetSubObjLstCache(obj{{ TableName }}Cond);
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetSubObjLstCache(obj{{ TableName }}Cond{{CacheCondVars}});
       {{~ else ~}}
       this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
       if (this.recCount == 0) {
@@ -416,6 +481,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     {{~ end ~}}
   }
 
+{{~ end ~}}
   
 {{~ if HasCopyFeature ~}}
   /**
@@ -438,7 +504,13 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         return '';
       }
       await this.CopyRecord(arrKeyIds);
+        {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
     } catch (e) {
       const strMsg = `复制记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
       console.error(strMsg);
@@ -446,11 +518,46 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     }
   }
 
-  /**
-   * 复制记录的具体实现（需要子类实现）
-   * @param arrKeyIds 要复制的记录主键列表
+  
+ /**
+   * 复制记录的具体实现
+   * @param arr{{ KeyField }} 要复制的记录主键列表
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_CopyRecord)
    */
-  public abstract CopyRecord(arrKeyIds: Array<string>): Promise<void>;
+  public async CopyRecord(arr{{ KeyField }}: Array<string>) {
+    const strThisFuncName = this.CopyRecord.name;
+    try {
+      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
+        arr{{ KeyField }},
+      );
+      let intCount = 0;
+      for (const objInFor of arr{{ TableName }}ObjLst) {
+      {{~ if KeyTypeName == "StringAutoAddPrimaryKey" ~}}        
+        const strMaxStrId = await {{ TableName }}_GetMaxStrIdAsync();
+        objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
+        {{~ else if KeyTypeName == "StringAutoAddPrimaryKeyWithPrefix" ~}}
+        const strMaxStrId = await {{ TableName }}_GetMaxStrIdByPrefixAsync(); 
+        objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
+        {{~ end ~}}
+
+        const returnBool = await {{ TableName }}_AddNewRecordAsync(objInFor);
+        if (returnBool == true) {
+          intCount++;
+        } else {
+          const strInfo = Format('克隆记录不成功!');
+          alert(strInfo);
+        }
+      }
+      const strInfo = Format('共克隆了{0}条记录!', intCount);
+      alert(strInfo);
+    } catch (e) {
+      const strMsg = `复制记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error('Error: ', strMsg);
+      alert(strMsg);
+    }
+  }
+
+
 
 {{~ end ~}}
 {{~ if HasDeleteInTabFeature ~}}
@@ -494,7 +601,16 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
       {{~ end ~}}
       if (returnInt > 0) {
         {{~ if HasCacheMode ~}}
+                 {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+
         {{~ end ~}}
         const strInfo = `删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`;
         alert(strInfo);
@@ -571,13 +687,21 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     const strSheetName = '{{ TableCnName }}列表';
     return { arrObjLst: arrData, sheetName: strSheetName, fileName: strFileName };
   }
-
+    
   /** 绑定表格内容并同步分页器。 */
+  {{~ if IsUseFunc ~}}
   public async BindTab_{{ TableName }}4Func(
     divContainer: HTMLDivElement,
     arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
   ) {
     const strThisFuncName = this.BindTab_{{ TableName }}4Func.name;
+  {{~ else ~}}
+  public async BindTab_{{ TableName }}(
+    divContainer: HTMLDivElement,
+    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+  ) {
+    const strThisFuncName = this.BindTab_{{ TableName }}.name;
+  {{~ end ~}}
     if (divContainer == null) {
       alert(Format('{0}不存在!', divContainer));
       return;
@@ -587,6 +711,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
 
     if (ref{{ TableName }}_List.value != null) {
       dataColumn.value = arrDataColumn;
+      {{~ if IsUseFunc ~}}
       try {
         await this.ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst);
       } catch (e) {
@@ -595,8 +720,10 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         alert(strMsg);
         return;
       }
+      {{~ end ~}}
       await BindTabByList(arr{{ TableName }}ExObjLst, this.dispAllErrMsg_q);
     } else {
+      {{~ if IsUseFunc ~}}
       try {
         await this.ExtendFldFuncMap(arr{{ TableName }}ExObjLst, arrDataColumn);
       } catch (e) {
@@ -605,9 +732,10 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         alert(strMsg);
         return;
       }
+      {{~ end ~}}
       const divDataLst = GetDivObjInDivObj(divContainer, 'divDataLst');
       if (divDataLst == null) {
-        alert('在BindTab_{{ TableName }}4Func函数中，divDataLst不存在!');
+        alert('在BindTab_{{ TableName }}{{~ if IsUseFunc ~}}4Func{{~ end ~}}函数中，divDataLst不存在!');
         return;
       }
       await BindTab(
@@ -627,8 +755,18 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   }
 
   /** 按当前条件获取并绑定分页列表。 */
+  
+   {{~ if IsUseFunc ~}}
   public async BindGv_{{ TableName }}4Func(divList: HTMLDivElement) {
     const strThisFuncName = this.BindGv_{{ TableName }}4Func.name;
+  {{~ else if HasCacheMode ~}}
+  public async BindGv_{{ TableName }}Cache(divList: HTMLDivElement) {
+    const strThisFuncName = this.BindGv_{{ TableName }}Cache.name;
+  {{~ else ~}}
+  public async BindGv_{{ TableName }}(divList: HTMLDivElement) {
+    const strThisFuncName = this.BindGv_{{ TableName }}.name;
+  {{~ end ~}}
+    
     {{~ if !HasCacheMode ~}}
     if (divList == null) {
       const strMsg = Format(
@@ -662,7 +800,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
 
     try {
       {{~ if HasCacheMode ~}}
-      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond);
+      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond{{CacheCondVars}});
       {{~ else ~}}
       this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
       {{~ end ~}}
@@ -702,7 +840,16 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         orderBy: viewVarSet.sort{{ TableName }}By,
         sortFun: strSortFun,
       };
-      arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara);
+      
+
+     {{~ if IsUseFunc ~}}
+        arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerCache(objPagerPara{{CacheCondVars}});
+  {{~ else if HasCacheMode ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara{{CacheCondVars}});
+  {{~ else ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerAsync(objPagerPara);
+  {{~ end ~}}
+
       {{~ else ~}}
       const objPagerPara: stuPagerPara = {
         pageIndex: intCurrPageIndex,
@@ -714,9 +861,16 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
           return 0;
         },
       };
-      arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerAsync(
-        objPagerPara,
-      );
+
+      {{~ if HasCacheMode ~}}
+arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara);
+{{~ else ~}}
+  {{~ if IsUseFunc ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerAsync(objPagerPara);
+  {{~ else ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjLstByPagerAsync(objPagerPara);
+  {{~ end ~}}
+{{~ end ~}}
       {{~ end ~}}
     } catch (e) {
       const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
@@ -736,53 +890,57 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     }
 
     try {
+      
+        {{~ if IsUseFunc ~}}
       await this.BindTab_{{ TableName }}4Func(divList, arr{{ TableName }}ExObjLst);
+      {{~ else ~}}
+      await this.BindTab_{{ TableName }}(divList, arr{{ TableName }}ExObjLst);
+      {{~ end ~}}
     } catch (e) {
       const strMsg = `绑定${this.thisTabName}对象列表不成功, ${e}.(in ${this.constructor.name}.${strThisFuncName})`;
       console.error(strMsg);
       alert(strMsg);
     }
   }
-
-  /** 为非实体原生字段补充显示映射。 */
-  public async ExtendFldFuncMap(
-    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
-    arrDataColumn: Array<clsDataColumn>,
-  ) {
-    const arrFldName = cls{{ TableName }}EN._AttributeName;
-    for (const objDataColumn of arrDataColumn) {
-      if (IsNullOrEmpty(objDataColumn.fldName) == true) continue;
-      if (arrFldName.indexOf(objDataColumn.fldName) > -1) continue;
-      for (const objInFor of arr{{ TableName }}ExObjLst) {
-        {{~ if IsUseFunc ~}}
-        await {{ TableName }}Ex_FuncMapByFldName(objDataColumn.fldName, objInFor);
-        {{~ end ~}}
-      }
+ 
+{{~ if IsUseFunc ~}}
+      /** 为非实体原生字段补充显示映射。 */
+    public async ExtendFldFuncMap(
+        arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+        arrDataColumn: Array<clsDataColumn>,
+    ) {
+        const arrFldName = cls{{ TableName }}EN._AttributeName;
+        for (const objDataColumn of arrDataColumn) {
+        if (IsNullOrEmpty(objDataColumn.fldName) == true) continue;
+        if (arrFldName.indexOf(objDataColumn.fldName) > -1) continue;
+        for (const objInFor of arr{{ TableName }}ExObjLst) {     
+            await {{ TableName }}Ex_FuncMapByFldName(objDataColumn.fldName, objInFor);     
+        }
+        }
     }
-  }
+{{~ end ~}}
 
-  /** 为表格Td字段补充显示映射。 */
-  public async ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>) {
-    const arrFldName = cls{{ TableName }}EN._AttributeName;
-    const tdFieldNames = this.ResolveTdFieldNames(
-      ref{{ TableName }}_List.value?.tdFieldNames,
-      dataColumn.value,
-      IsNullOrEmpty,
-    );
+{{~ if IsUseFunc ~}}
+      /** 为表格Td字段补充显示映射。 */
+    public async ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>) {
+        const arrFldName = cls{{ TableName }}EN._AttributeName;
+        const tdFieldNames = this.ResolveTdFieldNames(
+          ref{{ TableName }}_List.value?.tdFieldNames,
+        dataColumn.value,
+        IsNullOrEmpty,
+        );
 
-    if (tdFieldNames.length === 0) return;
+        if (tdFieldNames.length === 0) return;
 
-    for (const normalizedFldName of tdFieldNames) {
-      if (arrFldName.indexOf(normalizedFldName) > -1) continue;
-
-      for (const objInFor of arr{{ TableName }}ExObjLst) {
-        {{~ if IsUseFunc ~}}
-        await {{ TableName }}Ex_FuncMapByFldName(normalizedFldName, objInFor);
-        {{~ end ~}}
-      }
+        for (const normalizedFldName of tdFieldNames) {
+            if (arrFldName.indexOf(normalizedFldName) > -1) continue;
+            for (const objInFor of arr{{ TableName }}ExObjLst) {
+             await {{ TableName }}Ex_FuncMapByFldName(normalizedFldName, objInFor);
+            }
+        }
     }
-  }
-
+     
+{{~ end ~}}
   /**
    * 导出时使用的默认排序规则。
    * ⚠️ 这是一个示例方法，使用从导出区域字段中选择的前 2 个字段。
@@ -833,7 +991,13 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
         currentCtor.sortFunStatic = sortFun;
       },
       onRefresh: async () => {
-        await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+            {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
       },
     });
   }
@@ -841,21 +1005,39 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
   /** 跳转到指定页。 */
   public async IndexPage(intPageIndex: number) {
     await this.IndexPageTemplate(intPageIndex, async () => {
+          {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
     });
   }
 
   /** 加载下一页。 */
   public async NextPage() {
     await this.NextPageTemplate(async () => {
+          {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
     });
   }
 
   /** 加载上一页。 */
   public async PrevPage() {
     await this.PrevPageTemplate(async () => {
+          {{~ if IsUseFunc ~}}
       await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
     });
   }
 

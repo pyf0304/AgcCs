@@ -30,7 +30,7 @@ namespace AGC.BusinessLogicEx
             clsDataTypeAbbrEN objDataTypeAbbr = clsDataTypeAbbrBL.GetObjByDataTypeIdCache(objFieldTab.DataTypeId);
             return objDataTypeAbbr;
         }
-                
+
 
 
         public static string DataTypeName(this clsFieldTabEN objFieldTab)
@@ -55,7 +55,7 @@ namespace AGC.BusinessLogicEx
             try
             {
                 var arrFieldTab4CodeConv = clsFieldTab4CodeConvBL.GetObjLstCache(objFieldTab.PrjId);
-                clsFieldTab4CodeConvEN objFieldTab4CodeConv = arrFieldTab4CodeConv.Find(x=>x.FldId == objFieldTab.FldId);
+                clsFieldTab4CodeConvEN objFieldTab4CodeConv = arrFieldTab4CodeConv.Find(x => x.FldId == objFieldTab.FldId);
                 return objFieldTab4CodeConv;
             }
             catch (Exception objException)
@@ -169,7 +169,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                     strMsg = string.Format("(工程ID(PrjId)=[{0}],字段名(FldName)=[{1}],数据类型Id(DataTypeId)=[{2}])已经存在，不能重复!", objFieldTabEN.PrjId, objFieldTabEN.FldName, objFieldTabEN.DataTypeId);
                     throw new Exception(strMsg);
                 }
-         
+
                 //6、把数据实体层的数据存贮到数据库中
                 objFieldTabEN.AddNewRecord();
             }
@@ -316,7 +316,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 case "long":
                 case "float":
                 case "short":
-                case "double":                    
+                case "double":
                     return true;
                 default:
                     return false;
@@ -362,11 +362,11 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         {
             if (bolIsFstLcase == false)
             {
-                return objFieldTabEN.FldName; 
+                return objFieldTabEN.FldName;
             }
             else
             {
-                return clsString.FstLcaseS( objFieldTabEN.FldName);
+                return clsString.FstLcaseS(objFieldTabEN.FldName);
             }
         }
         public static string PropertyNameEx(this clsFieldTabEN objFieldTabEN, bool bolIsFstLcase)
@@ -396,6 +396,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
 
     public partial class clsFieldTabBLEx
     {
+
         /// <summary>
         /// 从缓存中查找失败的次数
         /// </summary>
@@ -481,7 +482,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             }
             return arrFldId[0].ToString();
         }
-  
+
 
         /// <summary>
         /// 根据表Id获取《字段》对象列表
@@ -504,7 +505,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name = "strPrjId">工程Id</param>
         /// <returns>根据关键字获取的对象</returns>
         public static clsFieldTabENEx GetObjExByFldName(string strFldName, string strPrjId)
-        {      
+        {
             var arrFieldTabENExObjLst4WinApp = clsFieldTabBL.GetObjLstCache(strPrjId);
             var objFieldTab = arrFieldTabENExObjLst4WinApp.Find(x => x.FldName.Equals(strFldName, StringComparison.InvariantCultureIgnoreCase) == true);
             if (objFieldTab == null)
@@ -521,9 +522,9 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         public static List<clsFieldTabEN> GetObjLstByTabIdCache(string strTabId, string strPrjId)
         {
             List<clsPrjTabFldEN> arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(strTabId, strPrjId);
-            var arrFldId = arrPrjTabFld.Select(x=>x.FldId).ToList();
+            var arrFldId = arrPrjTabFld.Select(x => x.FldId).ToList();
             var arrFieldTabObjLst = clsFieldTabBL.GetObjLstCache(strPrjId);
-            var arrFieldTab_Sel = arrFieldTabObjLst.Where(x => arrFldId.Contains( x.FldId)).ToList();
+            var arrFieldTab_Sel = arrFieldTabObjLst.Where(x => arrFldId.Contains(x.FldId)).ToList();
             return arrFieldTab_Sel;
         }
 
@@ -541,7 +542,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             var objFieldTabENEx = objFieldTab.CopyToEx();
             return objFieldTabENEx;
         }
-            
+
 
         /// <summary>
         /// 检查字段,专门针对代码表
@@ -705,7 +706,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         }
 
         //同时删除多条记录,扩展删除,是全功能删除
-        public static bool DelFieldTabEx2(List<string> lstKey,string strUpdUserId)
+        public static bool DelFieldTabEx2(List<string> lstKey, string strUpdUserId)
         {
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
             string strSQL;
@@ -736,13 +737,13 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             }
             strSQL = "";
             //删除与FieldTab表有关的外键表中的内容
-//            strSQL = strSQL + "Delete FldObjTab where FldId in (" + strKeyList + ")";
+            //            strSQL = strSQL + "Delete FldObjTab where FldId in (" + strKeyList + ")";
             strSQL = strSQL + "Delete EditRegionFlds where FldId in (" + strKeyList + ")";
             //删除FieldTab本表中与当前对象有关的记录
             strSQL = strSQL + "Delete from ConstraintFields where FldId in (" + strKeyList + ")";
 
             strSQL = strSQL + "Delete from FieldTab where FldId in (" + strKeyList + ")";
-         
+
             bool bolResult = objSQL.ExecSql(strSQL);
             return bolResult;
         }
@@ -849,7 +850,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 $" DELETE FROM {conViewFeatureFlds._CurrTabName} WHERE {conViewFeatureFlds.ReleFldId} = '{strFldId}';    " +
                 $" DELETE FROM {conDGRegionFlds._CurrTabName} WHERE {conDGRegionFlds.FldId} = '{strFldId}';    " +
                 $" DELETE FROM {conFeatureRegionFlds._CurrTabName} WHERE {conFeatureRegionFlds.ReleFldId} = '{strFldId}';    " +
-                
+
                 $"         DELETE FROM FieldTab WHERE FldId =  '{strFldId}'; ";
             bool bolResult = objSQL.ExecSql(strSQL);
             return bolResult;
@@ -877,7 +878,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
             ArrayList arrValue = new ArrayList();
             arrValue.Add(strFldId);
-         
+
             bool bolResult = objSQL.ExecSP2("UpdateTabNumForFldId", arrValue);
             return bolResult;
         }
@@ -909,7 +910,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             objSouFieldTab = clsFieldTabBLEx.GetObjExByFldIDCache(strSouFldId, strPrjId);
 
             //2、检查是否存在相同的字段名,如果存在就退出返回；
-            if (IsExistSameFldName(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId).Length>0)
+            if (IsExistSameFldName(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId).Length > 0)
             {
                 strTarFldId = GetFldId(strPrjId, strNewFieldName, objSouFieldTab.DataTypeId);
                 clsPrjTabFldBLEx.Add_FieldTabToPrjTabFld(strTarTabId, strTarFldId, strUserId);
@@ -939,7 +940,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 //objTarFieldTab.CodeTabNameId = objSouFieldTab.CodeTabNameId;
                 objTarFieldTab.FldStateId = objSouFieldTab.FldStateId;
 
-                objTarFieldTab.UpdDate = clsDateTime.getTodayStr(0);        
+                objTarFieldTab.UpdDate = clsDateTime.getTodayStr(0);
                 objTarFieldTab.AddRecordEx();
                 clsPrjTabFldBLEx.Add_FieldTabToPrjTabFld(strTarTabId, strTarFldId, strUserId);
                 return strTarFldId;
@@ -1127,7 +1128,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             //工程ID
             objFieldTabEN.PrjId = strPrjId;
             //检查是否存在相同的字段名
-            if (IsExistSameFldName(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId).Length > 0 )
+            if (IsExistSameFldName(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId).Length > 0)
             {
                 objFieldTabEN.FldId = GetFldId(strPrjId, strFldName, objDataTypeAbbrEN.DataTypeId);
             }
@@ -1262,7 +1263,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                     strFldId0 = IsExistSameFldName(strPrjId, strFldName, enumDataTypeAbbr.float_07);
                 }
             }
-            if (strFldId0.Length > 0 )
+            if (strFldId0.Length > 0)
             {
                 objFieldTabEN.FldId = strFldId0;
                 //clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
@@ -1479,7 +1480,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             objNewPrjTab.UpdUserId = strUserId;
             objNewPrjTab.Memo = objSouPrjTab.Memo;
             objNewPrjTab.IsUseCache = objSouPrjTab.IsUseCache;
-            if (string.IsNullOrEmpty( objNewPrjTab.TabMainTypeId) == true)
+            if (string.IsNullOrEmpty(objNewPrjTab.TabMainTypeId) == true)
             {
                 objNewPrjTab.TabMainTypeId = enumTabMainType.DataTab_0001;
             }
@@ -1633,9 +1634,9 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             //为数据源于表的下拉框设置内容
             ListItem li = new ListItem("选[字段]...", "0");
 
-            IEnumerable<clsPrjTabFldEN> arrObjLst = clsPrjTabFldBLEx.GetObjLstByTabIdCache( strTabId, strPrjId);
-            
-            var arrFieldTab = arrObjLst.Select(x=>clsFieldTabBL.GetObjByFldIdCache(x.FldId, strPrjId));
+            IEnumerable<clsPrjTabFldEN> arrObjLst = clsPrjTabFldBLEx.GetObjLstByTabIdCache(strTabId, strPrjId);
+
+            var arrFieldTab = arrObjLst.Select(x => clsFieldTabBL.GetObjByFldIdCache(x.FldId, strPrjId));
             arrFieldTab = arrFieldTab.OrderBy(x => x.FldName);
             objDDL.DataValueField = conFieldTab.FldId;
             objDDL.DataTextField = conFieldTab.FldName;
@@ -1652,10 +1653,10 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             List<clsFieldTabEN> arrFieldTabObjLst = clsFieldTabBL.GetObjLstCache(strPrjId);
             List<string> arrTabId = clsCmProjectPrjTabBLEx.GetTabIdLstCache(strCmPrjId);
 
-            IEnumerable<clsvPrjTabFld_SimEN> arrPrjTabFldObjLst = clsvPrjTabFld_SimBL.GetObjLstCache(strPrjId).Where(x=>arrTabId.Contains(x.TabId));
-            var arrFldId = arrPrjTabFldObjLst.Select(x=>x.FldId).ToList();
+            IEnumerable<clsvPrjTabFld_SimEN> arrPrjTabFldObjLst = clsvPrjTabFld_SimBL.GetObjLstCache(strPrjId).Where(x => arrTabId.Contains(x.TabId));
+            var arrFldId = arrPrjTabFldObjLst.Select(x => x.FldId).ToList();
 
-            var arrFieldTab_Sel = arrFieldTabObjLst.Where(x => arrFldId.Contains(x.FldId)).OrderBy(x=>x.FldName);
+            var arrFieldTab_Sel = arrFieldTabObjLst.Where(x => arrFldId.Contains(x.FldId)).OrderBy(x => x.FldName);
 
             objDDL.DataValueField = conFieldTab.FldId;
             objDDL.DataTextField = conFieldTab.FldName;
@@ -1671,7 +1672,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             ListItem li = new ListItem("选[字段]...", "0");
 
             IEnumerable<clsvPrjTabFldEN> arrObjLst = clsvPrjTabFldBLEx.GetObjLstByTabIdCache0(strTabId, strPrjId).OrderBy(x => x.SequenceNumber);
-            
+
             if (arrFldId_Exclude != null)
             {
                 arrObjLst = arrObjLst.Where(x => arrFldId_Exclude.Contains(x.FldId) == false);
@@ -1682,10 +1683,10 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
 
             foreach (clsvPrjTabFldEN objInFor in arrObjLst_Sel)
             {
-                
+
                 string strName = clsFieldTypeBL.GetNameByFieldTypeIdCache(objInFor.FieldTypeId);
                 objInFor._StrTag = string.Format("{0}({1})", objInFor.FldName, strName);
-               
+
             }
             objDDL.DataValueField = "FldId";
             objDDL.DataTextField = "_StrTag";
@@ -2074,7 +2075,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             }
         }
 
-    
+
         /// <summary>
         /// 根据条件获取扩展对象列表
         /// (AutoGCLib.BusinessLogicEx4CSharp:Gen_4BLEx_GetObjExLst)
@@ -2342,7 +2343,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             }
             return strToday;
         }
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2351,7 +2352,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2360,7 +2361,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2369,7 +2370,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2378,7 +2379,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2387,7 +2388,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2396,7 +2397,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
         /// <param name="strOpUserId">操作同步的用户</param>
         /// <returns></returns>
         //public static int SynchToServerByCondition(string strCondition, string strOpUserId)
-   
+
 
         /// <summary>
         /// 同步满足条件的记录，从Client到Server
@@ -2738,7 +2739,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 objFieldTabEN.MaxValue = objRow["MaxValue"].ToString().Trim(); //最大值
                 objFieldTabEN.MinValue = objRow["MinValue"].ToString().Trim(); //最小值
                 objFieldTabEN.DefaultValue = objRow["DefaultValue"].ToString().Trim(); //缺省值
-                
+
                 objFieldTabEN.UpdUser = objRow["UpdUser"].ToString().Trim(); //用户ID
 
                 objFieldTabEN.FldStateId = objRow["FldStateId"].ToString().Trim(); //字段状态Id
@@ -2797,7 +2798,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
                 else
                 {
                     arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(strTabId, strPrjId);
-                    if (arrPrjTabFld.Count > 0) objPrjTabFld = arrPrjTabFld.Find(x=>x.FieldTypeId == enumFieldType.NormalField_01);
+                    if (arrPrjTabFld.Count > 0) objPrjTabFld = arrPrjTabFld.Find(x => x.FieldTypeId == enumFieldType.NormalField_01);
                 }
                 if (objPrjTabFld == null)
                 {
@@ -2828,7 +2829,227 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             clsPrjTabBLEx.SetUpdDate(objPrjTab, strOpUser);
             return true;
         }
+        public static bool ReplaceField(string strSourceFieldId, string strTargetFieldId, string strPrjId, string strOpUser)
+        {
+            try
+            {
+                int intRecNum = clsPrjTabFldBLEx.GetRecNum4IncludeSouTarField(strSourceFieldId, strTargetFieldId);
+                if (intRecNum == 0) return false;
+                // 原有的替换调用
+                clsPrjTabFldBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId, strOpUser);
+                clsSqlViewFldBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+
+                // 新增的替换调用
+                //clsButtonTabBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsCacheModeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsCMFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsCodeTypeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsCollegeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsConstraintFieldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsConstraintTypeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsCtlTypeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsDepartmentInfoBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsDetailRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsDGRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsDnPathBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsEditRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsExcelExportRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsFeatureAppTypeRelaBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsFeatureRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsFeatureRegionFldsV2BLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsFeatureRegionV2BLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsFileResourceBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsFunction4GeneCodeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsPrjConstraintBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsPrjFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsQryRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsReferFilesBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsReferFileTypeBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsTabFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                clsTabFeatureFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+                //clsUserCodePrjMainPathBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId);
+
+                return true;
+
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("替换字段时出错.错误:{0}.(in {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 在所有相关表中执行字段替换操作
+        /// </summary>
+        /// <param name="strSourceFieldId">源字段Id</param>
+        /// <param name="strTargetFieldId">目标字段Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strOpUser">操作用户</param>
+        /// <returns>是否全部替换成功</returns>
+        public static bool ReplaceFieldInAllTables(string strSourceFieldId, string strTargetFieldId, string strPrjId, string strOpUser)
+        {
+            bool bolAllSuccess = true;
+            StringBuilder sbErrorMsg = new StringBuilder();
+
+            try
+            {
+                // 1. PrjTabFld - 项目表字段
+                if (!clsPrjTabFldBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId, strOpUser))
+                {
+                    sbErrorMsg.AppendLine("PrjTabFld 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                // 2. SqlViewFld - SQL视图字段
+                if (!clsSqlViewFldBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("SqlViewFld 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                //// 3. ButtonTab - 按钮表
+                //if (!clsButtonTabBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("ButtonTab 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
+
+                //// 4. CacheMode - 缓存模式
+                //if (!clsCacheModeBLEx_Static.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("CacheMode 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
+
+                //// 5. CMFeature - 代码管理功能
+                //if (!clsCMFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("CMFeature 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
 
 
+                // 8. ConstraintFields - 约束字段
+                if (!clsConstraintFieldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("ConstraintFields 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+                               
+                // 11. DetailRegionFlds - 详细区域字段
+                if (!clsDetailRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("DetailRegionFlds 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                // 12. DGRegionFlds - 数据网格区域字段
+                if (!clsDGRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("DGRegionFlds 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+
+                // 14. EditRegionFlds - 编辑区域字段（如果类存在）
+                try
+                {
+                    if (!clsEditRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                    {
+                        sbErrorMsg.AppendLine("EditRegionFlds 表字段替换失败");
+                        bolAllSuccess = false;
+                    }
+                }
+                catch
+                {
+                    // 类可能不存在，跳过
+                }
+
+                // 15. ExcelExportRegionFlds - Excel导出区域字段
+                if (!clsExcelExportRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("ExcelExportRegionFlds 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                //// 16. PrjConstraint - 项目约束
+                //if (!clsPrjConstraintBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("PrjConstraint 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
+
+                //// 17. PrjFeature - 项目功能
+                //if (!clsPrjFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("PrjFeature 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
+
+                // 18. QryRegionFlds - 查询区域字段
+                if (!clsQryRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("QryRegionFlds 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                //// 19. TabFeature - 表功能
+                //if (!clsTabFeatureBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                //{
+                //    sbErrorMsg.AppendLine("TabFeature 表字段替换失败");
+                //    bolAllSuccess = false;
+                //}
+
+                // 20. TabFeatureFlds - 表功能字段
+                if (!clsTabFeatureFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
+                {
+                    sbErrorMsg.AppendLine("TabFeatureFlds 表字段替换失败");
+                    bolAllSuccess = false;
+                }
+
+                if (!bolAllSuccess)
+                {
+                    throw new Exception("部分表字段替换失败:\r\n" + sbErrorMsg.ToString());
+                }
+
+                return true;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("字段替换过程中发生错误: {0}\r\n详细信息:\r\n{1}",
+                    objException.Message,
+                    sbErrorMsg.ToString());
+                throw new Exception(strMsg);
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 字段替换数据传输对象
+    /// </summary>
+    public class clsReplaceFieldData
+    {
+        /// <summary>
+        /// 源字段ID
+        /// </summary>
+        public string strSourceFieldId { get; set; }
+
+        /// <summary>
+        /// 目标字段ID
+        /// </summary>
+        public string strTargetFieldId { get; set; }
+
+        /// <summary>
+        /// 工程ID
+        /// </summary>
+        public string strPrjId { get; set; }
+
+        /// <summary>
+        /// 操作用户
+        /// </summary>
+        public string strOpUser { get; set; }
     }
 }

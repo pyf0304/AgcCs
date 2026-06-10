@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Web.UI.HtmlControls;
 
@@ -490,7 +491,7 @@ namespace AGC.PureClassEx
                     //strCodeForCs.AppendFormat(" runat=\"server\" ");
 
                     strCodeForCs.Append(">");
-                    if (objASPDropDownListEx.DdlItemsOptionId == enumDDLItemsOption.DataSourceTable_02                        
+                    if (objASPDropDownListEx.DdlItemsOptionId == enumDDLItemsOption.DataSourceTable_02
                         && string.IsNullOrEmpty(objASPDropDownListEx.DsTabName) == false)
                     {
                         strCodeForCs.Append("\r\n" + $"<option v-for=\"(item, index) in arr{objASPDropDownListEx.DsTabName} \" :key = \"index\" :value = \"item.{clsString.FstLcaseS(objASPDropDownListEx.ValueFieldName)}\" >");
@@ -498,7 +499,7 @@ namespace AGC.PureClassEx
                         strCodeForCs.Append("\r\n" + $"</option>");
                     }
                     else if (objASPDropDownListEx.DdlItemsOptionId == enumDDLItemsOption.TrueAndFalseList_04
-                        || string.IsNullOrEmpty( objASPDropDownListEx.TabFeatureId4Ddl) == true
+                        || string.IsNullOrEmpty(objASPDropDownListEx.TabFeatureId4Ddl) == true
                         || string.IsNullOrEmpty(objASPDropDownListEx.DsTabName) == true)
                     {
                         strCodeForCs.Append("\r\n" + $"<option value=\"0\">选择是/否</option>");
@@ -1066,73 +1067,82 @@ namespace AGC.PureClassEx
             if (ASPControlEx.objCheckStyle == null) clsASPControlBLEx.InitStyleObj();
 
             var strPrjId = objViewFeatureFldsEx.PrjId;
-
-            ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
-            objASPDropDownListEx.CtrlId = objViewFeatureFldsEx.CtrlId;
-            objASPDropDownListEx.RegionTypeId = enumRegionType.FeatureRegion_0008;
-
-            objASPDropDownListEx.FldName = objViewFeatureFldsEx.ObjFieldTabENEx.FldName;
-            objASPDropDownListEx.FeatureId = objViewFeatureFldsEx.FeatureId;
-            objASPDropDownListEx.ViewFeatureId = objViewFeatureFldsEx.ViewFeatureId;
-            objASPDropDownListEx.TabFeatureId4Ddl = objViewFeatureFldsEx.TabFeatureId4Ddl;
-            objASPDropDownListEx.FldIdCond1 = objViewFeatureFldsEx.FldIdCond1;
-
-            objASPDropDownListEx.VarIdCond1 = objViewFeatureFldsEx.VarIdCond1;
-            objASPDropDownListEx.FldIdCond2 = objViewFeatureFldsEx.FldIdCond2;
-
-            objASPDropDownListEx.VarIdCond2 = objViewFeatureFldsEx.VarIdCond2;
-            objASPDropDownListEx.PrjId = strPrjId;
-
-            objASPDropDownListEx.Width = 200;
-            objASPDropDownListEx.CssClass = "form-control form-control-sm";
-            objASPDropDownListEx.objViewFeatureFldsEN = objViewFeatureFldsEx;
-            objASPDropDownListEx.CsType = objViewFeatureFldsEx.ObjFieldTabENEx.ObjDataTypeAbbr_PC().CsType;
-            if (objViewFeatureFldsEx.ObjFieldTabENEx.ObjDataTypeAbbr_PC().CsType == "bool")
+            try
             {
-                objASPDropDownListEx.DsTabName = "TrueAndFalse";
+
+
+                ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
+                objASPDropDownListEx.CtrlId = objViewFeatureFldsEx.CtrlId;
+                objASPDropDownListEx.RegionTypeId = enumRegionType.FeatureRegion_0008;
+
+                objASPDropDownListEx.FldName = objViewFeatureFldsEx.ObjFieldTabENEx.FldName;
+                objASPDropDownListEx.FeatureId = objViewFeatureFldsEx.FeatureId;
+                objASPDropDownListEx.ViewFeatureId = objViewFeatureFldsEx.ViewFeatureId;
+                objASPDropDownListEx.TabFeatureId4Ddl = objViewFeatureFldsEx.TabFeatureId4Ddl;
+                objASPDropDownListEx.FldIdCond1 = objViewFeatureFldsEx.FldIdCond1;
+
+                objASPDropDownListEx.VarIdCond1 = objViewFeatureFldsEx.VarIdCond1;
+                objASPDropDownListEx.FldIdCond2 = objViewFeatureFldsEx.FldIdCond2;
+
+                objASPDropDownListEx.VarIdCond2 = objViewFeatureFldsEx.VarIdCond2;
+                objASPDropDownListEx.PrjId = strPrjId;
+
+                objASPDropDownListEx.Width = 200;
+                objASPDropDownListEx.CssClass = "form-control form-control-sm";
+                objASPDropDownListEx.objViewFeatureFldsEN = objViewFeatureFldsEx;
+                objASPDropDownListEx.CsType = objViewFeatureFldsEx.ObjFieldTabENEx.ObjDataTypeAbbr_PC().CsType;
+                if (objViewFeatureFldsEx.ObjFieldTabENEx.ObjDataTypeAbbr_PC().CsType == "bool")
+                {
+                    objASPDropDownListEx.DsTabName = "TrueAndFalse";
+                }
+                else
+                {
+                    objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objViewFeatureFldsEx.DsTabId,
+                        objViewFeatureFldsEx.ObjFieldTabENEx.PrjId);
+                    if (objASPDropDownListEx.objPrjTab_CodeTab == null)
+                    {
+                        //显示出错信息
+                        string strMsg = $"下拉框：{objASPDropDownListEx.FldName}对应的数据源Id:{objViewFeatureFldsEx.DsTabId}不存在，请检查！";
+                        throw new Exception(strMsg);
+                    }
+                    //objASPDropDownListEx.objFieldTab_ValueField =
+                    //    string.IsNullOrEmpty(objViewFeatureFldsEx.DsDataValueFieldId)?null:
+                    //    objGetTabFieldObj.GetObjByFldId(objViewFeatureFldsEx.DsDataValueFieldId,                    objViewFeatureFldsEx.ObjFieldTab_PC().PrjId);
+                    //objASPDropDownListEx.objFieldTab_TextField =
+                    //    string.IsNullOrEmpty(objViewFeatureFldsEx.Ds_DataTextFieldId) ?null:
+                    //    objGetTabFieldObj.GetObjByFldId(objViewFeatureFldsEx.Ds_DataTextFieldId,
+                    //    objViewFeatureFldsEx.ObjFieldTab_PC().PrjId);
+                    objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
+                    objASPDropDownListEx.DsTabId = objViewFeatureFldsEx.DsTabId;
+                    if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
+                    {
+                        //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objViewFeatureFldsEx.PrjId);
+                    }
+                    IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(objViewFeatureFldsEx.ObjFieldTabENEx.PrjId);
+                    List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
+                    //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
+                    List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
+                            x.TabId == objViewFeatureFldsEx.DsTabId
+                            && x.InUse == true
+                            && arrPrjFeature.Contains(x.FeatureId)
+                    ).ToList();
+                    if (arrTabFeatureSet.Count > 0)
+                    {
+                        IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
+                        List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
+                        //if (arrObjLst_Sel.Count > 0)
+                        //{
+                        //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId);
+                        //}
+                    }
+                }
+                return objASPDropDownListEx;
             }
-            else
+            catch (Exception objEx)
             {
-                objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objViewFeatureFldsEx.DsTabId,
-                    objViewFeatureFldsEx.ObjFieldTabENEx.PrjId);
-                if (objASPDropDownListEx.objPrjTab_CodeTab == null)
-                {
-                    //显示出错信息
-                    string strMsg = $"下拉框：{objASPDropDownListEx.FldName}对应的数据源Id:{objViewFeatureFldsEx.DsTabId}不存在，请检查！";
-                    throw new Exception(strMsg);
-                }
-                //objASPDropDownListEx.objFieldTab_ValueField =
-                //    string.IsNullOrEmpty(objViewFeatureFldsEx.DsDataValueFieldId)?null:
-                //    objGetTabFieldObj.GetObjByFldId(objViewFeatureFldsEx.DsDataValueFieldId,                    objViewFeatureFldsEx.ObjFieldTab_PC().PrjId);
-                //objASPDropDownListEx.objFieldTab_TextField =
-                //    string.IsNullOrEmpty(objViewFeatureFldsEx.Ds_DataTextFieldId) ?null:
-                //    objGetTabFieldObj.GetObjByFldId(objViewFeatureFldsEx.Ds_DataTextFieldId,
-                //    objViewFeatureFldsEx.ObjFieldTab_PC().PrjId);
-                objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
-                objASPDropDownListEx.DsTabId = objViewFeatureFldsEx.DsTabId;
-                if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
-                {
-                    //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objViewFeatureFldsEx.PrjId);
-                }
-                IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(objViewFeatureFldsEx.ObjFieldTabENEx.PrjId);
-                List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
-                //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
-                List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
-                        x.TabId == objViewFeatureFldsEx.DsTabId
-                        && x.InUse == true
-                        && arrPrjFeature.Contains(x.FeatureId)
-                ).ToList();
-                if (arrTabFeatureSet.Count > 0)
-                {
-                    IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
-                    List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
-                    //if (arrObjLst_Sel.Count > 0)
-                    //{
-                    //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId);
-                    //}
-                }
+                string strMsg = $"出错:{objEx}. In:{clsStackTrace.GetCurrClassFunction()}";
+                throw new Exception(strMsg);
             }
-            return objASPDropDownListEx;
         }
 
 
@@ -1140,81 +1150,88 @@ namespace AGC.PureClassEx
         {
             if (ASPControlEx.objCheckStyle == null) clsASPControlBLEx.InitStyleObj();
             string strPrjId_p = objQryRegionFldsEx.PrjId;
+            try
+            {
+                ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
 
-            ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
-
-            objASPDropDownListEx.CtrlId = objQryRegionFldsEx.CtrlId();
-            objASPDropDownListEx.RegionTypeId = enumRegionType.QueryRegion_0001;
-            if (objQryRegionFldsEx.IsUseFunc_PC() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName_PC()) == false)
-            {
-                objASPDropDownListEx.FldName = objQryRegionFldsEx.DataPropertyName_PC();
-            }
-            else
-            {
-                objASPDropDownListEx.FldName = objQryRegionFldsEx.ObjFieldTab_PC().FldName;
-            }
-            objASPDropDownListEx.Width = 200;
-            objASPDropDownListEx.CssClass = "form-control form-control-sm";
-            objASPDropDownListEx.objQryRegionFldsEN = objQryRegionFldsEx;
-            objASPDropDownListEx.CsType = objQryRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType;
-            if (objQryRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType == "bool")
-            {
-                objASPDropDownListEx.DsTabName = "TrueAndFalse";
-            }
-            else
-            {
-                objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objQryRegionFldsEx.DsTabId, strPrjId_p);
-                if (objASPDropDownListEx.objPrjTab_CodeTab == null)
+                objASPDropDownListEx.CtrlId = objQryRegionFldsEx.CtrlId();
+                objASPDropDownListEx.RegionTypeId = enumRegionType.QueryRegion_0001;
+                if (objQryRegionFldsEx.IsUseFunc_PC() && string.IsNullOrEmpty(objQryRegionFldsEx.DataPropertyName_PC()) == false)
                 {
-                    string strMsg = string.Format("查询区下拉框代码表不存在！(DsTabId:{0})", objQryRegionFldsEx.DsTabId);
-                    throw new Exception(strMsg);
+                    objASPDropDownListEx.FldName = objQryRegionFldsEx.DataPropertyName_PC();
                 }
-                //if (string.IsNullOrEmpty(objQryRegionFldsEx.DsDataValueFieldId) == false)
-                //{
-                //    objASPDropDownListEx.objFieldTab_ValueField = objGetTabFieldObj.GetObjByFldId(objQryRegionFldsEx.DsDataValueFieldId,
-                //        strPrjId_p);
-                //}
-                //if (string.IsNullOrEmpty(objQryRegionFldsEx.Ds_DataTextFieldId) == false)
-                //{
-                //    objASPDropDownListEx.objFieldTab_TextField = objGetTabFieldObj.GetObjByFldId(objQryRegionFldsEx.Ds_DataTextFieldId, strPrjId_p);
-                //}
-                objASPDropDownListEx.DsTabId = objQryRegionFldsEx.DsTabId;
-                objASPDropDownListEx.TabFeatureId4Ddl = objQryRegionFldsEx.TabFeatureId4Ddl;
-                objASPDropDownListEx.FldIdCond1 = objQryRegionFldsEx.FldIdCond1;
-
-                objASPDropDownListEx.VarIdCond1 = objQryRegionFldsEx.VarIdCond1;
-                objASPDropDownListEx.FldIdCond2 = objQryRegionFldsEx.FldIdCond2;
-
-                objASPDropDownListEx.VarIdCond2 = objQryRegionFldsEx.VarIdCond2;
-                objASPDropDownListEx.PrjId = strPrjId_p;
-
-                objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
-
-                if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
+                else
                 {
-                    //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objQryRegionFldsEx.PrjId);
+                    objASPDropDownListEx.FldName = objQryRegionFldsEx.ObjFieldTab_PC().FldName;
                 }
-
-                IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(strPrjId_p);
-
-                List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
-                //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
-                List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
-                        x.TabId == objQryRegionFldsEx.DsTabId
-                        && x.InUse == true
-                        && arrPrjFeature.Contains(x.FeatureId)
-                ).ToList();
-                if (arrTabFeatureSet.Count > 0)
+                objASPDropDownListEx.Width = 200;
+                objASPDropDownListEx.CssClass = "form-control form-control-sm";
+                objASPDropDownListEx.objQryRegionFldsEN = objQryRegionFldsEx;
+                objASPDropDownListEx.CsType = objQryRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType;
+                if (objQryRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType == "bool")
                 {
-                    IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId_p).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
-                    List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
-                    //if (arrObjLst_Sel.Count > 0)
+                    objASPDropDownListEx.DsTabName = "TrueAndFalse";
+                }
+                else
+                {
+                    objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objQryRegionFldsEx.DsTabId, strPrjId_p);
+                    if (objASPDropDownListEx.objPrjTab_CodeTab == null)
+                    {
+                        string strMsg = string.Format("查询区下拉框代码表不存在！(DsTabId:{0})", objQryRegionFldsEx.DsTabId);
+                        throw new Exception(strMsg);
+                    }
+                    //if (string.IsNullOrEmpty(objQryRegionFldsEx.DsDataValueFieldId) == false)
                     //{
-                    //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId_p);
+                    //    objASPDropDownListEx.objFieldTab_ValueField = objGetTabFieldObj.GetObjByFldId(objQryRegionFldsEx.DsDataValueFieldId,
+                    //        strPrjId_p);
                     //}
+                    //if (string.IsNullOrEmpty(objQryRegionFldsEx.Ds_DataTextFieldId) == false)
+                    //{
+                    //    objASPDropDownListEx.objFieldTab_TextField = objGetTabFieldObj.GetObjByFldId(objQryRegionFldsEx.Ds_DataTextFieldId, strPrjId_p);
+                    //}
+                    objASPDropDownListEx.DsTabId = objQryRegionFldsEx.DsTabId;
+                    objASPDropDownListEx.TabFeatureId4Ddl = objQryRegionFldsEx.TabFeatureId4Ddl;
+                    objASPDropDownListEx.FldIdCond1 = objQryRegionFldsEx.FldIdCond1;
+
+                    objASPDropDownListEx.VarIdCond1 = objQryRegionFldsEx.VarIdCond1;
+                    objASPDropDownListEx.FldIdCond2 = objQryRegionFldsEx.FldIdCond2;
+
+                    objASPDropDownListEx.VarIdCond2 = objQryRegionFldsEx.VarIdCond2;
+                    objASPDropDownListEx.PrjId = strPrjId_p;
+
+                    objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
+
+                    if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
+                    {
+                        //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objQryRegionFldsEx.PrjId);
+                    }
+
+                    IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(strPrjId_p);
+
+                    List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
+                    //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
+                    List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
+                            x.TabId == objQryRegionFldsEx.DsTabId
+                            && x.InUse == true
+                            && arrPrjFeature.Contains(x.FeatureId)
+                    ).ToList();
+                    if (arrTabFeatureSet.Count > 0)
+                    {
+                        IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId_p).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
+                        List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
+                        //if (arrObjLst_Sel.Count > 0)
+                        //{
+                        //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId_p);
+                        //}
+                    }
                 }
+                return objASPDropDownListEx;
             }
-            return objASPDropDownListEx;
+            catch (Exception objEx)
+            {
+                string strMsg = $"出错:{objEx}. In:{clsStackTrace.GetCurrClassFunction()}";
+                throw new Exception(strMsg);
+            }
         }
 
 
@@ -1222,66 +1239,74 @@ namespace AGC.PureClassEx
         {
             if (ASPControlEx.objCheckStyle == null) clsASPControlBLEx.InitStyleObj();
             string strPrjId_p = objEditRegionFldsEx.PrjId;
-
-            ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
-            objASPDropDownListEx.CtrlId = objEditRegionFldsEx.CtrlId();
-            objASPDropDownListEx.RegionTypeId = enumRegionType.EditRegion_0003;
-
-            objASPDropDownListEx.Width = 200;
-            objASPDropDownListEx.CssClass = "form-control form-control-sm";
-            objASPDropDownListEx.objEditRegionFldsEN = objEditRegionFldsEx;
-            objASPDropDownListEx.CsType = objEditRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType;
-            objASPDropDownListEx.FldName = objEditRegionFldsEx.ObjFieldTab_PC().FldName;
-            objASPDropDownListEx.ItemsString = objEditRegionFldsEx.ItemsString;
-            objASPDropDownListEx.DsCondStr = objEditRegionFldsEx.DsCondStr;
-            objASPDropDownListEx.DsSqlStr = objEditRegionFldsEx.DsSqlStr;
-
-            objASPDropDownListEx.DdlItemsOptionId = objEditRegionFldsEx.DdlItemsOptionId;
-            if (objEditRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType == "bool")
+            try
             {
-            }
-            else if (string.IsNullOrEmpty(objEditRegionFldsEx.DsTabId) == true)
-            {
-            }
-            else
-            {
-                objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objEditRegionFldsEx.DsTabId, strPrjId_p);
-                objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
-                objASPDropDownListEx.DsTabId = objEditRegionFldsEx.DsTabId;
-                objASPDropDownListEx.TabFeatureId4Ddl = objEditRegionFldsEx.TabFeatureId4Ddl;
-                objASPDropDownListEx.FldIdCond1 = objEditRegionFldsEx.FldIdCond1;
 
-                objASPDropDownListEx.VarIdCond1 = objEditRegionFldsEx.VarIdCond1;
-                objASPDropDownListEx.FldIdCond2 = objEditRegionFldsEx.FldIdCond2;
+                ASPDropDownListEx objASPDropDownListEx = new ASPDropDownListEx();
+                objASPDropDownListEx.CtrlId = objEditRegionFldsEx.CtrlId();
+                objASPDropDownListEx.RegionTypeId = enumRegionType.EditRegion_0003;
 
-                objASPDropDownListEx.VarIdCond2 = objEditRegionFldsEx.VarIdCond2;
-                objASPDropDownListEx.PrjId = strPrjId_p;
+                objASPDropDownListEx.Width = 200;
+                objASPDropDownListEx.CssClass = "form-control form-control-sm";
+                objASPDropDownListEx.objEditRegionFldsEN = objEditRegionFldsEx;
+                objASPDropDownListEx.CsType = objEditRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType;
+                objASPDropDownListEx.FldName = objEditRegionFldsEx.ObjFieldTab_PC().FldName;
+                objASPDropDownListEx.ItemsString = objEditRegionFldsEx.ItemsString;
+                objASPDropDownListEx.DsCondStr = objEditRegionFldsEx.DsCondStr;
+                objASPDropDownListEx.DsSqlStr = objEditRegionFldsEx.DsSqlStr;
 
-                if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
+                objASPDropDownListEx.DdlItemsOptionId = objEditRegionFldsEx.DdlItemsOptionId;
+                if (objEditRegionFldsEx.ObjFieldTab_PC().ObjDataTypeAbbr_PC().CsType == "bool")
                 {
-                    //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objEditRegionFldsEx.PrjId);
                 }
-                IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(strPrjId_p);
-                List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
-                //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
-                List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
-                        x.TabId == objEditRegionFldsEx.DsTabId
-                        && x.InUse == true
-                        && arrPrjFeature.Contains(x.FeatureId)
-                ).ToList();
-                if (arrTabFeatureSet.Count > 0)
+                else if (string.IsNullOrEmpty(objEditRegionFldsEx.DsTabId) == true)
                 {
-                    IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId_p).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
-                    List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
-                    //if (arrObjLst_Sel.Count > 0)
-                    //{
-                    //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId_p);
-                    //    objASPDropDownListEx.objTabFeatureFlds = arrObjLst_Sel[0];
-                    //}
-
                 }
+                else
+                {
+                    objASPDropDownListEx.objPrjTab_CodeTab = objGetTabFieldObj.GetObjByTabId(objEditRegionFldsEx.DsTabId, strPrjId_p);
+                    objASPDropDownListEx.DsTabName = objASPDropDownListEx.objPrjTab_CodeTab.TabName;
+                    objASPDropDownListEx.DsTabId = objEditRegionFldsEx.DsTabId;
+                    objASPDropDownListEx.TabFeatureId4Ddl = objEditRegionFldsEx.TabFeatureId4Ddl;
+                    objASPDropDownListEx.FldIdCond1 = objEditRegionFldsEx.FldIdCond1;
+
+                    objASPDropDownListEx.VarIdCond1 = objEditRegionFldsEx.VarIdCond1;
+                    objASPDropDownListEx.FldIdCond2 = objEditRegionFldsEx.FldIdCond2;
+
+                    objASPDropDownListEx.VarIdCond2 = objEditRegionFldsEx.VarIdCond2;
+                    objASPDropDownListEx.PrjId = strPrjId_p;
+
+                    if (string.IsNullOrEmpty(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField) == false)
+                    {
+                        //objASPDropDownListEx.objFieldTabCacheClassify = clsFieldTabBL.GetObjByFldIdCache(objASPDropDownListEx.objPrjTab_CodeTab.CacheClassifyField, objEditRegionFldsEx.PrjId);
+                    }
+                    IEnumerable<clsTabFeatureEN> arrTabFeatureCache = clsTabFeatureBL.GetObjLstCache(strPrjId_p);
+                    List<string> arrPrjFeature = new List<string>() { enumPrjFeature.Tab_BindDdl_0173, enumPrjFeature.Tab_BindDdl_0221 };
+                    //objPrjTabENEx.arrTabFeatureSet =  clsTabFeatureBLEx.GetObjExLst(strCondition);
+                    List<clsTabFeatureEN> arrTabFeatureSet = arrTabFeatureCache.Where(x =>
+                            x.TabId == objEditRegionFldsEx.DsTabId
+                            && x.InUse == true
+                            && arrPrjFeature.Contains(x.FeatureId)
+                    ).ToList();
+                    if (arrTabFeatureSet.Count > 0)
+                    {
+                        IEnumerable<clsTabFeatureFldsEN> arrObjLst = clsTabFeatureFldsBL.GetObjLstCache(strPrjId_p).Where(x => x.TabFeatureId == arrTabFeatureSet[0].TabFeatureId);
+                        List<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLst.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
+                        //if (arrObjLst_Sel.Count > 0)
+                        //{
+                        //    objASPDropDownListEx.objFieldTab_ConditionField = clsFieldTabBL.GetObjByFldIdCache(arrObjLst_Sel[0].FldId, strPrjId_p);
+                        //    objASPDropDownListEx.objTabFeatureFlds = arrObjLst_Sel[0];
+                        //}
+
+                    }
+                }
+                return objASPDropDownListEx;
             }
-            return objASPDropDownListEx;
+            catch (Exception objEx)
+            {
+                string strMsg = $"出错:{objEx}. In:{clsStackTrace.GetCurrClassFunction()}";
+                throw new Exception(strMsg);
+            }
         }
 
     }

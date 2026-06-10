@@ -144,6 +144,9 @@
     <Compile Include="Class\GeneCode\clsCodeParaDAEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeSegmentDAEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupRelaDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTRelationTypeDAEx.cs" />
     <Compile Include="Class\GeneCode\clsDict4GCDAEx.cs" />
     <Compile Include="Class\GeneCode\clsDictType4GCDAEx.cs" />
     <Compile Include="Class\GeneCode\clsEventTabDAEx.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="Class\GeneCode\clsGCVariableDAEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaDAEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariableTypeDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsGC_CodeTypeRelationDAEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFilesDAEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFileTypeDAEx.cs" />
     <Compile Include="Class\GeneCode\clsSelfDefDataTypeDAEx.cs" />

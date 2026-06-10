@@ -1708,6 +1708,10 @@ namespace AutoGCLib
                 sbCode_Export.Append("\r\n" + $"ref{ThisDetailClsName},");
                 sbCode_ExportLst.Append("\r\n" + $"ref{ThisDetailClsName},");
 
+                strCodeForCs.Append("\r\n" + $"const ref{ThisDetailClsName}Ai = ref ();");
+                sbCode_Export.Append("\r\n" + $"ref{ThisDetailClsName}Ai,");
+                sbCode_ExportLst.Append("\r\n" + $"ref{ThisDetailClsName}Ai,");
+
             }
             if (IsHasEditRegion)
             {
@@ -3064,6 +3068,8 @@ strFldName, strDataPropertyName);
             StringBuilder sbCheckEmpty = new StringBuilder();
 
             StringBuilder sbFuncPara = new StringBuilder();
+            // 生成 Key 类型名称
+            string strKeyTypeName = $"{TabName_In4Edit}Key";
 
             //缓存分类字段作为函数参数的计划
             if (PrjTabEx_EditRegion.IsHasCacheClassifyFldTS() == false)
@@ -3100,12 +3106,12 @@ strFldName, strDataPropertyName);
 
             if (PrjTabEx_EditRegion.IsHasCacheClassifyFldTS() == false)
             {
-                strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + $"DeleteKeyIdCache({strTemp4Key}):void");
+                strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + $"DeleteKeyIdCache(key:{strKeyTypeName}):void");
                 strFuncName = $"{this.tabNameHead}DeleteKeyIdCache";
             }
             else if (PrjTabEx_EditRegion.IsHasCacheClassifyFld2TS() == false)
             {
-                strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + $"DeleteKeyIdCache({strFuncPara}, {strTemp4Key}):void");
+                strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + $"DeleteKeyIdCache({strFuncPara}, key:{strKeyTypeName}):void");
                 strFuncName = $"{this.tabNameHead}DeleteKeyIdCache";
 
                 sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(PrjTabEx_EditRegion.CacheClassifyFldTS().ObjFieldTab().PrivFuncName1(),
@@ -3118,8 +3124,7 @@ strFldName, strDataPropertyName);
             }
             else
             {
-                strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "DeleteKeyIdCache({0}, {1}):void",
-                 strFuncPara, strTemp4Key);
+                strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + $"DeleteKeyIdCache({strFuncPara}, key:{strKeyTypeName}):void");
                 strFuncName = $"{this.tabNameHead}DeleteKeyIdCache";
                 var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(PrjTabEx_EditRegion.CacheClassifyFldTS().ObjFieldTab().PrivFuncName1(),
    PrjTabEx_EditRegion.CacheClassifyFldTS().ObjFieldTab().TypeScriptType(),
@@ -3140,17 +3145,60 @@ this.ClsName, strFuncName_Temp,
                  strFuncPara, strTemp4Key);
 
             }
+            
+            // 在 Gen_Share_method_DeleteKeyIdCache() 方法中
+            // 将单个字段参数改为 Key 对象参数
+
+ 
+
+            // 替换参数定义
+            // 原来: export function PrjDataBase_DeleteKeyIdCache(strPrjDataBaseId: string): void
+            // 改为: export function PrjDataBase_DeleteKeyIdCache(key: PrjDataBaseKey): void
+
+            if (PrjTabEx_EditRegion.IsHasCacheClassifyFldTS() == false)
+            {
+                strCodeForCs.AppendFormat("\r\n" + "export function {0}DeleteKeyIdCache(key: {1}): void",
+                    this.tabNameHead, strKeyTypeName);
+                strFuncName = $"{this.tabNameHead}DeleteKeyIdCache";
+            }
+
+            ImportClass objImportClass = AddImportClass(TabId_Out4ListRegion, TabName_Out4ListRegion4GC, string.Format("{0}Key", TabName_Out4ListRegion4GC), enumImportObjType.ENClass, this.strBaseUrl);
+
+            CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+            clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+
+
             strCodeForCs.Append("\r\n" + "{");
             //    strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"DeleteKeyIdCache\";", ThisTabName4GC,
             //objKeyField.FldName);
             strCodeForCs.AppendLine(sbCheckEmpty.ToString());
 
 
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.Gc_IfVarNotEmpty_Ts(PrjTabEx_EditRegion.arrKeyFldSet, this, this.strBaseUrl));
+            strCodeForCs.Append("\r\n" + clsPubFun4GC.Gc_IfVarNotEmpty4Key_Ts(PrjTabEx_EditRegion.arrKeyFldSet, this, this.strBaseUrl));
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"// 使用 delete 删除特定的键");
-            strCodeForCs.Append("\r\n" + getCacheKey());
+            // 修改检查空值的逻辑
+            foreach (var objInFor in PrjTabEx_EditRegion.arrKeyFldSet)
+            {
+                string strPrivateVarName = objInFor.ObjFieldTab().PrivFuncName();
+                string strPropertyName = clsString.FirstLcaseS(objInFor.FldName);
+
+                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(
+                    $"key.{strPropertyName}",  // 使用 key.prjDataBaseId 而不是 strPrjDataBaseId
+                    objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                    this.ClsName,
+                    strFuncName_Temp,
+                    objInFor.ObjFieldTab().FldLength,
+                    objInFor.ObjFieldTab().DataTypeId == enumDataTypeAbbr.char_04,
+                    this,
+                    this.strBaseUrl));
+            }
+
+            // 修改 getCacheKey() 调用
+            strCodeForCs.Append("\r\n" + "// 使用 delete 删除特定的键");
+            strCodeForCs.Append("\r\n" + getCacheKeyFromKeyObject());  // 新方法
             strCodeForCs.Append("\r\n" + $"delete {clsString.FstLcaseS(TabName_Out4ListRegion)}Cache[cacheKey];");
+
             //AddImportClass("", $"@/views{strIsShare}/{this.objFuncModule.FuncModuleEnName}/{this.GetVueShareClsName()}", $"{clsString.FstLcaseS(TabName_In4Edit4GC)}Cache", enumImportObjType.CustomFunc, "");
 
             strCodeForCs.Append("\r\n" + $"return;");
@@ -3173,6 +3221,32 @@ this.ClsName, strFuncName_Temp,
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
+        }
+        public string getCacheKeyFromKeyObject()
+        {
+            StringBuilder strCacheKey = new StringBuilder("const cacheKey = `");
+
+            List<string> strCache_ParaVarNameLst = clsPrjTabBLEx.Cache_ParaVarLst(PrjTabEx_EditRegion, "TypeScript");
+
+            // 使用 key.字段名 而不是直接使用字段名
+            foreach (var objInfo in PrjTabEx_EditRegion.arrKeyFldSet)
+            {
+                string strFieldName = clsString.FirstLcaseS(objInfo.FldName);
+                strCacheKey.Append($"${{ key.{strFieldName} }}_");
+            }
+
+            foreach (var objInfo in strCache_ParaVarNameLst)
+            {
+                strCacheKey.Append($"${{ {objInfo} }}_");
+            }
+
+            if (strCacheKey.ToString().EndsWith("_"))
+            {
+                strCacheKey.Length -= 1;  // 移除最后的下划线
+            }
+
+            strCacheKey.Append("`;");
+            return strCacheKey.ToString();
         }
         public string getCacheKey()
         {

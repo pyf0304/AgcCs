@@ -52,7 +52,7 @@ namespace AutoGCLib
             );
 
             // 设置文件名（带模块路径）
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             // 🔥 清除模板缓存，确保使用最新的模板文件
             _renderService.ClearCache();

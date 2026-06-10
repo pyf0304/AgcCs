@@ -89,6 +89,7 @@ namespace AutoGCLib
         protected CacheClassify objCacheClassify_TS = null;
         protected CacheClassify objCacheClassify_List_TS = null;
         protected CacheClassify objCacheClassify_ExportExcel_TS = null;
+        protected CacheClassify objCacheClassify_Edit_TS = null;
         protected CacheClassify objCacheClassify = null;
         protected TabProp objTabProp_TS = null;
         protected TabProp objEditTabProp_TS = null;
@@ -116,6 +117,7 @@ namespace AutoGCLib
         //public List<ImportClass> arrImportClass_RemoveDup = null;// new List<ImportClass>();
 
         protected clsPrjTabFldENEx mobjKeyField = null;
+        protected List<clsPrjTabFldENEx> marrKeyFieldList = null;
         protected clsPrjTabFldENEx mobjPrefixField = null;
       
 

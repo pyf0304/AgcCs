@@ -1,4 +1,4 @@
-using AGC.BusinessLogic;
+ï»¿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AGC.PureClassEx;
@@ -21,33 +21,33 @@ using System.Xml.Linq;
 namespace AutoGCLib
 {
     /// <summary>
-    /// ¸ÃÀà×¨ÃÅÓÃÉú³ÉÊı¾İ±íµÄ±í´úÀí²ã,¸Ã´úÀí²ãÊÇÂß¼­²ãµÄÒ»²¿·Ö,ÌåÏµ½á¹¹´ÓÏÂµ½ÏÂ,
-    /// ¹²·ÖÒÔÏÂ¼¸²ã:
-    ///		1¡¢½çÃæ²ã
-    ///			Í¨ÓÃ½çÃæ²ã,×¨ÃÅÌá¹©Ò»Ğ©½çÃæ¿Ø¼şµÄ¹«¹²²Ù×÷º¯Êı
-    ///		2¡¢Âß¼­²ã
-    ///			2.1 ÒµÎñÂß¼­²ã
-    ///			2.2 ±í´úÀí²ã¡£°üÀ¨:
-    ///					1)±í¼ÇÂ¼µÄÌí¼Ó¡¢
-    ///					2)±í¼ÇÂ¼µÄÉ¾³ı
-    ///					3)±í¼ÇÂ¼µÄĞŞ¸Ä
-    ///					4)±í¼ÇÂ¼µÄ²éÑ¯
-    ///					5)»ñÈ¡Ä³Ğ©±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔ
-    ///					6)ÉèÖÃ±í¼ÇÂ¼µÄÓĞ¹Ø×Ö¶ÎÊôĞÔµÈ¡£
-    ///		3¡¢Êı¾İ²ã,¼´Í¨ÓÃÊı¾İ²ã,×¨ÃÅÓÃÓÚ²Ù×÷Êı¾İ¿âµÄÒ»Ğ©²Ù×÷,ÒÔ¼°²Ù×÷±íµÄÒ»Ğ©Í¨ÓÃ²Ù×÷
+    /// è¯¥ç±»ä¸“é—¨ç”¨ç”Ÿæˆæ•°æ®è¡¨çš„è¡¨ä»£ç†å±‚,è¯¥ä»£ç†å±‚æ˜¯é€»è¾‘å±‚çš„ä¸€éƒ¨åˆ†,ä½“ç³»ç»“æ„ä»ä¸‹åˆ°ä¸‹,
+    /// å…±åˆ†ä»¥ä¸‹å‡ å±‚:
+    ///		1ã€ç•Œé¢å±‚
+    ///			é€šç”¨ç•Œé¢å±‚,ä¸“é—¨æä¾›ä¸€äº›ç•Œé¢æ§ä»¶çš„å…¬å…±æ“ä½œå‡½æ•°
+    ///		2ã€é€»è¾‘å±‚
+    ///			2.1 ä¸šåŠ¡é€»è¾‘å±‚
+    ///			2.2 è¡¨ä»£ç†å±‚ã€‚åŒ…æ‹¬:
+    ///					1)è¡¨è®°å½•çš„æ·»åŠ ã€
+    ///					2)è¡¨è®°å½•çš„åˆ é™¤
+    ///					3)è¡¨è®°å½•çš„ä¿®æ”¹
+    ///					4)è¡¨è®°å½•çš„æŸ¥è¯¢
+    ///					5)è·å–æŸäº›è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§
+    ///					6)è®¾ç½®è¡¨è®°å½•çš„æœ‰å…³å­—æ®µå±æ€§ç­‰ã€‚
+    ///		3ã€æ•°æ®å±‚,å³é€šç”¨æ•°æ®å±‚,ä¸“é—¨ç”¨äºæ“ä½œæ•°æ®åº“çš„ä¸€äº›æ“ä½œ,ä»¥åŠæ“ä½œè¡¨çš„ä¸€äº›é€šç”¨æ“ä½œ
     /// </summary>
     partial class WA_Access4TypeScript : clsGeneCodeBase4Tab
     {
         //private bool bolIsHasFuncMap4Path = false;
         private string strIsShare_GC = "";
         //public string strBaseUrl = "../../";
-        #region ¹¹Ôìº¯Êı
+        #region æ„é€ å‡½æ•°
 
         public WA_Access4TypeScript(string strTabId, string strPrjDataBaseId, string strPrjId)
           : base(strTabId, strPrjDataBaseId, strPrjId)
         {
             // 
-            // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯ÊıÂß¼­
+            // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°é€»è¾‘
             //
             this.strBaseUrl = "../../TS";
             this.arrImportClass = new List<ImportClass>();
@@ -59,7 +59,7 @@ namespace AutoGCLib
             this.ExtendedClsName = this.ClsName + "Ex";
         }
         /// <summary>
-        /// Éú³ÉWeb Service×ª»»²ã´úÂë
+        /// ç”ŸæˆWeb Serviceè½¬æ¢å±‚ä»£ç 
         /// </summary>
         /// <returns></returns>
 
@@ -70,23 +70,23 @@ namespace AutoGCLib
             //if (objPrjTabENEx.IsShare) strIsShare_GC = "_1Share";
             if (objPrjTabENEx.TabFldNum() == 0)
             {
-                strResult = string.Format("µ±Ç°±í:[{0}]µÄ×Ö¶ÎÊıÎª0,ÎŞ·¨Éú³ÉÍ¨ÓÃÂß¼­²ã!({1})",
+                strResult = string.Format("å½“å‰è¡¨:[{0}]çš„å­—æ®µæ•°ä¸º0,æ— æ³•ç”Ÿæˆé€šç”¨é€»è¾‘å±‚!({1})",
                      ThisTabName4GC, clsStackTrace.GetCurrClassFunction());
                 throw new clsDbObjException(strResult);
             }
             if (objPrjTabENEx.KeyFldNum() == 0)
             {
-                strResult = string.Format("µ±Ç°±í:[{0}]µÄ¹Ø¼ü×ÖµÄ¸öÊıÎª0,ÎŞ·¨Éú³ÉÍ¨ÓÃÂß¼­²ã!({1})",
+                strResult = string.Format("å½“å‰è¡¨:[{0}]çš„å…³é”®å­—çš„ä¸ªæ•°ä¸º0,æ— æ³•ç”Ÿæˆé€šç”¨é€»è¾‘å±‚!({1})",
                         ThisTabName4GC, clsStackTrace.GetCurrClassFunction());
                 throw new clsDbObjException(strResult);
             }
             objPrjTabENEx.CurrDate = clsDateTime.getTodayStr2(0);
             objPrjTabENEx.IsAppliedInViewList4CmPrjId = clsPrjTabBLEx.IsAppiedInViewList4CmPrjId(this.TabId, this.CmPrjId);
-            //ÈÃÓÃ»§ÉèÖÃÊôĞÔ;
+            //è®©ç”¨æˆ·è®¾ç½®å±æ€§;
             //string strFolder;
             string strClassFName;
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; ///ä¸´æ—¶å˜é‡;
 
             objPrjTabENEx.ClsName = ThisClsName4WApi;
             //objPrjTabENEx1.ProgLevelTypeId = clsProgLevelTypeENEx.WebApiTransferLevel;
@@ -109,7 +109,7 @@ namespace AutoGCLib
             this.objCodeElement_Root.Children.Add(this.objCodeElement_Class);
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 List<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
                    clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, (int)enumApplicationType.SpaAppInCore_TS_18, this.CmPrjId);
                 if (arrvFunction4GeneCodeObjLst.Find(x => x.FuncName.Contains("FuncMap4Path")) != null)
@@ -147,7 +147,7 @@ namespace AutoGCLib
                         }
                         catch (Exception objException)
                         {
-                            string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.", strFuncName, objException.Message);
+                            string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.", strFuncName, objException.Message);
                             throw new Exception(strMsg);
                         }
                         //if (string.IsNullOrEmpty(strTemp) == false)
@@ -168,7 +168,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
                 strCodeForCs.AppendFormat("\r\n" + "* Created by {0} on {1}.", objPrjTabENEx.UserId, clsDateTime.getTodayStr(3));
-                strCodeForCs.AppendFormat("\r\n" + "* ×¢Òâ:¸ÃÀà±ØĞëÓëµ÷ÓÃ½çÃæ´¦ÓÚÍ¬Ò»¸ö°ü,·ñÔòµ÷ÓÃ²»³É¹¦!", objPrjTabENEx.UserId, clsDateTime.getTodayStr(3));
+                strCodeForCs.AppendFormat("\r\n" + "* æ³¨æ„:è¯¥ç±»å¿…é¡»ä¸è°ƒç”¨ç•Œé¢å¤„äºåŒä¸€ä¸ªåŒ…,å¦åˆ™è°ƒç”¨ä¸æˆåŠŸ!", objPrjTabENEx.UserId, clsDateTime.getTodayStr(3));
                 strCodeForCs.Append("\r\n" + " **/");
 
                 //strCodeForCs.Append("\r\n" + "import $ from \"jquery\";");
@@ -249,21 +249,21 @@ namespace AutoGCLib
                     //strCodeForCs.AppendFormat("\r\n" + "export class  cls{0}BL", ThisTabName4GC);
                     //strCodeForCs.Append("\r\n" + "{");
 
-                    //Ë½ÓĞÊôĞÔÃû-----ºÍÊôĞÔ¹ı³Ì
+                    //ç§æœ‰å±æ€§å-----å’Œå±æ€§è¿‡ç¨‹
                     //strCodeForCs.Append("\r\n/**");
-                    //strCodeForCs.Append("\r\n * ¾²Ì¬µÄ¶ÔÏóÁĞ±í,ÓÃÓÚ»º´æ,Õë¶Ô¼ÇÂ¼½ÏÉÙ,×÷Îª²ÎÊı±í¿ÉÒÔÊ¹ÓÃ");
+                    //strCodeForCs.Append("\r\n * é™æ€çš„å¯¹è±¡åˆ—è¡¨,ç”¨äºç¼“å­˜,é’ˆå¯¹è®°å½•è¾ƒå°‘,ä½œä¸ºå‚æ•°è¡¨å¯ä»¥ä½¿ç”¨");
                     //strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                     //strCodeForCs.Append("\r\n*/");
                     //strCodeForCs.AppendFormat("\r\n" + "private arr{0}ObjLstCache = new Array<{0}>();",
                     //       ThisTabName4GC);
 
                     //strCodeForCs.AppendFormat("\r\n/**");
-                    //strCodeForCs.AppendFormat("\r\n * ´Ó»º´æÖĞ²éÕÒÊ§°ÜµÄ´ÎÊı");
+                    //strCodeForCs.AppendFormat("\r\n * ä»ç¼“å­˜ä¸­æŸ¥æ‰¾å¤±è´¥çš„æ¬¡æ•°");
                     //strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                     //strCodeForCs.AppendFormat("\r\n*/");
                     //strCodeForCs.AppendFormat("\r\n" + "private intFindFailCount = 0;");
 
-                    //Éú³ÉËùÓĞµÄº¯Êı
+                    //ç”Ÿæˆæ‰€æœ‰çš„å‡½æ•°
 
                     foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_Business)
                     {
@@ -286,7 +286,7 @@ namespace AutoGCLib
                         //}
                         //catch (Exception objException)
                         //{
-                        //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.", strFuncName, objException.Message);
+                        //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.", strFuncName, objException.Message);
                         //    throw new Exception(strMsg);
                         //}
                         strTemp = objvFunction4GeneCodeEN.CodeText;
@@ -302,7 +302,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -442,7 +442,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// Éú³ÉWeb Service×ª»»²ã´úÂë
+        /// ç”ŸæˆWeb Serviceè½¬æ¢å±‚ä»£ç 
         /// </summary>
         /// <returns></returns>
         public string A_GenWebApiTransCode_Ts_SelfDefWs(ref string strRe_ClsName, ref string strRe_FileNameWithModuleName)
@@ -451,18 +451,18 @@ namespace AutoGCLib
             string strResult = "";
             if (objWebSrvClassENEx.arrWebSrvFunctionsENExObjLst.Count == 0)
             {
-                strResult = string.Format("µ±Ç°Àà:[{0}]µÄº¯ÊıÊıÎª0,ÎŞ·¨Éú³ÉÏà¹Ø²ã!({1})",
+                strResult = string.Format("å½“å‰ç±»:[{0}]çš„å‡½æ•°æ•°ä¸º0,æ— æ³•ç”Ÿæˆç›¸å…³å±‚!({1})",
                       objWebSrvClassENEx.ClsName, clsStackTrace.GetCurrClassFunction());
                 throw new clsDbObjException(strResult);
             }
 
             objWebSrvClassENEx.CurrDate = clsDateTime.getTodayStr2(0);
 
-            //ÈÃÓÃ»§ÉèÖÃÊôĞÔ;
+            //è®©ç”¨æˆ·è®¾ç½®å±æ€§;
             //string strFolder;
             string strClassFName;
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; ///ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; ///ä¸´æ—¶å˜é‡;
 
             objWebSrvClassENEx.ClsName = "cls" + objWebSrvClassENEx.ClsName + "WS4SD";
             //objWebSrvClassENEx1.ProgLevelTypeId = clsProgLevelTypeENEx.WebApiTransferLevel;
@@ -477,7 +477,7 @@ namespace AutoGCLib
             clsProjectsEN objProject = clsProjectsBL.GetObjByPrjIdCache(objWebSrvClassENEx.PrjId); //
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
 
                 strCodeForCs.Append(clsPubFun4GC.GenUserInfoAndDate(objWebSrvClassENEx.CurrUserName, objWebSrvClassENEx));
 
@@ -489,14 +489,14 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
                 strCodeForCs.AppendFormat("\r\n" + "* Created by {0} on {1}.", objWebSrvClassENEx.CurrUserName, clsDateTime.getTodayStr(3));
-                strCodeForCs.AppendFormat("\r\n" + "* ×¢Òâ:¸ÃÀà±ØĞëÓëµ÷ÓÃ½çÃæ´¦ÓÚÍ¬Ò»¸ö°ü,·ñÔòµ÷ÓÃ²»³É¹¦!", objWebSrvClassENEx.CurrUserName, clsDateTime.getTodayStr(3));
+                strCodeForCs.AppendFormat("\r\n" + "* æ³¨æ„:è¯¥ç±»å¿…é¡»ä¸è°ƒç”¨ç•Œé¢å¤„äºåŒä¸€ä¸ªåŒ…,å¦åˆ™è°ƒç”¨ä¸æˆåŠŸ!", objWebSrvClassENEx.CurrUserName, clsDateTime.getTodayStr(3));
                 strCodeForCs.Append("\r\n" + " **/");
                 strCodeForCs.Append("\r\n" + "/// <reference path=\"../PubFun/tzDictionary.ts\" />");
                 strCodeForCs.Append("\r\n" + "/// <reference path=\"../PubFun/tzResponseData.ts\" />");
                 strCodeForCs.Append("\r\n" + "/// <reference path=\"../PubFun/tzStringFormat.ts\" />");
                 strCodeForCs.Append("\r\n" + "/// <reference path=\"../PubFun/tzGetXmlHttp.ts\" />");
                 strCodeForCs.Append("\r\n" + "/// <reference path=\"../PubFun/jsPubVar.ts\" />");
-                strCodeForCs.Append("\r\n" + "const VirtualRootPath = getVirtualRootPath_web();//¸Ãº¯Êı´æÔÚÓÚ/js/PubFun/jsPubFun.tsÎÄ¼şÖĞ");
+                strCodeForCs.Append("\r\n" + "const VirtualRootPath = getVirtualRootPath_web();//è¯¥å‡½æ•°å­˜åœ¨äº/js/PubFun/jsPubFun.tsæ–‡ä»¶ä¸­");
 
                 strCodeForCs.Append("\r\n" + "include(VirtualRootPath + \"/js/PubFun/tzDictionary.ts\");");
                 strCodeForCs.Append("\r\n" + "include(VirtualRootPath + \"/js/PubFun/tzResponseData.ts\");");
@@ -523,9 +523,9 @@ namespace AutoGCLib
 
                 //strCodeForCs.AppendFormat("\r\n" + "const obj{0}EN;",
                 //      objWebSrvClassENEx.ClsName);
-                //Ë½ÓĞÊôĞÔÃû-----ºÍÊôĞÔ¹ı³Ì
+                //ç§æœ‰å±æ€§å-----å’Œå±æ€§è¿‡ç¨‹
 
-                //Ë½ÓĞÊôĞÔÃû-----ºÍÊôĞÔ¹ı³Ì
+                //ç§æœ‰å±æ€§å-----å’Œå±æ€§è¿‡ç¨‹
 
                 strCodeForCs.Append("\r\n" + "this.init = function()");
                 strCodeForCs.Append("\r\n" + "{");
@@ -560,7 +560,7 @@ namespace AutoGCLib
                   objWebSrvClassENEx.ClsName, "{", "}", objWebSrvClassENEx.ObjFuncModule.FuncModuleEnName4GC());
 
                 strCodeForCs.Append("\r\n" + "}");
-                //Éú³ÉËùÓĞµÄº¯Êı
+                //ç”Ÿæˆæ‰€æœ‰çš„å‡½æ•°
 
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncNameCacheEx("Gen_4WA_main_Ts_SelfDefWs");
                 strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
@@ -579,13 +579,13 @@ namespace AutoGCLib
                         }
                         else
                         {
-                            strTemp = string.Format("//¸Ãº¯Êı: [{0}]ÎŞ·¨Éú³É.", objWebSrvFunctionsENEx.FunctionSignature);
+                            strTemp = string.Format("//è¯¥å‡½æ•°: [{0}]æ— æ³•ç”Ÿæˆ.", objWebSrvFunctionsENEx.FunctionSignature);
                             strCodeForCs.Append("\r\n" + strTemp);
                         }
                     }
                     catch (Exception objException)
                     {
-                        strTemp = string.Format("//¸Ãº¯Êı: [{0}]ÎŞ·¨Éú³É.´íÎó:[{1}]({2}->{3})",
+                        strTemp = string.Format("//è¯¥å‡½æ•°: [{0}]æ— æ³•ç”Ÿæˆ.é”™è¯¯:[{1}]({2}->{3})",
                             objWebSrvFunctionsENEx.FunctionSignature,
                             objException.Message,
                             clsStackTrace.GetCurrClassFunctionByLevel(2),
@@ -608,7 +608,7 @@ namespace AutoGCLib
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -631,7 +631,7 @@ namespace AutoGCLib
 
                 if (mt == null)
                 {
-                    string strMsg = string.Format("ÔÚÀàÖĞÃ»ÓĞÏàÓ¦µÄº¯Êı:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç±»ä¸­æ²¡æœ‰ç›¸åº”çš„å‡½æ•°:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 else
@@ -664,26 +664,26 @@ namespace AutoGCLib
                 {
                     strMsg = objException.Message;
                 }
-                sbMessage.AppendFormat("ÔÚÉú³Éº¯Êı:{0}Ê±³ö´í. \r\n³ö´íĞÅÏ¢:{1}.", strFuncName, strMsg);
+                sbMessage.AppendFormat("åœ¨ç”Ÿæˆå‡½æ•°:{0}æ—¶å‡ºé”™. \r\nå‡ºé”™ä¿¡æ¯:{1}.", strFuncName, strMsg);
                 throw new Exception(sbMessage.ToString());
             }
         }
 
         /// <summary>
-        /// µ÷ÓÃWebApiÀ´Ìí¼Ó¼ÇÂ¼,Êı¾İ´«µİÊ¹ÓÃJSON´®
+        /// è°ƒç”¨WebApiæ¥æ·»åŠ è®°å½•,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_AddNewRecord()
         {
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * µ÷ÓÃWebApiÀ´Ìí¼Ó¼ÇÂ¼,Êı¾İ´«µİÊ¹ÓÃJSON´®");
+            strCodeForCs.Append("\r\n * è°ƒç”¨WebApiæ¥æ·»åŠ è®°å½•,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:ĞèÒªÌí¼ÓµÄ¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:éœ€è¦æ·»åŠ çš„å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "AddNewRecord (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -717,7 +717,7 @@ namespace AutoGCLib
                       objKeyField.FldName);
                 }
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = \"ĞèÒªµÄ¶ÔÏóµÄ¹Ø¼ü×ÖÎª¿Õ,²»ÄÜÌí¼Ó!\";");
+                strCodeForCs.Append("\r\n" + "const strMsg = \"éœ€è¦çš„å¯¹è±¡çš„å…³é”®å­—ä¸ºç©º,ä¸èƒ½æ·»åŠ !\";");
                 strCodeForCs.Append("\r\n" + "throw strMsg;");
                 strCodeForCs.Append("\r\n" + "}");
             }
@@ -756,14 +756,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -780,7 +780,7 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// µ÷ÓÃWebApiÀ´ĞŞ¸Ä¼ÇÂ¼,Êı¾İ´«µİÊ¹ÓÃJSON´®
+        /// è°ƒç”¨WebApiæ¥ä¿®æ”¹è®°å½•,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_UpdateRecord()
@@ -788,14 +788,14 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * µ÷ÓÃWebApiÀ´ĞŞ¸Ä¼ÇÂ¼,Êı¾İ´«µİÊ¹ÓÃJSON´®");
+            strCodeForCs.Append("\r\n * è°ƒç”¨WebApiæ¥ä¿®æ”¹è®°å½•,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²");
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:ĞèÒªÌí¼ÓµÄ¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡ĞŞ¸ÄÊÇ·ñ³É¹¦£¿");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:éœ€è¦æ·»åŠ çš„å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–ä¿®æ”¹æ˜¯å¦æˆåŠŸï¼Ÿ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "UpdateRecord (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -813,7 +813,7 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
                 ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"¶ÔÏó(¹Ø¼ü×Ö: {{0}})µÄ¡¾ĞŞ¸Ä×Ö¶Î¼¯¡¿Îª¿Õ,²»ÄÜĞŞ¸Ä!\", obj{0}EN.{1});",
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"å¯¹è±¡(å…³é”®å­—: {{0}})çš„ã€ä¿®æ”¹å­—æ®µé›†ã€‘ä¸ºç©º,ä¸èƒ½ä¿®æ”¹!\", obj{0}EN.{1});",
                 ThisTabName4GC, objKeyField.FldName, "{", "}");
             strCodeForCs.Append("\r\n" + " throw strMsg;");
             strCodeForCs.Append("\r\n" + " }");
@@ -848,14 +848,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -877,14 +877,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// µ÷ÓÃWebApiÀ´ĞŞ¸Ä¼ÇÂ¼,Êı¾İ´«µİÊ¹ÓÃJSON´®
+        /// è°ƒç”¨WebApiæ¥ä¿®æ”¹è®°å½•,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_EditRecordEx()
@@ -902,14 +902,14 @@ namespace AutoGCLib
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * µ÷ÓÃWebApiÀ´±à¼­¼ÇÂ¼£¨´æÔÚ¾ÍĞŞ¸Ä£¬²»´æÔÚ¾ÍÌí¼Ó£©,Êı¾İ´«µİÊ¹ÓÃJSON´®");
+            strCodeForCs.Append("\r\n * è°ƒç”¨WebApiæ¥ç¼–è¾‘è®°å½•ï¼ˆå­˜åœ¨å°±ä¿®æ”¹ï¼Œä¸å­˜åœ¨å°±æ·»åŠ ï¼‰,æ•°æ®ä¼ é€’ä½¿ç”¨JSONä¸²");
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:ĞèÒª±à¼­µÄ¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡ĞŞ¸ÄÊÇ·ñ³É¹¦£¿");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:éœ€è¦ç¼–è¾‘çš„å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–ä¿®æ”¹æ˜¯å¦æˆåŠŸï¼Ÿ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "EditRecordEx (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -927,7 +927,7 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
                 ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"¶ÔÏó(¹Ø¼ü×Ö: {{0}})µÄ¡¾ĞŞ¸Ä×Ö¶Î¼¯¡¿Îª¿Õ,²»ÄÜĞŞ¸Ä!\", obj{0}EN.{1});",
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"å¯¹è±¡(å…³é”®å­—: {{0}})çš„ã€ä¿®æ”¹å­—æ®µé›†ã€‘ä¸ºç©º,ä¸èƒ½ä¿®æ”¹!\", obj{0}EN.{1});",
                 ThisTabName4GC, objKeyField.PropertyName(this.IsFstLcase), "{", "}");
             strCodeForCs.Append("\r\n" + " throw strMsg;");
             strCodeForCs.Append("\r\n" + " }");
@@ -962,14 +962,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -991,7 +991,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -999,7 +999,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// µ÷ÓÃWebApiÀ´É¾³ı¼ÇÂ¼
+        /// è°ƒç”¨WebApiæ¥åˆ é™¤è®°å½•
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_DelRecord()
@@ -1007,13 +1007,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * µ÷ÓÃWebApiÀ´É¾³ı¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * è°ƒç”¨WebApiæ¥åˆ é™¤è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.AppendFormat("\r\n * @param {0}:¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡É¾³ıµÄ½á¹û");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–åˆ é™¤çš„ç»“æœ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "DelRecord({0}: {1}, cb: (json: any) => void, errorCb: (json: any) => void) ",
                             objKeyField.PrivFuncName, KeyDataType);
@@ -1028,7 +1028,7 @@ namespace AutoGCLib
 
             //strCodeForCs.Append("\r\n" + "const mapParam: Dictionary = new Dictionary();");
             //strCodeForCs.AppendFormat("\r\n" + "mapParam.add(\"{0}\", {0});", objKeyField.PrivFuncName);
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ÀıÈç: strIdentityID =01\";");
+            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ä¾‹å¦‚: strIdentityID =01\";");
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
@@ -1045,7 +1045,7 @@ namespace AutoGCLib
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -1068,7 +1068,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -1077,7 +1077,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_IsExistRecord()
@@ -1085,13 +1085,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÊÇ·ñ´æÔÚÏàÓ¦µÄ¼ÇÂ¼£¿");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–æ˜¯å¦å­˜åœ¨ç›¸åº”çš„è®°å½•ï¼Ÿ");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns ÊÇ·ñ´æÔÚ¼ÇÂ¼£¿");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns æ˜¯å¦å­˜åœ¨è®°å½•ï¼Ÿ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "IsExistRecord(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1130,7 +1130,7 @@ namespace AutoGCLib
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -1152,14 +1152,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetRecCountByCond()
@@ -1167,13 +1167,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * »ñÈ¡Ä³Ò»Ìõ¼şµÄ¼ÇÂ¼Êı");
+            strCodeForCs.Append("\r\n * è·å–æŸä¸€æ¡ä»¶çš„è®°å½•æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡Ä³Ò»Ìõ¼şµÄ¼ÇÂ¼Êı");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–æŸä¸€æ¡ä»¶çš„è®°å½•æ•°");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetRecCountByCond(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1212,7 +1212,7 @@ namespace AutoGCLib
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -1234,14 +1234,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetObjLst()
@@ -1249,14 +1249,14 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
 
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µÄÏàÓ¦¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * @returns è·å–çš„ç›¸åº”å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLst(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1295,7 +1295,7 @@ namespace AutoGCLib
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -1317,7 +1317,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -1325,7 +1325,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetTopObjLst()
@@ -1333,14 +1333,14 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strWhereCond:¸ø¶¨Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param intTopSize:¶¥²¿¼ÇÂ¼Êı");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µÄÏàÓ¦¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * @param strWhereCond:ç»™å®šæ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param intTopSize:é¡¶éƒ¨è®°å½•æ•°");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–çš„ç›¸åº”å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetTopObjLst(strWhereCond: string, intTopSize: number, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1382,14 +1382,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -1411,14 +1411,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetObjLstByPager()
@@ -1426,16 +1426,16 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param intPageIndex:Ò³ĞòºÅ");
-            strCodeForCs.Append("\r\n * @param intPageSize:Ã¿Ò³¼ÇÂ¼Êı");
-            strCodeForCs.Append("\r\n * @param strWhereCond:¸ø¶¨Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param strOrderBy:ÅÅĞò·½Ê½");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µÄÏàÓ¦¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * @param intPageIndex:é¡µåºå·");
+            strCodeForCs.Append("\r\n * @param intPageSize:æ¯é¡µè®°å½•æ•°");
+            strCodeForCs.Append("\r\n * @param strWhereCond:ç»™å®šæ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param strOrderBy:æ’åºæ–¹å¼");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–çš„ç›¸åº”è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLstByPager(intPageIndex: number, intPageSize: number, strWhereCond: string, strOrderBy = \"\", cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1482,14 +1482,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -1510,13 +1510,13 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetFirstObj()
@@ -1524,13 +1524,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µÄÏàÓ¦¶ÔÏó");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–çš„ç›¸åº”å¯¹è±¡");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetFirstObj(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1571,14 +1571,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -1598,7 +1598,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -1606,7 +1606,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetMaxStrId()
@@ -1614,11 +1614,11 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * »ñÈ¡±íµÄ×î´ó¹Ø¼ü×Ö");
+            strCodeForCs.Append("\r\n * è·å–è¡¨çš„æœ€å¤§å…³é”®å­—");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡±íµÄ×î´ó¹Ø¼ü×Ö");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–è¡¨çš„æœ€å¤§å…³é”®å­—");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetMaxStrId(cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -1631,7 +1631,7 @@ namespace AutoGCLib
               ThisTabName4GC,
               objKeyField.FldName);
             strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ÀıÈç: strIdentityID =01\";");
+            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ä¾‹å¦‚: strIdentityID =01\";");
             strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
             strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
             strCodeForCs.Append("\r\n" + "const config = {");
@@ -1660,14 +1660,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -1689,14 +1689,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetMaxStrIdByPrefix()
@@ -1704,11 +1704,11 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÇ°×º»ñÈ¡µ±Ç°±í¹Ø¼ü×ÖÖµµÄ×î´óÖµ,ÔÙ¼Ó1,±ÜÃâÖØ¸´");
+            strCodeForCs.Append("\r\n * æ ¹æ®å‰ç¼€è·å–å½“å‰è¡¨å…³é”®å­—å€¼çš„æœ€å¤§å€¼,å†åŠ 1,é¿å…é‡å¤");
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param mapParam:²ÎÊıÁĞ±í");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µ±Ç°±í¹Ø¼ü×ÖÖµµÄ×î´óÖµ");
+            strCodeForCs.Append("\r\n * @param mapParam:å‚æ•°åˆ—è¡¨");
+            strCodeForCs.Append("\r\n * @returns è·å–å½“å‰è¡¨å…³é”®å­—å€¼çš„æœ€å¤§å€¼");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetMaxStrIdByPrefix(strPrefix: string) ",
               ThisTabName4GC,
@@ -1759,14 +1759,14 @@ namespace AutoGCLib
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -1788,7 +1788,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -1797,7 +1797,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// Í¨ÓÃµÄµ÷ÓÃWebApiº¯Êı
+        /// é€šç”¨çš„è°ƒç”¨WebApiå‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_CallWebApi()
@@ -1805,13 +1805,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * Í¨ÓÃµÄµ÷ÓÃWebApiº¯Êı");
-            strCodeForCs.AppendFormat("\r\n * mapParamÑùÀı:{0} = \"01\"", objKeyField.PrivFuncName);
+            strCodeForCs.Append("\r\n * é€šç”¨çš„è°ƒç”¨WebApiå‡½æ•°");
+            strCodeForCs.AppendFormat("\r\n * mapParamæ ·ä¾‹:{0} = \"01\"", objKeyField.PrivFuncName);
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param MethodName:º¯Êı");
-            strCodeForCs.Append("\r\n * @param mapParam:²ÎÊıÁĞ±í");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó");
+            strCodeForCs.Append("\r\n * @param MethodName:å‡½æ•°");
+            strCodeForCs.Append("\r\n * @param mapParam:å‚æ•°åˆ—è¡¨");
+            strCodeForCs.Append("\r\n * @returns è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "CallWebApi(strFunctionName: string, dictPara, myURL) ");
             strCodeForCs.Append("\r\n" + "{");
@@ -1845,7 +1845,7 @@ namespace AutoGCLib
             //strCodeForCs.Append("\r\n" + "xmlhttp.setRequestHeader(\"SOAPAction\", strSOAPAction);");
             //strCodeForCs.Append("\r\n" + "xmlhttp.send(data);");
             //strCodeForCs.Append("\r\n" + "xmlhttp.onreadystatechange = function() {");
-            //strCodeForCs.Append("\r\n" + "//HTTP ÇëÇóµÄ×´Ì¬.µ±Ò»¸ö XMLHttpRequest ³õ´Î´´½¨Ê±,Õâ¸öÊôĞÔµÄÖµ´Ó 0 ¿ªÊ¼,Ö±µ½½ÓÊÕµ½ÍêÕûµÄ HTTP ÏìÓ¦,Õâ¸öÖµÔö¼Óµ½ 4  ");
+            //strCodeForCs.Append("\r\n" + "//HTTP è¯·æ±‚çš„çŠ¶æ€.å½“ä¸€ä¸ª XMLHttpRequest åˆæ¬¡åˆ›å»ºæ—¶,è¿™ä¸ªå±æ€§çš„å€¼ä» 0 å¼€å§‹,ç›´åˆ°æ¥æ”¶åˆ°å®Œæ•´çš„ HTTP å“åº”,è¿™ä¸ªå€¼å¢åŠ åˆ° 4  ");
             //strCodeForCs.Append("\r\n" + "if (xmlhttp.readyState === 4)");
             //strCodeForCs.Append("\r\n" + "{");
             //strCodeForCs.Append("\r\n" + "getReturnValue(strFunctionName);");
@@ -1863,7 +1863,7 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -1871,7 +1871,7 @@ namespace AutoGCLib
 
 
         /// <summary>
-        /// Í¨ÓÃµÄµ÷ÓÃWebApiº¯Êı
+        /// é€šç”¨çš„è°ƒç”¨WebApiå‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_CallWebApi_Ts_SelfDefWs()
@@ -1879,13 +1879,13 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * Í¨ÓÃµÄµ÷ÓÃWebApiº¯Êı");
-            //            strCodeForCs.AppendFormat("\r\n * mapParamÑùÀı:{0} = \"01\"", objWebSrvClassENEx.ClsName);
+            strCodeForCs.Append("\r\n * é€šç”¨çš„è°ƒç”¨WebApiå‡½æ•°");
+            //            strCodeForCs.AppendFormat("\r\n * mapParamæ ·ä¾‹:{0} = \"01\"", objWebSrvClassENEx.ClsName);
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param MethodName:º¯Êı");
-            strCodeForCs.Append("\r\n * @param mapParam:²ÎÊıÁĞ±í");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó");
+            strCodeForCs.Append("\r\n * @param MethodName:å‡½æ•°");
+            strCodeForCs.Append("\r\n * @param mapParam:å‚æ•°åˆ—è¡¨");
+            strCodeForCs.Append("\r\n * @returns è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "this.CallWebApi = function(strFunctionName, dictPara, myURL) ");
             strCodeForCs.Append("\r\n" + "{");
@@ -1919,7 +1919,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "xmlhttp.setRequestHeader(\"SOAPAction\", strSOAPAction);");
             strCodeForCs.Append("\r\n" + "xmlhttp.send(data);");
             strCodeForCs.Append("\r\n" + "xmlhttp.onreadystatechange = function() {");
-            strCodeForCs.Append("\r\n" + "//HTTP ÇëÇóµÄ×´Ì¬.µ±Ò»¸ö XMLHttpRequest ³õ´Î´´½¨Ê±,Õâ¸öÊôĞÔµÄÖµ´Ó 0 ¿ªÊ¼,Ö±µ½½ÓÊÕµ½ÍêÕûµÄ HTTP ÏìÓ¦,Õâ¸öÖµÔö¼Óµ½ 4  ");
+            strCodeForCs.Append("\r\n" + "//HTTP è¯·æ±‚çš„çŠ¶æ€.å½“ä¸€ä¸ª XMLHttpRequest åˆæ¬¡åˆ›å»ºæ—¶,è¿™ä¸ªå±æ€§çš„å€¼ä» 0 å¼€å§‹,ç›´åˆ°æ¥æ”¶åˆ°å®Œæ•´çš„ HTTP å“åº”,è¿™ä¸ªå€¼å¢åŠ åˆ° 4  ");
             strCodeForCs.Append("\r\n" + "if (xmlhttp.readyState === 4)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "getReturnValue(strFunctionName);");
@@ -1937,14 +1937,14 @@ namespace AutoGCLib
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı
+        /// ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_main()
@@ -1952,7 +1952,7 @@ namespace AutoGCLib
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı");
+            strCodeForCs.Append("\r\n * ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
@@ -2148,14 +2148,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı
+        /// ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_main_Ts_SelfDefWs()
@@ -2163,7 +2163,7 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı");
+            strCodeForCs.Append("\r\n * ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
@@ -2211,14 +2211,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı
+        /// ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_start()
@@ -2226,7 +2226,7 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¼Ì³ĞRunnableÀà±ØĞëÊµÏÖµÄ¡¾run¡¿º¯Êı");
+            strCodeForCs.Append("\r\n * ç»§æ‰¿Runnableç±»å¿…é¡»å®ç°çš„ã€runã€‘å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
@@ -2244,7 +2244,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -2252,7 +2252,7 @@ ThisTabName4GC);
 
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetObjByKeyId()
@@ -2261,12 +2261,12 @@ ThisTabName4GC);
             if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¶ÔÏó");
+            strCodeForCs.Append("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns å¯¹è±¡");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjBy{0} ({1}: {2}, cb: (json: any) => void, errorCb: (json: any) => void) ",
               strBy,
@@ -2318,14 +2318,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -2345,14 +2345,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// »ñÈ¡·µ»ØÖµº¯Êı
+        /// è·å–è¿”å›å€¼å‡½æ•°
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_getReturnValue()
@@ -2360,37 +2360,37 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * »ñÈ¡·µ»ØÖµº¯Êı");
+            strCodeForCs.Append("\r\n * è·å–è¿”å›å€¼å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
 
             strCodeForCs.Append("\r\n" + "  function getReturnValue(strFunctionName) {");
             strCodeForCs.Append("\r\n" + "//alert(xmlhttp.readyState);");
-            strCodeForCs.Append("\r\n" + "////5¡£½ÓÊÕÏìÓ¦Êı¾İ");
-            strCodeForCs.Append("\r\n" + "////ÅĞ¶Ï¶ÔÏóµÄ×´Ì¬ÊÇ½»»¥Íê³É");
-            strCodeForCs.Append("\r\n" + "                //ÅĞ¶ÏhttpµÄ½»»¥ÊÇ·ñ³É¹¦");
+            strCodeForCs.Append("\r\n" + "////5ã€‚æ¥æ”¶å“åº”æ•°æ®");
+            strCodeForCs.Append("\r\n" + "////åˆ¤æ–­å¯¹è±¡çš„çŠ¶æ€æ˜¯äº¤äº’å®Œæˆ");
+            strCodeForCs.Append("\r\n" + "                //åˆ¤æ–­httpçš„äº¤äº’æ˜¯å¦æˆåŠŸ");
             strCodeForCs.Append("\r\n" + "if (xmlhttp.status !== 200)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"³ö´íÁË!!!\");");
+            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"å‡ºé”™äº†!!!\");");
             strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "//Ê¹ÓÃresponseXMLµÄ·½Ê½À´½ÓÊÕXMLÊı¾İ¶ÔÏóµÄDOM¶ÔÏó");
+            strCodeForCs.Append("\r\n" + "//ä½¿ç”¨responseXMLçš„æ–¹å¼æ¥æ¥æ”¶XMLæ•°æ®å¯¹è±¡çš„DOMå¯¹è±¡");
             strCodeForCs.Append("\r\n" + "const domObj = xmlhttp.responseXML;");
             strCodeForCs.Append("\r\n" + "if (domObj)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "//<message>123123123</message>");
-            strCodeForCs.Append("\r\n" + "//domÖĞÀûÓÃgetElementsByTagName¿ÉÒÔ¸ù¾İ±êÇ©ÃûÀ´»ñÈ¡ÔªËØ½Úµã,·µ»ØµÄÊÇÒ»¸öÊı×é");
+            strCodeForCs.Append("\r\n" + "//domä¸­åˆ©ç”¨getElementsByTagNameå¯ä»¥æ ¹æ®æ ‡ç­¾åæ¥è·å–å…ƒç´ èŠ‚ç‚¹,è¿”å›çš„æ˜¯ä¸€ä¸ªæ•°ç»„");
             strCodeForCs.Append("\r\n" + "const strReturnTag = strFunctionName + \"Result\";");
             strCodeForCs.Append("\r\n" + "const messageNodes = domObj.getElementsByTagName(strReturnTag);");
 
             strCodeForCs.Append("\r\n" + "if (messageNodes.length > 0)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "//»ñÈ¡message½ÚµãÖĞµÄÎÄ±¾ÄÚÈİ");
-            strCodeForCs.Append("\r\n" + "//message±êÇ©ÖĞµÄÎÄ±¾ÔÚdomÖĞÊÇmessage±êÇ©Ëù¶ÔÓ¦µÄÔªËØ½ÚµãµÄ×Ö½Úµã,firstChild¿ÉÒÔ»ñÈ¡µ½µ±Ç°½ÚµãµÄµÚÒ»¸ö×Ó½Úµã");
-            strCodeForCs.Append("\r\n" + "//Í¨¹ıÒÔÏÂ·½Ê½¾Í¿ÉÒÔ»ñÈ¡µ½ÎÄ±¾ÄÚÈİËù¶ÔÓ¦µÄ½Úµã");
+            strCodeForCs.Append("\r\n" + "//è·å–messageèŠ‚ç‚¹ä¸­çš„æ–‡æœ¬å†…å®¹");
+            strCodeForCs.Append("\r\n" + "//messageæ ‡ç­¾ä¸­çš„æ–‡æœ¬åœ¨domä¸­æ˜¯messageæ ‡ç­¾æ‰€å¯¹åº”çš„å…ƒç´ èŠ‚ç‚¹çš„å­—èŠ‚ç‚¹,firstChildå¯ä»¥è·å–åˆ°å½“å‰èŠ‚ç‚¹çš„ç¬¬ä¸€ä¸ªå­èŠ‚ç‚¹");
+            strCodeForCs.Append("\r\n" + "//é€šè¿‡ä»¥ä¸‹æ–¹å¼å°±å¯ä»¥è·å–åˆ°æ–‡æœ¬å†…å®¹æ‰€å¯¹åº”çš„èŠ‚ç‚¹");
             strCodeForCs.Append("\r\n" + "const textNode = messageNodes[0].firstChild;");
-            strCodeForCs.Append("\r\n" + "//¶ÔÓÚÎÄ±¾½ÚµãÀ´Ëµ,¿ÉÒÔÍ¨¹ınodeValueµÄ·½Ê½·µ»ØÎÄ±¾½ÚµãµÄÎÄ±¾ÄÚÈİ");
+            strCodeForCs.Append("\r\n" + "//å¯¹äºæ–‡æœ¬èŠ‚ç‚¹æ¥è¯´,å¯ä»¥é€šè¿‡nodeValueçš„æ–¹å¼è¿”å›æ–‡æœ¬èŠ‚ç‚¹çš„æ–‡æœ¬å†…å®¹");
             //            strCodeForCs.Append("\r\n" + "const responseMessage = textNode.nodeValue;");
             strCodeForCs.Append("\r\n" + "const responseMessage = \"\";");
             strCodeForCs.Append("\r\n" + "if (textNode === null)");
@@ -2406,25 +2406,25 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "ResponseData.data = responseMessage;");
             strCodeForCs.Append("\r\n" + "ReCallFunc();");
             strCodeForCs.Append("\r\n" + "//alert(ResponseData.data);");
-            strCodeForCs.Append("\r\n" + "//½«Êı¾İÏÔÊ¾ÔÚÒ³ÃæÉÏ");
-            strCodeForCs.Append("\r\n" + "//Í¨¹ıdomµÄ·½Ê½ÕÒµ½div±êÇ©Ëù¶ÔÓ¦µÄÔªËØ½Úµã");
+            strCodeForCs.Append("\r\n" + "//å°†æ•°æ®æ˜¾ç¤ºåœ¨é¡µé¢ä¸Š");
+            strCodeForCs.Append("\r\n" + "//é€šè¿‡domçš„æ–¹å¼æ‰¾åˆ°divæ ‡ç­¾æ‰€å¯¹åº”çš„å…ƒç´ èŠ‚ç‚¹");
             strCodeForCs.Append("\r\n" + "//var divNode = document.getElementById(\"result\");");
-            strCodeForCs.Append("\r\n" + "////ÉèÖÃÔªËØ½ÚµãÖĞµÄhtmlÄÚÈİ");
+            strCodeForCs.Append("\r\n" + "////è®¾ç½®å…ƒç´ èŠ‚ç‚¹ä¸­çš„htmlå†…å®¹");
             strCodeForCs.Append("\r\n" + "//divNode.innerHTML = responseMessage;");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "ResponseData.IsFinished = true;");
             strCodeForCs.Append("\r\n" + "ResponseData.errorId = 1;");
-            strCodeForCs.Append("\r\n" + "ResponseData.faultString = \"XMLÊı¾İ¸ñÊ½´íÎó\";");
+            strCodeForCs.Append("\r\n" + "ResponseData.faultString = \"XMLæ•°æ®æ ¼å¼é”™è¯¯\";");
 
-            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"XMLÊı¾İ¸ñÊ½´íÎó,Ô­Ê¼ÎÄ±¾ÄÚÈİÎª: \" + xmlhttp.responseText);");
+            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"XMLæ•°æ®æ ¼å¼é”™è¯¯,åŸå§‹æ–‡æœ¬å†…å®¹ä¸º: \" + xmlhttp.responseText);");
             strCodeForCs.Append("\r\n" + "ReCallFunc();");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"XMLÊı¾İ¸ñÊ½´íÎó,Ô­Ê¼ÎÄ±¾ÄÚÈİÎª: \" + xmlhttp.responseText);");
+            strCodeForCs.Append("\r\n" + "myShowErrorMsg(\"XMLæ•°æ®æ ¼å¼é”™è¯¯,åŸå§‹æ–‡æœ¬å†…å®¹ä¸º: \" + xmlhttp.responseText);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
@@ -2437,14 +2437,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼µÄ¶ÔÏó
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸åº”çš„è®°å½•çš„å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_ByCommonFunction(clsWebSrvFunctionsENEx objWebSrvFunctionsENEx)
@@ -2458,7 +2458,7 @@ ThisTabName4GC);
                 objSelfDefDataTypeEN = clsSelfDefDataTypeBLEx.getSelfDefDataTypeByDataTypeName(objWebSrvFunctionsENEx.ReturnType);
                 if (objSelfDefDataTypeEN == null)
                 {
-                    strMsg = string.Format("º¯ÊıµÄ·µ»ØÀàĞÍ: [{0}({1})]Ã»ÓĞ´¦Àí,²»ÄÜÉú³ÉÏàÓ¦´úÂë¡£", objWebSrvFunctionsENEx.ReturnTypeId, objWebSrvFunctionsENEx.ReturnType);
+                    strMsg = string.Format("å‡½æ•°çš„è¿”å›ç±»å‹: [{0}({1})]æ²¡æœ‰å¤„ç†,ä¸èƒ½ç”Ÿæˆç›¸åº”ä»£ç ã€‚", objWebSrvFunctionsENEx.ReturnTypeId, objWebSrvFunctionsENEx.ReturnType);
                     throw new Exception(strMsg);
                 }
             }
@@ -2479,7 +2479,7 @@ ThisTabName4GC);
                     objSelfDefDataTypeEN_Para = clsSelfDefDataTypeBLEx.getSelfDefDataTypeByDataTypeName(objWebSrvFuncParaEN.ParameterType);
                     if (objSelfDefDataTypeEN_Para == null)
                     {
-                        strMsg = string.Format("º¯Êı²ÎÊıµÄÊı¾İÀàĞÍ: [{0}({1})]Ã»ÓĞ´¦Àí,²»ÄÜÉú³ÉÏàÓ¦´úÂë¡£", objDataTypeAbbrEN.DataTypeId,
+                        strMsg = string.Format("å‡½æ•°å‚æ•°çš„æ•°æ®ç±»å‹: [{0}({1})]æ²¡æœ‰å¤„ç†,ä¸èƒ½ç”Ÿæˆç›¸åº”ä»£ç ã€‚", objDataTypeAbbrEN.DataTypeId,
                             objWebSrvFuncParaEN.ParameterType);
                         throw new Exception(strMsg);
                     }
@@ -2487,7 +2487,7 @@ ThisTabName4GC);
                 if (objWebSrvFuncParaEN.IsByRef == true)
                 {
 
-                    strCodeForCs.AppendFormat("\r\n * @param {0}:ÒıÓÃĞÍ²ÎÊı,·µ»Ø:{1}",
+                    strCodeForCs.AppendFormat("\r\n * @param {0}:å¼•ç”¨å‹å‚æ•°,è¿”å›:{1}",
                         objWebSrvFuncParaEN.ParaName, objWebSrvFuncParaEN.ParaCnName);
                     if (objSelfDefDataTypeEN_Para != null)
                     {
@@ -2525,7 +2525,7 @@ ThisTabName4GC);
                 sbParaList.Remove(sbParaList.Length - 1, 1);
                 sbParaVarList.Remove(sbParaVarList.Length - 1, 1);
             }
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»Ø{0}",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›{0}",
                 objWebSrvFunctionsENEx.ReturnValueDescription);
             strCodeForCs.Append("\r\n*/");
 
@@ -2550,7 +2550,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.AppendFormat("\r\n" + "catch (objException)");
             strCodeForCs.Append("\r\n" + "{        ");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÔÚµ÷ÓÃWebApiº¯Êı:[{0}]Ê±³ö´í,´íÎóĞÅÏ¢:{{0}}\", objException);",
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"åœ¨è°ƒç”¨WebApiå‡½æ•°:[{0}]æ—¶å‡ºé”™,é”™è¯¯ä¿¡æ¯:{{0}}\", objException);",
                 objWebSrvFunctionsENEx.FunctionName);
             strCodeForCs.AppendFormat("\r\n" + "throw strMsg;");
             strCodeForCs.Append("\r\n" + "}");
@@ -2566,24 +2566,24 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                 strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                 strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹ØÃû³Æ, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³åç§°, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjByKeyIdCache()
+        public string Gen_4WA_Ts_GetObjByKeyIdCacheBak()
         {
 
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyVarDefineLstStr_TS})";
 
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æÖĞ»ñÈ¡.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetObjBy{thisTabProp_TS.ByInFuncName}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()} )";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjBy{thisTabProp_TS.ByInFuncName}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
 
             var objVarManage = new clsVarManage("TypeScript");
             foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
@@ -2600,13 +2600,13 @@ ThisTabName4GC);
             }
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æÖĞ»ñÈ¡.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:Ëù¸øµÄ¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n*/");
 
             if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
@@ -2664,7 +2664,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İ¹Ø¼ü×Ö:[{{1}}]»ñÈ¡ÏàÓ¦µÄ¶ÔÏó²»³É¹¦!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
 
             strCodeForCs.Append("\r\n" + "}");
@@ -2672,7 +2672,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -2683,7 +2683,446 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
+
+        /// <summary>
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyIdCacheBak2()
+        {
+            Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyVarDefineLstStr_TS})";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjBy{thisTabProp_TS.ByInFuncName}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
+
+            // ğŸ”¥ åˆ¤æ–­æ˜¯å¦ä¸ºå¤šå…³é”®å­—æ®µ
+            bool isMultiKey = objPrjTabENEx.arrKeyFldSet?.Count > 1;
+            string keyParamType = isMultiKey ? $"{ThisTabName4GC}Key" : objPrjTabENEx.KeyVarDefineLstStr_TS;
+            string keyParamName = isMultiKey ? "key" : objKeyField.PrivFuncName;
+
+            var objVarManage = new clsVarManage("TypeScript");
+
+            // ğŸ”¥ å¦‚æœæ˜¯å¤šå…³é”®å­—æ®µï¼Œåªæ·»åŠ  key å‚æ•°
+            if (!isMultiKey)
+            {
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    objVarManage.AddVariable(new clsVariable(objInFor.PrivFuncName, objInFor.TypeScriptType));
+                }
+            }
+            else
+            {
+                objVarManage.AddVariable(new clsVariable("key", $"{ThisTabName4GC}Key"));
+            }
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName, thisCacheClassify_TS.TypeScriptType));
+            }
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName2, thisCacheClassify_TS.TypeScriptType2));
+            }
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            if (isMultiKey)
+            {
+                strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            }
+            else
+            {
+                strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            }
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç”Ÿæˆå‡½æ•°ç­¾å
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            {
+                if (isMultiKey)
+                {
+                    strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
+                }
+                else
+                {
+                    strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyVarDefineLstStr_TS}, bolTryAsyncOnce = true) {{");
+                }
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
+            string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
+
+            // ğŸ”¥ æ£€æŸ¥å‚æ•°æ˜¯å¦ä¸ºç©º
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
+                string varName = isMultiKey ? $"key.{objInFor.PrivFuncName}" : objInFor.PrivFuncName;
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength, strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç”Ÿæˆè¿‡æ»¤æ¡ä»¶
+            string strFilterCondition;
+            if (isMultiKey)
+            {
+                var conditions = new List<string>();
+                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+                {
+                    string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+                    conditions.Add($"x.{fldName} == key.{objInFor.PrivFuncName}");
+                }
+                strFilterCondition = string.Join(" && ", conditions);
+            }
+            else
+            {
+                strFilterCondition = clsPubFun4GC.GenFilterCondition("x", objPrjTabENEx, this.IsFstLcase);
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+                ThisTabName4GC, strFilterCondition);
+
+            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ è°ƒç”¨ GetObjByKeyAsyncï¼Œä¼ é€’æ­£ç¡®çš„å‚æ•°
+            string getObjByKeyParam = isMultiKey ? "key" : thisTabProp_TS.KeyPrivVarNameLstStr;
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}({getObjByKeyParam});");
+
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨æ­£ç¡®çš„å…³é”®å­—å¼•ç”¨
+            string keyErrorRef = isMultiKey ? $"key.{objKeyField.PrivFuncName}" : objKeyField.PrivFuncName;
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
+
+        /// <summary>
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyIdCacheBak3()
+        {
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ Key ç±»å‹å‚æ•°ï¼Œæ— è®ºå•å…³é”®å­—è¿˜æ˜¯å¤šå…³é”®å­—
+            Re_objFunction4Code.FuncName4Code = $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key)";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false)
+                return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjByKeyCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
+
+            // ğŸ”¥ åˆ¤æ–­æ˜¯å¦ä¸ºå¤šå…³é”®å­—æ®µ
+            bool isMultiKey = objPrjTabENEx.arrKeyFldSet?.Count > 1;
+
+            var objVarManage = new clsVarManage("TypeScript");
+
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ key å‚æ•°
+            objVarManage.AddVariable(new clsVariable("key", $"{ThisTabName4GC}Key"));
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName, thisCacheClassify_TS.TypeScriptType));
+            }
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName2, thisCacheClassify_TS.TypeScriptType2));
+            }
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç»Ÿä¸€ç”Ÿæˆå‡½æ•°ç­¾åï¼šä½¿ç”¨ key: {TableName}Key
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            {
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
+            string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
+
+            // ğŸ”¥ æ£€æŸ¥å‚æ•°æ˜¯å¦ä¸ºç©ºï¼ˆä½¿ç”¨ key.xxx è®¿é—®ï¼‰
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
+                string varName = $"key.{objInFor.PrivFuncName}";  // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ key.fieldName
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength,
+                 strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç”Ÿæˆè¿‡æ»¤æ¡ä»¶ï¼ˆç»Ÿä¸€ä½¿ç”¨ key.xxxï¼‰
+            var conditions = new List<string>();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+                conditions.Add($"x.{fldName} == key.{objInFor.PrivFuncName}");
+            }
+            string strFilterCondition = string.Join(" && ", conditions);
+
+            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+                ThisTabName4GC, strFilterCondition);
+
+            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç»Ÿä¸€ä¼ é€’ key å‚æ•°
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
+
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨ key.xxxï¼ˆä½¿ç”¨ç¬¬ä¸€ä¸ªå…³é”®å­—æ®µï¼‰
+            string keyErrorRef = $"key.{objKeyField.PrivFuncName}";
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
+
+        /// <summary>
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyIdCache()
+        {
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ Key ç±»å‹å‚æ•°ï¼Œæ— è®ºå•å…³é”®å­—è¿˜æ˜¯å¤šå…³é”®å­—
+            Re_objFunction4Code.FuncName4Code = $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key)";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false)
+                return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjByKeyCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
+
+            // ğŸ”¥ åˆ¤æ–­æ˜¯å¦ä¸ºå¤šå…³é”®å­—æ®µ
+            bool isMultiKey = objPrjTabENEx.arrKeyFldSet?.Count > 1;
+
+            var objVarManage = new clsVarManage("TypeScript");
+
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ key å‚æ•°
+            objVarManage.AddVariable(new clsVariable("key", $"{ThisTabName4GC}Key"));
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName, thisCacheClassify_TS.TypeScriptType));
+            }
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
+            {
+                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName2, thisCacheClassify_TS.TypeScriptType2));
+            }
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä»ç¼“å­˜ä¸­è·å–.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç»Ÿä¸€ç”Ÿæˆå‡½æ•°ç­¾åï¼šä½¿ç”¨ key: {TableName}Key
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            {
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
+            string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
+
+            // ğŸ”¥ æ£€æŸ¥å‚æ•°æ˜¯å¦ä¸ºç©ºï¼ˆä½¿ç”¨ key.xxx è®¿é—®ï¼Œä¸å¸¦ str å‰ç¼€ï¼‰
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
+                // ğŸ”¥ å…³é”®ä¿®æ”¹ï¼šåœ¨ Key å¯¹è±¡ä¸­ï¼Œå­—æ®µåä¸å¸¦ str å‰ç¼€ï¼Œä½¿ç”¨å±æ€§åï¼ˆé¦–å­—æ¯å°å†™ï¼‰
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // true è¡¨ç¤ºé¦–å­—æ¯å°å†™
+                string varName = $"key.{keyFieldName}";
+
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength,
+                 strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç”Ÿæˆè¿‡æ»¤æ¡ä»¶ï¼ˆç»Ÿä¸€ä½¿ç”¨ key.xxxï¼Œä¸å¸¦ str å‰ç¼€ï¼‰
+            var conditions = new List<string>();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key å¯¹è±¡ä¸­çš„å­—æ®µåï¼ˆé¦–å­—æ¯å°å†™ï¼‰
+                conditions.Add($"x.{fldName} == key.{keyFieldName}");
+            }
+            string strFilterCondition = string.Join(" && ", conditions);
+
+            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+                ThisTabName4GC, strFilterCondition);
+
+            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç»Ÿä¸€ä¼ é€’ key å‚æ•°
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
+
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨ key.xxxï¼ˆä½¿ç”¨ç¬¬ä¸€ä¸ªå…³é”®å­—æ®µï¼Œä¸å¸¦ str å‰ç¼€ï¼‰
+            string keyFieldNameForError = objKeyField.ObjFieldTabENEx.PropertyName(true); // é¦–å­—æ¯å°å†™
+            string keyErrorRef = $"key.{keyFieldNameForError}";
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "return null;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -2694,9 +3133,9 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "UpdateObjInLstCache(obj{0}: cls{0}EN) {{",
                     ThisTabName4GC);
-            Re_objFunction4Code.FuncCHName4Code = "ĞŞ¸ÄÔÚ»º´æ¶ÔÏóÁĞ±íÖĞµÄ¶ÔÏó, ÓëºóÌ¨Êı¾İ¿âÎŞ¹Ø.";
+            Re_objFunction4Code.FuncCHName4Code = "ä¿®æ”¹åœ¨ç¼“å­˜å¯¹è±¡åˆ—è¡¨ä¸­çš„å¯¹è±¡, ä¸åå°æ•°æ®åº“æ— å…³.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[UpdateObjInLstCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()}";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[UpdateObjInLstCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()}";
             string strFuncName_Temp = $"{this.tabNameHead}UpdateObjInLstCache";
             string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, true, enumProgLangType.TypeScript_09);
             if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
@@ -2704,13 +3143,13 @@ ThisTabName4GC);
             string strCheckEmptyCode = clsPubFun4GC.Gc_CheckVarEmpty4CacheClassfy(this, true, enumProgLangType.TypeScript_09, ThisClsName, strFuncName_Temp, this, this.strBaseUrl);
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ĞŞ¸ÄÔÚ»º´æ¶ÔÏóÁĞ±íÖĞµÄ¶ÔÏó, ÓëºóÌ¨Êı¾İ¿âÎŞ¹Ø.");
+            strCodeForCs.AppendFormat("\r\n * ä¿®æ”¹åœ¨ç¼“å­˜å¯¹è±¡åˆ—è¡¨ä¸­çš„å¯¹è±¡, ä¸åå°æ•°æ®åº“æ— å…³.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}:Ëù¸øµÄ¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}:æ‰€ç»™çš„å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n*/");
            
             strCodeForCs.Append("\r\n" + "export  async function " + this.tabNameHead + $"UpdateObjInLstCache(obj{ThisTabName4GC}: cls{ThisTabName4GC}EN {strFuncParaCode}) {{");
@@ -2775,7 +3214,7 @@ ThisTabName4GC);
                 switch (objPrjTabENEx.objKeyField0.PrimaryTypeId)
                 {
                     case enumPrimaryType.Identity_02:
-                        strErrMsg = string.Format("·¢Éú´íÎó£º¹Ø¼ü×ÖÀàĞÍÎª:[Identity]µÄ±í,Ò»¶¨ÒªÉèÖÃÎ¨Ò»ĞÔÌõ¼ş;",                       ThisTabName4GC,
+                        strErrMsg = string.Format("å‘ç”Ÿé”™è¯¯ï¼šå…³é”®å­—ç±»å‹ä¸º:[Identity]çš„è¡¨,ä¸€å®šè¦è®¾ç½®å”¯ä¸€æ€§æ¡ä»¶;",                       ThisTabName4GC,
                             clsStackTrace.GetCurrClassFunction());
                         strCodeForCs.Append("\r\n" + strErrMsg);
                         clsPrjTabBLEx.CheckTabFlds(objPrjTabENEx.TabId, this.PrjDataBaseId, CmPrjId, objPrjTabENEx.UserId);
@@ -2783,7 +3222,7 @@ ThisTabName4GC);
                         //break;
                     case enumPrimaryType.StringAutoAddPrimaryKey_03:
 
-                        strErrMsg = string.Format("·¢Éú´íÎó£º¹Ø¼ü×ÖÀàĞÍÎª:[×Ö·ûĞÍ×Ô¶¯Ôö¼ÓÖ÷¼ü]µÄ±í,Ò»¶¨ÒªÉèÖÃÎ¨Ò»ĞÔÌõ¼ş;", ThisTabName4GC,
+                        strErrMsg = string.Format("å‘ç”Ÿé”™è¯¯ï¼šå…³é”®å­—ç±»å‹ä¸º:[å­—ç¬¦å‹è‡ªåŠ¨å¢åŠ ä¸»é”®]çš„è¡¨,ä¸€å®šè¦è®¾ç½®å”¯ä¸€æ€§æ¡ä»¶;", ThisTabName4GC,
                             clsStackTrace.GetCurrClassFunction());
                         strCodeForCs.Append("\r\n" + strErrMsg);
                         clsPrjTabBLEx.CheckTabFlds(objPrjTabENEx.TabId, this.PrjDataBaseId, CmPrjId, objPrjTabENEx.UserId);
@@ -2813,13 +3252,13 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"´íÎó:[{0}]. \\nÔÚÁĞ±íÖĞĞŞ¸Ä¶ÔÏó²»³É¹¦!(in {1}.{2})\", e, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{0}]. \\nåœ¨åˆ—è¡¨ä¸­ä¿®æ”¹å¯¹è±¡ä¸æˆåŠŸ!(in {1}.{2})\", e, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -2830,7 +3269,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -2838,26 +3277,26 @@ ThisTabName4GC);
 
 
 
-        public string Gen_4WA_Ts_GetObjByKeyId_localStorage()
+        public string Gen_4WA_Ts_GetObjByKeyId_localStorageBak()
         {
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "GetObjBy{1}localStorage({2}) {{",
                     ThisTabName4GC, objKeyField.FldName,
                      objPrjTabENEx.KeyVarDefineLstStr_TS);
 
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´ÓlocalStorage»º´æÖĞ»ñÈ¡.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»localStorageç¼“å­˜ä¸­è·å–.";
             string strBy = objKeyField.FldName;
             if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetObjBy{strBy}localStorage]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjBy{strBy}localStorage]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´ÓlocalStorage»º´æÖĞ»ñÈ¡.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»localStorageç¼“å­˜ä¸­è·å–.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:Ëù¸øµÄ¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n*/");
 
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjBy{1}localStorage({2}) {{",
@@ -2877,12 +3316,12 @@ ThisTabName4GC);
                 ThisTabName4GC, objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n" + "if (strKey == \"\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "console.error(\"¹Ø¼ü×ÖÎª¿Õ!²»ÕıÈ·\");");
-            strCodeForCs.AppendFormat("\r\n" + "throw new Error(\"¹Ø¼ü×ÖÎª¿Õ!²»ÕıÈ·\");");
+            strCodeForCs.AppendFormat("\r\n" + "console.error(\"å…³é”®å­—ä¸ºç©º!ä¸æ­£ç¡®\");");
+            strCodeForCs.AppendFormat("\r\n" + "throw new Error(\"å…³é”®å­—ä¸ºç©º!ä¸æ­£ç¡®\");");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.AppendFormat("\r\n" + "if (Object.prototype.hasOwnProperty.call(localStorage, strKey))");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "//»º´æ´æÔÚ,Ö±½Ó·µ»Ø");
+            strCodeForCs.AppendFormat("\r\n" + "//ç¼“å­˜å­˜åœ¨,ç›´æ¥è¿”å›");
             strCodeForCs.AppendFormat("\r\n" + "const strTempObj = localStorage.getItem(strKey) as string;");
             strCodeForCs.AppendFormat("\r\n" + "const obj{0}Cache: cls{0}EN = JSON.parse(strTempObj);", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "return obj{0}Cache;", ThisTabName4GC);
@@ -2897,7 +3336,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (obj{0} != null)", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "localStorage.setItem(strKey, JSON.stringify(obj{0}));", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"Key:[${ strKey}]µÄ»º´æÒÑ¾­½¨Á¢!\");");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"Key:[${ strKey}]çš„ç¼“å­˜å·²ç»å»ºç«‹!\");");
             strCodeForCs.AppendFormat("\r\n" + "console.log(strInfo);");
             strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
@@ -2905,7 +3344,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.AppendFormat("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İ¹Ø¼ü×Ö:[{{1}}]»ñÈ¡ÏàÓ¦µÄ¶ÔÏó²»³É¹¦!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n" + "console.error(strMsg);");
             strCodeForCs.AppendFormat("\r\n" + "alert(strMsg);");
             strCodeForCs.AppendFormat("\r\n" + "return;");
@@ -2914,7 +3353,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -2925,22 +3364,119 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
+        /// <summary>
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä» localStorage ä¸­è·å–.
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_GetObjByKeyId_localStorage()
+        {
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ Key ç±»å‹å‚æ•°
+            Re_objFunction4Code.FuncName4Code = $"export async function {thisWA_F(WA_F.GetObjByKeyId_localStorage)}(key: {ThisTabName4GC}Key)";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä» localStorage ä¸­è·å–.";
 
+            if (objPrjTabENEx.CacheModeId != "03")
+                return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨localStorage,ä¸éœ€è¦ç”Ÿæˆ[GetObjByKeylocalStorage]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
 
-        public string Gen_4WA_Ts_GetNameByKeyIdCache()
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç‰¹å®šå¯¹è±¡, ä» localStorage ä¸­è·å–.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç»Ÿä¸€ç”Ÿæˆå‡½æ•°ç­¾å
+            strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_localStorage)}(key: {ThisTabName4GC}Key) {{");
+
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}localStorage\";", thisTabProp_TS.ByInFuncName);
+            string strFuncName = string.Format("GetObjBy{0}localStorage", thisTabProp_TS.ByInFuncName);
+
+            // ğŸ”¥ æ£€æŸ¥å‚æ•°æ˜¯å¦ä¸ºç©ºï¼ˆä½¿ç”¨ key.xxxï¼‰
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // é¦–å­—æ¯å°å†™
+                string varName = $"key.{keyFieldName}";
+
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab().DataTypeId,
+                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength,
+                 strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            // ğŸ”¥ ç”Ÿæˆ strKeyï¼ˆä½¿ç”¨ç¬¬ä¸€ä¸ªå…³é”®å­—æ®µï¼‰
+            string firstKeyFieldName = objKeyField.ObjFieldTabENEx.PropertyName(true);
+            strCodeForCs.AppendFormat("\r\n" + "const strKey = Format('{{0}}_{{1}}', cls{0}EN._CurrTabName, key.{1});", ThisTabName4GC, firstKeyFieldName);
+
+            strCodeForCs.Append("\r\n" + "if (strKey == '')");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "console.error('å…³é”®å­—ä¸ºç©º!ä¸æ­£ç¡®');");
+            strCodeForCs.Append("\r\n" + "throw new Error('å…³é”®å­—ä¸ºç©º!ä¸æ­£ç¡®');");
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "if (Object.prototype.hasOwnProperty.call(localStorage, strKey))");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "//ç¼“å­˜å­˜åœ¨,ç›´æ¥è¿”å›");
+            strCodeForCs.Append("\r\n" + "const strTempObj = localStorage.getItem(strKey) as string;");
+            strCodeForCs.AppendFormat("\r\n" + "const obj{0}Cache: cls{0}EN = JSON.parse(strTempObj);", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Cache;", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ è°ƒç”¨ GetObjByKeyAsyncï¼Œä¼ é€’ key
+            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
+
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0} != null)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "localStorage.setItem(strKey, JSON.stringify(obj{0}));", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "const strInfo = Format('Key:[${ strKey}]çš„ç¼“å­˜å·²ç»å»ºç«‹!');");
+            strCodeForCs.Append("\r\n" + "console.log(strInfo);");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨ key.xxx
+            string keyErrorRef = $"key.{firstKeyFieldName}";
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            strCodeForCs.Append("\r\n" + "return;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            return strCodeForCs.ToString();
+        }
+
+        public string Gen_4WA_Ts_GetNameByKeyIdCacheBak2()
         {
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "GetNameBy{0}Cache",
               objKeyField.FldName);
-            Re_objFunction4Code.FuncCHName4Code = string.Format("¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏóµÄÃû³ÆÊôĞÔ, ´Ó»º´æÖĞ»ñÈ¡.",
+            Re_objFunction4Code.FuncCHName4Code = string.Format("æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡çš„åç§°å±æ€§, ä»ç¼“å­˜ä¸­è·å–.",
                   ThisTabName4GC);
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetNameBy{objKeyField.FldName}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetNameBy{objKeyField.FldName}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             string strNameFieldName = "";
             string strKeyFieldName = "";
 
@@ -2958,7 +3494,7 @@ ThisTabName4GC);
 
             if (strKeyFieldName == "" || strNameFieldName == "")
             {
-                return "/*¸Ã±íÃ»ÓĞÃû³Æ×Ö¶Î,²»ÄÜÉú³É´Ëº¯Êı!*/";
+                return "/*è¯¥è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½ç”Ÿæˆæ­¤å‡½æ•°!*/";
             }
             string strFuncName_Temp = $"{this.tabNameHead}GetNameBy{objKeyField.FldName}Cache";
             string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, true, enumProgLangType.TypeScript_09);
@@ -2967,13 +3503,13 @@ ThisTabName4GC);
           
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏóµÄÃû³ÆÊôĞÔ, ´Ó»º´æÖĞ»ñÈ¡.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡çš„åç§°å±æ€§, ä»ç¼“å­˜ä¸­è·å–.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:Ëù¸øµÄ¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n*/");
 
             strCodeForCs.Append("\r\n" + "export  async function " + this.tabNameHead + $"GetNameBy{objKeyField.FldName}Cache({objKeyField.PrivFuncName}: {objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType} {strFuncParaCode}) {{");
@@ -3024,7 +3560,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İ¹Ø¼ü×Ö:[{{1}}]»ñÈ¡ÏàÓ¦µÄ¶ÔÏóÃû³ÆÊôĞÔ²»³É¹¦!\", e, {0});", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡åç§°å±æ€§ä¸æˆåŠŸ!\", e, {0});", objKeyField.PrivFuncName);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -3032,7 +3568,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3043,33 +3579,166 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
+
+        public string Gen_4WA_Ts_GetNameByKeyIdCache()
+        {
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ Key ç±»å‹å‚æ•°
+            Re_objFunction4Code.FuncName4Code = string.Format("export async function " + this.tabNameHead + "GetNameByKeyCache");
+            Re_objFunction4Code.FuncCHName4Code = string.Format("æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡çš„åç§°å±æ€§, ä»ç¼“å­˜ä¸­è·å–.", ThisTabName4GC);
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false)
+                return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetNameByKeyCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
+
+            string strNameFieldName = "";
+            string strKeyFieldName = "";
+
+            clsPrjTabFldENEx objField_Key = objPrjTabENEx.arrFldSet.Find(x => x.FieldTypeId == enumFieldType.KeyField_02);
+            clsPrjTabFldENEx objField_Name = objPrjTabENEx.arrFldSet.Find(x => x.FieldTypeId == enumFieldType.NameField_03);
+
+            if (objField_Key != null)
+            {
+                strKeyFieldName = objField_Key.FldName;
+            }
+            if (objField_Name != null)
+            {
+                strNameFieldName = objField_Name.FldName;
+            }
+
+            if (strKeyFieldName == "" || strNameFieldName == "")
+            {
+                return "/*è¯¥è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½ç”Ÿæˆæ­¤å‡½æ•°!*/";
+            }
+
+            string strFuncName_Temp = $"{this.tabNameHead}GetNameByKeyCache";
+            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, true, enumProgLangType.TypeScript_09);
+            if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
+            string strCheckEmptyCode = clsPubFun4GC.Gc_CheckVarEmpty4CacheClassfy(this, true, enumProgLangType.TypeScript_09, ThisClsName, strFuncName_Temp, this, this.strBaseUrl);
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡çš„åç§°å±æ€§, ä»ç¼“å­˜ä¸­è·å–.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns åç§°å±æ€§å€¼");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç»Ÿä¸€ç”Ÿæˆå‡½æ•°ç­¾å
+            strCodeForCs.Append("\r\n" + "export async function " + this.tabNameHead + $"GetNameByKeyCache(key: {ThisTabName4GC}Key {strFuncParaCode}) {{");
+            Re_objFunction4Code.FuncName4Code = $"export async function " + this.tabNameHead + "GetNameByKeyCache(key: {ThisTabName4GC}Key {strFuncParaCode})";
+
+            string strFuncName = "GetNameByKeyCache";
+
+            // ğŸ”¥ æ£€æŸ¥å‚æ•°æ˜¯å¦ä¸ºç©ºï¼ˆä½¿ç”¨ key.xxxï¼‰
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // é¦–å­—æ¯å°å†™
+                string varName = $"key.{keyFieldName}";
+
+                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
+                    objInFor.ObjFieldTab0().DataTypeId,
+                    this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength, true, this, this.strBaseUrl);
+                strCodeForCs.Append("\r\n" + strTemp);
+            }
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}();");
+            }
+            else if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == false)
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName});");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return \"\";", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç”Ÿæˆè¿‡æ»¤æ¡ä»¶ï¼ˆä½¿ç”¨ key.xxxï¼‰
+            var conditions = new List<string>();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key å¯¹è±¡ä¸­çš„å­—æ®µå
+                conditions.Add($"x.{fldName} == key.{keyFieldName}");
+            }
+            string strFilterCondition = string.Join(" && ", conditions);
+
+            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+                ThisTabName4GC, strFilterCondition);
+
+            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}.{1};", ThisTabName4GC, objField_Name.PropertyName(this.IsFstLcase));
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return \"\";");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨ key.xxxï¼ˆä½¿ç”¨ç¬¬ä¸€ä¸ªå…³é”®å­—æ®µï¼‰
+            string keyFieldNameForError = objKeyField.ObjFieldTabENEx.PropertyName(true);
+            string keyErrorRef = $"key.{keyFieldNameForError}";
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–ç›¸åº”çš„å¯¹è±¡åç§°å±æ€§ä¸æˆåŠŸ!\", e, {0});", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "return \"\";");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹ØÃû³Æ, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³åç§°, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4WA_Ts_IsExistCache()
+        public string Gen_4WA_Ts_IsExistCacheBak()
         {
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "IsExistCache({0})",
                     clsPrjTabBLEx.ParaVarDefLstStr(objPrjTabENEx, "TypeScript"));
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ¹Ø¼ü×ÖÅĞ¶ÏÊÇ·ñ´æÔÚ¼ÇÂ¼, ´Ó±¾µØ»º´æÖĞÅĞ¶Ï.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•, ä»æœ¬åœ°ç¼“å­˜ä¸­åˆ¤æ–­.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[IsExistCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[IsExistCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×ÖÅĞ¶ÏÊÇ·ñ´æÔÚ¼ÇÂ¼, ´Ó±¾µØ»º´æÖĞÅĞ¶Ï.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•, ä»æœ¬åœ°ç¼“å­˜ä¸­åˆ¤æ–­.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:Ëù¸øµÄ¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏó");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n*/");
 
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "IsExistCache({0}) {{",
@@ -3117,7 +3786,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"¸ù¾İ¹Ø¼ü×Ö:[{{0}}]ÅĞ¶ÏÊÇ·ñ´æÔÚ²»³É¹¦!(in {{1}}.{{2}})\", {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"æ ¹æ®å…³é”®å­—:[{{0}}]åˆ¤æ–­æ˜¯å¦å­˜åœ¨ä¸æˆåŠŸ!(in {{1}}.{{2}})\", {0}, " + this.constructorName + ", strThisFuncName);", objKeyField.PrivFuncName);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -3125,7 +3794,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3136,29 +3805,114 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
+        /// <summary>
+        /// æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•, ä»æœ¬åœ°ç¼“å­˜ä¸­åˆ¤æ–­.
+        /// </summary>
+        /// <returns></returns>
+        public string Gen_4WA_Ts_IsExistCache()
+        {
+            string strFuncName = "";
+            // ğŸ”¥ ç»Ÿä¸€ä½¿ç”¨ Key ç±»å‹å‚æ•°
+            Re_objFunction4Code.FuncName4Code = string.Format("export async function " + this.tabNameHead + "IsExistCache(key: {0}Key): Promise<boolean>", ThisTabName4GC);
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•, ä»æœ¬åœ°ç¼“å­˜ä¸­åˆ¤æ–­.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false)
+                return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[IsExistCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
+
+            StringBuilder strCodeForCs = new StringBuilder();
+
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•, ä»æœ¬åœ°ç¼“å­˜ä¸­åˆ¤æ–­.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * @param key:å…³é”®å­—å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns æ˜¯å¦å­˜åœ¨");
+            strCodeForCs.AppendFormat("\r\n*/");
+
+            // ğŸ”¥ ç»Ÿä¸€ç”Ÿæˆå‡½æ•°ç­¾å
+            strCodeForCs.AppendFormat("\r\n" + "export async function " + this.tabNameHead + "IsExistCache(key: {0}Key): Promise<boolean> {{", ThisTabName4GC);
+            strFuncName = $"{this.tabNameHead}IsExistCache";
+            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExistCache\";");
+
+            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return false;", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n" + "try");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ ç”Ÿæˆè¿‡æ»¤æ¡ä»¶ï¼ˆä½¿ç”¨ key.xxxï¼‰
+            var conditions = new List<string>();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key å¯¹è±¡ä¸­çš„å­—æ®µåï¼ˆé¦–å­—æ¯å°å†™ï¼‰
+                conditions.Add($"x.{fldName} == key.{keyFieldName}");
+            }
+            string strFilterCondition = string.Join(" && ", conditions);
+
+            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+                ThisTabName4GC, strFilterCondition);
+
+            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return true;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "else");
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "return false;");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "catch (e)");
+            strCodeForCs.Append("\r\n" + "{");
+
+            // ğŸ”¥ é”™è¯¯æ¶ˆæ¯ä¸­ä½¿ç”¨ key.xxxï¼ˆä½¿ç”¨ç¬¬ä¸€ä¸ªå…³é”®å­—æ®µï¼‰
+            string keyFieldNameForError = objKeyField.ObjFieldTabENEx.PropertyName(true);
+            string keyErrorRef = $"key.{keyFieldNameForError}";
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"æ ¹æ®å…³é”®å­—:[{{0}}]åˆ¤æ–­æ˜¯å¦å­˜åœ¨ä¸æˆåŠŸ!(in {{1}}.{{2}})\", {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + "return false;");
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "Promise<boolean>",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
         public string Gen_4WA_Ts_JoinByKeyLst()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
             strCodeForCs.Append("\r\n /// <summary>");
-            strCodeForCs.AppendFormat("\r\n /// °Ñ¶à¸ö¹Ø¼ü×Ö¶ÎµÄÖµÁ¬½ÓÆğÀ´,ÓÃ|Á¬½Ó(Join)--{0}({1})",
+            strCodeForCs.AppendFormat("\r\n /// æŠŠå¤šä¸ªå…³é”®å­—æ®µçš„å€¼è¿æ¥èµ·æ¥,ç”¨|è¿æ¥(Join)--{0}({1})",
               ThisTabName4GC, objPrjTabENEx.TabCnName);
             strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n /// </summary>");
-            strCodeForCs.AppendFormat("\r\n /// <param name = \"obj{0}EN\">ĞèÒªÁ¬½ÓµÄ¶ÔÏó</param>",
+            strCodeForCs.AppendFormat("\r\n /// <param name = \"obj{0}EN\">éœ€è¦è¿æ¥çš„å¯¹è±¡</param>",
                    ThisTabName4GC, objPrjTabENEx.TabCnName);
             strCodeForCs.Append("\r\n /// <returns></returns>");
             strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.JoinByKeyLst)}(obj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN):string");
             strFuncName = $"{thisWA_F(WA_F.JoinByKeyLst)}";
             strCodeForCs.Append("\r\n{");
-            strCodeForCs.Append("\r\n" + "//¼ì²â¼ÇÂ¼ÊÇ·ñ´æÔÚ");
+            strCodeForCs.Append("\r\n" + "//æ£€æµ‹è®°å½•æ˜¯å¦å­˜åœ¨");
 
             //strCodeForCs.AppendFormat("\r\n" + "let strResult = \"\";");
             int intIndex = 0;
@@ -3179,7 +3933,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            ///¼ì²éÀàÖĞÄ³ÊôĞÔ(·ÇÖ÷¼ü)ÊÇ·ñÎ¨Ò» == == == == == == == == = ;
+            ///æ£€æŸ¥ç±»ä¸­æŸå±æ€§(éä¸»é”®)æ˜¯å¦å”¯ä¸€ == == == == == == == == = ;
              clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3190,14 +3944,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹ØÃû³Æ, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³åç§°, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetObjLstByKeyLstCache()
@@ -3207,11 +3961,11 @@ ThisTabName4GC);
             string strFuncName = $"{thisWA_F(WA_F.GetObjLstByKeyLstsCache)}";
 
 
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ¹Ø¼ü×ÖÁĞ±í»ñÈ¡Ïà¹Ø¶ÔÏóÁĞ±í, ´Ó»º´æÖĞ»ñÈ¡.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®å…³é”®å­—åˆ—è¡¨è·å–ç›¸å…³å¯¹è±¡åˆ—è¡¨, ä»ç¼“å­˜ä¸­è·å–.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetObjLstBy{objKeyField.FldName}LstCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjLstBy{objKeyField.FldName}LstCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             if (objPrjTabENEx.arrKeyFldSet.Count > 1)
             {
@@ -3219,10 +3973,10 @@ ThisTabName4GC);
                 //string strJoinByKeyLst = JoinByKeyLst();
             }
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×ÖÁĞ±í»ñÈ¡Ïà¹Ø¶ÔÏóÁĞ±í, ´Ó»º´æÖĞ»ñÈ¡.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—åˆ—è¡¨è·å–ç›¸å…³å¯¹è±¡åˆ—è¡¨, ä»ç¼“å­˜ä¸­è·å–.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param arr{0}Lst:¹Ø¼ü×ÖÁĞ±í", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í");
+            strCodeForCs.AppendFormat("\r\n * @param arr{0}Lst:å…³é”®å­—åˆ—è¡¨", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n*/");
             var objFuncParaLst = new FuncParaLst("GetObjLstCacheAsync", this.IsFstLcase, enumAppLevel.DefindFunc);
             List<string> arrCondFldId = new List<string>();
@@ -3271,11 +4025,11 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
             if (objPrjTabENEx.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.Append("\r\n" + $"const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İ¹Ø¼ü×Ö:[{{1}}]»ñÈ¡¶ÔÏóÁĞ±í²»³É¹¦!(in {{2}}.{{3}})\", e, arrKeysLst.join(\",\"), " + this.constructorName + ", strThisFuncName);");
+                strCodeForCs.Append("\r\n" + $"const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–å¯¹è±¡åˆ—è¡¨ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, arrKeysLst.join(\",\"), " + this.constructorName + ", strThisFuncName);");
             }
             else
             {
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İ¹Ø¼ü×Ö:[{{1}}]»ñÈ¡¶ÔÏóÁĞ±í²»³É¹¦!(in {{2}}.{{3}})\", e, arr{0}Lst.join(\",\"), " + this.constructorName + ", strThisFuncName);", objKeyField.FldName);
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®å…³é”®å­—:[{{1}}]è·å–å¯¹è±¡åˆ—è¡¨ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, arr{0}Lst.join(\",\"), " + this.constructorName + ", strThisFuncName);", objKeyField.FldName);
             }
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -3284,7 +4038,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3295,7 +4049,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3305,12 +4059,12 @@ ThisTabName4GC);
         public string Gen_4WA_Ts_GetObjLstByPagerCache()
         {
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByPagerCache)}(objPagerPara: stuPagerPara)";
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ";
 
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetObjLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             ImportClass objImportClass = AddImportClass(objPrjTabENEx.TabId, "/PubFun/stuPagerPara.js", "stuPagerPara", enumImportObjType.CustomFunc, this.strBaseUrl);
 
             CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
@@ -3319,13 +4073,13 @@ ThisTabName4GC);
             string strFuncName = $"{thisWA_F(WA_F.GetObjLstByPagerCache)}";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:·ÖÒ³²ÎÊı½á¹¹", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í");
+            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:åˆ†é¡µå‚æ•°ç»“æ„", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n*/");
             var objFuncParaLst = new FuncParaLst("GetObjLstByPagerCache", this.IsFstLcase, enumAppLevel.DefindFunc);
             List<string> arrCondFldId = new List<string>();
@@ -3354,7 +4108,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Cond = objPagerPara.conditionCollection;");
             strCodeForCs.Append("\r\n" + $"if (obj{ThisTabName4GC}Cond == null)");
             strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = `¸ù¾İ·Ö²¼Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±íÊ±£¬objPagerPara.conditionCollectionÎªnull,Çë¼ì²é£¡(in ${ strThisFuncName})`;");
+                strCodeForCs.Append("\r\n" + "const strMsg = `æ ¹æ®åˆ†å¸ƒæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨æ—¶ï¼ŒobjPagerPara.conditionCollectionä¸ºnull,è¯·æ£€æŸ¥ï¼(in ${ strThisFuncName})`;");
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + $"return new Array<cls{ThisTabName4GC}EN>();");
@@ -3462,7 +4216,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else {");
-            strCodeForCs.Append("\r\n" + "//Èç¹ûÅÅĞò×Ö¶ÎÃû[OrderBy]Îª¿Õ,¾Íµ÷ÓÃÅÅĞòº¯Êı");
+            strCodeForCs.Append("\r\n" + "//å¦‚æœæ’åºå­—æ®µå[OrderBy]ä¸ºç©º,å°±è°ƒç”¨æ’åºå‡½æ•°");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}Sel = arr{0}Sel.sort(objPagerPara.sortFun);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
 
@@ -3471,7 +4225,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"´íÎó:[{0}]. \\n¸ù¾İÌõ¼ş:[{1}]»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í²»³É¹¦!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{0}]. \\næ ¹æ®æ¡ä»¶:[{1}]è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨ä¸æˆåŠŸ!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
 
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -3480,7 +4234,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
 
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
@@ -3492,7 +4246,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3502,9 +4256,9 @@ ThisTabName4GC);
         {
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetSubObjLstCache)}({ThisObjName4Cond}: ConditionCollection) ";
             
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡×Ó¼¯.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–å­é›†.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetSubObjLstCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetSubObjLstCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             ImportClass objImportClass = AddImportClass("", "/PubFun/ConditionCollection", "ConditionCollection", enumImportObjType.CustomFunc, this.strBaseUrl);
 
             CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
@@ -3524,13 +4278,13 @@ ThisTabName4GC);
 
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡×Ó¼¯.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–å­é›†.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:Ìõ¼ş¶ÔÏó", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í×Ó¼¯");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:æ¡ä»¶å¯¹è±¡", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨å­é›†");
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetSubObjLstCache)}({ThisObjName4Cond}: ConditionCollection {strFuncParaLst}) {{");
 
@@ -3622,7 +4376,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İÌõ¼ş:[{{1}}]»º´æ¶ÔÏóÁĞ±íÖĞ»ñÈ¡×Ó¼¯¶ÔÏó²»³É¹¦!(in {{2}}.{{3}})\", e, JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®æ¡ä»¶:[{{1}}]ç¼“å­˜å¯¹è±¡åˆ—è¡¨ä¸­è·å–å­é›†å¯¹è±¡ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -3630,7 +4384,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
 
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
@@ -3642,7 +4396,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3655,9 +4409,9 @@ ThisTabName4GC);
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "IsExistRecordCache({0}: ConditionCollection) {{",
              ThisObjName4Cond,          objKeyField.FldName,
           objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType);
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡×Ó¼¯.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–å­é›†.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[IsExistRecordCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[IsExistRecordCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             string strFuncName_Temp = $"{this.tabNameHead}IsExistRecordCache";
             string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, true, enumProgLangType.TypeScript_09);
@@ -3667,13 +4421,13 @@ ThisTabName4GC);
 
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡×Ó¼¯.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–å­é›†.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:Ìõ¼ş¶ÔÏó", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í×Ó¼¯");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:æ¡ä»¶å¯¹è±¡", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨å­é›†");
             strCodeForCs.AppendFormat("\r\n*/");
 
             strCodeForCs.Append("\r\n" + "export  async function " + this.tabNameHead + $"IsExistRecordCache({ThisObjName4Cond}: ConditionCollection {strFuncParaCode}) {{");
@@ -3774,7 +4528,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"¸ù¾İÌõ¼ş:[{{0}}]ÅĞ¶ÏÊÇ·ñ´æÔÚ²»³É¹¦!(in {{1}}.{{2}})\", JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"æ ¹æ®æ¡ä»¶:[{{0}}]åˆ¤æ–­æ˜¯å¦å­˜åœ¨ä¸æˆåŠŸ!(in {{1}}.{{2}})\", JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -3782,7 +4536,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3793,7 +4547,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3803,9 +4557,9 @@ ThisTabName4GC);
         public string Gen_4WA_Ts_GetRecCountByCondCache()
         {
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetRecCountByCondCache)}({ThisObjName4Cond}: ConditionCollection) ";
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡¼ÇÂ¼Êı.";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–è®°å½•æ•°.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetRecCountByCondCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetRecCountByCondCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             ImportClass objImportClass = AddImportClass("", "/PubFun/ConditionCollection", "ConditionCollection", enumImportObjType.CustomFunc, this.strBaseUrl);
 
 
@@ -3827,13 +4581,13 @@ ThisTabName4GC);
 
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İÌõ¼ş¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡¼ÇÂ¼Êı.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®æ¡ä»¶å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–è®°å½•æ•°.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:Ìõ¼ş¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í¼ÇÂ¼Êı");
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:æ¡ä»¶å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨è®°å½•æ•°");
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetRecCountByCondCache)}({ThisObjName4Cond}: ConditionCollection {strFuncParaLst}) {{");
 
@@ -3934,7 +4688,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel.length;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"´íÎó:[{{0}}]. \\n¸ù¾İÌõ¼ş:[{{1}}]´Ó»º´æ¶ÔÏóÁĞ±íÖĞ»ñÈ¡¼ÇÂ¼Êı²»³É¹¦!(in {{2}}.{{3}})\", e, JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{{0}}]. \\næ ¹æ®æ¡ä»¶:[{{1}}]ä»ç¼“å­˜å¯¹è±¡åˆ—è¡¨ä¸­è·å–è®°å½•æ•°ä¸æˆåŠŸ!(in {{2}}.{{3}})\", e, JSON.stringify( obj{0}Cond), " + this.constructorName + ", strThisFuncName);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -3942,7 +4696,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -3953,7 +4707,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3965,7 +4719,7 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
 
-            ///Àà¹¹ÔìÆ÷----------------------------------------------;
+            ///ç±»æ„é€ å™¨----------------------------------------------;
             strCodeForCs.Append("\r\n public " + objPrjTabENEx.ClsName + "()");
             strCodeForCs.Append("\r\n {");
 
@@ -3980,7 +4734,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -3994,7 +4748,7 @@ ThisTabName4GC);
 
             try
             {
-                //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
                 foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
                 {
                     if (objField.FieldTypeId == "02")
@@ -4009,9 +4763,9 @@ ThisTabName4GC);
                 if (strValueFieldName != "" && strTextFieldName != "")
                 {
                     strCodeForCs.Append("\r\n/**");
-                    strCodeForCs.Append("\r\n * °ó¶¨»ùÓÚWinµÄÏÂÀ­¿ò");
+                    strCodeForCs.Append("\r\n * ç»‘å®šåŸºäºWinçš„ä¸‹æ‹‰æ¡†");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    strCodeForCs.Append("\r\n * @param objComboBox:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
+                    strCodeForCs.Append("\r\n * @param objComboBox:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
                     strCodeForCs.Append("\r\n*/");
                     strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "void BindCbo_{0}(System.Windows.Forms.ComboBox objComboBox)",
                     strValueFieldName);
@@ -4019,28 +4773,28 @@ ThisTabName4GC);
                     strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"BindCbo_{0}\";", strValueFieldName,
       objKeyField.FldName);
 
-                    strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´Îª±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
+                    strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºä¸ºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
                     strCodeForCs.AppendFormat("\r\n" + "Array<cls{0}EN> arrObjLst = GetObjLst(\"1=1\");",
                     ThisTabName4GC);
 
 
                     strCodeForCs.AppendFormat("\r\n" + "cls{0}EN obj{0}EN;",
                     ThisTabName4GC);
-                    strCodeForCs.AppendFormat("\r\n" + "//³õÊ¼»¯Ò»¸ö¶ÔÏóÁĞ±í");
+                    strCodeForCs.AppendFormat("\r\n" + "//åˆå§‹åŒ–ä¸€ä¸ªå¯¹è±¡åˆ—è¡¨");
                     //strCodeForCs.AppendFormat("\r\n" + "ArrayList {0}List = new ArrayList();",
                     //ThisTabName4GC);
-                    strCodeForCs.Append("\r\n" + "//²åÈëµÚ0Ïî¡£ÔÚµÚ0ÏîÖĞ²åÈë¡°ÇëÑ¡Ôñ...¡±,ÎªÁË·½±ãÓÃ»§,ÓëWEB·½Ê½ÀàËÆ¡£");
+                    strCodeForCs.Append("\r\n" + "//æ’å…¥ç¬¬0é¡¹ã€‚åœ¨ç¬¬0é¡¹ä¸­æ’å…¥â€œè¯·é€‰æ‹©...â€,ä¸ºäº†æ–¹ä¾¿ç”¨æˆ·,ä¸WEBæ–¹å¼ç±»ä¼¼ã€‚");
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}EN = new cls{0}EN();",
                     ThisTabName4GC);
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}EN.{1} = \"0\";",
                     ThisTabName4GC, strValueFieldName);
 
-                    strCodeForCs.AppendFormat("\r\n" + "obj{0}EN.{1} = \"Ñ¡[{2}]...\";",
+                    strCodeForCs.AppendFormat("\r\n" + "obj{0}EN.{1} = \"é€‰[{2}]...\";",
                         ThisTabName4GC, strTextFieldName, objPrjTabENEx.TabCnName);
 
                     strCodeForCs.AppendFormat("\r\n" + "arrObjLst.Insert(0, obj{0}EN);",
                     ThisTabName4GC);
-                    strCodeForCs.Append("\r\n" + "//°ÑDataTableÖĞµÄËùÓĞÏî¾ù¼Óµ½¶ÔÏóÁĞ±íÖĞ");
+                    strCodeForCs.Append("\r\n" + "//æŠŠDataTableä¸­çš„æ‰€æœ‰é¡¹å‡åŠ åˆ°å¯¹è±¡åˆ—è¡¨ä¸­");
                     //strCodeForCs.Append("\r\n" + "foreach(DataRow objRow in objDT.Rows)");
                     //strCodeForCs.Append("\r\n" + "{");
                     //strCodeForCs.AppendFormat("\r\n" + "obj{0}EN = new cls{0}EN();",
@@ -4052,7 +4806,7 @@ ThisTabName4GC);
                     //strCodeForCs.AppendFormat("\r\n" + "{0}List.Add(obj{0}EN);",
                     //ThisTabName4GC);
                     //strCodeForCs.Append("\r\n" + "}");
-                    strCodeForCs.Append("\r\n" + "//ÉèÖÃÏÂÀ­¿òµÄÊı¾İÔ´¡¢ÒÔ¼°ÉèÖÃÖµÏî¡¢ÏÔÊ¾Ïî");
+                    strCodeForCs.Append("\r\n" + "//è®¾ç½®ä¸‹æ‹‰æ¡†çš„æ•°æ®æºã€ä»¥åŠè®¾ç½®å€¼é¡¹ã€æ˜¾ç¤ºé¡¹");
                     strCodeForCs.AppendFormat("\r\n" + "objComboBox.DataSource = arrObjLst;",
                     ThisTabName4GC);
                     strCodeForCs.AppendFormat("\r\n" + "objComboBox.ValueMember=\"{1}\";",
@@ -4065,7 +4819,7 @@ ThisTabName4GC);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -4080,7 +4834,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -4088,9 +4842,9 @@ ThisTabName4GC);
 
         public string Gen_4WA_Ts_DdlBindCache()
         {
-            Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "BindDdl[×Ö¶ÎÃû]Cache2(strDdlName: string, {1}: {0}) {{",
+            Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "BindDdl[å­—æ®µå]Cache2(strDdlName: string, {1}: {0}) {{",
                    ThisClsName4EN, ThisObjName4Cond);
-            Re_objFunction4Code.FuncCHName4Code = string.Format("ÎªÏÂÀ­¿ò»ñÈ¡Êı¾İ,´Ó±í:[{0}]ÖĞ»ñÈ¡",
+            Re_objFunction4Code.FuncCHName4Code = string.Format("ä¸ºä¸‹æ‹‰æ¡†è·å–æ•°æ®,ä»è¡¨:[{0}]ä¸­è·å–",
                   ThisTabName4GC);
             string strFuncName = thisWA_F(WA_F.GetSubObjLstCache);
             var objFuncParaLst = new FuncParaLst("DdlBindCache", this.IsFstLcase, enumAppLevel.DefindFunc);
@@ -4110,7 +4864,7 @@ ThisTabName4GC);
             StringBuilder strCodeForCs = new StringBuilder();
             try
             {
-                ///Éú³É½öÓĞ±äÁ¿;
+                ///ç”Ÿæˆä»…æœ‰å˜é‡;
 
 
                 foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
@@ -4126,19 +4880,19 @@ ThisTabName4GC);
                         strTextFieldName_FldName = objField.ObjFieldTabENEx.FldName;
                     }
                 }
-                if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[BindDdl_{strValueFieldName_FldName}Cache2]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+                if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[BindDdl_{strValueFieldName_FldName}Cache2]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
                 var strIsCache = "Cache";
                 if (objPrjTabENEx.IsUseStorageCache_TS() == false) strIsCache = "";
 
-                if (string.IsNullOrEmpty(strTextFieldName) == true) return "/* ÓëÏÂÀ­¿òÏà¹ØµÄÃû³Æ×Ö¶ÎÎª¿Õ,²»ÄÜÉú³É°ó¶¨ÏÂÀ­¿òº¯Êı. */";
+                if (string.IsNullOrEmpty(strTextFieldName) == true) return "/* ä¸ä¸‹æ‹‰æ¡†ç›¸å…³çš„åç§°å­—æ®µä¸ºç©º,ä¸èƒ½ç”Ÿæˆç»‘å®šä¸‹æ‹‰æ¡†å‡½æ•°. */";
 
                 string strFuncName_Temp = $"BindDdl{strTextFieldName_FldName}{strIsCache}2";
 
                 strCodeForCs.Append("\r\n" + "/**");
-                strCodeForCs.AppendFormat("\r\n" + "* ÎªÏÂÀ­¿ò»ñÈ¡Êı¾İ,´Ó±í:[{0}]ÖĞ»ñÈ¡",
+                strCodeForCs.AppendFormat("\r\n" + "* ä¸ºä¸‹æ‹‰æ¡†è·å–æ•°æ®,ä»è¡¨:[{0}]ä¸­è·å–",
                   ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.Append("\r\n" + "* @returns »ñÈ¡Ö÷¼ü×Ö¶Î¡¢Ãû³Æ×Ö¶ÎÁ½ÁĞµÄËùÓĞ¼ÇÂ¼¼ÇÂ¼µÄDataTable");
+                strCodeForCs.Append("\r\n" + "* @returns è·å–ä¸»é”®å­—æ®µã€åç§°å­—æ®µä¸¤åˆ—çš„æ‰€æœ‰è®°å½•è®°å½•çš„DataTable");
                 strCodeForCs.Append("\r\n" + " **/");
 
                 strCodeForCs.Append("\r\n" + $"export  async function " + this.tabNameHead + $"{strFuncName_Temp}(strDdlName: string, {ThisObjName4Cond}: ConditionCollection {strFuncParaLst}) {{");
@@ -4155,7 +4909,7 @@ ThisTabName4GC);
                     ThisTabName4GC, strValueFieldName, strTextFieldName);
                 strCodeForCs.Append("\r\n" + "if (objDdl == null)");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!\", strDdlName);",
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!\", strDdlName);",
                     ThisTabName4GC, strValueFieldName, strTextFieldName);
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
@@ -4172,12 +4926,12 @@ ThisTabName4GC);
                                 strValueFieldName_FldName,
                                 strTextFieldName_FldName,
                                 objPrjTabENEx.TabCnName);
-                strCodeForCs.AppendFormat("\r\n" + "//console.log(\"Íê³ÉBindDdl_{0}!\");", strValueFieldName);
+                strCodeForCs.AppendFormat("\r\n" + "//console.log(\"å®ŒæˆBindDdl_{0}!\");", strValueFieldName);
 
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "catch (e)");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = Format(\"Ê¹ÓÃ»º´æ¶ÔÏóÁĞ±í°ó¶¨ÏÂÀ­¿ò³ö´í,{0}.(in {1}.{2})\", e, " + this.constructorName + ", strThisFuncName);");
+                strCodeForCs.Append("\r\n" + "const strMsg = Format(\"ä½¿ç”¨ç¼“å­˜å¯¹è±¡åˆ—è¡¨ç»‘å®šä¸‹æ‹‰æ¡†å‡ºé”™,{0}.(in {1}.{2})\", e, " + this.constructorName + ", strThisFuncName);");
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "alert(strMsg);");
                 strCodeForCs.Append("\r\n" + "}");
@@ -4187,7 +4941,7 @@ ThisTabName4GC);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -4202,7 +4956,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -4216,9 +4970,9 @@ ThisTabName4GC);
         //      string strValueFieldName = "";
         //      try
         //      {
-        //          ///Éú³É½öÓĞ±äÁ¿;
-        //          //°ó¶¨ÏÂÀ­¿òµÄº¯Êı ´úÂë;
-        //          //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+        //          ///ç”Ÿæˆä»…æœ‰å˜é‡;
+        //          //ç»‘å®šä¸‹æ‹‰æ¡†çš„å‡½æ•° ä»£ç ;
+        //          //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
         //          foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
         //          {
         //              if (objField.FieldTypeId == "02")
@@ -4235,7 +4989,7 @@ ThisTabName4GC);
         //              //					strCodeForCs.AppendFormat("\r\n" + "public System.Data.DataTable Get{0}()", 
         //              //						strValueFieldName);
         //              //					strCodeForCs.Append("\r\n" + "{");
-        //              //					strCodeForCs.Append("\r\n" + "//»ñÈ¡Ä³Ñ§ÔºËùÓĞ×¨ÒµĞÅÏ¢");
+        //              //					strCodeForCs.Append("\r\n" + "//è·å–æŸå­¦é™¢æ‰€æœ‰ä¸“ä¸šä¿¡æ¯");
         //              //					strCodeForCs.AppendFormat("\r\n" + "string strSQL = \"select {0}, {1} from {2} \";", 
         //              //						strValueFieldName, strTextFieldName, ThisTabName4GC);
         //              //					//									if (objViewCtlField.DsCondStr.Trim() == "" )
@@ -4253,9 +5007,9 @@ ThisTabName4GC);
         //              //					strCodeForCs.Append("\r\n" + "return objDT;");
         //              //					strCodeForCs.Append("\r\n" + "}");
         //              strCodeForCs.Append("\r\n/**");
-        //              strCodeForCs.Append("\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò");
+        //              strCodeForCs.Append("\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†");
         //              strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-        //              strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
+        //              strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
         //              strCodeForCs.Append("\r\n*/");
         //              strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "void BindDdl_{0}(System.Web.UI.WebControls.DropDownList objDDL)",
         //              strValueFieldName);
@@ -4263,9 +5017,9 @@ ThisTabName4GC);
         //              strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"BindDdl_{0}\";", strValueFieldName,
         //objKeyField.FldName);
 
-        //              strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
+        //              strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
 
-        //              strCodeForCs.AppendFormat("\r\n" + "System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(\"Ñ¡[{0}]...\",\"0\");",
+        //              strCodeForCs.AppendFormat("\r\n" + "System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(\"é€‰[{0}]...\",\"0\");",
         //                    objPrjTabENEx.TabCnName);
 
         //              strCodeForCs.AppendFormat("\r\n" + "Array<cls{0}EN> arrObjLst = GetObjLst(\"1=1\");",
@@ -4285,7 +5039,7 @@ ThisTabName4GC);
 
         //      catch (Exception ex)
         //      {
-        //          string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+        //          string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
         //          clsEntityBase.LogErrorS(ex, strMsg);
         //          throw new Exception(strMsg);
@@ -4297,9 +5051,9 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¼ì²éÀàÖĞÊôĞÔÊÇ·ñÕıÈ·-------------------------------------------;
+            ///æ£€æŸ¥ç±»ä¸­å±æ€§æ˜¯å¦æ­£ç¡®-------------------------------------------;
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¼ì²é¶ÔÏó×Ö¶ÎÖµÊÇ·ñºÏ·¨,1)¼ì²éÊÇ·ñ¿É¿Õ;2)¼ì²é×Ö¶ÎÖµ³¤¶ÈÊÇ·ñ³¬³¤,Èç¹û³ö´í¾ÍÅ×³ö´íÎó.");
+            strCodeForCs.Append("\r\n * æ£€æŸ¥å¯¹è±¡å­—æ®µå€¼æ˜¯å¦åˆæ³•,1)æ£€æŸ¥æ˜¯å¦å¯ç©º;2)æ£€æŸ¥å­—æ®µå€¼é•¿åº¦æ˜¯å¦è¶…é•¿,å¦‚æœå‡ºé”™å°±æŠ›å‡ºé”™è¯¯.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\npublic void CheckPropertyNew(cls{0}EN obj{0}EN)",
@@ -4327,14 +5081,14 @@ ThisTabName4GC);
                     }
                     strCodeForCs.Append(")");
                     strCodeForCs.Append("\r\n{");
-                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"×Ö¶Î[{0}]²»ÄÜÎª¿Õ(NULL)!\");",
+                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"å­—æ®µ[{0}]ä¸èƒ½ä¸ºç©º(NULL)!\");",
                     objField.ColCaption);
                     strCodeForCs.Append("\r\n}");
                 }
 
 
             }
-            ///¼ì²éÊôĞÔ³¤¶È´úÂë;
+            ///æ£€æŸ¥å±æ€§é•¿åº¦ä»£ç ;
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "obj" + ThisTabName4GC + "EN", this.IsFstLcase);
@@ -4345,7 +5099,7 @@ ThisTabName4GC);
                          strPrivPropNameWithObjectName,
                           objField.ObjFieldTabENEx.FldLength);
                     strCodeForCs.Append("\r\n{");
-                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"×Ö¶Î[{0}]µÄ³¤¶È²»ÄÜ³¬¹ı{1}!\");",
+                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"å­—æ®µ[{0}]çš„é•¿åº¦ä¸èƒ½è¶…è¿‡{1}!\");",
                     objField.ColCaption, objField.ObjFieldTabENEx.FldLength.ToString().Trim());
                     strCodeForCs.Append("\r\n}");
                 }
@@ -4353,7 +5107,7 @@ ThisTabName4GC);
             //strCodeForCs.AppendFormat("\r\n obj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n }");
-            ///¼ì²éÀàÖĞÊôĞÔÊÇ·ñÕıÈ· == == ;
+            ///æ£€æŸ¥ç±»ä¸­å±æ€§æ˜¯å¦æ­£ç¡® == == ;
             ///
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
@@ -4365,14 +5119,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°±íÂú×ãÌõ¼şµÄµÚÒ»Ìõ¼ÇÂ¼µÄ¹Ø¼ü×ÖÖµ
+        /// è·å–å½“å‰è¡¨æ»¡è¶³æ¡ä»¶çš„ç¬¬ä¸€æ¡è®°å½•çš„å…³é”®å­—å€¼
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetFirstId()
@@ -4381,10 +5135,10 @@ ThisTabName4GC);
             StringBuilder strCodeForCs = new StringBuilder();
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @returns ·µ»ØµÄµÚÒ»Ìõ¼ÇÂ¼µÄ¹Ø¼ü×ÖÖµ");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶");
+            strCodeForCs.Append("\r\n * @returns è¿”å›çš„ç¬¬ä¸€æ¡è®°å½•çš„å…³é”®å­—å€¼");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetFirstID(strWhereCond: string) ",
               ThisTabName4GC,
@@ -4433,14 +5187,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -4461,7 +5215,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -4469,7 +5223,7 @@ ThisTabName4GC);
 
 
         /// <summary>
-        /// ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹ØÃû³Æ, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.
+        /// æ ¹æ®å…³é”®å­—è·å–ç›¸å…³åç§°, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_GetNameByKeyIdCacheBak()
@@ -4492,16 +5246,16 @@ ThisTabName4GC);
             {
                 return "";
             }
-            if (objPrjTabENEx.IsUseCache == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[Get{strTextFieldName}By{objKeyField.FldName}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseCache == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[Get{strTextFieldName}By{objKeyField.FldName}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹ØÃû³Æ, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®å…³é”®å­—è·å–ç›¸å…³åç§°, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:Ëù¸øµÄ¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¸ù¾İ¹Ø¼ü×Ö»ñÈ¡µÄÃû³Æ");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:æ‰€ç»™çš„å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns æ ¹æ®å…³é”®å­—è·å–çš„åç§°");
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "string Get{4}By{1}Cache({2} {3})",
             ThisTabName4GC,
@@ -4518,7 +5272,7 @@ ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n" + "if (string.IsNullOrEmpty({0}) == true) return \"\";",
                   objKeyField.PrivFuncName);
             }
-            strCodeForCs.Append("\r\n" + "//³õÊ¼»¯ÁĞ±í»º´æ");
+            strCodeForCs.Append("\r\n" + "//åˆå§‹åŒ–åˆ—è¡¨ç¼“å­˜");
             strCodeForCs.Append("\r\n" + "InitListCache(); ");
 
 
@@ -4570,13 +5324,13 @@ ThisTabName4GC);
             //strCodeForCs.Append("\r\n" + "}");
             //strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.AppendFormat("\r\n" + "intFindFailCount++;");
-            strCodeForCs.AppendFormat("\r\n" + "// ¾²Ì¬µÄ¶ÔÏóÁĞ±í,ÓÃÓÚ»º´æ,Õë¶Ô¼ÇÂ¼½ÏÉÙ,×÷Îª²ÎÊı±í¿ÉÒÔÊ¹ÓÃ");
+            strCodeForCs.AppendFormat("\r\n" + "// é™æ€çš„å¯¹è±¡åˆ—è¡¨,ç”¨äºç¼“å­˜,é’ˆå¯¹è®°å½•è¾ƒå°‘,ä½œä¸ºå‚æ•°è¡¨å¯ä»¥ä½¿ç”¨");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}ObjLstCache = null;", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (intFindFailCount == 1) return Get{0}By{1}Cache({2});",
                 strTextFieldName,
                 objKeyField.FldName,
                 objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n" + "string strErrMsgForGetObjById = string.Format(\"ÔÚ{2}¶ÔÏó»º´æÁĞ±íÖĞ,ÕÒ²»µ½¼ÇÂ¼[{3} = {{0}}][intFindFailCount = {{1}}](º¯Êı:{{2}})\", {4}, intFindFailCount, clsStackTrace.GetCurrFunction());",
+            strCodeForCs.AppendFormat("\r\n" + "string strErrMsgForGetObjById = string.Format(\"åœ¨{2}å¯¹è±¡ç¼“å­˜åˆ—è¡¨ä¸­,æ‰¾ä¸åˆ°è®°å½•[{3} = {{0}}][intFindFailCount = {{1}}](å‡½æ•°:{{2}})\", {4}, intFindFailCount, clsStackTrace.GetCurrFunction());",
               "{", "}",
               ThisTabName4GC,
               objKeyField.FldName,
@@ -4585,21 +5339,21 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN != null)",
                   ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"×îºóÒ»´Î²éÕÒµÄ¶ÔÏóÏà¹Ø×Ö¶ÎÊôĞÔÖµ:{{0}}.[intMid = {{1}}]\", obj{2}EN.{3}, intMid);",
+            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"æœ€åä¸€æ¬¡æŸ¥æ‰¾çš„å¯¹è±¡ç›¸å…³å­—æ®µå±æ€§å€¼:{{0}}.[intMid = {{1}}]\", obj{2}EN.{3}, intMid);",
                "{", "}",
                ThisTabName4GC,
                objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"×îºóÒ»´Î²éÕÒµÄ¶ÔÏóÎªnull, Çë¼ì²é![intMid = {{0}}]\", intMid);",
+            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"æœ€åä¸€æ¬¡æŸ¥æ‰¾çš„å¯¹è±¡ä¸ºnull, è¯·æ£€æŸ¥![intMid = {{0}}]\", intMid);",
                "{", "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.AppendFormat("\r\n" + "clsLog.LogErrorS2(\"cls{0}BL\", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, \"\", \"\");",
                ThisTabName4GC,
                 objKeyField.FldName,
                 strTextFieldName);
-            //strCodeForCs.Append("\r\n" + "// ¾²Ì¬µÄ¶ÔÏóÁĞ±í,ÓÃÓÚ»º´æ,Õë¶Ô¼ÇÂ¼½ÏÉÙ,×÷Îª²ÎÊı±í¿ÉÒÔÊ¹ÓÃ");
+            //strCodeForCs.Append("\r\n" + "// é™æ€çš„å¯¹è±¡åˆ—è¡¨,ç”¨äºç¼“å­˜,é’ˆå¯¹è®°å½•è¾ƒå°‘,ä½œä¸ºå‚æ•°è¡¨å¯ä»¥ä½¿ç”¨");
             //strCodeForCs.AppendFormat("\r\n" + "arr{0}ObjLstCache = null;",
             //       ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "console.error(strErrMsgForGetObjById);");
@@ -4608,7 +5362,7 @@ ThisTabName4GC);
             //strCodeForCs.AppendFormat("\r\n" + "return \"\";");
             strCodeForCs.Append("\r\n" + "}");
 
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -4619,25 +5373,25 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// ³õÊ¼»¯ÁĞ±í»º´æ.
+        /// åˆå§‹åŒ–åˆ—è¡¨ç¼“å­˜.
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_InitListCache()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //³õÊ¼»¯ÁĞ±í»º´æ.-----------------------------;
+            //åˆå§‹åŒ–åˆ—è¡¨ç¼“å­˜.-----------------------------;
 
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ³õÊ¼»¯ÁĞ±í»º´æ.");
+            strCodeForCs.AppendFormat("\r\n * åˆå§‹åŒ–åˆ—è¡¨ç¼“å­˜.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + "InitListCache():void");
@@ -4648,7 +5402,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //³õÊ¼»¯ÁĞ±í»º´æ.======================= = ;
+            //åˆå§‹åŒ–åˆ—è¡¨ç¼“å­˜.======================= = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -4659,7 +5413,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -4669,17 +5423,17 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş»ñÈ¡ÏàÓ¦µÄ¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶è·å–ç›¸åº”çš„è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param intMinNum:×îĞ¡¼ÇÂ¼ºÅ");
-            strCodeForCs.Append("\r\n * @param intMaxNum:×î´ó¼ÇÂ¼ºÅ");
-            strCodeForCs.Append("\r\n * @param strWhereCond:¸ø¶¨Ìõ¼ş");
-            strCodeForCs.Append("\r\n * @param strOrderBy:ÅÅĞò·½Ê½");
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns »ñÈ¡µÄÏàÓ¦¼ÇÂ¼¶ÔÏóÁĞ±í");
+            strCodeForCs.Append("\r\n * @param intMinNum:æœ€å°è®°å½•å·");
+            strCodeForCs.Append("\r\n * @param intMaxNum:æœ€å¤§è®°å½•å·");
+            strCodeForCs.Append("\r\n * @param strWhereCond:ç»™å®šæ¡ä»¶");
+            strCodeForCs.Append("\r\n * @param strOrderBy:æ’åºæ–¹å¼");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è·å–çš„ç›¸åº”è®°å½•å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLstByRange(intMinNum: number, intMaxNum: number, strWhereCond: string, strOrderBy = \"\", cb: (json: any) => void, errorCb: (json: any) => void) ",
               ThisTabName4GC,
@@ -4722,14 +5476,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -4751,13 +5505,13 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// É¾³ı¶àÌõ¼ÇÂ¼
+        /// åˆ é™¤å¤šæ¡è®°å½•
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_DelRecords()
@@ -4765,9 +5519,9 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İ¹Ø¼ü×ÖÁĞ±íÉ¾³ı¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * æ ¹æ®å…³é”®å­—åˆ—è¡¨åˆ é™¤è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @returns Êµ¼ÊÉ¾³ı¼ÇÂ¼µÄ¸öÊı");
+            strCodeForCs.Append("\r\n * @returns å®é™…åˆ é™¤è®°å½•çš„ä¸ªæ•°");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "int DelRecords(string strKeyIdLst)",
             ThisTabName4GC, objKeyField.FldName);
@@ -4798,7 +5552,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "catch (Exception objException)");
             strCodeForCs.Append("\r\n" + "{");
 
-            strCodeForCs.Append("\r\n string strMsg = string.Format(\"Ö´ĞĞWebApi¹¦ÄÜ³ö´í, {0}.(from {1}). WebApiµØÖ·:{2}).\",");
+            strCodeForCs.Append("\r\n string strMsg = string.Format(\"æ‰§è¡ŒWebApiåŠŸèƒ½å‡ºé”™, {0}.(from {1}). WebApiåœ°å€:{2}).\",");
             strCodeForCs.Append("\r\n      HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction(),");
             strCodeForCs.Append("\r\n" + "clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));");
 
@@ -4815,14 +5569,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// É¾³ı¶àÌõ¼ÇÂ¼
+        /// åˆ é™¤å¤šæ¡è®°å½•
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_DelMultiRecord()
@@ -4830,12 +5584,12 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İ¹Ø¼ü×ÖÁĞ±íÉ¾³ı¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * æ ¹æ®å…³é”®å­—åˆ—è¡¨åˆ é™¤è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param arr{0}:¹Ø¼ü×ÖÁĞ±í", objKeyField.FldName);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns Êµ¼ÊÉ¾³ı¼ÇÂ¼µÄ¸öÊı");
+            strCodeForCs.AppendFormat("\r\n * @param arr{0}:å…³é”®å­—åˆ—è¡¨", objKeyField.FldName);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns å®é™…åˆ é™¤è®°å½•çš„ä¸ªæ•°");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.DelMultiRecord)}(arr{objKeyField.FldName}: Array<string>, cb: (json: any) => void, errorCb: (json: any) => void)");
             strCodeForCs.Append("\r\n" + "{");
@@ -4844,7 +5598,7 @@ ThisTabName4GC);
 
             strCodeForCs.AppendFormat("\r\n" + "const strAction = \"Del{0}s\";", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ÀıÈç: strIdentityID =01\";");
+            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ä¾‹å¦‚: strIdentityID =01\";");
             strCodeForCs.AppendFormat("\r\n" + "axios.post(strUrl, arr{0});", objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "cb(data);");
             strCodeForCs.Append("\r\n" + "},");
@@ -4854,7 +5608,7 @@ ThisTabName4GC);
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -4876,14 +5630,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// É¾³ı¶àÌõ¼ÇÂ¼
+        /// åˆ é™¤å¤šæ¡è®°å½•
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_DelMultiRecordByCond()
@@ -4891,9 +5645,9 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼şÉ¾³ı¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶åˆ é™¤è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @returns Êµ¼ÊÉ¾³ı¼ÇÂ¼µÄ¸öÊı");
+            strCodeForCs.Append("\r\n * @returns å®é™…åˆ é™¤è®°å½•çš„ä¸ªæ•°");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.DelMultiRecordByCond)}(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void)");
             strCodeForCs.Append("\r\n" + "{");
@@ -4905,7 +5659,7 @@ ThisTabName4GC);
 
             //strCodeForCs.Append("\r\n" + "const mapParam: Dictionary = new Dictionary();");
             //strCodeForCs.Append("\r\n" + "mapParam.add(\"strWhereCond\", strWhereCond);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ÀıÈç: strIdentityID =01\";");
+            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"ä¾‹å¦‚: strIdentityID =01\";");
 
             strCodeForCs.Append("\r\n" + "axios.get(strUrl,");
             strCodeForCs.Append("\r\n" + "{");
@@ -4920,7 +5674,7 @@ ThisTabName4GC);
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -4942,14 +5696,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// Ìí¼Ó¼ÇÂ¼,²¢ÇÒ·µ»Ø¹Ø¼ü×Ö
+        /// æ·»åŠ è®°å½•,å¹¶ä¸”è¿”å›å…³é”®å­—
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_AddNewRecordWithReturnKey()
@@ -4958,13 +5712,13 @@ ThisTabName4GC);
             //if (objKeyField.PrimaryTypeId != "02") return "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °Ñ±í¶ÔÏóÌí¼Óµ½Êı¾İ¿âÖĞ,²¢ÇÒ·µ»Ø¸Ã¼ÇÂ¼µÄ¹Ø¼ü×Ö(Õë¶ÔIdentity¹Ø¼ü×Ö)");
+            strCodeForCs.Append("\r\n * æŠŠè¡¨å¯¹è±¡æ·»åŠ åˆ°æ•°æ®åº“ä¸­,å¹¶ä¸”è¿”å›è¯¥è®°å½•çš„å…³é”®å­—(é’ˆå¯¹Identityå…³é”®å­—)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:ĞèÒªÌí¼ÓµÄ±í¶ÔÏó",
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:éœ€è¦æ·»åŠ çš„è¡¨å¯¹è±¡",
                     ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
-            strCodeForCs.Append("\r\n * @returns ·µ»ØĞÂÌí¼Ó¼ÇÂ¼µÄ¹Ø¼ü×Ö");
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
+            strCodeForCs.Append("\r\n * @returns è¿”å›æ–°æ·»åŠ è®°å½•çš„å…³é”®å­—");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "AddNewRecordWithReturnKey(obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void)",
             ThisTabName4GC);
@@ -4987,7 +5741,7 @@ ThisTabName4GC);
               objKeyField.PropertyName(this.IsFstLcase));
             }
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strMsg = \"ĞèÒªµÄ¶ÔÏóµÄ¹Ø¼ü×ÖÎª¿Õ,²»ÄÜÌí¼Ó!\";");
+            strCodeForCs.Append("\r\n" + "const strMsg = \"éœ€è¦çš„å¯¹è±¡çš„å…³é”®å­—ä¸ºç©º,ä¸èƒ½æ·»åŠ !\";");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
             strCodeForCs.Append("\r\n" + "}");
@@ -5018,14 +5772,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -5047,13 +5801,13 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// Ìí¼Ó¼ÇÂ¼,²¢ÇÒ·µ»Ø¹Ø¼ü×Ö
+        /// æ·»åŠ è®°å½•,å¹¶ä¸”è¿”å›å…³é”®å­—
         /// </summary>
         /// <returns></returns>
         public string Gen_4WA_Ts_UpdateWithCondition()
@@ -5061,12 +5815,12 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼şÀ´ĞŞ¸Ä¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶æ¥ä¿®æ”¹è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:ĞèÒªĞŞ¸ÄµÄ¶ÔÏó",
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:éœ€è¦ä¿®æ”¹çš„å¯¹è±¡",
                   ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param strWhereCond:Ìõ¼ş´®");
-            strCodeForCs.Append("\r\n * @returns ·µ»ØµÄµÚÒ»Ìõ¼ÇÂ¼µÄ¹Ø¼ü×ÖÖµ");
+            strCodeForCs.Append("\r\n * @param strWhereCond:æ¡ä»¶ä¸²");
+            strCodeForCs.Append("\r\n * @returns è¿”å›çš„ç¬¬ä¸€æ¡è®°å½•çš„å…³é”®å­—å€¼");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "UpdateWithCondition(obj{0}EN: cls{0}EN, strWhereCond: string , cb: (json: any) => void, errorCb: (json: any) => void)",
             ThisTabName4GC);
@@ -5078,7 +5832,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
              ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"¶ÔÏó(¹Ø¼ü×Ö: {{0}})µÄ¡¾ĞŞ¸Ä×Ö¶Î¼¯¡¿Îª¿Õ,²»ÄÜĞŞ¸Ä!\", obj{0}EN.{1});",
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"å¯¹è±¡(å…³é”®å­—: {{0}})çš„ã€ä¿®æ”¹å­—æ®µé›†ã€‘ä¸ºç©º,ä¸èƒ½ä¿®æ”¹!\", obj{0}EN.{1});",
                 ThisTabName4GC, objKeyField.FldName, "{", "}");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + " throw new Error(strMsg);");
@@ -5095,7 +5849,7 @@ ThisTabName4GC);
             //alert(JSON.stringify(result));
             strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
@@ -5116,7 +5870,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -5126,13 +5880,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¸ù¾İ¹Ø¼ü×ÖÅĞ¶ÏÊÇ·ñ´æÔÚ¼ÇÂ¼");
+            strCodeForCs.Append("\r\n * æ ¹æ®å…³é”®å­—åˆ¤æ–­æ˜¯å¦å­˜åœ¨è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:¹Ø¼ü×Ö", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾ÕıÈ·½á¹ûÊı¾İ");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBackº¯Êı,ÓÃÓÚÏÔÊ¾´íÎóĞÅÏ¢");
+            strCodeForCs.AppendFormat("\r\n * @param {0}:å…³é”®å­—", objKeyField.PrivFuncName);
+            strCodeForCs.Append("\r\n * @param cb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºæ­£ç¡®ç»“æœæ•°æ®");
+            strCodeForCs.Append("\r\n * @param errorCb:CallBackå‡½æ•°,ç”¨äºæ˜¾ç¤ºé”™è¯¯ä¿¡æ¯");
 
-            strCodeForCs.Append("\r\n * @returns ÊÇ·ñ´æÔÚ?´æÔÚ·µ»ØTrue");
+            strCodeForCs.Append("\r\n * @returns æ˜¯å¦å­˜åœ¨?å­˜åœ¨è¿”å›True");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "IsExist({0}: {1}, cb: (json: any) => void, errorCb: (json: any) => void)",
                     objKeyField.PrivFuncName, KeyDataType);
@@ -5140,7 +5894,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExist\";", ThisTabName4GC,
       objKeyField.FldName);
 
-            strCodeForCs.Append("\r\n" + "//¼ì²â¼ÇÂ¼ÊÇ·ñ´æÔÚ");
+            strCodeForCs.Append("\r\n" + "//æ£€æµ‹è®°å½•æ˜¯å¦å­˜åœ¨");
             strCodeForCs.Append("\r\n" + "const strAction = \"IsExist\";");
             strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
             strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
@@ -5172,14 +5926,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}²»³É¹¦!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}ä¸æˆåŠŸ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ÍøÂç´íÎó!·ÃÎÊµØÖ·:{0}¿ÉÄÜ²»´æÔÚ!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"ç½‘ç»œé”™è¯¯!è®¿é—®åœ°å€:{0}å¯èƒ½ä¸å­˜åœ¨!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strInfo);");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
             strCodeForCs.Append("\r\n" + "}");
@@ -5201,7 +5955,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -5211,14 +5965,14 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = "export  function " + this.tabNameHead + "GetWebApiUrl(strController: string, strAction: string): string ";
 
-            Re_objFunction4Code.FuncCHName4Code = "»ñÈ¡WebApiµÄµØÖ·";
+            Re_objFunction4Code.FuncCHName4Code = "è·å–WebApiçš„åœ°å€";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * »ñÈ¡WebApiµÄµØÖ·");
+            strCodeForCs.Append("\r\n * è·å–WebApiçš„åœ°å€");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @returns ·µ»Øµ±Ç°ÎÄ¼şÖĞWeb·şÎñµÄµØÖ·");
+            strCodeForCs.Append("\r\n * @returns è¿”å›å½“å‰æ–‡ä»¶ä¸­WebæœåŠ¡çš„åœ°å€");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + "GetWebApiUrl(strController: string, strAction: string): string {");
             strFuncName = $"{this.tabNameHead}GetWebApiUrl";
@@ -5247,7 +6001,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "return strServiceUrl;");
             strCodeForCs.Append("\r\n" + "}");
 
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -5258,27 +6012,27 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// Éú³ÉÖ¸¶¨µÄº¯Êı
+        /// ç”ŸæˆæŒ‡å®šçš„å‡½æ•°
         /// </summary>
-        /// <returns>·µ»ØÉú³ÉµÄÖ¸¶¨º¯Êı´úÂë</returns>
+        /// <returns>è¿”å›ç”Ÿæˆçš„æŒ‡å®šå‡½æ•°ä»£ç </returns>
         public override string GeneCode4Function(string strFuncId4GC, ref clsFunction4CodeEN Re_objFunction4Code)
         {
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; //ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; //ä¸´æ—¶å˜é‡;
             string strFuncName = "";
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncId4GCCacheEx(strFuncId4GC);
                 strFuncName = objvFunction4GeneCodeEN.FuncName;
 
-                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ÓÃ»§×Ô¶¨Òåº¯Êı
+                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ç”¨æˆ·è‡ªå®šä¹‰å‡½æ•°
                 {
                     strTemp = AutoGC_SelfDefineFunction.GeneCodeByFuncId(objvFunction4GeneCodeEN.FuncId4GC,
                         objPrjTabENEx.TabId, objPrjTabENEx.PrjDataBaseId, objPrjTabENEx.PrjId);
@@ -5300,7 +6054,7 @@ ThisTabName4GC);
             }
             catch (Exception objException)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.({2})", strFuncName,
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.({2})", strFuncName,
                     objException.Message,
                     clsStackTrace.GetCurrClassFunction());
                 clsSysParaEN_Local.objLog4GCError.WriteDebugLog(strMsg);
@@ -5316,28 +6070,28 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// Éú³ÉÖ¸¶¨µÄº¯Êı
+        /// ç”ŸæˆæŒ‡å®šçš„å‡½æ•°
         /// </summary>
-        /// <returns>·µ»ØÉú³ÉµÄÖ¸¶¨º¯Êı´úÂë</returns>
+        /// <returns>è¿”å›ç”Ÿæˆçš„æŒ‡å®šå‡½æ•°ä»£ç </returns>
         public string A_GenCode4Function_Java1(string strFuncId4GC)
         {
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; //ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; //ä¸´æ—¶å˜é‡;
             string strFuncName = "";
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncId4GCCacheEx(strFuncId4GC);
                 strFuncName = objvFunction4GeneCodeEN.FuncName;
 
-                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ÓÃ»§×Ô¶¨Òåº¯Êı
+                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ç”¨æˆ·è‡ªå®šä¹‰å‡½æ•°
                 {
                     strTemp = AutoGC_SelfDefineFunction.GeneCodeByFuncId(objvFunction4GeneCodeEN.FuncId4GC,
                         objPrjTabENEx.TabId, objPrjTabENEx.PrjDataBaseId, objPrjTabENEx.PrjId);
@@ -5364,7 +6118,7 @@ ThisTabName4GC);
             }
             catch (Exception objException)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.({2})", strFuncName,
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.({2})", strFuncName,
                     objException.Message,
                     clsStackTrace.GetCurrClassFunction());
                 clsSysParaEN_Local.objLog4GCError.WriteDebugLog(strMsg);
@@ -5380,28 +6134,28 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// Éú³ÉÖ¸¶¨µÄº¯Êı
+        /// ç”ŸæˆæŒ‡å®šçš„å‡½æ•°
         /// </summary>
-        /// <returns>·µ»ØÉú³ÉµÄÖ¸¶¨º¯Êı´úÂë</returns>
+        /// <returns>è¿”å›ç”Ÿæˆçš„æŒ‡å®šå‡½æ•°ä»£ç </returns>
         public string A_GenCode4Function_Swift41(string strFuncId4GC)
         {
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; //ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; //ä¸´æ—¶å˜é‡;
             string strFuncName = "";
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncId4GCCacheEx(strFuncId4GC);
                 strFuncName = objvFunction4GeneCodeEN.FuncName;
 
-                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ÓÃ»§×Ô¶¨Òåº¯Êı
+                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ç”¨æˆ·è‡ªå®šä¹‰å‡½æ•°
                 {
                     strTemp = AutoGC_SelfDefineFunction.GeneCodeByFuncId(objvFunction4GeneCodeEN.FuncId4GC,
                         objPrjTabENEx.TabId, objPrjTabENEx.PrjDataBaseId, objPrjTabENEx.PrjId);
@@ -5419,7 +6173,7 @@ ThisTabName4GC);
             }
             catch (Exception objException)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.({2})", strFuncName,
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.({2})", strFuncName,
                     objException.Message,
                     clsStackTrace.GetCurrClassFunction());
                 clsSysParaEN_Local.objLog4GCError.WriteDebugLog(strMsg);
@@ -5435,28 +6189,28 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// Éú³ÉÖ¸¶¨µÄº¯Êı
+        /// ç”ŸæˆæŒ‡å®šçš„å‡½æ•°
         /// </summary>
-        /// <returns>·µ»ØÉú³ÉµÄÖ¸¶¨º¯Êı´úÂë</returns>
+        /// <returns>è¿”å›ç”Ÿæˆçš„æŒ‡å®šå‡½æ•°ä»£ç </returns>
         public string A_GenCode4Function_JavaScript1(string strFuncId4GC)
         {
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; //ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; //ä¸´æ—¶å˜é‡;
             string strFuncName = "";
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncId4GCCacheEx(strFuncId4GC);
                 strFuncName = objvFunction4GeneCodeEN.FuncName;
 
-                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ÓÃ»§×Ô¶¨Òåº¯Êı
+                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ç”¨æˆ·è‡ªå®šä¹‰å‡½æ•°
                 {
                     strTemp = AutoGC_SelfDefineFunction.GeneCodeByFuncId(objvFunction4GeneCodeEN.FuncId4GC,
                         objPrjTabENEx.TabId, objPrjTabENEx.PrjDataBaseId, objPrjTabENEx.PrjId);
@@ -5474,7 +6228,7 @@ ThisTabName4GC);
             }
             catch (Exception objException)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.({2})", strFuncName,
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.({2})", strFuncName,
                     objException.Message,
                     clsStackTrace.GetCurrClassFunction());
                 clsSysParaEN_Local.objLog4GCError.WriteDebugLog(strMsg);
@@ -5490,28 +6244,28 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// Éú³ÉÖ¸¶¨µÄº¯Êı
+        /// ç”ŸæˆæŒ‡å®šçš„å‡½æ•°
         /// </summary>
-        /// <returns>·µ»ØÉú³ÉµÄÖ¸¶¨º¯Êı´úÂë</returns>
+        /// <returns>è¿”å›ç”Ÿæˆçš„æŒ‡å®šå‡½æ•°ä»£ç </returns>
         public string A_GenCode4Function_SilverLight1(string strFuncId4GC)
         {
-            StringBuilder strCodeForCs = new StringBuilder(); ///ÓÃÀ´´æ·ÅÓëWebFormÏà¹ØµÄÀàÎÄ¼ş´úÂë;
-            string strTemp; //ÁÙÊ±±äÁ¿;
+            StringBuilder strCodeForCs = new StringBuilder(); ///ç”¨æ¥å­˜æ”¾ä¸WebFormç›¸å…³çš„ç±»æ–‡ä»¶ä»£ç ;
+            string strTemp; //ä¸´æ—¶å˜é‡;
             string strFuncName = "";
             try
             {
-                //ÀàÃû¿ªÊ¼
+                //ç±»åå¼€å§‹
                 clsvFunction4GeneCodeEN objvFunction4GeneCodeEN = clsvFunction4GeneCodeBLEx.GetObjByFuncId4GCCacheEx(strFuncId4GC);
                 strFuncName = objvFunction4GeneCodeEN.FuncName;
 
-                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ÓÃ»§×Ô¶¨Òåº¯Êı
+                if (objvFunction4GeneCodeEN.FuncTypeId == "10")//ç”¨æˆ·è‡ªå®šä¹‰å‡½æ•°
                 {
                     strTemp = AutoGC_SelfDefineFunction.GeneCodeByFuncId(objvFunction4GeneCodeEN.FuncId4GC,
                         objPrjTabENEx.TabId, objPrjTabENEx.PrjDataBaseId, objPrjTabENEx.PrjId);
@@ -5529,7 +6283,7 @@ ThisTabName4GC);
             }
             catch (Exception objException)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£´íÎóĞÅÏ¢:{1}.({2})", strFuncName,
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚é”™è¯¯ä¿¡æ¯:{1}.({2})", strFuncName,
                     objException.Message,
                     clsStackTrace.GetCurrClassFunction());
                 clsSysParaEN_Local.objLog4GCError.WriteDebugLog(strMsg);
@@ -5545,7 +6299,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -5568,7 +6322,7 @@ ThisTabName4GC);
 
                 if (mt == null)
                 {
-                    string strMsg = string.Format("ÔÚÀàÖĞÃ»ÓĞÏàÓ¦µÄº¯Êı:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç±»ä¸­æ²¡æœ‰ç›¸åº”çš„å‡½æ•°:{0}.(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 else
@@ -5602,7 +6356,7 @@ ThisTabName4GC);
                 {
                     strMsg = objException.Message;
                 }
-                sbMessage.AppendFormat("ÔÚÉú³Éº¯Êı:{0}Ê±³ö´í. \r\n³ö´íĞÅÏ¢:{1}.", strFuncName, strMsg);
+                sbMessage.AppendFormat("åœ¨ç”Ÿæˆå‡½æ•°:{0}æ—¶å‡ºé”™. \r\nå‡ºé”™ä¿¡æ¯:{1}.", strFuncName, strMsg);
                 throw new Exception(sbMessage.ToString());
             }
         }
@@ -5632,32 +6386,32 @@ ThisTabName4GC);
                     if (objTabFeature_BindDdl == null) continue;
                     if (objTabFeature_BindDdl.IsNeedGC == false)
                     {
-                        strCodeForCs.Append("\r\n//¸Ã±íÏÂÀ­¿ò¹¦ÄÜ²»ĞèÒªÉú³É;");
+                        strCodeForCs.Append("\r\n//è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä¸éœ€è¦ç”Ÿæˆ;");
                         continue;
                     }
                     if (objTabFeature_BindDdl.IsExtendedClass == true)
                     {
-                        strCodeForCs.Append("\r\n//¸Ã±íÏÂÀ­¿ò¹¦ÄÜ½ö½öÊ¹ÓÃÔÚÀ©Õ¹Àà;");
+                        strCodeForCs.Append("\r\n//è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä»…ä»…ä½¿ç”¨åœ¨æ‰©å±•ç±»;");
                         continue;
                     }
 
                     if (objTabFeature_BindDdl.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.NameField_03) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞÃû³Æ×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
                     if (objTabFeature_BindDdl.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.KeyField_02) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞ¹Ø¼ü×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰å…³é”®å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
                     clsTabFeatureFldsEN objField_Key = objTabFeature_BindDdl.arrTabFeatureFldsSet().Find(x => x.FieldTypeId == enumFieldType.KeyField_02);
                     clsTabFeatureFldsEN objField_Name = objTabFeature_BindDdl.arrTabFeatureFldsSet().Find(x => x.FieldTypeId == enumFieldType.NameField_03);
                     clsTabFeatureFldsEN objField_OrderNum = objTabFeature_BindDdl.arrTabFeatureFldsSet().Find(x => x.FieldTypeId == enumFieldType.OrderNumField_09);
                     string strTextFieldName = objField_Name.ObjFieldTab().FldName;
                     string strValueFieldName = objField_Key.ObjFieldTab().FldName;
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
-                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[BindDdl_{0}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()}",
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
+                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[BindDdl_{0}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()}",
                     //strValueFieldName);
                     var strIsCache = "Cache";
                     if (objPrjTabENEx.IsUseStorageCache_TS() == false) strIsCache = "";
@@ -5666,9 +6420,9 @@ ThisTabName4GC);
                     {
 
                         strCodeForCs.Append("\r\n/**");
-                        strCodeForCs.Append("\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò");
+                        strCodeForCs.Append("\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†");
                         strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                        strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
+                        strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
                         strCodeForCs.Append("\r\n" + strFuncRemark);
                         strCodeForCs.Append("\r\n*/");
 
@@ -5685,14 +6439,14 @@ ThisTabName4GC);
         ThisTabName4GC, strValueFieldName, strTextFieldName);
                         strCodeForCs.Append("\r\n" + "if (objDdl == null)");
                         strCodeForCs.Append("\r\n" + "{");
-                        strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!(In {0})\", strDdlName);", strFuncName_Temp);
+                        strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!(In {0})\", strDdlName);", strFuncName_Temp);
                         strCodeForCs.Append("\r\n" + "alert(strMsg);");
                         strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                         strCodeForCs.Append("\r\n" + "throw (strMsg);");
                         strCodeForCs.Append("\r\n" + "}");
 
-                        strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                        strCodeForCs.AppendFormat("\r\n" + "//console.log(\"¿ªÊ¼£ºBindDdl_{0}Cache\");", strValueFieldName);
+                        strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                        strCodeForCs.AppendFormat("\r\n" + "//console.log(\"å¼€å§‹ï¼šBindDdl_{0}Cache\");", strValueFieldName);
 
                         var strLetOrConst = "const";
                         if (objFuncParaLst.GetLst.Count > 0)
@@ -5737,7 +6491,7 @@ ThisTabName4GC);
                         }
                         if (objPrjTabENEx.IsUseStorageCache_TS() == true)
                         {
-                            //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                            //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                             string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                             strCodeForCs.Append(strFilterCondition);
                         }
@@ -5754,7 +6508,7 @@ ThisTabName4GC);
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -5769,7 +6523,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -5803,12 +6557,12 @@ ThisTabName4GC);
                     if (objTabFeature == null) continue;
                     if (objTabFeature.IsNeedGC == false)
                     {
-                        strCodeForCs.Append("\r\n//¸Ã±íÏÂÀ­¿ò¹¦ÄÜ²»ĞèÒªÉú³É;");
+                        strCodeForCs.Append("\r\n//è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä¸éœ€è¦ç”Ÿæˆ;");
                         continue;
                     }
                     if (objTabFeature.IsExtendedClass == true)
                     {
-                        strCodeForCs.Append("\r\n//¸Ã±íÏÂÀ­¿ò¹¦ÄÜ½ö½öÊ¹ÓÃÔÚÀ©Õ¹Àà;");
+                        strCodeForCs.Append("\r\n//è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä»…ä»…ä½¿ç”¨åœ¨æ‰©å±•ç±»;");
                         continue;
                     }
                     if (objTabFeature4Ddl.IsHasErr)
@@ -5817,17 +6571,17 @@ ThisTabName4GC);
                     }
 
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
-                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[BindDdl_{0}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()}",
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
+                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[BindDdl_{0}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()}",
                     //strValueFieldName);
                     var strIsCache = "Cache";
                     if (objPrjTabENEx.IsUseStorageCache_TS() == false) strIsCache = "";
 
 
                     strCodeForCs.Append("\r\n/**");
-                    strCodeForCs.Append($"\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò(TabFeatureId:{objTabFeature.TabFeatureId})");
+                    strCodeForCs.Append($"\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†(TabFeatureId:{objTabFeature.TabFeatureId})");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
+                    strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
                     strCodeForCs.Append("\r\n" + objTabFeature4Ddl.FuncRemark);
                     strCodeForCs.Append("\r\n*/");
 
@@ -5844,14 +6598,14 @@ ThisTabName4GC);
     ThisTabName4GC, objTabFeature4Ddl.ValueFieldName, objTabFeature4Ddl.TextFieldName);
                     strCodeForCs.Append("\r\n" + "if (objDdl == null)");
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!(In {0})\", strDdlName);", strFuncName_Temp);
+                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!(In {0})\", strDdlName);", strFuncName_Temp);
                     strCodeForCs.Append("\r\n" + "alert(strMsg);");
                     strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                     strCodeForCs.Append("\r\n" + "throw (strMsg);");
                     strCodeForCs.Append("\r\n" + "}");
 
-                    strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                    strCodeForCs.AppendFormat("\r\n" + "//console.log(\"¿ªÊ¼£ºBindDdl_{0}Cache\");", objTabFeature4Ddl.ValueFieldName);
+                    strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                    strCodeForCs.AppendFormat("\r\n" + "//console.log(\"å¼€å§‹ï¼šBindDdl_{0}Cache\");", objTabFeature4Ddl.ValueFieldName);
 
                     if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
                     {
@@ -5874,7 +6628,7 @@ ThisTabName4GC);
                     }
                     if (objPrjTabENEx.IsUseStorageCache_TS() == true)
                     {
-                        //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                        //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                         strCodeForCs.Append(objTabFeature4Ddl.FilterCondition);
                     }
                     strCodeForCs.AppendFormat("\r\n" + "BindDdl_ObjLst(strDdlName, arrObjLstSel, cls{0}EN.con_{1}, cls{0}EN.con_{2}, \"{3}\");",
@@ -5890,7 +6644,7 @@ ThisTabName4GC);
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -5905,7 +6659,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -5915,8 +6669,8 @@ ThisTabName4GC);
 
         public string Gen_4WA_TabFeature_DdlBindFunctionInDivBak20240502()
         {
-            Re_objFunction4Code.FuncName4Code = "BindDdl[×Ö¶ÎÃû]InDivCache";
-            Re_objFunction4Code.FuncCHName4Code = string.Format("°ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò",
+            Re_objFunction4Code.FuncName4Code = "BindDdl[å­—æ®µå]InDivCache";
+            Re_objFunction4Code.FuncCHName4Code = string.Format("ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†",
                   ThisTabName4GC);
 
             List<string> arrCondFldName = new List<string>();
@@ -5929,14 +6683,14 @@ ThisTabName4GC);
             string strFuncName = "";
             try
             {
-                //Ô¤¼ì²é 
+                //é¢„æ£€æŸ¥ 
                 List<clsTabFeatureEN> arrTabFeature = objPrjTabENEx.arrTabFeatureSet().Where(x => x.FeatureId == enumPrjFeature.Tab_BindDdl_0173).ToList();
                 if (arrTabFeature.Count == 0)
                 {
-                    return "/* ¸Ã±íµÄÏÂÀ­¿ò¹¦ÄÜÃ»ÓĞÉèÖÃ,²»ĞèÒªÉú³ÉÏÂÀ­¿ò°ó¶¨º¯Êı¡£*/";
+                    return "/* è¯¥è¡¨çš„ä¸‹æ‹‰æ¡†åŠŸèƒ½æ²¡æœ‰è®¾ç½®,ä¸éœ€è¦ç”Ÿæˆä¸‹æ‹‰æ¡†ç»‘å®šå‡½æ•°ã€‚*/";
                 }
 
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objTabFeature_BindDdl in arrTabFeature)
                 {
                     List<string> arrCondFldId = objTabFeature_BindDdl.GetCondFldIdLst();
@@ -5953,36 +6707,36 @@ ThisTabName4GC);
                     string strFuncRemark = objFuncParaLst.GetFuncRemark();
                     strFuncPara = strFuncPara == "" ? "" : "," + strFuncPara;
 
-                    //Ô¤¼ì²é
+                    //é¢„æ£€æŸ¥
                     if (objTabFeature_BindDdl == null) continue;
-                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[{objTabFeature_BindDdl.FuncNameJs}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()} )";
+                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[{objTabFeature_BindDdl.FuncNameJs}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
                     var strIsCache = "Cache";
                     if (objPrjTabENEx.IsUseStorageCache_TS() == false) strIsCache = "";
                     if (objTabFeature_BindDdl.IsNeedGC == false)
                     {
-                        strCodeForCs.Append("\r\n//(IsNeedGC == false)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ²»ĞèÒªÉú³É;");
+                        strCodeForCs.Append("\r\n//(IsNeedGC == false)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä¸éœ€è¦ç”Ÿæˆ;");
                         continue;
                     }
                     if (objTabFeature_BindDdl.IsExtendedClass == true)
                     {
-                        strCodeForCs.Append("\r\n//(IsExtendedClass == true)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ½ö½öÊ¹ÓÃÔÚÀ©Õ¹Àà;");
+                        strCodeForCs.Append("\r\n//(IsExtendedClass == true)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä»…ä»…ä½¿ç”¨åœ¨æ‰©å±•ç±»;");
                         continue;
                     }
 
                     if (objTabFeature_BindDdl.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.NameField_03) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞÃû³Æ×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
                     if (objTabFeature_BindDdl.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.KeyField_02) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞ¹Ø¼ü×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰å…³é”®å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
 
                     string strFuncName_Temp = $"{objTabFeature_BindDdl.FuncNameJs}{strIsCache}";
 
-                    //Êı¾İÔ¤´¦Àí²¢¼ì²é
+                    //æ•°æ®é¢„å¤„ç†å¹¶æ£€æŸ¥
                     Re_objFunction4Code.FuncName4Code = $"{objTabFeature_BindDdl.FuncNameJs}Cache";
 
                     clsTabFeatureFldsEN objField_Key = objTabFeature_BindDdl.arrTabFeatureFldsSet().Find(x => x.FieldTypeId == enumFieldType.KeyField_02);
@@ -5990,11 +6744,11 @@ ThisTabName4GC);
                     string strTextFieldName = objField_Name.ObjFieldTab().FldName;
                     string strValueFieldName = objField_Key.ObjFieldTab().FldName;
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
 
                     if (strValueFieldName == "" || strTextFieldName == "") continue;
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
 
 
@@ -6012,11 +6766,11 @@ ThisTabName4GC);
 
 
                     strCodeForCs.Append("\r\n/**");
-                    strCodeForCs.Append("\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò");
+                    strCodeForCs.Append("\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†");
                     strCodeForCs.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
-                    strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
-                    //Éú³ÉÓëÌõ¼ş²ÎÊıµÄº¯ÊıËµÃ÷
+                    strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
+                    //ç”Ÿæˆä¸æ¡ä»¶å‚æ•°çš„å‡½æ•°è¯´æ˜
                     strCodeForCs.Append("\r\n" + strFuncRemark);
                     strCodeForCs.Append("\r\n*/");
 
@@ -6029,7 +6783,7 @@ ThisTabName4GC);
                     strCodeForCs.Append("\r\n" + "{");
                     //              strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"{0}Cache\";", objTabFeature_BindDdl.FuncNameJs,
                     //objKeyField.FldName);
-                    //Éú³É¼ì²éÌõ¼ş²ÎÊıÊÇ·ñÎª¿ÕµÄ´úÂë
+                    //ç”Ÿæˆæ£€æŸ¥æ¡ä»¶å‚æ•°æ˜¯å¦ä¸ºç©ºçš„ä»£ç 
                     strCodeForCs.AppendLine(strCodeText_CheckEmpty);
 
 
@@ -6037,16 +6791,16 @@ ThisTabName4GC);
     ThisTabName4GC, strValueFieldName, strTextFieldName);
                     strCodeForCs.Append("\r\n" + "if (objDdl == null)");
                     strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!(In {0})\", strDdlName);",
+                    strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!(In {0})\", strDdlName);",
                         objTabFeature_BindDdl.FuncNameJs);
                     strCodeForCs.Append("\r\n" + "alert(strMsg);");
                     strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                     strCodeForCs.Append("\r\n" + "throw (strMsg);");
                     strCodeForCs.Append("\r\n" + "}");
 
-                    strCodeForCs.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                    strCodeForCs.AppendFormat("\r\n" + "//console.log(\"¿ªÊ¼£º{0}Cache\");", objTabFeature_BindDdl.FuncNameJs);
-                    //strCodeForCs.AppendFormat("\r\n" + "System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(\"Ñ¡[{0}]...\",\"0\");",
+                    strCodeForCs.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                    strCodeForCs.AppendFormat("\r\n" + "//console.log(\"å¼€å§‹ï¼š{0}Cache\");", objTabFeature_BindDdl.FuncNameJs);
+                    //strCodeForCs.AppendFormat("\r\n" + "System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(\"é€‰[{0}]...\",\"0\");",
                     //                  objPrjTabENEx.TabCnName);
 
                     //                strCodeForCs.AppendFormat("\r\n" + "string strCondition = string.Format(\"1 =1 Order By {{0}}\", cls{0}EN.con_{1}); ",
@@ -6084,7 +6838,7 @@ ThisTabName4GC);
                     }
                     strCodeForCs.Append("\r\n" + "if (arrObjLstSel == null) return;");
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     //string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     if (objPrjTabENEx.IsUseStorageCache_TS() == true)
                     {
@@ -6141,7 +6895,7 @@ ThisTabName4GC);
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -6156,7 +6910,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -6164,8 +6918,8 @@ ThisTabName4GC);
 
         public string Gen_4WA_TabFeature_DdlBindFunctionInDiv()
         {
-            Re_objFunction4Code.FuncName4Code = "BindDdl[×Ö¶ÎÃû]InDivCache";
-            Re_objFunction4Code.FuncCHName4Code = string.Format("°ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò",
+            Re_objFunction4Code.FuncName4Code = "BindDdl[å­—æ®µå]InDivCache";
+            Re_objFunction4Code.FuncCHName4Code = string.Format("ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†",
                   ThisTabName4GC);
 
             List<string> arrCondFldName = new List<string>();
@@ -6178,14 +6932,14 @@ ThisTabName4GC);
             string strFuncName = "";
             try
             {
-                //Ô¤¼ì²é 
+                //é¢„æ£€æŸ¥ 
                 List<clsTabFeatureEN> arrTabFeature = objPrjTabENEx.arrTabFeatureSet().Where(x => x.FeatureId == enumPrjFeature.Tab_BindDdl_0173).ToList();
                 if (arrTabFeature.Count == 0)
                 {
-                    return "/* ¸Ã±íµÄÏÂÀ­¿ò¹¦ÄÜÃ»ÓĞÉèÖÃ,²»ĞèÒªÉú³ÉÏÂÀ­¿ò°ó¶¨º¯Êı¡£*/";
+                    return "/* è¯¥è¡¨çš„ä¸‹æ‹‰æ¡†åŠŸèƒ½æ²¡æœ‰è®¾ç½®,ä¸éœ€è¦ç”Ÿæˆä¸‹æ‹‰æ¡†ç»‘å®šå‡½æ•°ã€‚*/";
                 }
 
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objTabFeature in arrTabFeature)
                 {
                     StringBuilder sbTempFun = new StringBuilder();
@@ -6205,54 +6959,54 @@ ThisTabName4GC);
                     string strFuncRemark = objFuncParaLst.GetFuncRemark();
                     strFuncPara = strFuncPara == "" ? "" : "," + strFuncPara;
 
-                    //Ô¤¼ì²é
+                    //é¢„æ£€æŸ¥
                     if (objTabFeature == null) continue;
-                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[{objTabFeature_BindDdl.FuncNameJs}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()} )";
+                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[{objTabFeature_BindDdl.FuncNameJs}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
 
                     if (objTabFeature.IsNeedGC == false)
                     {
-                        sbTempFun.Append("\r\n//(IsNeedGC == false)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ²»ĞèÒªÉú³É;");
+                        sbTempFun.Append("\r\n//(IsNeedGC == false)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä¸éœ€è¦ç”Ÿæˆ;");
                         continue;
                     }
                     if (objTabFeature.IsExtendedClass == true)
                     {
-                        sbTempFun.Append("\r\n//(IsExtendedClass == true)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ½ö½öÊ¹ÓÃÔÚÀ©Õ¹Àà;");
+                        sbTempFun.Append("\r\n//(IsExtendedClass == true)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä»…ä»…ä½¿ç”¨åœ¨æ‰©å±•ç±»;");
                         continue;
                     }
 
                     if (objTabFeature.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.NameField_03) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞÃû³Æ×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
                     if (objTabFeature.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.KeyField_02) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞ¹Ø¼ü×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰å…³é”®å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
 
                     //string strFuncName_Temp = $"{objTabFeature.FuncNameJs}{strIsCache}";
 
-                    //Êı¾İÔ¤´¦Àí²¢¼ì²é
+                    //æ•°æ®é¢„å¤„ç†å¹¶æ£€æŸ¥
                     Re_objFunction4Code.FuncName4Code = string.Format("Cache",
         objTabFeature.FuncNameJs);
 
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
                     if (objTabFeature4Ddl.IsHasErr)
                     {
                         throw new Exception(objTabFeature4Ddl.ErrMsg_Ddl);
                     }
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     
                     sbTempFun.Append("\r\n/**");
-                    sbTempFun.Append($"\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò(TabFeatureId:{objTabFeature.TabFeatureId})");
+                    sbTempFun.Append($"\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†(TabFeatureId:{objTabFeature.TabFeatureId})");
                     sbTempFun.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
-                    sbTempFun.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
-                    //Éú³ÉÓëÌõ¼ş²ÎÊıµÄº¯ÊıËµÃ÷
+                    sbTempFun.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
+                    //ç”Ÿæˆä¸æ¡ä»¶å‚æ•°çš„å‡½æ•°è¯´æ˜
                     sbTempFun.Append("\r\n" + strFuncRemark);
                     sbTempFun.Append("\r\n*/");
 
@@ -6265,22 +7019,22 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n" + "{");
                     //              sbTempFun.AppendFormat("\r\n" + "const strThisFuncName = \"{0}Cache\";", objTabFeature_BindDdl.FuncNameJs,
                     //objKeyField.FldName);
-                    //Éú³É¼ì²éÌõ¼ş²ÎÊıÊÇ·ñÎª¿ÕµÄ´úÂë
+                    //ç”Ÿæˆæ£€æŸ¥æ¡ä»¶å‚æ•°æ˜¯å¦ä¸ºç©ºçš„ä»£ç 
                     sbTempFun.AppendLine(strCodeText_CheckEmpty);
 
                     sbTempFun.AppendFormat("\r\n" + "const objDdl = document.getElementById(strDdlName);",
     objTabFeature4Ddl.TabName4GC, objTabFeature4Ddl.ValueFieldName, objTabFeature4Ddl.TextFieldName);
                     sbTempFun.Append("\r\n" + "if (objDdl == null)");
                     sbTempFun.Append("\r\n" + "{");
-                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"ÏÂÀ­¿ò£º{{0}} ²»´æÔÚ!(In {0})\", strDdlName);",
+                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"ä¸‹æ‹‰æ¡†ï¼š{{0}} ä¸å­˜åœ¨!(In {0})\", strDdlName);",
                         objTabFeature.FuncNameJs);
                     sbTempFun.Append("\r\n" + "alert(strMsg);");
                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
                     sbTempFun.Append("\r\n" + "throw (strMsg);");
                     sbTempFun.Append("\r\n" + "}");
 
-                    sbTempFun.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                    sbTempFun.AppendFormat("\r\n" + "//console.log(\"¿ªÊ¼£º{0}Cache\");", objTabFeature.FuncNameJs);
+                    sbTempFun.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                    sbTempFun.AppendFormat("\r\n" + "//console.log(\"å¼€å§‹ï¼š{0}Cache\");", objTabFeature.FuncNameJs);
 
                     if (objPrjTabENEx.IsUseStorageCache_TS() == false)
                     {
@@ -6314,7 +7068,7 @@ ThisTabName4GC);
                     }
                     sbTempFun.Append("\r\n" + "if (arrObjLstSel == null) return;");
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     //string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     if (objPrjTabENEx.IsUseStorageCache_TS() == true)
                     {
@@ -6378,7 +7132,7 @@ ThisTabName4GC);
                     });
                     if (strFuncName == "")
                     {
-                        string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                        string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                     }
                     strCodeForCs.Append(sbTempFun);
@@ -6388,7 +7142,7 @@ ThisTabName4GC);
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -6403,7 +7157,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -6412,8 +7166,8 @@ ThisTabName4GC);
 
         public string Gen_4WA_TabFeature_GetDdlData()
         {
-            Re_objFunction4Code.FuncName4Code = "BindDdl[×Ö¶ÎÃû]InDivCache";
-            Re_objFunction4Code.FuncCHName4Code = string.Format("°ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò",
+            Re_objFunction4Code.FuncName4Code = "BindDdl[å­—æ®µå]InDivCache";
+            Re_objFunction4Code.FuncCHName4Code = string.Format("ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†",
                   ThisTabName4GC);
 
             List<string> arrCondFldName = new List<string>();
@@ -6426,14 +7180,14 @@ ThisTabName4GC);
             string strFuncName = "";
             try
             {
-                //Ô¤¼ì²é 
+                //é¢„æ£€æŸ¥ 
                 List<clsTabFeatureEN> arrTabFeature = objPrjTabENEx.arrTabFeatureSet().Where(x => x.FeatureId == enumPrjFeature.Tab_BindDdl_0173).ToList();
                 if (arrTabFeature.Count == 0)
                 {
-                    return "/* ¸Ã±íµÄÏÂÀ­¿ò¹¦ÄÜÃ»ÓĞÉèÖÃ,²»ĞèÒªÉú³ÉÏÂÀ­¿ò°ó¶¨º¯Êı¡£*/";
+                    return "/* è¯¥è¡¨çš„ä¸‹æ‹‰æ¡†åŠŸèƒ½æ²¡æœ‰è®¾ç½®,ä¸éœ€è¦ç”Ÿæˆä¸‹æ‹‰æ¡†ç»‘å®šå‡½æ•°ã€‚*/";
                 }
 
-                //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+                //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
                 foreach (var objTabFeature in arrTabFeature)
                 {
                     StringBuilder sbTempFun = new StringBuilder();
@@ -6453,53 +7207,53 @@ ThisTabName4GC);
                     string strFuncRemark = objFuncParaLst.GetFuncRemark();
                     //strFuncPara = strFuncPara == "" ? "" : "," + strFuncPara;
 
-                    //Ô¤¼ì²é
+                    //é¢„æ£€æŸ¥
                     if (objTabFeature == null) continue;
-                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[{objTabFeature_BindDdl.FuncNameJs}Cache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()} )";
+                    //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[{objTabFeature_BindDdl.FuncNameJs}Cache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
 
                     if (objTabFeature.IsNeedGC == false)
                     {
-                        sbTempFun.Append("\r\n//(IsNeedGC == false)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ²»ĞèÒªÉú³É;");
+                        sbTempFun.Append("\r\n//(IsNeedGC == false)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä¸éœ€è¦ç”Ÿæˆ;");
                         continue;
                     }
                     if (objTabFeature.IsExtendedClass == true)
                     {
-                        sbTempFun.Append("\r\n//(IsExtendedClass == true)¸Ã±íÏÂÀ­¿ò¹¦ÄÜ½ö½öÊ¹ÓÃÔÚÀ©Õ¹Àà;");
+                        sbTempFun.Append("\r\n//(IsExtendedClass == true)è¯¥è¡¨ä¸‹æ‹‰æ¡†åŠŸèƒ½ä»…ä»…ä½¿ç”¨åœ¨æ‰©å±•ç±»;");
                         continue;
                     }
 
                     if (objTabFeature.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.NameField_03) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞÃû³Æ×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰åç§°å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
                     if (objTabFeature.arrTabFeatureFldsSet().Exists(x => x.FieldTypeId == enumFieldType.KeyField_02) == false)
                     {
                         continue;
-                        //                        throw new Exception("µ±Ç°±íÃ»ÓĞ¹Ø¼ü×Ö¶Î,²»ÄÜÌí¼Ó°ó¶¨ÏÂÀ­¿ò¹¦ÄÜ!");
+                        //                        throw new Exception("å½“å‰è¡¨æ²¡æœ‰å…³é”®å­—æ®µ,ä¸èƒ½æ·»åŠ ç»‘å®šä¸‹æ‹‰æ¡†åŠŸèƒ½!");
                     }
 
                     //string strFuncName_Temp = $"{objTabFeature.FuncNameJs}{strIsCache}";
 
-                    //Êı¾İÔ¤´¦Àí²¢¼ì²é
+                    //æ•°æ®é¢„å¤„ç†å¹¶æ£€æŸ¥
                     Re_objFunction4Code.FuncName4Code = $"{objTabFeature.FuncNameJs}Cache";
 
 
-                    //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+                    //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
                     if (objTabFeature4Ddl.IsHasErr)
                     {
                         throw new Exception(objTabFeature4Ddl.ErrMsg_Ddl);
                     }
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
 
                     sbTempFun.Append("\r\n/**");
-                    sbTempFun.Append($"\r\n * °ó¶¨»ùÓÚWebµÄÏÂÀ­¿ò,ÔÚÄ³Ò»²ãÏÂµÄÏÂÀ­¿ò(TabFeatureId:{objTabFeature.TabFeatureId})");
+                    sbTempFun.Append($"\r\n * ç»‘å®šåŸºäºWebçš„ä¸‹æ‹‰æ¡†,åœ¨æŸä¸€å±‚ä¸‹çš„ä¸‹æ‹‰æ¡†(TabFeatureId:{objTabFeature.TabFeatureId})");
                     sbTempFun.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
-                    sbTempFun.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
-                    //Éú³ÉÓëÌõ¼ş²ÎÊıµÄº¯ÊıËµÃ÷
+                    sbTempFun.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
+                    //ç”Ÿæˆä¸æ¡ä»¶å‚æ•°çš„å‡½æ•°è¯´æ˜
                     sbTempFun.Append("\r\n" + strFuncRemark);
                     sbTempFun.Append("\r\n*/");
                     string strByCondition = "";
@@ -6520,12 +7274,12 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n" + "{");
                     //              sbTempFun.AppendFormat("\r\n" + "const strThisFuncName = \"{0}Cache\";", objTabFeature_BindDdl.FuncNameJs,
                     //objKeyField.FldName);
-                    //Éú³É¼ì²éÌõ¼ş²ÎÊıÊÇ·ñÎª¿ÕµÄ´úÂë
+                    //ç”Ÿæˆæ£€æŸ¥æ¡ä»¶å‚æ•°æ˜¯å¦ä¸ºç©ºçš„ä»£ç 
                     sbTempFun.AppendLine(strCodeText_CheckEmpty);
 
 
-                    sbTempFun.Append("\r\n" + "//ÎªÊı¾İÔ´ÓÚ±íµÄÏÂÀ­¿òÉèÖÃÄÚÈİ");
-                    sbTempFun.AppendFormat("\r\n" + "//console.log(\"¿ªÊ¼£º{0}Cache\");", objTabFeature.FuncNameJs);
+                    sbTempFun.Append("\r\n" + "//ä¸ºæ•°æ®æºäºè¡¨çš„ä¸‹æ‹‰æ¡†è®¾ç½®å†…å®¹");
+                    sbTempFun.AppendFormat("\r\n" + "//console.log(\"å¼€å§‹ï¼š{0}Cache\");", objTabFeature.FuncNameJs);
                     sbTempFun.Append("\r\n" + $"const arr{objTabFeature4Ddl.TabName4GC} = new Array<cls{objTabFeature4Ddl.TabName4GC}EN>();");
 
                     if (objPrjTabENEx.IsUseStorageCache_TS() == false)
@@ -6560,7 +7314,7 @@ ThisTabName4GC);
                     }
                     sbTempFun.Append("\r\n" + "if (arrObjLstSel == null) return null;");
 
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
                     //string strFilterCondition = objFuncParaLst.GeneFilterCondition();
                     if (objPrjTabENEx.IsUseStorageCache_TS() == true)
                     {
@@ -6607,13 +7361,13 @@ ThisTabName4GC);
                     string strToolTipText = $"{objTabFeature4Ddl.ToolTipText ?? ""}...".Replace("......", "...");
                     if (string.IsNullOrEmpty(objTabFeature4Ddl.ToolTipText) == true)
                     {
-                        strToolTipText = $"Ñ¡{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
+                        strToolTipText = $"é€‰{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
                     }
 
                     sbTempFun.Append("\r\n" + $"obj0.{clsString.FstLcaseS(objTabFeature4Ddl.TextFieldName)} = '{strToolTipText}';");
 
                     sbTempFun.Append("\r\n" + $"arr{objTabFeature4Ddl.TabName4GC}.push(obj0);");
-                    //Éú³É¹ıÂËÌõ¼şÓï¾ä
+                    //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
 
                     sbTempFun.Append("\r\n" + $"arrObjLstSel.forEach(x => arr{objTabFeature4Ddl.TabName4GC}.push(x));");
 
@@ -6630,7 +7384,7 @@ ThisTabName4GC);
                     });
                     if (strFuncName == "")
                     {
-                        string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                        string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                     }
                     strCodeForCs.Append(sbTempFun);
@@ -6640,7 +7394,7 @@ ThisTabName4GC);
 
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -6655,7 +7409,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -6666,21 +7420,21 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¼ì²éÀàÖĞÊôĞÔÊÇ·ñÕıÈ·-------------------------------------------;
+            ///æ£€æŸ¥ç±»ä¸­å±æ€§æ˜¯å¦æ­£ç¡®-------------------------------------------;
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ¼ì²é¶ÔÏó×Ö¶ÎÖµÊÇ·ñºÏ·¨,1)¼ì²éÊÇ·ñ¿É¿Õ;2)¼ì²é×Ö¶ÎÖµ³¤¶ÈÊÇ·ñ³¬³¤,Èç¹û³ö´í¾ÍÅ×³ö´íÎó.");
+            strCodeForCs.Append("\r\n * æ£€æŸ¥å¯¹è±¡å­—æ®µå€¼æ˜¯å¦åˆæ³•,1)æ£€æŸ¥æ˜¯å¦å¯ç©º;2)æ£€æŸ¥å­—æ®µå€¼é•¿åº¦æ˜¯å¦è¶…é•¿,å¦‚æœå‡ºé”™å°±æŠ›å‡ºé”™è¯¯.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckPropertyNew)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
             strCodeForCs.Append("\r\n{");
             string strFunctionName = string.Format("CheckPropertyNew0", ThisTabName4GC, objKeyField.FldName);
-            string strExplanation = "×Ö¶Î[{1}|{0}]²»ÄÜÎª¿Õ(NULL)!";
+            string strExplanation = "å­—æ®µ[{1}|{0}]ä¸èƒ½ä¸ºç©º(NULL)!";
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "Éú³É´úÂë");
-            strCodeForCs.Append("\r\n//¼ì²é×Ö¶Î·Ç¿Õ, ¼´Êı¾İ±íÒªÇó·Ç³£·Ç¿ÕµÄ×Ö¶Î,²»ÄÜÎª¿Õ!");
+                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "ç”Ÿæˆä»£ç ");
+            strCodeForCs.Append("\r\n//æ£€æŸ¥å­—æ®µéç©º, å³æ•°æ®è¡¨è¦æ±‚éå¸¸éç©ºçš„å­—æ®µ,ä¸èƒ½ä¸ºç©º!");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//Ö»¶Á¾Í²»ĞèÒª¼ì²é
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//åªè¯»å°±ä¸éœ€è¦æ£€æŸ¥
 
                 if (objField.IsTabNullable == false
                     && objField.FieldTypeId != enumFieldType.KeyField_02
@@ -6690,49 +7444,49 @@ ThisTabName4GC);
                 }
             }
 
-            //¼ì²éÊôĞÔ³¤¶È´úÂë;
+            //æ£€æŸ¥å±æ€§é•¿åº¦ä»£ç ;
             strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckPropertyNew"));
 
-            //¼ì²é×Ö¶ÎµÄÊı¾İÀàĞÍÊÇ·ñÕıÈ·
+            //æ£€æŸ¥å­—æ®µçš„æ•°æ®ç±»å‹æ˜¯å¦æ­£ç¡®
             strCodeForCs.Append(inGen_CheckDataType_Ts(strFunctionName));
 
-            //¼ì²éÍâ¼ü×Ö¶Î³¤¶È;
+            //æ£€æŸ¥å¤–é”®å­—æ®µé•¿åº¦;
 
             strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckPropertyNew"));
 
 
-            strCodeForCs.Append("\r\n//ÉèÖÃËµÃ÷¸Ã¶ÔÏóÒÑ¾­¼ì²é¹ıÁË,ºóÃæ²»ĞèÒªÔÙ¼ì²é,¼´·Ç·¨!");
+            strCodeForCs.Append("\r\n//è®¾ç½®è¯´æ˜è¯¥å¯¹è±¡å·²ç»æ£€æŸ¥è¿‡äº†,åé¢ä¸éœ€è¦å†æ£€æŸ¥,å³éæ³•!");
 
             //strCodeForCs.AppendFormat("\r\n pobj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
 
 
-            ///¼ì²éÀàÖĞÊôĞÔÊÇ·ñÕıÈ·-------------------------------------------;
+            ///æ£€æŸ¥ç±»ä¸­å±æ€§æ˜¯å¦æ­£ç¡®-------------------------------------------;
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * ×¨ÒµÕë¶ÔĞŞ¸Ä¼ÇÂ¼,¼ì²é¶ÔÏó×Ö¶ÎÖµÊÇ·ñºÏ·¨,1)¼ì²é×Ö¶ÎÖµ³¤¶ÈÊÇ·ñ³¬³¤,Èç¹û³ö´í¾ÍÅ×³ö´íÎó.");
+            strCodeForCs.Append("\r\n * ä¸“ä¸šé’ˆå¯¹ä¿®æ”¹è®°å½•,æ£€æŸ¥å¯¹è±¡å­—æ®µå€¼æ˜¯å¦åˆæ³•,1)æ£€æŸ¥å­—æ®µå€¼é•¿åº¦æ˜¯å¦è¶…é•¿,å¦‚æœå‡ºé”™å°±æŠ›å‡ºé”™è¯¯.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckProperty4Update)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
             strFuncName = $"{thisWA_F(WA_F.CheckProperty4Update)}";
             strCodeForCs.Append("\r\n{");
-            //¼ì²éÊôĞÔ³¤¶È´úÂë;
+            //æ£€æŸ¥å±æ€§é•¿åº¦ä»£ç ;
 
             strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckProperty4Update"));
 
-            //¼ì²éÊı¾İÀàĞÍÊÇ·ñÕıÈ·
+            //æ£€æŸ¥æ•°æ®ç±»å‹æ˜¯å¦æ­£ç¡®
             strCodeForCs.Append(inGen_CheckDataType_Ts("CheckProperty4Update"));
 
-            //¼ì²éÖ÷¼üÊÇ·ñNull
+            //æ£€æŸ¥ä¸»é”®æ˜¯å¦Null
             strFunctionName = string.Format("CheckProperty4Update", ThisTabName4GC, objKeyField.FldName);
-            strExplanation = "×Ö¶Î[{1}|{0}]²»ÄÜÎª¿Õ(NULL)!";
+            strExplanation = "å­—æ®µ[{1}|{0}]ä¸èƒ½ä¸ºç©º(NULL)!";
             strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "Éú³É´úÂë");
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "ç”Ÿæˆä»£ç ");
 
-            strCodeForCs.Append("\r\n//¼ì²éÖ÷¼üÊÇ·ñÎªNull»òÕß¿Õ!");
+            strCodeForCs.Append("\r\n//æ£€æŸ¥ä¸»é”®æ˜¯å¦ä¸ºNullæˆ–è€…ç©º!");
 
             strCodeForCs.Append(inGen_CheckNull4Field_Ts(objPrjTabENEx.objKeyField0, strErrId, "CheckProperty4Update"));
-            ///¼ì²éÍâ¼ü×Ö¶Î³¤¶È;
+            ///æ£€æŸ¥å¤–é”®å­—æ®µé•¿åº¦;
 
             strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckProperty4Update"));
 
@@ -6740,7 +7494,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
 
-            ///¼ì²éÀàÖĞÊôĞÔÊÇ·ñÕıÈ· ==  ==  == = ;
+            ///æ£€æŸ¥ç±»ä¸­å±æ€§æ˜¯å¦æ­£ç¡® ==  ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -6751,7 +7505,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -6766,27 +7520,27 @@ ThisTabName4GC);
             }
 
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó(¼òµ¥)");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡(ç®€å•)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "CopyObjToSimObj(obj{0}ENS: cls{0}EN , obj{0}ENT: cls{0}EN ): void ", ThisTabName4GC);
             strCodeForCs.Append("\r\n{");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0004") continue;//²»¶Á²»Ğ´
-                if (objField.FldOpTypeId == "0002") //Ö»¶Á²»Ğ´
+                if (objField.FldOpTypeId == "0004") continue;//ä¸è¯»ä¸å†™
+                if (objField.FldOpTypeId == "0002") //åªè¯»ä¸å†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.Set{1}(obj{0}ENS.{2}); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.FldName,
 
                       objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase), objField.ColCaption);
                 }
-                else if (objField.FldOpTypeId == "0003") //Ö»Ğ´
+                else if (objField.FldOpTypeId == "0003") //åªå†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.{1} = obj{0}ENS.Get{2}(); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase), objField.ObjFieldTabENEx.FldName, objField.ObjFieldTabENEx.PrivPropName, objField.ColCaption);
@@ -6799,14 +7553,14 @@ ThisTabName4GC);
             }
             if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlTab_01)
             {
-                strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.sfUpdFldSetStr = obj{0}ENS.updFldString; //×¨ÃÅÓÃÓÚ¼ÇÂ¼Ä³×Ö¶ÎÊôĞÔÊÇ·ñĞŞ¸Ä",
+                strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.sfUpdFldSetStr = obj{0}ENS.updFldString; //ä¸“é—¨ç”¨äºè®°å½•æŸå­—æ®µå±æ€§æ˜¯å¦ä¿®æ”¹",
                 ThisTabName4GC);
             }
-            strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.sfFldComparisonOp = obj{0}ENS.sfFldComparisonOp; //×¨ÃÅÓÃÓÚ¼ÇÂ¼Ìõ¼ş¶ÔÏóÄ³×Ö¶ÎµÄ±È½ÏÔËËã·û",
+            strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.sfFldComparisonOp = obj{0}ENS.sfFldComparisonOp; //ä¸“é—¨ç”¨äºè®°å½•æ¡ä»¶å¯¹è±¡æŸå­—æ®µçš„æ¯”è¾ƒè¿ç®—ç¬¦",
                 ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -6817,7 +7571,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -6828,13 +7582,13 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó(¼òµ¥)");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡(ç®€å•)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetObjFromSimObj(obj{0}ENS: cls{0}EN_Sim ): cls{0}EN ", ThisTabName4GC);
             strCodeForCs.Append("\r\n{");
@@ -6845,7 +7599,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n return obj{0}ENT;", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -6856,7 +7610,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -6871,28 +7625,28 @@ ThisTabName4GC);
             //}
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "CopyObjTo(obj{0}ENS: cls{0}EN , obj{0}ENT: cls{0}EN ): void ", ThisTabName4GC);
             strFuncName = $"{this.tabNameHead}CopyObjTo";
             strCodeForCs.Append("\r\n{");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0004") continue;//²»¶Á²»Ğ´
-                if (objField.FldOpTypeId == "0002") //Ö»¶Á²»Ğ´
+                if (objField.FldOpTypeId == "0004") continue;//ä¸è¯»ä¸å†™
+                if (objField.FldOpTypeId == "0002") //åªè¯»ä¸å†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.Set{1}(obj{0}ENS.{1}); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.FldName,
                       objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                       objField.ObjFieldTabENEx.PrivPropName, objField.ColCaption);
                 }
-                else if (objField.FldOpTypeId == "0003") //Ö»Ğ´
+                else if (objField.FldOpTypeId == "0003") //åªå†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.{1} = obj{0}ENS.Get{2}(); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase), objField.ObjFieldTabENEx.FldName, objField.ObjFieldTabENEx.PrivPropName, objField.ColCaption);
@@ -6909,7 +7663,7 @@ ThisTabName4GC);
                 ThisTabName4GC);
             }
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -6920,7 +7674,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -6938,9 +7692,9 @@ ThisTabName4GC);
             try
             {
                 strCodeForCs.Append("\r\n/**");
-                strCodeForCs.Append("\r\n * ¸ù¾İÌõ¼ş¶ÔÏóÖĞµÄ×Ö¶ÎÄÚÈİ×éºÏ³ÉÒ»¸öÌõ¼ş´®");
+                strCodeForCs.Append("\r\n * æ ¹æ®æ¡ä»¶å¯¹è±¡ä¸­çš„å­—æ®µå†…å®¹ç»„åˆæˆä¸€ä¸ªæ¡ä»¶ä¸²");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                strCodeForCs.Append("\r\n * @returns Ìõ¼ş´®(strWhereCond)");
+                strCodeForCs.Append("\r\n * @returns æ¡ä»¶ä¸²(strWhereCond)");
                 strCodeForCs.Append("\r\n*/");
                 strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetCombineCondition({1}: {0} ):string", ThisClsName4EN, ThisObjName4Cond);
                 strFuncName = $"{this.tabNameHead}GetCombineCondition";
@@ -6948,10 +7702,10 @@ ThisTabName4GC);
                 //          strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetCombineCondition\";", ThisTabName4GC,
                 //objKeyField.FldName);
 
-                strCodeForCs.Append("\r\n" + "//Ê¹Ìõ¼ş´®µÄ³õÖµÎª\"1 = 1\",ÒÔ±ãÔÚ¸Ã´®µÄºóÃæÓÃ\"and \"Ìí¼ÓÆäËûÌõ¼ş,");
-                strCodeForCs.Append("\r\n" + "//ÀıÈç 1 = 1 && UserName = 'ÕÅÈı'");
+                strCodeForCs.Append("\r\n" + "//ä½¿æ¡ä»¶ä¸²çš„åˆå€¼ä¸º\"1 = 1\",ä»¥ä¾¿åœ¨è¯¥ä¸²çš„åé¢ç”¨\"and \"æ·»åŠ å…¶ä»–æ¡ä»¶,");
+                strCodeForCs.Append("\r\n" + "//ä¾‹å¦‚ 1 = 1 && UserName = 'å¼ ä¸‰'");
                 strCodeForCs.Append("\r\n" + "let strWhereCond = \" 1 = 1 \";");
-                strCodeForCs.Append("\r\n" + "//Èç¹û¸ÃÌõ¼ş¿Ø¼şµÄÄÚÈİ²»Îª¿Õ,¾Í×é³ÉÒ»¸öÌõ¼ş²¢Ìí¼Óµ½×ÜÌõ¼ş´®ÖĞ¡£");
+                strCodeForCs.Append("\r\n" + "//å¦‚æœè¯¥æ¡ä»¶æ§ä»¶çš„å†…å®¹ä¸ä¸ºç©º,å°±ç»„æˆä¸€ä¸ªæ¡ä»¶å¹¶æ·»åŠ åˆ°æ€»æ¡ä»¶ä¸²ä¸­ã€‚");
 
 
                 foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
@@ -7042,7 +7796,7 @@ ThisTabName4GC);
                             strCodeForCs.Append("\r\n" + "}");
                             break;
                         default:
-                            strCodeForCs.AppendFormat("\r\n" + "//Êı¾İÀàĞÍ{0}({1})ÔÚº¯Êı:[{2}]ÖĞÃ»ÓĞ´¦Àí!",
+                            strCodeForCs.AppendFormat("\r\n" + "//æ•°æ®ç±»å‹{0}({1})åœ¨å‡½æ•°:[{2}]ä¸­æ²¡æœ‰å¤„ç†!",
                                   objField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType, objField.ObjFieldTabENEx.objDataTypeAbbrEN.DataTypeName,
                                   clsStackTrace.GetCurrClassFunction());
                             break;
@@ -7055,7 +7809,7 @@ ThisTabName4GC);
             }
             catch (Exception ex)
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
                 clsEntityBase.LogErrorS(ex, strMsg);
                 throw new Exception(strMsg);
@@ -7070,7 +7824,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7078,7 +7832,7 @@ ThisTabName4GC);
 
 
         /// <summary>
-        /// »ñÈ¡Î¨Ò»ĞÔÌõ¼ş´®
+        /// è·å–å”¯ä¸€æ€§æ¡ä»¶ä¸²
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_GetUniquenessConditionString()
@@ -7095,18 +7849,18 @@ ThisTabName4GC);
                 if (intVerCount > 1) strVersion = $"_V{intVerCount}"; intVerCount++;
 
                 sbTempFun.Append("\r\n /**");
-                sbTempFun.AppendFormat("\r\n *»ñÈ¡Î¨Ò»ĞÔÌõ¼ş´®(Uniqueness)--{0}({1}),¸ù¾İÎ¨Ò»Ô¼ÊøÌõ¼şÀ´Éú³É",
+                sbTempFun.AppendFormat("\r\n *è·å–å”¯ä¸€æ€§æ¡ä»¶ä¸²(Uniqueness)--{0}({1}),æ ¹æ®å”¯ä¸€çº¦æŸæ¡ä»¶æ¥ç”Ÿæˆ",
                               ThisTabName4GC, objPrjTabENEx.TabCnName);
                 sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 List<clsConstraintFieldsEN> arrObjLst_Flds = clsConstraintFieldsBLEx.GetObjLstByPrjConstraintIdCache(objInFor.PrjConstraintId, objInFor.PrjId).ToList();
 
                 foreach (clsConstraintFieldsEN objField in arrObjLst_Flds)
                 {
-                    sbTempFun.AppendFormat("\r\n * @param {0}: {1}(ÒªÇóÎ¨Ò»µÄ×Ö¶Î)",
+                    sbTempFun.AppendFormat("\r\n * @param {0}: {1}(è¦æ±‚å”¯ä¸€çš„å­—æ®µ)",
                             objField.ObjFieldTab().PrivFuncName1(), objField.ObjFieldTab().Caption);
                 }
 
-                sbTempFun.Append("\r\n * @returns Ìõ¼ş´®(strWhereCond)");
+                sbTempFun.Append("\r\n * @returns æ¡ä»¶ä¸²(strWhereCond)");
                 sbTempFun.Append("\r\n **/");
 
 
@@ -7137,12 +7891,12 @@ ThisTabName4GC);
                 });
                 if (strFuncName == "")
                 {
-                    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 strCodeForCs.Append(sbTempFun);
             }
-            ///¼ì²éÀàÖĞÄ³ÊôĞÔ(·ÇÖ÷¼ü)ÊÇ·ñÎ¨Ò» ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  == ;
+            ///æ£€æŸ¥ç±»ä¸­æŸå±æ€§(éä¸»é”®)æ˜¯å¦å”¯ä¸€ ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  == ;
             //clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             //{
             //    Name = strFuncName,
@@ -7153,14 +7907,14 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// »ñÈ¡Î¨Ò»ĞÔÌõ¼ş´®
+        /// è·å–å”¯ä¸€æ€§æ¡ä»¶ä¸²
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_GetUniquenessConditionString4Update()
@@ -7181,16 +7935,16 @@ ThisTabName4GC);
                 IEnumerable<clsConstraintFieldsEN> arrObjLst_Flds = clsConstraintFieldsBLEx.GetObjLstByPrjConstraintIdCache(objInFor.PrjConstraintId, objInFor.PrjId);
 
                 sbTempFun.Append("\r\n /**");
-                sbTempFun.AppendFormat("\r\n *»ñÈ¡Î¨Ò»ĞÔÌõ¼ş´®(Uniqueness)--{0}({1}),¸ù¾İÎ¨Ò»Ô¼ÊøÌõ¼şÀ´Éú³É",
+                sbTempFun.AppendFormat("\r\n *è·å–å”¯ä¸€æ€§æ¡ä»¶ä¸²(Uniqueness)--{0}({1}),æ ¹æ®å”¯ä¸€çº¦æŸæ¡ä»¶æ¥ç”Ÿæˆ",
                               ThisTabName4GC, objPrjTabENEx.TabCnName);
                 sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 foreach (clsConstraintFieldsEN objField in arrObjLst_Flds)
                 {
-                    sbTempFun.AppendFormat("\r\n * @param {0}: {1}(ÒªÇóÎ¨Ò»µÄ×Ö¶Î)",
+                    sbTempFun.AppendFormat("\r\n * @param {0}: {1}(è¦æ±‚å”¯ä¸€çš„å­—æ®µ)",
                             objField.ObjFieldTab().PrivFuncName1(), objField.ObjFieldTab().Caption);
                 }
 
-                sbTempFun.Append("\r\n * @returns Ìõ¼ş´®(strWhereCond)");
+                sbTempFun.Append("\r\n * @returns æ¡ä»¶ä¸²(strWhereCond)");
                 sbTempFun.Append("\r\n **/");
 
                 sbTempFun.Append("\r\n" + $"export  function {thisWA_F(WA_F.GetUniCondStr4Update)}{strVersion}(obj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN ):string");
@@ -7225,12 +7979,12 @@ ThisTabName4GC);
                 });
                 if (strFuncName == "")
                 {
-                    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 strCodeForCs.Append(sbTempFun);
             }
-            ///¼ì²éÀàÖĞÄ³ÊôĞÔ(·ÇÖ÷¼ü)ÊÇ·ñÎ¨Ò» ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  == ;
+            ///æ£€æŸ¥ç±»ä¸­æŸå±æ€§(éä¸»é”®)æ˜¯å¦å”¯ä¸€ ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  == ;
             ///
             //clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             //{
@@ -7242,7 +7996,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -7259,13 +8013,13 @@ ThisTabName4GC);
             //    return "";
             //}
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó(¼òµ¥)");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡(ç®€å•)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetSimObjFromObj(obj{0}ENS: cls{0}EN): cls{0}EN_Sim ", ThisTabName4GC);
             strCodeForCs.Append("\r\n{");
@@ -7275,7 +8029,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n return obj{0}ENT;", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -7286,7 +8040,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7300,13 +8054,13 @@ ThisTabName4GC);
             //    return "";
             //}
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÒ»¸öJSONµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸öÊµÌå¶ÔÏó");
+            strCodeForCs.Append("\r\n * æŠŠä¸€ä¸ªJSONçš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå®ä½“å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetObjFromJsonObj(obj{0}ENS: cls{0}EN): cls{0}EN ", ThisTabName4GC);
             strFuncName = $"{this.tabNameHead}GetObjFromJsonObj";
@@ -7318,7 +8072,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n return obj{0}ENT;", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -7329,7 +8083,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7345,25 +8099,25 @@ ThisTabName4GC);
             }
 
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,´Ó¼ò»¯¶ÔÏó¸´ÖÆµ½¶ÔÏó");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,ä»ç®€åŒ–å¯¹è±¡å¤åˆ¶åˆ°å¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¼ò»¯¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºç®€åŒ–å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "CopyObjFromSimObj(obj{0}ENS: cls{0}EN_Sim, obj{0}ENT: cls{0}EN): void ", ThisTabName4GC);
             strCodeForCs.Append("\r\n{");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0004") continue;//²»¶Á²»Ğ´
-                if (objField.FldOpTypeId == "0002") //Ö»¶Á²»Ğ´
+                if (objField.FldOpTypeId == "0004") continue;//ä¸è¯»ä¸å†™
+                if (objField.FldOpTypeId == "0002") //åªè¯»ä¸å†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.Set{1}(obj{0}ENS.{2}); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.FldName, objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase), objField.ColCaption);
                 }
-                else if (objField.FldOpTypeId == "0003") //Ö»Ğ´
+                else if (objField.FldOpTypeId == "0003") //åªå†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.{1} = obj{0}ENS.Get{1}(); //{2}",
                       ThisTabName4GC,
@@ -7377,7 +8131,7 @@ ThisTabName4GC);
                 }
             }
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -7388,7 +8142,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7404,13 +8158,13 @@ ThisTabName4GC);
             }
 
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,´Ó¼ò»¯¶ÔÏó¸´ÖÆµ½¶ÔÏó. ×¨ÃÅÕë¶ÔĞŞ¸Ä¼ÇÂ¼,¼´Ôà×Ö¶Î²Å¸´ÖÆ");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,ä»ç®€åŒ–å¯¹è±¡å¤åˆ¶åˆ°å¯¹è±¡. ä¸“é—¨é’ˆå¯¹ä¿®æ”¹è®°å½•,å³è„å­—æ®µæ‰å¤åˆ¶");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¼ò»¯¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:Ä¿±ê¶ÔÏó", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºç®€åŒ–å¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:ç›®æ ‡å¯¹è±¡", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "CopyObjFromSimObj4Upd(obj{0}ENS: cls{0}EN_Sim, obj{0}ENT: cls{0}EN ): void", ThisTabName4GC);
             strCodeForCs.Append("\r\n {");
@@ -7421,13 +8175,13 @@ ThisTabName4GC);
 
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0004") continue;//²»¶Á²»Ğ´
-                if (objField.FldOpTypeId == "0002") //Ö»¶Á²»Ğ´
+                if (objField.FldOpTypeId == "0004") continue;//ä¸è¯»ä¸å†™
+                if (objField.FldOpTypeId == "0002") //åªè¯»ä¸å†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.Set{1}(obj{0}ENS.{2}); //{3}",
                       ThisTabName4GC, objField.ObjFieldTabENEx.FldName, objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase), objField.ColCaption);
                 }
-                else if (objField.FldOpTypeId == "0003") //Ö»Ğ´
+                else if (objField.FldOpTypeId == "0003") //åªå†™
                 {
                     strCodeForCs.AppendFormat("\r\n" + "obj{0}ENT.{1} = obj{0}ENS.Get{2}(); //{3}",
                       ThisTabName4GC,
@@ -7446,7 +8200,7 @@ ThisTabName4GC);
                 }
             }
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ ==  == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -7457,7 +8211,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7468,13 +8222,13 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //¼ì²é×Ö¶ÎµÄÊı¾İÀàĞÍÊÇ·ñÕıÈ·
+            //æ£€æŸ¥å­—æ®µçš„æ•°æ®ç±»å‹æ˜¯å¦æ­£ç¡®
 
-            string strExplanation = "×Ö¶Î[{0}|{1}]µÄÖµ£º¡¾{2}¡¿,·Ç·¨,Ó¦¸ÃÎªÊıÖµĞÍ!00";
+            string strExplanation = "å­—æ®µ[{0}|{1}]çš„å€¼ï¼šã€{2}ã€‘,éæ³•,åº”è¯¥ä¸ºæ•°å€¼å‹!00";
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "Éú³É´úÂë");
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "ç”Ÿæˆä»£ç ");
 
-            strCodeForCs.AppendFormat("\r\n" + "//¼ì²é×Ö¶ÎµÄÊı¾İÀàĞÍÊÇ·ñÕıÈ·");
+            strCodeForCs.AppendFormat("\r\n" + "//æ£€æŸ¥å­—æ®µçš„æ•°æ®ç±»å‹æ˜¯å¦æ­£ç¡®");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "pobj" + ThisTabName4GC + "EN", this.IsFstLcase);
@@ -7487,77 +8241,77 @@ ThisTabName4GC);
                             ThisTabName4GC,
                             objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "×Ö·ûĞÍ";
+                        strDataTypeName = "å­—ç¬¦å‹";
                         break;
                     case "number":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                             ThisTabName4GC,
                             objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "ÊıÖµĞÍ";
+                        strDataTypeName = "æ•°å€¼å‹";
                         break;
                     case "any":
 
-                        strDataTypeName = "anyĞÍ";
+                        strDataTypeName = "anyå‹";
                         break;
                     case "long":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                             ThisTabName4GC,
                             objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "³¤ÕûĞÍ";
+                        strDataTypeName = "é•¿æ•´å‹";
                         break;
                     case "int":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                           ThisTabName4GC,
                           objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "ÕûĞÍ";
+                        strDataTypeName = "æ•´å‹";
                         break;
                     case "double":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                           ThisTabName4GC,
                           objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "Ë«¾«¶È";
+                        strDataTypeName = "åŒç²¾åº¦";
                         break;
                     case "float":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                           ThisTabName4GC,
                           objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "¸¡µãĞÍ";
+                        strDataTypeName = "æµ®ç‚¹å‹";
                         break;
                     case "short":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isNumber(pobj{0}EN.{1}) === false)",
                           ThisTabName4GC,
                           objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "¶ÌÕûĞÍ";
+                        strDataTypeName = "çŸ­æ•´å‹";
                         break;
                     case "boolean":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isBoolean(pobj{0}EN.{1}) === false)",
                          ThisTabName4GC,
                          objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "²¼¶ûĞÍ";
+                        strDataTypeName = "å¸ƒå°”å‹";
                         break;
                     case "Date":
                         strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isBoolean(pobj{0}EN.{1}) === false)",
                          ThisTabName4GC,
                          objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
-                        strDataTypeName = "ÈÕÆÚĞÍ";
+                        strDataTypeName = "æ—¥æœŸå‹";
                         break;
                     default:
-                        string strMsg = string.Format("JavaÊı¾İÀàĞÍ:¡¾{0}¡¿ÔÚswitchÖĞÃ»ÓĞ´¦Àí¡£({0})",
+                        string strMsg = string.Format("Javaæ•°æ®ç±»å‹:ã€{0}ã€‘åœ¨switchä¸­æ²¡æœ‰å¤„ç†ã€‚({0})",
                             clsStackTrace.GetCurrClassFunction(),
                             objField.JavaType);
                         throw new Exception(strMsg);
 
                 }
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{7})×Ö¶Î[{0}({4})]µÄÖµ:[${{pobj{3}EN.{4}}}], ·Ç·¨,Ó¦¸ÃÎª{8}(In {2}({3}))!(cls{3}BL:{9})`);",
+                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{7})å­—æ®µ[{0}({4})]çš„å€¼:[${{pobj{3}EN.{4}}}], éæ³•,åº”è¯¥ä¸º{8}(In {2}({3}))!(cls{3}BL:{9})`);",
                            objField.ColCaption,
                            objField.ObjFieldTabENEx.FldLength,
                            objPrjTabENEx.TabCnName,
@@ -7579,7 +8333,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -7598,7 +8352,7 @@ ThisTabName4GC);
                 return "";
             }
 
-            if (objField.FieldTypeId == enumFieldType.KeyField_02 && objField.PrimaryTypeId == enumPrimaryType.StringAutoAddPrimaryKey_03) return "";//×Ô¶¯Ôö¼ÓµÄ×Ö·ûĞÍ¾Í²»ĞèÒª¼ì²é
+            if (objField.FieldTypeId == enumFieldType.KeyField_02 && objField.PrimaryTypeId == enumPrimaryType.StringAutoAddPrimaryKey_03) return "";//è‡ªåŠ¨å¢åŠ çš„å­—ç¬¦å‹å°±ä¸éœ€è¦æ£€æŸ¥
 
             if (objField.FldOpTypeId == "0003")
             {
@@ -7616,7 +8370,7 @@ ThisTabName4GC);
                 }
                 strCodeForCs.Append("\r\n )");
                 strCodeForCs.Append("\r\n{");
-                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{2})×Ö¶Î[{0}]²»ÄÜÎª¿Õ(IN {1})!(cls{3}BL:{4})`);",
+                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{2})å­—æ®µ[{0}]ä¸èƒ½ä¸ºç©º(IN {1})!(cls{3}BL:{4})`);",
                         objField.ColCaption,
                         objPrjTabENEx.TabCnName,
                         strErrId,
@@ -7641,7 +8395,7 @@ ThisTabName4GC);
                 }
                 strCodeForCs.Append(")");
                 strCodeForCs.Append("\r\n{");
-                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{2})×Ö¶Î[{0}]²»ÄÜÎª¿Õ(In {1})!(cls{3}BL:{4})`);",
+                strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{2})å­—æ®µ[{0}]ä¸èƒ½ä¸ºç©º(In {1})!(cls{3}BL:{4})`);",
                             objField.ColCaption,
                             objPrjTabENEx.TabCnName,
                             strErrId,
@@ -7659,7 +8413,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -7669,15 +8423,15 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             //string strFunctionName = string.Format(strFuncName, ThisTabName4GC, objKeyField.FldName);
-            string strExplanation = "×Ö¶Î[{2}({3})|{0}({4})]µÄ³¤¶È²»ÄÜ³¬¹ı{1}!Öµ:{{0}}11";
+            string strExplanation = "å­—æ®µ[{2}({3})|{0}({4})]çš„é•¿åº¦ä¸èƒ½è¶…è¿‡{1}!å€¼:{{0}}11";
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "Éú³É´úÂë");
-            strCodeForCs.Append("\r\n//¼ì²é×Ö¶Î³¤¶È, Èô×Ö·ûĞÍ×Ö¶Î³¤¶È³¬³ö¹æ¶¨µÄ³¤¶È,¼´·Ç·¨!");
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "ç”Ÿæˆä»£ç ");
+            strCodeForCs.Append("\r\n//æ£€æŸ¥å­—æ®µé•¿åº¦, è‹¥å­—ç¬¦å‹å­—æ®µé•¿åº¦è¶…å‡ºè§„å®šçš„é•¿åº¦,å³éæ³•!");
 
 
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") continue;//Ö»¶Á¾Í²»ĞèÒª¼ì²é
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") continue;//åªè¯»å°±ä¸éœ€è¦æ£€æŸ¥
 
                 string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "pobj" + ThisTabName4GC + "EN", this.IsFstLcase);
                 string strPrivPropNameWithObjectName4Get = clsFieldTabBLEx.PrivPropNameWithObjectName4Get(objField, "pobj" + ThisTabName4GC + "EN");
@@ -7695,7 +8449,7 @@ ThisTabName4GC);
                         clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
                         strCodeForCs.Append("\r\n{");
-                        strCodeForCs.AppendFormat("\r\n throw new Error(1(errid:{7})×Ö¶Î[{0}({4})]µÄ³¤¶È²»ÄÜ³¬¹ı{1}(In {2}({3}))!Öµ:$(pobj{3}EN.{4}))(cls{3}BL:{8})`;",
+                        strCodeForCs.AppendFormat("\r\n throw new Error(1(errid:{7})å­—æ®µ[{0}({4})]çš„é•¿åº¦ä¸èƒ½è¶…è¿‡{1}(In {2}({3}))!å€¼:$(pobj{3}EN.{4}))(cls{3}BL:{8})`;",
                         objField.ColCaption,
                         objField.ObjFieldTabENEx.FldLength.ToString().Trim(),
                         objPrjTabENEx.TabCnName,
@@ -7717,7 +8471,7 @@ ThisTabName4GC);
                         clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
                         strCodeForCs.Append("\r\n{");
-                        strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{7})×Ö¶Î[{0}({4})]µÄ³¤¶È²»ÄÜ³¬¹ı{1}(In {2}({3}))!Öµ:${{pobj{3}EN.{4}}}(cls{3}BL:{8})`);",
+                        strCodeForCs.AppendFormat("\r\n throw new Error(`(errid:{7})å­—æ®µ[{0}({4})]çš„é•¿åº¦ä¸èƒ½è¶…è¿‡{1}(In {2}({3}))!å€¼:${{pobj{3}EN.{4}}}(cls{3}BL:{8})`);",
                         objField.ColCaption,
                         objField.ObjFieldTabENEx.FldLength.ToString().Trim(),
                         objPrjTabENEx.TabCnName,
@@ -7740,7 +8494,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -7753,15 +8507,15 @@ ThisTabName4GC);
             StringBuilder strCodeForCs = new StringBuilder();
 
 
-            string strExplanation = "×Ö¶Î[{2}|{0}]×÷ÎªÍâ¼ü×Ö¶Î,³¤¶ÈÓ¦¸ÃÎª{1}!33";
+            string strExplanation = "å­—æ®µ[{2}|{0}]ä½œä¸ºå¤–é”®å­—æ®µ,é•¿åº¦åº”è¯¥ä¸º{1}!33";
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "Éú³É´úÂë");
-            strCodeForCs.Append("\r\n//¼ì²éÍâ¼ü, ×÷ÎªÍâ¼üÓ¦¸ÃºÍÖ÷¼üµÄ×Ö¶Î³¤¶ÈÊÇÒ»ÑùµÄ, Èô²»Ò»Ñù,¼´·Ç·¨!");
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "ç”Ÿæˆä»£ç ");
+            strCodeForCs.Append("\r\n//æ£€æŸ¥å¤–é”®, ä½œä¸ºå¤–é”®åº”è¯¥å’Œä¸»é”®çš„å­—æ®µé•¿åº¦æ˜¯ä¸€æ ·çš„, è‹¥ä¸ä¸€æ ·,å³éæ³•!");
 
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") continue;//Ö»¶Á¾Í²»ĞèÒª¼ì²é
-                if (objField.IsTabForeignKey == false) continue;//Èç¹û²»ÊÇÍâ¼ü,¾Í²»ĞèÒª¼ì²é
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") continue;//åªè¯»å°±ä¸éœ€è¦æ£€æŸ¥
+                if (objField.IsTabForeignKey == false) continue;//å¦‚æœä¸æ˜¯å¤–é”®,å°±ä¸éœ€è¦æ£€æŸ¥
                 string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "pobj" + ThisTabName4GC + "EN", this.IsFstLcase);
                 string strPrivPropNameWithObjectName4Get = clsFieldTabBLEx.PrivPropNameWithObjectName4Get(objField, "pobj" + ThisTabName4GC + "EN");
 
@@ -7774,7 +8528,7 @@ ThisTabName4GC);
                              strPrivPropNameWithObjectName4Get,
                               objField.ObjFieldTabENEx.FldLength);
                         strCodeForCs.Append("\r\n{");
-                        strCodeForCs.AppendFormat("\r\n throw (\"(errid:{3})×Ö¶Î[{0}]×÷ÎªÍâ¼ü×Ö¶Î,³¤¶ÈÓ¦¸ÃÎª{1}(In {2})!(cls{4}BL:CheckPropertyNew)\");",
+                        strCodeForCs.AppendFormat("\r\n throw (\"(errid:{3})å­—æ®µ[{0}]ä½œä¸ºå¤–é”®å­—æ®µ,é•¿åº¦åº”è¯¥ä¸º{1}(In {2})!(cls{4}BL:CheckPropertyNew)\");",
                               objField.ColCaption,
                               objField.ObjFieldTabENEx.FldLength,
                               objPrjTabENEx.TabCnName,
@@ -7788,7 +8542,7 @@ ThisTabName4GC);
                             strPrivPropNameWithObjectName,
                             objField.ObjFieldTabENEx.FldLength);
                         strCodeForCs.Append("\r\n{");
-                        strCodeForCs.AppendFormat("\r\n throw (\"(errid:{3})×Ö¶Î[{0}]×÷ÎªÍâ¼ü×Ö¶Î,³¤¶ÈÓ¦¸ÃÎª{1}(In {2})!(cls{4}BL:CheckPropertyNew)\");",
+                        strCodeForCs.AppendFormat("\r\n throw (\"(errid:{3})å­—æ®µ[{0}]ä½œä¸ºå¤–é”®å­—æ®µ,é•¿åº¦åº”è¯¥ä¸º{1}(In {2})!(cls{4}BL:CheckPropertyNew)\");",
                                  objField.ColCaption,
                                  objField.ObjFieldTabENEx.FldLength,
                                  objPrjTabENEx.TabCnName,
@@ -7809,13 +8563,13 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏó.
+        /// æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡.
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_getRecObjByJSONStr()
@@ -7823,13 +8577,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param strJSON:ĞèÒª×ª»¯µÄJSON´®",
+            strCodeForCs.AppendFormat("\r\n * @param strJSON:éœ€è¦è½¬åŒ–çš„JSONä¸²",
             ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÉú³ÉµÄ¶ÔÏó",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªç”Ÿæˆçš„å¯¹è±¡",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetObjByJSONStr (strJSON: string): cls{0}EN",
@@ -7873,7 +8627,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -7881,7 +8635,7 @@ ThisTabName4GC);
 
 
         /// <summary>
-        /// °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏó.
+        /// æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡.
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_getJSONStrByRecObj()
@@ -7889,13 +8643,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * °ÑÒ»¸ö¶ÔÏó×ª»¯ÎªÒ»¸öJSON´®");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æŠŠä¸€ä¸ªå¯¹è±¡è½¬åŒ–ä¸ºä¸€ä¸ªJSONä¸²");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param strJSON:ĞèÒª×ª»¯µÄJSON´®",
+            strCodeForCs.AppendFormat("\r\n * @param strJSON:éœ€è¦è½¬åŒ–çš„JSONä¸²",
             ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÉú³ÉµÄ¶ÔÏó",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªç”Ÿæˆçš„å¯¹è±¡",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetJSONStrByObj (pobj{0}EN: cls{0}EN): string",
@@ -7932,14 +8686,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
         /// <summary>
-        /// °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏó.
+        /// æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡.
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_getDictionaryObjByRecObj()
@@ -7947,13 +8701,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.Append("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * °ÑÒ»¸ö¶ÔÏó×ª»¯ÎªÒ»¸öJSON´®");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æŠŠä¸€ä¸ªå¯¹è±¡è½¬åŒ–ä¸ºä¸€ä¸ªJSONä¸²");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param strJSON:ĞèÒª×ª»¯µÄJSON´®",
+            strCodeForCs.AppendFormat("\r\n * @param strJSON:éœ€è¦è½¬åŒ–çš„JSONä¸²",
             ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÉú³ÉµÄ¶ÔÏó",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªç”Ÿæˆçš„å¯¹è±¡",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetDictionaryObjByObj (pobj{0}EN: cls{0}EN)",
@@ -7998,13 +8752,13 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
         /// <summary>
-        /// °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏóÁĞ±í.
+        /// æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡åˆ—è¡¨.
         /// </summary>
         /// <returns></returns>
         public string Gen_4BL_Ts_getObjLstByJSONStr()
@@ -8012,13 +8766,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * °ÑÒ»¸öJSON´®×ª»¯ÎªÒ»¸ö¶ÔÏóÁĞ±í");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æŠŠä¸€ä¸ªJSONä¸²è½¬åŒ–ä¸ºä¸€ä¸ªå¯¹è±¡åˆ—è¡¨");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param strJSON:ĞèÒª×ª»¯µÄJSON´®",
+            strCodeForCs.AppendFormat("\r\n * @param strJSON:éœ€è¦è½¬åŒ–çš„JSONä¸²",
             ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÉú³ÉµÄ¶ÔÏóÁĞ±í",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªç”Ÿæˆçš„å¯¹è±¡åˆ—è¡¨",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetObjLstByJSONStr (strJSON: string): Array<cls{0}EN>",
@@ -8062,7 +8816,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8073,13 +8827,13 @@ ThisTabName4GC);
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * °ÑÒ»¸öJSON¶ÔÏóÁĞ±í×ª»¯ÎªÒ»¸öÊµÌå¶ÔÏóÁĞ±í");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æŠŠä¸€ä¸ªJSONå¯¹è±¡åˆ—è¡¨è½¬åŒ–ä¸ºä¸€ä¸ªå®ä½“å¯¹è±¡åˆ—è¡¨");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param arr{0}ObjLstS:ĞèÒª×ª»¯µÄJSON¶ÔÏóÁĞ±í",
+            strCodeForCs.AppendFormat("\r\n * @param arr{0}ObjLstS:éœ€è¦è½¬åŒ–çš„JSONå¯¹è±¡åˆ—è¡¨",
             ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÉú³ÉµÄ¶ÔÏóÁĞ±í",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªç”Ÿæˆçš„å¯¹è±¡åˆ—è¡¨",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetObjLstByJSONObjLst (arr{0}ObjLstS: Array<cls{0}EN>): Array<cls{0}EN>",
@@ -8116,14 +8870,14 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
         }
 
 
-        public string Gen_4WA_Ts_func()
+        public string Gen_4WA_Ts_funcBak()
         {
             string strFuncName = "";
             string strInFldNameLst = clsPubFun4GC.GenInFldNameLst(objPrjTabENEx);
@@ -8131,18 +8885,18 @@ ThisTabName4GC);
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1} , strOutFldName:string ,  strInValue: {2}) ",
             this.tabNameHead, strInFldNameLst, "");
 
-            Re_objFunction4Code.FuncCHName4Code = "Ó³Éäº¯Êı¡£¸ù¾İ±íÓ³Éä°ÑÊäÈë×Ö¶ÎÖµ,Ó³Éä³ÉÊä³ö×Ö¶ÎÖµ.";
+            Re_objFunction4Code.FuncCHName4Code = "æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[func]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()} )";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[func]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
 
             string strBy = objKeyField.FldName;
             if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
             StringBuilder strCodeForCs = new StringBuilder();
             StringBuilder sbCheckEmpty = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * Ó³Éäº¯Êı¡£¸ù¾İ±íÓ³Éä°ÑÊäÈë×Ö¶ÎÖµ,Ó³Éä³ÉÊä³ö×Ö¶ÎÖµ");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             string strInValueType = "string";
             string strFuncName_Temp = string.Format("func");
@@ -8158,11 +8912,11 @@ ThisTabName4GC);
             string strFuncAddiParam = clsPubFun4GC.Gen_WApi_Ts_GetFuncAddiParam(objPrjTabENEx);
 
 
-            strCodeForCs.Append("\r\n * @param strInFldName:ÊäÈë×Ö¶ÎÃû");
-            strCodeForCs.Append("\r\n * @param strOutFldName:Êä³ö×Ö¶ÎÃû");
-            strCodeForCs.Append("\r\n * @param strInValue:ÊäÈë×Ö¶ÎÖµ");
+            strCodeForCs.Append("\r\n * @param strInFldName:è¾“å…¥å­—æ®µå");
+            strCodeForCs.Append("\r\n * @param strOutFldName:è¾“å‡ºå­—æ®µå");
+            strCodeForCs.Append("\r\n * @param strInValue:è¾“å…¥å­—æ®µå€¼");
             strCodeForCs.Append(strFuncAddiParam);
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸öÊä³ö×Ö¶ÎÖµ",
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªè¾“å‡ºå­—æ®µå€¼",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function {0}func({1} , strOutFldName:string , {2} {3})",
@@ -8204,7 +8958,7 @@ ThisTabName4GC);
                 }
                 strCodeForCs.AppendFormat("\r\n" + "if (strInFldName{0} != cls{1}EN.con_{2})", strIndex, ThisTabName4GC, objInFor.ObjFieldTab().FldName);
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÊäÈë×Ö¶ÎÃû:[{{0}}]²»ÕıÈ·!\", strInFldName{0});", strIndex);
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"è¾“å…¥å­—æ®µå:[{{0}}]ä¸æ­£ç¡®!\", strInFldName{0});", strIndex);
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
                 strCodeForCs.Append("\r\n" + "}");
@@ -8212,7 +8966,7 @@ ThisTabName4GC);
             }
             strCodeForCs.AppendFormat("\r\n" + "if (cls{0}EN._AttributeName.indexOf(strOutFldName) == -1)", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"Êä³ö×Ö¶ÎÃû:[{0}]²»ÕıÈ·,²»ÔÚÊä³ö×Ö¶Î·¶Î§Ö®ÄÚ!({1})\",");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"è¾“å‡ºå­—æ®µå:[{0}]ä¸æ­£ç¡®,ä¸åœ¨è¾“å‡ºå­—æ®µèŒƒå›´ä¹‹å†…!({1})\",");
             strCodeForCs.AppendFormat("\r\n" + "strOutFldName, cls{0}EN._AttributeName.join(','));", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -8281,7 +9035,192 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+            return strCodeForCs.ToString();
+        }
+
+        public string Gen_4WA_Ts_func()
+        {
+            string strFuncName = "";
+            string strInFldNameLst = clsPubFun4GC.GenInFldNameLst(objPrjTabENEx);
+            string strInValueLst = clsPubFun4GC.GenInValueLst(objPrjTabENEx);
+            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1} , strOutFldName:string ,  strInValue: {2}) ",
+            this.tabNameHead, strInFldNameLst, "");
+
+            Re_objFunction4Code.FuncCHName4Code = "æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[func]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()} )";
+
+            string strBy = objKeyField.FldName;
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
+            StringBuilder strCodeForCs = new StringBuilder();
+            StringBuilder sbCheckEmpty = new StringBuilder();
+            strCodeForCs.AppendFormat("\r\n/**");
+            strCodeForCs.AppendFormat("\r\n * æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            string strInValueType = "string";
+            string strFuncName_Temp = string.Format("func");
+
+            if (objKeyField.IsNumberType())
+            {
+                strInValueType = "number";
+            }
+            List<string> arrPrjmaryKeyFldName = new List<string>();
+            arrPrjmaryKeyFldName = objPrjTabENEx.arrKeyFldSet.Select(x => x.FldName).ToList();
+
+            string strFuncAddiPara = clsPubFun4GC.Gen_WApi_Ts_GetFuncAddiPara(objPrjTabENEx);
+            string strFuncAddiParam = clsPubFun4GC.Gen_WApi_Ts_GetFuncAddiParam(objPrjTabENEx);
+
+            strCodeForCs.Append("\r\n * @param strInFldName:è¾“å…¥å­—æ®µå");
+            strCodeForCs.Append("\r\n * @param strOutFldName:è¾“å‡ºå­—æ®µå");
+            strCodeForCs.Append("\r\n * @param strInValue:è¾“å…¥å­—æ®µå€¼");
+            strCodeForCs.Append(strFuncAddiParam);
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªè¾“å‡ºå­—æ®µå€¼",
+            ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n*/");
+            strCodeForCs.AppendFormat("\r\n" + "export  async function {0}func({1} , strOutFldName:string , {2} {3})",
+                 this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
+            strFuncName = $"{this.tabNameHead}func";
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName) == false)
+            {
+                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName + "Classfy",
+                                   thisCacheClassify_TS.TypeScriptType,
+                    thisCacheClassify_TS.DataTypeId,
+                                   this.ClsName, strFuncName_Temp,
+                                   thisCacheClassify_TS.FldLength,
+                                   thisCacheClassify_TS.DataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
+            }
+
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName2) == false)
+            {
+                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName2 + "Classfy",
+                                   thisCacheClassify_TS.TypeScriptType2,
+                    thisCacheClassify_TS.DataTypeId2,
+                                   this.ClsName, strFuncName_Temp,
+                                   thisCacheClassify_TS.FldLength2,
+                                   thisCacheClassify_TS.DataTypeId2 == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
+            }
+
+            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1}, strOutFldName:string , {2} {3})",
+                     this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
+
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.AppendFormat("\r\n" + "//const strThisFuncName = \"func\";", ThisTabName4GC, objKeyField.FldName);
+            strCodeForCs.AppendLine(sbCheckEmpty.ToString());
+
+            int intIndex = 0;
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strIndex = "";
+                if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+                {
+                    strIndex = (intIndex + 1).ToString();
+                }
+                strCodeForCs.AppendFormat("\r\n" + "if (strInFldName{0} != cls{1}EN.con_{2})", strIndex, ThisTabName4GC, objInFor.ObjFieldTab().FldName);
+                strCodeForCs.Append("\r\n" + "{");
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"è¾“å…¥å­—æ®µå:[{{0}}]ä¸æ­£ç¡®!\", strInFldName{0});", strIndex);
+                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+                strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
+                strCodeForCs.Append("\r\n" + "}");
+                intIndex++;
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "if (cls{0}EN._AttributeName.indexOf(strOutFldName) == -1)", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"è¾“å‡ºå­—æ®µå:[{0}]ä¸æ­£ç¡®,ä¸åœ¨è¾“å‡ºå­—æ®µèŒƒå›´ä¹‹å†…!({1})\",");
+            strCodeForCs.AppendFormat("\r\n" + "strOutFldName, cls{0}EN._AttributeName.join(','));", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
+            strCodeForCs.Append("\r\n" + "}");
+
+            string strCacheClassifyFld = "";
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName) == false)
+            {
+                strCacheClassifyFld += string.Format(", {0}Classfy", thisCacheClassify_TS.PriVarName);
+            }
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName2) == false)
+            {
+                strCacheClassifyFld += string.Format(", {0}Classfy", thisCacheClassify_TS.PriVarName2);
+            }
+
+            intIndex = 0;
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string strIndex = "";
+                if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+                {
+                    strIndex = (intIndex + 1).ToString();
+                }
+                if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "string")
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
+                    strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty({objInFor.ObjFieldTab().PrivFuncName1()}) == true)");
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.Append("\r\n" + "return \"\";");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                else if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "number")
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "const {0} = Number(strInValue{1});", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
+                    strCodeForCs.AppendFormat("\r\n" + "if ({0} == 0)", objInFor.ObjFieldTab().PrivFuncName1());
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.Append("\r\n" + "return \"\";");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
+                    strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(strInValue{0}) == true)", strIndex);
+                    strCodeForCs.Append("\r\n" + "{");
+                    strCodeForCs.Append("\r\n" + "return \"\";");
+                    strCodeForCs.Append("\r\n" + "}");
+                }
+                intIndex++;
+            }
+
+            // ğŸ”¥ å…³é”®ä¿®æ”¹ï¼šæ„é€  Key å¯¹è±¡ä¼ é€’ç»™ GetObjByKeyCache
+            // æ„å»º Key å¯¹è±¡çš„å­—æ®µåˆ—è¡¨
+            var keyFieldPairs = new List<string>();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                string fieldName = objInFor.ObjFieldTab().PropertyName(true); // é¦–å­—æ¯å°å†™
+                string varName = objInFor.ObjFieldTab().PrivFuncName1();
+                keyFieldPairs.Add($"{fieldName}: {varName}");
+            }
+            string keyObjectStr = "{ " + string.Join(", ", keyFieldPairs) + " }";
+
+            // å¦‚æœæœ‰ Cache åˆ†ç±»å­—æ®µï¼Œéœ€è¦åœ¨ Key å¯¹è±¡åé¢æ·»åŠ 
+            if (!string.IsNullOrEmpty(strCacheClassifyFld))
+            {
+                strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({keyObjectStr}{strCacheClassifyFld});");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({keyObjectStr});");
+            }
+
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0} == null) return \"\";", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}.GetFldValue(strOutFldName) == null) return \"\";", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "return obj{0}.GetFldValue(strOutFldName).toString();", ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + "}");
+
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            {
+                Name = strFuncName,
+                CodeContent = strCodeForCs.ToString(),
+                ElementType = CodeElementType.Method,
+                Modifiers = "public async",
+                ReturnType = "void",
+            });
+
+            if (strFuncName == "")
+            {
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8295,18 +9234,18 @@ ThisTabName4GC);
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}funcKey(strInFldName:string, strInValue: any, strComparisonOp:string) ",
             this.tabNameHead, "");
 
-            Re_objFunction4Code.FuncCHName4Code = "Ó³Éäº¯Êı¡£¸ù¾İ±íÓ³Éä°ÑÊäÈë×Ö¶ÎÖµ,Ó³Éä³ÉÊä³ö×Ö¶ÎÖµ.";
+            Re_objFunction4Code.FuncCHName4Code = "æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼.";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[{this.tabNameHead}_funcKey]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[{this.tabNameHead}_funcKey]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             string strBy = objKeyField.FldName;
             if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
             StringBuilder strCodeForCs = new StringBuilder();
             StringBuilder sbCheckEmpty = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * Ó³Éäº¯Êı¡£¸ù¾İ±íÓ³Éä°ÑÊäÈë×Ö¶ÎÖµ,Ó³Éä³ÉÊä³ö×Ö¶ÎÖµ");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ˜ å°„å‡½æ•°ã€‚æ ¹æ®è¡¨æ˜ å°„æŠŠè¾“å…¥å­—æ®µå€¼,æ˜ å°„æˆè¾“å‡ºå­—æ®µå€¼");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             string strKeyValueType = "string";
             string strFuncName_Temp = string.Format("funcKey");
@@ -8316,10 +9255,10 @@ ThisTabName4GC);
             }
             if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
             {
-                strCodeForCs.Append("\r\n * @param strInFldName:ÊäÈë×Ö¶ÎÃû");
-                strCodeForCs.Append("\r\n * @param strInValue:ÊäÈë×Ö¶ÎÖµ");
-                strCodeForCs.Append("\r\n * @param strComparisonOp:±È½Ï²Ù×÷·û");
-                strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸ö¹Ø¼ü×ÖÖµÁĞ±í",
+                strCodeForCs.Append("\r\n * @param strInFldName:è¾“å…¥å­—æ®µå");
+                strCodeForCs.Append("\r\n * @param strInValue:è¾“å…¥å­—æ®µå€¼");
+                strCodeForCs.Append("\r\n * @param strComparisonOp:æ¯”è¾ƒæ“ä½œç¬¦");
+                strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªå…³é”®å­—å€¼åˆ—è¡¨",
                 ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n*/");
                 strCodeForCs.AppendFormat("\r\n" + "export  async function {0}funcKey(strInFldName:string, strInValue: any, strComparisonOp:string): Promise<Array<{1}>> ",
@@ -8328,11 +9267,11 @@ ThisTabName4GC);
             }
             else if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == false)
             {
-                strCodeForCs.Append("\r\n * @param strInFldName:ÊäÈë×Ö¶ÎÃû");
-                strCodeForCs.Append("\r\n * @param strInValue:ÊäÈë×Ö¶ÎÖµ");
-                strCodeForCs.Append("\r\n * @param strComparisonOp:±È½Ï²Ù×÷·û");
-                strCodeForCs.AppendFormat("\r\n @param {0}:»º´æµÄ·ÖÀà×Ö¶Î", thisCacheClassify_TS.PriVarName);
-                strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸ö¹Ø¼ü×ÖÖµÁĞ±í",
+                strCodeForCs.Append("\r\n * @param strInFldName:è¾“å…¥å­—æ®µå");
+                strCodeForCs.Append("\r\n * @param strInValue:è¾“å…¥å­—æ®µå€¼");
+                strCodeForCs.Append("\r\n * @param strComparisonOp:æ¯”è¾ƒæ“ä½œç¬¦");
+                strCodeForCs.AppendFormat("\r\n @param {0}:ç¼“å­˜çš„åˆ†ç±»å­—æ®µ", thisCacheClassify_TS.PriVarName);
+                strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªå…³é”®å­—å€¼åˆ—è¡¨",
                 ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n*/");
                 strCodeForCs.AppendFormat("\r\n" + "export  async function {0}funcKey(strInFldName:string, strInValue: any, strComparisonOp:string, {1}Classfy: {2}): Promise<Array<{3}>>",
@@ -8352,12 +9291,12 @@ ThisTabName4GC);
             }
             else
             {
-                strCodeForCs.Append("\r\n * @param strInFldName:ÊäÈë×Ö¶ÎÃû");
-                strCodeForCs.Append("\r\n * @param strInValue:ÊäÈë×Ö¶ÎÖµ");
-                strCodeForCs.Append("\r\n * @param strComparisonOp:±È½Ï²Ù×÷·û");
-                strCodeForCs.AppendFormat("\r\n * @param {0}:»º´æµÄ·ÖÀà×Ö¶Î", thisCacheClassify_TS.PriVarName);
-                strCodeForCs.AppendFormat("\r\n * @param {0}:»º´æµÄ·ÖÀà×Ö¶Î2", thisCacheClassify_TS.PriVarName2);
-                strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÒ»¸ö¹Ø¼ü×ÖÖµÁĞ±í",
+                strCodeForCs.Append("\r\n * @param strInFldName:è¾“å…¥å­—æ®µå");
+                strCodeForCs.Append("\r\n * @param strInValue:è¾“å…¥å­—æ®µå€¼");
+                strCodeForCs.Append("\r\n * @param strComparisonOp:æ¯”è¾ƒæ“ä½œç¬¦");
+                strCodeForCs.AppendFormat("\r\n * @param {0}:ç¼“å­˜çš„åˆ†ç±»å­—æ®µ", thisCacheClassify_TS.PriVarName);
+                strCodeForCs.AppendFormat("\r\n * @param {0}:ç¼“å­˜çš„åˆ†ç±»å­—æ®µ2", thisCacheClassify_TS.PriVarName2);
+                strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸€ä¸ªå…³é”®å­—å€¼åˆ—è¡¨",
                 ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n*/");
                 strCodeForCs.AppendFormat("\r\n" + "export  async function {0}funcKey(strInFldName:string, strInValue: any, strComparisonOp:string, {1}Classfy: {2}, {3}Classfy:{4}): Promise<Array<{5}>>",
@@ -8397,7 +9336,7 @@ ThisTabName4GC);
                 //}
                 strCodeForCs.AppendFormat("\r\n" + "if (strInFldName == cls{0}EN.con_{1})", ThisTabName4GC, objInFor.ObjFieldTab().FldName);
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"ÊäÈë×Ö¶ÎÃû:[{{0}}]²»ÕıÈ·, ²»ÄÜÎª¹Ø¼ü×Ö¶Î!\", strInFldName);");
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"è¾“å…¥å­—æ®µå:[{{0}}]ä¸æ­£ç¡®, ä¸èƒ½ä¸ºå…³é”®å­—æ®µ!\", strInFldName);");
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
                 strCodeForCs.Append("\r\n" + "}");
@@ -8405,7 +9344,7 @@ ThisTabName4GC);
             }
             //strCodeForCs.AppendFormat("\r\n" + "if (cls{0}EN._AttributeName.indexOf(strOutFldName) == -1)", ThisTabName4GC);
             //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.Append("\r\n" + "const strMsg = Format(\"Êä³ö×Ö¶ÎÃû:[{0}]²»ÕıÈ·,²»ÔÚÊä³ö×Ö¶Î·¶Î§Ö®ÄÚ!({1})\",");
+            //strCodeForCs.Append("\r\n" + "const strMsg = Format(\"è¾“å‡ºå­—æ®µå:[{0}]ä¸æ­£ç¡®,ä¸åœ¨è¾“å‡ºå­—æ®µèŒƒå›´ä¹‹å†…!({1})\",");
             //strCodeForCs.AppendFormat("\r\n" + "strOutFldName, cls{0}EN._AttributeName.join(','));", ThisTabName4GC);
             //strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             //strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -8539,7 +9478,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8550,18 +9489,18 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  function " + this.tabNameHead + "SortFunDefa(a:cls{0}EN , b:cls{0}EN): number ", ThisTabName4GC);
 
-            Re_objFunction4Code.FuncCHName4Code = "ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï.";
+            Re_objFunction4Code.FuncCHName4Code = "æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ.";
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param a:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.Append("\r\n * @param  b:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÁ½¸ö¶ÔÏó±È½ÏµÄ½á¹û",
+            strCodeForCs.Append("\r\n * @param a:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.Append("\r\n * @param  b:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸¤ä¸ªå¯¹è±¡æ¯”è¾ƒçš„ç»“æœ",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "SortFunDefa(a:cls{0}EN , b:cls{0}EN): number ", ThisTabName4GC);
@@ -8604,18 +9543,18 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ÅÅĞòº¯Êı¡£¸ù¾İ±í¶ÔÏóÖĞËæ»úÁ½¸ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ’åºå‡½æ•°ã€‚æ ¹æ®è¡¨å¯¹è±¡ä¸­éšæœºä¸¤ä¸ªå­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param  a:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.Append("\r\n * @param  b:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÁ½¸ö¶ÔÏó±È½ÏµÄ½á¹û",
+            strCodeForCs.Append("\r\n * @param  a:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.Append("\r\n * @param  b:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸¤ä¸ªå¯¹è±¡æ¯”è¾ƒçš„ç»“æœ",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "SortFunDefa2Fld(a:cls{0}EN , b:cls{0}EN): number ", ThisTabName4GC);
@@ -8657,7 +9596,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8668,18 +9607,18 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  function " + this.tabNameHead + "SortFunByKey(strKey:string, AscOrDesc: string) ", ThisTabName4GC);
 
-            Re_objFunction4Code.FuncCHName4Code = "ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï.";
+            Re_objFunction4Code.FuncCHName4Code = "æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ.";
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param a:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.Append("\r\n * @param  b:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÁ½¸ö¶ÔÏó±È½ÏµÄ½á¹û",
+            strCodeForCs.Append("\r\n * @param a:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.Append("\r\n * @param  b:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸¤ä¸ªå¯¹è±¡æ¯”è¾ƒçš„ç»“æœ",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "SortFunByKey(strKey:string, AscOrDesc: string)", ThisTabName4GC);
@@ -8740,7 +9679,7 @@ ThisTabName4GC);
                         break;
 
                     default:
-                        var strMsg = string.Format("TypeScript:[{0}]ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí¡£(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
+                        var strMsg = string.Format("TypeScript:[{0}]åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†ã€‚(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                         //break;
                 }
@@ -8749,7 +9688,7 @@ ThisTabName4GC);
 
 
             strCodeForCs.Append("\r\n" + "        default:");
-            strCodeForCs.AppendFormat("\r\n" + "strMsg = `×Ö¶ÎÃû:[${{strKey}}]ÔÚ±í¶ÔÏó:[{0}]ÖĞ²»´æÔÚ!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "strMsg = `å­—æ®µå:[${{strKey}}]åœ¨è¡¨å¯¹è±¡:[{0}]ä¸­ä¸å­˜åœ¨!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "       console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "     break;");
             strCodeForCs.Append("\r\n" + " }");
@@ -8806,7 +9745,7 @@ ThisTabName4GC);
                         break;
 
                     default:
-                        var strMsg = string.Format("TypeScript:[{0}]ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí¡£(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
+                        var strMsg = string.Format("TypeScript:[{0}]åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†ã€‚(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                         //break;
                 }
@@ -8815,7 +9754,7 @@ ThisTabName4GC);
 
 
             strCodeForCs.Append("\r\n" + "        default:");
-            strCodeForCs.AppendFormat("\r\n" + "strMsg = `×Ö¶ÎÃû:[${{strKey}}]ÔÚ±í¶ÔÏó:[{0}]ÖĞ²»´æÔÚ!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "strMsg = `å­—æ®µå:[${{strKey}}]åœ¨è¡¨å¯¹è±¡:[{0}]ä¸­ä¸å­˜åœ¨!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "       console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "     break;");
             strCodeForCs.Append("\r\n" + " }");
@@ -8832,7 +9771,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8843,18 +9782,18 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "FilterFunByKey(strKey:string, value: any) ", ThisTabName4GC);
 
-            Re_objFunction4Code.FuncCHName4Code = "ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï.";
+            Re_objFunction4Code.FuncCHName4Code = "æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ.";
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¹ıÂËº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµÓë¸ø¶¨Öµ½øĞĞ±È½Ï,·µ»ØÊÇ·ñÏàµÈ");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * è¿‡æ»¤å‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼ä¸ç»™å®šå€¼è¿›è¡Œæ¯”è¾ƒ,è¿”å›æ˜¯å¦ç›¸ç­‰");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strKey:±È½ÏµÄ¹Ø¼ü×Ö¶ÎÃû³Æ");
-            strCodeForCs.Append("\r\n * @param value:¸ø¶¨Öµ");
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»Ø¶ÔÏóµÄ×Ö¶ÎÖµÊÇ·ñµÈÓÚ¸ø¶¨Öµ",
+            strCodeForCs.Append("\r\n * @param strKey:æ¯”è¾ƒçš„å…³é”®å­—æ®µåç§°");
+            strCodeForCs.Append("\r\n * @param value:ç»™å®šå€¼");
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›å¯¹è±¡çš„å­—æ®µå€¼æ˜¯å¦ç­‰äºç»™å®šå€¼",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "FilterFunByKey(strKey:string, value: any)", ThisTabName4GC);
@@ -8908,7 +9847,7 @@ ThisTabName4GC);
                         break;
 
                     default:
-                        var strMsg = string.Format("TypeScript:[{0}]ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí¡£(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
+                        var strMsg = string.Format("TypeScript:[{0}]åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†ã€‚(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                         //break;
                 }
@@ -8917,7 +9856,7 @@ ThisTabName4GC);
 
 
             strCodeForCs.Append("\r\n" + "        default:");
-            strCodeForCs.AppendFormat("\r\n" + "strMsg = `×Ö¶ÎÃû:[${{strKey}}]ÔÚ±í¶ÔÏó:[{0}]ÖĞ²»´æÔÚ!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "strMsg = `å­—æ®µå:[${{strKey}}]åœ¨è¡¨å¯¹è±¡:[{0}]ä¸­ä¸å­˜åœ¨!(in ${{ " + this.constructorName + "}}.${{ strThisFuncName}})`;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "       console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "     break;");
             strCodeForCs.Append("\r\n" + " }");
@@ -8933,7 +9872,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -8966,16 +9905,16 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjExLstByPagerAsync)}(objPagerPara: stuPagerPara):Promise<Array<cls{ThisTabName4GC}ENEx>>";
 
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ";
 
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:·ÖÒ³²ÎÊı½á¹¹", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í");
+            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:åˆ†é¡µå‚æ•°ç»“æ„", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n*/");
 
 
@@ -9029,14 +9968,14 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else {");
-            strCodeForCs.Append("\r\n" + "//Èç¹ûÅÅĞò×Ö¶ÎÃû[OrderBy]Îª¿Õ,¾Íµ÷ÓÃÅÅĞòº¯Êı");
+            strCodeForCs.Append("\r\n" + "//å¦‚æœæ’åºå­—æ®µå[OrderBy]ä¸ºç©º,å°±è°ƒç”¨æ’åºå‡½æ•°");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}Sel = arr{0}Sel.sort(objPagerPara.sortFun);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
                         
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"´íÎó:[{0}]. \\n¸ù¾İÌõ¼ş:[{1}]»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í²»³É¹¦!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{0}]. \\næ ¹æ®æ¡ä»¶:[{1}]è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨ä¸æˆåŠŸ!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
 
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -9045,7 +9984,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
 
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
@@ -9057,7 +9996,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -9082,7 +10021,7 @@ ThisTabName4GC);
 
         //        }
         //        arrTemp.RemoveRange(0, arrTemp.Count);
-        //        //Õë¶ÔÃ¿Ò»¸ö±í¹¦ÄÜ--ÏÂÀ­¿ò
+        //        //é’ˆå¯¹æ¯ä¸€ä¸ªè¡¨åŠŸèƒ½--ä¸‹æ‹‰æ¡†
         //        foreach (var objEditRegionFld in objPrjTabENEx.arrEditRegionFldSet4InUse)
         //        {
         //            if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
@@ -9111,7 +10050,7 @@ ThisTabName4GC);
 
         //            string strFuncPara = objFuncParaLst.GetCondFldLst4Para();
 
-        //            //µÚ0²½:°Ñ¿Ø¼şÖĞÏÂÀ­¿òComboBox×ª»»³ÉComboBox
+        //            //ç¬¬0æ­¥:æŠŠæ§ä»¶ä¸­ä¸‹æ‹‰æ¡†ComboBoxè½¬æ¢æˆComboBox
         //            if (objTabFeature4Ddl.IsHasErr)
         //            {
         //                throw new Exception(objTabFeature4Ddl.ErrMsg_Ddl);
@@ -9119,11 +10058,11 @@ ThisTabName4GC);
 
 
         //            strCodeForCs.Append("\r\n/**");
-        //            strCodeForCs.Append("\r\n * »ñÈ¡°ó¶¨ÏÂÀ­¿òµÄÊı¾İ");
+        //            strCodeForCs.Append("\r\n * è·å–ç»‘å®šä¸‹æ‹‰æ¡†çš„æ•°æ®");
         //            strCodeForCs.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
 
-        //            strCodeForCs.Append("\r\n * @param objDDL:ĞèÒª°ó¶¨µ±Ç°±íµÄÏÂÀ­¿ò");
-        //            //Éú³ÉÓëÌõ¼ş²ÎÊıµÄº¯ÊıËµÃ÷
+        //            strCodeForCs.Append("\r\n * @param objDDL:éœ€è¦ç»‘å®šå½“å‰è¡¨çš„ä¸‹æ‹‰æ¡†");
+        //            //ç”Ÿæˆä¸æ¡ä»¶å‚æ•°çš„å‡½æ•°è¯´æ˜
         //            strCodeForCs.Append("\r\n" + objTabFeature4Ddl.FuncRemark);
         //            strCodeForCs.Append("\r\n*/");
 
@@ -9178,12 +10117,12 @@ ThisTabName4GC);
         //string strToolTipText = $"{objTabFeature4Ddl.ToolTipText ?? ""}...".Replace("......", "...");
         //            if (string.IsNullOrEmpty(objTabFeature4Ddl.ToolTipText) == true)
         //            {
-        //                strToolTipText = $"Ñ¡{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
+        //                strToolTipText = $"é€‰{clsString.FstLcaseS(objTabFeature4Ddl.TabCnName4GC)}...";
         //            }
 
         //            strCodeForCs.Append("\r\n" + $"obj0.{clsString.FstLcaseS(objTabFeature4Ddl.TextFieldName)} = 'strToolTipText}...';");
         //            strCodeForCs.Append("\r\n" + $"arr{objTabFeature4Ddl.TabName4GC}.value.push(obj0);");
-        //            //Éú³É¹ıÂËÌõ¼şÓï¾ä
+        //            //ç”Ÿæˆè¿‡æ»¤æ¡ä»¶è¯­å¥
         //            //string strFilterCondition = objFuncParaLst.GeneFilterCondition();
         //            if (objPrjTabENEx_Ddl.IsUseStorageCache_TS() == true)
         //            {
@@ -9212,7 +10151,7 @@ ThisTabName4GC);
 
         //    catch (Exception ex)
         //    {
-        //        string strMsg = string.Format("ÔÚÉú³É»ñÈ¡ÏÂÀ­¿òÊı¾İ:[{0}]Ê±³ö´í¡£{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+        //        string strMsg = string.Format("åœ¨ç”Ÿæˆè·å–ä¸‹æ‹‰æ¡†æ•°æ®:[{0}]æ—¶å‡ºé”™ã€‚{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
 
         //        clsEntityBase.LogErrorS(ex, strMsg);
         //        throw new Exception(strMsg);
@@ -9237,7 +10176,7 @@ ThisTabName4GC);
             }
             StringBuilder strCodeForCs = new StringBuilder();
 
-            strCodeForCs.Append("\r\n /** Ìí¼ÓĞÂ¼ÇÂ¼,±£´æº¯Êı");
+            strCodeForCs.Append("\r\n /** æ·»åŠ æ–°è®°å½•,ä¿å­˜å‡½æ•°");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n" + " **/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWAEx_F(WA_F.AddNewObjSave)}({ThisObjName4EN}: {ThisClsName4EN} {strCache_ParaVarDefLstStr}): Promise<AddRecordResult>{{");
@@ -9257,17 +10196,17 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strMsg = `¼ì²éÊı¾İ²»³É¹¦,${{e}}.(in ${{ {this.constructorName} }}.${{strThisFuncName}})`;");
+            strCodeForCs.Append("\r\n" + $"const strMsg = `æ£€æŸ¥æ•°æ®ä¸æˆåŠŸ,${{e}}.(in ${{ {this.constructorName} }}.${{strThisFuncName}})`;");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
-            strCodeForCs.Append("\r\n" + "return { keyword: '', success: false };//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+            strCodeForCs.Append("\r\n" + "return { keyword: '', success: false };//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
 
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
 
-            strCodeForCs.Append("\r\n" + "//¼ì²éÎ¨Ò»ĞÔÌõ¼ş");
+            strCodeForCs.Append("\r\n" + "//æ£€æŸ¥å”¯ä¸€æ€§æ¡ä»¶");
             int intVerCount = 1;
             foreach (clsPrjConstraintEN objInFor in objPrjTabENEx.arrPrjConstraintSet())
             {
@@ -9332,15 +10271,15 @@ ThisTabName4GC);
                 //{
                 //    strCodeForCs.Append("\r\n" + $"const bolIsExist = await {thisWA_F(WA_F.IsExistAsync)}({ThisObjName4EN}.{objKeyField.PropertyName(this.IsFstLcase)});");
                 //}
-                // Í³Ò»Ê¹ÓÃ key ¶ÔÏó
+                // ç»Ÿä¸€ä½¿ç”¨ key å¯¹è±¡
                 strCodeForCs.Append(clsPubFun4GC.Gc_CallIsExistAsync_Ts(objPrjTabENEx, $"obj{ThisTabName4GC}EN", this.tabNameHead, this.IsFstLcase));
                 strCodeForCs.Append("\r\n" + "if (bolIsExist == true)");
                 strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"Ìí¼Ó¼ÇÂ¼Ê±,¹Ø¼ü×Ö£º{{0}}ÒÑ¾­´æÔÚ!\", obj{0}EN.{1});",
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"æ·»åŠ è®°å½•æ—¶,å…³é”®å­—ï¼š{{0}}å·²ç»å­˜åœ¨!\", obj{0}EN.{1});",
                     this.TabName, objKeyField.PropertyName(this.IsFstLcase));
                 strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                 strCodeForCs.Append("\r\n" + "throw(strMsg);");
-                //strCodeForCs.Append("\r\n" + "return false;//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+                //strCodeForCs.Append("\r\n" + "return false;//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + $"returnBool = await {thisWA_F(WA_F.AddNewRecordAsync)}({ThisObjName4EN});");
 
@@ -9352,17 +10291,17 @@ ThisTabName4GC);
             {
                 Gene_ReFreshCache(strCodeForCs, "");
             }
-            //strCodeForCs.Append("\r\n" + $"const strInfo = `Ìí¼Ó[{this.TabCnName}({this.TabName})]¼ÇÂ¼³É¹¦!`;");
+            //strCodeForCs.Append("\r\n" + $"const strInfo = `æ·»åŠ [{this.TabCnName}({this.TabName})]è®°å½•æˆåŠŸ!`;");
 
-            //strCodeForCs.Append("\r\n" + "//ÏÔÊ¾ĞÅÏ¢¿ò");
+            //strCodeForCs.Append("\r\n" + "//æ˜¾ç¤ºä¿¡æ¯æ¡†");
             //strCodeForCs.Append("\r\n" + "alert(strInfo);");
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strInfo = `Ìí¼Ó[{this.TabCnName}({this.TabName})]¼ÇÂ¼²»³É¹¦!`;");
+            strCodeForCs.Append("\r\n" + $"const strInfo = `æ·»åŠ [{this.TabCnName}({this.TabName})]è®°å½•ä¸æˆåŠŸ!`;");
 
-            strCodeForCs.Append("\r\n" + "//ÏÔÊ¾ĞÅÏ¢¿ò");
+            strCodeForCs.Append("\r\n" + "//æ˜¾ç¤ºä¿¡æ¯æ¡†");
             strCodeForCs.Append("\r\n" + "throw(strInfo);");
 
             strCodeForCs.Append("\r\n" + "}");
@@ -9382,7 +10321,7 @@ ThisTabName4GC);
                         strCodeForCs.Append("\r\n" + $"strReturnKeyLst += `|${{ {ThisObjName4EN}.{objInFor.PropertyName(this.isFstLcase)} }}`;");
                     }
                 }
-                strCodeForCs.Append("\r\n" + "return { keyword: strReturnKeyLst, success: returnBool };//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+                strCodeForCs.Append("\r\n" + "return { keyword: strReturnKeyLst, success: returnBool };//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
             }
             else
             {
@@ -9391,28 +10330,28 @@ ThisTabName4GC);
                 switch (objKeyField.PrimaryTypeId)
                 {
                     case enumPrimaryType.PrimaryKey_01:
-                        strCodeForCs.Append("\r\n" + $"return {{ keyword: {ThisObjName4EN}.{objKeyField.PropertyName(this.isFstLcase)}{strIsToString}, success: returnBool }};//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+                        strCodeForCs.Append("\r\n" + $"return {{ keyword: {ThisObjName4EN}.{objKeyField.PropertyName(this.isFstLcase)}{strIsToString}, success: returnBool }};//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
 
                         break;
                     case enumPrimaryType.Identity_02:
-                        strCodeForCs.Append("\r\n" + $"return {{ keyword: {ThisObjName4EN}.{objKeyField.PropertyName(this.isFstLcase)}{strIsToString}, success: returnBool }};//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+                        strCodeForCs.Append("\r\n" + $"return {{ keyword: {ThisObjName4EN}.{objKeyField.PropertyName(this.isFstLcase)}{strIsToString}, success: returnBool }};//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
                         break;
                     case enumPrimaryType.StringAutoAddPrimaryKey_03:
                     case enumPrimaryType.StringAutoAddPrimaryKeyWithPrefix_06:
-                        strCodeForCs.Append("\r\n" + "return { keyword: returnKeyId, success: returnBool };//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+                        strCodeForCs.Append("\r\n" + "return { keyword: returnKeyId, success: returnBool };//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
                         break;
                     default:
-                        string strMsg = $"Ö÷¼üÀàĞÍ£º{clsPrimaryTypeBL.GetNameByPrimaryTypeIdCache(objKeyField.PrimaryTypeId)}ÔÚswitchº¯ÊıÖĞÃ»ÓĞ±»´¦Àí!({clsStackTrace.GetCurrClassFunction()})";
+                        string strMsg = $"ä¸»é”®ç±»å‹ï¼š{clsPrimaryTypeBL.GetNameByPrimaryTypeIdCache(objKeyField.PrimaryTypeId)}åœ¨switchå‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†!({clsStackTrace.GetCurrClassFunction()})";
                         throw new Exception(strMsg);
                 }
             }
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strMsg = `Ìí¼Ó¼ÇÂ¼²»³É¹¦,${{e}}.(in ${{ {this.constructorName} }}.${{ strThisFuncName }})`;");
+            strCodeForCs.Append("\r\n" + $"const strMsg = `æ·»åŠ è®°å½•ä¸æˆåŠŸ,${{e}}.(in ${{ {this.constructorName} }}.${{ strThisFuncName }})`;");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw(strMsg);");
-            //strCodeForCs.Append("\r\n" + "return false;//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+            //strCodeForCs.Append("\r\n" + "return false;//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
 
             strCodeForCs.Append("\r\n" + "}");
 
@@ -9428,7 +10367,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -9511,21 +10450,21 @@ ThisTabName4GC);
             }
             StringBuilder strCodeForCs = new StringBuilder();
 
-            strCodeForCs.Append("\r\n /** ĞŞ¸Ä¼ÇÂ¼");
+            strCodeForCs.Append("\r\n /** ä¿®æ”¹è®°å½•");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n" + " **/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWAEx_F(WA_F.UpdateObjSave)}({ThisObjName4EN}: {ThisClsName4EN}{strCache_ParaVarDefLstStr}): Promise<boolean>{{");
             strFuncName = $"{thisWAEx_F(WA_F.UpdateObjSave)}";
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = 'UpdateObjSave';");
 
-            strCodeForCs.AppendFormat("\r\n" + "obj{0}EN.sfUpdFldSetStr = obj{0}EN.updFldString;//ÉèÖÃÄÄĞ©×Ö¶Î±»ĞŞ¸Ä(Ôà×Ö¶Î)",
+            strCodeForCs.AppendFormat("\r\n" + "obj{0}EN.sfUpdFldSetStr = obj{0}EN.updFldString;//è®¾ç½®å“ªäº›å­—æ®µè¢«ä¿®æ”¹(è„å­—æ®µ)",
                 this.TabName);
             if (objKeyField.TypeScriptType == "number")
             {
                 strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} == 0 || obj{0}EN.{1} == undefined){{",
                 this.TabName, objKeyField.PropertyName(this.IsFstLcase));
-                strCodeForCs.Append("\r\n" + "console.error(\"¹Ø¼ü×Ö²»ÄÜÎª¿Õ!\");");
-                strCodeForCs.Append("\r\n" + "throw \"¹Ø¼ü×Ö²»ÄÜÎª¿Õ!\";");
+                strCodeForCs.Append("\r\n" + "console.error(\"å…³é”®å­—ä¸èƒ½ä¸ºç©º!\");");
+                strCodeForCs.Append("\r\n" + "throw \"å…³é”®å­—ä¸èƒ½ä¸ºç©º!\";");
                 //strCodeForCs.Append("\r\n" + "return false;");
                 strCodeForCs.Append("\r\n" + "}");
             }
@@ -9533,8 +10472,8 @@ ThisTabName4GC);
             {
                 strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} == \"\" || obj{0}EN.{1} == undefined){{",
                         this.TabName, objKeyField.PropertyName(this.IsFstLcase));
-                strCodeForCs.Append("\r\n" + "console.error(\"¹Ø¼ü×Ö²»ÄÜÎª¿Õ!\");");
-                strCodeForCs.Append("\r\n" + "throw \"¹Ø¼ü×Ö²»ÄÜÎª¿Õ!\";");
+                strCodeForCs.Append("\r\n" + "console.error(\"å…³é”®å­—ä¸èƒ½ä¸ºç©º!\");");
+                strCodeForCs.Append("\r\n" + "throw \"å…³é”®å­—ä¸èƒ½ä¸ºç©º!\";");
                 //strCodeForCs.Append("\r\n" + "return false;");
                 strCodeForCs.Append("\r\n" + "}");
             }
@@ -9546,16 +10485,16 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strMsg = `¼ì²éÊı¾İ²»³É¹¦,${{e}}.(in ${{ {this.constructorName} }}.${{strThisFuncName}})`;");
+            strCodeForCs.Append("\r\n" + $"const strMsg = `æ£€æŸ¥æ•°æ®ä¸æˆåŠŸ,${{e}}.(in ${{ {this.constructorName} }}.${{strThisFuncName}})`;");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw(strMsg);");
-            //strCodeForCs.Append("\r\n" + "return false;//Ò»¶¨ÒªÓĞÒ»¸ö·µ»ØÖµ,·ñÔò»á³ö´í!");
+            //strCodeForCs.Append("\r\n" + "return false;//ä¸€å®šè¦æœ‰ä¸€ä¸ªè¿”å›å€¼,å¦åˆ™ä¼šå‡ºé”™!");
 
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "//¼ì²éÎ¨Ò»ĞÔÌõ¼ş");
+            strCodeForCs.Append("\r\n" + "//æ£€æŸ¥å”¯ä¸€æ€§æ¡ä»¶");
             int intVerCount = 1;
             foreach (clsPrjConstraintEN objInFor in objPrjTabENEx.arrPrjConstraintSet())
             {
@@ -9579,7 +10518,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const strMsg = `ĞŞ¸Ä¼ÇÂ¼²»³É¹¦,${{e}}.(in ${{ {this.constructorName} }}.${{ strThisFuncName }})`;");
+            strCodeForCs.Append("\r\n" + $"const strMsg = `ä¿®æ”¹è®°å½•ä¸æˆåŠŸ,${{e}}.(in ${{ {this.constructorName} }}.${{ strThisFuncName }})`;");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw(strMsg);");
             //strCodeForCs.Append("\r\n" + "return false;");
@@ -9596,7 +10535,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -9618,7 +10557,7 @@ ThisTabName4GC);
 
                 IEnumerable<clsConstraintFieldsEN> arrObjLst_Flds = clsConstraintFieldsBLEx.GetObjLstByPrjConstraintIdCache(objInFor.PrjConstraintId, this.PrjId);
 
-                sbTempFun.Append("\r\n /** ÎªÌí¼Ó¼ÇÂ¼¼ì²éÎ¨Ò»ĞÔÌõ¼ş");
+                sbTempFun.Append("\r\n /** ä¸ºæ·»åŠ è®°å½•æ£€æŸ¥å”¯ä¸€æ€§æ¡ä»¶");
                 sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 sbTempFun.Append("\r\n" + " **/");
                 sbTempFun.Append("\r\n" + $"export  async function {thisWA_F(WA_F.CheckUniCond4Add)}{strVersion}({ThisObjName4EN}: {ThisClsName4EN}): Promise<boolean>{{");
@@ -9641,11 +10580,11 @@ ThisTabName4GC);
                 sbTempFun.Append("\r\n" + "{");
                 if (String.IsNullOrEmpty(objInFor.ErrMsg) == false)
                 {
-                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"{0}.Âú×ãÌõ¼ş£º{{0}}µÄ¼ÇÂ¼ÒÑ¾­´æÔÚ!\",  strUniquenessCondition);", objInFor.ErrMsg);
+                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"{0}.æ»¡è¶³æ¡ä»¶ï¼š{{0}}çš„è®°å½•å·²ç»å­˜åœ¨!\",  strUniquenessCondition);", objInFor.ErrMsg);
                 }
                 else
                 {
-                    sbTempFun.Append("\r\n" + "const strMsg = Format(\"²»ÄÜÂú×ãÎ¨Ò»ĞÔÌõ¼ş¡£Âú×ãÌõ¼ş£º{0}µÄ¼ÇÂ¼ÒÑ¾­´æÔÚ!\", strUniquenessCondition);");
+                    sbTempFun.Append("\r\n" + "const strMsg = Format(\"ä¸èƒ½æ»¡è¶³å”¯ä¸€æ€§æ¡ä»¶ã€‚æ»¡è¶³æ¡ä»¶ï¼š{0}çš„è®°å½•å·²ç»å­˜åœ¨!\", strUniquenessCondition);");
                 }
                 sbTempFun.Append("\r\n" + "console.error(strMsg);");
                 sbTempFun.Append("\r\n" + "alert(strMsg);");
@@ -9664,7 +10603,7 @@ ThisTabName4GC);
                 });
                 if (strFuncName == "")
                 {
-                    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 strCodeForCs.Append(sbTempFun);
@@ -9679,7 +10618,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -9700,7 +10639,7 @@ ThisTabName4GC);
 
                 IEnumerable<clsConstraintFieldsEN> arrObjLst_Flds = clsConstraintFieldsBLEx.GetObjLstByPrjConstraintIdCache(objInFor.PrjConstraintId, this.PrjId);
 
-                sbTempFun.Append("\r\n /** ÎªĞŞ¸Ä¼ÇÂ¼¼ì²éÎ¨Ò»ĞÔÌõ¼ş");
+                sbTempFun.Append("\r\n /** ä¸ºä¿®æ”¹è®°å½•æ£€æŸ¥å”¯ä¸€æ€§æ¡ä»¶");
                 sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
                 sbTempFun.Append("\r\n" + " **/");
                 sbTempFun.Append("\r\n" + $"export  async function {thisWA_F(WA_F.CheckUniCond4Update)}{strVersion}({ThisObjName4EN}: {ThisClsName4EN}): Promise<boolean>{{");
@@ -9722,11 +10661,11 @@ ThisTabName4GC);
                 sbTempFun.Append("\r\n" + "{");
                 if (String.IsNullOrEmpty(objInFor.ErrMsg) == false)
                 {
-                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"{0}.Âú×ãÌõ¼ş£º{{0}}µÄ¼ÇÂ¼ÒÑ¾­´æÔÚ!\",  strUniquenessCondition);", objInFor.ErrMsg);
+                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"{0}.æ»¡è¶³æ¡ä»¶ï¼š{{0}}çš„è®°å½•å·²ç»å­˜åœ¨!\",  strUniquenessCondition);", objInFor.ErrMsg);
                 }
                 else
                 {
-                    sbTempFun.Append("\r\n" + "const strMsg = Format(\"²»ÄÜÂú×ãÎ¨Ò»ĞÔÌõ¼ş¡£Âú×ãÌõ¼ş£º{0}µÄ¼ÇÂ¼ÒÑ¾­´æÔÚ!\", strUniquenessCondition);");
+                    sbTempFun.Append("\r\n" + "const strMsg = Format(\"ä¸èƒ½æ»¡è¶³å”¯ä¸€æ€§æ¡ä»¶ã€‚æ»¡è¶³æ¡ä»¶ï¼š{0}çš„è®°å½•å·²ç»å­˜åœ¨!\", strUniquenessCondition);");
                 }
                 sbTempFun.Append("\r\n" + "console.error(strMsg);");
                 sbTempFun.Append("\r\n" + "alert(strMsg);");
@@ -9745,7 +10684,7 @@ ThisTabName4GC);
                 });
                 if (strFuncName == "")
                 {
-                    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 strCodeForCs.Append(sbTempFun);
@@ -9760,7 +10699,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -9770,21 +10709,21 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjExLstByPagerCache)}(objPagerPara: stuPagerPara):Promise<Array<cls{ThisTabName4GC}ENEx>> ";
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ";
 
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//¸Ã±íÃ»ÓĞÊ¹ÓÃCache,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//è¯¥è¡¨æ²¡æœ‰ä½¿ç”¨Cache,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
             string strIsShare = "";
             if (objPrjTabENEx.IsShare) strIsShare = "Share";
             StringBuilder strCodeForCs = new StringBuilder();
-            ///¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡.-----------------------------;
+            ///æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–.-----------------------------;
 
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İ·ÖÒ³Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í,Ö»»ñÈ¡Ò»Ò³.");
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®åˆ†é¡µæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨,åªè·å–ä¸€é¡µ.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:·ÖÒ³²ÎÊı½á¹¹", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns ¶ÔÏóÁĞ±í");
+            strCodeForCs.AppendFormat("\r\n * @param objPagerPara:åˆ†é¡µå‚æ•°ç»“æ„", objKeyField.PrivFuncName);
+            strCodeForCs.AppendFormat("\r\n * @returns å¯¹è±¡åˆ—è¡¨");
             strCodeForCs.AppendFormat("\r\n*/");
 
             var strCache_ParaVarDefLstStr = clsPrjTabBLEx.Cache_ParaVarDefLstStr(objPrjTabENEx, "TypeScript");
@@ -9817,7 +10756,7 @@ ThisTabName4GC);
             CodeElement objCodeElement_Import2 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass2);
             clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import2);
 
-            strCodeForCs.Append("\r\n" + $"//´Ó»º´æÖĞ»ñÈ¡¶ÔÏó£¬Èç¹û»º´æÖĞ²»´æÔÚ¾ÍÀ©Õ¹¸´ÖÆ");
+            strCodeForCs.Append("\r\n" + $"//ä»ç¼“å­˜ä¸­è·å–å¯¹è±¡ï¼Œå¦‚æœç¼“å­˜ä¸­ä¸å­˜åœ¨å°±æ‰©å±•å¤åˆ¶");
             strCodeForCs.Append("\r\n" + $"const arrNewObj = new Array<cls{ThisTabName4GC}ENEx>();");
             strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ExObjLst = arr{ThisTabName4GC}ObjLst.map((obj) => {{");
 
@@ -9846,7 +10785,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + $"await {thisWA_F(WA_F.FuncMapByFldName)}(strFldName, newObj);");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + $"//¼ì²é¹ØÓÚµ±Ç°À©Õ¹ÅÅĞò×Ö¶ÎÊÇ·ñ»ñÈ¡µÃÖµ£¬Èç¹ûÃ»ÓĞ»ñÈ¡¹ı£¬¾Í»ñÈ¡£¬²¢´æ»º´æ");
+            strCodeForCs.Append("\r\n" + $"//æ£€æŸ¥å…³äºå½“å‰æ‰©å±•æ’åºå­—æ®µæ˜¯å¦è·å–å¾—å€¼ï¼Œå¦‚æœæ²¡æœ‰è·å–è¿‡ï¼Œå°±è·å–ï¼Œå¹¶å­˜ç¼“å­˜");
             strCodeForCs.Append("\r\n" + $"const bolIsFuncMap = isFuncMapCache[isFuncMapKey];");
 
             ImportClass objImportClass7 = AddImportClass("", $"@/views{strIsShare}/{objFuncModuleEN.FuncModuleEnName}/{this.GetVueShareClsName()}", "isFuncMapCache", enumImportObjType.CustomFunc, "");
@@ -9876,7 +10815,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Cond = objPagerPara.conditionCollection;");
             strCodeForCs.Append("\r\n" + $"if (obj{ThisTabName4GC}Cond == null)");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strMsg = `¸ù¾İ·Ö²¼Ìõ¼ş´Ó»º´æÖĞ»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±íÊ±£¬objPagerPara.conditionCollectionÎªnull,Çë¼ì²é£¡(in ${ strThisFuncName})`;");
+            strCodeForCs.Append("\r\n" + "const strMsg = `æ ¹æ®åˆ†å¸ƒæ¡ä»¶ä»ç¼“å­˜ä¸­è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨æ—¶ï¼ŒobjPagerPara.conditionCollectionä¸ºnull,è¯·æ£€æŸ¥ï¼(in ${ strThisFuncName})`;");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + $"return arr{ThisTabName4GC}ExObjLst;");
@@ -9978,7 +10917,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "else {");
-            strCodeForCs.Append("\r\n" + "//Èç¹ûÅÅĞò×Ö¶ÎÃû[OrderBy]Îª¿Õ,¾Íµ÷ÓÃÅÅĞòº¯Êı");
+            strCodeForCs.Append("\r\n" + "//å¦‚æœæ’åºå­—æ®µå[OrderBy]ä¸ºç©º,å°±è°ƒç”¨æ’åºå‡½æ•°");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}Sel = arr{0}Sel.sort(objPagerPara.sortFun);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
 
@@ -9987,7 +10926,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"´íÎó:[{0}]. \\n¸ù¾İÌõ¼ş:[{1}]»ñÈ¡·ÖÒ³¶ÔÏóÁĞ±í²»³É¹¦!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"é”™è¯¯:[{0}]. \\næ ¹æ®æ¡ä»¶:[{1}]è·å–åˆ†é¡µå¯¹è±¡åˆ—è¡¨ä¸æˆåŠŸ!(In {2}.{3})\", e, objPagerPara.whereCond, " + this.constructorName + ", strThisFuncName);");
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
 
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -9996,7 +10935,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "}");
 
-            //¸ù¾İ¹Ø¼ü×Ö»ñÈ¡Ïà¹Ø¶ÔÏó, ´Ó»º´æµÄ¶ÔÏóÁĞ±íÖĞ»ñÈ¡. == = ;
+            //æ ¹æ®å…³é”®å­—è·å–ç›¸å…³å¯¹è±¡, ä»ç¼“å­˜çš„å¯¹è±¡åˆ—è¡¨ä¸­è·å–. == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -10007,7 +10946,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -10045,11 +10984,11 @@ ThisTabName4GC);
         public string Gen_4WA_Ts_FuncMap()
         {
             string strFuncName = "";
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             List<string> arrTabId4MapFunc = new List<string>();
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
 
             List<clsPrjTabFldEN> arrPrjTabFld_Sel = clsPrjTabFldBLEx.GetObjLstByTabIdCache(objPrjTabENEx.TabId, objPrjTabENEx.PrjId);
             arrPrjTabFld_Sel = arrPrjTabFld_Sel.Where(x => x.IsForExtendClass == true).ToList();
@@ -10070,16 +11009,16 @@ ThisTabName4GC);
                     if (objDnPath == null) continue;
                     if (objDnPath.PrjId != objPrjTabFld.PrjId)
                     {
-                        string strMsg = string.Format("ÔÚ±í:[{0}]ÖĞ,À©Õ¹×Ö¶Î:[{1}]ËùÒıÓÃµÄÂ·¾¶²»ÕıÈ·!", ThisTabName4GC, objFieldTab.FldName);
+                        string strMsg = string.Format("åœ¨è¡¨:[{0}]ä¸­,æ‰©å±•å­—æ®µ:[{1}]æ‰€å¼•ç”¨çš„è·¯å¾„ä¸æ­£ç¡®!", ThisTabName4GC, objFieldTab.FldName);
                         objPrjTabFld.ErrMsg = strMsg;
                         objPrjTabFld.Update();
                         //throw new Exception(strMsg);
                         continue;
                     }
                     sbTempFun.Append("\r\n /**");
-                    sbTempFun.Append("\r\n * °ÑÒ»¸öÀ©Õ¹ÀàµÄ²¿·ÖÊôĞÔ½øĞĞº¯Êı×ª»»");
+                    sbTempFun.Append("\r\n * æŠŠä¸€ä¸ªæ‰©å±•ç±»çš„éƒ¨åˆ†å±æ€§è¿›è¡Œå‡½æ•°è½¬æ¢");
                     sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    sbTempFun.AppendFormat("\r\n * @param obj{0}S:Ô´¶ÔÏó", ThisTabName4GC);
+                    sbTempFun.AppendFormat("\r\n * @param obj{0}S:æºå¯¹è±¡", ThisTabName4GC);
                     sbTempFun.Append("\r\n **/");
                     sbTempFun.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "FuncMap{0}(obj{1}:cls{1}ENEx )", objFieldTab.FldName, ThisTabName4GC);
                     strFuncName = $"{this.tabNameHead}FuncMap{objFieldTab.FldName}";
@@ -10116,7 +11055,7 @@ ThisTabName4GC);
                     {
                         var objPrjTab = clsPrjTabBL.GetObjByTabIdCache(objPrjTabENEx.TabId, objPrjTabFld.PrjId);
                         var objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(this.CmPrjId);
-                        string strMsg = string.Format("×ª»»º¯ÊıÖĞ,±íTabId={0}({3}),×Ö¶ÎFldId=[{1}({4})]==>{8}ÔÚ»ñÈ¡×ª»»Â·¾¶Ê±,³ö´í:{7}¡£ VersionNo=1, CmPrjId={2}({5}),Çë¼ì²é!(In {6})",
+                        string strMsg = string.Format("è½¬æ¢å‡½æ•°ä¸­,è¡¨TabId={0}({3}),å­—æ®µFldId=[{1}({4})]==>{8}åœ¨è·å–è½¬æ¢è·¯å¾„æ—¶,å‡ºé”™:{7}ã€‚ VersionNo=1, CmPrjId={2}({5}),è¯·æ£€æŸ¥!(In {6})",
                             objPrjTabENEx.TabId,
                             objPrjTabFld.FldId, this.CmPrjId,
                             objPrjTab.TabName, objFieldTab.FldName, objCMProject.CmPrjName,
@@ -10152,7 +11091,7 @@ ThisTabName4GC);
                                         sbTempFun.Append("\r\n" + $"if (IsNullOrEmpty(obj{ThisTabName4GC}.{objCacheClassifyField.PropertyName(this.IsFstLcase)}) == true)");
                                     }
                                     sbTempFun.Append("\r\n" + "{");
-                                        sbTempFun.Append("\r\n" + $"const strMsg = `º¯ÊıÓ³Éä[{objFieldTab.FldName}]Êı¾İ³ö´í,{objCacheClassifyField.PropertyName(this.IsFstLcase)}²»ÄÜÎª¿Õ!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
+                                        sbTempFun.Append("\r\n" + $"const strMsg = `å‡½æ•°æ˜ å°„[{objFieldTab.FldName}]æ•°æ®å‡ºé”™,{objCacheClassifyField.PropertyName(this.IsFstLcase)}ä¸èƒ½ä¸ºç©º!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
                                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
                                         sbTempFun.Append("\r\n" + "alert(strMsg);");
                                         sbTempFun.Append("\r\n" + "return;");
@@ -10172,7 +11111,7 @@ ThisTabName4GC);
                                         sbTempFun.Append("\r\n" + $"if (IsNullOrEmpty(obj{ThisTabName4GC}.{objCacheClassifyField2.PropertyName(this.IsFstLcase)}) == true)");
                                     }
                                     sbTempFun.Append("\r\n" + "{");
-                                    sbTempFun.Append("\r\n" + $"const strMsg = `º¯ÊıÓ³Éä±í¶ÔÏóÊı¾İ³ö´í,{objCacheClassifyField2.PropertyName(this.IsFstLcase)}²»ÄÜÎª¿Õ!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
+                                    sbTempFun.Append("\r\n" + $"const strMsg = `å‡½æ•°æ˜ å°„è¡¨å¯¹è±¡æ•°æ®å‡ºé”™,{objCacheClassifyField2.PropertyName(this.IsFstLcase)}ä¸èƒ½ä¸ºç©º!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
                                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
                                     sbTempFun.Append("\r\n" + "alert(strMsg);");
                                     sbTempFun.Append("\r\n" + "return;");
@@ -10252,7 +11191,7 @@ ThisTabName4GC);
                                 var objDNFun = clsDnFunctionBL.GetObjByDnFunctionIdCache(objInFor.DnFunctionId, objPrjTabENEx.PrjId);
                                 if (objDNFun == null)
                                 {
-                                    string strMsg = string.Format("DnFunction±íÖĞId:[{0}]µÄ½áµã²»´æÔÚ!", objInFor.DnFunctionId);
+                                    string strMsg = string.Format("DnFunctionè¡¨ä¸­Id:[{0}]çš„ç»“ç‚¹ä¸å­˜åœ¨!", objInFor.DnFunctionId);
                                     throw new Exception(strMsg);
                                 }
                                 switch (objDNFun.DnFunctionName)
@@ -10341,9 +11280,9 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n" + "catch (e)");
                     sbTempFun.Append("\r\n" + "{");
                     string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-                        objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, string.Format("FuncMap{0}", objFieldTab.FldName), "º¯ÊıÓ³Éä±í2:{0} ¶ÔÏóÊı¾İ³ö´í!", "Éú³É´úÂë");
+                        objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, string.Format("FuncMap{0}", objFieldTab.FldName), "å‡½æ•°æ˜ å°„è¡¨2:{0} å¯¹è±¡æ•°æ®å‡ºé”™!", "ç”Ÿæˆä»£ç ");
 
-                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})º¯ÊıÓ³Éä±í¶ÔÏóÊı¾İ³ö´í,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
+                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})å‡½æ•°æ˜ å°„è¡¨å¯¹è±¡æ•°æ®å‡ºé”™,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
                     sbTempFun.Append("\r\n" + "alert(strMsg);");
                     sbTempFun.Append("\r\n" + "}");
@@ -10356,7 +11295,7 @@ ThisTabName4GC);
                     var objFldDispUnitStyle = clscss_FldDispUnitStyleBL.GetObjByFldDispUnitStyleIdCache(objPrjTabFld.FldDispUnitStyleId);
                     if (objFldDispUnitStyle == null)
                     {
-                        string strMsg = string.Format("ÔÚ±í:[{0}]ÖĞ,À©Õ¹×Ö¶Î(×Ö¶ÎÏÔÊ¾µ¥Ôª):[{1}]Ã»ÓĞÉèÖÃÏàÓ¦µÄ×Ö¶Îµ¥ÔªÏÔÊ¾¸ñÊ½!",
+                        string strMsg = string.Format("åœ¨è¡¨:[{0}]ä¸­,æ‰©å±•å­—æ®µ(å­—æ®µæ˜¾ç¤ºå•å…ƒ):[{1}]æ²¡æœ‰è®¾ç½®ç›¸åº”çš„å­—æ®µå•å…ƒæ˜¾ç¤ºæ ¼å¼!",
                             ThisTabName4GC, objFieldTab.FldName);
                         objPrjTabFld.ErrMsg = strMsg;
                         objPrjTabFld.Update();
@@ -10366,7 +11305,7 @@ ThisTabName4GC);
                     var objFieldTab_Out = clsFieldTabBL.GetObjByFldIdCache(objPrjTabFld.FldId, objPrjTabFld.PrjId);
                     if (objFieldTab_Out == null)
                     {
-                        string strMsg = string.Format("ÔÚ±í:[{0}]ÖĞ,À©Õ¹×Ö¶Î(×Ö¶ÎÏÔÊ¾µ¥Ôª):[{1}]ÔÚµ±Ç°¹¤³ÌÖĞ²»´æÔÚ!",
+                        string strMsg = string.Format("åœ¨è¡¨:[{0}]ä¸­,æ‰©å±•å­—æ®µ(å­—æ®µæ˜¾ç¤ºå•å…ƒ):[{1}]åœ¨å½“å‰å·¥ç¨‹ä¸­ä¸å­˜åœ¨!",
                             ThisTabName4GC, objFieldTab.FldName);
                         objPrjTabFld.ErrMsg = strMsg;
                         objPrjTabFld.Update();
@@ -10375,7 +11314,7 @@ ThisTabName4GC);
                     }
                     if (string.IsNullOrEmpty(objPrjTabFld.InFldId) == true)
                     {
-                        string strMsg = string.Format("ÔÚ±í:[{0}]ÖĞ,À©Õ¹×Ö¶Î(×Ö¶ÎÏÔÊ¾µ¥Ôª):[{1}]Ã»ÓĞ[µ¼Èë×Ö¶Î(InFldId)], Çë¼ì²é!",
+                        string strMsg = string.Format("åœ¨è¡¨:[{0}]ä¸­,æ‰©å±•å­—æ®µ(å­—æ®µæ˜¾ç¤ºå•å…ƒ):[{1}]æ²¡æœ‰[å¯¼å…¥å­—æ®µ(InFldId)], è¯·æ£€æŸ¥!",
                             ThisTabName4GC, objFieldTab.FldName);
                         objPrjTabFld.ErrMsg = strMsg;
                         objPrjTabFld.Update();
@@ -10385,7 +11324,7 @@ ThisTabName4GC);
                     var objFieldTab_In = clsFieldTabBL.GetObjByFldIdCache(objPrjTabFld.InFldId, objPrjTabFld.PrjId);
                     if (objFieldTab_In == null)
                     {
-                        string strMsg = string.Format("ÔÚ±í:[{0}]ÖĞ,À©Õ¹×Ö¶Î(×Ö¶ÎÏÔÊ¾µ¥Ôª):[{1}]ÔÚµ±Ç°¹¤³ÌÖĞ²»´æÔÚ!",
+                        string strMsg = string.Format("åœ¨è¡¨:[{0}]ä¸­,æ‰©å±•å­—æ®µ(å­—æ®µæ˜¾ç¤ºå•å…ƒ):[{1}]åœ¨å½“å‰å·¥ç¨‹ä¸­ä¸å­˜åœ¨!",
                             ThisTabName4GC, objFieldTab.FldName);
                         objPrjTabFld.ErrMsg = strMsg;
                         objPrjTabFld.Update();
@@ -10398,9 +11337,9 @@ ThisTabName4GC);
                     var objStyle_Title = clscss_StyleBL.GetObjByStyleIdCache(objFldDispUnitStyle.StyleIdTitle);
 
                     sbTempFun.Append("\r\n /**");
-                    sbTempFun.Append("\r\n * ÏÔÊ¾Ò»¸ö×Ö¶ÎµÄµ¥ÔªĞÅÏ¢");
+                    sbTempFun.Append("\r\n * æ˜¾ç¤ºä¸€ä¸ªå­—æ®µçš„å•å…ƒä¿¡æ¯");
                     sbTempFun.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    sbTempFun.AppendFormat("\r\n * @param obj{0}S:Ô´¶ÔÏó", ThisTabName4GC);
+                    sbTempFun.AppendFormat("\r\n * @param obj{0}S:æºå¯¹è±¡", ThisTabName4GC);
                     sbTempFun.Append("\r\n **/");
                     sbTempFun.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "FuncMap{0}(obj{1}:cls{1}ENEx )", objFieldTab.FldName, ThisTabName4GC);
                     strFuncName = $"{this.tabNameHead}FuncMap{objFieldTab.FldName}";
@@ -10477,7 +11416,7 @@ ThisTabName4GC);
                             break;
                         default:
                             var objCtlType = clsCtlTypeBL.GetObjByCtlTypeIdCache(objPrjTabFld.CtlTypeIdDu);
-                            var strMsg = string.Format("¿Ø¼şÀàĞÍ£º{0}ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí!({1})", objCtlType.CtlTypeName, clsStackTrace.GetCurrClassFunction());
+                            var strMsg = string.Format("æ§ä»¶ç±»å‹ï¼š{0}åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†!({1})", objCtlType.CtlTypeName, clsStackTrace.GetCurrClassFunction());
                             throw new Exception(strMsg);
 
                     }
@@ -10490,9 +11429,9 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n" + "catch (e)");
                     sbTempFun.Append("\r\n" + "{");
                     string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-                        objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, string.Format("FuncMap{0}", objFieldTab.FldName), "º¯ÊıÓ³Éä±í:{0} ¶ÔÏóÊı¾İ³ö´í!", "Éú³É´úÂë");
+                        objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, string.Format("FuncMap{0}", objFieldTab.FldName), "å‡½æ•°æ˜ å°„è¡¨:{0} å¯¹è±¡æ•°æ®å‡ºé”™!", "ç”Ÿæˆä»£ç ");
 
-                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})º¯ÊıÓ³Éä±í¶ÔÏóÊı¾İ³ö´í,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
+                    sbTempFun.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})å‡½æ•°æ˜ å°„è¡¨å¯¹è±¡æ•°æ®å‡ºé”™,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
                     sbTempFun.Append("\r\n" + "alert(strMsg);");
                     sbTempFun.Append("\r\n" + "}");
@@ -10512,13 +11451,13 @@ ThisTabName4GC);
                 });
                 if (strFuncName == "")
                 {
-                    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
                 }
                 strCodeForCs.Append(sbTempFun);
             }
 
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† == = ;
 
             //clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             //{
@@ -10530,7 +11469,7 @@ ThisTabName4GC);
             //});
             //if (strFuncName == "")
             //{
-            //    string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+            //    string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
             //    throw new Exception(strMsg);
             //}
             return strCodeForCs.ToString();
@@ -10540,20 +11479,20 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = $"export  function {thisWA_F(WA_F.SortFunByExKey)}(strKey:string, AscOrDesc: string) ";
 
-            Re_objFunction4Code.FuncCHName4Code = "ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï.";
+            Re_objFunction4Code.FuncCHName4Code = "æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ.";
 
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ÅÅĞòº¯Êı¡£¸ù¾İ¹Ø¼ü×Ö×Ö¶ÎµÄÖµ½øĞĞ±È½Ï");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ’åºå‡½æ•°ã€‚æ ¹æ®å…³é”®å­—å­—æ®µçš„å€¼è¿›è¡Œæ¯”è¾ƒ");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param a:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.Append("\r\n * @param  b:±È½ÏµÄµÚ1¸ö¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * @returns ·µ»ØÁ½¸ö¶ÔÏó±È½ÏµÄ½á¹û",
+            strCodeForCs.Append("\r\n * @param a:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.Append("\r\n * @param  b:æ¯”è¾ƒçš„ç¬¬1ä¸ªå¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns è¿”å›ä¸¤ä¸ªå¯¹è±¡æ¯”è¾ƒçš„ç»“æœ",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.SortFunByExKey)}(strKey:string, AscOrDesc: string)");
@@ -10618,7 +11557,7 @@ ThisTabName4GC);
                     case "Object":
                         break;
                     default:
-                        var strMsg = string.Format("TypeScript:[{0}]ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí¡£(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
+                        var strMsg = string.Format("TypeScript:[{0}]åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†ã€‚(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                         //break;
                 }
@@ -10629,7 +11568,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "        default:");
             strCodeForCs.Append("\r\n" + $"return {thisWA_F(WA_F.SortFunByKey)}(strKey, AscOrDesc);");
 
-            //strCodeForCs.AppendFormat("\r\n" + "       const strMsg = `×Ö¶ÎÃû:[${{strKey}}]ÔÚ±í¶ÔÏó:[{0}]ÖĞ²»´æÔÚ!(in ${{ this.constructor.name}}.${{ strThisFuncName}})`;", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "       const strMsg = `å­—æ®µå:[${{strKey}}]åœ¨è¡¨å¯¹è±¡:[{0}]ä¸­ä¸å­˜åœ¨!(in ${{ this.constructor.name}}.${{ strThisFuncName}})`;", ThisTabName4GC);
             //strCodeForCs.Append("\r\n" + "       console.error(strMsg);");
             //strCodeForCs.Append("\r\n" + "     break;");
             strCodeForCs.Append("\r\n" + " }");
@@ -10690,7 +11629,7 @@ ThisTabName4GC);
                         break;
 
                     default:
-                        var strMsg = string.Format("TypeScript:[{0}]ÔÚº¯ÊıÖĞÃ»ÓĞ±»´¦Àí¡£(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
+                        var strMsg = string.Format("TypeScript:[{0}]åœ¨å‡½æ•°ä¸­æ²¡æœ‰è¢«å¤„ç†ã€‚(in {1})", objField.ObjFieldTabENEx.TypeScriptType, clsStackTrace.GetCurrClassFunction());
                         throw new Exception(strMsg);
                         //break;
                 }
@@ -10714,7 +11653,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -10724,7 +11663,7 @@ ThisTabName4GC);
         public string Gen_4WA_Ts_FuncMapByFldName()
         {
             string strFuncName = "";
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             StringBuilder strTemp = new StringBuilder();
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrExtendFldSet)
@@ -10752,18 +11691,18 @@ ThisTabName4GC);
 
             Re_objFunction4Code.FuncName4Code = $"export  function {thisWA_F(WA_F.FuncMapByFldName)}(strFldName: string, obj{ThisTabName4GC}Ex: cls{ThisTabName4GC}ENEx) ";
 
-            Re_objFunction4Code.FuncCHName4Code = "¸ù¾İÀ©Õ¹×Ö¶ÎÃûÈ¥µ÷ÓÃÏàÓ¦µÄÓ³Éäº¯Êı¡£";
+            Re_objFunction4Code.FuncCHName4Code = "æ ¹æ®æ‰©å±•å­—æ®µåå»è°ƒç”¨ç›¸åº”çš„æ˜ å°„å‡½æ•°ã€‚";
 
             StringBuilder strCodeForCs = new StringBuilder();
             strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * ¸ù¾İÀ©Õ¹×Ö¶ÎÃûÈ¥µ÷ÓÃÏàÓ¦µÄÓ³Éäº¯Êı");
-            strCodeForCs.AppendFormat("\r\n * ×÷Õß:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * ÈÕÆÚ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
+            strCodeForCs.AppendFormat("\r\n * æ ¹æ®æ‰©å±•å­—æ®µåå»è°ƒç”¨ç›¸åº”çš„æ˜ å°„å‡½æ•°");
+            strCodeForCs.AppendFormat("\r\n * ä½œè€…:{0}", objPrjTabENEx.UserId);
+            strCodeForCs.AppendFormat("\r\n * æ—¥æœŸ:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
 
-            strCodeForCs.Append("\r\n * @param strFldName:À©Õ¹×Ö¶ÎÃû");
-            strCodeForCs.Append("\r\n * @param  obj{0}Ex:ĞèÒª×ª»»µÄ¶ÔÏó");
-            strCodeForCs.AppendFormat("\r\n * @returns Õë¶ÔÀ©Õ¹×Ö¶ÎÃû¶Ô×ª»»¶ÔÏó½øĞĞº¯ÊıÓ³Éä",
+            strCodeForCs.Append("\r\n * @param strFldName:æ‰©å±•å­—æ®µå");
+            strCodeForCs.Append("\r\n * @param  obj{0}Ex:éœ€è¦è½¬æ¢çš„å¯¹è±¡");
+            strCodeForCs.AppendFormat("\r\n * @returns é’ˆå¯¹æ‰©å±•å­—æ®µåå¯¹è½¬æ¢å¯¹è±¡è¿›è¡Œå‡½æ•°æ˜ å°„",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.FuncMapByFldName)}(strFldName: string, obj{ThisTabName4GC}Ex: cls{ThisTabName4GC}ENEx)");
@@ -10782,7 +11721,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "strFldName = strFldName.replace('|Ex', '');");
 
             strCodeForCs.Append("\r\n" + "let strMsg = \"\";");
-            strCodeForCs.Append("\r\n" + "//Èç¹ûÊÇ±¾±íÖĞ×Ö¶Î,²»ĞèÒªÓ³Éä");
+            strCodeForCs.Append("\r\n" + "//å¦‚æœæ˜¯æœ¬è¡¨ä¸­å­—æ®µ,ä¸éœ€è¦æ˜ å°„");
             strCodeForCs.AppendFormat("\r\n" + "const arrFldName = cls{0}EN._AttributeName;", ThisTabName4GC);
             ImportClass objImportClass2 = AddImportClass(objPrjTabENEx.TabId, ThisTabName4GC, string.Format("cls{0}EN", ThisTabName4GC), enumImportObjType.ENClass, this.strBaseUrl);
 
@@ -10790,14 +11729,14 @@ ThisTabName4GC);
             clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import2);
 
             strCodeForCs.Append("\r\n" + "if (arrFldName.indexOf(strFldName) > -1) return;");
-            strCodeForCs.Append("\r\n" + "//Õë¶ÔÀ©Õ¹×Ö¶Î½øĞĞÓ³Éä");
+            strCodeForCs.Append("\r\n" + "//é’ˆå¯¹æ‰©å±•å­—æ®µè¿›è¡Œæ˜ å°„");
 
             strCodeForCs.Append("\r\n" + "switch (strFldName)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + strTemp.ToString());
 
             strCodeForCs.Append("\r\n" + "        default:");
-            strCodeForCs.Append("\r\n" + "    strMsg = Format(\"À©Õ¹×Ö¶Î:[{0}]ÔÚ×Ö¶ÎÖµº¯ÊıÓ³ÉäÖĞ²»´æÔÚ!(in {1})\", strFldName, strThisFuncName);");
+            strCodeForCs.Append("\r\n" + "    strMsg = Format(\"æ‰©å±•å­—æ®µ:[{0}]åœ¨å­—æ®µå€¼å‡½æ•°æ˜ å°„ä¸­ä¸å­˜åœ¨!(in {1})\", strFldName, strThisFuncName);");
             ImportClass objImportClass8 = AddImportClass(objPrjTabENEx.TabId, "/PubFun/clsString.js", "Format", enumImportObjType.CustomFunc, this.strBaseUrl);
 
             CodeElement objCodeElement_Import8 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass8);
@@ -10817,7 +11756,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -10828,17 +11767,17 @@ ThisTabName4GC);
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  function " + this.tabNameHead + "CopyToEx(obj{0}ENS:cls{0}EN ): cls{0}ENEx", ThisTabName4GC);
 
-            Re_objFunction4Code.FuncCHName4Code = "°ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó.";
-            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//¸Ã±íÃ»ÓĞÓ¦ÓÃÔÚ½çÃæÊÓÍ¼µÄÁĞ±íÇø,²»ĞèÒªÉú³É[GetObjExLstByPagerCache]º¯Êı;(in {clsStackTrace.GetCurrClassFunction()})";
+            Re_objFunction4Code.FuncCHName4Code = "æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡.";
+            if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//è¯¥è¡¨æ²¡æœ‰åº”ç”¨åœ¨ç•Œé¢è§†å›¾çš„åˆ—è¡¨åŒº,ä¸éœ€è¦ç”Ÿæˆ[GetObjExLstByPagerCache]å‡½æ•°;(in {clsStackTrace.GetCurrClassFunction()})";
 
             //if (bolIsUseFunc4Detail == false) return "";
             StringBuilder strCodeForCs = new StringBuilder();
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯-----------------------------;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›†-----------------------------;
             strCodeForCs.Append("\r\n /**");
-            strCodeForCs.Append("\r\n * °ÑÍ¬Ò»¸öÀàµÄ¶ÔÏó,¸´ÖÆµ½ÁíÒ»¸ö¶ÔÏó");
+            strCodeForCs.Append("\r\n * æŠŠåŒä¸€ä¸ªç±»çš„å¯¹è±¡,å¤åˆ¶åˆ°å¦ä¸€ä¸ªå¯¹è±¡");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:Ô´¶ÔÏó", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n * @returns Ä¿±ê¶ÔÏó=>cls{0}EN:obj{0}ENT", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:æºå¯¹è±¡", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n * @returns ç›®æ ‡å¯¹è±¡=>cls{0}EN:obj{0}ENT", ThisTabName4GC);
             strCodeForCs.Append("\r\n **/");
             strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "CopyToEx(obj{0}ENS:cls{0}EN ): cls{0}ENEx", ThisTabName4GC);
             strFuncName = $"{this.tabNameHead}CopyToEx";
@@ -10860,16 +11799,16 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
             string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, "CopyToEx_Static", "Copy±íEx¶ÔÏóÊı¾İ³ö´í!", "Éú³É´úÂë");
+                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, "CopyToEx_Static", "Copyè¡¨Exå¯¹è±¡æ•°æ®å‡ºé”™!", "ç”Ÿæˆä»£ç ");
 
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})Copy±í¶ÔÏóÊı¾İ³ö´í,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"(errid:{0})Copyè¡¨å¯¹è±¡æ•°æ®å‡ºé”™,{{0}}.(in {{1}}.{{2}})\", e, " + this.constructorName + ", strThisFuncName);", strErrId);
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "alert(strMsg);");
 
             strCodeForCs.AppendFormat("\r\n return obj{0}ENT;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n}");
-            //»ñÈ¡Ä³Ò»Ìõ¼şÖµµÄ¼ÇÂ¼¼¯ == = ;
+            //è·å–æŸä¸€æ¡ä»¶å€¼çš„è®°å½•é›† == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -10880,7 +11819,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                string strMsg = string.Format("ÔÚÉú³Éº¯Êı:[{0}]Ê±£¬º¯ÊıÃû²»ÄÜÎª¿Õ¡£(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                string strMsg = string.Format("åœ¨ç”Ÿæˆå‡½æ•°:[{0}]æ—¶ï¼Œå‡½æ•°åä¸èƒ½ä¸ºç©ºã€‚(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();

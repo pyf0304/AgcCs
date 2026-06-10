@@ -304,8 +304,7 @@ namespace AGC.BusinessLogicEx
                 string strMsg = string.Format("界面:{0}的界面类型为空,请检查!", objViewInfoENEx.ViewName);
                 throw new Exception(strMsg);
             }
-            objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
-
+            
             objViewInfoENEx.arrFeatureId = clsPrjFeatureBLEx.GetFeatureIdLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
             objViewInfoENEx.arrViewReferFiles = clsViewReferFilesBLEx.GetObjLstByViewIdCache(objViewInfoENEx.ViewId, objViewInfoENEx.PrjId);
             objViewInfoENEx.arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
@@ -355,12 +354,13 @@ namespace AGC.BusinessLogicEx
                 //string strMsg = string.Format("界面:{0}的界面类型为空,请检查!", objViewInfoENEx.ViewName);
                 //throw new Exception(strMsg);
             }
-            objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
+            //objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
 
             objViewInfoENEx.arrFeatureId = clsPrjFeatureBLEx.GetFeatureIdLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
             objViewInfoENEx.arrViewReferFiles = clsViewReferFilesBLEx.GetObjLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
             objViewInfoENEx.arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(objViewInfoENEx.ViewId, objViewInfoENEx.PrjId);
-
+            objViewInfoENEx.arrTabIdInView = clsViewInfoBLEx.getAllRelaTabId4AllRegion2(objViewInfoENEx.ViewId, objViewInfoENEx.PrjId);
+            objViewInfoENEx.arrPrjTabObjInView = clsViewInfoBLEx.GetPrjTabObjLstInView(objViewInfoENEx.arrTabIdInView, objViewInfoENEx.PrjId);
 
             clsDGRegionFldsBLEx.initDGRegionFldSet(objViewInfoENEx, bolIsFstLcase);
             clsEditRegionFldsBLEx.initEditRegionFldSet(objViewInfoENEx, bolIsFstLcase);
@@ -471,6 +471,21 @@ namespace AGC.BusinessLogicEx
 
             return true;
         }
+
+        private static List<clsPrjTabENEx> GetPrjTabObjLstInView(List<string> arrTabId, string prjId)
+        {
+            List<clsPrjTabENEx> arrPrjTabObjInView = new List<clsPrjTabENEx>();
+            foreach (var tabId in arrTabId)
+            {
+                var objPrjTab0 = clsPrjTabBL.GetObjByTabIdCache(tabId, prjId);
+                var objPrjTabEx = clsPrjTabBLEx.CopyToEx(objPrjTab0);
+                objPrjTabEx.GetObjAllInfoEx();
+
+                arrPrjTabObjInView.Add(objPrjTabEx);
+            }
+            return arrPrjTabObjInView;
+        }
+
         public static void InitViewGroupEx(clsViewInfoENEx objViewInfoENEx)
         {
             //objViewInfoENEx .objViewGroupEx = new clsViewGroupENEx(objViewInfoENEx.ViewGroupId, true);
@@ -4465,7 +4480,7 @@ namespace AGC.BusinessLogicEx
                 objNewField.UpdUser = strUserId;
                 objNewField.FldId = CopyFieldToTargetProject(objSouField.FldId, strSouPrjId, strTarPrjId, strUserId);
                 objNewField.OutFldId = CopyFieldToTargetProject(objSouField.OutFldId, strSouPrjId, strTarPrjId, strUserId);
-                                
+
                 clsDGRegionFldsBL.AddNewRecordBySql2(objNewField);
             }
         }

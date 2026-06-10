@@ -3,6 +3,7 @@ using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AutoGCLib.Templates;
 using com.taishsoft.common;
+using LaYumba.Functional;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ using System.Text;
 namespace AutoGCLib
 {
     /// <summary>
-    /// 生成 Ai4 版本的 Vue HTML 模板文件（.vue 文件）
+    /// 生成 Ai 版本的 Vue HTML 模板文件（.vue 文件）
     /// 包含 template、script 和 style 三部分
     /// 使用 Scriban 模板引擎实现代码与模板分离
     /// </summary>
@@ -45,13 +46,19 @@ namespace AutoGCLib
             objViewInfoENEx.WebFormFName = string.Format("{0}.vue", strRe_ClsName);
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
 
-            var model = BuildAi4HtmlTemplateModel();
+            var model = BuildAiHtmlTemplateModel();
 
             string result = "";
 
             try
             {
-                result = _renderService.Render("TypeScript/Ai4Html.sbn", model);
+                result = _renderService.Render("TypeScript/AiHtml.sbn", model);
+                
+                // 🔥 后处理:替换占位符为界面变量初始化代码
+                if (!string.IsNullOrEmpty(model.ViewVariablesInitCode))
+                {
+                    result = result.Replace("/*__VIEW_VARIABLES_INIT_CODE__*/", model.ViewVariablesInitCode);
+                }
             }
             catch (Exception ex)
             {
@@ -61,22 +68,22 @@ namespace AutoGCLib
                     errorMsg += $"\n内部异常: {ex.InnerException.Message}";
                 }
 
-                var errorLogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderAi4HtmlError_Debug.log");
+                var errorLogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderAiHtmlError_Debug.log");
                 File.WriteAllText(errorLogFile, errorMsg, Encoding.UTF8);
                 Console.WriteLine(errorMsg);
 
-                throw new InvalidOperationException($"渲染Ai4Html模板失败: {ex.Message}", ex);
+                throw new InvalidOperationException($"渲染AiHtml模板失败: {ex.Message}", ex);
             }
 
-            var debugFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderedAi4Html_Debug.txt");
+            var debugFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderedAiHtml_Debug.txt");
             File.WriteAllText(debugFile, result, Encoding.UTF8);
 
             return result;
         }
 
-        private ListAi4HtmlTemplateModel BuildAi4HtmlTemplateModel()
+        private ListAiHtmlTemplateModel BuildAiHtmlTemplateModel()
         {
-            var model = new ListAi4HtmlTemplateModel
+            var model = new ListAiHtmlTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
@@ -84,11 +91,24 @@ namespace AutoGCLib
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
-                ViewTitle = $"{TabCnName_In4Edit4GC}维护(Ai4版-命令Schema)"
+                ViewTitle = $"{TabCnName_In4Edit4GC}维护(Ai版-命令Schema)",
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : ""
             };
+
+            // 🔥 判断是否有详细信息功能
+            model.HasDetailFeature = objViewInfoENEx.arrDetailRegionFldSet4InUse != null &&
+                                     objViewInfoENEx.arrDetailRegionFldSet4InUse.Count > 0;
+
+            //model.HasExportFeature = objViewInfoENEx.arrExcelExportRegionFldSet != null &&
+            //                         objViewInfoENEx.arrExcelExportRegionFldSet.Count > 0;
 
             // 提取查询字段
             ExtractQueryFields(model);
+
+
+            // 🔥 新增：提取功能区下拉框选项信息
+            ExtractFeatureOptions(model);
+            ExtractFeatureOptions4DS(model);
 
             // 提取功能按钮
             ExtractFeatureCommands(model);
@@ -108,7 +128,7 @@ namespace AutoGCLib
         /// 例如：ProgLangTypeId_Static, CodeTypeId_Static, FunctionTemplateId_Static
         /// 这些变量需要从 VueShare 文件导入
         /// </summary>
-        private void ExtractViewVariables(ListAi4HtmlTemplateModel model)
+        private void ExtractViewVariables(ListAiHtmlTemplateModel model)
         {
             try
             {
@@ -120,10 +140,15 @@ namespace AutoGCLib
                 if (arrViewIdGCVariableRela != null && arrViewIdGCVariableRela.Count > 0)
                 {
                     var viewVariables = new List<ViewVariableDetail>();
-                    var vueShareVariables = new List<string>(); // 用于存储需要从 VueShare 导入的变量
-                    var initCodeBuilder = new StringBuilder(); // 🔥 用于生成初始化代码
+                    var vueShareVariables = new List<string>();
+                    var initCodeBuilder = new StringBuilder();
 
                     Console.WriteLine($"=== 开始提取界面变量 (共 {arrViewIdGCVariableRela.Count} 个) ===");
+
+                    // 🔥 检查是否需要 userStore、route 或 sessionStorage
+                    bool needsUserStore = false;
+                    bool needsRoute = false;
+                    bool needsSessionStorage = false;
 
                     foreach (var varRela in arrViewIdGCVariableRela)
                     {
@@ -131,75 +156,97 @@ namespace AutoGCLib
 
                         if (objGCVariable != null)
                         {
-                            // 🔥 关键修改：使用 GetVarName4View() 获取正确的变量名
-                            // 这个方法会根据变量类型自动添加后缀（如 _Static, _Session, _Local 等）
                             string varName4View = objGCVariable.GetVarName4View();
 
                             Console.WriteLine($"变量: {objGCVariable.VarName} → {varName4View}");
-                            Console.WriteLine($"  - VarTypeId: {objGCVariable.VarTypeId}");
-                            Console.WriteLine($"  - DataTypeId: {objGCVariable.DataTypeId}");
-                            Console.WriteLine($"  - InitValue(Rela): '{varRela.InitValue}'");  // 🔥 显示关联表中的初始值
-                            Console.WriteLine($"  - InitValue(Var): '{objGCVariable.InitValue}'");  // 🔥 显示变量表中的初始值
-                            Console.WriteLine($"  - VarExpression: '{objGCVariable.VarExpression}'");
-                            Console.WriteLine($"  - RetrievalMethod: {varRela.RetrievalMethodId}");
 
-                            // 🔥 简化判断：凡是在 ViewIdGCVariableRela 中定义的变量，都需要从 VueShare 导入
-                            // 因为这些变量都是界面级别的共享变量
-                            bool needImport = true;
-                            string reason = "界面变量(ViewIdGCVariableRela)";
-
-                            // 🔥 使用 varName4View（带后缀的变量名）添加到导入列表
                             vueShareVariables.Add(varName4View);
-                            Console.WriteLine($"  ✅ 需要导入: {reason} → {varName4View}");
+                            Console.WriteLine($"  ✅ 需要导入: 界面变量(ViewIdGCVariableRela) → {varName4View}");
 
-                            // 🔥 生成初始化代码（会优先使用 InitValue）
                             string initCode = GetInitExpression(varRela, objGCVariable);
                             if (!string.IsNullOrEmpty(initCode))
                             {
-                                // 添加到初始化代码中（每个变量的初始化代码单独一行）
-                                initCodeBuilder.AppendLine(initCode);
+                                // 🔥 检查依赖
+                                if (initCode.Contains("userStore") || initCode.Contains("useUserStore"))
+                                {
+                                    needsUserStore = true;
+                                }
+                                if (initCode.Contains("route.query") || initCode.Contains("route.params"))
+                                {
+                                    needsRoute = true;
+                                }
+                                if (initCode.Contains("clsPrivateSessionStorage") || initCode.Contains("SessionStorage"))
+                                {
+                                    needsSessionStorage = true;
+                                }
+
+                                // 拆分并添加代码行
+                                var lines = initCode.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var line in lines)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(line))
+                                    {
+                                        // 不要添加 const userStore 或 const route 行
+                                        var trimmedLine = line.Trim();
+                                        if (!trimmedLine.StartsWith("const userStore") && 
+                                            !trimmedLine.StartsWith("const route"))
+                                        {
+                                            initCodeBuilder.AppendLine($"    {trimmedLine}");
+                                        }
+                                    }
+                                }
                             }
 
-                            // 添加详细信息
                             var detail = new ViewVariableDetail
                             {
-                                VarName = varName4View,  // 🔥 使用带后缀的变量名
+                                VarName = varName4View,
                                 VarType = GetTypeScriptType(objGCVariable),
                                 RetrievalMethod = varRela.RetrievalMethodId,
                                 InitExpression = initCode,
-                                NeedImport = needImport
+                                NeedImport = true
                             };
 
                             viewVariables.Add(detail);
                         }
                     }
 
-                    // 存储到模型
+                    // 🔥 构建完整的初始化代码块
+                    var fullInitCode = new StringBuilder();
+                    
+                    if (needsUserStore)
+                    {
+                        fullInitCode.AppendLine("    const userStore = useUserStore();");
+                    }
+                    if (needsRoute)
+                    {
+                        fullInitCode.AppendLine("    const route = useRoute();");
+                    }
+                    if (needsUserStore || needsRoute)
+                    {
+                        fullInitCode.AppendLine();
+                    }
+                    
+                    fullInitCode.Append(initCodeBuilder.ToString().TrimEnd());
+
                     model.ViewVariables = vueShareVariables;
                     model.ViewVariableDetails = viewVariables;
-                    model.ViewVariablesInitCode = initCodeBuilder.ToString(); // 🔥 存储初始化代码
+                    model.ViewVariablesInitCode = fullInitCode.ToString();
+                    model.NeedsUserStore = needsUserStore;
+                    model.NeedsRoute = needsRoute;
+                    model.NeedsSessionStorage = needsSessionStorage; // 🔥 新增
 
-                    // 🔥 生成 VueShare 导入路径
                     if (vueShareVariables.Count > 0)
                     {
                         model.VueShareFileName = GetVueShareFileName();
                         model.VueShareImportPath = $"@/views/{objFuncModuleEN.FuncModuleEnName}/{model.VueShareFileName}";
                     }
 
-                    // 🔥 调试输出
                     Console.WriteLine($"=== 界面变量提取完成 ===");
                     Console.WriteLine($"总变量数: {viewVariables.Count}");
                     Console.WriteLine($"需要导入的变量数: {vueShareVariables.Count}");
-                    if (vueShareVariables.Count > 0)
-                    {
-                        Console.WriteLine("需要导入的变量:");
-                        foreach (var varName in vueShareVariables)
-                        {
-                            Console.WriteLine($"  - {varName}");
-                        }
-                        Console.WriteLine($"VueShare文件: {model.VueShareFileName}");
-                        Console.WriteLine($"导入路径: {model.VueShareImportPath}");
-                    }
+                    Console.WriteLine($"需要 userStore: {needsUserStore}");
+                    Console.WriteLine($"需要 route: {needsRoute}");
+                    Console.WriteLine($"需要 sessionStorage: {needsSessionStorage}");
                     if (!string.IsNullOrEmpty(model.ViewVariablesInitCode))
                     {
                         Console.WriteLine("初始化代码:");
@@ -361,34 +408,43 @@ namespace AutoGCLib
         }
 
         /// <summary>
-        /// 🔥 新增：格式化初始值
+        /// 🔥 改进：格式化初始值
         /// 根据 TypeScript 类型将 InitValue 格式化为正确的字面量
         /// </summary>
         private string FormatInitValue(string initValue, clsGCVariableEN objVar)
         {
             if (string.IsNullOrEmpty(initValue))
             {
-                // 如果没有初始值，根据类型返回默认值
+                // 如果没有初始值,根据类型返回默认值
                 return GetDefaultValueByType(objVar);
             }
 
-            // 🔥 关键改进：统一使用 GetTypeScriptType 来判断类型
+            // 🔥 关键改进:如果 InitValue 包含对象引用(包含 . 或 枚举),直接返回
+            // 例如: clsPrivateSessionStorage.currSelPrjId, userStore.getUserId, enumProgLangType.TypeScript_09
+            if (initValue.Contains(".") || 
+                initValue.StartsWith("enum", StringComparison.OrdinalIgnoreCase) ||
+                initValue.Contains("Storage") ||
+                initValue.Contains("Store"))
+            {
+                Console.WriteLine($"  🎯 使用对象引用/枚举: '{initValue}' (直接返回)");
+                return initValue;
+            }
+
+            // 统一使用 GetTypeScriptType 来判断类型
             string tsType = GetTypeScriptType(objVar);
 
             switch (tsType)
             {
                 case "number":
-                    // 数字类型：直接返回，不需要引号
-                    // 验证是否为有效数字
+                    // 数字类型:直接返回,不需要引号
                     if (double.TryParse(initValue, out _))
                     {
                         return initValue;
                     }
-                    // 如果不是有效数字，返回 0
                     return "0";
 
                 case "boolean":
-                    // 布尔类型：转换为 true 或 false
+                    // 布尔类型:转换为 true 或 false
                     if (initValue.Equals("true", StringComparison.OrdinalIgnoreCase) ||
                         initValue.Equals("1", StringComparison.OrdinalIgnoreCase) ||
                         initValue.Equals("yes", StringComparison.OrdinalIgnoreCase))
@@ -401,44 +457,36 @@ namespace AutoGCLib
                     {
                         return "false";
                     }
-                    // 默认为 false
                     return "false";
 
                 case "void":
-                    // void 类型不应该有初始值
                     return "undefined";
 
                 case "any":
                 case "any[]":
-                    // any 类型：可能是 null、对象或其他
                     if (initValue.Equals("null", StringComparison.OrdinalIgnoreCase))
                     {
                         return "null";
                     }
-                    // 如果看起来像 JSON，直接返回
                     if (initValue.TrimStart().StartsWith("{") || initValue.TrimStart().StartsWith("["))
                     {
                         return initValue;
                     }
-                    // 否则作为字符串
                     return $"\"{EscapeString(initValue)}\"";
 
                 case "Date":
-                    // Date 类型：通常是字符串格式的日期
                     return $"new Date(\"{EscapeString(initValue)}\")";
 
                 case "ArrayBuffer":
                 case "Uint8Array":
-                    // 二进制类型：通常不会有初始值
                     return "null";
 
                 case "T":
-                    // 泛型类型：无法确定，作为 any 处理
                     return initValue.Equals("null", StringComparison.OrdinalIgnoreCase) ? "null" : $"\"{EscapeString(initValue)}\"";
 
                 case "string":
                 default:
-                    // 字符串类型（默认）：需要引号并转义
+                    // 字符串类型:需要引号并转义
                     return $"\"{EscapeString(initValue)}\"";
             }
         }
@@ -497,7 +545,7 @@ namespace AutoGCLib
         /// 提取设置字段值功能的字段变量名
         /// 例如：useStateId_f, funcModuleId_f, dataBaseTypeId_f
         /// </summary>
-        private void ExtractSetFieldVariables(ListAi4HtmlTemplateModel model)
+        private void ExtractSetFieldVariables(ListAiHtmlTemplateModel model)
         {
             var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
                 .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
@@ -514,7 +562,7 @@ namespace AutoGCLib
                     if (objFieldTab != null)
                     {
                         // 生成变量名：useStateId_f, funcModuleId_f 等
-                        string variableName = ToCamelCase(objFieldTab.FldName) + "_f";
+                        string variableName = ToCamelCase(objFieldTab.FldName) ;
                         model.SetFieldVariables.Add(variableName);
                     }
                 }
@@ -524,7 +572,7 @@ namespace AutoGCLib
         /// <summary>
         /// 提取查询字段信息
         /// </summary>
-        private void ExtractQueryFields(ListAi4HtmlTemplateModel model)
+        private void ExtractQueryFields(ListAiHtmlTemplateModel model)
         {
             if (objViewInfoENEx.arrQryRegionFldSet4InUse == null) return;
 
@@ -532,7 +580,7 @@ namespace AutoGCLib
             int fieldCount = 0;
             
             // 用于收集唯一的选项数据源
-            var uniqueOptions = new Dictionary<string, Ai4HtmlQueryOption>();
+            var uniqueOptions = new Dictionary<string, AiHtmlQueryOption>();
 
             foreach (var field in objViewInfoENEx.arrQryRegionFldSet4InUse)
             {
@@ -543,7 +591,7 @@ namespace AutoGCLib
                 // 🔥 关键修复：调用 GetDsFieldNames 获取值字段和文本字段
                 var (valueFieldName, textFieldName) = GetDsFieldNames(field);
                 
-                var queryField = new Ai4HtmlQueryField
+                var queryField = new AiHtmlQueryField
                 {
                     Key = ToCamelCase(field.FldName()) + "_q",
                     Label = field.LabelCaption,
@@ -565,13 +613,14 @@ namespace AutoGCLib
                 {
                     if (!uniqueOptions.ContainsKey(optionsKey))
                     {
-                        uniqueOptions.Add(optionsKey, new Ai4HtmlQueryOption
+                        uniqueOptions.Add(optionsKey, new AiHtmlQueryOption
                         {
                             ArrayVariableName = "arr" + optionsWApiClass,
                             OptionsKey = optionsKey,
+                            OptionsWApiClass = optionsWApiClass,  // 🔥 新增：赋值表名
                             ModuleName = optionsModuleName,
-                            ValueFieldName = valueFieldName,  // 🔥 修复：赋值
-                            TextFieldName = textFieldName     // 🔥 修复：赋值
+                            ValueFieldName = valueFieldName,
+                            TextFieldName = textFieldName
                         });
                     }
                 }
@@ -584,6 +633,176 @@ namespace AutoGCLib
             foreach (var option in uniqueOptions.Values)
             {
                 model.QueryOptionsArrays.Add(option);
+                if (model.QueryOptionsArrays4Import.Find(x => x.OptionsWApiClass == option.OptionsWApiClass) == null)
+                {
+                    model.QueryOptionsArrays4Import.Add(option);
+                }
+
+            }
+
+            // 🔥 新增：填充 OptionKeys 列表
+            model.OptionKeys = model.QueryFields
+                .Where(f => !string.IsNullOrEmpty(f.OptionsKey))
+                .Select(f => f.OptionsKey)
+                .Distinct()
+                .ToList();
+        }
+
+
+        /// <summary>
+        /// 🔥 新增：提取功能区下拉框选项信息
+        /// 使用 clsDDLItemsOptionBL.GetDdlOptionInfoLst 获取下拉框数据源信息
+        /// </summary>
+        private void ExtractFeatureOptions(ListAiHtmlTemplateModel model)
+        {
+            try
+            {
+                // 获取所有设置字段值的功能
+                var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
+                    .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
+                    .ToList();
+
+                if (setFieldFeatures.Count == 0)
+                {
+                    Console.WriteLine("没有设置字段值功能");
+                    return;
+                }
+
+                // 🔥 使用 GetDdlOptionInfoLst 获取下拉框选项信息
+                var arrViewFeatureFldsENEx = objViewInfoENEx.arrViewFeatureFlds
+                    .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
+                    .Cast<clsViewFeatureFldsENEx>()
+                    .ToList();
+
+                var ddlOptionsInfoList = clsViewFeatureFldsBLEx.GetDdlOptionInfoLst(arrViewFeatureFldsENEx);
+
+                foreach (var ddlInfo in ddlOptionsInfoList)
+                {
+                    // 生成选项键（如 useState, dataBaseType）
+                    string optionKey = ToCamelCase(ddlInfo.Key);
+
+                    // 检查是否已存在
+                    if (model.FeatureOptions.Any(x => x.Key == optionKey))
+                    {
+                        continue;
+                    }
+
+                    var optionInfo = new AiOptionsInfo
+                    {
+                        Key = optionKey,
+                        OptionsKey = optionKey ,  // 使用 WApi 类名转 camelCase 作为 OptionsKey
+                        ControlType = ddlInfo.ControlType,
+                        ValueFieldName = ddlInfo.ValueFieldName,
+                        TextFieldName = ddlInfo.TextFieldName,
+                        WApiClass = ddlInfo.WApiClass,
+                        ArrayVariableName = ddlInfo.ArrayVariableName,
+                        ModuleName = ddlInfo.ModuleName,
+                        FunctionName = ddlInfo.FunctionName,
+                        IsExtendedClass = ddlInfo.IsExtendedClass,
+                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        {
+                            ParamName = p.ParamName,
+                            SharedVarName = p.SharedVarName
+                        }).ToList() ?? new List<AiOptionParam>()
+                    };
+
+                    model.FeatureOptions.Add(optionInfo);
+                    if (optionInfo.ControlType != "select4Bool")
+                    {
+                        if (model.FeatureOptions4DS.Find(x => x.WApiClass == optionInfo.WApiClass) == null)
+                        {
+                            model.FeatureOptions4DS.Add(optionInfo);
+                        }
+                    }
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                }
+
+
+                // 🔥 新增：填充 OptionKeys 列表
+                model.OptionKeysInFeature = model.FeatureOptions
+                    .Where(f => !string.IsNullOrEmpty(f.OptionsKey))
+                    .Select(f => f.OptionsKey)
+                    .Distinct()
+                    .ToList();
+                model.OptionKeysInFeature4DS = model.FeatureOptions
+                    .Where(f => !string.IsNullOrEmpty(f.OptionsKey) && f.ControlType != "select4Bool")
+                    .Select(f => f.OptionsKey)
+                    .Distinct()
+                    .ToList();
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ 提取功能区选项失败: {ex.Message}\n{ex.StackTrace}");
+            }
+        }
+
+        private void ExtractFeatureOptions4DS(ListAiHtmlTemplateModel model)
+        {
+            try
+            {
+                // 获取所有设置字段值的功能
+                var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
+                    .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
+                    .ToList();
+
+                if (setFieldFeatures.Count == 0)
+                {
+                    Console.WriteLine("没有设置字段值功能");
+                    return;
+                }
+
+                // 🔥 使用 GetDdlOptionInfoLst 获取下拉框选项信息
+                var arrViewFeatureFldsENEx = objViewInfoENEx.arrViewFeatureFlds
+                    .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
+                    .Cast<clsViewFeatureFldsENEx>()
+                    .ToList();
+
+                var ddlOptionsInfoList = clsViewFeatureFldsBLEx.GetDdlOptionInfoLst(arrViewFeatureFldsENEx);
+
+                foreach (var ddlInfo in ddlOptionsInfoList)
+                {
+                    // 生成选项键（如 useState, dataBaseType）
+                    string optionKey = ToCamelCase(ddlInfo.Key);
+
+                    // 检查是否已存在
+                    if (model.FeatureOptions.Any(x => x.Key == optionKey))
+                    {
+                        continue;
+                    }
+
+                    var optionInfo = new AiOptionsInfo
+                    {
+                        //Key = optionKey,
+                        ControlType = ddlInfo.ControlType,
+                        ArrayVariableName = ddlInfo.ArrayVariableName,
+                        ValueFieldName = ddlInfo.ValueFieldName,
+                        TextFieldName = ddlInfo.TextFieldName,
+                        WApiClass = ddlInfo.WApiClass,
+                        ModuleName = ddlInfo.ModuleName,
+                        FunctionName = ddlInfo.FunctionName,
+                        IsExtendedClass = ddlInfo.IsExtendedClass,
+                        WApiFileName = ddlInfo.WApiFileName,
+                        WApiPath = ddlInfo.WApiPath,
+                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        {
+                            ParamName = p.ParamName,
+                            SharedVarName = p.SharedVarName
+                        }).ToList() ?? new List<AiOptionParam>()
+                    };
+                    if (optionInfo.ControlType != "select4Bool")
+                    {
+                        if (model.FeatureOptions4DS.Find(x => x.WApiClass == optionInfo.WApiClass) == null)
+                        {
+                            model.FeatureOptions4DS.Add(optionInfo);
+                        }
+                    }
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ 提取功能区选项失败: {ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -663,10 +882,10 @@ namespace AutoGCLib
         {
             if (!IsSelectControl(field)) return null;
             if (field.DdlItemsOptionId == enumDDLItemsOption.TrueAndFalseList_04) return null;
-            var wApiClass = GetOptionsWApiClass(field);
-            if (string.IsNullOrEmpty(wApiClass)) return null;
+           string strFldName =  field.ObjFieldTab().FldName;
+            if (string.IsNullOrEmpty(strFldName)) return null;
             
-            return ToCamelCase(wApiClass);  // 使用 WApi 类名转 camelCase
+            return ToCamelCase(strFldName) +"_q";  // 使用 WApi 类名转 camelCase
         }
 
         /// <summary>
@@ -708,10 +927,10 @@ namespace AutoGCLib
         /// <summary>
         /// 提取功能按钮信息
         /// </summary>
-        private void ExtractFeatureCommands(ListAi4HtmlTemplateModel model)
+        private void ExtractFeatureCommands(ListAiHtmlTemplateModel model)
         {
             // 查询区域的命令按钮
-            model.QueryCommands.Add(new Ai4HtmlCommand
+            model.QueryCommands.Add(new AiHtmlCommand
             {
                 Id = "query",
                 Text = "查询",
@@ -719,7 +938,7 @@ namespace AutoGCLib
                 BtnClass = "btn btn-primary btn-sm"
             });
 
-            model.QueryCommands.Add(new Ai4HtmlCommand
+            model.QueryCommands.Add(new AiHtmlCommand
             {
                 Id = "clearQuery",
                 Text = "清空查询",
@@ -731,10 +950,12 @@ namespace AutoGCLib
             var arrFeatureRegionFlds = objViewInfoENEx.arrFeatureRegionFlds
                 .Where(x => x.InUse == true)
                 .ToList();
-
+            model.HasExportFeature = 
+                arrFeatureRegionFlds.Find(x => x.FeatureId == enumPrjFeature.ExportToFile_0196 
+                || x.FeatureId == enumPrjFeature.ExportToFile_0143) == null ? false : true;
             foreach (var feature in arrFeatureRegionFlds)
             {
-                var command = new Ai4HtmlCommand
+                var command = new AiHtmlCommand
                 {
                     Id = GetCommandId(feature),
                     Text = feature.ButtonName,

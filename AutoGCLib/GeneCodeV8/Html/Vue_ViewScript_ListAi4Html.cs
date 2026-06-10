@@ -13,7 +13,7 @@ using System.Text;
 namespace AutoGCLib
 {
     /// <summary>
-    /// 生成 Ai4 版本的 Vue HTML 模板文件（.vue 文件）
+    /// 生成 Ai 版本的 Vue HTML 模板文件（.vue 文件）
     /// 包含 template、script 和 style 三部分
     /// 使用 Scriban 模板引擎实现代码与模板分离
     /// </summary>
@@ -45,13 +45,13 @@ namespace AutoGCLib
             objViewInfoENEx.WebFormFName = string.Format("{0}.vue", strRe_ClsName);
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
 
-            var model = BuildListAi4HtmlTemplateModel();
+            var model = BuildListAiHtmlTemplateModel();
 
             string result = "";
 
             try
             {
-                result = _renderService.Render("TypeScript/ListAi4Html.sbn", model);
+                result = _renderService.Render("TypeScript/ListAiHtml.sbn", model);
             }
             catch (Exception ex)
             {
@@ -61,22 +61,22 @@ namespace AutoGCLib
                     errorMsg += $"\n内部异常: {ex.InnerException.Message}";
                 }
 
-                var errorLogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderListAi4HtmlError_Debug.log");
+                var errorLogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderListAiHtmlError_Debug.log");
                 File.WriteAllText(errorLogFile, errorMsg, Encoding.UTF8);
                 Console.WriteLine(errorMsg);
 
-                throw new InvalidOperationException($"渲染ListAi4Html模板失败: {ex.Message}", ex);
+                throw new InvalidOperationException($"渲染ListAiHtml模板失败: {ex.Message}", ex);
             }
 
-            var debugFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderedListAi4Html_Debug.txt");
+            var debugFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderedListAiHtml_Debug.txt");
             File.WriteAllText(debugFile, result, Encoding.UTF8);
 
             return result;
         }
 
-        private ListAi4HtmlTemplateModel BuildListAi4HtmlTemplateModel()
+        private ListAiHtmlTemplateModel BuildListAiHtmlTemplateModel()
         {
-            var model = new ListAi4HtmlTemplateModel
+            var model = new ListAiHtmlTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
@@ -84,10 +84,28 @@ namespace AutoGCLib
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
-                ViewTitle = $"{TabCnName_In4Edit4GC}维护(Ai4版-命令Schema)"
+                ViewTitle = $"{TabCnName_In4Edit4GC}维护(Ai版-命令Schema)"
             };
 
-       
+            // 🔥 新增：处理多关键字字段
+            if (PrjTabEx_ListRegion != null && PrjTabEx_ListRegion.arrKeyFldSet != null)
+            {
+                model.IsMultiKey = PrjTabEx_ListRegion.arrKeyFldSet.Count > 1;
+                
+                foreach (var keyFld in PrjTabEx_ListRegion.arrKeyFldSet)
+                {
+                    var fieldTab = keyFld.ObjFieldTabENEx;
+                    model.KeyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = fieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(fieldTab.FldName),
+                        PropertyName = fieldTab.PrivPropName,
+                        IsNumeric = fieldTab.IsNumberType(),
+                        TypeScriptType = fieldTab.TypeScriptType(),
+                        InitValue = fieldTab.IsNumberType() ? "0" : "''"
+                    });
+                }
+            }
 
             // 🔥 提取设置字段值功能的字段变量名
             ExtractSetFieldVariables(model);
@@ -99,7 +117,7 @@ namespace AutoGCLib
         /// 提取设置字段值功能的字段变量名
         /// 例如：useStateId_f, funcModuleId_f, dataBaseTypeId_f
         /// </summary>
-        private void ExtractSetFieldVariables(ListAi4HtmlTemplateModel model)
+        private void ExtractSetFieldVariables(ListAiHtmlTemplateModel model)
         {
             var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
                 .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)

@@ -25,7 +25,7 @@ namespace AutoGCLib
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
             strRe_ClsName = strRe_ClsName + "AiColumns";
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildTemplateModel();
             

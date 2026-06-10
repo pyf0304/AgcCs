@@ -1,0 +1,78 @@
+﻿import { TableCommandSpec } from '@/viewsBase/common/TableSpecCommand';
+{{~ for option in FeatureOptions4DS ~}}
+import { {{ option.FunctionName }} } from '@/ts/{{ option.WApiPath }}/{{ option.ModuleName }}/{{ option.WApiFileName }}';
+{{~ end ~}}
+
+/** Ai 场景下可用的命令标识。 */
+export type {{ TableName }}CommandIdAi =
+{{~ for cmd in Commands ~}}
+  | '{{ cmd.Id }}'{{ if !for.last }}{{ end }}
+{{~ end ~}};
+
+/** Ai 命令配置：复用通用表命令结构并扩展辅助控件信息。 */
+export type {{ TableName }}CommandSpecAi = TableCommandSpec<{{ TableName }}CommandIdAi> & {
+  /** 辅助控件ID（如下拉框ID） */
+  auxControlId?: string;
+  /** 辅助控件类型 */
+  auxControlType?: 'select4Bool' | 'select' | 'text';
+  /** 辅助控件选项键（用于获取数据源） */
+  auxControlOptionsKey?: string;
+  /** 字段名 */
+  fieldName?: string;
+  /** 驼峰式字段名 */
+  fieldNameCamel?: string;
+};
+
+/** Ai 命令清单：用于统一渲染查询区与功能区按钮。 */
+export const {{ TableNameUpper }}_COMMAND_SPECS_AI: Array<{{ TableName }}CommandSpecAi> = [
+{{~ for cmd in Commands ~}}
+  {
+    id: '{{ cmd.Id }}',
+    region: '{{ cmd.Region }}',
+    text: '{{ cmd.Text }}',
+    elementId: '{{ cmd.ElementId }}',
+    btnClass: '{{ cmd.BtnClass }}',
+{{~ if cmd.NeedAuxControl ~}}
+    needAuxControl: true,
+    auxControlId: '{{ cmd.AuxControlId }}',
+    auxControlType: '{{ cmd.AuxControlType }}',
+{{~ if cmd.AuxControlOptionsKey ~}}
+    auxControlOptionsKey: '{{ cmd.AuxControlOptionsKey }}',
+{{~ end ~}}
+    fieldName: '{{ cmd.FieldName }}',
+    fieldNameCamel: '{{ cmd.FieldNameCamel }}',
+{{~ end ~}}
+  }{{ if !for.last }},{{ end }}
+{{~ end ~}}
+];
+
+/** 获取查询区命令。 */
+export function getQueryCommandsAi(): Array<{{ TableName }}CommandSpecAi> {
+  return {{ TableNameUpper }}_COMMAND_SPECS_AI.filter((x) => x.region === 'query' && x.visible !== false);
+}
+
+/** 获取功能区命令。 */
+export function getFeatureCommandsAi(): Array<{{ TableName }}CommandSpecAi> {
+  return {{ TableNameUpper }}_COMMAND_SPECS_AI.filter(
+    (x) => x.region === 'feature' && x.visible !== false,
+  );
+}
+
+export async function loadFeatureOptionsAi() {
+{{~ if FeatureOptions4DS.size > 0 ~}}
+    const [{{~ for option in FeatureOptions4DS ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}}] = await Promise.all([
+    {{~ for option in FeatureOptions4DS ~}}
+        {{ option.FunctionName }}({{~ 
+          if option.Parameters.size > 0 
+            for param in option.Parameters 
+              ~}}{{ param.SharedVarName }}.value{{~ if !for.last ~}}, {{~ end ~}}{{~ 
+            end 
+          end 
+        ~}}){{ if !for.last }},{{ end }}
+    {{~ end ~}}
+    ]);
+    return { {{~ for option in FeatureOptions4DS ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}} };
+{{~ else ~}}
+      return {};
+{{~ end ~}}
+}

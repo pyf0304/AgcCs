@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgcPubFun.cs" />
+    <Compile Include="CacheClassifyType.cs" />
+    <Compile Include="DdlOptionsInfo.cs" />
+    <Compile Include="clsKeyFieldType.cs" />
     <Compile Include="enumFuncParaType.cs" />
     <Compile Include="gcVarType.cs" />
     <Compile Include="MyResult.cs" />

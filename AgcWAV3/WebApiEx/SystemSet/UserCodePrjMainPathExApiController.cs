@@ -84,6 +84,9 @@ namespace AGC.WebApi
             }
         }
 
+      
+
+
         /// <summary>
         /// 扩展删除
         /// 调用方法: Get /api/clsUserCodePrjMainPathBLExApi/DelRecordEx?strUserCodePrjMainPathId=value&strCmPrjId=value
@@ -119,7 +122,7 @@ namespace AGC.WebApi
 
             string strFunctionName = clsStackTrace.GetCurrFunction();
             Dictionary<string, string> dictParam = new Dictionary<string, string>();
-                        clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
             try
             {
                 var varResult = clsUserCodePrjMainPathBLEx.SetMinCmPrjIdAppTypeId();
@@ -131,6 +134,48 @@ namespace AGC.WebApi
                 string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
                 return Ok(new { errorId = 1, errorMsg = strMsg });
 
+            }
+        }
+
+        /// <summary>
+        /// 根据当前项目与应用类型，获取生成代码根目录。
+        /// </summary>
+        /// <param name="strPrjId">当前项目Id</param>
+        /// <param name="strCmPrjId">当前CM工程Id</param>
+        /// <param name="intApplicationTypeId">当前应用类型Id</param>
+        /// <returns>生成代码根目录</returns>
+        [AllowAnonymous]
+        [HttpGet("GetGeneCodeRootPath")]
+        public ActionResult GetGeneCodeRootPath(string strPrjId, string strCmPrjId, int intApplicationTypeId)
+        {
+            string strFunctionName = nameof(GetGeneCodeRootPath);
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+      
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strCmPrjId", strCmPrjId);
+            dictParam.Add("intApplicationTypeId", intApplicationTypeId.ToString());
+            try
+            {
+                // 这里直接调用 DAL 层 BLEx
+                string strRootPath = clsUserCodePrjMainPathBLEx.GetGeneCodeRootPath(
+                    strPrjId,
+                    strCmPrjId,
+                    intApplicationTypeId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnStr = strRootPath,
+                    strPrjId,
+                    strCmPrjId,
+                    intApplicationTypeId,
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, strFunctionName);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
     }

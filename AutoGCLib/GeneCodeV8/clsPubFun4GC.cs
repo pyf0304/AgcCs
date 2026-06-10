@@ -12,6 +12,7 @@ using com.taishsoft.datetime;
 using AGC.PureClass;
 using AGC.BusinessLogicEx;
 using CodeStruct;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AutoGCLib
 {
@@ -1392,6 +1393,28 @@ namespace AutoGCLib
             return sbCheckEmpty.ToString();
         }
 
+        public static string Gc_IfVarNotEmpty4Key_Ts(List<clsPrjTabFldENEx> arrKeyFldSet, IImportClass objImportClass, string strBaseUrl)
+        {
+            StringBuilder sbCheckEmpty = new StringBuilder();
+            sbCheckEmpty.Append("\r\n" + "if (");
+            foreach (var objKeyFld in arrKeyFldSet)
+            {
+                if (objKeyFld.TypeScriptType == "number")
+                {
+                    sbCheckEmpty.AppendFormat("\r\n" + "key.{0} != 0 &&", objKeyFld.PropertyName(true));
+                }
+                else if (objKeyFld.TypeScriptType == "string")
+                {
+                    sbCheckEmpty.AppendFormat("\r\n" + "IsNullOrEmpty(key.{0}) == false &&", objKeyFld.PropertyName(true));
+                    objImportClass.AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
+                }
+            }
+            sbCheckEmpty = sbCheckEmpty.Remove(sbCheckEmpty.Length - 2, 2);
+            sbCheckEmpty.Append(")");
+            return sbCheckEmpty.ToString();
+        }
+
+
         public static List<string> Gc_GetPrivaryVarNameLst(List<clsPrjTabFldENEx> arrKeyFldSet)
         {
             List<string> arrLst = new List<string>();
@@ -2263,7 +2286,7 @@ namespace AutoGCLib
                     throw new Exception(strMsg);
 
             }
-            arrImportClass.Add(objImportClass);
+            if (arrImportClass != null)            arrImportClass.Add(objImportClass);
             return objImportClass;
         }
         public static CodeElement GetCodeElementByImportClass(ImportClass objImportClass)
@@ -2582,7 +2605,7 @@ namespace AutoGCLib
             var sameFromElement = objCodeElement_Parent.Children
                 .FirstOrDefault(x => GetFromPath(x) == importFrom);
 
-            if (sameFromElement != null)
+            if (sameFromElement != null && string.IsNullOrEmpty( sameFromElement.Name)==false)
             {
                 // 已有相同From，检查Name是否已包含
                 var existNames = sameFromElement.Name.Split(',').Select(n => n.Trim()).ToList();
@@ -2757,5 +2780,58 @@ namespace AutoGCLib
             
             return sbCode.ToString();
         }
+
+        public static (List<string> CondVarLst, List<string> ImportVarLst) GetCondImportVarLst(CacheClassify4View objCacheClassify4View)
+        {
+            //List<string> arrCondVarLst = new List<string>();
+            List<string> arrImportVarLst = new List<string>();
+
+            List<string> arrVarNameLst = new List<string>();
+            if (objCacheClassify4View.IsHasCacheClassfyFld == true)
+            {
+                if (string.IsNullOrEmpty(objCacheClassify4View.ViewVarName))
+                {
+                    string strMsg = $"界面变量为空，请检查！（字段名:[{objCacheClassify4View.FldName}]) in ({clsStackTrace.GetCurrClassFunction()})";
+                    throw new Exception(strMsg);
+                }
+                var strViewVarName = $"{objCacheClassify4View.ViewVarName}.value";
+                arrVarNameLst.Add(strViewVarName);
+                arrImportVarLst.Add(objCacheClassify4View.ViewVarName);
+            }
+            if (objCacheClassify4View.IsHasCacheClassfyFld2 == true)
+            {
+                var strViewVarName = $"{objCacheClassify4View.ViewVarName2}.value";
+                arrVarNameLst.Add(strViewVarName);
+                arrImportVarLst.Add(objCacheClassify4View.ViewVarName2);
+            }
+            return (arrVarNameLst, arrImportVarLst);
+        }
+
+        public static (List<string> CondVarLst, List<string> ImportVarLst) GetCacheClassifyLst4View(CacheClassify4View objCacheClassify4View)
+        {
+            //List<string> arrCondVarLst = new List<string>();
+            List<string> arrImportVarLst = new List<string>();
+
+            List<string> arrVarNameLst = new List<string>();
+            if (objCacheClassify4View.IsHasCacheClassfyFld == true)
+            {
+                if (string.IsNullOrEmpty(objCacheClassify4View.ViewVarName))
+                {
+                    string strMsg = $"界面变量为空，请检查！（字段名:[{objCacheClassify4View.FldName}]) in ({clsStackTrace.GetCurrClassFunction()})";
+                    throw new Exception(strMsg);
+                }
+                var strViewVarName = $"{objCacheClassify4View.ViewVarName}.value";
+                arrVarNameLst.Add(strViewVarName);
+                arrImportVarLst.Add(objCacheClassify4View.ViewVarName);
+            }
+            if (objCacheClassify4View.IsHasCacheClassfyFld2 == true)
+            {
+                var strViewVarName = $"{objCacheClassify4View.ViewVarName2}.value";
+                arrVarNameLst.Add(strViewVarName);
+                arrImportVarLst.Add(objCacheClassify4View.ViewVarName2);
+            }
+            return (arrVarNameLst, arrImportVarLst);
+        }
+
     }
 }

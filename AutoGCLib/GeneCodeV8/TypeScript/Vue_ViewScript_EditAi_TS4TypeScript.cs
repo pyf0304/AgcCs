@@ -64,7 +64,7 @@ namespace AutoGCLib
             );
 
             // 设置文件名（带模块路径）
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             // 🔥 清除模板缓存，确保使用最新的模板文件
             _renderService.ClearCache();
@@ -108,17 +108,27 @@ namespace AutoGCLib
             string initValue = isNumeric ? "0" : "''";
             string primaryTypeId = objKeyField.PrimaryTypeId;
             
-            // 🔥 判断是否需要 WithReturnKey/WithMaxId 方法
+            // 🔥 判断是否需要 WithReturnKey/WithMaxId 方法（PrimaryTypeId 为 '02', '03', '06'）
             bool needReturnKeyMethod = (primaryTypeId == "02" || primaryTypeId == "03" || primaryTypeId == "06");
             
-            // 🔥 判断是否为字符串自增
+            // 🔥 判断是否为字符串自增（只有字符串才需要 GetMaxStrIdAsync 和 AddNewRecordWithMaxIdAsync）
             bool isStringAutoIncrement = !isNumeric && needReturnKeyMethod;
 
-            // 🔥 判断是否需要刷新缓存
+            // 🔥 判断是否需要刷新缓存（只有 localStorage(03) 和 sessionStorage(04) 需要）
             bool needRefreshCache = NeedRefreshCache();
             
             // 🔥 判断是否为多关键字段（联合主键）
             bool isMultiKey = PrjTabEx_EditRegion?.arrKeyFldSet?.Count > 1;
+            
+            // 🔥 判断是否需要检查关键字存在性
+            // 只有以下情况需要检查：
+            // 1. 单关键字段（非联合主键）
+            // 2. 非 Identity（02）
+            // 3. 非字符串自增（03, 06）
+            bool needCheckKeyExist = !isMultiKey && 
+                                      primaryTypeId != "02" && 
+                                      primaryTypeId != "03" && 
+                                      primaryTypeId != "06";
             
             // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
             var keyFields = new List<KeyFieldInfo>();
@@ -137,8 +147,23 @@ namespace AutoGCLib
                         PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
                         IsNumeric = isFieldNumeric,
                         TypeScriptType = objFieldTab.TypeScriptType(),
-                        InitValue = fieldInitValue  // 🔥 添加初始值
+                        InitValue = fieldInitValue
                     });
+                }
+            }
+            
+            // 🔥 获取缓存分类字段信息
+            bool hasCacheClassifyField = false;
+            string cacheClassifyFieldName = "";
+            string cacheClassifyFieldCamel = "";
+            
+            if (needRefreshCache && thisCacheClassify_List_TS != null)
+            {
+                if (thisCacheClassify_List_TS.IsHasCacheClassfyFld)
+                {
+                    hasCacheClassifyField = true;
+                    cacheClassifyFieldName = thisCacheClassify_List_TS.FldName;
+                    cacheClassifyFieldCamel = ToCamelCase(thisCacheClassify_List_TS.FldName);
                 }
             }
             
@@ -155,12 +180,17 @@ namespace AutoGCLib
                 KeyFieldPrefixOnly = dataTypePrefix,
                 KeyFieldInitValue = initValue,
                 IsKeyFieldNumeric = isNumeric,
-                IsMultiKey = isMultiKey,                            // 🔥 是否为多关键字段
-                KeyFields = keyFields,                              // 🔥 关键字段列表（用于循环）
+                IsMultiKey = isMultiKey,
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
+                KeyFields = keyFields,
+                NeedCheckKeyExist = needCheckKeyExist,
                 NeedReturnKeyMethod = needReturnKeyMethod,
                 IsStringAutoIncrement = isStringAutoIncrement,
                 ReturnKeyMethodReturnType = tsType,
                 NeedRefreshCache = needRefreshCache,
+                HasCacheClassifyField = hasCacheClassifyField,
+                CacheClassifyFieldName = cacheClassifyFieldName,
+                CacheClassifyFieldCamel = cacheClassifyFieldCamel,
                 PrimaryTypeId = primaryTypeId,
                 ViewId = objViewInfoENEx.ViewId,
                 ViewName = objViewInfoENEx.ViewName,

@@ -42,7 +42,9 @@ namespace AutoGCLib
                         return string.Format($"{ThisTabName4GC}_GetObjByKeyAsync");
                     }
                 case WA_F.GetObjByKeyId_Cache:
-                    return string.Format($"{ThisTabName4GC}_GetObjBy{thisTabProp_TS.ByInFuncName}Cache");
+                    return string.Format($"{ThisTabName4GC}_GetObjByKeyCache");
+                case WA_F.GetObjByKeyId_localStorage:
+                    return string.Format($"{ThisTabName4GC}_GetObjByKeylocalStorage");
                 case WA_F.ReFreshThisCache:
                     return string.Format($"{ThisTabName4GC}_ReFreshThisCache");
                 case WA_F.ReFreshCache:
@@ -91,8 +93,8 @@ namespace AutoGCLib
                 case WA_F.DelMultiRecord:
 
                     return string.Format($"{ThisTabName4GC}_Del{ThisTabName4GC}s");
-                case WA_F.DelMultiRecordAsync:
-                    return string.Format($"{ThisTabName4GC}_Del{ThisTabName4GC}sAsync");
+                case WA_F.DelKeysAsync:
+                    return string.Format($"{ThisTabName4GC}_DelKeysAsync");
 
                 case WA_F.DelMultiRecordByCond:
 

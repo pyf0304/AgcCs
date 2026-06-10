@@ -29,12 +29,17 @@ using com.taishsoft.datetime;
 
 namespace AGC.Entity
 {
- /// <summary>
- /// 界面区域(ViewRegion)
- /// (AutoGCLib.AutoGC6Cs_M:A_GenEntityLayerCodeEx)
- /// </summary>
-[Serializable]
-public class clsViewRegionENEx : clsViewRegionEN
-{
-}
+    /// <summary>
+    /// 界面区域(ViewRegion)
+    /// (AutoGCLib.AutoGC6Cs_M:A_GenEntityLayerCodeEx)
+    /// </summary>
+    [Serializable]
+    public class clsViewRegionENEx : clsViewRegionEN
+    {
+        public clsViewRegionENEx() : base()
+        {
+        }
+        public string TabName { get; set; }
+        public string RegionTypeName { get; set; }
+    }
 }

@@ -150,6 +150,9 @@
     <Compile Include="Class\GeneCode\clsCodeParaENEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeSegmentENEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupRelaENEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTRelationTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsDict4GCENEx.cs" />
     <Compile Include="Class\GeneCode\clsDictType4GCENEx.cs" />
     <Compile Include="Class\GeneCode\clsEventTabENEx.cs" />
@@ -162,6 +165,7 @@
     <Compile Include="Class\GeneCode\clsGCVariableENEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaENEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariableTypeENEx.cs" />
+    <Compile Include="Class\GeneCode\clsGC_CodeTypeRelationENEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFilesENEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFileTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsSelfDefDataTypeENEx.cs" />

@@ -11,14 +11,6 @@
 ///       2、需要公共函数层（TzPubFunction.dll）的版本：2011.05.08.1
 ///========================
 //生成与表相关的控件控制层代码
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using AGC.Entity;
 using Agc_CsWin;
 using AGC_CSWin;
@@ -30,6 +22,15 @@ using com.taishsoft.datetime;
 using com.taishsoft.util;
 using CommFunc4Win;
 using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace AGC
 {
@@ -1178,8 +1179,208 @@ namespace AGC
             }
             return arrViewIdLst;
         }
-
         private void btnCodeType_Click(object sender, EventArgs e)
+        {
+            string strMsg = string.Format("strCurrIPAddressAndPort={0}, strCurrPrx={1}.(In {2})",
+                clsSysPara4WebApi_Agc.strCurrIPAddressAndPort, clsSysPara4WebApi_Agc.strCurrPrx, clsStackTrace.GetCurrClassFunction());
+            clsPubVar.objLog.WriteDebugLog(strMsg);
+
+            if (clsPubFun.CheckWebApi() == false)
+            {
+                strMsg = string.Format("当前用于生成代码的WebApi不可用，请到菜单：[系统设置->WebService设置]中重新设置WebApi地址！");
+                MessageBox.Show(strMsg);
+                return;
+            }
+
+            string strMachineName = Environment.MachineName;
+            Button objButton = sender as Button;
+            string strCodeTypeId = objButton.Name.Substring(3);
+
+            List<string> arrViewIdLst = GetSelectedViewId();
+            if (arrViewIdLst == null)
+            {
+                return;
+            }
+
+            if (cboCharEncodingId.SelectedIndex <= 0)
+            {
+                lblMsg.Text = "请选择一个生成文件的字符编码!";
+                MessageBox.Show(lblMsg.Text);
+                return;
+            }
+            string strCharEncodingId = cboCharEncodingId.SelectedValue.ToString();
+
+            int intCount = 0;
+            lblMsg.Text = "";
+
+            Encoding myEncoding = clsString.GetEncodingObjByCharEncodingId(strCharEncodingId);
+            clsvCodeType_SimEN objCodeTypeEN = clsvCodeType_SimWApi.GetObjByCodeTypeIdCache(strCodeTypeId);
+            clsProgLangTypeEN objProgLangTypeEN = clsProgLangTypeWApi.GetObjByProgLangTypeIdCache(objCodeTypeEN.ProgLangTypeId);
+            clsPubConst.LangType ltLangType = clsPubConst.GetLangTypeByString(objProgLangTypeEN.ProgLangTypeName);
+
+            string strTabId = "";
+            clsGCResult objGCResult = null;
+            string strClassFName = "";
+            int intApplicationTypeId = getAppTypeId();
+
+            if (cboCmPrjId.SelectedValue == null)
+            {
+                MessageBox.Show("请选择一个CM工程！");
+                cboCmPrjId.Focus();
+                return;
+            }
+
+            string strCmPrjId = cboCmPrjId.SelectedValue.ToString();
+            if (string.IsNullOrEmpty(strCmPrjId) == true || strCmPrjId == "0")
+            {
+                MessageBox.Show("请选择一个CM工程！");
+                cboCmPrjId.Focus();
+                return;
+            }
+
+            string strIsShare = "";
+            foreach (string strViewId in arrViewIdLst)
+            {
+                try
+                {
+                    // 使用简化的函数获取完整代码路径
+                    var (strUserCodePath, strUserCodePathBackup)  = clsUserCodePathExWApi.GetUserGCCodePathWithBackup(
+                        clsSysParaEN.strUserId,
+                        strMachineName,
+                        clsPubVar.CurrSelPrjId,
+                        strCmPrjId,
+                        intApplicationTypeId,
+                        strCodeTypeId);
+                var (strUserGCRootPath, strUserGCRootPathBackup) = clsUserCodePrjMainPath_MachineNameExWApi.GetUserGCRootPathWithBackup(clsSysParaEN.strUserId, strMachineName, clsPubVar.CurrSelPrjId, strCmPrjId, intApplicationTypeId);
+                    // 获取 UserCodePath 详细信息对象以获取其他属性
+                    clsUserCodePathENEx objUserCodePathENEx = clsUserCodePathExWApi.GetUserGCCodePathInfo(
+                        clsSysParaEN.strUserId,
+                        strMachineName,
+                        clsPubVar.CurrSelPrjId,
+                        strCmPrjId,
+                        intApplicationTypeId,
+                        strCodeTypeId);
+                    objUserCodePathENEx.NewCodePath = strUserCodePath;
+                    objUserCodePathENEx.NewCodePathBackup = strUserCodePathBackup;
+
+                    if (Directory.Exists(objUserCodePathENEx.NewCodePath) == false)
+                    {
+                        objUserCodePathENEx.IsExistCodePathP = false;
+                    }
+                    else
+                    {
+                        objUserCodePathENEx.IsExistCodePathP = true;
+                    }
+                    
+                    objUserCodePathENEx.FolderName_Root = strUserGCRootPath;
+                    clsPubFun.AccessIsExistPath(objUserCodePathENEx);
+
+                    clsViewInfoEN objViewInfo = clsViewInfoWApi.GetObjByViewId(strViewId);
+                    strIsShare = "";
+                    if (objViewInfo.IsShare) strIsShare = "Share";
+
+                    clsGCPara objGCPara = new clsGCPara()
+                    {
+                        applicationTypeId = intApplicationTypeId,
+                        codeTypeId = objCodeTypeEN.CodeTypeId,
+                        dataBaseType = clsPubConst.GetDataBaseTypeStrByDataBaseType(mdbtDataBaseType),
+                        tabId = strTabId,
+                        viewId = strViewId,
+                        gcUserId = clsSysParaEN.strUserId,
+                        prjDataBaseId = clsPubVar.CurrPrjDataBaseId,
+                        prjId = clsPubVar.CurrSelPrjId,
+                        cmPrjId = strCmPrjId,
+                        typeParas = ""
+                    };
+
+                    objGCResult = AutoGeneCodeWApi.GeneCode(objGCPara);
+                    if (objGCResult.errorId != 0)
+                    {
+                        if (objGCResult.errorMsg.IndexOf("不需要生成代码") >= 0)
+                        {
+                            continue;
+                        }
+                        strMsg = string.Format("在生成界面:[{0}]的[{1}]类时， 出现错误:{2}，请检查！\r\n(In {3})",
+                            objViewInfo.ViewName,
+                            objCodeTypeEN.CodeTypeENName,
+                            objGCResult.errorMsg,
+                            clsStackTrace.GetCurrClassFunction());
+                        MessageBox.Show(strMsg);
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(objGCResult.codeText) == true && objGCResult.errorId == 0) continue;
+
+                    if (string.IsNullOrEmpty(objGCResult.re_FileNameWithModuleName) == true)
+                    {
+                        strMsg = string.Format("在生成界面:[{0}]的[{1}]类时， 带模块名的文件名为空，请检查！({2})",
+                            objViewInfo.ViewName,
+                            objCodeTypeEN.CodeTypeENName, clsStackTrace.GetCurrClassFunction());
+                        MessageBox.Show(strMsg);
+                        return;
+                    }
+
+                    objGCResult.re_FileNameWithModuleName = InsertSuffixPath(objGCResult.re_FileNameWithModuleName, objUserCodePathENEx.SuffixPath);
+
+                    // 构造完整文件路径
+                    if (strUserCodePath.IndexOf("viewsBase", StringComparison.CurrentCultureIgnoreCase) > -1)
+                    {
+                        strClassFName = $"{strUserCodePath}\\{objGCResult.re_FileNameWithModuleName}";
+                    }
+                    else
+                    {
+                        if (strUserCodePath.EndsWith("\\")) strUserCodePath = strUserCodePath.TrimEnd('\\');
+                        strClassFName = $"{strUserCodePath}{strIsShare}\\{objGCResult.re_FileNameWithModuleName}";
+                    }
+
+                    if (objCodeTypeEN.IsDefaultOverride == true)
+                    {
+                        clsPubFun4WApi.SaveClassContentToFile(strClassFName, objGCResult.codeText,
+                            objUserCodePathENEx.NewCodePath,
+                            objUserCodePathENEx.NewCodePathBackup, myEncoding);
+                    }
+                    else
+                    {
+                        var c = clsPubFun4WApi.SaveClassContentToFile_NoCover4View(objUserCodePathENEx.FolderName_Root, strClassFName, objGCResult.codeText, objCodeTypeEN,
+                             myEncoding);
+                    }
+
+                    intCount++;
+                }
+                catch (Exception objException)
+                {
+                    lblMsg.Text = objException.Message;
+                    MessageBox.Show(objException.Message);
+                }
+            }
+
+            if (objGCResult == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objGCResult.codeElementJson) == false)
+            {
+                try
+                {
+                    CodeElement rootElement = JsonConvert.DeserializeObject<CodeElement>(objGCResult.codeElementJson);
+                    LoadCodeTree(treeView1, rootElement);
+                }
+                catch { }
+            }
+
+            txtCode.Text = objGCResult.codeText;
+            txtFileName4GenCode.Text = objGCResult.re_ClsName;
+            txtCodePath.Text = strClassFName;
+            tabViewInfoListCode.SelectedIndex = 1;
+            if (intCount != 1)
+            {
+                MessageBox.Show("生成界面完成！共计：" + intCount.ToString() + "个表。");
+            }
+            BindLv_vViewInfo();
+            SetStatus();
+        }
+
+        private void btnCodeType_ClickBak(object sender, EventArgs e)
         {
             string strMsg = string.Format("strCurrIPAddressAndPort={0}, strCurrPrx={1}.(In {2})",
      clsSysPara4WebApi_Agc.strCurrIPAddressAndPort, clsSysPara4WebApi_Agc.strCurrPrx, clsStackTrace.GetCurrClassFunction());

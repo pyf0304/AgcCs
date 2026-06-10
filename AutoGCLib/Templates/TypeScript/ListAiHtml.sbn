@@ -2,7 +2,7 @@
 	<div>
 		<span v-if="emptyRecNumInfo !== '' && items.length === 0">{ emptyRecNumInfo }</span>
 		<template v-else>
-			<table>
+			<table>				
 				<tbody>
 					<tr class="text-primary">
 						<!-- 第一列：checkbox 列 -->
@@ -39,6 +39,15 @@
 					<tr v-for="(item, index) in items" :key="index" class="text-secondary">
 						<!-- 第一列：checkbox -->
 						<td>
+{{if IsMultiKey}}
+<input
+							:id="'chk' + {{for keyFld in KeyFields}}{{if !for.first}} + '|' + {{else}}{{end}}item.{{keyFld.FieldNameCamel}}{{end}}"
+							v-model="item.checked"
+							type="checkbox"
+							name="chkInTab"
+							class="CheckInTab"
+              />
+{{else}}
 							<input
 							  :id="'chk' + item.{{KeyFieldCamel}}"
 							  v-model="item.checked"
@@ -46,6 +55,7 @@
 							  name="chkInTab"
 							  class="CheckInTab"
               />
+{{end}}
 						</td>
 
 						<!-- 配置列：通过 dataColumn 循环 -->

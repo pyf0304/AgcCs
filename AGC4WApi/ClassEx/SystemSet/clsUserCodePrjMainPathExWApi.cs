@@ -523,5 +523,54 @@ namespace AGC4WApi
                 throw new Exception(strMsg);
             }
         }
+
+        /// <summary>
+        /// 获取生成代码根路径
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strPrjId">项目ID</param>
+        /// <param name="strCmPrjId">CM工程ID</param>
+        /// <param name="intApplicationTypeId">应用类型ID</param>
+        /// <returns>返回生成代码根路径</returns>
+        public static string GetGeneCodeRootPath(string strPrjId, string strCmPrjId, int intApplicationTypeId)
+        {
+            string strAction = "GetGeneCodeRootPath";
+            string strErrMsg = string.Empty;
+            string strResult = "";
+            Dictionary<string, string> dictParam = new Dictionary<string, string>()
+            {
+                ["strPrjId"] = strPrjId,
+                ["strCmPrjId"] = strCmPrjId,
+                ["intApplicationTypeId"] = intApplicationTypeId.ToString()
+            };
+            try
+            {
+                if (clsPubFun4WApi.Get4WebApi(mstrApiControllerName, strAction, dictParam, out strResult, out strErrMsg) == true)
+                {
+                    JObject jobjReturn = JObject.Parse(strResult);
+                    if ((int)jobjReturn["errorId"] == 0)
+                    {
+                        var strRootPath = (string)jobjReturn["returnStr"];
+                        return strRootPath;
+                    }
+                    else
+                    {
+                        string strMsg = string.Format("{0}", jobjReturn["errorMsg"]);
+                        throw new Exception(strMsg);
+                    }
+                }
+                else
+                {
+                    string strMsg = string.Format("调用WebApi失败: {0}.(from {1})", HttpUtility.UrlDecode(strErrMsg), clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("获取生成代码根路径出错,{0}.(from {1})", HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
+
     }
 }

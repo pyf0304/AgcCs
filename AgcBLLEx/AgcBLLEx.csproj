@@ -161,6 +161,9 @@
     <Compile Include="Class\GeneCode\clsCodeParaBLEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeSegmentBLEx.cs" />
     <Compile Include="Class\GeneCode\clsCodeTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTCodeTypeGroupRelaBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsCTRelationTypeBLEx.cs" />
     <Compile Include="Class\GeneCode\clsDict4GCBLEx.cs" />
     <Compile Include="Class\GeneCode\clsDictType4GCBLEx.cs" />
     <Compile Include="Class\GeneCode\clsEventTabBLEx.cs" />
@@ -173,6 +176,7 @@
     <Compile Include="Class\GeneCode\clsGCVariableBLEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaBLEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariableTypeBLEx.cs" />
+    <Compile Include="Class\GeneCode\clsGC_CodeTypeRelationBLEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFilesBLEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFileTypeBLEx.cs" />
     <Compile Include="Class\GeneCode\clsSelfDefDataTypeBLEx.cs" />

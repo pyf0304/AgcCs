@@ -1,0 +1,1044 @@
+﻿import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
+import {
+  {{~ if HasCacheMode ~}}
+    {{~ if HasExportFeature ~}}
+  Combine{{ TableName }}ConditionObj4ExportExcel,
+  {{~ end ~}}
+  Combine{{ TableName }}ConditionObj,
+  {{~ else ~}}  
+  Combine{{ TableName }}Condition,
+  {{~ end ~}}
+
+  divVarSet,
+  viewVarSet,
+  dataColumn,
+  BindTabByList,
+  ref{{ TableName }}_List,
+  {{CacheImportVars}}
+
+} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+import {
+  {{~ if HasCacheMode ~}}
+  {{ TableName }}_GetRecCountByCondCache,
+  {{~ if HasExportFeature ~}}
+  {{ TableName }}_GetSubObjLstCache,
+  {{~ end ~}}
+  {{ TableName }}_ReFreshCache,
+  {{ TableName }}_FuncMapByFldName,
+  {{ TableName }}_GetObjExLstByPagerCache,
+  {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ else ~}}
+  {{ TableName }}_GetRecCountByCondAsync,
+  {{~ if HasExportFeature ~}}
+  {{ TableName }}_GetObjLstAsync,
+  {{~ end ~}}
+  {{~ if HasDeleteInTabFeature ~}}
+  {{ TableName }}_DelRecordAsync,
+  {{~ end ~}}
+  {{~ if HasCopyFeature ~}}
+  {{ TableName }}_GetObjByKeyAsync,
+  {{ TableName }}_AddNewRecordAsync,
+  {{~ end ~}}
+    {{~ if !IsUseFunc ~}}
+  {{ TableName }}_GetObjLstByPagerAsync,
+  {{~ end ~}}
+    {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync,
+  {{~ end ~}}
+  {{ TableName }}_UpdateRecordAsync,  
+    {{~ if IsMultiKey ~}}
+  {{ TableName }}_DelRecKeyLstsAsync,
+  {{~ else ~}}
+  {{ TableName }}_DelKeysAsync,
+  {{~ end ~}}
+} from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+{{~ if IsUseFunc ~}}
+import {
+  {{ TableName }}Ex_FuncMapByFldName,
+    {{~ if HasCacheMode ~}}
+      {{ TableName }}Ex_GetObjExLstByPagerCache,
+      {{~ else ~}}
+  {{ TableName }}Ex_GetObjExLstByPagerAsync,
+    {{~ end ~}}
+} from '@/ts/L3ForWApiEx/{{ ModuleName }}/cls{{ TableName }}ExWApi';
+{{~ end ~}}
+{{~ for feature in SetFieldFeatures ~}}
+import { {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache } from '@/ts/L3ForWApi/{{ feature.RelatedModuleName }}/cls{{ feature.RelatedTableName }}WApi';
+{{~ end ~}}
+
+import {
+  GetCheckedKeyIdsInDivObj,
+  GetSelectValueInDivObj,
+  GetDivObjInDivObj,
+} from '@/ts/PubFun/clsCommFunc4Ctrl';
+import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
+import { cls{{ TableName }}ENEx } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}ENEx';
+import { cls{{ TableName }}EN } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+import { ObjectAssign, BindTab, confirmDel } from '@/ts/PubFun/clsCommFunc4Web';
+import { stuPagerPara } from '@/ts/PubFun/stuPagerPara';
+import { clsDataColumn } from '@/ts/PubFun/clsDataColumn';
+import { clsOperateList, GetCurrPageIndex } from '@/ts/PubFun/clsOperateList';
+import { AIOperateListBase } from '@/viewsBase/common/AIOperateListBase';
+import {
+  getExportColumnSpecsAi,
+  getListColumnsAi,
+} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiColumns';
+
+/**
+ * Ai版基类：
+ * 在Ai3基础上增加命令schema驱动，不改变原有基类行为。
+ */
+export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements clsOperateList {
+  public static vuebtn_Click: (strCommandName: string, strKeyId: any) => void;
+  public static GetPropValue: (strPropName: string) => string;
+  public static sortFunStatic: (ascOrDesc: string) => (x: any, y: any) => number;
+  public recCount = 0;
+
+  constructor() {
+    super(divVarSet.refDivLayout, divVarSet.refDivList);
+  }
+
+  public get thisTabName(): string {
+    return cls{{ TableName }}EN._CurrTabName;
+  }
+
+  public get dispAllErrMsg_q(): boolean {
+    return true;
+  }
+
+  public async InitVarSet(): Promise<void> {
+    // no-op
+  }
+
+  public async InitCtlVar(): Promise<void> {
+    // no-op
+  }
+
+  protected getListColumnsAi(): Array<clsDataColumn> {
+    return getListColumnsAi();
+  }
+
+  protected getExportColumnSpecsAi(): Array<{ colHeader: string }> {
+    return getExportColumnSpecsAi();
+  }
+
+  public abstract SortColumn(sortColumnKey: string, sortDirection: string): void;
+
+  /** 页面初始化 */
+  public async PageLoadCache() {
+    try {
+      await this.InitVarSet();
+      await this.InitCtlVar();
+      if (viewVarSet.sort{{ TableName }}By == '') {
+        viewVarSet.sort{{ TableName }}By = `${cls{{ TableName }}EN.con_{{ KeyField }}} Asc`;
+      }
+      
+      {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `页面启动不成功,${e}.(in ${this.constructor.name}.${this.PageLoadCache.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 查询按钮点击事件处理：调用基类QueryClickTemplate执行查询
+   *
+   * 职责：
+   * 1. 重置页码到第1页
+   * 2. 根据查询条件刷新数据
+   *
+   * 使用场景：用户点击查询按钮时触发
+   */
+  public async btnQuery_Click() {
+    await this.QueryClickTemplate(async () => {
+  
+         {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
+    });
+  }
+
+  {{~ for feature in SetFieldFeatures ~}}
+  public async SetDdl_{{ feature.FieldName }}InDivInFeature() {
+    await {{ feature.RelatedTableName }}_BindDdl_{{ feature.FieldName }}InDivCache(divVarSet.refDivFunction, '{{ feature.DdlId }}');
+  }
+
+  /**
+   * 设置{{ feature.FieldCnName }}按钮点击事件处理
+   *
+   * 流程：
+   * 1. 验证是否选中了记录
+   * 2. {{~ if feature.NeedsValidation ~}}验证是否选择了有效的{{ feature.FieldCnName }}{{~ else ~}}获取{{ feature.FieldCnName }}值{{~ end ~}}
+   * 3. 执行批量设置操作
+   * 4. 操作完成后刷新数据列表
+   *
+   * 使用场景：用户选择多条记录后，点击"设置{{ feature.FieldCnName }}"按钮
+   */
+  public async {{ feature.ButtonMethodName }}() {
+    try {
+      {{~ if feature.FieldTypeScript == "boolean" ~}}
+      const {{ feature.ParamPrefix }}{{ feature.FieldName }}: boolean = $('#{{ feature.DdlId }}_SetFldValue').prop('checked'); // 布尔型下拉框直接获取checked属性
+      {{~ else ~}}
+      const {{ feature.ParamPrefix }}{{ feature.FieldName }} = GetSelectValueInDivObj(
+        divVarSet.refDivFunction,
+        '{{ feature.DdlId }}_SetFldValue',
+      );
+      {{~ end ~}}
+      await this.ExecuteSelectionActionTemplate({
+        selectedKeys: GetCheckedKeyIdsInDivObj(divVarSet.refDivList),
+        emptySelectionMessage: `请选择需要设置{{ feature.FieldCnName }}的${this.thisTabName}记录!`,
+        beforeExecute: () => {
+          {{~ if feature.NeedsValidation ~}}
+          if ({{ feature.ParamPrefix }}{{ feature.FieldName }} == '') {
+            const strMsg = '请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!';
+            console.error(strMsg);
+            alert(strMsg);
+            return false;
+          }
+          {{~ end ~}}
+          return true;
+        },
+        execute: async (arrKeyIds) => {
+          await this.{{ feature.MethodName }}(arrKeyIds, {{ feature.ParamPrefix }}{{ feature.FieldName }});
+        },
+        onAfterExecute: async () => {
+          {{~ if IsUseFunc ~}}
+          await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+          {{~ else if HasCacheMode ~}}
+          await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+          {{~ else ~}}
+          await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+          {{~ end ~}}
+        },
+      });
+    } catch (e) {
+      const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${this.{{ feature.ButtonMethodName }}.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+
+{{~ if HasDeleteFeature ~}}
+  /**
+   * 删除记录按钮点击事件处理
+   *
+   * 流程：
+   * 1. 验证是否选中了要删除的记录
+   * 2. 弹出确认对话框，要求用户确认删除
+   * 3. 执行批量删除操作
+   * 4. 操作完成后刷新数据列表
+   *
+   * 使用场景：用户选择多条记录后，点击"删除"按钮
+   */
+  public async btnDelRecord_Click() {
+    try {
+      await this.ExecuteSelectionActionTemplate({
+        selectedKeys: GetCheckedKeyIdsInDivObj(divVarSet.refDivList),
+        emptySelectionMessage: `请选择需要删除的${this.thisTabName}记录!`,
+        beforeExecute: (arrKeyIds) => confirmDel(arrKeyIds.length),
+        execute: async (arrKeyIds) => {
+          await this.DelMultiRecord(arrKeyIds);
+        },
+        onAfterExecute: async () => {
+         {{~ if IsUseFunc ~}}
+          await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+          {{~ else if HasCacheMode ~}}
+          await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+          {{~ else ~}}
+          await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+          {{~ end ~}}
+        },
+      });
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${this.btnDelRecord_Click.name}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  public async DelMultiRecord(arr{{ KeyField }}: Array<string>) {
+    const strThisFuncName = this.DelMultiRecord.name;
+    try {
+        {{~ if IsMultiKey ~}}
+      const returnInt = await {{ TableName }}_DelRecKeyLstsAsync(arr{{ KeyField }});
+      {{~ else ~}}
+      const returnInt = await {{ TableName }}_DelKeysAsync(arr{{ KeyField }});
+      {{~ end ~}}
+      if (returnInt > 0) {
+        {{~ if HasCacheMode ~}}
+         {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(CacheCondVars4Fst);      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+      
+        {{~ end ~}}
+        {{~ end ~}}
+        alert(`删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`);
+      } else {
+        alert(`删除${this.thisTabName}记录不成功!`);
+      }
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+
+{{~ for feature in SetFieldFeatures ~}}
+  /** 批量设置{{ feature.FieldCnName }}。 */
+  public async {{ feature.MethodName }}(arr{{ KeyField }}: Array<string>, {{ feature.ParamPrefix }}{{ feature.FieldName }}: {{ feature.FieldTypeScript }}) {
+    const strThisFuncName = this.{{ feature.MethodName }}.name;
+    {{~ if feature.NeedsValidation ~}}
+    if ({{ feature.ParamPrefix }}{{ feature.FieldName }} == null || {{ feature.ParamPrefix }}{{ feature.FieldName }} == '') {
+      alert('请输入{{ feature.FieldCnName }}({{ feature.FieldName }})!');
+      return '';
+    }
+    {{~ end ~}}
+    if (arr{{ KeyField }}.length == 0) {
+      alert('没有选择记录,不能设置字段值!');
+      return '';
+    }
+
+    try {
+      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
+        arr{{ KeyField }},
+      );
+      let intCount = 0;
+      for (const objInFor of arr{{ TableName }}ObjLst) {
+        const obj{{ TableName }}EN = new cls{{ TableName }}EN();
+        ObjectAssign(obj{{ TableName }}EN, objInFor);
+        obj{{ TableName }}EN.Set{{ KeyField }}(objInFor.{{ KeyFieldCamel }});
+        obj{{ TableName }}EN.Set{{ feature.FieldName }}({{ feature.ParamPrefix }}{{ feature.FieldName }});
+
+        let returnBool = false;
+        try {
+          obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
+          returnBool = await {{ TableName }}_UpdateRecordAsync(obj{{ TableName }}EN);
+        } catch (e) {
+          const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+          console.error(strMsg);
+          throw strMsg;
+        }
+
+        if (returnBool == true) {
+          {{~ if HasCacheMode ~}}          
+          {{ TableName }}_DeleteKeyIdCache({ {{ KeyFieldCamel }}: objInFor.{{ KeyFieldCamel }} });        
+          {{~ end ~}}
+          intCount++;
+        } else {
+          alert('设置记录不成功!');
+        }
+      }
+
+      alert(`共设置了${intCount}条记录!`);
+      if (intCount > 0) {
+        {{~ if HasCacheMode ~}}
+                 {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+
+          {{~ else ~}}
+                  //{{ TableName }}_ReFreshCache();
+        {{~ end ~}}
+      }
+    } catch (e) {
+      const strMsg = `设置记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+
+  /** 按当前查询条件导出原始列表数据。 */
+  {{~ if HasCacheMode ~}}
+  public async ExportExcel_{{ TableName }}Cache(): Promise<ExportExcelData> {
+    const strThisFuncName = this.ExportExcel_{{ TableName }}Cache.name;
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}(): Promise<ExportExcelData> {
+    const strThisFuncName = this.ExportExcel_{{ TableName }}.name;
+  {{~ end ~}}
+    if (viewVarSet.sort{{ TableName }}By == null) {
+      const strMsg = Format(
+        '在显示列表时,排序字段(sort{{ TableName }}By)为空,请检查!(In BindGv_{{ TableName }}Cache)',
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    {{~ if HasCacheMode ~}}
+    const obj{{ TableName }}Cond = await Combine{{ TableName }}ConditionObj4ExportExcel();
+    {{~ else ~}}
+    const strWhereCond = await Combine{{ TableName }}Condition();
+    {{~ end ~}}
+    let arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN> = [];
+    try {
+      {{~ if HasCacheMode ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond{{CacheCondVars}});
+      if (this.recCount == 0) {
+        const strMsg = Format(
+          '在绑定GvCache过程中,根据条件:[{0}]获取的对象列表数为0!',
+          obj{{ TableName }}Cond.whereCond,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        return { arrObjLst: [], sheetName: '', fileName: '' };
+      }
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetSubObjLstCache(obj{{ TableName }}Cond{{CacheCondVars}});
+      {{~ else ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
+      if (this.recCount == 0) {
+        const lblMsg: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
+        lblMsg.innerHTML = Format('根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        const strMsg = Format('在绑定Gv过程中,根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        console.error('Error: ', strMsg);
+        //console.trace();
+        alert(strMsg);
+        return { arrObjLst: [], sheetName: '', fileName: '' };
+      }
+
+      arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstAsync(strWhereCond);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    if (arr{{ TableName }}ObjLst.length == 0) {
+      {{~ if !HasCacheMode ~}}
+      const strMsg = `在ExportExcel过程中,根据条件获取的${this.thisTabName}记录数为0!`;
+      console.error('Error: ', strMsg);
+      //console.trace();
+      alert(strMsg);
+      {{~ end ~}}
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+
+    try {
+      const arrDataColumn = this.getListColumnsAi();
+      arr{{ TableName }}ObjLst = arr{{ TableName }}ObjLst.sort(this.SortFunExportExcel);
+      return this.CombineData(arr{{ TableName }}ObjLst, arrDataColumn);
+    } catch (e) {
+      const strMsg = `绑定${this.thisTabName}对象列表不成功, ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+      return { arrObjLst: [], sheetName: '', fileName: '' };
+    }
+  }
+
+  /** 按导出列规格整理导出结果。 */
+  {{~ if HasCacheMode ~}}
+  public async ExportExcel_{{ TableName }}CacheAi(): Promise<ExportExcelData> {
+    const raw = await this.ExportExcel_{{ TableName }}Cache();
+  {{~ else ~}}
+  public async ExportExcel_{{ TableName }}Ai(): Promise<ExportExcelData> {
+    const raw = await this.ExportExcel_{{ TableName }}();
+  {{~ end ~}}
+    if (raw.arrObjLst.length === 0) return raw;
+    const normalizedRows = this.NormalizeExportRowsBySpecs(
+      raw.arrObjLst as Array<Record<string, any>>,
+      this.getExportColumnSpecsAi(),
+    );
+
+    return {
+      arrObjLst: normalizedRows,
+      sheetName: raw.sheetName,
+      fileName: raw.fileName,
+    };
+  }
+
+  /** 导出按钮入口。 */
+  public async btnExportExcel_Click() {
+    {{~ if HasCacheMode ~}}
+    await this.ExportExcel_{{ TableName }}Cache();
+    {{~ else ~}}
+    await this.ExportExcel_{{ TableName }}();
+    {{~ end ~}}
+  }
+
+  
+{{~ if HasCopyFeature ~}}
+  /**
+   * 复制记录按钮点击事件处理
+   * 
+   * 流程：
+   * 1. 验证是否选中了要复制的记录
+   * 2. 执行复制操作
+   * 3. 操作完成后刷新数据列表
+   * 
+   * 使用场景：用户选择记录后，点击"复制"按钮
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnCopyRecord_Click)
+   */
+  public async btnCopyRecord_Click() {
+    const strThisFuncName = this.btnCopyRecord_Click.name;
+    try {
+      const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+      if (arrKeyIds.length == 0) {
+        alert(`请选择需要克隆的${this.thisTabName}记录!`);
+        return '';
+      }
+      await this.CopyRecord(arrKeyIds);
+        {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `复制记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  
+ /**
+   * 复制记录的具体实现
+   * @param arr{{ KeyField }} 要复制的记录主键列表
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_CopyRecord)
+   */
+  public async CopyRecord(arr{{ KeyField }}: Array<string>) {
+    const strThisFuncName = this.CopyRecord.name;
+    try {
+      const arr{{ TableName }}ObjLst = await {{ TableName }}_GetObjLstBy{{ KeyField }}LstAsync(
+        arr{{ KeyField }},
+      );
+      let intCount = 0;
+      for (const objInFor of arr{{ TableName }}ObjLst) {
+      {{~ if KeyTypeName == "StringAutoAddPrimaryKey" ~}}        
+        const strMaxStrId = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ else if KeyTypeName == "StringAutoAddPrimaryKeyWithPrefix" ~}}
+        const strMaxStrId = await {{ TableName }}_GetMaxStrIdByPrefixAsync();        
+        {{~ end ~}}
+
+        const returnBool = await {{ TableName }}_AddNewRecordAsync(objInFor);
+        if (returnBool == true) {
+          intCount++;
+        } else {
+          const strInfo = Format('克隆记录不成功!');
+          alert(strInfo);
+        }
+      }
+      const strInfo = Format('共克隆了{0}条记录!', intCount);
+      alert(strInfo);
+    } catch (e) {
+      const strMsg = `复制记录不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error('Error: ', strMsg);
+      alert(strMsg);
+    }
+  }
+
+
+
+{{~ end ~}}
+{{~ if HasDeleteInTabFeature ~}}
+  /**
+   * 在数据表里删除记录
+   * @param strKeyId 表关键字
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnDelRecordInTab_Click)
+   */
+  public async btnDelRecordInTab_Click(strKeyId: string) {
+    const strThisFuncName = this.btnDelRecordInTab_Click.name;
+    try {
+      if (strKeyId == '') {
+        alert(`请选择需要删除的${this.thisTabName}记录!`);
+        return '';
+      }
+      if (confirmDel(0) == false) {
+        return;
+      }
+      await this.DelRecord(strKeyId);
+      await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 根据关键字删除记录
+   * @param keyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_DelRecord)
+   */
+  public async DelRecord(keyId: string) {
+    const strThisFuncName = this.DelRecord.name;
+    try {
+      {{~ if KeyField | string.ends_with "Id" ~}}
+      const lng{{ KeyField }} = Number(keyId);
+      const returnInt = await {{ TableName }}_DelRecordAsync(lng{{ KeyField }});
+      {{~ else ~}}
+      const returnInt = await {{ TableName }}_DelRecordAsync(keyId);
+      {{~ end ~}}
+      if (returnInt > 0) {
+        {{~ if HasCacheMode ~}}
+                 {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+
+        {{~ end ~}}
+        const strInfo = `删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`;
+        alert(strInfo);
+      } else {
+        const strInfo = `删除${this.thisTabName}记录不成功!`;
+        alert(strInfo);
+      }
+      console.log('完成DelRecord!');
+    } catch (e) {
+      const strMsg = `删除${this.thisTabName}记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+{{~ if HasSelectInTabFeature ~}}
+  /**
+   * 在数据表里选择记录
+   * @param strKeyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_btnSelectRecordInTab_Click)
+   */
+  public async btnSelectRecordInTab_Click(strKeyId: string) {
+    const strThisFuncName = this.btnSelectRecordInTab_Click.name;
+    try {
+      if (strKeyId == '') {
+        const strMsg = '请选择相关记录,请检查!';
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      {{~ if KeyField | string.ends_with "Id" ~}}
+      const lng{{ KeyField }} = Number(strKeyId);
+      this.SelectRecord(lng{{ KeyField }});
+      {{~ else ~}}
+      this.SelectRecord(strKeyId);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `选择记录不成功. ${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /**
+   * 根据关键字选择相应的记录
+   * @param keyId 记录主键
+   * (AutoGCLib.WA_ViewScriptCS_TS4TypeScript:Gen_WApi_Ts_SelectRecord)
+   */
+  public async SelectRecord(keyId: {{~ if KeyField | string.ends_with "Id" ~}}number{{~ else ~}}string{{~ end ~}}) {
+    const strThisFuncName = this.SelectRecord.name;
+    try {
+      const obj{{ TableName }}EN = await {{ TableName }}_GetObjByKeyAsync(keyId);
+      console.log('完成SelectRecord!', obj{{ TableName }}EN);
+      // 这里可以添加具体的选择记录后的处理逻辑
+      // 例如：跳转到详情页或执行回调
+    } catch (e) {
+      const strMsg = `根据关键字获取相应的${this.thisTabName}记录的对象不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error('Error: ', strMsg);
+      alert(strMsg);
+    }
+  }
+
+{{~ end ~}}
+  /** 把实体列表组装成导出文件数据。 */
+  public CombineData(
+    arr{{ TableName }}ObjLst: Array<cls{{ TableName }}EN>,
+    arrDataColumn: Array<clsDataColumn>,
+  ): ExportExcelData {
+    const arrData = this.BuildExportRowsByColumns(arr{{ TableName }}ObjLst, arrDataColumn, (obj, fld) =>
+      obj.GetFldValue(fld),
+    );
+    const strFileName = Format('{{ TableCnName }}({0})导出.xlsx', cls{{ TableName }}EN._CurrTabName);
+    const strSheetName = '{{ TableCnName }}列表';
+    return { arrObjLst: arrData, sheetName: strSheetName, fileName: strFileName };
+  }
+    
+  /** 绑定表格内容并同步分页器。 */
+  {{~ if IsUseFunc ~}}
+  public async BindTab_{{ TableName }}4Func(
+    divContainer: HTMLDivElement,
+    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+  ) {
+    const strThisFuncName = this.BindTab_{{ TableName }}4Func.name;
+  {{~ else ~}}
+  public async BindTab_{{ TableName }}(
+    divContainer: HTMLDivElement,
+    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+  ) {
+    const strThisFuncName = this.BindTab_{{ TableName }}.name;
+  {{~ end ~}}
+    if (divContainer == null) {
+      alert(Format('{0}不存在!', divContainer));
+      return;
+    }
+
+    const arrDataColumn: Array<clsDataColumn> = this.getListColumnsAi();
+
+    if (ref{{ TableName }}_List.value != null) {
+      dataColumn.value = arrDataColumn;
+      {{~ if IsUseFunc ~}}
+      try {
+        await this.ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst);
+      } catch (e) {
+        const strMsg = `扩展Td字段值的映射出错,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      {{~ end ~}}
+      await BindTabByList(arr{{ TableName }}ExObjLst, this.dispAllErrMsg_q);
+    } else {
+      {{~ if IsUseFunc ~}}
+      try {
+        await this.ExtendFldFuncMap(arr{{ TableName }}ExObjLst, arrDataColumn);
+      } catch (e) {
+        const strMsg = `扩展字段值的映射出错,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      {{~ end ~}}
+      const divDataLst = GetDivObjInDivObj(divContainer, 'divDataLst');
+      if (divDataLst == null) {
+        alert('在BindTab_{{ TableName }}{{~ if IsUseFunc ~}}4Func{{~ end ~}}函数中，divDataLst不存在!');
+        return;
+      }
+      await BindTab(
+        divDataLst,
+        arr{{ TableName }}ExObjLst,
+        arrDataColumn,
+        cls{{ TableName }}EN.con_{{ KeyField }},
+        this,
+      );
+    }
+
+    if (this.objPager.IsInit(divContainer, this.divName4Pager) == false)
+      this.objPager.InitShow(divContainer, this.divName4Pager);
+    this.objPager.recCount = this.recCount;
+    this.objPager.pageSize = this.pageSize;
+    this.objPager.ShowPagerV2(divContainer, this, this.divName4Pager);
+  }
+
+  /** 按当前条件获取并绑定分页列表。 */
+  
+   {{~ if IsUseFunc ~}}
+  public async BindGv_{{ TableName }}4Func(divList: HTMLDivElement) {
+    const strThisFuncName = this.BindGv_{{ TableName }}4Func.name;
+  {{~ else if HasCacheMode ~}}
+  public async BindGv_{{ TableName }}Cache(divList: HTMLDivElement) {
+    const strThisFuncName = this.BindGv_{{ TableName }}Cache.name;
+  {{~ else ~}}
+  public async BindGv_{{ TableName }}(divList: HTMLDivElement) {
+    const strThisFuncName = this.BindGv_{{ TableName }}.name;
+  {{~ end ~}}
+    
+    {{~ if !HasCacheMode ~}}
+    if (divList == null) {
+      const strMsg = Format(
+        '用于显示列表的div为空,请检查!(in {0}.{1})',
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+    this.listPara.listDiv = divList;
+    {{~ end ~}}
+    if (viewVarSet.sort{{ TableName }}By == null) {
+      const strMsg = Format(
+        '在显示列表时,排序字段(sort{{ TableName }}By)为空,请检查!(In BindGv_{{ TableName }}Cache)',
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+
+    {{~ if HasCacheMode ~}}
+    const obj{{ TableName }}Cond = await Combine{{ TableName }}ConditionObj();
+    const strWhereCond = JSON.stringify(obj{{ TableName }}Cond);
+    {{~ else ~}}
+    const strWhereCond = await Combine{{ TableName }}Condition();
+    {{~ end ~}}
+    const intCurrPageIndex = GetCurrPageIndex(this.objPager.currPageIndex);
+    let arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx> = [];
+
+    try {
+      {{~ if HasCacheMode ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondCache(obj{{ TableName }}Cond{{CacheCondVars}});
+      {{~ else ~}}
+      this.recCount = await {{ TableName }}_GetRecCountByCondAsync(strWhereCond);
+      {{~ end ~}}
+      if (this.recCount == 0) {
+        {{~ if HasCacheMode ~}}
+        const strMsg = Format(
+          '在绑定GvCache过程中,根据条件:[{0}]获取的对象列表数为0!',
+          obj{{ TableName }}Cond.whereCond,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        {{~ else ~}}
+        const lblMsg: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
+        lblMsg.innerHTML = Format('根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        const strMsg = Format('在绑定Gv过程中,根据条件:[{0}]获取的对象列表数为0!', strWhereCond);
+        console.error('Error: ', strMsg);
+        alert(strMsg);
+        {{~ end ~}}
+        BindTabByList(arr{{ TableName }}ExObjLst, true);
+        return;
+      }
+
+      {{~ if HasCacheMode ~}}
+      let strSortFun = (x: any, y: any) => {
+        console.log(x, y);
+        return 0;
+      };
+      const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi;
+      if (currentCtor.sortFunStatic != undefined) {
+        strSortFun = currentCtor.sortFunStatic(viewVarSet.ascOrDesc4SortFun);
+      }
+      const objPagerPara: stuPagerPara = {
+        pageIndex: intCurrPageIndex,
+        pageSize: this.pageSize,
+        whereCond: strWhereCond,
+        conditionCollection: obj{{ TableName }}Cond,
+        orderBy: viewVarSet.sort{{ TableName }}By,
+        sortFun: strSortFun,
+      };
+      
+
+     {{~ if IsUseFunc ~}}
+        arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerCache(objPagerPara{{CacheCondVars}});
+  {{~ else if HasCacheMode ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara{{CacheCondVars}});
+  {{~ else ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerAsync(objPagerPara);
+  {{~ end ~}}
+
+      {{~ else ~}}
+      const objPagerPara: stuPagerPara = {
+        pageIndex: intCurrPageIndex,
+        pageSize: this.pageSize,
+        whereCond: strWhereCond,
+        orderBy: viewVarSet.sort{{ TableName }}By,
+        sortFun: (x, y) => {
+          console.log(x, y);
+          return 0;
+        },
+      };
+
+      {{~ if HasCacheMode ~}}
+arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPagerPara);
+{{~ else ~}}
+  {{~ if IsUseFunc ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}Ex_GetObjExLstByPagerAsync(objPagerPara);
+  {{~ else ~}}
+  arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjLstByPagerAsync(objPagerPara);
+  {{~ end ~}}
+{{~ end ~}}
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `绑定GridView不成功,${e}.(in ${this.constructor.name}.${strThisFuncName}`;
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+
+    if (arr{{ TableName }}ExObjLst.length == 0) {
+      {{~ if !HasCacheMode ~}}
+      const strKey = Format('{0}', cls{{ TableName }}EN._CurrTabName);
+      const strMsg = `根据条件获取的${this.thisTabName}记录数为0!(Key=${strKey})`;
+      console.error('Error: ', strMsg);
+      {{~ end ~}}
+      this.objPager.Hide(divList, this.divName4Pager);
+      return;
+    }
+
+    try {
+      
+        {{~ if IsUseFunc ~}}
+      await this.BindTab_{{ TableName }}4Func(divList, arr{{ TableName }}ExObjLst);
+      {{~ else ~}}
+      await this.BindTab_{{ TableName }}(divList, arr{{ TableName }}ExObjLst);
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = `绑定${this.thisTabName}对象列表不成功, ${e}.(in ${this.constructor.name}.${strThisFuncName})`;
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /** 为非实体原生字段补充显示映射。 */
+  public async ExtendFldFuncMap(
+    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+    arrDataColumn: Array<clsDataColumn>,
+  ) {
+    const arrFldName = cls{{ TableName }}EN._AttributeName;
+    for (const objDataColumn of arrDataColumn) {
+      if (IsNullOrEmpty(objDataColumn.fldName) == true) continue;
+      if (arrFldName.indexOf(objDataColumn.fldName) > -1) continue;
+      for (const objInFor of arr{{ TableName }}ExObjLst) {
+        {{~ if IsUseFunc ~}}
+        await {{ TableName }}Ex_FuncMapByFldName(objDataColumn.fldName, objInFor);
+        {{~ end ~}}
+      }
+    }
+  }
+
+  /** 为表格Td字段补充显示映射。 */
+  public async ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>) {
+    const arrFldName = cls{{ TableName }}EN._AttributeName;
+    const tdFieldNames = this.ResolveTdFieldNames(
+      ref{{ TableName }}_List.value?.tdFieldNames,
+      dataColumn.value,
+      IsNullOrEmpty,
+    );
+
+    if (tdFieldNames.length === 0) return;
+
+    for (const normalizedFldName of tdFieldNames) {
+      if (arrFldName.indexOf(normalizedFldName) > -1) continue;
+
+      for (const objInFor of arr{{ TableName }}ExObjLst) {
+        {{~ if IsUseFunc ~}}
+        await {{ TableName }}Ex_FuncMapByFldName(normalizedFldName, objInFor);
+        {{~ end ~}}
+      }
+    }
+  }
+
+  /**
+   * 导出时使用的默认排序规则。
+   * ⚠️ 这是一个示例方法，使用从导出区域字段中选择的前 2 个字段。
+   * ⚠️ 请根据实际业务需求修改排序逻辑和字段选择。
+   * 
+   * 当前示例使用的字段：
+   * - {{ SortField1 }} ({{ SortField1Type }})
+   * - {{ SortField2 }} ({{ SortField2Type }})
+   * 
+   * 表中可用的所有字段：
+   {{~ for field in AvailableFields ~}}
+   * - {{ field.FieldName }} ({{ field.TypeScriptType }})
+   {{~ end ~}}
+   * 
+   * 作者: AutoGCLib
+   * 日期: {{ date.now | date.to_string '%Y-%m-%d' }}
+   */
+  public SortFunExportExcel(a: cls{{ TableName }}EN, b: cls{{ TableName }}EN): number {
+    // 第一级排序：{{ SortField2 }}
+    if (a.{{ SortField2 }} == b.{{ SortField2 }}) {
+      if (a.{{ SortField2 }} == null) return -1;
+      if (b.{{ SortField2 }} == null) return 1;
+      return {{ SortField2CompareExpr }};
+    } else {
+      if (b.{{ SortField1 }} == null) return -1;
+      if (a.{{ SortField1 }} == null) return 1;
+      return {{ SortField1CompareExpr }};
+    }
+  }
+
+  /** 列表排序入口。 */
+  public async SortBy(objAnchorElement: any) {
+    await this.SortByTemplate({
+      objAnchorElement,
+      currAscOrDesc: viewVarSet.ascOrDesc4SortFun,
+      currSortBy: viewVarSet.sort{{ TableName }}By,
+      onEntitySort: async (sortColumnKey: string, sortDirection: string) => {
+        if (Object.prototype.hasOwnProperty.call(cls{{ TableName }}ENEx, sortColumnKey) == false) {
+          return false;
+        }
+        this.SortColumn(sortColumnKey, sortDirection);
+        return true;
+      },
+      onApplySortState: (sortBy, ascOrDesc4SortFun, sortFun) => {
+        viewVarSet.sort{{ TableName }}By = sortBy;
+        viewVarSet.ascOrDesc4SortFun = ascOrDesc4SortFun;
+        const currentCtor = this.constructor as typeof {{ TableName }}CRUDAi;
+        currentCtor.sortFunStatic = sortFun;
+      },
+      onRefresh: async () => {
+            {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
+      },
+    });
+  }
+
+  /** 跳转到指定页。 */
+  public async IndexPage(intPageIndex: number) {
+    await this.IndexPageTemplate(intPageIndex, async () => {
+          {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
+    });
+  }
+
+  /** 加载下一页。 */
+  public async NextPage() {
+    await this.NextPageTemplate(async () => {
+          {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
+    });
+  }
+
+  /** 加载上一页。 */
+  public async PrevPage() {
+    await this.PrevPageTemplate(async () => {
+          {{~ if IsUseFunc ~}}
+      await this.BindGv_{{ TableName }}4Func(this.listPara.listDiv);
+      {{~ else if HasCacheMode ~}}
+      await this.BindGv_{{ TableName }}Cache(this.listPara.listDiv);
+      {{~ else ~}}
+      await this.BindGv_{{ TableName }}(this.listPara.listDiv);
+      {{~ end ~}}
+    });
+  }
+
+  /** 预留的容器绑定扩展点。 */
+  public async BindInDiv(divBind: HTMLDivElement) {
+    console.log(divBind);
+  }
+}

@@ -195,5 +195,32 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 根据界面ID获取下拉框选项信息列表
+        /// 调用方法: Get /QryRegionFldsExApi/GetDdlOptionInfoLstByViewId?strViewId=value&strPrjId=value
+        /// </summary>
+        /// <param name = "strViewId">界面ID</param>
+        /// <param name = "strPrjId">工程ID</param>
+        /// <returns>返回下拉框选项信息列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetDdlOptionInfoLstByViewId")]
+        public ActionResult GetDdlOptionInfoLstByViewId(string strViewId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var arrDdlOptionsInfo = clsQryRegionFldsBLEx.GetDdlOptionInfoLstByViewId(strViewId, strPrjId);
+                return Ok(new { errorId = 0, errorMsg = "", data = arrDdlOptionsInfo });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
     }
 }

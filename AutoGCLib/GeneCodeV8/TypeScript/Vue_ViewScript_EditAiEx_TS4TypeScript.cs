@@ -63,7 +63,7 @@ namespace AutoGCLib
             );
 
             // 设置文件名（带模块路径）
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             // 清除模板缓存，确保使用最新的模板文件
             _renderService.ClearCache();
@@ -106,6 +106,31 @@ namespace AutoGCLib
             // 🔥 判断主键字段是否为数值类型
             bool isKeyFieldNumeric = objKeyField.IsNumberType();
 
+            // 🔥 判断是否为复合主键（多关键字段）
+            bool isMultiKey = objViewInfoENEx.arrKeyPrjTabFldSet != null && objViewInfoENEx.arrKeyPrjTabFldSet.Count > 1;
+
+            // 🔥 构建关键字段列表
+            var keyFields = new List<KeyFieldInfo>();
+            if (objViewInfoENEx.arrKeyPrjTabFldSet != null)
+            {
+                foreach (clsPrjTabFldENEx keyField in objViewInfoENEx.arrKeyPrjTabFldSet)
+                {
+                    var objFieldTab = keyField.ObjFieldTabENEx;
+                    var isFieldNumeric = objFieldTab.IsNumberType();
+                    var fieldInitValue = isFieldNumeric ? "0" : "''";
+                    
+                    keyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = objFieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(objFieldTab.FldName),
+                        PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
+                        IsNumeric = isFieldNumeric,
+                        TypeScriptType = objFieldTab.TypeScriptType(),
+                        InitValue = fieldInitValue
+                    });
+                }
+            }
+
             var model = new EditExTemplateModel
             {
                 // 基础字段
@@ -116,6 +141,8 @@ namespace AutoGCLib
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
                 IsKeyFieldNumeric = isKeyFieldNumeric,  // 🔥 设置关键字段类型标志
+                IsMultiKey = isMultiKey,                // 🔥 设置是否为复合主键
+                KeyFields = keyFields,                  // 🔥 设置关键字段列表
                 PrimaryTypeId = objKeyField.PrimaryTypeId,
                 ViewId = objViewInfoENEx.ViewId,
                 ViewName = objViewInfoENEx.ViewName,

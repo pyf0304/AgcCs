@@ -135,8 +135,8 @@ namespace AGC.Entity
             {
                 if (objCtlType == null)
                 {
-                    string strMsg = "控件类型(objCtlType)对象没有被初始化！";
-                    throw new Exception(strMsg);
+                    //string strMsg = "控件类型(objCtlType)对象没有被初始化！";
+                    //throw new Exception(strMsg);
                 }
                 return objCtlType;
             }

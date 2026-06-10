@@ -34,20 +34,20 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class Vue_ViewScript_Detail_TS4Html : clsGeneCodeBase4View
+    partial class Vue_ViewScript_DetailAi4Html : clsGeneCodeBase4View
     {
         private CodeElement objCodeElement_Methods = null;
         private string strJSPath = "";
         clsBiDimDistribute objBiDimDistribue4Qry = null;
         #region 构造函数
-        public Vue_ViewScript_Detail_TS4Html()
+        public Vue_ViewScript_DetailAi4Html()
         {
             // 
             // TODO: 在此处添加构造函数逻辑
             //
             InitPageSetup();
         }
-        public Vue_ViewScript_Detail_TS4Html(string strViewId)
+        public Vue_ViewScript_DetailAi4Html(string strViewId)
        : base(strViewId, "", "")
         {
             // 
@@ -56,7 +56,7 @@ namespace AutoGCLib
             this.strDataBaseType = clsPubConst.con_MsSql;
             InitPageSetup();
         }
-        public Vue_ViewScript_Detail_TS4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public Vue_ViewScript_DetailAi4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
         : base(strViewId, strPrjDataBaseId, strPrjId)
         {
             // 
@@ -1209,7 +1209,7 @@ namespace AutoGCLib
             try
             {
                 string strCode = "";
-                Type t = typeof(Vue_ViewScript_Detail_TS4Html);
+                Type t = typeof(Vue_ViewScript_DetailAi4Html);
                 MethodInfo mt = t.GetMethod(strFuncName, BindingFlags.Instance | BindingFlags.Public);
 
                 if (mt == null)
@@ -1251,13 +1251,13 @@ namespace AutoGCLib
         }
         public override void GetClsName()
         {
-            string strClassName = string.Format("WA_{0}_Detail", objViewInfoENEx.TabName);
+            string strClassName = string.Format("WA_{0}_DetailAi", objViewInfoENEx.TabName);
             clsViewRegionENEx objViewRegionENEx = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
             if (objViewRegionENEx != null && string.IsNullOrEmpty(objViewRegionENEx.ClsName) == false)
             {
                 strClassName = objViewRegionENEx.ClsName;
             }
-            this.ClsName = strClassName;
+            this.ClsName = strClassName +"Ai";
             objViewInfoENEx.ClsName = this.ClsName;
         }
 
@@ -1443,7 +1443,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
                 strCodeForCs.Append("\r\n" + "<template #header>");
                 strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
                 strCodeForCs.Append("\r\n" + "<a-button type = \"primary\" @click = \"dialogVisible = false\"  ><font-awesome-icon icon=\"times\" /></a-button>");
 
                 strCodeForCs.Append("\r\n" + "</div>");
@@ -1456,7 +1456,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
                 strCodeForCs.Append("\r\n" + "<template #header>");
                 strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
                 strCodeForCs.Append("\r\n" + "<el-button type = \"primary\" @click = \"dialogVisible = false\" ><font-awesome-icon icon=\"times\" /></el-button>");
 
                 strCodeForCs.Append("\r\n" + "</div>");
@@ -1549,15 +1549,15 @@ namespace AutoGCLib
                 });
 
 
-                strCodeForCs.Append("\r\n" + $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                {
-                    Name = $"{ThisClsName}Ex",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import",
-                    CodeContent = $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";",
-                    From = $"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex"
-                });
+                //strCodeForCs.Append("\r\n" + $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";");
+                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                //{
+                //    Name = $"{ThisClsName}Ex",
+                //    ElementType = CodeElementType.Import,
+                //    Modifiers = "import",
+                //    CodeContent = $"import {ThisClsName}Ex from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex\";",
+                //    From = $"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{ThisClsName}Ex"
+                //});
 
                 strCodeForCs.Append("\r\n" + $"import {{ cls{TabName_Out4DetailRegion4GC}ENEx }} from \"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{TabName_Out4DetailRegion4GC}ENEx\";");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
@@ -1909,8 +1909,8 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "showDialog,");
                 strCodeForCs.Append("\r\n" + "hideDialog,");
                 strCodeForCs.Append("\r\n" + "strCancelButtonText,");
-                strCodeForCs.Append("\r\n" + "SetButtonText,");
-                strCodeForCs.Append("\r\n" + "GetButtonText,");
+                //strCodeForCs.Append("\r\n" + "SetButtonText,");
+                //strCodeForCs.Append("\r\n" + "GetButtonText,");
                 strCodeForCs.Append("\r\n" + $" ShowDataFrom{this.TabName_Out4DetailRegion4GC}Obj,");
                 foreach (clsDetailRegionFldsENEx objDetailRegionFldsEx in objViewInfoENEx.arrDetailRegionFldSet)
                 {

@@ -384,7 +384,7 @@ namespace AGC.BusinessLogicEx
             var objVar = clsGCVariableBL.GetObjByVarIdCache(strVarId);
             var objFuncParaType = new FuncParaType();
             objFuncParaType.IsFstLcase = this.IsFstLcase;
-            objFuncParaType.VarTypeId = tsVarType.tsOther;// objVar.VarTypeId;
+            objFuncParaType.VarTypeId = tsVarType.tsOther;
             objFuncParaType.VarFunction = strVarFunction;
             objFuncParaType.VarName = objVar.GetVarName4ViewInP();
             objFuncParaType.FldName = objVar.VarName;
@@ -396,7 +396,7 @@ namespace AGC.BusinessLogicEx
                 case enumGCVariableType.localStorage_0003:
                 case enumGCVariableType.sessionStorage_0004:
                     objFuncParaType.VarTypeId = tsVarType.tsSession;
-                    objFuncParaType.FilePath = objVar.FilePath;
+                    objFuncParaType.FilePath = objVar.FilePath;  // 🔥 确保设置 FilePath
                     objFuncParaType.ClsName = objVar.ClsName;
                     objFuncParaType.Variable4InitValue = objVar.GetVarName4ViewInP();
                     break;
@@ -410,26 +410,25 @@ namespace AGC.BusinessLogicEx
                     objFuncParaType.VarName = objVar.GetVarName4ViewInP()
                         .Replace("Static", "") + "Static";
                     objFuncParaType.VarTypeId = tsVarType.tsStatic;
+                    objFuncParaType.FilePath = objVar.FilePath;  // 🔥 确保设置 FilePath
                     objFuncParaType.Variable4InitValue = objVar.GetVarName4ViewInP();
                     break;
                 case enumGCVariableType.DefaultValue_0002:
                     objFuncParaType.VarTypeId = tsVarType.tsDefaultValue;
-                    objFuncParaType.Variable4InitValue = "";// objVar.GetVarName4ViewInP();
+                    objFuncParaType.Variable4InitValue = "";
                     objFuncParaType.InitValue = objVar.InitValue;
                     break;
                 case enumGCVariableType.GivingValue_0001:
                     objFuncParaType.VarTypeId = tsVarType.tsGivingValue;
-                    objFuncParaType.Variable4InitValue = "";// objVar.GetVarName4ViewInP();
+                    objFuncParaType.Variable4InitValue = "";
                     objFuncParaType.InitValue = objVar.InitValue;
                     break;
                 default:
                     var objVarType = clsGCVariableTypeBL.GetObjByVarTypeIdCache(objVar.VarTypeId);
                     string strMsg = string.Format("变量类型:{0}在Switch中没有被处理。(in {1})", objVarType.VarTypeName, clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strMsg);
-                    //break;
             }
 
-            //sbCondFldLst.AppendFormat(", {0}", objVar.VarName);
             if (objVar.IsBoolType_PC())
             {
                 objFuncParaType.TypeScriptType = "boolean";
@@ -459,8 +458,38 @@ namespace AGC.BusinessLogicEx
                 var strTempCode = objVariable.DefVariable(strClsName, bolIsInVue);
 
                 sbBuilder.AppendLine(strTempCode);
-                if (string.IsNullOrEmpty(objVariable.ClsName) == false)
+                
+                // 🔥 处理不同类型的变量导入
+                if (objVariable.VarTypeId == tsVarType.tsStatic)
                 {
+                    // 静态变量需要从 VueShare 导入
+                    if (!string.IsNullOrEmpty(objVariable.FilePath) && !string.IsNullOrEmpty(objVariable.Variable4InitValue))
+                    {
+                        string varNameToImport = objVariable.Variable4InitValue.Replace("Static", "") + "Static";
+                        objImportClass.AddImportClass("", objVariable.FilePath, varNameToImport, enumImportObjType.CustomFunc, strBaseUrl);
+                    }
+                }
+                else if (objVariable.VarTypeId == tsVarType.tsSession)
+                {
+                    // Session 变量（localStorage/sessionStorage）需要从 VueShare 导入
+                    if (!string.IsNullOrEmpty(objVariable.FilePath) && !string.IsNullOrEmpty(objVariable.Variable4InitValue))
+                    {
+                        string varNameToImport = objVariable.Variable4InitValue;
+                        objImportClass.AddImportClass("", objVariable.FilePath, varNameToImport, enumImportObjType.CustomFunc, strBaseUrl);
+                    }
+                }
+                else if (objVariable.VarTypeId == tsVarType.tsCache)
+                {
+                    // 缓存分类变量
+                    if (!string.IsNullOrEmpty(objVariable.FilePath) && !string.IsNullOrEmpty(objVariable.Variable4InitValue))
+                    {
+                        string varNameToImport = objVariable.Variable4InitValue.Replace("Cache", "") + "Cache";
+                        objImportClass.AddImportClass("", objVariable.FilePath, varNameToImport, enumImportObjType.CustomFunc, strBaseUrl);
+                    }
+                }
+                else if (!string.IsNullOrEmpty(objVariable.ClsName))
+                {
+                    // 其他类型的导入
                     objImportClass.AddImportClass("", objVariable.FilePath, objVariable.ClsName, enumImportObjType.CustomFunc, strBaseUrl);
                 }
             }
@@ -659,8 +688,6 @@ namespace AGC.BusinessLogicEx
                 objFuncParaType.DataTypeId = objCacheClassify_TS.DataTypeId2;
                 objFuncParaType.FldLen = objCacheClassify_TS.FldLength2;
                 objFuncParaType.TypeScriptType = objCacheClassify_TS.TypeScriptType2;
-                objFuncParaType.CsType = objCacheClassify_TS.CsType;
-
                 objFuncParaType.VarTypeId = tsVarType.tsCache;
                 objFuncParaType.ProgLangTypeId = strProgLangTypeId;
                 var objDataTypeAbbr = clsDataTypeAbbrBL.GetObjByDataTypeIdCache(objCacheClassify_TS.DataTypeId2);
@@ -1524,8 +1551,6 @@ namespace AGC.BusinessLogicEx
         //            }
         //            return strCodeForCs.ToString();
         //        }
-       
-
     }
 }
 

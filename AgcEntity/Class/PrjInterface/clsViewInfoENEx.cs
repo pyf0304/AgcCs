@@ -18,6 +18,8 @@ namespace AGC.Entity
 
         public clsPrjTabFldENEx objCacheClassifyFld4View_TS { get; set; }
         public clsPrjTabFldENEx objCacheClassifyFld4View2_TS = null;
+        public List<string> arrTabIdInView = null;
+        public List<clsPrjTabENEx> arrPrjTabObjInView = null;
 
         public List<clsPrjTabFldENEx> arrKeyPrjTabFldSet = null;
         public IEnumerable<ASPDropDownListEx> arrASPDropDownListObj;
@@ -40,6 +42,8 @@ namespace AGC.Entity
         public List<clsFeatureRegionFldsENEx> arrFeatureRegionFlds = null;
         public List<clsViewFeatureFldsENEx> arrViewFeatureFlds = null;
         public List<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeSetByFeatureLst = null;
+        public List<DdlOptionsInfo> arrDdlOptionsInfo_QryRegion = null;
+        public List<DdlOptionsInfo> arrDdlOptionsInfo_FeatureRegion = null;
 
         public List<clsPrjFeatureENEx> arrPrjFeature = null;
         public List<clsButtonTabENEx> arrButtonTab = null;
@@ -52,7 +56,14 @@ namespace AGC.Entity
         public clsViewGroupEN objViewGroupEx = null;
         public clsViewStyleEN objViewStyleEN = null;
 
-        public clsPrjTabEN objMainPrjTab = null;
+        public clsPrjTabEN objMainPrjTab
+        {
+            get
+            {
+                var obj = this.arrPrjTabObjInView.Find(x => x.TabId == this.MainTabId);
+                return obj;
+            }
+        }
         public clsPrjTabEN objInRelaTab = null;
         public clsPrjTabEN objOutRelaTab = null;
 
@@ -93,7 +104,7 @@ namespace AGC.Entity
         {
             get
             {
-                var obj = this.arrViewRegion.Find(x=>x.RegionTypeId == "0003");
+                var obj = this.arrViewRegion.Find(x => x.RegionTypeId == "0003");
                 return obj;
             }
         }
@@ -192,7 +203,7 @@ namespace AGC.Entity
             set { mstrLangType = value; }
         }
 
-       
+
         //public string NetVersion
         //{
         //    get { return mstrNetVersion; }
@@ -239,19 +250,19 @@ namespace AGC.Entity
                 mstrFirstSortField = value;
             }
         }
-        
+
         public string ApplicationTypeId2 { get; set; }
-                     
+
 
         public string WinUserCtlCsFName { get; set; }
-       
+
 
         //private string mstrWebUserCtlFName = "";
 
         public string WebUserCtlFName { get; set; }
-               
+
         public string WebUserCtlClassName { get; set; }
-             
+
         public string WebFormName { get; set; }
 
         public string MvcControllerName { get; set; }

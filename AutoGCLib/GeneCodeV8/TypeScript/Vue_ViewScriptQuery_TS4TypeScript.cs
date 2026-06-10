@@ -29,7 +29,7 @@ namespace AutoGCLib
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
             strRe_ClsName = strRe_ClsName + "AiQuery";
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildQueryTemplateModel();
             
@@ -103,6 +103,16 @@ namespace AutoGCLib
         {
             try
             {
+                string fldName = "";
+                string optionKey = "";
+                List<AiOptionParam> parameters = new List<AiOptionParam>();
+                if (fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                {
+                    
+                    fldName = fld.ObjFieldTab_PC().FldName;
+                    optionKey = ToCamelCase(fldName) + "_q";
+                    return (optionKey, null, null, null, false, parameters);
+                }
                 // 1. 检查是否有数据源表ID
                 string dsTabId = fld.DsTabId;
                 if (string.IsNullOrEmpty(dsTabId))
@@ -124,12 +134,13 @@ namespace AutoGCLib
 
                 // 4. WApi 类名 = 数据源表名
                 string wApiClass = objDsTab.TabName;
-                
+
+                //获取字段名
+                 fldName = fld.ObjFieldTab_PC().FldName;
                 // 5. 默认 TypeScript 函数名
                 string functionName = $"{wApiClass}_GetArr{wApiClass}";
                 bool isExtendedClass = false;
-                List<AiOptionParam> parameters = new List<AiOptionParam>();
-
+                
                 // 6. 🔥 如果有表功能ID
                 string tabFeatureId = fld.TabFeatureId4Ddl;
                 if (!string.IsNullOrEmpty(tabFeatureId))
@@ -151,7 +162,7 @@ namespace AutoGCLib
                 }
 
                 // 7. 生成选项键
-                string optionKey = ToCamelCase(wApiClass);
+                 optionKey = ToCamelCase(fldName) + "_q";
 
                 Console.WriteLine($"✅ 表: {wApiClass}, 函数: {functionName}, 参数数量: {parameters.Count}");
 
@@ -446,6 +457,8 @@ namespace AutoGCLib
                     return "checkbox";
                 case enumCtlType.RadioButton_14:
                     return "radio";
+                case enumCtlType.DropDownList_Bool_18:
+                    return "select4Bool";
                 default:
                     return "text";
             }
@@ -489,8 +502,8 @@ namespace AutoGCLib
                     List<AiOptionParam> optionsParameters = null;
             
                     // 🔥 修改：只有非布尔类型的下拉框才获取选项信息
-                    if (fld.CtlTypeId == enumCtlType.DropDownList_06 && 
-                        fld.DdlItemsOptionId != enumDDLItemsOption.TrueAndFalseList_04)
+                    if (fld.CtlTypeId == enumCtlType.DropDownList_06 ||
+                        fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
                     {
                         var optionInfo = GetOptionsInfoFromDataSource(fld);
                         optionsKey = optionInfo.Key;
@@ -536,7 +549,7 @@ namespace AutoGCLib
 
             // 提取选项数据源信息
             ExtractOptionsInfo(model);
-
+            ExtractOptionsInfo4DS(model);
             return model;
         }
 
@@ -570,6 +583,39 @@ namespace AutoGCLib
             model.OptionsInfo.AddRange(uniqueOptions);
         }
 
+        private void ExtractOptionsInfo4DS(AiQueryTemplateModel model)
+        {
+            var uniqueOptions = model.QueryFields
+                .Where(f => !string.IsNullOrEmpty(f.OptionsKey))
+                .GroupBy(f => f.OptionsKey)
+                .Select(g =>
+                {
+                    var first = g.First();
+                    return new AiOptionsInfo
+                    {               
+                        ControlType = first.ControlType,  // 🔥 新增：传递控件类型以区分 select 和 select4Bool
+                        WApiClass = first.OptionsWApiClass,
+                        ModuleName = first.OptionsModuleName,
+                        FunctionName = first.OptionsFunctionName,
+                        IsExtendedClass = first.OptionsIsExtendedClass,
+                        WApiPath = first.OptionsIsExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
+                        WApiFileName = first.OptionsIsExtendedClass
+                            ? $"cls{first.OptionsWApiClass}ExWApi"
+                            : $"cls{first.OptionsWApiClass}WApi",
+                        Parameters = first.OptionsParameters  // 🔥 新增
+                    };
+                })
+                .ToList();
+            foreach (var item in uniqueOptions)
+            {
+                if (item.ControlType == "select4Bool") continue;
+                if (model.OptionsInfo4DS.Find(x => x.WApiClass == item.WApiClass) == null)
+                {
+                    model.OptionsInfo4DS.Add(item);
+                }
+            }
+        }
+
         /// <summary>
         /// 生成控件ID
         /// </summary>
@@ -582,6 +628,9 @@ namespace AutoGCLib
                     prefix = "txt";
                     break;
                 case enumCtlType.DropDownList_06:
+                    prefix = "ddl";
+                    break;
+                case enumCtlType.DropDownList_Bool_18:
                     prefix = "ddl";
                     break;
                 case enumCtlType.CheckBox_02:

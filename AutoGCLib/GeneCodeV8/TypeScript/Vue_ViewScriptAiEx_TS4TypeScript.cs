@@ -13,7 +13,7 @@ using System.Text;
 namespace AutoGCLib
 {
     /// <summary>
-    /// 生成 ExAi4 版本的 TypeScript 扩展类文件
+    /// 生成 ExAi 版本的 TypeScript 扩展类文件
     /// 继承自 Ai 基类，实现命令模式和 CRUD 操作
     /// 使用 Scriban 模板引擎实现代码与模板分离
     /// </summary>
@@ -53,7 +53,7 @@ namespace AutoGCLib
 
 
             
-            var model = BuildExAi4TemplateModel();
+            var model = BuildExAiTemplateModel();
 
             string result = "";
 
@@ -82,16 +82,21 @@ namespace AutoGCLib
             return result;
         }
 
-        private ExAi4TemplateModel BuildExAi4TemplateModel()
+        private ExAiTemplateModel BuildExAiTemplateModel()
         {
             // 🔥 判断列表区域是否需要刷新缓存
             bool needRefreshCache = NeedRefreshCache();
-            
+
+            // 🔥 判断是否有字段映射函数（IsUseFunc）
+            bool isUseFunc = this.IsUseFunc;
             // 🔥 判断关键字类型
             bool isNumeric = objKeyField.IsNumberType();
             string initValue = isNumeric ? "0" : "''";
+            
+            // 🔥 判断是否为多关键字
+            bool isMultiKey = PrjTabEx_ListRegion?.arrKeyFldSet?.Count > 1;
 
-            var model = new ExAi4TemplateModel
+            var model = new ExAiTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
@@ -102,10 +107,42 @@ namespace AutoGCLib
                 HasCacheMode = needRefreshCache,
                 IsKeyFieldNumeric = isNumeric,
                 KeyFieldInitValue = initValue,
+                IsUseFunc = isUseFunc,
+                IsMultiKey = isMultiKey,
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
+                // 🔥 设置绑定函数名称
+                BindGvFuncName = GetBindGvFuncName(),
                 
-                // 🔥 NEW: 设置绑定函数名称
-                BindGvFuncName = GetBindGvFuncName()
+                // 🔥 检查是否有 CRUD 功能
+                HasQueryFeature = HasFeature(enumPrjFeature.Query_0139),
+                HasCreateFeature = HasFeature(enumPrjFeature.AddNewRecord_0136) || HasFeature(enumPrjFeature.AddNewRecordWithMaxId_0183),
+                HasDetailFeature = HasFeature(enumPrjFeature.DetailRecord_0239) || HasFeature(enumPrjFeature.DetailRecord_Gv_0181),
+                HasUpdateFeature = HasFeature(enumPrjFeature.UpdateRecord_0137) || HasFeature(enumPrjFeature.UpdateRecord_0199),
+                HasDeleteFeature = HasFeature(enumPrjFeature.DelRecord_0138) || HasFeature(enumPrjFeature.DelRecord_0184),
+                HasExportFeature = HasFeature(enumPrjFeature.ExportToFile_0143) || HasFeature(enumPrjFeature.ExportToFile_0196),
+                HasCopyFeature = HasFeature(enumPrjFeature.CopyRecord_0141) || HasFeature(enumPrjFeature.CopyRecord_0198)
             };
+
+            // 🔥 提取所有关键字字段信息
+            if (isMultiKey && PrjTabEx_ListRegion?.arrKeyFldSet != null)
+            {
+                foreach (var keyFld in PrjTabEx_ListRegion.arrKeyFldSet)
+                {
+                    var objFieldTab = keyFld.ObjFieldTab0();
+                    var isFieldNumeric = objFieldTab.IsNumberType();
+                    var fieldInitValue = isFieldNumeric ? "0" : "''";
+                    
+                    model.KeyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = objFieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(objFieldTab.FldName),
+                        PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
+                        IsNumeric = isFieldNumeric,
+                        TypeScriptType = objFieldTab.TypeScriptType(),
+                        InitValue = fieldInitValue
+                    });
+                }
+            }
 
             // 提取排序字段
             ExtractSortColumns(model);
@@ -145,7 +182,7 @@ namespace AutoGCLib
         /// <summary>
         /// 提取排序字段信息
         /// </summary>
-        private void ExtractSortColumns(ExAi4TemplateModel model)
+        private void ExtractSortColumns(ExAiTemplateModel model)
         {
             if (objViewInfoENEx.arrListRegionFldSet == null) return;
 
@@ -158,7 +195,7 @@ namespace AutoGCLib
                 string strOutFldName = clsString.FstLcaseS(field.OutFldName());
                 string columnKey = $"{clsString.FirstLcaseS(strOutFldName)}|Ex";
                 
-                var sortColumn = new ExAi4SortColumn
+                var sortColumn = new ExAiSortColumn
                 {
                     ColumnKey = columnKey,
                     SortExpression = GetSortExpression(field)
@@ -210,26 +247,28 @@ namespace AutoGCLib
 
         /// <summary>
         /// 获取绑定列表的函数名称
+        /// 根据是否使用Func转换、是否使用缓存来确定函数名
+        /// 优先级：Func转换(4Func) > 缓存模式(Cache) > 默认(无后缀)
         /// </summary>
         private string GetBindGvFuncName()
         {
+            string strSuffix = "";
             string strFuncName = "";
             
+            // 🔥 第一优先：判断缓存模式
             if (PrjTabEx_ListRegion.IsUseCache_TS())
             {
-                strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}Cache";
+                strSuffix = "Cache";
             }
-            else
+            
+            // 🔥 第二优先：判断是否使用Func转换（会覆盖Cache）
+            if (this.IsUseFunc)
             {
-                if (this.IsUseFunc)
-                {
-                    strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}4Func";
-                }
-                else
-                {
-                    strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}";
-                }
+                strSuffix = "4Func";
             }
+            
+            // 组装函数名称
+            strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}{strSuffix}";
             
             return strFuncName;
         }
@@ -237,7 +276,7 @@ namespace AutoGCLib
         /// <summary>
         /// 提取命令映射
         /// </summary>
-        private void ExtractCommandMappings(ExAi4TemplateModel model)
+        private void ExtractCommandMappings(ExAiTemplateModel model)
         {
             var arrFeatureRegionFlds = objViewInfoENEx.arrFeatureRegionFlds
                 .Where(x => x.InUse == true)
@@ -251,7 +290,7 @@ namespace AutoGCLib
                     var commandId = GetCommandId(feature);
                     var methodName = GetMethodName(feature);  // 🔥 新增：获取方法名
 
-                    var mapping = new ExAi4CommandMapping
+                    var mapping = new ExAiCommandMapping
                     {
                         CommandName = GetCommandName(feature),  // SetUseStateId / SetFuncModuleId
                         CommandId = commandId,                   // setUseState / setFuncModule
@@ -335,6 +374,19 @@ namespace AutoGCLib
         {
             if (string.IsNullOrEmpty(input)) return input;
             return char.ToLower(input[0]) + input.Substring(1);
+        }
+
+        /// <summary>
+        /// 检查是否存在指定的功能
+        /// </summary>
+        /// <param name="featureId">功能ID</param>
+        /// <returns>是否存在该功能</returns>
+        private bool HasFeature(string featureId)
+        {
+            if (objViewInfoENEx.arrFeatureRegionFlds == null) return false;
+            
+            return objViewInfoENEx.arrFeatureRegionFlds
+                .Any(x => x.InUse == true && x.FeatureId == featureId);
         }
 
         public override string A_GeneFuncCode(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, ref clsFunction4CodeEN Re_objFunction4Code)

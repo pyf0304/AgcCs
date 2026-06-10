@@ -1,5 +1,6 @@
 ﻿using AGC.BusinessLogic;
 using AGC.DAL;
+using AGC.Entity;
 using com.taishsoft.commdb;
 using System;
 using System.Collections.Generic;
@@ -109,8 +110,7 @@ namespace AGC.BusinessLogicEx
         {
             clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
             string strSQL;
-            strSQL = string.Format("Update SqlViewFld Set FldId = '{0}' where PrjId = '{1}' And FldId = '{2}'",
-                                                strTargetFldId, strPrjId, strSourceFldId);
+            strSQL = $"Update SqlViewFld Set {conSqlViewFld.FldId} = '{strTargetFldId}' where {conSqlViewFld.PrjId} = '{strPrjId}' And {conSqlViewFld.FldId} = '{strSourceFldId}'";
             return objSQL.ExecSql(strSQL);
         }
     }

@@ -160,10 +160,10 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
 
                 strCodeForCs.AppendFormat("\r\n" + "ObjectAssign(obj{0}ENT, obj{0}ENS);", ThisTabName4GC);
-                //ImportClass objImportClass = AddImportClass(objPrjTabENEx.TabId, "/PubFun/clsCommFunc4Web.js", "ObjectAssign", enumImportObjType.CustomFunc, this.strBaseUrl);
+                ImportClass objImportClass = AddImportClass(objPrjTabENEx.TabId, "/PubFun/clsCommFunc4Web.js", "ObjectAssign", enumImportObjType.CustomFunc, this.strBaseUrl);
 
-                //CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
-                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+                CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
                 strCodeForCs.AppendFormat("\r\n return obj{0}ENT;", ThisTabName4GC);
                 strCodeForCs.Append("\r\n" + "}");
@@ -1969,6 +1969,8 @@ namespace AutoGCLib
                 if (arrDataPropertyName.Contains(strDataPropertyName) == true) continue;
 
                 var objFieldTab = clsFieldTabBL.GetObjByFldIdCache(objPrjTabFld.FldId, objPrjTabFld.PrjId);
+                var objFieldTab_In = clsFieldTabBL.GetObjByFldIdCache(objPrjTabFld.InFldId, objPrjTabFld.PrjId);
+
                 var objDnPath = clsDnPathBL.GetObjByDnPathIdCache(objPrjTabFld.DnPathId, objPrjTabENEx.PrjId);
                 if (objDnPath == null) continue;
                 if (objDnPath.PrjId != objPrjTabFld.PrjId)
@@ -2095,7 +2097,7 @@ namespace AutoGCLib
                             {
                                 sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2}{3};", objDataNode_Start.DataNodeName4GC(),
                                          ThisTabName4GC,
-                                         objFieldTab_Start.PropertyName(this.IsFstLcase), strIsToString);
+                                         objFieldTab.PropertyName(this.IsFstLcase), strIsToString);
                                 arrConstVar.Add(objDataNode_Start.DataNodeName4GC());
                             }
                             if (strLastVarType == "List")
@@ -2115,7 +2117,7 @@ namespace AutoGCLib
                             else
                             {
                                 sbTempFun.AppendFormat("\r\n const arr{0} = await {1}_funcKey(cls{1}EN.con_{2}, {4} {5}, enumComparisonOp.Like_03);",
-                                    objFieldTab_End.FldName,
+                                    objFieldTab_In.FldName,
                                     objPrjTab.TabName,
                                     objFieldTab_Start.FldName,
                                     objFieldTab_End.FldName,

@@ -197,15 +197,7 @@ namespace AutoGCLib
 
                                     strCodeForCs.Append("\r\n" + "* returns:获取主键字段、名称字段两列的所有记录记录的DataTable");
                                     strCodeForCs.Append("\r\n" + " **/");
-                                    //strCodeForCs.AppendFormat("\r\n" + "public static BindDdl_{1}(ddl{1}: string, strWhereCond:string=\"1=1\") {{",
-                                    //  strDsTabName, strDS_DataValueField, strDS_DataTextField);
-                                    //strCodeForCs.Append("\r\n" + "//let strWhereCond = \" 1 =1 \";");
-                                    //strCodeForCs.AppendFormat("\r\n" + "const objDdl = document.getElementById(ddl{1});",
-                                    //    strDsTabName, strDS_DataValueField, strDS_DataTextField);
-                                    //strCodeForCs.Append("\r\n" + "if (objDdl == null)");
-                                    //strCodeForCs.Append("\r\n" + "{");
-                                    //strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"下拉框：{{0}} 不存在!\", ddl{1});",
-                                    //    strDsTabName, strDS_DataValueField, strDS_DataTextField);
+                                   
                                     strCodeForCs.Append("\r\n" + "alert(strMsg);");
                                     strCodeForCs.Append("\r\n" + "console.error(strMsg);");
                                     strCodeForCs.Append("\r\n" + "throw (strMsg);");

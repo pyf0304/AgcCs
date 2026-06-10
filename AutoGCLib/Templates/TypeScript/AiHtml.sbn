@@ -1,0 +1,592 @@
+﻿<template>
+	<div id="divLayout" ref="refDivLayout" class="div_layout">
+		<div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px">
+			<label id="lblViewTitle" name="lblViewTitle" class="h5">{{ "{{" }} strTitle {{ "}}" }} </label>
+			<label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width: 250px"> </label>
+		</div>
+
+		<div id="divQuery" ref="refDivQuery" class="div_query">
+			<table
+			  id="tabEdit"
+			  style="width: 900px"
+			  class="table table-bordered table-hover table td table-sm"
+      >
+				<tbody>
+					<tr>
+						<template v-for="field in queryRow1" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<input
+								  v-if="field.controlType === 'text'"
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @input="setQueryValue(field.key, ($event.target as HTMLInputElement).value)"
+                />
+								<select
+								  v-else
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+                >
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
+                  >
+										{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
+					</tr>
+					<tr>
+						<template v-for="field in queryRow2" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<select
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+                >
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
+                  >
+										{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
+						<td v-for="cmd in queryCommands" :key="cmd.id" class="text-left">
+							<button
+							  :id="cmd.elementId"
+							  type="button"
+							  :class="cmd.btnClass"
+							  @click="runCommand(cmd.id)"
+              >
+								{{ "{{" }} cmd.text {{ "}}" }}
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="divFunction" ref="refDivFunction" class="table table-bordered table-hover">
+			<ul class="nav">
+				<li class="nav-item">
+					<label id="lbl{{ TableName }}List" class="col-form-label text-info" style="width: 250px"
+            >{{ TableCnName }}列表</label
+          >
+				</li>
+				{{~ # 🔥 遍历功能区命令，根据 needAuxControl 决定是否生成辅助控件 ~}}
+				<li v-for="cmd in featureCommands" :key="cmd.id" class="nav-item ml-3">
+					{{~ # 🔥 如果命令需要辅助控件（如设置字段值的下拉框） ~}}
+					<template v-if="cmd.needAuxControl">
+						<div class="btn-group" role="group" :aria-label="cmd.text">
+							{{~ # 🔥 根据字段类型渲染不同的控件 ~}}
+							<select
+							  v-if="cmd.auxControlType === 'select4Bool'"
+							  :id="cmd.auxControlId"
+							  class="form-control form-control-sm"
+							  style="width: 100px"
+							  :value="auxControlValues[cmd.id]"
+							  @change="updateAuxControlValue(cmd.id, ($event.target as HTMLSelectElement).value)"
+              >
+								<option value="0">选择是/否</option>
+								<option value="true">是</option>
+								<option value="false">否</option>
+							</select>
+							<select
+							  v-else
+							  :id="cmd.auxControlId"
+							  class="form-control form-control-sm"
+							  style="width: 150px"
+							  :value="auxControlValues[cmd.id]"
+							  @change="updateAuxControlValue(cmd.id, ($event.target as HTMLSelectElement).value)"
+              >
+								<option
+								  v-for="(item, index) in getSelectOptionsInFeature(cmd.auxControlOptionsKey)"
+								  :key="index"
+								  :value="getSelectValueInFeature(item, cmd.auxControlOptionsKey)"
+                >
+									{{ "{{" }} getSelectTextInFeature(item, cmd.auxControlOptionsKey) {{ "}}" }}
+								</option>
+							</select>
+							<button :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">
+								{{ "{{" }} cmd.text {{ "}}" }}
+							</button>
+						</div>
+					</template>
+					{{~ # 🔥 普通按钮（无辅助控件） ~}}
+					<button v-else :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">
+						{{ "{{" }} cmd.text {{ "}}" }}
+					</button>
+				</li>
+			</ul>
+		</div>
+
+		<div id="divList" ref="refDivList" class="div_List">
+			<{{ TableName }}_ListCom
+        ref="ref{{ TableName }}_List"
+        :items="dataList{{ TableName }}"
+        :show-error-message="showErrorMessage"
+        :empty-rec-num-info="emptyRecNumInfo"
+        :data-column="dataColumn"
+        @on-edit-tab-relainfo="EditTabRelaInfo"
+        @on-sort-column="SortColumn"
+      />
+			<div id="divPager" class="pager"></div>
+			<input id="hidSort{{ TableName }}By" type="hidden" />
+		</div>
+
+		<{{ TableName }}_EditCom ref="ref{{ TableName }}_Edit" />
+		<{{ TableName }}_DetailCom ref="ref{{ TableName }}_DetailAi" />
+	</div>
+</template>
+
+<script lang="ts">
+	import 'jquery/dist/jquery.min.js';
+	import 'bootstrap/dist/js/bootstrap.min.js';
+	import 'bootstrap/dist/css/bootstrap.css';
+	import { defineComponent, onMounted, ref, reactive } from 'vue';
+	import * as XLSX from 'xlsx';
+	import router from '@/router';
+	import {
+	refDivLayout,
+	refDivQuery,
+	refDivFunction,
+	refDivList,
+	ref{{ TableName }}_Edit,
+	{{~ # 🔥 根据是否有详细信息功能决定是否导入 ~}}
+	{{~ if HasDetailFeature ~}}	
+	ref{{ TableName }}_DetailAi,
+	{{~ end ~}}
+	ref{{ TableName }}_List,
+	showErrorMessage,
+	dataList{{ TableName }},
+	emptyRecNumInfo,
+	dataColumn,
+	{{~ for field in QueryFields ~}}
+	{{ field.Key }},
+	{{~ end ~}}
+	{{~ # 🔥 动态导入设置字段值的变量 ~}}
+	{{~ for variable in SetFieldVariables ~}}
+	{{ variable }}_f,
+	{{~ end ~}}
+
+	{{~ # 🔥 导入界面变量 ~}}
+	{{~ if ViewVariables && ViewVariables.size > 0 ~}}
+	{{~ for var in ViewVariables ~}}
+	{{ var }},
+	{{~ end ~}}
+	{{~ end ~}}
+
+	} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
+	{{~ # 🔥 导入 userStore ~}}
+	{{~ if NeedsUserStore ~}}
+	import { useUserStore } from '@/store/modulesShare/user';
+	{{~ end ~}}
+	{{~ # 🔥 导入 clsPrivateSessionStorage ~}}
+	{{~ if NeedsSessionStorage ~}}
+	import { clsPrivateSessionStorage } from '@/ts/PubConfig/clsPrivateSessionStorage';
+	{{~ end ~}}
+	{{~ # 🔥 导入 useRoute ~}}
+	{{~ if NeedsRoute ~}}
+	import { useRoute } from 'vue-router';
+	{{~ end ~}}
+
+	import {{ TableName }}_EditCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_EditAi.vue';
+
+	{{~ if HasDetailFeature ~}}
+	import {{ TableName }}_DetailCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_DetailAi.vue';
+	{{~ end ~}}
+	import {{ TableName }}_ListCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_ListAi.vue';
+	{{~ # 🔥 动态导入查询选项的实体类 ~}}
+	{{~ for option in QueryOptionsArrays4Import ~}}
+	import { cls{{ option.OptionsWApiClass }}EN } from '@/ts/L0Entity/{{ option.ModuleName }}/cls{{ option.OptionsWApiClass }}EN';
+	{{~ end ~}}
+	import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
+	import {{ TableName }}CRUDAiEx from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}CRUDAiEx';
+	import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+	import {
+	getQueryRowsAi,
+	initQueryDefaultsAi,
+
+	loadQueryOptionsAi,
+	{{ TableName }}QueryFieldSpecAi,
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiQuery';
+	import {
+	{{~ # 🔥 只有存在设置字段值功能时才导入 loadFeatureOptionsAi ~}}
+	{{~ if HasSetFieldFeature ~}}
+	loadFeatureOptionsAi,
+	{{~ end ~}}
+	getFeatureCommandsAi,
+	getQueryCommandsAi,
+	{{ TableName }}CommandIdAi,
+	{{ TableName }}CommandSpecAi,
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
+
+	export default defineComponent({
+	name: '{{ TableName }}CRUDAi',
+	components: {
+	{{ TableName }}_EditCom,
+
+	{{~ # 🔥 根据是否有详细信息功能决定是否注册组件 ~}}
+	{{~ if HasDetailFeature ~}}
+	{{ TableName }}_DetailCom,
+	{{~ end ~}}
+	{{ TableName }}_ListCom,
+	},
+
+	setup() {
+	/*__VIEW_VARIABLES_INIT_CODE__*/
+
+	const strTitle = ref('{{ ViewTitle }}');
+	const objPage = ref<{{ TableName }}CRUDAiEx>();
+      {{~ # 🔥 动态声明查询选项数组变量 ~}}
+      {{~ for option in QueryOptionsArrays4Import ~}}
+      const {{ option.ArrayVariableName }} = ref<cls{{ option.OptionsWApiClass }}EN[] | null>
+		([]);
+		{{~ end ~}}
+
+		const { row1, row2 } = getQueryRowsAi();
+		const queryRow1 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row1);
+      const queryRow2 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row2);
+
+      const queryCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getQueryCommandsAi());
+      const featureCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getFeatureCommandsAi());
+
+      {{~ # 🔥 新增：辅助控件值的响应式对象（使用 reactive 而不是 ref） ~}}
+      const auxControlValues = reactive<Record<string, string>
+		  >({});
+
+		  const ensurePage = (): {{ TableName }}CRUDAiEx | null => {
+		  if (objPage.value == null) {
+		  alert('页面初始化不成功,请联系管理员!');
+		  return null;
+		  }
+		  return objPage.value;
+		  };
+
+		  const getQueryValue = (key: {{ TableName }}QueryFieldSpecAi['key']): string => {
+		  switch (key) {
+		  {{~ for field in QueryFields ~}}
+		  case '{{ field.Key }}':
+		  return {{ field.Key }}.value;
+		  {{~ end ~}}
+		  default:
+		  return '';
+		  }
+		  };
+
+		  const setQueryValue = (key: {{ TableName }}QueryFieldSpecAi['key'], value: string) => {
+		  switch (key) {
+		  {{~ for field in QueryFields ~}}
+		  case '{{ field.Key }}':
+		  {{ field.Key }}.value = value;
+		  break;
+		  {{~ end ~}}
+		  default:
+		  break;
+		  }
+		  };
+
+		  {{~ # 🔥 动态生成 getSelectOptions 函数 ~}}
+		  {{~ if OptionKeys.size > 0 ~}}
+		  const getSelectOptions = (optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for option in QueryOptionsArrays ~}}
+		  case '{{ option.OptionsKey }}':
+		  return {{ option.ArrayVariableName }}.value ?? [];
+		  {{~ end ~}}
+		  default:
+		  return [];
+		  }
+		  };
+		  {{~ else ~}}
+		  const getSelectOptions = (optionsKey?: string) => {
+		  console.log('getSelectOptions optionsKey:', optionsKey);
+		  return [];
+		  };
+		  {{~ end ~}}
+
+		  {{~ if OptionKeys.size > 0 ~}}
+		  const getSelectValue = (item: any, optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for field in QueryFields ~}}
+		  {{~ if field.OptionsKey ~}}
+		  case '{{ field.OptionsKey }}':
+		  return item.{{ field.ValueFieldName }};
+		  {{~ end ~}}
+		  {{~ end ~}}
+		  default:
+		  return '';
+		  }
+		  };
+
+		  const getSelectText = (item: any, optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for field in QueryFields ~}}
+		  {{~ if field.OptionsKey ~}}
+		  case '{{ field.OptionsKey }}':
+		  return item.{{ field.TextFieldName }};
+		  {{~ end ~}}
+		  {{~ end ~}}
+		  default:
+		  return '';
+		  }
+		  };
+		  {{~ else ~}}
+		  const getSelectValue = (item: any, optionsKey?: string) => {
+		  console.log('getSelectValue optionsKey:', optionsKey, 'item:', item);
+		  return '';
+		  };
+
+		  const getSelectText = (item: any, optionsKey?: string) => {
+		  console.log('getSelectValue optionsKey:', optionsKey, 'item:', item);
+		  return '';
+		  };
+		  {{~ end ~}}
+
+
+		  {{~ # 🔥 动态生成 getSelectOptionsInFeature 函数 ~}}
+		  {{~ if OptionKeysInFeature4DS.size > 0 ~}}
+		  const getSelectOptionsInFeature = (optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for option in FeatureOptions4DS ~}}
+		  case '{{ option.OptionsKey }}':
+		  return {{ option.ArrayVariableName }}.value ?? [];
+		  {{~ end ~}}
+		  default:
+		  return [];
+		  }
+		  };
+		  {{~ else ~}}
+		  const getSelectOptionsInFeature = (optionsKey?: string) => {
+		  console.log('getSelectOptionsInFeature optionsKey:', optionsKey);
+		  return [];
+		  };
+		  {{~ end ~}}
+
+		  {{~ if OptionKeysInFeature4DS.size > 0 ~}}
+			  const getSelectValueInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+			  switch (optionsKey) {
+			  {{~ for field in FeatureOptions ~}}
+			  {{~ if field.OptionsKey ~}}
+			  case '{{ field.OptionsKey }}':
+			  return item.{{ field.ValueFieldName }};
+			  {{~ end ~}}
+			  {{~ end ~}}
+			  default:
+			  return '';
+			  }
+			  };
+
+			  const getSelectTextInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+			  switch (optionsKey) {
+			  {{~ for field in FeatureOptions ~}}
+			  {{~ if field.OptionsKey ~}}
+			  case '{{ field.OptionsKey }}':
+			  return item.{{ field.TextFieldName }};
+			  {{~ end ~}}
+			  {{~ end ~}}
+			  default:
+			  return '';
+			  }
+			  };
+		  {{~ else ~}}
+			  const getSelectValueInFeature = (item: any, optionsKey?: string) => {
+			  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
+			  return '';
+			  };
+
+			  const getSelectTextInFeature = (item: any, optionsKey?: string) => {
+			  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
+			  return '';
+			  };
+		  {{~ end ~}}
+
+
+
+		  {{~ # 🔥 更新辅助控件值（同时同步到 VueShare 中的变量） ~}}
+		  const updateAuxControlValue = (commandId: {{ TableName }}CommandIdAi, value: string) => {
+		  auxControlValues[commandId] = value;
+
+		  {{~ # 🔥 只有存在设置字段值功能时才生成 switch 语句 ~}}
+		  {{~ if HasSetFieldFeature && SetFieldVariables && SetFieldVariables.size > 0 ~}}
+		  const command = featureCommands.value.find((x) => x.id === commandId);
+		  if (command && command.fieldNameCamel) {
+		  switch (command.fieldNameCamel) {
+		  {{~ for variable in SetFieldVariables ~}}
+		  case '{{ variable }}':
+		  {{ variable }}_f.value = value;
+		  break;
+		  {{~ end ~}}
+		  default:
+		  break;
+		  }
+		  }
+		  {{~ end ~}}
+		  };
+		  
+		  {{~ if HasExportFeature ~}} 
+				const exportToExcel = (
+					arrData: Array<Record<string, any>>,
+					strSheetName: string,
+					strFileName: string,
+					) => {
+					try {
+					  const worksheet = XLSX.utils.json_to_sheet(arrData);
+					  const workbook = XLSX.utils.book_new();
+					  XLSX.utils.book_append_sheet(workbook, worksheet, strSheetName);
+					  XLSX.writeFile(workbook, strFileName);
+					  alert('导出成功！');
+					} catch (error) {
+					  console.error('导出失败:', error);
+					  alert('导出失败，请检查控制台日志！');
+					}
+			  };
+		{{~ end ~}}
+      const runCommand = async (commandId: {{ TableName }}CommandIdAi) => {
+        const page = ensurePage();
+        if (page == null) return;
+
+        const result = await page.executeCommand(commandId);
+		{{~ if HasExportFeature ~}}
+			if (commandId === 'export' && result != null) {
+			  const data = result as ExportExcelData;
+			  if (data.sheetName === '') {
+				alert('获取导出数据出错,请检查!');
+				return;
+			  }
+			  exportToExcel(data.arrObjLst, data.sheetName, data.fileName);
+			}
+			
+		  {{~ else ~}}
+		  	console.log('result:', result);
+		  {{~ end ~}}
+      };
+
+      function GetPropValue(strPropName: string): string {
+        switch (strPropName) {
+          case 'strTitle':
+            return strTitle.value;
+          default:
+            return '';
+        }
+      }
+
+      function btn_Click(strCommandName: string, key: {{ TableName }}Key | null) {
+        {{ TableName }}CRUDAiEx.btn_Click(strCommandName, key);
+      }
+
+      onMounted(async () => {
+        initQueryDefaultsAi({
+          {{~ for field in QueryFields ~}}
+          {{ field.Key }},
+          {{~ end ~}}
+        });
+
+        {{~ # 🔥 动态加载查询选项数据 ~}}
+        const queryOptions = await loadQueryOptionsAi();
+        {{~ for option in QueryOptionsArrays4Import ~}}
+        {{ option.ArrayVariableName }}.value = queryOptions.{{ option.ArrayVariableName }};
+        {{~ end ~}}
+
+        {{~ # 🔥 只有存在设置字段值功能时才初始化相关变量 ~}}
+        {{~ if HasSetFieldFeature ~}}
+        const featureOptions = await loadFeatureOptionsAi();	
+		console.log('featureOptions:', featureOptions);
+		  {{~ for option in FeatureOptions4DS ~}}
+        {{ option.ArrayVariableName }}.value = featureOptions.{{ option.ArrayVariableName }};
+        {{~ end ~}}
+        {{~ # TODO: 根据功能区下拉框类型动态赋值 ~}}
+        {{~ for variable in SetFieldVariables ~}}
+        {{ variable }}_f.value = '0';
+        {{~ end ~}}
+        
+        {{~ # 🔥 初始化辅助控件的默认值 ~}}
+        featureCommands.value.forEach(cmd => {
+          if (cmd.needAuxControl) {
+            auxControlValues[cmd.id] = '0';
+          }
+        });
+        {{~ end ~}}
+
+        {{ TableName }}CRUDAiEx.vuebtn_Click = btn_Click;
+        {{ TableName }}CRUDAiEx.GetPropValue = GetPropValue;
+        objPage.value = new {{ TableName }}CRUDAiEx();
+        await objPage.value.PageLoadCache();
+      });
+
+      const SortColumn = async (data: any) => {
+        const page = ensurePage();
+        if (page == null) return;
+        await page.SortColumn(data.sortColumnKey, data.sortDirection);
+      };
+
+      const EditTabRelaInfo = async (data: any) => {
+        console.log('data:', data);
+        router.push({ name: 'edit{{ TableName }}', params: { {{ KeyFieldCamel }}: data.{{ KeyFieldCamel }} } });
+      };
+
+      return {
+        strTitle,
+        refDivLayout,
+        refDivQuery,
+        refDivFunction,
+        refDivList,
+        ref{{ TableName }}_Edit,
+        
+		{{~ if HasDetailFeature ~}}
+			ref{{ TableName }}_DetailAi,
+		{{~ end ~}}
+        ref{{ TableName }}_List,
+        showErrorMessage,
+        dataList{{ TableName }},
+        emptyRecNumInfo,
+        dataColumn,
+        queryRow1,
+        queryRow2,
+        queryCommands,
+        featureCommands,
+        auxControlValues,
+        getQueryValue,
+        setQueryValue,
+        getSelectOptions,
+        getSelectValue,
+        getSelectText,
+		getSelectOptionsInFeature,
+        getSelectValueInFeature,
+        getSelectTextInFeature,		
+        updateAuxControlValue,
+        runCommand,
+        EditTabRelaInfo,
+        SortColumn,
+      };
+    },
+  });
+
+</script>
+
+<style scoped></style>

@@ -917,6 +917,55 @@ namespace AGC.BusinessLogicEx
             }
             return sbCheckEmpty.ToString();
         }
+       
+        public static void AccessIsExistPath(clsvUserCodePathEN objvUserCodePathEN)
+        {
+            if (objvUserCodePathEN.IsExistCodePathP == false)
+            {
+                string strMsg = string.Format("代码层:[{0}({1})]的生成目录:[{2}]不存在！请检查！",
+                    objvUserCodePathEN.CodeTypeName,
+                    objvUserCodePathEN.CodeTypeId,
+                    objvUserCodePathEN.NewCodePath);
+                throw new Exception(strMsg);
+            }
+        }
+        public static void AccessIsExistPath(clsUserCodePathENEx objUserCodePathEN)
+        {
+            clsvCodeType_SimEN objCodeType = clsvCodeType_SimBL.GetObjByCodeTypeIdCache(objUserCodePathEN.CodeTypeId);
+            if (objUserCodePathEN.IsExistCodePathP == false)
+            {
+                string strMsg = string.Format("代码层:[{0}({1})]的生成目录:[{2}]不存在！请检查！",
+                    objCodeType.CodeTypeName,
+                    objUserCodePathEN.CodeTypeId,
+                    objUserCodePathEN.NewCodePath);
+                throw new Exception(strMsg);
+            }
+        }
+        public static void AccessIsExistPathBak(clsUserCodePrjMainPathENEx objUserCodePrjMainPathEN)
+        {
+            if (objUserCodePrjMainPathEN == null)
+            {
+                string strMsg = string.Format("用户:[{0}]的生成主目录没有建立！请检查！",
+                  clsSysParaEN.strUserId);
+                throw new Exception(strMsg);
+            }
+            if (objUserCodePrjMainPathEN.IsExistCodePath == false)
+            {
+                if (Directory.Exists(objUserCodePrjMainPathEN.CodePath) == true)
+                {
+                    objUserCodePrjMainPathEN.IsExistCodePath = true;
+                    //clsUserCodePrjMainPath_MachineNameExWApi.SetIsExistCodePath(objUserCodePrjMainPathEN.UserCodePrjMainPathId, objUserCodePrjMainPathEN.MachineName, true);
+                    objUserCodePrjMainPathEN.Update();
+                    return;
+                }
+                clsvUserCodePrjMainPathEN objvUserCodePrjMainPathEN = clsvUserCodePrjMainPathBL.GetObjByUserCodePrjMainPathIdCache(objUserCodePrjMainPathEN.UserCodePrjMainPathId, objUserCodePrjMainPathEN.PrjId);
+                string strMsg = string.Format("用户:[{0}]的针对项目:[{1}]的生成主目录:[{2}]不存在！请检查！",
+                    clsSysParaEN.strUserId,
+                    objvUserCodePrjMainPathEN.ApplicationTypeName,
+                    objUserCodePrjMainPathEN.CodePath);
+                throw new Exception(strMsg);
+            }
+        }
 
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="frm\MaintainPwd.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frm\PrjInterface\btnCodeType_ClickBak.cs" />
     <Compile Include="frm\PrjInterface\frmViewInfo_GeneCode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +274,12 @@
     </Compile>
     <Compile Include="frm\Test\frmTestWebService.Designer.cs">
       <DependentUpon>frmTestWebService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Test\frmViewInfo_GeneCodeBak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\Test\frmViewInfo_GeneCodeBak.Designer.cs">
+      <DependentUpon>frmViewInfo_GeneCodeBak.cs</DependentUpon>
     </Compile>
     <Compile Include="frm\Test\frm即时编译.cs">
       <SubType>Form</SubType>
@@ -395,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm\Test\frmTestWebService.resx">
       <DependentUpon>frmTestWebService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\Test\frmViewInfo_GeneCodeBak.resx">
+      <DependentUpon>frmViewInfo_GeneCodeBak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm\Test\frm即时编译.resx">
       <DependentUpon>frm即时编译.cs</DependentUpon>

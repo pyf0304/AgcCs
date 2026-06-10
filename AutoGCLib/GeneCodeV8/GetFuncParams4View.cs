@@ -190,7 +190,7 @@ namespace AutoGCLib
             string strTabName_Copy = TabName_Out4ListRegion4GC;
             string strTabId_Copy = TabId_Out4ListRegion;
 
-            if (objPrjTabEx_ListRegion.SqlDsTypeId == enumSQLDSType.SqlView_02)
+            if (PrjTabEx_ListRegion.SqlDsTypeId == enumSQLDSType.SqlView_02)
             {
                 if (strTabName_Copy.Substring(0, 1) != "v")
                 {
@@ -276,13 +276,13 @@ namespace AutoGCLib
 
 
                     return string.Format($"{TabName_Out4ListRegion4GC}_GetObjLstByPagerAsync");
-                case WA_F.DelMultiRecordAsync:
-                    ImportClass objImportClass8 = AddImportClass(strTabId_Copy, strTabName_Copy, string.Format($"Del{strTabName_Copy}sAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
+                case WA_F.DelKeysAsync:
+                    ImportClass objImportClass8 = AddImportClass(strTabId_Copy, strTabName_Copy, string.Format($"DelKeysAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);
 
                     CodeElement objCodeElement_Import8 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass8);
                     clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import8);
 
-                    return string.Format($"{strTabName_Copy}_Del{strTabName_Copy}sAsync");
+                    return string.Format($"{strTabName_Copy}_DelKeysAsync");
 
                 case WA_F.DelMultiRecordByCondAsync:
                     ImportClass objImportClass9 = AddImportClass(strTabId_Copy, strTabName_Copy, string.Format($"Del{strTabName_Copy}sByCondAsync"), enumImportObjType.WApiClassFunc, this.strBaseUrl);

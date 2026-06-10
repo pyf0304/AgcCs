@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:clsUserCodePrjMainPath_MachineNameExWApi
 表名:UserCodePrjMainPath_MachineName(00050614)
 生成代码版本:2022.11.24.1
@@ -17,19 +16,20 @@ PrjDataBaseId:0005
        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
 == == == == == == == == == == == == 
 **/
+using AGC.Entity;
+using com.taishsoft.common;
+using com.taishsoft.json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Web;
-using System.Collections;
-using com.taishsoft.common;
-using System.ServiceModel;
-using AGC.Entity;
-using System.Collections.Generic;
-using com.taishsoft.json;
-using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace AGC4WApi
 {
@@ -218,5 +218,191 @@ namespace AGC4WApi
             var arrUserCodePrjMainPath_MachineName = arrObjLst.Where(x=>x.UserCodePrjMainPathId == userCodePrjMainPathId).ToList();
             return arrUserCodePrjMainPath_MachineName;
         }
+
+        /// <summary>
+        /// 获取用户生成代码根路径
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strUserId">用户ID</param>
+        /// <param name="strMachineName">机器名称</param>
+        /// <param name="strPrjId">项目ID</param>
+        /// <param name="strCmPrjId">CM工程ID</param>
+        /// <param name="intApplicationTypeId">应用类型ID</param>
+        /// <returns>返回用户生成代码根路径</returns>
+        public static string GetUserGCRootPath(
+            string strUserId,
+            string strMachineName,
+            string strPrjId,
+            string strCmPrjId,
+            int intApplicationTypeId)
+        {
+            string strAction = "GetGeneCodeRootPath";
+            string strErrMsg = string.Empty;
+            string strResult = "";
+            Dictionary<string, string> dictParam = new Dictionary<string, string>()
+            {
+                ["strUserId"] = strUserId,
+                ["strMachineName"] = strMachineName,
+                ["strPrjId"] = strPrjId,
+                ["strCmPrjId"] = strCmPrjId,
+                ["intApplicationTypeId"] = intApplicationTypeId.ToString()
+            };
+            try
+            {
+                if (clsPubFun4WApi.Get4WebApi(mstrApiControllerName, strAction, dictParam, out strResult, out strErrMsg) == true)
+                {
+                    JObject jobjReturn = JObject.Parse(strResult);
+                    if ((int)jobjReturn["errorId"] == 0)
+                    {
+                        var strRootPath = (string)jobjReturn["returnStr"];
+                        return strRootPath;
+                    }
+                    else
+                    {
+                        string strMsg = string.Format("{0}", jobjReturn["errorMsg"]);
+                        throw new Exception(strMsg);
+                    }
+                }
+                else
+                {
+                    string strMsg = string.Format("调用WebApi失败: {0}.(from {1})", HttpUtility.UrlDecode(strErrMsg), clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("获取用户生成代码根路径出错,{0}.(from {1})", HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
+
+        /// <summary>
+        /// 获取用户生成代码根路径及备份路径
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strUserId">用户ID</param>
+        /// <param name="strMachineName">机器名称</param>
+        /// <param name="strPrjId">项目ID</param>
+        /// <param name="strCmPrjId">CM工程ID</param>
+        /// <param name="intApplicationTypeId">应用类型ID</param>
+        /// <returns>返回元组：(CodePath, CodePathBackup)</returns>
+        public static (string CodePath, string CodePathBackup) GetUserGCRootPathWithBackup(
+            string strUserId,
+            string strMachineName,
+            string strPrjId,
+            string strCmPrjId,
+            int intApplicationTypeId)
+        {
+            string strAction = "GetUserGCRootPathWithBackup";
+            string strErrMsg = string.Empty;
+            string strResult = "";
+            Dictionary<string, string> dictParam = new Dictionary<string, string>()
+            {
+                ["strUserId"] = strUserId,
+                ["strMachineName"] = strMachineName,
+                ["strPrjId"] = strPrjId,
+                ["strCmPrjId"] = strCmPrjId,
+                ["intApplicationTypeId"] = intApplicationTypeId.ToString()
+            };
+            try
+            {
+                if (clsPubFun4WApi.Get4WebApi(mstrApiControllerName, strAction, dictParam, out strResult, out strErrMsg) == true)
+                {
+                    JObject jobjReturn = JObject.Parse(strResult);
+                    if ((int)jobjReturn["errorId"] == 0)
+                    {
+                        string strCodePath = (string)jobjReturn["codePath"];
+                        string strCodePathBackup = (string)jobjReturn["codePathBackup"];
+                        return (strCodePath, strCodePathBackup);
+                    }
+                    else
+                    {
+                        string strMsg = string.Format("{0}", jobjReturn["errorMsg"]);
+                        throw new Exception(strMsg);
+                    }
+                }
+                else
+                {
+                    string strMsg = string.Format("调用WebApi失败: {0}.(from {1})", HttpUtility.UrlDecode(strErrMsg), clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("获取用户生成代码根路径及备份路径出错,{0}.(from {1})", HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
+  
+        /// <summary>
+        /// 设置用户生成代码根路径及备份路径
+        /// (AGC.BusinessLogicEx.clsFunction4CodeBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strUserId">用户ID</param>
+        /// <param name="strMachineName">机器名称</param>
+        /// <param name="strPrjId">项目ID</param>
+        /// <param name="strCmPrjId">CM工程ID</param>
+        /// <param name="intApplicationTypeId">应用类型ID</param>
+        /// <param name="strCodePath">代码路径</param>
+        /// <param name="strCodePathBackup">备份代码路径</param>
+        /// <returns>返回是否设置成功</returns>
+        public static bool SetUserGCRootPathWithBackup(
+            string strUserId,
+            string strMachineName,
+            string strPrjId,
+            string strCmPrjId,
+            int intApplicationTypeId,
+            string strCodePath,
+            string strCodePathBackup)
+        {
+            string strAction = "SetUserGCRootPathWithBackup";
+            string strErrMsg = string.Empty;
+            string strResult = "";
+
+            // 创建请求数据对象
+            var requestData = new
+            {
+                strUserId = strUserId,
+                strMachineName = strMachineName,
+                strPrjId = strPrjId,
+                strCmPrjId = strCmPrjId,
+                intApplicationTypeId = intApplicationTypeId,
+                strCodePath = strCodePath,
+                strCodePathBackup = strCodePathBackup
+            };
+
+            // 序列化为 JSON 字符串
+            string strParseData = JsonConvert.SerializeObject(requestData);
+
+            try
+            {
+                // 使用 Post 方法调用 WebAPI，传入 null 作为 dictParam（因为参数在 Body 中）
+                if (clsPubFun4WApi.Post(mstrApiControllerName, strAction, null, strParseData, out strResult, out strErrMsg) == true)
+                {
+                    JObject jobjReturn = JObject.Parse(strResult);
+                    if ((int)jobjReturn["errorId"] == 0)
+                    {
+                        bool bolSuccess = (bool)jobjReturn["success"];
+                        return bolSuccess;
+                    }
+                    else
+                    {
+                        string strMsg = string.Format("{0}", jobjReturn["errorMsg"]);
+                        throw new Exception(strMsg);
+                    }
+                }
+                else
+                {
+                    string strMsg = string.Format("调用WebApi失败: {0}.(from {1})", HttpUtility.UrlDecode(strErrMsg), clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("设置用户生成代码根路径及备份路径出错,{0}.(from {1})", HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
     }
 }
+    

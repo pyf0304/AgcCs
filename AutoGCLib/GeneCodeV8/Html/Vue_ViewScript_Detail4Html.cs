@@ -1443,7 +1443,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
                 strCodeForCs.Append("\r\n" + "<template #header>");
                 strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
                 strCodeForCs.Append("\r\n" + "<a-button type = \"primary\" @click = \"dialogVisible = false\"  ><font-awesome-icon icon=\"times\" /></a-button>");
 
                 strCodeForCs.Append("\r\n" + "</div>");
@@ -1456,7 +1456,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
                 strCodeForCs.Append("\r\n" + "<template #header>");
                 strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+                strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
                 strCodeForCs.Append("\r\n" + "<el-button type = \"primary\" @click = \"dialogVisible = false\" ><font-awesome-icon icon=\"times\" /></el-button>");
 
                 strCodeForCs.Append("\r\n" + "</div>");

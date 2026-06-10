@@ -2,19 +2,30 @@
 import { IShowList } from '@/ts/PubFun/IShowList';
 import {
   divVarSet,
-  ref{{ TableName }}_Detail,  
   viewVarSet,
-} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
+
 import {
   GetCheckedKeyIdsInDivObj,
-  GetFirstCheckedKeyIdInDivObj,
+  {{~ if IsMultiKey == false ~}}
+  GetFirstCheckedKeyIdInDivObj,  // ✅ 仅单关键字时导入
+  {{~ end ~}}
+  {{~ if IsMultiKey ~}}
+  GetFirstCheckedKeyLstInDivObj,     // 🔥 仅多关键字时导入
+  {{~ end ~}}
 } from '@/ts/PubFun/clsCommFunc4Ctrl.js';
+{{~ if IsMultiKey ~}}
+import { {{ TableName }}_SplitKeyLst } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+{{~ end ~}}
 import { AccessBindGvDefault } from '@/ts/PubFun/clsErrMsgBLEx';
-import {{ TableName }}_EditEx from '@/views/{{ ModuleName }}/{{ TableName }}_EditAiEx';
+import {{ TableName }}_EditAiEx from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_EditAiEx';
+{{~ if HasDetailFeature ~}}
+import {{ TableName }}_DetailAiEx from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_DetailAiEx';
+{{~ end ~}}
 import { {{ TableName }}CRUDAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAi';
 import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
 import { {{ TableName }}CommandIdAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
-import { {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
 
 /**
  * {{ TableName }}CRUDAiEx 扩展类
@@ -40,11 +51,17 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
   /**
    * 绑定数据视图（从缓存）
    */
-  public BindGvCache(strType: string, strPara: string) {
+  public async BindGvCache(strType: string, strPara: string) {
     console.log('strPara', strPara);
     switch (strType) {
       case '{{ TableName }}':
-        this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+            {{~ if IsUseFunc ~}}
+                  await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+            {{~ else if HasCacheMode ~}}
+                    await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+            {{~ else ~}}
+                    await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+            {{~ end ~}}
         break;
       default:
         AccessBindGvDefault(strType);
@@ -62,26 +79,101 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
   /**
    * 创建记录操作
    */
-  public async onCreate(strCommandName: string, key: {{TableName}}Key) {
-    const objPageEdit = new {{ TableName }}_EditEx(this);
+  public async onCreate(strCommandName: string, key: {{TableName}}Key | null) {
+    const objPageEdit = new {{ TableName }}_EditAiEx(this);
     console.log(objPageEdit);
     objPageEdit.btnEdit_Click(strCommandName, key);
   }
-
+   
+     {{~ if HasDetailFeature ~}}
   /**
    * 查看详情操作
    */
-  public async onDetail(strCommandName: string, key: {{TableName}}Key) {
-    ref{{ TableName }}_Detail.value.btn{{ TableName }}_Detail_Click(strCommandName, key);
+  public async onDetail(strCommandName: string, key: {{TableName}}Key | null) {
+    const objPageDetail = new {{ TableName }}_DetailAiEx(this);
+    console.log(objPageDetail);
+    
+    // 🔥 检查 key 是否为 null 或关键字段为空
+    let actualKey = key;
+    {{~ if IsMultiKey ~}}
+    {{~ # 多关键字情况 ~}}
+    if (key == null {{~ for keyField in KeyFields ~}} || key.{{ keyField.FieldNameCamel }} === {{~ if keyField.IsNumeric ~}}0{{~ else ~}}''{{~ end ~}} || key.{{ keyField.FieldNameCamel }} == null{{~ end ~}}) {
+      // 从列表中获取第一个被选中的记录关键字
+      const currentKeyLst = GetFirstCheckedKeyLstInDivObj(divVarSet.refDivList);
+      const currKey = {{ TableName }}_SplitKeyLst(currentKeyLst);
+      if (
+        {{~ for keyField in KeyFields ~}}
+        {{~ if for.first == false ~}} ||
+        {{~ end ~}}currKey.{{ keyField.FieldNameCamel }} == null ||
+        currKey.{{ keyField.FieldNameCamel }} === {{~ if keyField.IsNumeric ~}}0{{~ else ~}}''{{~ end ~}} ||
+        currKey.{{ keyField.FieldNameCamel }} === 'undefined'{{~ end ~}}
+      ) {
+        const strMsg = `在查看详情时，获取记录关键字为:${JSON.stringify(currKey)},不成功!`;
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      actualKey = currKey;
+    }
+    {{~ else ~}}
+    {{~ # 单关键字情况 ~}}
+    {{~ if IsKeyFieldNumeric ~}}
+    if (key == null || key.{{ KeyFieldCamel }} === 0 || key.{{ KeyFieldCamel }} == null) {
+      // 从列表中获取第一个被选中的记录关键字
+      const currentKeyId = GetFirstCheckedKeyIdInDivObj(divVarSet.refDivList);
+      if (currentKeyId == null || currentKeyId === '' || currentKeyId === 'undefined') {
+        const strMsg = `在查看详情时，获取记录关键字为:${currentKeyId},不成功!`;
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      actualKey = { {{ KeyFieldCamel }}: Number(currentKeyId) };
+    }
+    {{~ else ~}}
+    if (key == null || key.{{ KeyFieldCamel }} === '' || key.{{ KeyFieldCamel }} == null) {
+      // 从列表中获取第一个被选中的记录关键字
+      const currentKeyId = GetFirstCheckedKeyIdInDivObj(divVarSet.refDivList);
+      if (currentKeyId == null || currentKeyId === '' || currentKeyId === 'undefined') {
+        const strMsg = `在查看详情时，获取记录关键字为:${currentKeyId},不成功!`;
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      actualKey = { {{ KeyFieldCamel }}: currentKeyId };
+    }
+    {{~ end ~}}
+    {{~ end ~}}
+    objPageDetail.btnDetail_Click(strCommandName, actualKey as {{TableName}}Key);
   }
+  {{~ end ~}}
 
+    {{~ if HasUpdateFeature ~}}
   /**
    * 更新记录操作
    */
   public async onUpdate(strCommandName: string) {
-    const objPageEdit = new {{ TableName }}_EditEx(this);
+    const objPageEdit = new {{ TableName }}_EditAiEx(this);
     console.log(objPageEdit);
 
+    {{~ if IsMultiKey ~}}
+    {{~ # 多关键字情况 ~}}
+    const currentKeyLst = GetFirstCheckedKeyLstInDivObj(divVarSet.refDivList);
+    const currKey = {{ TableName }}_SplitKeyLst(currentKeyLst);
+    if (
+      {{~ for keyField in KeyFields ~}}
+      {{~ if for.first == false ~}} ||
+      {{~ end ~}}currKey.{{ keyField.FieldNameCamel }} == null ||
+      currKey.{{ keyField.FieldNameCamel }} === {{~ if keyField.IsNumeric ~}}0{{~ else ~}}''{{~ end ~}} ||
+      currKey.{{ keyField.FieldNameCamel }} === 'undefined'{{~ end ~}}
+    ) {
+      const strMsg = `在修改记录时，获取记录关键字为:${JSON.stringify(currKey)},不成功!`;
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+    objPageEdit.btnEdit_Click(strCommandName, currKey);
+    {{~ else ~}}
+    {{~ # 单关键字情况 ~}}
     const currentKeyId = GetFirstCheckedKeyIdInDivObj(divVarSet.refDivList);
     if (currentKeyId == null || currentKeyId === '' || currentKeyId === 'undefined') {
       const strMsg = `在修改记录时，获取记录关键字为:${currentKeyId},不成功!`;
@@ -90,13 +182,15 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
       return;
     }    
  
-          {{~ if IsKeyFieldNumeric ~}}        
-        const currentKey: {{TableName}}Key = { {{KeyFieldCamel}}: Number(currentKeyId) };
-        {{~ else ~}}
-         const currentKey: {{TableName}}Key = { {{KeyFieldCamel}}: currentKeyId };
-        {{~ end ~}}
-           objPageEdit.btnEdit_Click(strCommandName, currentKey);
+    {{~ if IsKeyFieldNumeric ~}}        
+    const currentKey: {{TableName}}Key = { {{KeyFieldCamel}}: Number(currentKeyId) };
+    {{~ else ~}}
+    const currentKey: {{TableName}}Key = { {{KeyFieldCamel}}: currentKeyId };
+    {{~ end ~}}
+    objPageEdit.btnEdit_Click(strCommandName, currentKey);
+    {{~ end ~}}
   }
+  {{~ end ~}}
 
   /**
    * 删除记录操作
@@ -110,59 +204,85 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
     await this.btnDelRecord_Click();
   }
 
-  /**
-   * 导出 Excel 操作
-   */
-  public async onExportAi(): Promise<ExportExcelData> {
-    {{~ if HasCacheMode ~}}
-    return await this.ExportExcel_{{ TableName }}CacheAi();
-    {{~ else ~}}
-    return await this.ExportExcel_{{ TableName }}Ai();
-    {{~ end ~}}
-  }
-
-  {{~ if SortColumns.size > 0 ~}}
-  /**
-   * 批量设置字段值操作（示例）
-   */
-  public async onSetFieldValue() {
-    await this.btnSetUseStateId_Click();
-  }
+  {{~ if HasExportFeature ~}}
+      /**
+       * 导出 Excel 操作
+       */
+      public async onExportAi(): Promise<ExportExcelData> {
+        {{~ if HasCacheMode ~}}
+        return await this.ExportExcel_{{ TableName }}CacheAi();
+        {{~ else ~}}
+        return await this.ExportExcel_{{ TableName }}Ai();
+        {{~ end ~}}
+      }
   {{~ end ~}}
 
-    /**
+  {{~ # 🔥 为每个设置字段功能生成独立的方法 ~}}
+  {{~ for mapping in CommandMappings ~}}
+  {{~ if mapping.FeatureId == "0148" ~}}
+  /**
+   * {{ mapping.CommandName }} 操作
+   * 设置字段值功能
+   */
+  public async on{{ mapping.MethodName }}() {
+    await this.btn{{ mapping.MethodName }}_Click();
+  }
+  {{~ end ~}}
+  {{~ end ~}}
+
+  /**
    * 执行命令（命令模式入口）
    */
   public async executeCommand(commandId: {{ TableName }}CommandIdAi): Promise<ExportExcelData | void> {
     switch (commandId) {
+      {{~ if HasQueryFeature ~}}
       case 'query':
         await this.onQuery();
         return;
+      {{~ end ~}}
+      {{~ if HasExportFeature ~}}
       case 'export':
         return await this.onExportAi();
+      {{~ end ~}}
+      {{~ if HasCreateFeature ~}}
       case 'create':
              {{~ if IsKeyFieldNumeric ~}}
-        await this.onCreate('Create', { {{ KeyFieldCamel }}: 0 });
+        await this.onCreate('Create', null);
         {{~ else ~}}
-        await this.onCreate('Create', { {{ KeyFieldCamel }}: '' });
+        await this.onCreate('Create', null);
         {{~ end ~}}
         return;
+      {{~ end ~}}
+      {{~ if HasDetailFeature ~}}
+      case 'detail':
+             {{~ if IsKeyFieldNumeric ~}}
+        await this.onDetail('Detail', null );
+        {{~ else ~}}
+        await this.onDetail('Detail', null );
+        {{~ end ~}}
+        return;
+      {{~ end ~}}
+      {{~ if HasCopyFeature ~}}
+      case 'copy':
+        await this.onCopy();
+        return;
+      {{~ end ~}}
+      {{~ if HasUpdateFeature ~}}
       case 'update':
-        {{~ if IsKeyFieldNumeric ~}}
         await this.onUpdate('Update');
-        {{~ else ~}}
-        await this.onUpdate('Update');
-        {{~ end ~}}
         return;
+      {{~ end ~}}
+      {{~ if HasDeleteFeature ~}}
       case 'delete':
         await this.onDelete();
         return;
+      {{~ end ~}}
       {{~ # 🔥 动态生成设置字段值命令处理 ~}}
       {{~ for mapping in CommandMappings ~}}
       {{~ if mapping.FeatureId == "0148" ~}}
       // 🔥 {{ mapping.CommandName }} 命令
       case '{{ mapping.CommandId }}':
-        await this.btn{{ mapping.MethodName }}_Click();
+        await this.on{{ mapping.MethodName }}();
         return;
       {{~ end ~}}
       {{~ end ~}}
@@ -171,22 +291,32 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
     }
   }
 
+  {{~ if HasCopyFeature ~}}
+  /**
+   * 复制记录操作
+   */
+  public async onCopy() {
+    await this.btnCopyRecord_Click();
+  }
+  {{~ end ~}}
+  
     /**
    * 静态按钮点击处理（兼容旧版本）
-   * 将旧的按钮命令名统一映射到新的命令ID
    */
-  public static async btn_Click(strCommandName: string, key: {{TableName}}Key) {
+  public static async btn_Click(strCommandName: string, key: {{TableName}}Key|null) {
+    console.log('btn_Click', strCommandName, key);
     const objPage = new {{ TableName }}CRUDAiEx();
     let strMsg = '';
 
     switch (strCommandName) {
-      // 🔥 查询命令
+      {{~ if HasQueryFeature ~}}
       case 'Query':
       case 'btnQuery':
         await objPage.executeCommand('query');
         break;
+      {{~ end ~}}
 
-      // 🔥 创建命令（所有别名统一映射到 'create'）
+      {{~ if HasCreateFeature ~}}
       case 'AddNewRecordWithMaxId':
       case 'btnAddNewRecordWithMaxId':
       case 'CreateWithMaxId':
@@ -195,37 +325,49 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
       case 'Create':
         await objPage.executeCommand('create');
         break;
+      {{~ end ~}}
 
-      // 🔥 详情命令
+      {{~ if HasDetailFeature ~}}
       case 'Detail':
       case 'btnDetail':
         await objPage.onDetail(strCommandName, key);
         break;
+      {{~ end ~}}
 
-      // 🔥 更新命令（所有别名统一映射到 'update'）
+      {{~ if HasCopyFeature ~}}
+      {{~ # 🔥 复制命令 ~}}
+      case 'CopyRecord':
+      case 'btnCopyRecord':
+      case 'Clone':
+        await objPage.executeCommand('copy');
+        break;
+      {{~ end ~}}
+
+      {{~ if HasUpdateFeature ~}}
       case 'UpdateRecord':
       case 'btnUpdateRecord':
       case 'Update':
         await objPage.executeCommand('update');
         break;
+      {{~ end ~}}
 
-      // 🔥 导出命令
+      {{~ if HasExportFeature ~}}
       case 'ExportExcel':
       case 'btnExportExcel':
         await objPage.executeCommand('export');
         break;
+      {{~ end ~}}
 
-      // 🔥 删除命令（所有别名统一映射到 'delete'）
+      {{~ if HasDeleteFeature ~}}
       case 'DelRecord':
       case 'btnDelRecord':
       case 'Delete':
         await objPage.executeCommand('delete');
         break;
+      {{~ end ~}}
 
-      {{~ # 🔥 动态生成设置字段值命令（只有功能区有对应按钮时才生成） ~}}
       {{~ for mapping in CommandMappings ~}}
       {{~ if mapping.FeatureId == "0148" ~}}
-      // 🔥 设置字段值命令: {{ mapping.CommandName }}
       case '{{ mapping.CommandName }}':
       case 'btn{{ mapping.CommandName }}':
         await objPage.executeCommand('{{ mapping.CommandId }}');
@@ -255,7 +397,8 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
         viewVarSet.sort{{ TableName }}By = Format('{0} {1}', sortColumnKey, sortDirection);
         break;
     }
-    await this.{{ BindGvFuncName }}(this.listPara.listDiv);
+    await {{ BindGvFuncName }}(this.listPara.listDiv);
+  
   }
 }
 

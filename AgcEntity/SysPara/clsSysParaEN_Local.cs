@@ -42,7 +42,7 @@ namespace AGC.Entity
         public static string strDynamicLibPath = "";
 
         public static string strCurrPrjConnectString = "";  //当前所选工作的连接串
-        public static string strVersion = "2026.04.19";
+        public static string strVersion = "2026.05.30";
 
         public clsSysParaEN_Local()
         {

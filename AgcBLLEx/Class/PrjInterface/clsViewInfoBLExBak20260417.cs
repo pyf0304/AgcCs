@@ -294,7 +294,7 @@ namespace AGC.BusinessLogicEx
                 string strMsg = string.Format("界面:{0}的界面类型为空,请检查!", objViewInfoENEx.ViewName);
                 throw new Exception(strMsg);
             }
-            objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
+            //objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
 
             objViewInfoENEx.arrFeatureId = clsPrjFeatureBLEx.GetFeatureIdLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
             objViewInfoENEx.arrViewReferFiles = clsViewReferFilesBLEx.GetObjLstByViewIdCache(objViewInfoENEx.ViewId, objViewInfoENEx.PrjId);
@@ -345,7 +345,7 @@ namespace AGC.BusinessLogicEx
                 //string strMsg = string.Format("界面:{0}的界面类型为空,请检查!", objViewInfoENEx.ViewName);
                 //throw new Exception(strMsg);
             }
-            objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
+            //objViewInfoENEx.objMainPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
 
             objViewInfoENEx.arrFeatureId = clsPrjFeatureBLEx.GetFeatureIdLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
             objViewInfoENEx.arrViewReferFiles = clsViewReferFilesBLEx.GetObjLstByViewIdCache(objViewInfoENEx.ViewId, strPrjId);

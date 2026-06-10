@@ -24,10 +24,7 @@
 //import * as $ from "jquery";
 //import * as QQ from "q";
 import { {{ TableName }}_DetailAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}_DetailAi';
-import {{ TableName }}CRUDAiEx from '@/views/{{ ModuleName }}/{{ TableName }}CRUDAiEx';
-{{~ if IsMultiKey ~}}
 import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
-{{~ end ~}}
 
 /* {{ TableName }}_DetailEx 的摘要说明。其中Q代表查询,U代表修改
   ({{ Generator }}:GeneCode)
@@ -37,32 +34,27 @@ export default class {{ TableName }}_DetailAiEx extends {{ TableName }}_DetailAi
    * 按钮单击,用于调用Js函数中btnClick
    * ({{ Generator }}:Gen_Vue_TS_btnDetail_Click)
    **/
-  public static btnDetail_Click(strCommandName: string, {{~ if IsMultiKey ~}}key: {{ TableName }}Key{{~ else ~}}strKeyId: string{{~ end ~}}) {
+  public btnDetail_Click(strCommandName: string, key: {{ TableName }}Key) {
     const strThisFuncName = this.btnDetail_Click.name;
-    const obj{{ TableName }}CRUD: {{ TableName }}CRUDAiEx =
-      new {{ TableName }}CRUDAiEx();
-    const objPage: {{ TableName }}_DetailAiEx = new {{ TableName }}_DetailAiEx(
-      obj{{ TableName }}CRUD,
-    );
     {{~ if IsMultiKey ~}}
-    console.log(key, strThisFuncName, objPage);
+    console.log(key, strThisFuncName);
     {{~ else ~}}
-    console.log(strKeyId, strThisFuncName, objPage);
+    console.log(key, strThisFuncName);
     {{~ end ~}}
     let strMsg;
     switch (strCommandName) {
       case 'Detail': //详细信息
         {{~ if IsMultiKey ~}}
-        objPage.btnDetailRecord_Click(key);
+        this.btnDetailRecord_Click(key);
         {{~ else ~}}
-        objPage.btnDetailRecord_Click(strKeyId);
+        this.btnDetailRecord_Click(key);
         {{~ end ~}}
         break;
       default:
         {{~ if IsMultiKey ~}}
         strMsg = `命令:${strCommandName}, 关键字: ${JSON.stringify(key)}, 在函数({{ TableName }}_Detail.btnClick)中没有被处理!`;
         {{~ else ~}}
-        strMsg = `命令:${strCommandName}, 关键字: ${strKeyId}, 在函数({{ TableName }}_Detail.btnClick)中没有被处理!`;
+        strMsg = `命令:${strCommandName}, 关键字: ${JSON.stringify(key)}, 在函数({{ TableName }}_Detail.btnClick)中没有被处理!`;
         {{~ end ~}}
         console.error(strMsg);
         alert(strMsg);

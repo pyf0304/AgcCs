@@ -225,8 +225,7 @@ namespace AGC.BusinessLogicEx
             }
             strSQL = "";
             //删除DepartmentInfo本表中与当前对象有关的记录
-            strSQL = strSQL + string.Format("Update DepartmentInfo Set {0}='1' where DepartmentId in (" + strKeyList + ")",
-                conDepartmentInfo.InUse);
+            strSQL = strSQL + $"Update DepartmentInfo Set {conDepartmentInfo.InUse}='1' where DepartmentId in ({strKeyList})";
             return objSQL.ExecSql(strSQL);
         }
         /// <summary>
@@ -250,8 +249,7 @@ namespace AGC.BusinessLogicEx
             }
             strSQL = "";
             //删除DepartmentInfo本表中与当前对象有关的记录
-            strSQL = strSQL + string.Format("Update DepartmentInfo Set {0}='0' where DepartmentId in (" + strKeyList + ")",
-                conDepartmentInfo.InUse);
+            strSQL = strSQL + $"Update DepartmentInfo Set {conDepartmentInfo.InUse}='0' where DepartmentId in ({strKeyList})";
             return objSQL.ExecSql(strSQL);
         }
         /// <summary>

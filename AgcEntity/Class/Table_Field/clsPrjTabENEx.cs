@@ -607,6 +607,8 @@ namespace AGC.Entity
                 marrKeyFldSet = value;
             }
         }
+        public List<clsKeyFieldType> arrKeyFieldType { get; set; }
+
 
         public clsPrjTabFldENEx ObjCacheClassifyFld_TS { get => objCacheClassifyFld_TS; set => objCacheClassifyFld_TS = value; }
         public clsPrjTabFldENEx ObjCacheClassifyFld2_TS { get => objCacheClassifyFld2_TS; set => objCacheClassifyFld2_TS = value; }

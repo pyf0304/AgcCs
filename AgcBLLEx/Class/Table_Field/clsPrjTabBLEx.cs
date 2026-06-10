@@ -293,6 +293,7 @@ namespace AGC.BusinessLogicEx
             }
 
             objPrjTabENEx.TabSpace = objPrjTabENEx.DataBaseName;
+
             objPrjTabENEx.objProjectsEN = clsProjectsBL.GetObjByPrjIdCache(objPrjTabENEx.PrjId);
             if (string.IsNullOrEmpty(objPrjTabENEx.FuncModuleAgcId) == true)
             {
@@ -338,6 +339,8 @@ namespace AGC.BusinessLogicEx
             objPrjTabENEx.arrFldSet = new List<clsPrjTabFldENEx>();
             objPrjTabENEx.arrExtendFldSet = new List<clsPrjTabFldENEx>();
             objPrjTabENEx.arrKeyFldSet = new List<clsPrjTabFldENEx>();
+            objPrjTabENEx.arrKeyFieldType = new List<clsKeyFieldType>();
+
             string strCondition = string.Format("{0}='{1}' and {2}='1'", conPrjConstraint.TabId, objPrjTabENEx.TabId, conPrjConstraint.InUse);
 
             IEnumerable<clsPrjConstraintEN> arrPrjConstraintCache = clsPrjConstraintBL.GetObjLstCache(objPrjTabENEx.PrjId);
@@ -360,6 +363,10 @@ namespace AGC.BusinessLogicEx
             //arrMId = clsPrjTabFldENEx.funGetFldValue2("PrjTabFld", "Mid", "TabId = '" + objViewInfoENEx.TabId + "'", "SequenceNumber");
             foreach (clsPrjTabFldENEx objPrjTabFldENEx in objPrjTabENEx.arrPrjTabFldENExObjLst)
             {
+                if (objPrjTabFldENEx.FieldTypeId == enumFieldType.KeyField_02)
+                {
+                
+                }
                 objPrjTabENEx.arrFldSetAll.Add(objPrjTabFldENEx);
                 if (objPrjTabFldENEx.ObjFieldTabENEx.objDataTypeAbbrEN.DataTypeName != "timestamp")
                 {
@@ -375,6 +382,11 @@ namespace AGC.BusinessLogicEx
                 if (objPrjTabFldENEx.FieldTypeId == enumFieldType.KeyField_02)
                 {
                     objPrjTabENEx.arrKeyFldSet.Add(objPrjTabFldENEx);
+                    clsKeyFieldType objKeyFieldType = new clsKeyFieldType();
+                    objKeyFieldType.KeyField = clsFieldTabBL.GetNameByFldIdCache(objPrjTabFldENEx.FldId, objPrjTabFldENEx.PrjId);
+                    objKeyFieldType.KeyType = clsPrimaryTypeBLEx.GetKeyTypeEnumByPrimaryType(objPrjTabFldENEx.PrimaryTypeId);
+                    objKeyFieldType.KeyFieldCamel = clsPrjTabBLEx.ToCamelCase(objKeyFieldType.KeyField);
+                    objPrjTabENEx.arrKeyFieldType.Add(objKeyFieldType);
                 }
 
                 if (objPrjTabFldENEx.FieldTypeId == enumFieldType.NameField_03)
@@ -567,7 +579,7 @@ namespace AGC.BusinessLogicEx
             }
             else
             {
-                strSQL = string.Format("Update PrjTab Set ErrMsg = '' where PrjId = '{0}'", strPrjId);
+                strSQL = $"Update PrjTab Set ErrMsg = '' where PrjId = '{strPrjId}'";
             }
             int intRecoCount = objSQL.ExecSql2(strSQL);
             return intRecoCount;
@@ -3739,8 +3751,33 @@ namespace AGC.BusinessLogicEx
                 return objvPrjTabFld.FldId;
             }
         }
+        public static List<clsKeyFieldType> GetKeyFieldTypeLst(string strTabId)
+        {
+            List<clsKeyFieldType> arrKeyFieldType = new List<clsKeyFieldType>();
+            clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabId(strTabId);
+            StringBuilder sbCondition = new StringBuilder();
+            sbCondition.AppendFormat("TabId = '{0}' and FieldTypeId = '02'", strTabId);
+            List<clsvPrjTabFldEN> arrvPrjTabFld = clsvPrjTabFldBL.GetObjLst(sbCondition.ToString());
+
+            if (arrvPrjTabFld == null || arrvPrjTabFld.Count == 0)
+            {
+                StringBuilder sbMessage = new StringBuilder();
+                sbMessage.AppendFormat("当前表:{0}的没有关键字段!", objPrjTabEN.TabName);
+                throw new Exception(sbMessage.ToString());
+            }
+            foreach (clsvPrjTabFldEN objPrjTabFldEN in arrvPrjTabFld)
+            {
+                clsKeyFieldType objKeyFieldType = new clsKeyFieldType();
+                objKeyFieldType.KeyField = clsFieldTabBL.GetNameByFldIdCache(objPrjTabFldEN.FldId, objPrjTabFldEN.PrjId);
+                objKeyFieldType.KeyType = clsPrimaryTypeBLEx.GetKeyTypeEnumByPrimaryType(objPrjTabFldEN.PrimaryTypeId);
+                objKeyFieldType.KeyFieldCamel = clsPrjTabBLEx.ToCamelCase(objKeyFieldType.KeyField);
+                arrKeyFieldType.Add(objKeyFieldType);
+            }
+            return arrKeyFieldType;
+        }
 
 
+      
         /// <summary>
         /// 功能:获取某一条件的相关表视图(View)
         /// </summary>
@@ -4772,6 +4809,11 @@ namespace AGC.BusinessLogicEx
                 }
             }
             return true;
+        }
+        public static string ToCamelCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToLower(input[0]) + input.Substring(1);
         }
     }
 }

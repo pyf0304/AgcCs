@@ -7,6 +7,7 @@
  * 编程语言:TypeScript
  **/
 import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
+
 import {
   {{~ if IsStringAutoIncrement ~}}
   {{ TableName }}_GetMaxStrIdAsync,
@@ -19,17 +20,20 @@ import {
   {{~ end ~}}
   {{ TableName }}_CheckPropertyNew,
     {{~ if NeedRefreshCache ~}}
-        {{ TableName }}_ReFreshCache(),
-        {{~ end ~}}  
+  {{ TableName }}_ReFreshCache,
+    {{~ end ~}}
+  {{~ if NeedCheckKeyExist ~}}
   {{ TableName }}_GetUniCondStr,
   {{ TableName }}_IsExistRecordAsync,
   {{ TableName }}_GetUniCondStr4Update,
+  {{~ end ~}}
   {{ TableName }}_IsExistAsync,
   {{ TableName }}_GetObjByKeyAsync,
   {{ TableName }}_CheckProperty4Update,
   {{ TableName }}_UpdateRecordAsync,
   {{ TableName }}_EditRecordExAsync,
 } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+
 import { cls{{ TableName }}EN,  {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
 import {  
     {{~ if NeedRefreshCache ~}}
@@ -37,7 +41,7 @@ import {
   {{~ end ~}}
   divVarSet,
   ref{{ TableName }}_Edit,
-} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 import { IShowList } from '@/ts/PubFun/IShowList';
 import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';
 
@@ -342,7 +346,8 @@ export abstract class {{ TableName }}_EditAi {
       txt{{ KeyField }}.readOnly = bolReadonly;
     }
   }
-  {{~ if IsStringAutoIncrement ~}}
+
+   {{~ if IsStringAutoIncrement ~}}
   /** 为插入记录做准备工作 */
   public async AddNewRecord() {
     const strThisFuncName = this.AddNewRecord.name;
@@ -353,7 +358,13 @@ export abstract class {{ TableName }}_EditAi {
         const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
         alert(strInfo);
       } else {
-        this.keyId = returnString;
+        {{~ if IsMultiKey ~}}
+        // 🔥 多关键字段：需要构造对象（但字符串自增通常是单关键字）
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ else ~}}
+        // 🔥 单关键字段：构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ end ~}}
       }
     } catch (e) {
       const strMsg = Format(
@@ -366,7 +377,7 @@ export abstract class {{ TableName }}_EditAi {
       alert(strMsg);
     }
   }
-
+  
   /** 为插入记录做准备工作（使用最大值ID） */
   public async AddNewRecordWithMaxId() {
     const strThisFuncName = this.AddNewRecordWithMaxId.name;
@@ -377,7 +388,13 @@ export abstract class {{ TableName }}_EditAi {
         const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
         alert(strInfo);
       } else {
-        this.keyId = returnString;
+        {{~ if IsMultiKey ~}}
+        // 🔥 多关键字段：需要构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ else ~}}
+        // 🔥 单关键字段：构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ end ~}}
       }
     } catch (e) {
       const strMsg = Format(
@@ -402,6 +419,8 @@ export abstract class {{ TableName }}_EditAi {
   }
 {{~ end ~}}
 
+
+
   /** 添加新记录,保存函数
    * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:Gen_Vue_Ts_AddNewRecordSave)
    **/
@@ -419,7 +438,7 @@ export abstract class {{ TableName }}_EditAi {
       );
       console.error(strMsg);
       alert(strMsg);
-      return false; //一定要有一个返回值,否则会出错!
+      return false;
     }
     try {
       {{ TableName }}_CheckPropertyNew(obj{{ TableName }}EN);
@@ -432,10 +451,10 @@ export abstract class {{ TableName }}_EditAi {
       );
       console.error(strMsg);
       alert(strMsg);
-      return false; //一定要有一个返回值,否则会出错!
+      return false;
     }
     try {
-      {{~ if !IsMultiKey && !NeedReturnKeyMethod ~}}
+      {{~ if NeedCheckKeyExist ~}}
       //检查唯一性条件
       const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
@@ -450,13 +469,16 @@ export abstract class {{ TableName }}_EditAi {
       // StringAutoAddPrimaryKey_03: 字符串自增，需要获取返回的 KeyId
       const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       if (IsNullOrEmpty(returnKeyId) == false) {
-        this.keyId = returnKeyId;
+        // 🔥 赋值为对象格式
+        this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
         returnBool = true;
       }
       {{~ else if PrimaryTypeId == "06" ~}}
       // StringAutoAddPrimaryKeyWithPrefix_06: 字符串自增带前缀
       const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       if (IsNullOrEmpty(returnKeyId) == false) {
+        // 🔥 赋值为对象格式
+        this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
         returnBool = true;
       }
       {{~ else ~}}
@@ -481,26 +503,33 @@ export abstract class {{ TableName }}_EditAi {
         {{~ end ~}}
         console.error(strMsg);
         alert(strMsg);
-        return false; //一定要有一个返回值,否则会出错!
+        return false;
       }
       {{~ end ~}}
       returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
       {{~ end ~}}
       if (returnBool == true) {
           {{~ if NeedRefreshCache ~}}
+        {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
         {{~ end ~}}
+
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
-        //显示信息框
         if (this.isShowMsg == true) alert(strInfo);
       } else {
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录不成功!`;
-        //显示信息框
         alert(strInfo);
       }
-      return returnBool; //一定要有一个返回值,否则会出错!
+      return returnBool;
     } catch (e) {
       const strMsg = Format(
         '添加记录不成功,{0}.(in {1}.{2})',
@@ -510,11 +539,12 @@ export abstract class {{ TableName }}_EditAi {
       );
       console.error(strMsg);
       alert(strMsg);
-      return false; //一定要有一个返回值,否则会出错!
+      return false;
     }
   }
+    
 
-
+{{~ if NeedCheckKeyExist ~}}
   /** 为添加记录检查唯一性条件 */
   public async CheckUniCond4Add(obj{{ TableName }}EN: cls{{ TableName }}EN): Promise<boolean> {
     const strUniquenessCondition = {{ TableName }}_GetUniCondStr(obj{{ TableName }}EN);
@@ -546,6 +576,8 @@ export abstract class {{ TableName }}_EditAi {
     }
     return true;
   }
+{{~ end ~}}
+
 
   {{~ if NeedReturnKeyMethod ~}}
   /** 添加新记录,由后台自动获取最大值的关键字。保存函数 
@@ -589,6 +621,7 @@ export abstract class {{ TableName }}_EditAi {
       {{~ end ~}}
     }
     try {
+      {{~ if NeedCheckKeyExist ~}}
       //检查唯一性条件
       const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
@@ -598,12 +631,21 @@ export abstract class {{ TableName }}_EditAi {
         return '';
         {{~ end ~}}
       }
+      {{~ end ~}}
       {{~ if IsStringAutoIncrement ~}}
       const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       const returnKeyId: string = responseKeyId;
       if (IsNullOrEmpty(returnKeyId) == false) {
        {{~ if NeedRefreshCache ~}}
+        {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
         {{~ end ~}}
@@ -624,7 +666,15 @@ export abstract class {{ TableName }}_EditAi {
         obj{{ TableName }}EN.{{ KeyFieldCamel }} = Number(returnKeyId);
         {{~ end ~}}
        {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
         {{~ end ~}}
@@ -660,6 +710,7 @@ export abstract class {{ TableName }}_EditAi {
   }
 {{~ end ~}}
 
+
   {{~ if IsStringAutoIncrement ~}}
   /** 添加新记录,由后台自动获取最大值的关键字。保存函数 
    * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:Gen_Vue_Ts_AddNewRecordWithMaxIdSave)
@@ -694,19 +745,30 @@ export abstract class {{ TableName }}_EditAi {
       throw strMsg;
     }
     try {
+      {{~ if NeedCheckKeyExist ~}}
       //检查唯一性条件
       const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
         return '';
       }
+      {{~ end ~}}
       const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       const returnKeyId: string = responseKeyId;
       if (IsNullOrEmpty(returnKeyId) == false) {
        {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
         {{~ end ~}}
+
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
         if (this.isShowMsg == true) alert(strInfo);
       } else {
@@ -807,6 +869,7 @@ export abstract class {{ TableName }}_EditAi {
     }
   }
 
+  
   /** 修改记录保存 */
   public async UpdateRecordSave(): Promise<boolean> {
     const strThisFuncName = this.UpdateRecordSave.name;
@@ -818,11 +881,7 @@ export abstract class {{ TableName }}_EditAi {
     {{~ end ~}}
     {{~ else ~}}
     // 🔥 单关键字段：直接使用
-    {{~ if IsKeyFieldNumeric ~}}
     obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
-    {{~ else ~}}
-    obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
-    {{~ end ~}}
     {{~ end ~}}
     obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
     {{~ if IsKeyFieldNumeric ~}}
@@ -847,20 +906,29 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
     try {
+      {{~ if NeedCheckKeyExist ~}}
       const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
         return false;
       }
+      {{~ end ~}}
       const returnBool = await {{ TableName }}_UpdateRecordAsync(obj{{ TableName }}EN);
       if (returnBool == true) {
        {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
-             {{ TableName }}_DeleteKeyIdCache(this.keyId);
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-             //{{ TableName }}_DeleteKeyIdCache(this.keyId);
         {{~ end ~}}
-   
+
+
       }
       return returnBool;
     } catch (e) {
@@ -875,7 +943,7 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
   }
-
+  
   /** 编辑记录，存在就修改，不存在就添加 */
   public async EditRecordExSave(): Promise<boolean> {
     const strThisFuncName = this.EditRecordExSave.name;
@@ -888,11 +956,7 @@ export abstract class {{ TableName }}_EditAi {
     {{~ end ~}}
     {{~ else ~}}
     // 🔥 单关键字段：直接使用
-    {{~ if IsKeyFieldNumeric ~}}
     obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
-    {{~ else ~}}
-    obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
-    {{~ end ~}}
     {{~ end ~}}
     obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
     {{~ if IsKeyFieldNumeric ~}}
@@ -917,14 +981,24 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
     try {
+      {{~ if NeedCheckKeyExist ~}}
       const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
         return false;
       }
+      {{~ end ~}}
       const returnBool = await {{ TableName }}_EditRecordExAsync(obj{{ TableName }}EN);
       if (returnBool == true) {
       {{~ if NeedRefreshCache ~}}
+              {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
         {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
         {{~ else ~}}
         // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
         {{~ end ~}}

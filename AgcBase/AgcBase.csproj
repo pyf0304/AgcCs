@@ -158,6 +158,9 @@
     <Compile Include="BLL_Class\GeneCode\clsCodeParaBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsCodeSegmentBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsCodeTypeBL.cs" />
+    <Compile Include="BLL_Class\GeneCode\clsCTCodeTypeGroupBL.cs" />
+    <Compile Include="BLL_Class\GeneCode\clsCTCodeTypeGroupRelaBL.cs" />
+    <Compile Include="BLL_Class\GeneCode\clsCTRelationTypeBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsDict4GCBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsDictType4GCBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsEventTabBL.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="BLL_Class\GeneCode\clsGCVariableBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsGCVariablePrjIdRelaBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsGCVariableTypeBL.cs" />
+    <Compile Include="BLL_Class\GeneCode\clsGC_CodeTypeRelationBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsReferFilesBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsReferFileTypeBL.cs" />
     <Compile Include="BLL_Class\GeneCode\clsSelfDefDataTypeBL.cs" />
@@ -600,6 +604,9 @@
     <Compile Include="DAL_Class\GeneCode\clsCodeParaDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsCodeSegmentDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsCodeTypeDA.cs" />
+    <Compile Include="DAL_Class\GeneCode\clsCTCodeTypeGroupDA.cs" />
+    <Compile Include="DAL_Class\GeneCode\clsCTCodeTypeGroupRelaDA.cs" />
+    <Compile Include="DAL_Class\GeneCode\clsCTRelationTypeDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsDict4GCDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsDictType4GCDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsEventTabDA.cs" />
@@ -612,6 +619,7 @@
     <Compile Include="DAL_Class\GeneCode\clsGCVariableDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsGCVariablePrjIdRelaDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsGCVariableTypeDA.cs" />
+    <Compile Include="DAL_Class\GeneCode\clsGC_CodeTypeRelationDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsReferFilesDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsReferFileTypeDA.cs" />
     <Compile Include="DAL_Class\GeneCode\clsSelfDefDataTypeDA.cs" />
@@ -1042,6 +1050,9 @@
     <Compile Include="Entity_Class\GeneCode\clsCodeParaEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsCodeSegmentEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsCodeTypeEN.cs" />
+    <Compile Include="Entity_Class\GeneCode\clsCTCodeTypeGroupEN.cs" />
+    <Compile Include="Entity_Class\GeneCode\clsCTCodeTypeGroupRelaEN.cs" />
+    <Compile Include="Entity_Class\GeneCode\clsCTRelationTypeEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsDict4GCEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsDictType4GCEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsEventTabEN.cs" />
@@ -1054,6 +1065,7 @@
     <Compile Include="Entity_Class\GeneCode\clsGCVariableEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsGCVariablePrjIdRelaEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsGCVariableTypeEN.cs" />
+    <Compile Include="Entity_Class\GeneCode\clsGC_CodeTypeRelationEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsReferFilesEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsReferFileTypeEN.cs" />
     <Compile Include="Entity_Class\GeneCode\clsSelfDefDataTypeEN.cs" />

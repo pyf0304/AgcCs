@@ -197,5 +197,21 @@ namespace AGC.BusinessLogicEx
             objDDL.Items.Insert(0, li);
             objDDL.SelectedIndex = 0;
         }
+    
+
+        /// <summary>
+        /// 替换字段,在整个工程中替换字段
+        /// </summary>
+        /// <param name = "strPrjId">工程Id</param>
+        /// <param name = "strSourceFldId">源字段Id</param>
+        /// <param name = "strTargetFldId">目标字段Id</param>
+        /// <returns></returns>
+        //public static bool ReplaceField(string strPrjId, string strSourceFldId, string strTargetFldId)
+        //{
+        //    clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+        //    string strSQL;
+        //    strSQL = $"Update CtlType Set {conCtlType.FldId} = '{strTargetFldId}' where {conCtlType.PrjId} = '{strPrjId}' And {conCtlType.FldId} = '{strSourceFldId}'";
+        //    return objSQL.ExecSql(strSQL);
+        //}
     }
 }

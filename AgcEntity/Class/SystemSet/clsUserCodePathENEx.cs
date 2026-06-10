@@ -63,7 +63,7 @@ namespace AGC.Entity
         public bool IsExistCodePathP { get; set; }
 
         public string NewCodePathBackup { get; set; }
-             
-                
+
+        public string FolderName_Root { get; set; }
     }
 }

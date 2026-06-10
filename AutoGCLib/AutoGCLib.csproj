@@ -22,7 +22,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Remove="Templates\TypeScript\Ai4BaseBak.sbn" />
-	  <EmbeddedResource Remove="Templates\TypeScript\ListAi4Html.sbn" />
+	  <EmbeddedResource Remove="Templates\TypeScript\Ai4BaseBak20260604.sbn" />
+	  <EmbeddedResource Remove="Templates\TypeScript\AiCommandBak.sbn" />
+	  <EmbeddedResource Remove="Templates\TypeScript\AiHtmlBak.sbn" />
+	  <EmbeddedResource Remove="Templates\TypeScript\ListAiHtml.sbn" />
 	</ItemGroup>
   <ItemGroup>
     <None Remove="Templates\TypeScript\Ai2Columns.sbn" />
@@ -59,12 +62,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\TypeScript\Ai4Base.sbn">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\TypeScript\Ai4Command.sbn">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\TypeScript\Ai4Html.sbn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\TypeScript\EditAi.sbn">

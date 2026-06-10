@@ -18,6 +18,7 @@ namespace AgcCommBase
         GetObjByKeyLstAsync,
         GetObjByKeyId,
         GetObjByKeyId_Cache,
+        GetObjByKeyId_localStorage,
         GetRecNameByKeyCache,
         ReFreshThisCache,
         ReFreshCache,
@@ -39,7 +40,7 @@ namespace AgcCommBase
         DelRecordAsync,
         DelRecKeyLstAsync,
         DelMultiRecord,
-        DelMultiRecordAsync,
+        DelKeysAsync,
         DelMultiRecordByCond,
         DelMultiRecordByCondAsync,
         DelRecKeyLstsAsync,
@@ -114,6 +115,9 @@ GoForwardAsync,
         public string ViewVarName { get; 
             set; }
         public string ViewVarName2;
+        public List<string> VarNameLst;
+        public List<string> arrImportVarLst;
+
         public string VarDef4Fld;
         public string VarDef4Fld2;
         public string PriVarName;
@@ -132,5 +136,5 @@ GoForwardAsync,
         public bool IsForExtendClass2;
 
     }
-
+  
 }

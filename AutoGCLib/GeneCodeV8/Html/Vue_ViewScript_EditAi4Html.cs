@@ -98,41 +98,50 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n *({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n **/");
             strFuncName = $"btn{objViewInfoENEx.TabName_In}_Edit_Click";
-            strCodeForCs.AppendFormat("\r\n" + "btn{0}_Edit_Click(strCommandName:string, strKeyId:string) {{", objViewInfoENEx.TabName_In);
-            strCodeForCs.AppendFormat("\r\n" + "const objPageEdit = this.objPage_Edit as {0}Ex | undefined;",                 ThisClsName);
+
+            // 🔥 统一使用 Key 类型(无论单主键还是复合主键)
+            string strKeyTypeName = $"{objViewInfoENEx.TabName_In}Key";
+            strCodeForCs.AppendFormat("\r\n" + "btn{0}_Edit_Click(", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "  strCommandName: string,");
+            strCodeForCs.AppendFormat("\r\n" + "  key: {0} | null,", strKeyTypeName);
+            strCodeForCs.Append("\r\n" + ") {");
+
+            strCodeForCs.AppendFormat("\r\n" + "const objPageEdit = this.objPage_Edit as {0}Ex | undefined;", ThisClsName);
             strCodeForCs.Append("\r\n" + "if (objPageEdit == null)");
             strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = '编辑页面初始化不成功,请联系管理员!(in btn{0}_Edit_Click)';", objViewInfoENEx.TabName_In);
-                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-                strCodeForCs.Append("\r\n" + "alert(strMsg);");
-                strCodeForCs.Append("\r\n" + "return;");
+            strCodeForCs.AppendFormat("\r\n" + "const strMsg = '编辑页面初始化不成功,请联系管理员!(in btn{0}_Edit_Click)';", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, strKeyId);",               ThisClsName);
-            // 🔥 根据关键字类型生成不同的代码
-            if (objKeyField.IsNumberType())
+
+            // 🔥 构建所有主键字段的空值检查条件
+            var arrKeyFields = this.arrKeyFieldList;
+            StringBuilder sbCondition = new StringBuilder();
+
+            for (int i = 0; i < arrKeyFields.Count; i++)
             {
-                // 数值型关键字
-                strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty(strKeyId) == false) {");
-                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: Number(strKeyId) }});",
-                    objKeyField.FldName_FstLcase0);
-                strCodeForCs.Append("\r\n" + "} else {");
-                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: 0 }});",
-                    objKeyField.FldName_FstLcase0);
-                strCodeForCs.Append("\r\n" + "}");
-            }
-            else
-            {
-                // 字符串型关键字
-                strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty(strKeyId) == false) {");
-                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: strKeyId }});",
-                    objKeyField.FldName_FstLcase0);
-                strCodeForCs.Append("\r\n" + "} else {");
-                strCodeForCs.AppendFormat("\r\n" + "objPageEdit.btnEdit_Click(strCommandName, {{ {0}: '' }});",
-                    objKeyField.FldName_FstLcase0);
-                strCodeForCs.Append("\r\n" + "}");
+                var keyFld = arrKeyFields[i];
+                if (i > 0) sbCondition.Append(" || ");
+                if (keyFld.IsNumberType())
+                {
+                    sbCondition.AppendFormat("key.{0} == 0", keyFld.FldName_FstLcase0);
+                }
+                else
+                {
+                    sbCondition.AppendFormat("IsNullOrEmpty(key.{0}) == true", keyFld.FldName_FstLcase0);
+                }
             }
 
+            // 生成判断逻辑
+            strCodeForCs.AppendFormat("\r\n" + "if (key == null || {0}) {{", sbCondition.ToString());
+            strCodeForCs.Append("\r\n" + "  objPageEdit.btnEdit_Click(strCommandName, null);");
+            strCodeForCs.Append("\r\n" + "} else {");
+            strCodeForCs.Append("\r\n" + "  objPageEdit.btnEdit_Click(strCommandName, key);");
+            strCodeForCs.Append("\r\n" + "}");
+
             strCodeForCs.Append("\r\n" + "},");
+
             objCodeElement_Methods.Children.Add(new CodeElement
             {
                 Name = strFuncName,
@@ -670,6 +679,7 @@ namespace AutoGCLib
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
                     if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
+                    if (objEditRegionFld.CtlTypeId != enumCtlType.DropDownList_06) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
                     if (arrTemp.Contains(objTabFeature4Ddl.TabName4GC) == true) continue;
                     arrTemp.Add(objTabFeature4Ddl.TabName4GC);
@@ -1070,7 +1080,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
             strCodeForCs.Append("\r\n" + "<template #header>");
             strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-            strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+            strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
             strCodeForCs.Append("\r\n" + "<el-button @click = \"dialogVisible = false\" type = \"primary\" ><font-awesome-icon icon=\"times\" /></el-button>");
 
             strCodeForCs.Append("\r\n" + "</div>");
@@ -1150,7 +1160,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n" + "<!--使用头部插槽来自定义对话框的标题-->");
             strCodeForCs.Append("\r\n" + "<template #header>");
             strCodeForCs.Append("\r\n" + "<div class=\"custom-header\">");
-            strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</ h3 >");
+            strCodeForCs.Append("\r\n" + "<h3>{{ strTitle }}</h3 >");
             strCodeForCs.Append("\r\n" + "<a-button type = \"primary\" @click = \"dialogVisible = false\"  ><font-awesome-icon icon=\"times\" /></a-button>");
 
             strCodeForCs.Append("\r\n" + "</div>");
@@ -1212,7 +1222,7 @@ namespace AutoGCLib
             //       < a - button @click = "dialogVisible = false" > 关闭 </ a - button >
             //< a - button type = "primary" @click = "handleSave" > 保存 </ a - button >
             strCodeForCs.AppendFormat("\r\n" + " <a-button  id=\"btnCancel{0}\" @click = \"dialogVisible = false\">{{{{ strCancelButtonText }}}}</a-button>", objViewInfoENEx.TabName_In);
-            strCodeForCs.AppendFormat("\r\n" + " <a-button  id=\"btnSubmit{0}\" type = \"primary\" @click=\"btn{0}_Edit_Click('Submit','')\">{{{{ strSubmitButtonText }}}}</a-button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.AppendFormat("\r\n" + " <a-button  id=\"btnSubmit{0}\" type = \"primary\" @click=\"btn{0}_Edit_Click('Submit',null)\">{{{{ strSubmitButtonText }}}}</a-button>", objViewInfoENEx.TabName_In);
             strCodeForCs.Append("\r\n" + " </template>");
             strCodeForCs.Append("\r\n" + " </a-modal>");
 
@@ -1453,7 +1463,7 @@ namespace AutoGCLib
             return strCodeForCs.ToString();
         }
 
-        public string Gen_Edit_Setup_BindDdl4EditRegionInDiv(CodeElement objCodeElement_Parent)
+        public string Gen_Edit_Setup_BindDdl4EditRegionInDivBak(CodeElement objCodeElement_Parent)
         {
             CodeElement objCodeElement_Method = new CodeElement { Name = "BindDdl4EditRegionInDiv", ElementType = CodeElementType.Method, Modifiers = "export abstract" };
             objCodeElement_Parent.Children.Add(objCodeElement_Method);
@@ -1583,6 +1593,155 @@ namespace AutoGCLib
             objCodeElement_Method.CodeContent = strCodeForCs.ToString();
             return strCodeForCs.ToString();
         }
+
+        public string Gen_Edit_Setup_BindDdl4EditRegionInDiv(CodeElement objCodeElement_Parent)
+        {
+            CodeElement objCodeElement_Method = new CodeElement { Name = "BindDdl4EditRegionInDiv", ElementType = CodeElementType.Method, Modifiers = "export abstract" };
+            objCodeElement_Parent.Children.Add(objCodeElement_Method);
+
+            clsVarManage objVarManage = new clsVarManage("TypeScript");
+            string strFuncName = "";
+            StringBuilder strCodeForCs = new StringBuilder();
+            List<ASPDropDownListEx> arrASPDropDownListObj_Edit
+                = objViewInfoENEx.arrASPDropDownListObj.Where(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ToList();
+            try
+            {
+                strCodeForCs.Append("\r\n /** 函数功能:为编辑区绑定下拉框");
+                strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.Append("\r\n" + " **/");
+                strCodeForCs.AppendFormat("\r\n" + "async function BindDdl4EditRegionInDiv()", ThisClsName);
+                strCodeForCs.Append("\r\n" + "{");
+
+                var objFuncParaLstAll = new FuncParaLst("AllDdlParaLst", this.IsFstLcase, enumAppLevel.InvokeFunc);
+                List<string> arrDataLst4Ddl = new List<string>();
+
+                // ... 原有的循环代码 ...
+                foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
+                {
+                    List<string> arrCondFldId;
+                    if (string.IsNullOrEmpty(objInfor.TabFeatureId4Ddl) == true)
+                    {
+                        if (objInfor.CsType == "bool")
+                        {
+                        }
+                        continue;
+                    }
+                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(objInfor.TabFeatureId4Ddl, objInfor.PrjId);
+                    var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objTabFeature, this.IsFstLcase, PrjTabEx_EditRegion, objViewInfoENEx.ViewId);
+                    string strByCondition = "";
+                    if (string.IsNullOrEmpty(objTabFeature4Ddl.ConditionFieldName) == false)
+                        strByCondition = $"By{objTabFeature4Ddl.ConditionFieldName}";
+
+                    var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, objInfor.PrjId);
+                    var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
+                    arrCondFldId = objTabFeature.GetCondFldIdLst();
+                    if (arrTabFeatureFlds_Cond.Count == 0)
+                    {
+                        objInfor.VarIdCond1 = "";
+                        objInfor.VarIdCond2 = "";
+                        objInfor.FldIdCond1 = "";
+                        objInfor.FldIdCond2 = "";
+                    }
+                    else if (arrTabFeatureFlds_Cond.Count == 1)
+                    {
+                        objInfor.VarIdCond2 = "";
+                        objInfor.FldIdCond2 = "";
+                    }
+
+                    try
+                    {
+                        Tuple<string, string> tup = this.Gen_WApi_Ts_DefineVar4Ddl4TabFeature(objInfor, arrCondFldId, objFuncParaLstAll);
+                        string strFuncName4Ex = $"GetArr{objInfor.DsTabName}{strByCondition}";
+                        if (string.IsNullOrEmpty(objTabFeature4Ddl.GetDdlDataFuncName4Ex) == false)
+                        {
+                            strFuncName4Ex = objTabFeature4Ddl.GetDdlDataFuncName4Ex;
+                        }
+
+                        string strVar4Cond = tup.Item1;
+                        string strFuncParaLst_Additional = tup.Item2;
+
+                        if (objInfor.CsType == "bool")
+                        {
+                        }
+                        else
+                        {
+                            if (arrDataLst4Ddl.Contains(objInfor.DsTabName))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                arrDataLst4Ddl.Add(objInfor.DsTabName);
+                                if (objTabFeature4Ddl.IsExtendedClass)
+                                {
+                                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}Ex_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
+                                }
+                                else
+                                {
+                                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception objException)
+                    {
+                        string strMsg = objException.Message;
+                    }
+                }
+
+                // 🔥 生成变量定义代码
+                strCodeForCs.Append("\r\n" + objFuncParaLstAll.GetVarLstDefStr(ThisClsName, this, this.strBaseUrl, true));
+
+                // 🔥 关键修改：将收集到的 import 转换为 CodeElement
+                if (this.arrImportClass != null && this.arrImportClass.Count > 0)
+                {
+                    foreach (var importClass in this.arrImportClass)
+                    {
+                        if (string.IsNullOrEmpty(importClass.ClsName) == true) continue;
+                        if (importClass.FilePath == "VueShare" || importClass.FilePath == "../../VueShare") 
+                            importClass.FilePath = "../../" + this.GetVueShareClsName();
+                        // 检查是否是 VueShare 的 import
+                        if (!string.IsNullOrEmpty(importClass.FilePath) &&
+                            importClass.FilePath.Contains("VueShare"))
+                        {
+                            CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(importClass);
+                            if (objCodeElement_Import != null)
+                            {
+                                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+                            }
+                        }
+                    }
+                }
+
+                foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
+                {
+                    strCodeForCs.Append("\r\n" + objInfor.CodeText);
+
+                    if (objInfor.objEditRegionFldsEN.ObjFieldTab_PC().IsNumberType() == true)
+                    {
+                        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = 0;");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = '0';");
+                    }
+                }
+
+                strCodeForCs.Append("\r\n" + "}");
+                strCodeForCs.Append("\r\n" + "");
+
+            }
+            catch (Exception ex)
+            {
+                string strMsg = string.Format("在生成函数:[{0}]时出错。{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
+
+                clsEntityBase.LogErrorS(ex, strMsg);
+                throw new Exception(strMsg);
+            }
+            objCodeElement_Method.CodeContent = strCodeForCs.ToString();
+            return strCodeForCs.ToString();
+        }
+
         public Tuple<string, string> Gen_WApi_Ts_DefineVar4Ddl4TabFeature(ASPDropDownListEx objInfor, List<string> arrCondFldId, FuncParaLst objFuncParaLstAll)
         {
             StringBuilder strCodeForCs = new StringBuilder();
@@ -2837,10 +2996,19 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 });
 
 
-                strCodeForCs.Append("\r\n" + $"import {{ cls{this.TabName_In4Edit4GC}EN }} from \"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN\";");
+                strCodeForCs.Append("\r\n" + $"import {{ cls{this.TabName_In4Edit4GC}EN, {this.TabName_In4Edit4GC}Key }} from \"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN\";");
+
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
                     Name = $"cls" + this.TabName_In4Edit4GC + "EN",
+                    CodeContent = $"import {{ cls{this.TabName_In4Edit4GC}EN }} from \"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN\";",
+                    From = $"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN",
+                    ElementType = CodeElementType.Import,
+                    Modifiers = "import"
+                });
+                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                {
+                    Name =  this.TabName_In4Edit4GC + "Key",
                     CodeContent = $"import {{ cls{this.TabName_In4Edit4GC}EN }} from \"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN\";",
                     From = $"@/ts/L0Entity/{this.objFuncModuleEN.FuncModuleEnName4GC()}/cls{this.TabName_In4Edit4GC}EN",
                     ElementType = CodeElementType.Import,
@@ -2854,7 +3022,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
                     if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
-
+                    if (objEditRegionFld.CtlTypeId != enumCtlType.DropDownList_06) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
                     if (arrTemp.Contains(objTabFeature4Ddl.TabName4GC) == true) continue;
                     arrTemp.Add(objTabFeature4Ddl.TabName4GC);
@@ -2877,6 +3045,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
                     if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
+                    if (objEditRegionFld.CtlTypeId != enumCtlType.DropDownList_06) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
                     if (arrTemp.Contains(objTabFeature4Ddl.TabName4GC) == true) continue;
                     arrTemp.Add(objTabFeature4Ddl.TabName4GC);
@@ -2925,6 +3094,10 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 //List<clsViewIdGCVariableRelaEN> arrViewIdGCVariableRela = clsViewIdGCVariableRelaBLEx.GetEditRegionViewVarLst(objViewInfoENEx.ViewId );
                 string strEditRegionVarNames = clsViewIdGCVariableRelaBLEx.GetEditRegionViewVarNames(objViewInfoENEx.ViewId, this.PrjId);
                 if (strEditRegionVarNames.Length > 0) strEditRegionVarNames = $",{strEditRegionVarNames}";
+
+                string strEditRegionCondFldNames = clsViewIdGCVariableRelaBLEx.GetEditRegionCondFlds(objViewInfoENEx.ViewId, this.PrjId);
+                if (strEditRegionCondFldNames.Length > 0) strEditRegionVarNames += $",{strEditRegionCondFldNames}";
+
                 strCodeForCs.Append("\r\n" + $"import {{ refDivEdit {strEditRegionVarNames} }} from '@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}';");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
@@ -2947,11 +3120,11 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 });
 
 
-                strCodeForCs.Append("\r\n" + $"import {{ Format, IsNullOrEmpty {strIsHasAccessIs0} }}                from '@/ts/PubFun/clsString';");
+                strCodeForCs.Append("\r\n" + $"import {{ Format {strIsHasAccessIs0} }}                from '@/ts/PubFun/clsString';");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
-                    Name = "Format, IsNullOrEmpty",
-                    CodeContent = "import { Format, IsNullOrEmpty " + strIsHasAccessIs0 + "} from '@/ts/PubFun/clsString';",
+                    Name = "Format",
+                    CodeContent = "import { Format " + strIsHasAccessIs0 + "} from '@/ts/PubFun/clsString';",
                     From = "@/ts/PubFun/clsString",
                     ElementType = CodeElementType.Import,
                     Modifiers = "import"
@@ -3088,6 +3261,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 {
                     if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
                     if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
+                    if (objEditRegionFld.CtlTypeId != enumCtlType.DropDownList_06) continue;
                     var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
                     if (arrTemp.Contains(objTabFeature4Ddl.TabName4GC) == true) continue;
                     arrTemp.Add(objTabFeature4Ddl.TabName4GC);

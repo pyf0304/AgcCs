@@ -537,5 +537,21 @@ namespace AGC.BusinessLogicEx
             IEnumerable<clsTabFeatureFldsEN> arrObjLst_Sel = arrObjLstCache.Where(x => x.TabFeatureId == strTabFeatureId);
             return arrObjLst_Sel.Count();
         }
+    
+
+        /// <summary>
+        /// 替换字段,在整个工程中替换字段
+        /// </summary>
+        /// <param name = "strPrjId">工程Id</param>
+        /// <param name = "strSourceFldId">源字段Id</param>
+        /// <param name = "strTargetFldId">目标字段Id</param>
+        /// <returns></returns>
+        public static bool ReplaceField(string strPrjId, string strSourceFldId, string strTargetFldId)
+        {
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+            string strSQL;
+            strSQL = $"Update TabFeatureFlds Set {conTabFeatureFlds.FldId} = '{strTargetFldId}' where {conTabFeatureFlds.PrjId} = '{strPrjId}' And {conTabFeatureFlds.FldId} = '{strSourceFldId}'";
+            return objSQL.ExecSql(strSQL);
+        }
     }
 }

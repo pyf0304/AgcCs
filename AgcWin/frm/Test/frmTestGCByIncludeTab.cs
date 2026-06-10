@@ -9,7 +9,7 @@ using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AGC.BusinessLogicEx;
+
 using AGC.Entity;
 using AGC_CSWin;
 using AGC4WApi;
@@ -183,7 +183,7 @@ namespace Agc_CsWin.frm.Test
                             clsvPrjTab_SimEN objPrjTab = clsvPrjTab_SimWApi.GetObjByTabIdCache(strTabId, clsPubVar.CmPrjId);
                             clsFuncModule_AgcEN objFuncModule = clsFuncModule_AgcWApi.GetObjByFuncModuleAgcIdCache(objPrjTab.FuncModuleAgcId, objPrjTab.PrjId);
                             string strFileName = string.Format(objCodeTypeEN.FileNameFormat, item.TabName);
-                            string strRealyCodePath = objvUserCodePathEN.GetPrjInnerCodePath();
+                            string strRealyCodePath = "";// objvUserCodePathEN.GetPrjInnerCodePath();
                             string strFileName_InPrj = string.Format("{0}/{1}/{2}", strRealyCodePath, objFuncModule.FuncModuleEnName, strFileName);
                             strFileName_InPrj = strFileName_InPrj.Replace("\\/\\", "\\")
                                 .Replace("/", "\\");
@@ -293,7 +293,7 @@ namespace Agc_CsWin.frm.Test
                                 {
                                     //string ss = "";
                                 }
-                                string strRealyCodePath2 = objvUserCodePathEN.GetPrjInnerCodePath();
+                                string strRealyCodePath2 = "";// objvUserCodePathEN.GetPrjInnerCodePath();
                                 string strFileName_InPrj2 = string.Format("{0}/{1}", strRealyCodePath2, objGCResult.re_FileNameWithModuleName);
 
                                 strFileName_InPrj2 = strFileName_InPrj2.Replace("\\/\\", "\\")

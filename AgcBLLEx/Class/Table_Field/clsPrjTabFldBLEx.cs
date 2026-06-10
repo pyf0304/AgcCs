@@ -912,8 +912,7 @@ namespace AGC.BusinessLogicEx
 
             clsPrjTabFldBLEx.RefreshUpdDate4ReleTab(strSourceFldId, strUserId);
 
-            strSQL = string.Format("Update PrjTabFld Set FldId = '{0}' where PrjId = '{1}' And FldId = '{2}'",
-                                                strTargetFldId, strPrjId, strSourceFldId);
+            strSQL = $"Update PrjTabFld Set {conPrjTabFld.FldId} = '{strTargetFldId}' where {conPrjTabFld.PrjId} = '{strPrjId}' And {conPrjTabFld.FldId} = '{strSourceFldId}'";
 
             return objSQL.ExecSql(strSQL);
         }
@@ -932,8 +931,7 @@ namespace AGC.BusinessLogicEx
             objPrjTabEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
             objPrjTabEN.UpdUserId = strUserId;
             clsPrjTabBL.UpdateBySql2(objPrjTabEN);
-            strSQL = string.Format("Update PrjTabFld Set FldId = '{0}' where PrjId = '{1}' And TabId = '{3}' And FldId = '{2}'",
-                                                strTargetFldId, strPrjId, strSourceFldId, strTabId);
+            strSQL = $"Update PrjTabFld Set {conPrjTabFld.FldId} = '{strTargetFldId}' where {conPrjTabFld.PrjId} = '{strPrjId}' And {conPrjTabFld.TabId} = '{strTabId}' And {conPrjTabFld.FldId} = '{strSourceFldId}'";
             clsPrjTabBLEx.SetUpdDate(strTabId, strUserId);
             return objSQL.ExecSql(strSQL);
         }
@@ -2529,6 +2527,20 @@ namespace AGC.BusinessLogicEx
             strSQL = string.Format(" Select * from vPrjTab where TabId in ({0})", strCondition);
             DataTable objDT = objSQL.GetDataTable(strSQL);
             return objDT;
+        }
+
+        public static int GetRecNum4IncludeSouTarField(string strSourceFldId, string strTargetFldId)
+        {
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+            string strSQL;
+            List<string> lstTabIdLst4SourceFld = objSQL.GetFldDataOfTable("PrjTabFld", "TabId", string.Format("FldId = '{0}'", strSourceFldId));
+            List<string> lstTabIdLst4TargetFld = objSQL.GetFldDataOfTable("PrjTabFld", "TabId", string.Format("FldId = '{0}'", strTargetFldId));
+            List<string> lstIntersect = com.taishsoft.common.clsAggregate.IntersectTwoAggr(lstTabIdLst4SourceFld, lstTabIdLst4TargetFld);
+            if (lstIntersect.Count == 0) return 0;
+            string strCondition = clsArray.GetSqlInStrByArray(lstIntersect, true);
+            strSQL = string.Format("  TabId in ({0})", strCondition);
+            int intRecNum = clsPrjTabBL.GetRecCountByCond(strSQL);
+            return intRecNum;
         }
         /// <summary>
         /// 根据表字段Id，PrjId获取相应的表字段对象扩展

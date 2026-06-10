@@ -257,7 +257,7 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
-        
+
         /// <summary>
         /// 根据字段Id删除记录
         /// 调用方法: Get /api/clsFieldTabBLExApi/DelRecordEx?strFldId=value&strUpdUserId=value
@@ -302,5 +302,51 @@ namespace AGC.WebApi
             }
         }
 
+        /// <summary>
+        /// 替换字段,在整个工程中替换字段
+        /// 调用方法: Post /api/FieldTabExApi/ReplaceField
+        /// </summary>
+        /// <param name="myData">替换字段数据对象</param>
+        /// <returns>返回是否替换成功</returns>
+        [AllowAnonymous]
+        [HttpPost("ReplaceField")]
+        public ActionResult ReplaceField([FromBody] clsReplaceFieldData myData)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strSourceFieldId", myData.strSourceFieldId);
+            dictParam.Add("strTargetFieldId", myData.strTargetFieldId);
+            dictParam.Add("strPrjId", myData.strPrjId);
+            dictParam.Add("strOpUser", myData.strOpUser);
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 执行字段替换操作，调用所有相关表的ReplaceField方法
+                bool bolResult = clsFieldTabBLEx.ReplaceFieldInAllTables(myData.strSourceFieldId, myData.strTargetFieldId, myData.strPrjId, myData.strOpUser);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "字段替换操作完成",
+                    returnBool = bolResult
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})",
+                    objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+
+                return Ok(new
+                {
+                    errorId = 1,
+                    errorMsg = strMsg,
+                    returnBool = false
+                });
+            }
+        }
     }
 }

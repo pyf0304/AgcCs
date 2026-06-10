@@ -1,13 +1,13 @@
 ﻿import { Ref } from 'vue';
 {{~ if OptionsInfo.size > 0 ~}}
 
-{{~ for option in OptionsInfo ~}}
+{{~ for option in OptionsInfo4DS ~}}
 import { {{ option.FunctionName }} } from '@/ts/{{ option.WApiPath }}/{{ option.ModuleName }}/{{ option.WApiFileName }}';
 {{~ end ~}}
 {{~ 
   # 🔥 收集需要导入的共享变量
   shared_vars = []
-  for option in OptionsInfo
+  for option in OptionsInfo4DS
     if option.Parameters.size > 0
       for param in option.Parameters
         if !(shared_vars | array.contains param.SharedVarName)
@@ -22,7 +22,7 @@ import {
   {{~ for var in shared_vars ~}}
   {{ var }}{{ if !for.last }},{{ end }}
   {{~ end ~}}
-} from '@/views/{{ ModuleName }}/FunctionTemplateRelaVueShare';
+} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
 {{~ end ~}}
 {{~ end ~}}
 
@@ -42,9 +42,11 @@ export interface {{ TableName }}QueryFieldSpecAi {
   width: number;
   row: number;
   order: number;
-  visibleInQuery?: boolean;
+  visibleInQuery?: boolean;  
 {{~ if OptionsInfo.size > 0 ~}}
-  optionsKey?: {{~ for option in OptionsInfo ~}}'{{ option.Key }}'{{ if !for.last }} | {{ end }}{{~ end ~}};
+    optionsKey?: {{~ for option in OptionsInfo ~}}'{{ option.Key }}'{{ if !for.last }} | {{ end }}{{~ end ~}};
+{{~ else ~}}
+    optionsKey?: string; // 如果 controlType 需要选项，则指定 optionsKey 来获取选项数据
 {{~ end ~}}
 }
 
@@ -58,27 +60,35 @@ export const {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE
     width: {{ field.Width }},
     row: {{ field.Row }},
     order: {{ field.Order }},
-{{~ if field.OptionsKey ~}}
-    optionsKey: '{{ field.OptionsKey }}',
-{{~ end ~}}
+    {{~ if field.ControlType == 'select' ~}}
+        optionsKey: '{{ field.OptionsKey }}',
+    {{~ end ~}}
+    {{~ if field.ControlType == 'select4Bool' ~}}
+        optionsKey: '{{ field.OptionsKey }}',
+    {{~ end ~}}
+
   }{{ if !for.last }},{{ end }}
 {{~ end ~}}
 ];
 
 export function initQueryDefaultsAi(queryRefs: {
 {{~ for field in QueryFields ~}}
-  {{ field.Key }}: Ref<string>;
+    {{ field.Key }}: Ref<string>;
 {{~ end ~}}
 }) {
 {{~ for field in QueryFields ~}}
-  queryRefs.{{ field.Key }}.value = '{{ field.DefaultValue }}';
+   {{~ if field.ControlType == 'select4Bool' ~}}
+        queryRefs.{{ field.Key }}.value = '0';
+   {{~ else ~}}
+        queryRefs.{{ field.Key }}.value = '{{ field.DefaultValue }}';
+   {{~ end ~}}
 {{~ end ~}}
 }
 
 export async function loadQueryOptionsAi() {
-{{~ if OptionsInfo.size > 0 ~}}
-  const [{{~ for option in OptionsInfo ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}}] = await Promise.all([
-{{~ for option in OptionsInfo ~}}
+{{~ if OptionsInfo4DS.size > 0 ~}}
+  const [{{~ for option in OptionsInfo4DS ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}}] = await Promise.all([
+{{~ for option in OptionsInfo4DS ~}}
     {{ option.FunctionName }}({{~ 
       if option.Parameters.size > 0 
         for param in option.Parameters 
@@ -88,7 +98,7 @@ export async function loadQueryOptionsAi() {
     ~}}){{ if !for.last }},{{ end }}
 {{~ end ~}}
   ]);
-  return { {{~ for option in OptionsInfo ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}} };
+  return { {{~ for option in OptionsInfo4DS ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}} };
 {{~ else ~}}
   return {};
 {{~ end ~}}

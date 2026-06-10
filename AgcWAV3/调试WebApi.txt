@@ -19,6 +19,15 @@ http://localhost:7109/api/admin/captchaImg?width=100&height=39
 https://www.sh-tz.com/AgcWA/api/admin/captchaImg?width=100&height=39
 
 
+https://www.sh-tz.com/AgcWAV3/api/UserCodePrjMainPath_MachineNameExApi/GetGeneCodeRootPath?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30
+https://www.sh-tz.com/AgcWAV3/api/UserCodePrjMainPath_MachineNameExApi/GetGeneCodeRootPathBackup?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30
+
+http://localhost:7109/api/UserCodePrjMainPath_MachineNameExApi/GetUserGCRootPathWithBackup?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30
+https://www.sh-tz.com/AgcWAV3/api/UserCodePrjMainPath_MachineNameExApi/GetUserGCRootPathWithBackup?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30
+
+http://localhost:7109/UserCodePathExApi/GetUserGCCodePathWithBackup?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30&strCodeTypeId=0264
+https://www.sh-tz.com/AgcWAV3/UserCodePathExApi/GetUserGCCodePathWithBackup?strUserId=pyf&strMachineName=PYF-AI&strPrjId=0005&strCmPrjId=000046&intApplicationTypeId=30&strCodeTypeId=0264
+
 2022-11-10
 删除表功能：
 http://localhost:28523/AgcWA/TabFeatureExApi/DelRecordEx?strTabFeatureId=01120057&strPrjId=0112

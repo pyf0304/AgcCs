@@ -6,15 +6,10 @@ using AGC.PureClassEx;
 using AgcCommBase;
 using CodeStruct;
 using com.taishsoft.comm_db_obj;
-using com.taishsoft.commexception;
 using com.taishsoft.common;
-using com.taishsoft.datetime;
-using com.taishsoft.sql;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace AutoGCLib
@@ -47,36 +42,12 @@ namespace AutoGCLib
         private string strTabName_Out4ListRegion4GC;
         private string strTabId_Out4ListRegion;
 
-        private string strTabName_In4Edit;
-        private string strTabName_In4Edit4GC;
-        private string strTabCnName_In4Edit4GC;
-
-        private string strTabCnName_In4Edit;
-        private string strTabId_In4Edit;
-        private string strViewMainTabName4GC;
-        private string strViewMainTabId4GC;
-
-
-        private string strTabName_Out4DetailRegion;
-        private string strTabName_Out4DetailRegion4GC;
-        private string strTabId_Out4DetailRegion;
-        private string strTabCnName_Out4Detail;
-
-        private string strTabName_Out4ExportExcel;
-
-        private string strTabName_Out4ExportExcel4GC;
-        private string strTabId_Out4ExportExcel;
-
-
-        private clsPrjTabENEx objPrjTabEx_EditRegion = null;
-        private clsPrjTabENEx objPrjTabEx_DetailRegion = null;
-        private clsPrjTabENEx objPrjTabEx_ExcelExportRegion = null;
-        private clsPrjTabENEx objPrjTabEx_ListRegion = null;
-
-        private clsPrjTabENEx objPrjTabEx_View = null;
-
-        //protected clsPrjTabENEx objPrjTabEx_EditRegion = null;
-
+        //private string strTabId_In4Edit;
+        
+        //private string strViewMainTabId4GC;
+        protected List<CacheClassifyType> myCacheClassifyLst4View = null;
+        public List<CacheClassifyType> CacheClassifyLst4View;
+                
         
         protected clsPrjTabFldENEx objPrefixField
         {
@@ -355,6 +326,100 @@ namespace AutoGCLib
             }
         }
 
+
+        public CacheClassify thisCacheClassify_Edit_TS
+        {
+            get
+            {
+                if (PrjTabEx_EditRegion == null) return null;
+                if (objCacheClassify_Edit_TS == null)
+                {
+                    CacheClassify obj = new CacheClassify();
+
+                    obj.FldId = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.FldId : "";
+                    obj.FldId2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.FldId : "";
+                    obj.FldName = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.FldName : "";
+                    obj.FldName2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.FldName : "";
+                    obj.PriVarName = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.ObjFieldTabENEx.PrivFuncName : "";
+                    obj.PriVarName2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.PrivFuncName : "";
+                    obj.TypeScriptType = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType : "";
+                    obj.TypeScriptType2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType : "";
+                    obj.CsType = PrjTabEx_EditRegion.objCacheClassifyFld != null ? PrjTabEx_EditRegion.objCacheClassifyFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType : "";
+                    obj.CsType2 = PrjTabEx_EditRegion.objCacheClassifyFld2 != null ? PrjTabEx_EditRegion.objCacheClassifyFld2.ObjFieldTabENEx.objDataTypeAbbrEN.CsType : "";
+                    obj.DataTypeId = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.ObjFieldTabENEx.DataTypeId : "";
+                    obj.DataTypeId2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.DataTypeId : "";
+                    obj.FldLength = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.ObjFieldTabENEx.FldLength : 0;
+                    obj.FldLength2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.FldLength : 0;
+                    obj.IsHasCacheClassfyFld = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS == null ? false : true;
+                    obj.IsHasCacheClassfyFld2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS == null ? false : true;
+                    obj.IsNumberType = PrjTabEx_EditRegion.ObjCacheClassifyFld_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld_TS.IsNumberType() : false;
+                    obj.IsNumberType2 = PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS != null ? PrjTabEx_EditRegion.ObjCacheClassifyFld2_TS.IsNumberType() : false;
+
+                    objCacheClassify_ExportExcel_TS = obj;
+                }
+                return objCacheClassify_ExportExcel_TS;
+            }
+        }
+        public List<CacheClassifyType> thisCacheClassifyLst4View
+        {
+            get
+            {
+                if (myCacheClassifyLst4View != null) return myCacheClassifyLst4View;
+                myCacheClassifyLst4View = new List<CacheClassifyType>();
+                try
+                {
+                    CacheClassifyType obj = new CacheClassifyType();
+                    obj.FldId = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.FldId : "";
+                    obj.FldName = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.FldName : "";
+                    obj.VarDef4Fld = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? string.Format("{0}.{1}Cache", ThisClsName, objViewInfoENEx.objCacheClassifyFld4View_TS.FldName) : "";
+
+                    obj.PriVarName = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.ObjFieldTabENEx.PrivFuncName : "";
+                    obj.TypeScriptType = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType : "";
+                    obj.DataTypeId = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.ObjFieldTabENEx.DataTypeId : "";
+                    obj.FldLength = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.ObjFieldTabENEx.FldLength : 0;
+                    obj.IsHasCacheClassfyFld = objViewInfoENEx.objCacheClassifyFld4View_TS == null ? false : true;
+                    obj.IsNumberType = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.IsNumberType() : false;
+                    obj.IsForExtendClass = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? objViewInfoENEx.objCacheClassifyFld4View_TS.IsForExtendClass : false;
+                    obj.ViewVarName = objViewInfoENEx.objCacheClassifyFld4View_TS != null ? clsViewIdGCVariableRelaBLEx.GetViewVarNameByFldId(obj.IsHasCacheClassfyFld,
+                        objViewInfoENEx.ViewId, obj.FldId, objViewInfoENEx.PrjId) : "";
+                    obj.CondVarName = obj.ViewVarName + ".value";
+                    obj.ImportVarName = obj.ViewVarName;
+                    if (string.IsNullOrEmpty(obj.FldId) == false)
+                    {
+                        myCacheClassifyLst4View.Add(obj);
+                    }
+                    CacheClassifyType obj2 = new CacheClassifyType();
+                    if (objViewInfoENEx.objCacheClassifyFld4View2_TS != null)
+                    {
+                        obj2.FldId = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.FldId : "";
+                        obj2.FldName = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.FldName : "";
+                        obj2.VarDef4Fld = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? string.Format("{0}.{1}Cache", ThisClsName, objViewInfoENEx.objCacheClassifyFld4View2_TS.FldName) : "";
+                        obj2.PriVarName = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.ObjFieldTabENEx.PrivFuncName : "";
+                        obj2.TypeScriptType = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType : "";
+                        obj2.DataTypeId = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.ObjFieldTabENEx.DataTypeId : "";
+                        obj2.FldLength = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.ObjFieldTabENEx.FldLength : 0;
+                        obj2.IsHasCacheClassfyFld = objViewInfoENEx.objCacheClassifyFld4View2_TS == null ? false : true;
+                        obj2.IsNumberType = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.IsNumberType() : false;
+                        obj2.IsForExtendClass = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? objViewInfoENEx.objCacheClassifyFld4View2_TS.IsForExtendClass : false;
+                        obj2.ViewVarName = objViewInfoENEx.objCacheClassifyFld4View2_TS != null ? clsViewIdGCVariableRelaBLEx.GetViewVarNameByFldId(obj2.IsHasCacheClassfyFld,
+                                                objViewInfoENEx.ViewId, obj2.FldId, objViewInfoENEx.PrjId) : "";
+                        obj2.CondVarName = obj2.ViewVarName + ".value";
+                        obj2.ImportVarName = obj2.ViewVarName;
+                        myCacheClassifyLst4View.Add(obj2);
+                    }
+                  
+                    return myCacheClassifyLst4View;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    throw ex;
+                    //return null;
+                }
+
+            }
+        }
+
         public CacheClassify4View thisCacheClassify4View
         {
             get
@@ -425,13 +490,9 @@ namespace AutoGCLib
         {
             get
             {
-                if (objPrjTabEx_ExcelExportRegion != null) return objPrjTabEx_ExcelExportRegion;
-                if (objViewInfoENEx.objViewRegion_ExportExcel != null)
-                {
-                    var objPrjTab_ExcelExportRegion = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_ExportExcel.TabId, objViewInfoENEx.PrjId);
-                    objPrjTabEx_ExcelExportRegion = clsPrjTabBLEx.CopyToEx(objPrjTab_ExcelExportRegion);
-                    objPrjTabEx_ExcelExportRegion.GetObjAllInfoEx();
-                }
+                var objViewRegion_ExcelExport = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ExcelExportRegion_0007);
+                if (objViewRegion_ExcelExport == null) return null;
+                var objPrjTabEx_ExcelExportRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ExcelExport.TabId);
                 return objPrjTabEx_ExcelExportRegion;
             }
         }
@@ -439,13 +500,9 @@ namespace AutoGCLib
         {
             get
             {
-                if (objPrjTabEx_ListRegion != null) return objPrjTabEx_ListRegion;
-                if (objViewInfoENEx.objViewRegion_List != null)
-                {
-                    var objPrjTab_ListRegion = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_List.TabId, objViewInfoENEx.PrjId);
-                    objPrjTabEx_ListRegion = clsPrjTabBLEx.CopyToEx(objPrjTab_ListRegion);
-                    objPrjTabEx_ListRegion.GetObjAllInfoEx();
-                }
+                var objViewRegion_List = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002);
+                if (objViewRegion_List == null) return null;
+                var objPrjTabEx_ListRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x=>x.TabId == objViewRegion_List.TabId);
                 return objPrjTabEx_ListRegion;
             }
         }
@@ -454,14 +511,10 @@ namespace AutoGCLib
         public clsPrjTabENEx PrjTabEx_DetailRegion
         {
             get
-            {
-                if (objPrjTabEx_DetailRegion != null) return objPrjTabEx_DetailRegion;
-                if (objViewInfoENEx.objViewRegion_Detail != null)
-                {
-                    var objPrjTab_DetailRegion = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_Detail.TabId, objViewInfoENEx.PrjId);
-                    objPrjTabEx_DetailRegion = clsPrjTabBLEx.CopyToEx(objPrjTab_DetailRegion);
-                    objPrjTabEx_DetailRegion.GetObjAllInfoEx();
-                }
+            {                
+                var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+                if (objViewRegion_Detail == null) return null;
+                var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
                 return objPrjTabEx_DetailRegion;
             }
         }
@@ -470,14 +523,9 @@ namespace AutoGCLib
         {
             get
             {
-                if (objPrjTabEx_View != null) return objPrjTabEx_View;
-                if (objViewInfoENEx.MainTabId != null)
-                {
-                    var objPrjTab_View = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.MainTabId, objViewInfoENEx.PrjId);
-                    objPrjTabEx_View = clsPrjTabBLEx.CopyToEx(objPrjTab_View);
-                    objPrjTabEx_View.GetObjAllInfoEx();
-                }
-                return objPrjTabEx_View;
+                if ( string.IsNullOrEmpty(objViewInfoENEx.MainTabId) == true) return null;          
+                var objPrjTabEx_View = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewInfoENEx.MainTabId);
+                return objPrjTabEx_View ;
             }
         }
 
@@ -485,22 +533,9 @@ namespace AutoGCLib
         {
             get
             {
-                if (objPrjTabEx_EditRegion != null) return objPrjTabEx_EditRegion;
-                if (objViewInfoENEx.objViewRegion_Edit != null)
-                {
-
-                    var objPrjTab_EditRegion = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_Edit.TabId, objViewInfoENEx.PrjId);
-
-                    objPrjTabEx_EditRegion = clsPrjTabBLEx.CopyToEx(objPrjTab_EditRegion);
-                    objPrjTabEx_EditRegion.GetObjAllInfoEx();
-                }
-                if (objPrjTabEx_EditRegion == null && TabId_In4Edit.Length>0)
-                {
-                    var objPrjTab_EditRegion = clsPrjTabBL.GetObjByTabIdCache(TabId_In4Edit, objViewInfoENEx.PrjId);
-
-                    objPrjTabEx_EditRegion = clsPrjTabBLEx.CopyToEx(objPrjTab_EditRegion);
-                    objPrjTabEx_EditRegion.GetObjAllInfoEx();
-                }
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
                 return objPrjTabEx_EditRegion;
             }
         }
@@ -581,35 +616,31 @@ namespace AutoGCLib
         {
             get
             {
-                if (strTabName_Out4ExportExcel == null)
-                {
-                    strTabName_Out4ExportExcel = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_ExportExcel.TabId, objViewInfoENEx.PrjId);
+                var objViewRegion_ExportExcel = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ExcelExportRegion_0007);
+                if (objViewRegion_ExportExcel == null) return null;
+                var objPrjTabEx_ExportExcel = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ExportExcel.TabId);
+                return objPrjTabEx_ExportExcel.TabName;
 
-                }
-                return strTabName_Out4ExportExcel;
             }
         }
         public string TabName_Out4ExportExcel4GC
         {
             get
             {
-                if (strTabName_Out4ExportExcel4GC == null)
-                {
-                    strTabName_Out4ExportExcel4GC = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_ExportExcel.TabId, objViewInfoENEx.PrjId);
-
-                }
-                return strTabName_Out4ExportExcel4GC;
+                var objViewRegion_ExportExcel = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ExcelExportRegion_0007);
+                if (objViewRegion_ExportExcel == null) return null;
+                var objPrjTabEx_ExportExcel = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ExportExcel.TabId);
+                return objPrjTabEx_ExportExcel.TabName;            
             }
         }
         public string TabId_Out4ExportExcel
         {
             get
             {
-                if (strTabId_Out4ExportExcel == null)
-                {
-                    strTabId_Out4ExportExcel = objViewInfoENEx.objViewRegion_ExportExcel.TabId;
-                }
-                return strTabId_Out4ExportExcel;
+                var objViewRegion_ExcelExport = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ExcelExportRegion_0007);
+                if (objViewRegion_ExcelExport == null) return null;
+                return objViewRegion_ExcelExport.TabId;
+
             }
         }
         public string tabNameHead
@@ -629,85 +660,69 @@ namespace AutoGCLib
         {
             get
             {
-                if (objViewInfoENEx.objViewRegion_Edit == null) return "";
-                if (strTabName_In4Edit4GC == null)
-                {
-                    strTabName_In4Edit4GC = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_Edit.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_In4Edit4GC;
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
+                return objPrjTabEx_EditRegion.TabName;
             }
         }
         public string TabCnName_In4Edit4GC
         {
             get
             {
-                if (objViewInfoENEx.objViewRegion_Edit == null) return "";
-                if (strTabCnName_In4Edit4GC == null)
-                {
-                    strTabCnName_In4Edit4GC = clsPrjTabBLEx.GetTabCnNameByTabIdCache(objViewInfoENEx.objViewRegion_Edit.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabCnName_In4Edit4GC;
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
+                return objPrjTabEx_EditRegion.TabCnName;
             }
         }
         public string TabName_In4Edit
         {
             get
-            {
-                if (objViewInfoENEx.objViewRegion_Edit == null) return "";
-                if (strTabName_In4Edit == null)
-                {
-                    strTabName_In4Edit = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_Edit.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_In4Edit;
+            {                
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
+                return objPrjTabEx_EditRegion.TabName;
+
             }
         }
         public string TabCnName_In4Edit
         {
             get
             {
-                if (strTabCnName_In4Edit == null)
-                {
-                    var objPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_Edit.TabId, objViewInfoENEx.PrjId);
-
-                    strTabCnName_In4Edit = objPrjTab.TabCnName;
-                }
-                return strTabCnName_In4Edit;
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
+                return objPrjTabEx_EditRegion.TabCnName;
             }
         }
         public string TabCnName_Out4Detail
         {
             get
-            {
-                if (strTabCnName_Out4Detail == null)
-                {
-                    var objPrjTab = clsPrjTabBL.GetObjByTabIdCache(objViewInfoENEx.objViewRegion_Detail.TabId, objViewInfoENEx.PrjId);
-
-                    strTabCnName_Out4Detail = objPrjTab.TabCnName;
-                }
-                return strTabCnName_Out4Detail;
+            {                
+                var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+                if (objViewRegion_Detail == null) return null;
+                var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
+                return objPrjTabEx_DetailRegion.TabCnName;
             }
         }
         public string TabId_In4Edit
         {
             get
             {
-                if (objViewInfoENEx.objViewRegion_Edit == null) return "";
-                if (strTabId_In4Edit == null)
-                {
-                    strTabId_In4Edit = objViewInfoENEx.objViewRegion_Edit.TabId;
-                }
-                return strTabId_In4Edit;
+                var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
+                if (objViewRegion_Edit == null) return null;
+                return objViewRegion_Edit.TabId;
             }
         }
         public string ViewMainTabName4GC
         {
             get
             {
-                if (strViewMainTabName4GC == null)
-                {
-                    strViewMainTabName4GC = objViewInfoENEx.TabName;
-                }
-                return strViewMainTabName4GC;
+                var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == this.objViewInfoENEx.MainTabId);
+                return objPrjTabEx_EditRegion.TabName;
+
             }
         }
 
@@ -715,11 +730,7 @@ namespace AutoGCLib
         {
             get
             {
-                if (strViewMainTabId4GC == null)
-                {
-                    strViewMainTabId4GC = objViewInfoENEx.MainTabId;
-                }
-                return strViewMainTabId4GC;
+                return objViewInfoENEx.MainTabId;
             }
         }
 
@@ -727,24 +738,21 @@ namespace AutoGCLib
         {
             get
             {
-                if (strTabName_Out4ListRegion == null)
-                {
-                    if (objViewInfoENEx.objViewRegion_List == null) return "";
-                    strTabName_Out4ListRegion = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_List.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_Out4ListRegion;
+                var objViewRegion_ListRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002);
+                if (objViewRegion_ListRegion == null) return null;
+                var objPrjTabEx_ListRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ListRegion.TabId);
+                return objPrjTabEx_ListRegion.TabName;
+
             }
         }
         public string TabName_Out4ListRegion4GC
         {
             get
             {
-                if (strTabName_Out4ListRegion4GC == null)
-                {
-                    if (objViewInfoENEx.objViewRegion_List == null) return "";
-                    strTabName_Out4ListRegion4GC = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_List.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_Out4ListRegion4GC;
+                var objViewRegion_ListRegion = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002);
+                if (objViewRegion_ListRegion == null) return null;
+                var objPrjTabEx_ListRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ListRegion.TabId);
+                return objPrjTabEx_ListRegion.TabName;
             }
         }
         public string TabId_Out4ListRegion
@@ -763,11 +771,10 @@ namespace AutoGCLib
         {
             get
             {
-                if (strTabName_Out4DetailRegion4GC == null)
-                {
-                    strTabName_Out4DetailRegion4GC = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_Detail.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_Out4DetailRegion4GC;
+                var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+                if (objViewRegion_Detail == null) return null;
+                var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
+                return objPrjTabEx_DetailRegion.TabName;
             }
         }
 
@@ -835,22 +842,20 @@ namespace AutoGCLib
         {
             get
             {
-                if (strTabName_Out4DetailRegion == null)
-                {
-                    strTabName_Out4DetailRegion = clsPrjTabBL.GetNameByTabIdCache(objViewInfoENEx.objViewRegion_Detail.TabId, objViewInfoENEx.PrjId);
-                }
-                return strTabName_Out4DetailRegion;
+                var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+                if (objViewRegion_Detail == null) return null;
+                var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
+                return objPrjTabEx_DetailRegion.TabName;
             }
         }
         public string TabId_Out4DetailRegion
         {
             get
             {
-                if (strTabId_Out4DetailRegion == null)
-                {
-                    strTabId_Out4DetailRegion = objViewInfoENEx.objViewRegion_Detail.TabId;
-                }
-                return strTabId_Out4DetailRegion;
+                var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
+                if (objViewRegion_Detail == null) return null;
+                return objViewRegion_Detail.TabId;
+
             }
         }
 
@@ -871,6 +876,21 @@ namespace AutoGCLib
             set
             {
                 mobjKeyField = value;
+            }
+        }
+        protected List<clsPrjTabFldENEx> arrKeyFieldList
+        {
+            get
+            {
+                if (objViewInfoENEx != null)
+                {
+                    return objViewInfoENEx.arrKeyPrjTabFldSet;
+                }
+                return marrKeyFieldList;
+            }
+            set
+            {
+                marrKeyFieldList = value;
             }
         }
 

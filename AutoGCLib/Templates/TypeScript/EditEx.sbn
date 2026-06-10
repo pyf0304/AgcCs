@@ -14,7 +14,7 @@
  **/
 //import $ from "jquery";
 // import { myMessage } from '@/utils/myMessage';
-import { Format } from '@/ts/PubFun/clsString';
+import { Format, IsNullOrEmpty } from '@/ts/PubFun/clsString';
 import { {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
 
 import { {{ TableName }}_EditAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}_EditAi';
@@ -36,16 +36,16 @@ export default class {{ TableName }}_EditAiEx extends {{ TableName }}_EditAi {
   constructor(objShowList: any) {
     super('{{ TableName }}_EditAiEx', objShowList);
   }
-
+   
   /**
    * 按钮单击,用于调用Js函数中btnClick
    * 统一的按钮事件路由入口
    * ({{ Generator }}:Gen_Vue_TS_btnEdit_Click)
    * 
    * @param strCommandName 命令名称（Submit/Create/Update/Delete等）
-   * @param strKeyId 关键字ID
+   * @param key 关键字对象（可为null）
    */
-  public btnEdit_Click(strCommandName: string, key: {{ TableName }}Key) {
+  public btnEdit_Click(strCommandName: string, key: {{ TableName }}Key | null): void {
     const strThisFuncName = this.btnEdit_Click.name;
     let strMsg = '';
 
@@ -63,11 +63,17 @@ export default class {{ TableName }}_EditAiEx extends {{ TableName }}_EditAi {
       case 'UpdateRecord': // 修改记录
       case 'Update': // 修改记录
       case 'UpdateRecordInTab': // 修改记录InTab
-        {{~ if IsKeyFieldNumeric ~}}
-          if (key.{{KeyFieldCamel}} == 0) {
+        {{~ if IsMultiKey ~}}
+          // 🔥 复合主键：检查所有关键字段
+          if (key == null || {{~ for keyField in KeyFields ~}}IsNullOrEmpty(key.{{ keyField.FieldNameCamel }}) == true{{~ if !for.last ~}} || {{~ end ~}}{{~ end ~}}) {
+        {{~ else ~}}
+          // 🔥 单主键：检查单个关键字段
+          {{~ if IsKeyFieldNumeric ~}}
+            if (key == null || key.{{ KeyFieldCamel }} == 0) {
           {{~ else ~}}
-            if (IsNullOrEmpty(key.{{KeyFieldCamel}}) == true) {
+            if (key == null || IsNullOrEmpty(key.{{ KeyFieldCamel }}) == true) {
           {{~ end ~}}
+        {{~ end ~}}
         
           const strMsg = '请选择需要修改的记录!';
           console.error(strMsg);
@@ -88,7 +94,7 @@ export default class {{ TableName }}_EditAiEx extends {{ TableName }}_EditAi {
         strMsg = Format(
           '命令:{0}, 关键字: {1}, 在函数({2}.{3})中没有被处理!',
           strCommandName,
-             key.{{ KeyFieldCamel }},
+          key ? JSON.stringify(key) : 'null',
           this.constructor.name,
           strThisFuncName,
         );
@@ -97,6 +103,8 @@ export default class {{ TableName }}_EditAiEx extends {{ TableName }}_EditAi {
         break;
     }
   }
+
+
 
   // ============ 自定义扩展方法区域 ============
   // 💡 在此处添加您的自定义方法

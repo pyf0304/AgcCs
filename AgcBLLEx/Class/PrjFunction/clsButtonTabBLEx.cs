@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:clsButtonTabBLEx
 表名:ButtonTab(00050427)
 生成代码版本:2019.03.05.1
@@ -211,6 +210,20 @@ namespace AGC.BusinessLogicEx
             return arrButtonTabSet;
         }
 
+        /// <summary>
+        /// 替换字段,在整个工程中替换字段
+        /// </summary>
+        /// <param name = "strPrjId">工程Id</param>
+        /// <param name = "strSourceFldId">源字段Id</param>
+        /// <param name = "strTargetFldId">目标字段Id</param>
+        /// <returns></returns>
+        //public static bool ReplaceField(string strPrjId, string strSourceFldId, string strTargetFldId)
+        //{
+        //    clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+        //    string strSQL;
+        //    strSQL = $"Update ButtonTab Set {conButtonTab.FldId} = '{strTargetFldId}' where {conButtonTab.PrjId} = '{strPrjId}' And {conButtonTab.FldId} = '{strSourceFldId}'";
+        //    return objSQL.ExecSql(strSQL);
+        //}
 
     }
 }

@@ -1768,7 +1768,7 @@ objPrjTabENEx.objCacheClassifyFld.TypeScriptType, objPrjTabENEx.ClsName);
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"const returnInt = await {thisWA_F(WA_F.DelMultiRecordAsync)}(arr{objKeyField.FldName});");
+            strCodeForCs.Append("\r\n" + $"const returnInt = await {thisWA_F(WA_F.DelKeysAsync)}(arr{objKeyField.FldName});");
 
             strCodeForCs.Append("\r\n" + "if (returnInt > 0)");
             strCodeForCs.Append("\r\n" + "{");

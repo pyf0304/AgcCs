@@ -406,7 +406,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             });
             arrImportClass.Add(new ImportClass
             {
-                ClsName = $"ref{ThisDetailClsName}",
+                ClsName = $"ref{this.ClsName}",
                 FilePath = string.Format($"@/views{strIsShare}/{objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}", "", objFuncModule.FuncModuleEnName4GC(),
               ViewMainTabName4GC)
             });
@@ -420,7 +420,12 @@ objViewInfoENEx.TabName, objKeyField.FldName);
                 });
     
             }
-            
+            arrImportClass.Add(new ImportClass
+            {
+                ClsName = string.Format("{0}Key", TabName_Out4DetailRegion4GC),
+                FilePath = string.Format("{0}/L0Entity/{1}/cls{2}EN.js", this.strBaseUrl, objFuncModule.FuncModuleEnName4GC(),
+                       TabName_Out4DetailRegion4GC)
+            });
 
             if (objViewInfoENEx.CodeTypeId == enumCodeType.WA_ViewScript_DetailCS_TS_0251)
             {
@@ -1535,15 +1540,19 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "*/");
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord({0}):Promise<boolean> ",
-                     objPrjTabEx_DetailRegion.KeyVarDefineLstStr_TS);
+                string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+                strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord4Func(key: {0}) ",
+                    strKeyTypeName);
+                strFuncName = $"DetailRecord4Func";
             }
             else
-            {            
-            strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord({0}: {1}):Promise<boolean> ",
-                 objKeyField.PrivFuncName,
-                  objKeyField.TypeScriptType);
+            {
+                string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+                strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord4Func(key: {0}) ",
+                    strKeyTypeName);
+                strFuncName = $"DetailRecord4Func";
             }
+
             strFuncName = "DetailRecord";
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.DetailRecord.name;",
@@ -1608,31 +1617,14 @@ objViewInfoENEx.TabName, objKeyField.FldName);
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
-
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyLstAsync)}({objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS});");
+                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}(key);");
             }
             else
             {
-             
-                // 🔥 修改：根据关键字类型生成对象参数
-                if (objKeyField.IsNumberType())
-                {
-                    // 数值型关键字：传递对象 { mId: lngmId }
-                    strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}({{");
-                    strCodeForCs.Append("\r\n" + $"{objKeyField.FldName_FstLcase0}: {objKeyField.PrivFuncName},");
-                    strCodeForCs.Append("\r\n" + "});");
-                }
-                else
-                {
-                    // 字符串型关键字：传递对象 { constId: strConstId }
-                    strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}({{");
-                    strCodeForCs.Append("\r\n" + $"{objKeyField.FldName_FstLcase0}: {objKeyField.PrivFuncName},");
-                    strCodeForCs.Append("\r\n" + "});");
-                }
+                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}(key);");
             }
-
             strCodeForCs.AppendFormat("\r\n" + "       if (obj{0}EN == null)", TabName_Out4DetailRegion4GC);
             strCodeForCs.Append("\r\n" + "        {");
 
@@ -1644,10 +1636,10 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             
             //strCodeForCs.AppendFormat("\r\n" + "this.ShowDetailDataFrom{0}Class(obj{0}EN);",
             //    TabName_Out4DetailRegion4GC);
-            strCodeForCs.Append("\r\n" + $"if (ref{ThisDetailClsName}.value == null)");
+            strCodeForCs.Append("\r\n" + $"if (ref{this.ClsName}.value == null)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "const strMsg = Format(");
-            strCodeForCs.Append($"'当前详细信息区的DetailObj为空，请检查！(in {{0}}.{{1}}).\\nref{ThisDetailClsName} imported from: @/views/{objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}',");
+            strCodeForCs.Append($"'当前详细信息区的DetailObj为空，请检查！(in {{0}}.{{1}}).\\nref{this.ClsName} imported from: @/views/{objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}',");
             strCodeForCs.Append("\r\n" + "this.constructor.name,");
             strCodeForCs.Append("\r\n" + "strThisFuncName,");
 
@@ -1657,7 +1649,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "return false;");
             strCodeForCs.Append("\r\n" + "}");
 
-            strCodeForCs.Append("\r\n" + $"await ref{ThisDetailClsName}.value.ShowDataFrom{TabName_Out4DetailRegion4GC}Obj(obj{TabName_Out4DetailRegion4GC}EN);");
+            strCodeForCs.Append("\r\n" + $"await ref{this.ClsName}.value.ShowDataFrom{TabName_Out4DetailRegion4GC}Obj(obj{TabName_Out4DetailRegion4GC}EN);");
 
 
             strCodeForCs.AppendFormat("\r\n" + "console.log(\"完成DetailRecord!\");", TabName_Out4DetailRegion4GC);
@@ -1713,11 +1705,17 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             }
             else
             {
-                strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord4Func({0}: {1}) ",
-                 objKeyField.PrivFuncName,
-                  objKeyField.TypeScriptType);
+                // 使用 Key 类型而不是基本类型
+                string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+                strCodeForCs.AppendFormat("\r\n" + "public async DetailRecord4Func(key: {0}) ",
+                  strKeyTypeName);
                 strFuncName = $"DetailRecord4Func";
             }
+            ImportClass objImportClass0 = AddImportClass(TabId_Out4DetailRegion, TabName_Out4DetailRegion4GC, string.Format("{0}Key", TabName_Out4DetailRegion4GC), enumImportObjType.ENClass, this.strBaseUrl);
+
+            CodeElement objCodeElement_Import0 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass0);
+            clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import0);
+
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.DetailRecord4Func.name;",
 objViewInfoENEx.TabName, objKeyField.FldName);
@@ -1772,11 +1770,11 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "{");
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyLstAsync)}({objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS});");
+                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}(key);");
             }
             else
-            {
-                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}({objKeyField.PrivFuncName});");                
+            {                
+                strCodeForCs.Append("\r\n" + $"const obj{TabName_Out4DetailRegion4GC}EN = await {thisWA_F_InDetail(WA_F.GetObjByKeyId)}(key);");
             }
 
             strCodeForCs.AppendFormat("\r\n" + "const obj{0}ENEx = new cls{0}ENEx();", TabName_Out4DetailRegion4GC);
@@ -1796,10 +1794,10 @@ objViewInfoENEx.TabName, objKeyField.FldName);
 
             //strCodeForCs.AppendFormat("\r\n" + "this.ShowDetailDataFrom{0}Class4Func(obj{0}ENEx);",
             //    TabName_Out4DetailRegion4GC);
-            strCodeForCs.Append("\r\n" + $"if (ref{ThisDetailClsName}.value == null)");
+            strCodeForCs.Append("\r\n" + $"if (ref{this.ClsName}.value == null)");
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.Append("\r\n" + "const strMsg = Format(");
-                  strCodeForCs.Append($"'当前详细信息区的DetailObj为空，请检查！(in {{0}}.{{1}}).\\nref{ThisDetailClsName} imported from: @/views/{objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}',");
+                  strCodeForCs.Append($"'当前详细信息区的DetailObj为空，请检查！(in {{0}}.{{1}}).\\nref{this.ClsName} imported from: @/views/{objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}',");
                   strCodeForCs.Append("\r\n" + "this.constructor.name,");
                   strCodeForCs.Append("\r\n" + "strThisFuncName,");
 
@@ -1809,7 +1807,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + "return;");
             strCodeForCs.Append("\r\n" + "}");
 
-            strCodeForCs.Append("\r\n" + $"await ref{ThisDetailClsName}.value.ShowDataFrom{TabName_Out4DetailRegion4GC}Obj(obj{TabName_Out4DetailRegion4GC}ENEx);");
+            strCodeForCs.Append("\r\n" + $"await ref{this.ClsName}.value.ShowDataFrom{TabName_Out4DetailRegion4GC}Obj(obj{TabName_Out4DetailRegion4GC}ENEx);");
 
             strCodeForCs.AppendFormat("\r\n" + "console.log(\"完成DetailRecord4Func!\");", TabName_Out4DetailRegion4GC);
 
@@ -1853,12 +1851,16 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + "*/");
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecordInTab_Click({0}) {{", objPrjTabEx_DetailRegion.KeyVarDefineLstStr_TS);
+                // 修改:使用 Key 类型替代 string
+                string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecordInTab_Click(key: {0}) {{", strKeyTypeName);
                 strFuncName = $"btnDetailRecordInTab_Click";
             }
             else
-            {
-                strCodeForCs.Append("\r\n" + "public async btnDetailRecordInTab_Click(strKeyId:string) {");
+            {                
+                // 修改:使用 Key 类型替代 string
+                string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecordInTab_Click(key: {0}) {{", strKeyTypeName);
                 strFuncName = $"btnDetailRecordInTab_Click";
             }
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnDetailRecordInTab_Click.name;",
@@ -1872,19 +1874,18 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             }
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
+            // 第 1880-1907 行,修改验证逻辑:
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
                 foreach (var objInFor in objPrjTabEx_DetailRegion.arrKeyFldSet)
                 {
                     if (objInFor.IsNumberType() == true)
                     {
-                        strCodeForCs.AppendFormat("\r\n" + " if ({0} == 0)", objInFor.PrivFuncName);
-
+                        strCodeForCs.AppendFormat("\r\n" + " if (key.{0} == 0)", objInFor.FldName_FstLcase0);
                     }
                     else
                     {
-                        strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty({0}) == true)", objInFor.PrivFuncName);
-
+                        strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty(key.{0}) == true)", objInFor.FldName_FstLcase0);
                     }
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "alert(\"请选择需要详细信息的记录!\");");
@@ -1894,46 +1895,59 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             }
             else
             {
-                strCodeForCs.Append("\r\n" + " if (strKeyId == \"\")");
+                if (objKeyField.IsNumberType() == true)
+                {
+                    strCodeForCs.AppendFormat("\r\n" + " if (key.{0} == 0)", objKeyField.FldName_FstLcase0);
+                }
+                else
+                {
+                    strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty(key.{0}) == true)", objKeyField.FldName_FstLcase0);
+                }
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.Append("\r\n" + "alert(\"请选择需要详细信息的记录!\");");
                 strCodeForCs.Append("\r\n" + "return \"\";");
                 strCodeForCs.Append("\r\n" + "}");
             }
+            //if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
+            //{
+            //    foreach (var objInFor in objPrjTabEx_DetailRegion.arrKeyFldSet)
+            //    {
+            //        if (objInFor.IsNumberType() == true)
+            //        {
+            //            strCodeForCs.AppendFormat("\r\n" + " if (key.{0} == 0)", objInFor.FldName_FstLcase0);
+
+            //        }
+            //        else
+            //        {
+            //            strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty(key.{0}) == true)", objInFor.FldName_FstLcase0);
+
+            //        }
+            //        strCodeForCs.Append("\r\n" + "{");
+            //        strCodeForCs.Append("\r\n" + "alert(\"请选择需要详细信息的记录!\");");
+            //        strCodeForCs.Append("\r\n" + "return \"\";");
+            //        strCodeForCs.Append("\r\n" + "}");
+            //    }
+            //}
+            //else
+            //{
+            //    strCodeForCs.AppendFormat("\r\n" + " if (key.{0} == \"\")",objKeyField.FldName_FstLcase0);
+            //    strCodeForCs.Append("\r\n" + "{");
+            //    strCodeForCs.Append("\r\n" + "alert(\"请选择需要详细信息的记录!\");");
+            //    strCodeForCs.Append("\r\n" + "return \"\";");
+            //    strCodeForCs.Append("\r\n" + "}");
+            //}
             string strSuffix4Func = "";//后缀4Func
             if (bolIsUseFunc4Detail == true) strSuffix4Func = "4Func";
             //strCodeForCs.Append("\r\n" + "$(\"#Text1\").val(\"进入函数：btnDelete4Gv_Click\");");
+            // 第 1911-1940 行,修改方法调用:
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                if (objKeyField.TypeScriptType == "number")
-                {
-                    strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
-
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}({1});",
-                     strSuffix4Func, objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}({1});",
-                        strSuffix4Func, objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS);
-                }
+                strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);", strSuffix4Func);
             }
             else
             {
-                if (objKeyField.TypeScriptType == "number")
-                {
-                    strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
-
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(lngKeyId);",
-                     strSuffix4Func);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(strKeyId);",
-                        strSuffix4Func);
-                }
+                strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);", strSuffix4Func);
             }
-
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
             strCodeForCs.Append("\r\n" + "{");
@@ -1974,14 +1988,19 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n /* 修改记录");
             strCodeForCs.AppendFormat("\r\n ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n" + "*/");
+            string strKeyTypeName = $"{TabName_Out4DetailRegion4GC}Key";
+            
             if (objPrjTabEx_DetailRegion.arrKeyFldSet.Count > 1)
             {
-                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecord_Click({0}) {{", objPrjTabEx_DetailRegion.KeyVarDefineLstStr_TS);
+                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecordInTab_Click(key: {0}) {{", strKeyTypeName);
+                strFuncName = $"btnDetailRecordInTab_Click";
             }
             else
             {
-                strCodeForCs.Append("\r\n" + "public async btnDetailRecord_Click(strKeyId:string) {");
+                strCodeForCs.AppendFormat("\r\n" + "public async btnDetailRecordInTab_Click(key: {0}) {{", strKeyTypeName);
+                strFuncName = $"btnDetailRecordInTab_Click";
             }
+
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = this.btnDetailRecord_Click.name;",
 objViewInfoENEx.TabName, objKeyField.FldName);
             //strCodeForCs.Append("\r\n" + "$('#hidOpType').val(\"Update\");");
@@ -1995,7 +2014,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
                 {
                     foreach (var objInFor in objPrjTabEx_DetailRegion.arrKeyFldSet)
                     {
-                        strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty({0}) == true)", objInFor.PrivFuncName);
+                        strCodeForCs.AppendFormat("\r\n" + " if (IsNullOrEmpty(key.{0}) == true)", objInFor.FldName_FstLcase0);
                         strCodeForCs.Append("\r\n" + "{");
                         strCodeForCs.Append("\r\n" + "alert(\"请选择需要详细信息的记录!\");");
                         strCodeForCs.Append("\r\n" + "return \"\";");
@@ -2004,7 +2023,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
                 }
                 else
                 {
-                    strCodeForCs.Append("\r\n" + "if (IsNullOrEmpty(strKeyId) == true)");
+                    strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty(key.{objKeyField.FldName_FstLcase0}) == true)");
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "const strMsg = \"需要显示详细信息记录的关键字为空,请检查!\";");
                     strCodeForCs.Append("\r\n" + "console.error(strMsg);");
@@ -2043,14 +2062,14 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             {
                 if (objKeyField.TypeScriptType == "number")
                 {
-                    strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
+                    //strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
 
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}({1});",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                      strSuffix4Func, objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}({1});",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                         strSuffix4Func, objPrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS);
                 }
             }
@@ -2058,14 +2077,14 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             {
                 if (objKeyField.TypeScriptType == "number")
                 {
-                    strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
+                    //strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
 
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(lngKeyId);",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                      strSuffix4Func);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(strKeyId);",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                         strSuffix4Func);
                 }
             }
@@ -2095,14 +2114,14 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             {
                 if (objKeyField.TypeScriptType == "number")
                 {
-                    strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
+                    //strCodeForCs.Append("\r\n" + "const lngKeyId =  Number(strKeyId);");
 
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(lngKeyId);",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                      strSuffix4Func);
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(strKeyId);",
+                    strCodeForCs.AppendFormat("\r\n" + "this.DetailRecord{0}(key);",
                         strSuffix4Func);
                 }
             }

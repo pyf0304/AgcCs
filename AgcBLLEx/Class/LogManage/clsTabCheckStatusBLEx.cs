@@ -1582,7 +1582,7 @@ namespace AGC.BusinessLogicEx
             }
             else
             {
-                strSQL = string.Format("Update TabCheckStatus Set ErrorMsg = '', ErrorLevelId = -1 where PrjId = '{0}' And TabId = '{1}'", strPrjId, strTabId);
+                strSQL = $"Update TabCheckStatus Set ErrorMsg = '', ErrorLevelId = -1 where PrjId = '{strPrjId}' And TabId = '{strTabId}'";
             }
             int intRecoCount = objSQL.ExecSql2(strSQL);
             clsTabCheckStatusBL.ReFreshCache(strPrjId);

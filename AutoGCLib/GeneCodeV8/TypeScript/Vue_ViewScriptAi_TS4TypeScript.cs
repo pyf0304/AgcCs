@@ -29,7 +29,7 @@ namespace AutoGCLib
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
             strRe_ClsName = strRe_ClsName + "Ai";
-            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}";
+            strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildAiBaseTemplateModel();
 
@@ -70,6 +70,47 @@ namespace AutoGCLib
             
             // 🔥 判断是否有字段映射函数（IsUseFunc）
             bool isUseFunc = this.IsUseFunc;
+            
+            // 🔥 新增：判断是否为多关键字
+            bool isMultiKey = objPrjTabEx_ListRegion?.arrKeyFldSet?.Count > 1;
+            string strKeyTypeName="";
+            if (isMultiKey == false)
+            {
+                strKeyTypeName = PrjTabEx_ListRegion.arrKeyFieldType[0].KeyType.ToString();
+            }
+
+            // 🔥 获取缓存分类字段信息
+            bool hasCacheClassifyField = false;
+            string cacheClassifyFieldName = "";
+            string cacheClassifyFieldCamel = "";
+
+            if (needRefreshCache && thisCacheClassify_List_TS != null)
+            {
+                if (thisCacheClassify_List_TS.IsHasCacheClassfyFld)
+                {
+                    hasCacheClassifyField = true;
+                    cacheClassifyFieldName = thisCacheClassify_List_TS.FldName;
+                    cacheClassifyFieldCamel = ToCamelCase(thisCacheClassify_List_TS.FldName);
+                }
+            }
+            List<string> condVarLst = new List<string>();
+            List<string> importVarLst = new List<string>();
+            condVarLst = thisCacheClassifyLst4View.Select(x => x.CondVarName).ToList();
+            condVarLst = condVarLst.Where(x => x != "").ToList();
+            importVarLst = thisCacheClassifyLst4View.Select(x => x.ImportVarName).ToList();
+            importVarLst = importVarLst.Where(x => x != "").ToList();
+            string strCacheCondVars = string.Join(", ", condVarLst);
+            string strCacheImportVars = string.Join(", ", importVarLst);
+            bool hasCacheCondVar = condVarLst.Count>0?true:false;
+            bool hasCacheImportVar = importVarLst.Count > 0 ? true : false;
+            string strCacheCondVars4Fst = strCacheCondVars;
+            if (condVarLst.Count>0) { 
+                strCacheCondVars = ", " + strCacheCondVars;
+            }
+            if (importVarLst.Count > 0)
+            {
+                strCacheImportVars = ", " + strCacheImportVars;
+            }
 
             var model = new AiBaseTemplateModel
             {
@@ -79,10 +120,14 @@ namespace AutoGCLib
                 TableCnName = objPrjTabEx_ListRegion.TabCnName,
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
-                KeyFieldCamel = ToCamelCase(objKeyField.FldName()),  // 🔥 修复：添加 KeyFieldCamel 赋值
-                HasCacheMode = needRefreshCache,  // 是否使用缓存模式
-                IsUseFunc = isUseFunc,            // 🔥 新增：是否有字段映射转换
-                
+                KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
+                HasCacheMode = needRefreshCache,
+                HasCacheClassifyField = hasCacheClassifyField,
+                CacheClassifyFieldName = cacheClassifyFieldName,
+                CacheClassifyFieldCamel = cacheClassifyFieldCamel,
+                IsUseFunc = isUseFunc,
+                IsMultiKey = isMultiKey,  // 🔥 新增：是否为多关键字
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
                 // 🔥 排序字段
                 SortField1 = sortField1,
                 SortField1Type = sortField1Info?.TypeScriptType ?? "any",
@@ -90,7 +135,15 @@ namespace AutoGCLib
                 SortField2 = sortField2,
                 SortField2Type = sortField2Info?.TypeScriptType ?? "any",
                 SortField2CompareExpr = sortField2Info?.CompareExpression ?? "String(a.field).localeCompare(String(b.field))",
-                AvailableFields = availableFields
+                AvailableFields = availableFields,
+                CacheCondVarLst = condVarLst,
+                CacheImportVarLst = importVarLst,
+                CacheImportVars = strCacheImportVars,
+                CacheCondVars = strCacheCondVars,
+                CacheCondVars4Fst = strCacheCondVars4Fst,
+                HasCacheCondVar = hasCacheCondVar,
+                HasCacheImportVar = hasCacheImportVar,
+                KeyTypeName = strKeyTypeName
             };
 
             // 提取功能按钮
@@ -376,7 +429,35 @@ namespace AutoGCLib
                         // 🔥 从 feature.ObjFieldTabENEx 获取中文名称（Caption）
                         var fldCnName = feature.ObjFieldTabENEx?.Caption ?? objFieldTab.Caption ?? fldName;
 
+                        // 🔥 新增：获取字段的 C# 类型并转换为 TypeScript 类型
+                        string csType = objFieldTab.CsType();
+                        string tsType = CsTypeToTypeScriptType(csType);
+                        
+                        // 🔥 新增：根据类型确定参数前缀和验证需求
+                        string paramPrefix;
+                        bool needsValidation;
+                        
+                        if (csType.ToLower() == "bool" || csType.ToLower() == "boolean")
+                        {
+                            paramPrefix = "bol";
+                            needsValidation = false;  // 布尔类型不需要空值验证
+                        }
+                        else if (objFieldTab.IsNumberType())
+                        {
+                            paramPrefix = "num";
+                            needsValidation = true;
+                        }
+                        else
+                        {
+                            paramPrefix = "str";
+                            needsValidation = true;
+                        }
+
                         writer.WriteLine($"    字段名: {fldName}");
+                        writer.WriteLine($"    C# 类型: {csType}");
+                        writer.WriteLine($"    TypeScript 类型: {tsType}");
+                        writer.WriteLine($"    参数前缀: {paramPrefix}");
+                        writer.WriteLine($"    需要验证: {needsValidation}");
                         writer.WriteLine($"    Caption: {fldCnName}");
                         writer.WriteLine($"    功能按钮名: '{feature.ButtonName}'");
 
@@ -419,13 +500,16 @@ namespace AutoGCLib
                             FieldCnName = displayName,
                             DdlId = "ddl" + fldName,
                             RelatedTableName = relatedTableName,
-                            RelatedModuleName = relatedModuleName  // 🔥 新增：设置模块名
+                            RelatedModuleName = relatedModuleName,
+                            FieldTypeScript = tsType,        // 🔥 新增
+                            ParamPrefix = paramPrefix,        // 🔥 新增
+                            NeedsValidation = needsValidation // 🔥 新增
                         };
 
                         writer.WriteLine($"    ✓ FieldCnName = '{setFieldInfo.FieldCnName}'");
                         writer.WriteLine($"    ✓ 生成方法 = {setFieldInfo.MethodName}");
                         writer.WriteLine($"    ✓ 关联表 = {setFieldInfo.RelatedTableName}");
-                        writer.WriteLine($"    ✓ 关联模块 = {setFieldInfo.RelatedModuleName}");  // 🔥 新增日志
+                        writer.WriteLine($"    ✓ 关联模块 = {setFieldInfo.RelatedModuleName}");
                         writer.WriteLine();
 
                         model.SetFieldFeatures.Add(setFieldInfo);

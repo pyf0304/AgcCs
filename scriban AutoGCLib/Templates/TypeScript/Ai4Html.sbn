@@ -1,126 +1,152 @@
-<template>
-  <div id="divLayout" ref="refDivLayout" class="div_layout">
-    <div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px">
-      <label id="lblViewTitle" name="lblViewTitle" class="h5">{{ "{{" }} strTitle {{ "}}" }} </label>
-      <label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width: 250px"> </label>
-    </div>
+﻿<template>
+	<div id="divLayout" ref="refDivLayout" class="div_layout">
+		<div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px">
+			<label id="lblViewTitle" name="lblViewTitle" class="h5">{{ "{{" }} strTitle {{ "}}" }} </label>
+			<label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width: 250px"> </label>
+		</div>
 
-    <div id="divQuery" ref="refDivQuery" class="div_query">
-      <table
-        id="tabEdit"
-        style="width: 900px"
-        class="table table-bordered table-hover table td table-sm"
+		<div id="divQuery" ref="refDivQuery" class="div_query">
+			<table
+			  id="tabEdit"
+			  style="width: 900px"
+			  class="table table-bordered table-hover table td table-sm"
       >
-        <tbody>
-          <tr>
-            <template v-for="field in queryRow1" :key="field.key">
-              <td class="text-right">
-                <label class="col-form-label text-right" style="width: 90px">{{ "{{" }}
-                  field.label
-                {{ "}}" }}</label>
-              </td>
-              <td class="text-left">
-                <input
-                  v-if="field.controlType === 'text'"
-                  :id="field.id"
-                  class="form-control form-control-sm"
-                  :style="{ width: field.width + 'px' }"
-                  :value="getQueryValue(field.key)"
-                  @input="setQueryValue(field.key, ($event.target as HTMLInputElement).value)"
+				<tbody>
+					<tr>
+						<template v-for="field in queryRow1" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<input
+								  v-if="field.controlType === 'text'"
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @input="setQueryValue(field.key, ($event.target as HTMLInputElement).value)"
                 />
-                <select
-                  v-else
-                  :id="field.id"
-                  class="form-control form-control-sm"
-                  :style="{ width: field.width + 'px' }"
-                  :value="getQueryValue(field.key)"
-                  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+								<select
+								  v-else
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
                 >
-                  <option
-                    v-for="(item, index) in getSelectOptions(field.optionsKey)"
-                    :key="index"
-                    :value="getSelectValue(item, field.optionsKey)"
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
                   >
-                    {{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
-                  </option>
-                </select>
-              </td>
-            </template>
-          </tr>
-          <tr>
-            <template v-for="field in queryRow2" :key="field.key">
-              <td class="text-right">
-                <label class="col-form-label text-right" style="width: 90px">{{ "{{" }}
-                  field.label
-                {{ "}}" }}</label>
-              </td>
-              <td class="text-left">
-                <select
-                  :id="field.id"
-                  class="form-control form-control-sm"
-                  :style="{ width: field.width + 'px' }"
-                  :value="getQueryValue(field.key)"
-                  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+										{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
+					</tr>
+					<tr>
+						<template v-for="field in queryRow2" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<select
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
                 >
-                  <option
-                    v-for="(item, index) in getSelectOptions(field.optionsKey)"
-                    :key="index"
-                    :value="getSelectValue(item, field.optionsKey)"
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
                   >
-                    {{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
-                  </option>
-                </select>
-              </td>
-            </template>
-            <td v-for="cmd in queryCommands" :key="cmd.id" class="text-left">
-              <button
-                :id="cmd.elementId"
-                type="button"
-                :class="cmd.btnClass"
-                @click="runCommand(cmd.id)"
+										{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
+						<td v-for="cmd in queryCommands" :key="cmd.id" class="text-left">
+							<button
+							  :id="cmd.elementId"
+							  type="button"
+							  :class="cmd.btnClass"
+							  @click="runCommand(cmd.id)"
               >
-                {{ "{{" }} cmd.text {{ "}}" }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+								{{ "{{" }} cmd.text {{ "}}" }}
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-    <div id="divFunction" ref="refDivFunction" class="table table-bordered table-hover">
-      <ul class="nav">
-        <li class="nav-item">
-          <label id="lbl{{ TableName }}List" class="col-form-label text-info" style="width: 250px"
+		<div id="divFunction" ref="refDivFunction" class="table table-bordered table-hover">
+			<ul class="nav">
+				<li class="nav-item">
+					<label id="lbl{{ TableName }}List" class="col-form-label text-info" style="width: 250px"
             >{{ TableCnName }}列表</label
           >
-        </li>
-        {{~ # 🔥 简化版：所有按钮统一渲染，不生成辅助控件（辅助控件在业务类中处理） ~}}
-        {{~ # 🔥 简化版：所有按钮统一渲染，不生成辅助控件（辅助控件在业务类中处理） ~}}
-        <li v-for="cmd in featureCommands" :key="cmd.id" class="nav-item ml-3">
-          <div v-if="cmd.needAuxControl" class="btn-group" role="group" aria-label="Basic example">
-            <select
-              id="ddlUseStateId_SetFldValue"
-              v-model="useStateId_f"
-              class="form-control form-control-sm"
-              style="width: 60px"
-            >
-              <option v-for="(item, index) in arrUseState" :key="index" :value="item.useStateId">{{ "{{" }}
-                item.useStateName
-              {{ "}}" }}</option>
-            </select>
-            <button :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">{{ "{{" }}
-              cmd.text
-            {{ "}}" }}</button>
-          </div>
-          <button v-else :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">
-            {{ "{{" }} cmd.text {{ "}}" }}
-          </button>
-        </li>
-      </ul>
-    </div>
+				</li>
+				{{~ # 🔥 遍历功能区命令，根据 needAuxControl 决定是否生成辅助控件 ~}}
+				<li v-for="cmd in featureCommands" :key="cmd.id" class="nav-item ml-3">
+					{{~ # 🔥 如果命令需要辅助控件（如设置字段值的下拉框） ~}}
+					<template v-if="cmd.needAuxControl">
+						<div class="btn-group" role="group" :aria-label="cmd.text">
+							{{~ # 🔥 根据字段类型渲染不同的控件 ~}}
+							<select
+							  v-if="cmd.auxControlType === 'select4Bool'"
+							  :id="cmd.auxControlId"
+							  class="form-control form-control-sm"
+							  style="width: 100px"
+							  :value="auxControlValues[cmd.id]"
+							  @change="updateAuxControlValue(cmd.id, ($event.target as HTMLSelectElement).value)"
+              >
+								<option value="0">选择是/否</option>
+								<option value="true">是</option>
+								<option value="false">否</option>
+							</select>
+							<select
+							  v-else
+							  :id="cmd.auxControlId"
+							  class="form-control form-control-sm"
+							  style="width: 150px"
+							  :value="auxControlValues[cmd.id]"
+							  @change="updateAuxControlValue(cmd.id, ($event.target as HTMLSelectElement).value)"
+              >
+								<option
+								  v-for="(item, index) in getSelectOptions(cmd.auxControlOptionsKey)"
+								  :key="index"
+								  :value="getSelectValue(item, cmd.auxControlOptionsKey)"
+                >
+									{{ "{{" }} getSelectText(item, cmd.auxControlOptionsKey) {{ "}}" }}
+								</option>
+							</select>
+							<button :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">
+								{{ "{{" }} cmd.text {{ "}}" }}
+							</button>
+						</div>
+					</template>
+					{{~ # 🔥 普通按钮（无辅助控件） ~}}
+					<button v-else :id="cmd.elementId" :class="cmd.btnClass" @click="runCommand(cmd.id)">
+						{{ "{{" }} cmd.text {{ "}}" }}
+					</button>
+				</li>
+			</ul>
+		</div>
 
-    <div id="divList" ref="refDivList" class="div_List">
-      <{{ TableName }}_ListCom
+		<div id="divList" ref="refDivList" class="div_List">
+			<{{ TableName }}_ListCom
         ref="ref{{ TableName }}_List"
         :items="dataList{{ TableName }}"
         :show-error-message="showErrorMessage"
@@ -129,85 +155,93 @@
         @on-edit-tab-relainfo="EditTabRelaInfo"
         @on-sort-column="SortColumn"
       />
-      <div id="divPager" class="pager"></div>
-      <input id="hidSort{{ TableName }}By" type="hidden" />
-    </div>
+			<div id="divPager" class="pager"></div>
+			<input id="hidSort{{ TableName }}By" type="hidden" />
+		</div>
 
-    <{{ TableName }}_EditCom ref="ref{{ TableName }}_Edit" />
-    <{{ TableName }}_DetailCom ref="ref{{ TableName }}_Detail" />
-  </div>
+		<{{ TableName }}_EditCom ref="ref{{ TableName }}_Edit" />
+		<{{ TableName }}_DetailCom ref="ref{{ TableName }}_Detail" />
+	</div>
 </template>
 
 <script lang="ts">
-  import 'jquery/dist/jquery.min.js';
-  import 'bootstrap/dist/js/bootstrap.min.js';
-  import 'bootstrap/dist/css/bootstrap.css';
-  import { defineComponent, onMounted, ref } from 'vue';
-  import * as XLSX from 'xlsx';
-  import router from '@/router';
-  import {
-    divVarSet,
-    refDivLayout,
-    refDivQuery,
-    refDivFunction,
-    refDivList,
-    ref{{ TableName }}_Edit,
-    ref{{ TableName }}_Detail,
-    ref{{ TableName }}_List,
-    showErrorMessage,
-    dataList{{ TableName }},
-    emptyRecNumInfo,
-    dataColumn,
-    {{~ for field in QueryFields ~}}
-    {{ field.Key }},
-    {{~ end ~}}
-    {{~ # 🔥 动态导入设置字段值的变量 ~}}
-    {{~ for variable in SetFieldVariables ~}}
-    {{ variable }},
-    {{~ end ~}}
-  } from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
-  import {{ TableName }}_EditCom from '@/views/{{ ModuleName }}/{{ TableName }}_Edit.vue';
-  import {{ TableName }}_DetailCom from '@/views/{{ ModuleName }}/{{ TableName }}_Detail.vue';
-  import {{ TableName }}_ListCom from '@/views/{{ ModuleName }}/{{ TableName }}_ListAi.vue';
-  import { clsDataBaseTypeEN } from '@/ts/L0Entity/SysPara/clsDataBaseTypeEN';
-  import { clsUseStateEN } from '@/ts/L0Entity/SysPara/clsUseStateEN';
-  import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
-  import {{ TableName }}CRUDExAi4 from '@/views/{{ ModuleName }}/{{ TableName }}CRUDExAi4';
-  import {
-    getQueryRowsAi3,
-    initQueryDefaultsAi3,
-    loadFeatureOptionsAi3,
-    loadQueryOptionsAi3,
-    {{ TableName }}QueryFieldSpecAi3,
-  } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAi3Query';
-  import {
-    getFeatureCommandsAi4,
-    getQueryCommandsAi4,
-    {{ TableName }}CommandIdAi4,
-    {{ TableName }}CommandSpecAi4,
-  } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAi4Commands';
+	import 'jquery/dist/jquery.min.js';
+	import 'bootstrap/dist/js/bootstrap.min.js';
+	import 'bootstrap/dist/css/bootstrap.css';
+	import { defineComponent, onMounted, ref, reactive } from 'vue';
+	import * as XLSX from 'xlsx';
+	import router from '@/router';
+	import {
+	divVarSet,
+	refDivLayout,
+	refDivQuery,
+	refDivFunction,
+	refDivList,
+	ref{{ TableName }}_Edit,
+	ref{{ TableName }}_Detail,
+	ref{{ TableName }}_List,
+	showErrorMessage,
+	dataList{{ TableName }},
+	emptyRecNumInfo,
+	dataColumn,
+	{{~ for field in QueryFields ~}}
+	{{ field.Key }},
+	{{~ end ~}}
+	{{~ # 🔥 动态导入设置字段值的变量 ~}}
+	{{~ for variable in SetFieldVariables ~}}
+	{{ variable }},
+	{{~ end ~}}
+	} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+	import {{ TableName }}_EditCom from '@/views/{{ ModuleName }}/{{ TableName }}_Edit.vue';
+	import {{ TableName }}_DetailCom from '@/views/{{ ModuleName }}/{{ TableName }}_Detail.vue';
+	import {{ TableName }}_ListCom from '@/views/{{ ModuleName }}/{{ TableName }}_ListAi.vue';
+	{{~ # 🔥 动态导入查询选项的实体类 ~}}
+	{{~ for option in QueryOptionsArrays ~}}
+	import { cls{{ option.OptionsWApiClass }}EN } from '@/ts/L0Entity/{{ option.ModuleName }}/cls{{ option.OptionsWApiClass }}EN';
+	{{~ end ~}}
+	import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
+	import {{ TableName }}CRUDAiEx from '@/views/{{ ModuleName }}/{{ TableName }}CRUDAiEx';
+	import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+	import {
+	getQueryRowsAi,
+	initQueryDefaultsAi,
+	loadFeatureOptionsAi,
+	loadQueryOptionsAi,
+	{{ TableName }}QueryFieldSpecAi,
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiQuery';
+	import {
+	getFeatureCommandsAi,
+	getQueryCommandsAi,
+	{{ TableName }}CommandIdAi,
+	{{ TableName }}CommandSpecAi,
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
 
-  export default defineComponent({
-    name: '{{ TableName }}CRUDAi4',
-    components: {
-      {{ TableName }}_EditCom,
-      {{ TableName }}_DetailCom,
-      {{ TableName }}_ListCom,
-    },
-    setup() {
-      const strTitle = ref('{{ ViewTitle }}');
-      const objPage = ref<{{ TableName }}CRUDExAi4>();
-      const arrDataBaseType = ref<clsDataBaseTypeEN[] | null>([]);
-      const arrUseState = ref<clsUseStateEN[] | null>([]);
+	export default defineComponent({
+	name: '{{ TableName }}CRUDAi',
+	components: {
+	{{ TableName }}_EditCom,
+	{{ TableName }}_DetailCom,
+	{{ TableName }}_ListCom,
+	},
+	setup() {
+	const strTitle = ref('{{ ViewTitle }}');
+	const objPage = ref<{{ TableName }}CRUDAiEx>();
+      {{~ # 🔥 动态声明查询选项数组变量 ~}}
+      {{~ for option in QueryOptionsArrays ~}}
+      const {{ option.ArrayVariableName }} = ref<cls{{ option.OptionsWApiClass }}EN[] | null>([]);
+      {{~ end ~}}
 
-      const { row1, row2 } = getQueryRowsAi3();
-      const queryRow1 = ref<Array<{{ TableName }}QueryFieldSpecAi3>>(row1);
-      const queryRow2 = ref<Array<{{ TableName }}QueryFieldSpecAi3>>(row2);
+		const { row1, row2 } = getQueryRowsAi();
+		const queryRow1 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row1);
+      const queryRow2 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row2);
 
-      const queryCommands = ref<Array<{{ TableName }}CommandSpecAi4>>(getQueryCommandsAi4());
-      const featureCommands = ref<Array<{{ TableName }}CommandSpecAi4>>(getFeatureCommandsAi4());
+      const queryCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getQueryCommandsAi());
+      const featureCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getFeatureCommandsAi());
 
-      const ensurePage = (): {{ TableName }}CRUDExAi4 | null => {
+      {{~ # 🔥 新增：辅助控件值的响应式对象（使用 reactive 而不是 ref） ~}}
+      const auxControlValues = reactive<Record<string, string>>({});
+
+      const ensurePage = (): {{ TableName }}CRUDAiEx | null => {
         if (objPage.value == null) {
           alert('页面初始化不成功,请联系管理员!');
           return null;
@@ -215,7 +249,7 @@
         return objPage.value;
       };
 
-      const getQueryValue = (key: {{ TableName }}QueryFieldSpecAi3['key']): string => {
+      const getQueryValue = (key: {{ TableName }}QueryFieldSpecAi['key']): string => {
         switch (key) {
           {{~ for field in QueryFields ~}}
           case '{{ field.Key }}':
@@ -226,7 +260,7 @@
         }
       };
 
-      const setQueryValue = (key: {{ TableName }}QueryFieldSpecAi3['key'], value: string) => {
+      const setQueryValue = (key: {{ TableName }}QueryFieldSpecAi['key'], value: string) => {
         switch (key) {
           {{~ for field in QueryFields ~}}
           case '{{ field.Key }}':
@@ -238,13 +272,26 @@
         }
       };
 
-      const getSelectOptions = (optionsKey?: 'dataBaseType' | 'useState') => {
-        if (optionsKey === 'dataBaseType') return arrDataBaseType.value ?? [];
-        if (optionsKey === 'useState') return arrUseState.value ?? [];
+            {{~ # 🔥 动态生成 getSelectOptions 函数 ~}}
+      {{~ if OptionKeys.size > 0 ~}}
+      const getSelectOptions = (optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+        switch (optionsKey) {
+          {{~ for option in QueryOptionsArrays ~}}
+          case '{{ option.OptionsKey }}':
+            return {{ option.ArrayVariableName }}.value ?? [];
+          {{~ end ~}}
+          default:
+            return [];
+        }
+      };
+      {{~ else ~}}
+      const getSelectOptions = (optionsKey?: string) => {
         return [];
       };
+      {{~ end ~}}
 
-      const getSelectValue = (item: any, optionsKey?: {{~ for key in optionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}}) => {
+      {{~ if OptionKeys.size > 0 ~}}
+      const getSelectValue = (item: any, optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
         switch (optionsKey) {
           {{~ for field in QueryFields ~}}
           {{~ if field.OptionsKey ~}}
@@ -257,7 +304,7 @@
         }
       };
 
-      const getSelectText = (item: any, optionsKey?: {{~ for key in optionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}}) => {
+      const getSelectText = (item: any, optionsKey?: {{~ for key in OptionKeys ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
         switch (optionsKey) {
           {{~ for field in QueryFields ~}}
           {{~ if field.OptionsKey ~}}
@@ -267,6 +314,32 @@
           {{~ end ~}}
           default:
             return '';
+        }
+      };
+      {{~ else ~}}
+      const getSelectValue = (item: any, optionsKey?: string) => {
+        return '';
+      };
+
+      const getSelectText = (item: any, optionsKey?: string) => {
+        return '';
+      };
+      {{~ end ~}}
+
+
+      {{~ # 🔥 新增：更新辅助控件值（同时同步到 VueShare 中的变量） ~}}
+      const updateAuxControlValue = (commandId: {{ TableName }}CommandIdAi, value: string) => {
+        auxControlValues[commandId] = value;
+        
+        const command = featureCommands.value.find(x => x.id === commandId);
+        if (command && command.fieldNameCamel) {
+          switch (command.fieldNameCamel) {
+            {{~ for variable in SetFieldVariables ~}}
+            case '{{ variable | string.replace "import { " "" | string.replace " }" "" | string.strip }}':
+              {{ variable | string.replace "import { " "" | string.replace " }" "" | string.strip }}.value = value;
+              break;
+            {{~ end ~}}
+          }
         }
       };
 
@@ -287,7 +360,7 @@
         }
       };
 
-      const runCommand = async (commandId: {{ TableName }}CommandIdAi4) => {
+      const runCommand = async (commandId: {{ TableName }}CommandIdAi) => {
         const page = ensurePage();
         if (page == null) return;
 
@@ -311,33 +384,42 @@
         }
       }
 
-      function btn_Click(strCommandName: string, strKeyId: string) {
-        {{ TableName }}CRUDExAi4.btn_Click(strCommandName, strKeyId);
+      function btn_Click(strCommandName: string, key: {{ TableName }}Key | null) {
+        {{ TableName }}CRUDAiEx.btn_Click(strCommandName, key);
       }
 
       onMounted(async () => {
-        initQueryDefaultsAi3({
+        initQueryDefaultsAi({
           {{~ for field in QueryFields ~}}
           {{ field.Key }},
           {{~ end ~}}
         });
 
-        const queryOptions = await loadQueryOptionsAi3();
-        arrDataBaseType.value = queryOptions.arrDataBaseType;
-        arrUseState.value = queryOptions.arrUseState;
+        {{~ # 🔥 动态加载查询选项数据 ~}}
+        const queryOptions = await loadQueryOptionsAi();
+        {{~ for option in QueryOptionsArrays ~}}
+        {{ option.ArrayVariableName }}.value = queryOptions.{{ option.ArrayVariableName }};
+        {{~ end ~}}
 
         {{~ # 🔥 只有存在设置字段值功能时才初始化相关变量 ~}}
         {{~ if HasSetFieldFeature ~}}
-        const featureOptions = await loadFeatureOptionsAi3();
-        arrUseState.value = featureOptions.arrUseState;
+        const featureOptions = await loadFeatureOptionsAi();
+        {{~ # TODO: 根据功能区下拉框类型动态赋值 ~}}
         {{~ for variable in SetFieldVariables ~}}
         {{ variable }}.value = '0';
         {{~ end ~}}
+        
+        {{~ # 🔥 初始化辅助控件的默认值 ~}}
+        featureCommands.value.forEach(cmd => {
+          if (cmd.needAuxControl) {
+            auxControlValues[cmd.id] = '0';
+          }
+        });
         {{~ end ~}}
 
-        {{ TableName }}CRUDExAi4.vuebtn_Click = btn_Click;
-        {{ TableName }}CRUDExAi4.GetPropValue = GetPropValue;
-        objPage.value = new {{ TableName }}CRUDExAi4();
+        {{ TableName }}CRUDAiEx.vuebtn_Click = btn_Click;
+        {{ TableName }}CRUDAiEx.GetPropValue = GetPropValue;
+        objPage.value = new {{ TableName }}CRUDAiEx();
         await objPage.value.PageLoadCache();
       });
 
@@ -353,12 +435,7 @@
       };
 
       return {
-        showErrorMessage,
-        dataList{{ TableName }},
-        emptyRecNumInfo,
-        dataColumn,
         strTitle,
-        ...divVarSet,
         refDivLayout,
         refDivQuery,
         refDivFunction,
@@ -366,24 +443,24 @@
         ref{{ TableName }}_Edit,
         ref{{ TableName }}_Detail,
         ref{{ TableName }}_List,
-        {{~ # 🔥 动态返回设置字段值的变量 ~}}
-        {{~ for variable in SetFieldVariables ~}}
-        {{ variable }},
-        {{~ end ~}}
-        arrDataBaseType,
-        arrUseState,
+        showErrorMessage,
+        dataList{{ TableName }},
+        emptyRecNumInfo,
+        dataColumn,
         queryRow1,
         queryRow2,
         queryCommands,
         featureCommands,
+        auxControlValues,
         getQueryValue,
         setQueryValue,
         getSelectOptions,
         getSelectValue,
         getSelectText,
+        updateAuxControlValue,
         runCommand,
-        SortColumn,
         EditTabRelaInfo,
+        SortColumn,
       };
     },
   });
