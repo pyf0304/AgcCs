@@ -160,6 +160,7 @@
     <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaDAEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariableTypeDAEx.cs" />
     <Compile Include="Class\GeneCode\clsGC_CodeTypeRelationDAEx.cs" />
+    <Compile Include="Class\GeneCode\clsPrjFileTypeDAEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFilesDAEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFileTypeDAEx.cs" />
     <Compile Include="Class\GeneCode\clsSelfDefDataTypeDAEx.cs" />

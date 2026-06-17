@@ -166,6 +166,7 @@
     <Compile Include="Class\GeneCode\clsGCVariablePrjIdRelaENEx.cs" />
     <Compile Include="Class\GeneCode\clsGCVariableTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsGC_CodeTypeRelationENEx.cs" />
+    <Compile Include="Class\GeneCode\clsPrjFileTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFilesENEx.cs" />
     <Compile Include="Class\GeneCode\clsReferFileTypeENEx.cs" />
     <Compile Include="Class\GeneCode\clsSelfDefDataTypeENEx.cs" />

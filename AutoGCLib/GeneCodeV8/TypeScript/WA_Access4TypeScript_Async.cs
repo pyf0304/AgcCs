@@ -4003,6 +4003,25 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
+
+            strCodeForCs.Append("\r\n" + "/**");
+ strCodeForCs.Append("\r\n" + "* 根据表对象, 获取关键字对象.");
+ strCodeForCs.Append("\r\n" + "* (AutoGCLib.WA_Access4TypeScript:Gen_4WA_Ts_GetObjByKeyIdAsync)");
+ strCodeForCs.Append("\r\n" + $"* @param obj{this.TabName}:表对象");
+ strCodeForCs.Append("\r\n" + "* @returns 关键字对象");
+ strCodeForCs.Append("\r\n" + "*/");
+            strCodeForCs.Append("\r\n" + $"export function {this.TabName}_GetKeyByObject(");
+              strCodeForCs.Append("\r\n" + $"obj{this.TabName}: cls{this.TabName}EN,");
+            strCodeForCs.Append("\r\n" + $"): {this.TabName}Key {{");
+                strCodeForCs.Append("\r\n" + $"if (obj{this.TabName} == null)");
+                    strCodeForCs.Append("\r\n" + "return {");
+                strCodeForCs.Append("\r\n" + "ctRelationTypeId: '',");
+    strCodeForCs.Append("\r\n" + "};");                
+                strCodeForCs.Append("\r\n" + "return {");
+                strCodeForCs.Append("\r\n" + "ctRelationTypeId: objCTRelationType.ctRelationTypeId,");
+  strCodeForCs.Append("\r\n" + "};");
+            strCodeForCs.Append("\r\n" + "}");
+
             return strCodeForCs.ToString();
         }
 

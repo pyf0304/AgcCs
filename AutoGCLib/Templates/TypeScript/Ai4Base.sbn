@@ -532,16 +532,24 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
       );
       let intCount = 0;
       for (const objInFor of arr{{ TableName }}ObjLst) {
-      {{~ if KeyTypeName == "StringAutoAddPrimaryKey" ~}}        
-        const strMaxStrId = await {{ TableName }}_GetMaxStrIdAsync();
-        objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
-        {{~ else if KeyTypeName == "StringAutoAddPrimaryKeyWithPrefix" ~}}
-        const strMaxStrId = await {{ TableName }}_GetMaxStrIdByPrefixAsync(); 
-        objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
-        {{~ end ~}}
-
+        {{~ if KeyTypeName == "StringAutoAddPrimaryKey" ~}}        
+            const strMaxStrId = await {{ TableName }}_GetMaxStrIdAsync();
+            objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
+            {{~ else if KeyTypeName == "StringAutoAddPrimaryKeyWithPrefix" ~}}
+            const strMaxStrId = await {{ TableName }}_GetMaxStrIdByPrefixAsync(); 
+            objInFor.{{ KeyFieldCamel }} = strMaxStrId; // 复制记录时，主键需要重新生成
+         {{~ end ~}}
+         objInFor.{{ NameFieldCamel }} = `${objInFor.{{ NameFieldCamel }} }_复制`; // 这里简单地在名称后面加上"_复制"，实际情况可以根据需要调整
+ 
         const returnBool = await {{ TableName }}_AddNewRecordAsync(objInFor);
         if (returnBool == true) {
+             {{~ if HasCacheMode ~}}
+                {{~ if HasCacheClassifyField ~}}
+                    {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+                {{~ else ~}}
+                    {{ TableName }}_ReFreshCache();
+                {{~ end ~}}
+            {{~ end ~}}
           intCount++;
         } else {
           const strInfo = Format('克隆记录不成功!');
@@ -601,16 +609,13 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
       {{~ end ~}}
       if (returnInt > 0) {
         {{~ if HasCacheMode ~}}
-                 {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
-     
-        {{~ end ~}}
-
+            {{~ if HasCacheClassifyField ~}}
+                {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+                {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);    
+            {{~ else ~}}
+                {{ TableName }}_ReFreshCache();
+                {{ TableName }}_DeleteKeyIdCache(this.keyId);
+            {{~ end ~}}
         {{~ end ~}}
         const strInfo = `删除${this.thisTabName}记录成功,共删除${returnInt}条记录!`;
         alert(strInfo);
@@ -690,20 +695,20 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
     
   /** 绑定表格内容并同步分页器。 */
   {{~ if IsUseFunc ~}}
-  public async BindTab_{{ TableName }}4Func(
-    divContainer: HTMLDivElement,
-    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
-  ) {
-    const strThisFuncName = this.BindTab_{{ TableName }}4Func.name;
+      public async BindTab_{{ TableName }}4Func(
+        divContainer: HTMLDivElement,
+        arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+      ) {
+        const strThisFuncName = this.BindTab_{{ TableName }}4Func.name;
   {{~ else ~}}
-  public async BindTab_{{ TableName }}(
-    divContainer: HTMLDivElement,
-    arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
-  ) {
-    const strThisFuncName = this.BindTab_{{ TableName }}.name;
+      public async BindTab_{{ TableName }}(
+        divContainer: HTMLDivElement,
+        arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>,
+      ) {
+        const strThisFuncName = this.BindTab_{{ TableName }}.name;
   {{~ end ~}}
     if (divContainer == null) {
-      alert(Format('{0}不存在!', divContainer));
+      alert(Format('{0}不存在!In {1}.{2}', divContainer, this.constructor.name, strThisFuncName));
       return;
     }
 

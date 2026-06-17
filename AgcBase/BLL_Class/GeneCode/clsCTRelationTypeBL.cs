@@ -3,7 +3,7 @@
  类名:clsCTRelationTypeBL
  表名:CTRelationType(00050645)
  * 版本:2026.05.30(服务器:PYF-AI)
- 日期:2026/06/05 05:20:53
+ 日期:2026/06/16 22:27:34
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -2925,7 +2925,7 @@ clsCTRelationTypeBL.objCommFun4BL.ReFreshCache();
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2026-06-05
+ /// 日期:2026-06-16
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3264,6 +3264,242 @@ public static string GetCode4CreateTable()
 
 
  #endregion 表操作
+
+
+ #region 排序相关函数
+
+/// <summary>
+/// 重新排序。根据分类字段：单独排序
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_ReOrder)
+/// </summary>
+/// <returns></returns>
+public static bool ReOrder( )
+{
+try
+{
+string strCondition = " 1=1 ";
+ strCondition += string.Format(" order by OrderNum ");
+List<clsCTRelationTypeEN> arrCTRelationTypeObjList = new clsCTRelationTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCTRelationTypeEN objCTRelationType in arrCTRelationTypeObjList)
+{
+objCTRelationType.OrderNum = intIndex;
+UpdateBySql2(objCTRelationType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("重序出错, {0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 调整所给关键字记录的序号。根据分类字段：单独排序
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_AdjustOrderNum)
+/// </summary>
+/// <param name="strDirect">方向：用"Up","Down"表示</param>
+/// <param name="strCtRelationTypeId">所给的关键字</param>
+/// <returns>是否成功?</returns>
+public static bool AdjustOrderNum(string strDirect, string strCtRelationTypeId  )
+{
+try
+{
+//操作步骤：
+//1、根据所给定的关键字[CtRelationTypeId],获取相应的序号[OrderNum]；
+//2、如果当前序号是否是末端序号；
+//3、如果是末端序号,就退出；
+//   3.1、如果是向下移动,判断当前序号是否“小于”当前表中的字段数,
+//	   即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+//   3.2、如果是向上移动,就判断当前序号是否“大于”1,
+//	   即不是第一条记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+//4、获取下(上)一个序号记录的关键字CtRelationTypeId
+//5、把当前关键字CtRelationTypeId所对应记录的序号加(减)1
+//6、把下(上)一个序号关键字CtRelationTypeId所对应的记录序号减(加)1
+string strMsg;
+int intOrderNum;    //当前记录的序号
+int intPrevOrderNum, intNextOrderNum;   //上下两条记录的序号
+string strPrevCtRelationTypeId = "";    //上一条序号的关键字CtRelationTypeId
+string strNextCtRelationTypeId = "";    //下一条序号的关键字CtRelationTypeId
+int intTabRecNum;       //当前表中字段的记录数
+StringBuilder sbCondition = new StringBuilder();
+//1、根据所给定的关键字[CtRelationTypeId],获取相应的序号[OrderNum]。
+
+ clsCTRelationTypeEN objCTRelationType = clsCTRelationTypeBL.GetObjByCtRelationTypeId(strCtRelationTypeId);
+
+intOrderNum = objCTRelationType.OrderNum ?? 0;//当前序号
+intPrevOrderNum = intOrderNum - 1;//前一条记录的序号
+intNextOrderNum = intOrderNum + 1;//后一条记录的序号
+//3、如果当前序号是否是末端序号,
+//		3.1 如果是末端序号,就退出,
+
+string strCondition = " 1=1 ";
+intTabRecNum = clsCTRelationTypeBL.GetRecCountByCond(clsCTRelationTypeEN._CurrTabName, strCondition);    //获取当前表的记录数
+switch (strDirect)
+{
+case "UP":
+case "Up":
+case "up":
+//3、如果是末端序号,就退出；
+//  3.2、如果是向上移动,就判断当前序号是否“大于”1,
+//	     即不是第一条记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+if (intOrderNum <= 1)
+{
+strMsg = string.Format("已经是第一条记录,不能再上移.(from {0})", clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+//		3.2 如果不是,即如果是向下移动,就判断当前序号是否“小于”当前表中的字段数,
+//		    即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+//		    如果是向上移动,就判断当前序号是否“大于”1,
+//		    即不是最开始一个记录,就准备把当前字段项的序号减1,而上一字段的序号加1。
+sbCondition.AppendFormat(" {0} = {1} ", conCTRelationType.OrderNum, intOrderNum - 1);
+//4、获取上一个序号字段的关键字CtRelationTypeId
+strPrevCtRelationTypeId = clsCTRelationTypeBL.GetFirstID_S(sbCondition.ToString());
+if (string.IsNullOrEmpty(strPrevCtRelationTypeId) == true)
+{
+strMsg = string.Format("获取上一条记录的关键字出错.(from {0})", clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+//5、把当前关键字CtRelationTypeId所对应记录的序号减1
+//6、把下(上)一个序号关键字CtRelationTypeId所对应的记录序号加1
+clsCTRelationTypeBL.SetFldValue(clsCTRelationTypeEN._CurrTabName, conCTRelationType.OrderNum,
+ 	 	intOrderNum - 1,
+  	 	string.Format("{0} = '{1}'", conCTRelationType.CtRelationTypeId, strCtRelationTypeId));
+clsCTRelationTypeBL.SetFldValue(clsCTRelationTypeEN._CurrTabName, conCTRelationType.OrderNum,
+ 	 	intPrevOrderNum + 1,
+ 	 	string.Format("{0} = '{1}'", conCTRelationType.CtRelationTypeId, strPrevCtRelationTypeId));
+break;
+case "DOWN":
+case "Down":
+case "down":
+//3、如果是末端序号,就退出；
+//   3.1、如果是向下移动,判断当前序号是否“小于”当前表中的字段数,
+//	   即不是最后一个记录,就准备把当前字段项的序号加1,而下一字段的序号减1,
+if (intOrderNum >= intTabRecNum)    //如果当前序号大于表记录数
+{
+strMsg = string.Format("已经是最后一条记录,不能再下移.(from {0})", clsStackTrace.GetCurrClassFunction());
+                            throw new Exception(strMsg);
+}
+
+//4、获取下一个序号字段的关键字CtRelationTypeId
+sbCondition.AppendFormat(" {0} = {1} ", conCTRelationType.OrderNum, intOrderNum + 1);
+
+strNextCtRelationTypeId = clsCTRelationTypeBL.GetFirstID_S(sbCondition.ToString());
+if (string.IsNullOrEmpty(strNextCtRelationTypeId) == true)
+{
+strMsg = string.Format("获取下一条记录的关键字出错.(from {0})", clsStackTrace.GetCurrClassFunction());
+
+throw new Exception(strMsg);
+}
+//5、把当前关键字CtRelationTypeId所对应记录的序号加1
+//6、把下(上)一个序号关键字CtRelationTypeId所对应的记录序号减1
+clsCTRelationTypeBL.SetFldValue(clsCTRelationTypeEN._CurrTabName, conCTRelationType.OrderNum,
+ 	 	intOrderNum + 1,
+ 	 	string.Format("{0} = '{1}'", conCTRelationType.CtRelationTypeId, strCtRelationTypeId));
+clsCTRelationTypeBL.SetFldValue(clsCTRelationTypeEN._CurrTabName, conCTRelationType.OrderNum,
+ 	 	intNextOrderNum - 1,
+ 	 	string.Format("{0} = '{1}'", conCTRelationType.CtRelationTypeId, strNextCtRelationTypeId));
+break;
+default:
+strMsg = string.Format("方向参数出错!strDirect=[{0}]({1})",
+ 	 	strDirect,
+ 	 	clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+return true;
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("调整记录次序出错!错误:[{0}]({1})",
+ 	 	objException.Message,
+ 	 	clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 把所给的关键字列表所对应的对象置顶。根据分类字段：单独排序
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_GoBottom)
+/// </summary>
+/// <param name="arrKeyId">所给的关键字列表</param>
+/// <returns></returns>
+public static bool GoBottom(List<string> arrKeyId  )
+{
+try
+{
+if (arrKeyId.Count == 0) return true;
+string strKeyList = clsArray.GetSqlInStrByArray(arrKeyId, true);
+string strCondition = string.Format("{0} in ({1})", conCTRelationType.CtRelationTypeId, strKeyList);
+List<clsCTRelationTypeEN> arrCTRelationTypeLst = GetObjLst(strCondition);
+foreach (clsCTRelationTypeEN objCTRelationType in arrCTRelationTypeLst)
+{
+objCTRelationType.OrderNum = objCTRelationType.OrderNum + 10000;
+UpdateBySql2(objCTRelationType);
+}
+strCondition = " 1=1 ";
+ strCondition += string.Format(" order by OrderNum ");
+List<clsCTRelationTypeEN> arrCTRelationTypeObjList = new clsCTRelationTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCTRelationTypeEN objCTRelationType in arrCTRelationTypeObjList)
+{
+objCTRelationType.OrderNum = intIndex;
+UpdateBySql2(objCTRelationType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("置顶出错, {0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+/// <summary>
+/// 把所给的关键字列表所对应的对象置顶。根据分类字段：单独排序
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_TabFeature_GoTop)
+/// </summary>
+/// <param name="arrKeyId">所给的关键字列表</param>
+/// <returns></returns>
+public static bool GoTop(List<string> arrKeyId  )
+{
+try
+{
+if (arrKeyId.Count == 0) return true;
+string strKeyList = clsArray.GetSqlInStrByArray(arrKeyId, true);
+string strCondition = string.Format("{0} in ({1})", conCTRelationType.CtRelationTypeId, strKeyList);
+List<clsCTRelationTypeEN> arrCTRelationTypeLst = GetObjLst(strCondition);
+foreach (clsCTRelationTypeEN objCTRelationType in arrCTRelationTypeLst)
+{
+objCTRelationType.OrderNum = objCTRelationType.OrderNum - 10000;
+UpdateBySql2(objCTRelationType);
+}
+strCondition = " 1=1 ";
+ strCondition += string.Format(" order by OrderNum ");
+List<clsCTRelationTypeEN> arrCTRelationTypeObjList = new clsCTRelationTypeDA().GetObjLst(strCondition);
+    
+int intIndex = 1;
+foreach (clsCTRelationTypeEN objCTRelationType in arrCTRelationTypeObjList)
+{
+objCTRelationType.OrderNum = intIndex;
+UpdateBySql2(objCTRelationType);
+intIndex++;
+}
+return true; 
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("置顶出错,{0}. (from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+}
+
+
+ #endregion 排序相关函数
 }
  /// <summary>
  /// CT关系类型(CTRelationType)

@@ -31,7 +31,21 @@ namespace AGC.BusinessLogicEx
         //    var objCmProject = clsCMProjectBL.GetObjByCmPrjIdCache(objFeatureRegionFldsEN.CmPrjId);
         //    return objCmProject.PrjId;
         //}
-
+        public static bool IsNumberType(this clsViewFeatureFldsEN objViewFeatureFlds)
+        {
+            switch (objViewFeatureFlds.ObjFieldTab1().ObjDataTypeAbbr().CsType)
+            {
+                case "Int":
+                case "int":
+                case "long":
+                case "float":
+                case "short":
+                case "double":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public static clsFieldTabEN ObjFieldTab1(this clsViewFeatureFldsEN objViewFeatureFldsEN)
         {
             try
@@ -937,7 +951,7 @@ namespace AGC.BusinessLogicEx
         /// <summary>
         /// 从数据源表和表功能获取选项信息（包含参数信息）
         /// </summary>
-        private static DdlOptionsInfo GetOptionsInfoFromDataSource(clsViewFeatureFldsENEx fld)
+        private static DdlOptionsInfo GetOptionsInfoFromDataSource(clsViewFeatureFldsENEx objViewFeatureFldsENEx)
         {
             try
             {
@@ -945,12 +959,12 @@ namespace AGC.BusinessLogicEx
                 List<DdlOptionParam> parameters = new List<DdlOptionParam>();
 
                 // 5. 获取字段名
-                string fldName = fld.ObjFieldTabENEx?.FldName;
+                string fldName = objViewFeatureFldsENEx.ObjFieldTabENEx?.FldName;
                 if (string.IsNullOrEmpty(fldName))
                 {
                     return null;
                 }
-                if (fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                if (objViewFeatureFldsENEx.CtlTypeId == enumCtlType.DropDownList_Bool_18)
                 {
                     optionKey = ToCamelCase(fldName) + "_f";
 
@@ -958,6 +972,9 @@ namespace AGC.BusinessLogicEx
                     {
                         Key = optionKey,
                         ControlType = "select4Bool",
+                        AuxControlType = "select4Bool",
+                        AuxControlId = objViewFeatureFldsENEx.CtrlId,
+                        AuxControlOptionsKey = optionKey,                        
                         OptionsKey = optionKey,
                         Parameters = parameters
                     };
@@ -965,14 +982,14 @@ namespace AGC.BusinessLogicEx
                     return optionInfo0;
                 }
                 // 1. 检查是否有数据源表ID
-                string dsTabId = fld.DsTabId;
+                string dsTabId = objViewFeatureFldsENEx.DsTabId;
                 if (string.IsNullOrEmpty(dsTabId))
                 {
                     return null;
                 }
 
                 // 2. 获取数据源表对象
-                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(dsTabId, fld.PrjId);
+                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(dsTabId, objViewFeatureFldsENEx.PrjId);
                 if (objDsTab == null)
                 {
                     Console.WriteLine($"找不到数据源表: {dsTabId}");
@@ -989,31 +1006,43 @@ namespace AGC.BusinessLogicEx
                 optionKey = ToCamelCase(fldName) + "_f";
 
                 // 🔥 关键修复：调用 GetDsFieldNames 获取值字段和文本字段
-                var (valueFieldName, textFieldName) = GetDsFieldNames(fld);
+                var (valueFieldName, textFieldName) = GetDsFieldNames(objViewFeatureFldsENEx);
 
                 // 6. 默认函数名
-                string functionName = $"{wApiClass}_GetArr{wApiClass}";
+                string getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}";
 
                 string strArrayVariableName = "arr" + wApiClass;
                 bool isExtendedClass = false;
                 
                 // 7. 如果有表功能ID
-                string tabFeatureId = fld.TabFeatureId4Ddl;
+                string tabFeatureId = objViewFeatureFldsENEx.TabFeatureId4Ddl;
                 if (!string.IsNullOrEmpty(tabFeatureId))
                 {
-                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(tabFeatureId, fld.PrjId);
+                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(tabFeatureId, objViewFeatureFldsENEx.PrjId);
                     if (objTabFeature != null && objTabFeature.IsForTypeScript)
                     {
                         isExtendedClass = objTabFeature.IsExtendedClass;
 
                         // 获取函数名
-                        if (!string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
+                        
+                        if (string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
                         {
-                            functionName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
-                        }
+                            var strConditionFieldName = clsTabFeatureBLEx.GetConditionFieldNameByTabFeatureId(tabFeatureId, objViewFeatureFldsENEx.PrjId);
 
+                            if (string.IsNullOrEmpty(strConditionFieldName))
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
+                            }
+                            else
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}By{strConditionFieldName}";
+                            }
+                            objTabFeature.GetDdlDataFuncName4Ex = getDdlDataFuncName;
+                            objTabFeature.Update();
+                        }
+                       
                         // 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
-                        parameters = GetFunctionParameters(fld, objTabFeature, fld.PrjId);
+                        parameters = GetFunctionParameters(objViewFeatureFldsENEx, objTabFeature, objViewFeatureFldsENEx.PrjId);
                     }
                 }
 
@@ -1023,15 +1052,21 @@ namespace AGC.BusinessLogicEx
                 // 9. 构建 DdlOptionsInfo 对象
                 var optionInfo = new DdlOptionsInfo
                 {
+                    FldId = objViewFeatureFldsENEx.ReleFldId,
                     Key = optionKey,
+                    IsNumberType = objViewFeatureFldsENEx.IsNumberType(),
                     OptionsKey = optionKey,
                     ControlType = "select",
                     ValueFieldName = valueFieldName,
                     TextFieldName = textFieldName,
+                    AuxControlId = objViewFeatureFldsENEx.CtrlId,
+                    AuxControlOptionsKey = optionKey,
+                    AuxControlType = "select",
+                    AuxControlLabel = objViewFeatureFldsENEx.LabelCaption,
                     WApiClass = wApiClass,
                     ModuleName = moduleName,
                     ArrayVariableName = strArrayVariableName,
-                    FunctionName = functionName,
+                    GetDdlDataFuncName = getDdlDataFuncName,
                     IsExtendedClass = isExtendedClass,
                     WApiPath = isExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
                     WApiFileName = isExtendedClass

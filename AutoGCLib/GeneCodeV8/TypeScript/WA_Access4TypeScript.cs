@@ -7265,8 +7265,10 @@ ThisTabName4GC);
                     {
                         strFuncName_Temp = objTabFeature.GetDdlDataFuncName4Ex;
                     }
-
-
+                    if (strFuncName_Temp.IndexOf(this.tabNameHead) == 0)
+                    {
+                        strFuncName_Temp = strFuncName_Temp.Replace(this.tabNameHead, "");
+                    }
                     sbTempFun.Append("\r\n" + $"export  async function " + this.tabNameHead + $"{strFuncName_Temp}({strFuncPara})");
                     strFuncName = $"{this.tabNameHead}{strFuncName_Temp}";
                     Re_objFunction4Code.FuncName4Code = $"export  async function " + this.tabNameHead + $"GetArr{objTabFeature4Ddl.TabName4GC}{strByCondition}( {strFuncPara})";

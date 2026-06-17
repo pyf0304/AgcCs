@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AGC.Entity;
-
-using com.taishsoft.commexception;
-using AGC.BusinessLogic;
-using com.taishsoft.common;
+﻿using AGC.BusinessLogic;
 using AGC.DAL;
-using com.taishsoft.datetime;
-using com.taishsoft.commdb;
+using AGC.Entity;
 using AGC.PureClass;
 using AGC.PureClassEx;
+using AgcCommBase;
+using com.taishsoft.commdb;
+using com.taishsoft.commexception;
+using com.taishsoft.common;
+using com.taishsoft.datetime;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text;
 //using AGC.PureClassEx;
 
 namespace AGC.BusinessLogicEx
@@ -1844,6 +1844,573 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId && x.InUse == true)
                 clsStackTrace.GetCurrClassFunction(),
                 objException.Message);
                 throw new Exception(strMsg);
+            }
+        }
+        public static List<DdlOptionsInfo> GetDdlOptionInfoLstByViewId(string strViewId, string strPrjId)
+        {
+            var arrEditRegionFldsENEx = GetObjExLstEx(strViewId, strPrjId);
+            List<DdlOptionsInfo> arrDdlOptionsInfo = GetDdlOptionInfoLst(arrEditRegionFldsENEx, strViewId);
+            return arrDdlOptionsInfo;
+        }
+
+        public static List<clsViewVariable> GetViewVariableLstByViewId(string strViewId, string strPrjId)
+        {
+            var arrEditRegionFldsENEx = GetObjExLstEx(strViewId, strPrjId);
+            List<clsViewVariable> arrDdlOptionsInfo = GetViewVariableLst(arrEditRegionFldsENEx, strViewId, strPrjId);
+            return arrDdlOptionsInfo;
+        }
+
+        public static List<clsViewVariable> GetViewVariableLst(List<clsEditRegionFldsENEx> arrEditRegionFldsENEx, string strViewId, string strPrjId)
+        {
+            List<clsViewVariable> arrViewVariable = new List<clsViewVariable>();
+
+            try
+            {
+                // 1. 筛选出下拉框类型且非布尔类型的字段
+                var arrViewVarFields = arrEditRegionFldsENEx
+                    .Where(x => x.CtlTypeId == enumCtlType.ViewVariable_38
+                             && x.InUse == true)
+                    .ToList();
+
+                // 2. 对每个下拉框字段生成选项信息
+                foreach (var fld in arrViewVarFields)
+                {
+                    try
+                    {
+                        var optionInfo = GetViewVariableFromDataSource(fld, strViewId, strPrjId);
+                        if (optionInfo != null)
+                        {
+                            arrViewVariable.Add(optionInfo);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"处理下拉框字段 {fld.FldId} 时出错: {ex.Message}");
+                    }
+                }
+
+                // 3. 去重：按 Key 分组，每个 Key 只保留一个
+                var uniqueOptions = arrViewVariable
+                    .GroupBy(x => x.VarId)
+                    .Select(g => g.First())
+                    .ToList();
+
+                return uniqueOptions;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("获取下拉框选项信息列表出错,{1}.({0})",
+                    clsStackTrace.GetCurrClassFunction(),
+                    objException.Message);
+                throw new Exception(strMsg);
+            }
+        }
+
+        private static clsViewVariable GetViewVariableFromDataSource(clsEditRegionFldsENEx objEditRegionFldsENEx, string strViewId, string strPrjId)
+        {
+            try
+            {
+                
+
+
+                // 5. 获取字段名
+                string fldName = objEditRegionFldsENEx.ObjFieldTabENEx?.FldName;
+                if (string.IsNullOrEmpty(fldName))
+                {
+                    return null;
+                }
+               
+               
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(strViewId, strPrjId);
+
+               
+                if (string.IsNullOrEmpty(fldName))
+                {
+                    return null;
+                }
+               
+                    
+                string strSharedVarName = arrViewVariable.Find(x => x.VarId == objEditRegionFldsENEx.VarId)?.VariableName;
+                                           
+                                           
+
+                        // 7. 如果有表功能ID
+                        string tabFeatureId = objEditRegionFldsENEx.TabFeatureId4Ddl;
+              
+                // 9. 构建 clsViewVariable 对象
+                var optionInfo = new clsViewVariable
+                {
+                    FldId = objEditRegionFldsENEx.FldId,
+                    SharedVarName = strSharedVarName,
+                    VarId = objEditRegionFldsENEx.VarId,
+                    IsNumberType = objEditRegionFldsENEx.IsNumberType(),
+                    FldName = objEditRegionFldsENEx?.FldName,
+                };
+
+                return optionInfo;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"获取选项信息失败: {ex.Message}\n{ex.StackTrace}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 根据查询区域字段列表获取下拉框选项信息列表
+        /// </summary>
+        /// <param name="arrEditRegionFldsENEx">查询区域字段扩展对象列表</param>
+        /// <returns>下拉框选项信息列表</returns>
+        public static List<DdlOptionsInfo> GetDdlOptionInfoLst(List<clsEditRegionFldsENEx> arrEditRegionFldsENEx, string strViewId)
+        {
+            List<DdlOptionsInfo> arrDdlOptionsInfo = new List<DdlOptionsInfo>();
+
+            try
+            {
+                // 1. 筛选出下拉框类型且非布尔类型的字段
+                var arrDropDownFields = arrEditRegionFldsENEx
+                    .Where(x => x.CtlTypeId == enumCtlType.DropDownList_06
+                             && x.InUse == true
+                             && x.DdlItemsOptionId != enumDDLItemsOption.TrueAndFalseList_04)
+                    .ToList();
+
+                // 2. 对每个下拉框字段生成选项信息
+                foreach (var fld in arrDropDownFields)
+                {
+                    try
+                    {
+                        var optionInfo = GetOptionsInfoFromDataSource(fld, strViewId);
+                        if (optionInfo != null)
+                        {
+                            arrDdlOptionsInfo.Add(optionInfo);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"处理下拉框字段 {fld.FldId} 时出错: {ex.Message}");
+                    }
+                }
+
+                // 3. 去重：按 Key 分组，每个 Key 只保留一个
+                var uniqueOptions = arrDdlOptionsInfo
+                    .GroupBy(x => x.Key)
+                    .Select(g => g.First())
+                    .ToList();
+
+                return uniqueOptions;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("获取下拉框选项信息列表出错,{1}.({0})",
+                    clsStackTrace.GetCurrClassFunction(),
+                    objException.Message);
+                throw new Exception(strMsg);
+            }
+        }
+        /// <summary>
+        /// 从数据源表和表功能获取选项信息（包含参数信息）
+        /// </summary>
+        private static DdlOptionsInfo GetOptionsInfoFromDataSource(clsEditRegionFldsENEx objEditRegionFldsENEx, string strViewId)
+        {
+            try
+            {
+                string optionKey = "";
+                List<DdlOptionParam> parameters = new List<DdlOptionParam>();
+
+                // 5. 获取字段名
+                string fldName = objEditRegionFldsENEx.ObjFieldTabENEx?.FldName;
+                if (string.IsNullOrEmpty(fldName))
+                {
+                    return null;
+                }
+                if (objEditRegionFldsENEx.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                {
+                    optionKey = ToCamelCase(fldName) ;
+
+                    var optionInfo0 = new DdlOptionsInfo
+                    {
+                        Key = optionKey,
+                        ControlType = "select4Bool",
+                        OptionsKey = optionKey,
+                        Parameters = parameters
+                    };
+
+                    return optionInfo0;
+                }
+                // 1. 检查是否有数据源表ID
+                string dsTabId = objEditRegionFldsENEx.DsTabId;
+                if (string.IsNullOrEmpty(dsTabId))
+                {
+                    return null;
+                }
+
+                // 2. 获取数据源表对象
+                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(dsTabId, objEditRegionFldsENEx.PrjId);
+                if (objDsTab == null)
+                {
+                    Console.WriteLine($"找不到数据源表: {dsTabId}");
+                    return null;
+                }
+
+                // 3. 获取表的功能模块
+                var objFuncModule = objDsTab.ObjFuncModule();
+                string moduleName = objFuncModule?.FuncModuleEnName ?? "SysPara";
+
+                // 4. WApi 类名 = 数据源表名
+                string wApiClass = objDsTab.TabName;
+
+                if (string.IsNullOrEmpty(fldName))
+                {
+                    return null;
+                }
+                // 🔥 关键修复：调用 GetDsFieldNames 获取值字段和文本字段
+                var (valueFieldName, textFieldName) = GetDsFieldNames(objEditRegionFldsENEx);
+
+                // 6. 默认函数名
+                string getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}";
+                string strArrayVariableName = "arr" + wApiClass;
+                bool isExtendedClass = false;
+
+                // 7. 如果有表功能ID
+                string tabFeatureId = objEditRegionFldsENEx.TabFeatureId4Ddl;
+                if (!string.IsNullOrEmpty(tabFeatureId))
+                {
+                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(tabFeatureId, objEditRegionFldsENEx.PrjId);
+                    if (objTabFeature != null && objTabFeature.IsForTypeScript)
+                    {
+                        isExtendedClass = objTabFeature.IsExtendedClass;
+
+                        // 获取函数名
+                        if (string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
+                        {
+                            var strConditionFieldName = clsTabFeatureBLEx.GetConditionFieldNameByTabFeatureId(tabFeatureId, objEditRegionFldsENEx.PrjId);
+
+                            if (string.IsNullOrEmpty(strConditionFieldName))
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
+                            }
+                            else
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}By{strConditionFieldName}";
+                            }
+                            objTabFeature.GetDdlDataFuncName4Ex = getDdlDataFuncName;
+                            objTabFeature.Update();
+                        }
+                        else
+                        {
+                            getDdlDataFuncName = objTabFeature.GetDdlDataFuncName4Ex;
+                        }
+                        // 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
+                        parameters = GetFunctionParameters(objEditRegionFldsENEx, objTabFeature, strViewId, objEditRegionFldsENEx.PrjId);
+                    }
+                }
+
+                // 8. 生成选项键（转为驼峰命名）
+                optionKey = ToCamelCase(fldName) ;
+
+                // 9. 构建 DdlOptionsInfo 对象
+                var optionInfo = new DdlOptionsInfo
+                {
+                    FldId = objEditRegionFldsENEx.FldId,
+                    Key = optionKey,
+                    IsNumberType = objEditRegionFldsENEx.IsNumberType(),
+                    ControlType = "select",
+                    OptionsKey = optionKey,
+                    ValueFieldName = valueFieldName,
+                    TextFieldName = textFieldName,
+                    WApiClass = wApiClass,
+                    ArrayVariableName = strArrayVariableName,
+                    ModuleName = moduleName,
+                    GetDdlDataFuncName = getDdlDataFuncName,
+                    IsExtendedClass = isExtendedClass,
+                    WApiPath = isExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
+                    WApiFileName = isExtendedClass
+                        ? $"cls{wApiClass}ExWApi"
+                        : $"cls{wApiClass}WApi",
+                    Parameters = parameters
+                };
+
+                return optionInfo;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"获取选项信息失败: {ex.Message}\n{ex.StackTrace}");
+                return null;
+            }
+        }
+        /// <summary>
+        /// 将字符串转换为驼峰命名（首字母小写）
+        /// </summary>
+        private static string ToCamelCase(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+
+            // 首字母转小写
+            return char.ToLower(str[0]) + str.Substring(1);
+        }
+        /// <summary>
+        /// 从查询字段的条件变量获取参数信息
+        /// </summary>
+        private static List<DdlOptionParam> GetFunctionParameters(clsEditRegionFldsENEx fld, clsTabFeatureEN objTabFeature, string strViewId, string strPrjId)
+        {
+            var parameters = new List<DdlOptionParam>();
+
+            try
+            {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(strViewId, strPrjId);
+
+                // 从查询字段的条件变量字段获取参数
+                var conditionVarIds = new List<(string VarId, int Order, string FldId)>();
+
+                // 检查 VarIdCond1
+                if (!string.IsNullOrEmpty(fld.VarIdCond1))
+                {
+                    conditionVarIds.Add((fld.VarIdCond1, 1, fld.FldIdCond1));
+                }
+
+                // 检查 VarIdCond2
+                if (!string.IsNullOrEmpty(fld.VarIdCond2))
+                {
+                    conditionVarIds.Add((fld.VarIdCond2, 2, fld.FldIdCond2));
+                }
+
+                if (conditionVarIds.Count == 0)
+                {
+                    return parameters;
+                }
+
+                // 按顺序处理每个条件变量
+                foreach (var (varId, order, fldId) in conditionVarIds.OrderBy(x => x.Order))
+                {
+                    try
+                    {
+                        // 从 GCVariable 获取变量对象
+                        var objVariable = clsGCVariableBLEx.GetObjByVarIdCache(varId);
+                        if (objVariable != null)
+                        {
+                            // 构建共享变量名：去掉 "str" 前缀，加上 "_Static" 后缀
+                            string sharedVarName = arrViewVariable.Find(x => x.VarId == varId)?.VariableName;
+
+                            // 获取字段名（用于生成参数名）
+                            string paramName = null;
+                            if (!string.IsNullOrEmpty(fldId))
+                            {
+                                var objFieldTab = clsFieldTabBL.GetObjByFldIdCache(fldId, strPrjId);
+                                if (objFieldTab != null)
+                                {
+                                    paramName = ToCamelCase(objFieldTab.FldName);
+                                }
+                            }
+
+                            // 构建参数信息
+                            var param = new DdlOptionParam
+                            {
+                                ParamName = paramName ?? ToCamelCase(objVariable.VarName),
+                                SharedVarName = sharedVarName,
+                                FldId = fldId,
+                                VarId = varId
+                            };
+
+                            parameters.Add(param);
+
+                            //判断当前下拉框数据源表是否为缓存的表，如果是的话，参数中需要再添加一个变量
+                            if (string.IsNullOrEmpty(fld.DsTabId) == false)
+                            {
+                                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(fld.DsTabId, fld.PrjId);
+                                if (objDsTab != null && objDsTab.IsHasCacheClassifyFldTS())
+                                {
+                                    List<CacheClassify4Tab> arrCacheClassify4Tab = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(fld.DsTabId, fld.PrjId);
+                                    foreach (var cacheClassify in arrCacheClassify4Tab)
+                                    {
+                                        string strSharedVarName = arrViewVariable.Find(x => x.VarId == cacheClassify.ParaVarId_TS)?.VariableName;
+                                        var cacheParam = new DdlOptionParam
+                                        {
+                                            ParamName = ToCamelCase(cacheClassify.FldName),
+                                            SharedVarName = strSharedVarName,
+                                            FldId = cacheClassify.FldId,
+                                            VarId = cacheClassify.ParaVarId_TS
+                                        };
+                                        parameters.Add(cacheParam);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"处理条件变量失败: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"获取函数参数失败: {ex.Message}\n{ex.StackTrace}");
+            }
+
+            return parameters;
+        }
+        /// <summary>
+        /// 🔥 修正：获取数据源的值字段名和文本字段名
+        /// 从 EditRegionFlds.TabFeatureId4Ddl → TabFeature → TabFeatureFlds 中获取
+        /// </summary>
+        private static (string ValueFieldName, string TextFieldName) GetDsFieldNames(clsEditRegionFldsENEx field)
+        {
+            try
+            {
+                // 如果是布尔类型的下拉框，返回固定值
+                if (field.DdlItemsOptionId == enumDDLItemsOption.TrueAndFalseList_04)
+                {
+                    return ("value", "text");
+                }
+
+                if (!IsSelectControl(field))
+                {
+                    return (null, null);
+                }
+
+                // 🔥 核心逻辑：通过 TabFeatureId4Ddl 直接找到 TabFeature
+                if (string.IsNullOrEmpty(field.TabFeatureId4Ddl))
+                {
+                    Console.WriteLine($"  ⚠️ 字段 {field.FldName()} 未配置 TabFeatureId4Ddl");
+                    return GetDefaultFieldNames(field);
+                }
+
+                // 1. 获取 TabFeature 对象（不需要通过名称查找，直接通过ID获取）
+                var tabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(field.TabFeatureId4Ddl, field.PrjId);
+                if (tabFeature == null)
+                {
+                    Console.WriteLine($"  ⚠️ 未找到 TabFeatureId: {field.TabFeatureId4Ddl}");
+                    return GetDefaultFieldNames(field);
+                }
+
+                // 2. 获取该 TabFeature 的字段配置
+                var arrTabFeatureFlds = clsTabFeatureFldsBL.GetObjLstCache(field.PrjId)
+                    .Where(x => x.TabFeatureId == field.TabFeatureId4Ddl)
+                    .ToList();
+
+                if (arrTabFeatureFlds == null || arrTabFeatureFlds.Count == 0)
+                {
+                    Console.WriteLine($"  ⚠️ TabFeature {tabFeature.TabFeatureName} 未配置字段");
+                    return GetDefaultFieldNames(field);
+                }
+
+                // 3. 查找值字段（KeyField_01）和文本字段（TextField_02）
+                var valueFieldConfig = arrTabFeatureFlds.FirstOrDefault(x => x.FieldTypeId == enumFieldType.KeyField_02);
+                var textFieldConfig = arrTabFeatureFlds.FirstOrDefault(x => x.FieldTypeId == enumFieldType.NameField_03);
+
+                if (valueFieldConfig == null || textFieldConfig == null)
+                {
+                    Console.WriteLine($"  ⚠️ TabFeatureFlds 中未找到值字段或文本字段配置");
+                    Console.WriteLine($"     TabFeature: {tabFeature.TabFeatureName}");
+                    Console.WriteLine($"     TabFeatureFlds 数量: {arrTabFeatureFlds.Count}");
+                    Console.WriteLine($"     valueFieldConfig: {valueFieldConfig != null}");
+                    Console.WriteLine($"     textFieldConfig: {textFieldConfig != null}");
+                    return GetDefaultFieldNames(field);
+                }
+
+                // 4. 获取字段对象
+                var valueFieldObj = clsFieldTabBL.GetObjByFldIdCache(valueFieldConfig.FldId, field.PrjId);
+                var textFieldObj = clsFieldTabBL.GetObjByFldIdCache(textFieldConfig.FldId, field.PrjId);
+
+                if (valueFieldObj == null || textFieldObj == null)
+                {
+                    Console.WriteLine($"  ⚠️ 字段对象获取失败");
+                    Console.WriteLine($"     valueFieldObj: {valueFieldObj != null} (FldId: {valueFieldConfig.FldId})");
+                    Console.WriteLine($"     textFieldObj: {textFieldObj != null} (FldId: {textFieldConfig.FldId})");
+                    return GetDefaultFieldNames(field);
+                }
+
+                // 5. 转换为 camelCase
+                string valueFieldName = ToCamelCase(valueFieldObj.FldName);
+                string textFieldName = ToCamelCase(textFieldObj.FldName);
+
+                Console.WriteLine($"  ✅ 下拉框字段: {field.FldName()}");
+                Console.WriteLine($"     TabFeature: {tabFeature.TabFeatureName} (ID: {field.TabFeatureId4Ddl})");
+                Console.WriteLine($"     数据源表: {field.DsTabId}");
+                Console.WriteLine($"     值字段: {valueFieldName} (来源: {valueFieldObj.FldName})");
+                Console.WriteLine($"     文本字段: {textFieldName} (来源: {textFieldObj.FldName})");
+
+                return (valueFieldName, textFieldName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"  ❌ 获取数据源字段名失败: {ex.Message}");
+                Console.WriteLine($"  堆栈跟踪: {ex.StackTrace}");
+                return GetDefaultFieldNames(field);
+            }
+        }
+        /// <summary>
+        /// 🔥 新增：获取默认字段名（回退方案）
+        /// 例如：FunctionTemplate → functionTemplateId / functionTemplateName
+        /// </summary>
+        private static (string ValueFieldName, string TextFieldName) GetDefaultFieldNames(clsEditRegionFldsENEx field)
+        {
+            var wApiClass = GetOptionsWApiClass(field);
+            if (!string.IsNullOrEmpty(wApiClass))
+            {
+                string defaultValueField = ToCamelCase(wApiClass) + "Id";
+                string defaultTextField = ToCamelCase(wApiClass) + "Name";
+
+                Console.WriteLine($"  ⚠️ 使用默认命名: {field.FldName()} → {defaultValueField} / {defaultTextField}");
+
+                return (defaultValueField, defaultTextField);
+            }
+
+            return (null, null);
+        }
+        /// <summary>
+        /// 判断查询字段是否为下拉框控件
+        /// </summary>
+        private static bool IsSelectControl(clsEditRegionFldsENEx field)
+        {
+            if (field == null) return false;
+
+            string ctlTypeName = field.CtlTypeENName?.Trim() ?? string.Empty;
+            if (string.IsNullOrEmpty(ctlTypeName)) return false;
+
+            ctlTypeName = ctlTypeName.ToLowerInvariant();
+
+            return ctlTypeName == "select"
+                || ctlTypeName == "ddl"
+                || ctlTypeName == "dropdownlist"
+                || ctlTypeName == "combobox"
+                || ctlTypeName == "combo";
+        }
+        /// <summary>
+        /// 🔥 修改：获取选项数据源的 WApi 类名
+        /// 需要与 Ai3Query 中的逻辑一致，基于数据源表名
+        /// </summary>
+        private static string GetOptionsWApiClass(clsEditRegionFldsENEx field)
+        {
+            if (!IsSelectControl(field)) return null;
+            if (field.DdlItemsOptionId == enumDDLItemsOption.TrueAndFalseList_04) return null;
+            try
+            {
+                // 🔥 如果有数据源表ID，使用表名作为 WApi 类名
+                if (!string.IsNullOrEmpty(field.DsTabId))
+                {
+                    var objDsTab = clsPrjTabBL.GetObjByTabIdCache(field.DsTabId, field.PrjId);
+                    if (objDsTab != null)
+                    {
+                        return objDsTab.TabName;  // 返回表名，如 FunctionTemplate, RegionType
+                    }
+                }
+
+                // 🔥 回退逻辑：从字段名推断
+                string fieldName = field.FldName();
+                if (fieldName.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
+                {
+                    fieldName = fieldName.Substring(0, fieldName.Length - 2);
+                }
+                return char.ToUpper(fieldName[0]) + fieldName.Substring(1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"获取 WApi 类名失败: {ex.Message}");
+                return null;
             }
         }
     }

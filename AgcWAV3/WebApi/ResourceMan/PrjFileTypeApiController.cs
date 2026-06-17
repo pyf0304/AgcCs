@@ -1,9 +1,9 @@
 ﻿
  /*-- -- -- -- -- -- -- -- -- -- --
- 类名:FileResourceApiController
- 表名:FileResource(00050539)
+ 类名:PrjFileTypeApiController
+ 表名:PrjFileType(00050649)
  * 版本:2026.05.30(服务器:WIN-SRV103-116)
- 日期:2026/06/13 17:47:39
+ 日期:2026/06/16 15:53:05
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -36,40 +36,40 @@ using Newtonsoft.Json.Linq; using Comm.WebApi;
 namespace AGC.WebApi
 {
  /// <summary>
- /// FileResourceController 的摘要说明
+ /// PrjFileTypeController 的摘要说明
  /// (AutoGCLib.WA_Srv4CSharp:GeneCode)
  /// </summary>
 [ApiController]
 [Route("[controller]")]
 [ApiExplorerSettings(IgnoreApi = true)]
-public class  FileResourceApiController : ControllerBase
+public class  PrjFileTypeApiController : ControllerBase
 { 
 
  /// <summary>
  /// 获取当前关键字的记录对象,用对象的形式表示.
- /// 调用方法: GET /api/FileResourceApi/GetObjByFileResourceId?FileResourceId=value
+ /// 调用方法: GET /api/PrjFileTypeApi/GetObjByPrjFileTypeId?PrjFileTypeId=value
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjByKeyId)
  /// </summary>
- /// <param name = "lngFileResourceId">表关键字</param>
+ /// <param name = "strPrjFileTypeId">表关键字</param>
  /// <returns>表对象</returns>
-[HttpGet("GetObjByFileResourceId")]
-public ActionResult GetObjByFileResourceId(long lngFileResourceId)
+[HttpGet("GetObjByPrjFileTypeId")]
+public ActionResult GetObjByPrjFileTypeId(string strPrjFileTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["lngFileResourceId"] = lngFileResourceId.ToString(),
+["strPrjFileTypeId"] = strPrjFileTypeId,
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (lngFileResourceId <= 0)
+ if (string.IsNullOrEmpty(strPrjFileTypeId) == true)
  {
 string strMsg = string.Format("根据关键字获取对象时,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-clsFileResourceEN objFileResourceEN = clsFileResourceBL.GetObjByFileResourceId(lngFileResourceId);
-return Ok(new { errorId = 0, errorMsg = "", returnObj = objFileResourceEN });
+clsPrjFileTypeEN objPrjFileTypeEN = clsPrjFileTypeBL.GetObjByPrjFileTypeId(strPrjFileTypeId);
+return Ok(new { errorId = 0, errorMsg = "", returnObj = objPrjFileTypeEN });
  }
  catch (Exception objException)
  {
@@ -81,7 +81,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据条件获取对象列表
- /// 调用方法: GET /api/FileResourceApi/GetObjLst?strWhereCond=v1&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetObjLst?strWhereCond=v1&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
@@ -103,8 +103,8 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-List<clsFileResourceEN> arrFileResourceObjLst = clsFileResourceBL.GetObjLst(strWhereCond);
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+List<clsPrjFileTypeEN> arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetObjLst(strWhereCond);
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
  catch (Exception objException)
  {
@@ -116,7 +116,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据条件获取对象列表
- /// 调用方法: GET /api/FileResourceApi/GetObjLst_Cache?
+ /// 调用方法: GET /api/PrjFileTypeApi/GetObjLst_Cache?
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstCache)
  /// </summary>
  /// <returns>返回对象列表</returns>
@@ -130,8 +130,8 @@ Dictionary<string, string> dictParam = new()
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
-List<clsFileResourceEN> arrFileResourceObjLst = clsFileResourceBL.GetObjLstCache();
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+List<clsPrjFileTypeEN> arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetObjLstCache();
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
  catch (Exception objException)
  {
@@ -143,31 +143,30 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表
- /// 调用方法: POST /api/FileResourceapi/GetObjLstByFileResourceIdLst
+ /// 调用方法: POST /api/PrjFileTypeapi/GetObjLstByPrjFileTypeIdLst
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstByKeyLst)
  /// </summary>
- /// <param name = "arrFileResourceIdLst">所给的关键字</param>
+ /// <param name = "arrPrjFileTypeIdLst">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-[HttpPost("GetObjLstByFileResourceIdLst")]
-public ActionResult GetObjLstByFileResourceIdLst([FromBody]string[] arrFileResourceId)
+[HttpPost("GetObjLstByPrjFileTypeIdLst")]
+public ActionResult GetObjLstByPrjFileTypeIdLst([FromBody]string[] arrPrjFileTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrFileResourceId);
-dictParam.Add("arrFileResourceId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrPrjFileTypeId);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-if (arrFileResourceId.Length == 0)
+if (arrPrjFileTypeId.Length == 0)
 {
 string strMsg = string.Format("根据关键字列表串获取对象列表时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
 return Ok(new { errorId = 1, errorMsg = strMsg });
 }
-List<string> lstFileResourceId_Str = new List<string>(arrFileResourceId);
-List<long> lstFileResourceId = lstFileResourceId_Str.Select(x=>long.Parse(x)).ToList();
+List<string> lstPrjFileTypeId = new(arrPrjFileTypeId);
  try
  {
-List<clsFileResourceEN> arrFileResourceObjLst = clsFileResourceBL.GetObjLstByFileResourceIdLst(lstFileResourceId);
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+List<clsPrjFileTypeEN> arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetObjLstByPrjFileTypeIdLst(lstPrjFileTypeId);
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
  catch (Exception objException)
  {
@@ -179,31 +178,30 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表
- /// 调用方法: POST /api/FileResourceapi/GetObjLstByFileResourceIdLst
+ /// 调用方法: POST /api/PrjFileTypeapi/GetObjLstByPrjFileTypeIdLst
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstByKeyLstCache)
  /// </summary>
- /// <param name = "arrFileResourceIdLst">所给的关键字</param>
+ /// <param name = "arrPrjFileTypeIdLst">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-[HttpPost("GetObjLstByFileResourceIdLstCache")]
-public ActionResult GetObjLstByFileResourceIdLstCache([FromBody]string[] arrFileResourceId)
+[HttpPost("GetObjLstByPrjFileTypeIdLstCache")]
+public ActionResult GetObjLstByPrjFileTypeIdLstCache([FromBody]string[] arrPrjFileTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrFileResourceId);
-dictParam.Add("arrFileResourceId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrPrjFileTypeId);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-if (arrFileResourceId.Length == 0)
+if (arrPrjFileTypeId.Length == 0)
 {
 string strMsg = string.Format("根据关键字列表串获取对象列表时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
 return Ok(new { errorId = 1, errorMsg = strMsg });
 }
-List<string> lstFileResourceId_Str = new List<string>(arrFileResourceId);
-List<long> lstFileResourceId = lstFileResourceId_Str.Select(x=>long.Parse(x)).ToList();
+List<string> lstPrjFileTypeId = new(arrPrjFileTypeId);
  try
  {
-IEnumerable<clsFileResourceEN> arrFileResourceObjLst = clsFileResourceBL.GetObjLstByFileResourceIdLstCache(lstFileResourceId);
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+IEnumerable<clsPrjFileTypeEN> arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetObjLstByPrjFileTypeIdLstCache(lstPrjFileTypeId);
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
  catch (Exception objException)
  {
@@ -215,7 +213,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据条件获取顶部对象列表
- /// 调用方法: GET /api/FileResourceApi/GetTopObjLst?intTopSize=v1&strOrderBy=v2&strWhereCond=v3&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetTopObjLst?intTopSize=v1&strOrderBy=v2&strWhereCond=v3&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetTopObjLst)
  /// </summary>
  /// <param name = "objTopPara">获取顶部对象列表的参数对象</param>
@@ -239,8 +237,8 @@ clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
  }
  try
  {
-List<clsFileResourceEN> arrFileResourceObjLst = clsFileResourceBL.GetTopObjLst(objTopPara);
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+List<clsPrjFileTypeEN> arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetTopObjLst(objTopPara);
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
  catch (Exception objException)
  {
@@ -252,7 +250,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的关键字值
- /// 调用方法: GET /api/FileResourceApi/GetFirstID?strWhereCond=v1&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetFirstID?strWhereCond=v1&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetFirstID)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
@@ -272,11 +270,11 @@ clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
 string strMsg = string.Format("根据条件获取第一条记录的关键字值时,条件不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
- long lngFileResourceId;
+ string strPrjFileTypeId;
  try
  {
- lngFileResourceId = clsFileResourceBL.GetFirstID_S(strWhereCond);
-return Ok(new { errorId = 0, errorMsg = "", returnStr = lngFileResourceId });
+ strPrjFileTypeId = clsPrjFileTypeBL.GetFirstID_S(strWhereCond);
+return Ok(new { errorId = 0, errorMsg = "", returnStr = strPrjFileTypeId });
  }
  catch (Exception objException)
  {
@@ -288,7 +286,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的对象
- /// 调用方法: GET /api/FileResourceApi/GetFirstObj?strWhereCond=v1&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetFirstObj?strWhereCond=v1&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetFirstObj)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
@@ -310,8 +308,8 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
- clsFileResourceEN objFileResourceEN = clsFileResourceBL.GetFirstObj_S(strWhereCond);
-return Ok(new { errorId = 0, errorMsg = "", returnObj = objFileResourceEN });
+ clsPrjFileTypeEN objPrjFileTypeEN = clsPrjFileTypeBL.GetFirstObj_S(strWhereCond);
+return Ok(new { errorId = 0, errorMsg = "", returnObj = objPrjFileTypeEN });
  }
  catch (Exception objException)
  {
@@ -323,7 +321,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据条件分页获取JSON对象列表
- /// 调用方法: GET /api/FileResourceApi/GetObjLstByPager?intPageIndex=v1&intPageSize=v2&strOrderBy=v3&strWhereCond=v4&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetObjLstByPager?intPageIndex=v1&intPageSize=v2&strOrderBy=v3&strWhereCond=v4&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstByPager)
  /// </summary>
  /// <param name = "objPagerPara">分页获取记录的参数对象</param>
@@ -350,10 +348,10 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 string strMsg = string.Format("根据条件分页获取JSON对象列表,页序号:[{0}]不能小于等于0!({1})", objPagerPara.pageIndex, clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
- List<clsFileResourceEN> arrFileResourceObjLst;
+ List<clsPrjFileTypeEN> arrPrjFileTypeObjLst;
  try
  {
- arrFileResourceObjLst = clsFileResourceBL.GetObjLstByPager(objPagerPara);
+ arrPrjFileTypeObjLst = clsPrjFileTypeBL.GetObjLstByPager(objPagerPara);
  }
  catch (Exception objException)
  {
@@ -361,12 +359,12 @@ string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackT
 clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
-return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrFileResourceObjLst });
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrPrjFileTypeObjLst });
  }
 
  /// <summary>
  /// 功能:获取某一条件的记录数
- /// 调用方法: GET /api/FileResourceApi/GetRecCountByCond?strWhereCond=v1&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetRecCountByCond?strWhereCond=v1&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetRecCountByCond)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
@@ -388,7 +386,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intCount = clsFileResourceBL.GetRecCountByCond(strWhereCond);
+int intCount = clsPrjFileTypeBL.GetRecCountByCond(strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intCount });
  }
  catch (Exception objException)
@@ -401,7 +399,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类相关。
- /// 调用方法: GET /api/FileResourceApi/GetFldValue?strWhereCond=v1&strFldName=v2&strTabName=v3&
+ /// 调用方法: GET /api/PrjFileTypeApi/GetFldValue?strWhereCond=v1&strFldName=v2&strTabName=v3&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetFldValue)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
@@ -425,7 +423,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-List<string> arrList = clsFileResourceBL.GetFldValue(strFldName, strWhereCond);
+List<string> arrList = clsPrjFileTypeBL.GetFldValue(strFldName, strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnStrLst = string.Join(",", arrList) });
  }
  catch (Exception objException)
@@ -438,7 +436,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类相关。
- /// 调用方法: GET /api/FileResourceApi/funSetFldValue?strCondition=v1&strFldName=v2&strTabName=v3&varValue=v4&
+ /// 调用方法: GET /api/PrjFileTypeApi/funSetFldValue?strCondition=v1&strFldName=v2&strTabName=v3&varValue=v4&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_funSetFldValue)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
@@ -464,7 +462,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
  try
  {
-int intRecCount = clsFileResourceBL.SetFldValue(clsFileResourceEN._CurrTabName, strFldName, strValue, strWhereCond);
+int intRecCount = clsPrjFileTypeBL.SetFldValue(clsPrjFileTypeEN._CurrTabName, strFldName, strValue, strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecCount });
  }
  catch (Exception objException)
@@ -477,7 +475,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:判断是否存在某一条件的记录
- /// 调用方法: GET /api/FileResourceApi/IsExistRecord?strWhereCond=v1&
+ /// 调用方法: GET /api/PrjFileTypeApi/IsExistRecord?strWhereCond=v1&
  /// (AutoGCLib.WA_Srv4CSharp:Gen_IsExistRecordByCond)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
@@ -499,7 +497,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-bool bolIsExist = clsFileResourceBL.IsExistRecord(strWhereCond);
+bool bolIsExist = clsPrjFileTypeBL.IsExistRecord(strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolIsExist });
  }
  catch (Exception objException)
@@ -512,28 +510,28 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 判断当前表中是否存在给定关键字值的记录
- /// 调用方法: GET /api/FileResourceApi/IsExist?FileResourceId=value
+ /// 调用方法: GET /api/PrjFileTypeApi/IsExist?PrjFileTypeId=value
  /// (AutoGCLib.WA_Srv4CSharp:Gen_IsExist)
  /// </summary>
- /// <param name = "lngFileResourceId">给定的关键字值</param>
+ /// <param name = "strPrjFileTypeId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
 [HttpGet("IsExist")]
-public ActionResult IsExist(long lngFileResourceId)
+public ActionResult IsExist(string strPrjFileTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["lngFileResourceId"] = lngFileResourceId.ToString()
+["strPrjFileTypeId"] = strPrjFileTypeId
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (lngFileResourceId <= 0)
+ if (string.IsNullOrEmpty(strPrjFileTypeId) == true)
  {
 string strMsg = string.Format("判断表中是否存在给定关键字的记录时,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-bool bolIsExist = clsFileResourceBL.IsExist(lngFileResourceId);
+bool bolIsExist = clsPrjFileTypeBL.IsExist(strPrjFileTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolIsExist });
  }
  catch (Exception objException)
@@ -545,39 +543,65 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
 
  /// <summary>
- /// 通过JSON对象来添加记录对象
- /// 调用方法: POST /api/FileResourceApi/AddNewRecord
- /// 在Body区传输objFileResourceEN的JSON对象
- /// (AutoGCLib.WA_Srv4CSharp:Gen_AddNewRecord)
+ /// 获取当前表关键字值的最大值,再加1,避免重复
+ /// 调用方法: GET /api/PrjFileTypeApi/GetMaxStrId?
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GetMaxStrId)
  /// </summary>
- /// <param name = "objFileResourceEN">对象</param>
- /// <returns>是否成功</returns>
-[HttpPost("AddNewRecord")]
-public ActionResult AddNewRecord([FromBody]clsFileResourceEN objFileResourceEN)
+ /// <returns>当前表关键字值的最大值,再加1</returns>
+[HttpGet("GetMaxStrId")]
+public ActionResult GetMaxStrId()
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-string strFileResourceJSONObj = clsJSON.GetJsonFromObj(objFileResourceEN);
-dictParam.Add("strFileResourceJSONObj", strFileResourceJSONObj);
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
-clsFileResourceEN objFileResourceCond = new();
-string strCondition = objFileResourceCond
-.SetPrjId(objFileResourceEN.PrjId, "=")
-.SetCmPrjId(objFileResourceEN.CmPrjId, "=")
-.SetFileDirName(objFileResourceEN.FileDirName, "=")
-.SetFileName(objFileResourceEN.FileName, "=")
+string strMaxstrPrjFileTypeId = clsPrjFileTypeBL.GetMaxStrId_S();
+return Ok(new { errorId = 0, errorMsg = "", returnStr =  strMaxstrPrjFileTypeId });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 通过JSON对象来添加记录对象
+ /// 调用方法: POST /api/PrjFileTypeApi/AddNewRecord
+ /// 在Body区传输objPrjFileTypeEN的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_AddNewRecord)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("AddNewRecord")]
+public ActionResult AddNewRecord([FromBody]clsPrjFileTypeEN objPrjFileTypeEN)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+string strPrjFileTypeJSONObj = clsJSON.GetJsonFromObj(objPrjFileTypeEN);
+dictParam.Add("strPrjFileTypeJSONObj", strPrjFileTypeJSONObj);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+ try
+ {
+clsPrjFileTypeEN objPrjFileTypeCond = new();
+string strCondition = objPrjFileTypeCond
+.SetPrjFileTypeName(objPrjFileTypeEN.PrjFileTypeName, "=")
 .GetCombineCondition();
-bool bolIsExist = clsFileResourceBL.IsExistRecord(strCondition);
+bool bolIsExist = clsPrjFileTypeBL.IsExistRecord(strCondition);
 if (bolIsExist)
 {
 string strMsg = string.Format("满足条件:{0}的记录表中已经存在,违反了唯一性.(from {1})", strCondition,  clsStackTrace.GetCurrClassFunction());
 clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
 return Ok(new { errorId = 1, errorMsg = strMsg });
 }
-    clsFileResourceBL.AccessFldValueNull(objFileResourceEN);
-bool bolResult = objFileResourceEN.AddNewRecord();
+ if (string.IsNullOrEmpty(objPrjFileTypeEN.PrjFileTypeId) == true || clsPrjFileTypeBL.IsExist(objPrjFileTypeEN.PrjFileTypeId) == true)
+ {
+     objPrjFileTypeEN.PrjFileTypeId = clsPrjFileTypeBL.GetMaxStrId_S();
+ }
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+bool bolResult = objPrjFileTypeEN.AddNewRecord();
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
  }
  catch (Exception objException)
@@ -589,15 +613,45 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
 
  /// <summary>
+ /// 通过JSON对象来添加记录对象
+ /// 调用方法: POST /api/PrjFileTypeApi/AddNewRecordWithMaxId
+ /// 在Body区传输objPrjFileTypeEN的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_AddNewRecordWithMaxId)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("AddNewRecordWithMaxId")]
+public ActionResult AddNewRecordWithMaxId([FromBody]clsPrjFileTypeEN objPrjFileTypeEN)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+string strPrjFileTypeJSONObj = clsJSON.GetJsonFromObj(objPrjFileTypeEN);
+dictParam.Add("strPrjFileTypeJSONObj", strPrjFileTypeJSONObj);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+ try
+ {
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+string strPrjFileTypeId = objPrjFileTypeEN.AddNewRecordWithMaxId();
+return Ok(new { errorId = 0, errorMsg = "", returnStr =  strPrjFileTypeId });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
  /// 把表对象添加到数据库中,并且返回该记录的关键字(针对Identity关键字)
- /// 调用方法: POST /api/FileResourceApi/AddNewRecordWithReturnKey
- /// 在Body区传输objFileResourceEN的JSON对象
+ /// 调用方法: POST /api/PrjFileTypeApi/AddNewRecordWithReturnKey
+ /// 在Body区传输objPrjFileTypeEN的JSON对象
  /// (AutoGCLib.WA_Srv4CSharp:Gen_AddNewRecordWithReturnKey)
  /// </summary>
- /// <param name = "objFileResourceEN">需要添加的表对象</param>
+ /// <param name = "objPrjFileTypeEN">需要添加的表对象</param>
  /// <returns>返回新添加记录的关键字</returns>
 [HttpPost("AddNewRecordWithReturnKey")]
-public ActionResult AddNewRecordWithReturnKey(clsFileResourceEN objFileResourceEN)
+public ActionResult AddNewRecordWithReturnKey(clsPrjFileTypeEN objPrjFileTypeEN)
 {
  if (string.IsNullOrEmpty(clsSysParaEN.strTempXMLFileName) == true)
 {
@@ -607,13 +661,13 @@ public ActionResult AddNewRecordWithReturnKey(clsFileResourceEN objFileResourceE
  {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-dictParam.Add("objFileResourceEN", JsonConvert.SerializeObject(objFileResourceEN));
+dictParam.Add("objPrjFileTypeEN", JsonConvert.SerializeObject(objPrjFileTypeEN));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  }
 try
 {
-    clsFileResourceBL.AccessFldValueNull(objFileResourceEN);
-string strKey = clsFileResourceBL.AddNewRecordBySql2WithReturnKey(objFileResourceEN);
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+string strKey = clsPrjFileTypeBL.AddNewRecordBySql2WithReturnKey(objPrjFileTypeEN);
 return Ok(new { errorId = 0, errorMsg = "", returnStr =  strKey });
 }
 catch (Exception objException)
@@ -626,30 +680,30 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 通过JSON对象来修改记录对象
- /// 调用方法: Post /api/FileResourceApi/UpdateRecord
- /// 在Body区传输objFileResourceEN的JSON对象
+ /// 调用方法: Post /api/PrjFileTypeApi/UpdateRecord
+ /// 在Body区传输objPrjFileTypeEN的JSON对象
  /// (AutoGCLib.WA_Srv4CSharp:Gen_UpdateRecord)
  /// </summary>
- /// <param name = "strFileResourceJSONObj">JSON对象字符串</param>
+ /// <param name = "strPrjFileTypeJSONObj">JSON对象字符串</param>
  /// <returns>是否成功</returns>
 [HttpPost("UpdateRecord")]
-public ActionResult UpdateRecord([FromBody]clsFileResourceEN objFileResourceEN)
+public ActionResult UpdateRecord([FromBody]clsPrjFileTypeEN objPrjFileTypeEN)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-string strFileResourceJSONObj = clsJSON.GetJsonFromObj(objFileResourceEN);
-dictParam.Add("strFileResourceJSONObj", strFileResourceJSONObj);
+string strPrjFileTypeJSONObj = clsJSON.GetJsonFromObj(objPrjFileTypeEN);
+dictParam.Add("strPrjFileTypeJSONObj", strPrjFileTypeJSONObj);
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (objFileResourceEN.FileResourceId <= 0)
+ if (string.IsNullOrEmpty(objPrjFileTypeEN.PrjFileTypeId) == true)
  {
 string strMsg = string.Format("修改记录时,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-    clsFileResourceBL.SetUpdFlag(objFileResourceEN);
-    clsFileResourceBL.AccessFldValueNull(objFileResourceEN);
-bool bolResult = objFileResourceEN.Update();
+    clsPrjFileTypeBL.SetUpdFlag(objPrjFileTypeEN);
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+bool bolResult = objPrjFileTypeEN.Update();
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
  }
  catch (Exception objException)
@@ -662,25 +716,25 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 通过JSON对象来编辑记录对象，存在就修改，不存在就添加
- /// 调用方法: Post /api/FileResourceApi/EditRecordEx
- /// 在Body区传输objFileResourceEN的JSON对象
+ /// 调用方法: Post /api/PrjFileTypeApi/EditRecordEx
+ /// 在Body区传输objPrjFileTypeEN的JSON对象
  /// (AutoGCLib.WA_Srv4CSharp:Gen_EditRecordEx)
  /// </summary>
- /// <param name = "strFileResourceJSONObj">JSON对象字符串</param>
+ /// <param name = "strPrjFileTypeJSONObj">JSON对象字符串</param>
  /// <returns>是否成功</returns>
 [HttpPost("EditRecordEx")]
-public ActionResult EditRecordEx([FromBody]clsFileResourceEN objFileResourceEN)
+public ActionResult EditRecordEx([FromBody]clsPrjFileTypeEN objPrjFileTypeEN)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-string strFileResourceJSONObj = clsJSON.GetJsonFromObj(objFileResourceEN);
-dictParam.Add("strFileResourceJSONObj", strFileResourceJSONObj);
+string strPrjFileTypeJSONObj = clsJSON.GetJsonFromObj(objPrjFileTypeEN);
+dictParam.Add("strPrjFileTypeJSONObj", strPrjFileTypeJSONObj);
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
-    clsFileResourceBL.SetUpdFlag(objFileResourceEN);
-    clsFileResourceBL.AccessFldValueNull(objFileResourceEN);
-bool bolResult = objFileResourceEN.EditRecordEx();
+    clsPrjFileTypeBL.SetUpdFlag(objPrjFileTypeEN);
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+bool bolResult = objPrjFileTypeEN.EditRecordEx();
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
  }
  catch (Exception objException)
@@ -692,16 +746,200 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
 
  /// <summary>
+ /// 把所给的关键字列表相关的记录移顶
+ /// 调用方法: POST /api/PrjFileTypeApi/GoTop
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoTop)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoTop")]
+public ActionResult GoTop([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置顶时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstPrjFileTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsPrjFileTypeBL.GoTop(lstPrjFileTypeId );
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录上移
+ /// 调用方法: POST /api/PrjFileTypeApi/UpMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_UpMove)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("UpMove")]
+public ActionResult UpMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表上移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstPrjFileTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+foreach(var x in lstPrjFileTypeId)
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+clsPrjFileTypeBL.AdjustOrderNum("UP", x );
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录下移
+ /// 调用方法: POST /api/PrjFileTypeApi/DownMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_DownMove)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("DownMove")]
+public ActionResult DownMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表下移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstPrjFileTypeId = new(objOrderByData.KeyIdLst);
+lstPrjFileTypeId.Reverse();
+try
+{
+foreach(var x in lstPrjFileTypeId)
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+clsPrjFileTypeBL.AdjustOrderNum("DOWN", x );
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/PrjFileTypeApi/GoBottom
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoBottom)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoBottom")]
+public ActionResult GoBottom([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置底时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstPrjFileTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsPrjFileTypeBL.GoBottom(lstPrjFileTypeId );
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/PrjFileTypeApi/ReOrder
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_ReOrder)
+ /// </summary>
+ /// <param name = "objPrjFileTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("ReOrder")]
+public ActionResult ReOrder([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsPrjFileTypeBL.ReOrder();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
  /// 根据条件来修改记录对象
- /// 调用方法: Post /api/FileResourceApi/UpdateWithCondition
- /// 在Body区传输objFileResourceEN的JSON对象和strWhereCond条件串
+ /// 调用方法: Post /api/PrjFileTypeApi/UpdateWithCondition
+ /// 在Body区传输objPrjFileTypeEN的JSON对象和strWhereCond条件串
  /// (AutoGCLib.WA_Srv4CSharp:Gen_UpdateWithCondition)
  /// </summary>
- /// <param name = "strFileResourceJSONObj">JSON对象字符串</param>
+ /// <param name = "strPrjFileTypeJSONObj">JSON对象字符串</param>
  /// <param name = "strWhereCond">条件</param>
  /// <returns>是否成功</returns>
 [HttpPost("UpdateWithCondition")]
-public ActionResult UpdateWithCondition(clsFileResourceEN objFileResourceEN, string strWhereCond)
+public ActionResult UpdateWithCondition(clsPrjFileTypeEN objPrjFileTypeEN, string strWhereCond)
 {
 strWhereCond = strWhereCond.Replace("'% ", "'%");
  if (string.IsNullOrEmpty(clsSysParaEN.strTempXMLFileName) == true)
@@ -724,8 +962,8 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
 try
 {
-    clsFileResourceBL.AccessFldValueNull(objFileResourceEN);
-bool bolResult = objFileResourceEN.UpdateWithCondition(strWhereCond);
+    clsPrjFileTypeBL.AccessFldValueNull(objPrjFileTypeEN);
+bool bolResult = objPrjFileTypeEN.UpdateWithCondition(strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
 }
 catch (Exception objException)
@@ -738,29 +976,29 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:删除关键字所指定的记录
- /// 调用方法: DELETE /api/FileResourceApi/DelRecord/Id
+ /// 调用方法: DELETE /api/PrjFileTypeApi/DelRecord/Id
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelRecord)
  /// </summary>
  /// <param name = "Id">给定的关键字值</param>
  /// <returns>返回删除的记录数</returns>
 [HttpDelete("DelRecord")]
-public ActionResult DelRecord(long Id)
+public ActionResult DelRecord(string Id)
 {
-long lngFileResourceId = Id;
+string strPrjFileTypeId = Id;
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["Id"] = lngFileResourceId.ToString()
+["Id"] = strPrjFileTypeId
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (lngFileResourceId <= 0)
+ if (string.IsNullOrEmpty(strPrjFileTypeId) == true)
  {
 string strMsg = string.Format("删除关键字所指定的记录,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intRecNum = clsFileResourceBL.DelRecord(lngFileResourceId);
+int intRecNum = clsPrjFileTypeBL.DelRecord(strPrjFileTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)
@@ -773,23 +1011,23 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:同时删除多条记录,删除给定关键字列表的记录
- /// 调用方法: POST /api/FileResourceApi/DelFileResources
- /// 在Body区传输arrFileResourceId(关键字值列表)的JSON串
+ /// 调用方法: POST /api/PrjFileTypeApi/DelPrjFileTypes
+ /// 在Body区传输arrPrjFileTypeId(关键字值列表)的JSON串
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelMultiRecord)
  /// </summary>
- /// <param name = "arrFileResourceId">给定的关键字值列表</param>
+ /// <param name = "arrPrjFileTypeId">给定的关键字值列表</param>
  /// <returns>返回删除的记录数</returns>
-[HttpPost("DelFileResources")]
-public ActionResult DelFileResources([FromBody]string[] arrFileResourceId)
+[HttpPost("DelPrjFileTypes")]
+public ActionResult DelPrjFileTypes([FromBody]string[] arrPrjFileTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrFileResourceId);
-dictParam.Add("arrFileResourceId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrPrjFileTypeId);
+dictParam.Add("arrPrjFileTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
-int intRecNum = clsFileResourceBL.DelFileResources(arrLst);
+int intRecNum = clsPrjFileTypeBL.DelPrjFileTypes(arrLst);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)
@@ -802,7 +1040,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:同时删除多条记录,删除给定关键字列表的记录, 通过JSON串
- /// 调用方法: POST /api/FileResourceApi/DelRecords
+ /// 调用方法: POST /api/PrjFileTypeApi/DelRecords
  /// 在Body区传输strKeyIdLst字符串列表的JSON串
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelRecords)
  /// </summary>
@@ -823,7 +1061,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intRecNum = clsFileResourceBL.DelFileResources(arrKey);
+int intRecNum = clsPrjFileTypeBL.DelPrjFileTypes(arrKey);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)
@@ -836,7 +1074,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:同时删除多条记录,删除给定关键字列表的记录, 通过JSON串
- /// 调用方法: POST /api/FileResourceApi/DelRecords
+ /// 调用方法: POST /api/PrjFileTypeApi/DelRecords
  /// 在Body区传输strKeyIdLst字符串列表的JSON串
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelKeys)
  /// </summary>
@@ -857,7 +1095,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intRecNum = clsFileResourceBL.DelFileResources(arrKey);
+int intRecNum = clsPrjFileTypeBL.DelPrjFileTypes(arrKey);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)
@@ -870,14 +1108,14 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 功能:删除满足条件的多条记录
- /// 调用方法: POST /api/FileResourceApi/DelFileResourcesByCond
+ /// 调用方法: POST /api/PrjFileTypeApi/DelPrjFileTypesByCond
  /// 在Body区传输{"strWhereCond":"1=1"}
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelMultiRecordByCond)
  /// </summary>
  /// <param name = "strWhereCond">需要删除的记录条件</param>
  /// <returns>返回删除的记录数。</returns>
-[HttpGet("DelFileResourcesByCond")]
-public ActionResult DelFileResourcesByCond(string strWhereCond)
+[HttpGet("DelPrjFileTypesByCond")]
+public ActionResult DelPrjFileTypesByCond(string strWhereCond)
 {
 strWhereCond = strWhereCond.Replace("'% ", "'%");
 string strFunctionName = clsStackTrace.GetCurrFunction();
@@ -893,7 +1131,7 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intRecNum = clsFileResourceBL.DelFileResourcesByCond(strWhereCond);
+int intRecNum = clsPrjFileTypeBL.DelPrjFileTypesByCond(strWhereCond);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)

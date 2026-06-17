@@ -142,7 +142,48 @@
 						{{ "{{" }} cmd.text {{ "}}" }}
 					</button>
 				</li>
-			</ul>
+				{{~ if HasAdjustOrderNum ~}}
+						<li class="nav-item ml-3">
+							<div class="btn-group" role="group" aria-label="Basic example">
+								<button
+								  id="btnGoTop"
+								  name="btnGoTop"
+								  class="btn btn-outline-info btn-sm text-nowrap"
+								  @click="btnGoTop_Click"
+					  >移顶</button
+					>
+								<button
+								  id="btnUpMove"
+								  name="btnUpMove"
+								  class="btn btn-outline-info btn-sm text-nowrap"
+								  @click="btnUpMove_Click"
+					  >上移</button
+					>
+								<button
+								  id="btnDownMove"
+								  name="btnDownMove"
+								  class="btn btn-outline-info btn-sm text-nowrap"
+								  @click="btnDownMove_Click"
+					  >下移</button
+					>
+								<button
+								  id="btnGoBottum"
+								  name="btnGoBottum"
+								  class="btn btn-outline-info btn-sm text-nowrap"
+								  @click="btnGoBottum_Click"
+					  >移底</button
+					>
+								<button
+								  id="btnReOrder"
+								  name="btnReOrder"
+								  class="btn btn-outline-info btn-sm text-nowrap"
+								  @click="btnReOrder_Click"
+					  >重序</button
+					>
+							</div>
+					</li>
+			{{~ end ~}}
+				</ul>
 		</div>
 
 		<div id="divList" ref="refDivList" class="div_List">
@@ -231,8 +272,9 @@
 	import {
 	getQueryRowsAi,
 	initQueryDefaultsAi,
-
-	loadQueryOptionsAi,
+	{{~ if QueryOptionsArrays4Import.size>0 ~}}
+		loadQueryOptionsAi,
+	{{~ end ~}}
 	{{ TableName }}QueryFieldSpecAi,
 	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiQuery';
 	import {
@@ -507,11 +549,13 @@
           {{~ end ~}}
         });
 
+    {{~ if QueryOptionsArrays4Import.size>0 ~}}
         {{~ # 🔥 动态加载查询选项数据 ~}}
         const queryOptions = await loadQueryOptionsAi();
         {{~ for option in QueryOptionsArrays4Import ~}}
         {{ option.ArrayVariableName }}.value = queryOptions.{{ option.ArrayVariableName }};
         {{~ end ~}}
+	{{~ end ~}}
 
         {{~ # 🔥 只有存在设置字段值功能时才初始化相关变量 ~}}
         {{~ if HasSetFieldFeature ~}}
@@ -539,6 +583,28 @@
         await objPage.value.PageLoadCache();
       });
 
+	{{~ if HasAdjustOrderNum ~}}
+		  const btnGoTop_Click = async () => {
+			await objPage.value?.onGoTop();
+		  };
+
+		  const btnUpMove_Click = async () => {
+			await objPage.value?.onUpMove();
+		  };
+
+		  const btnDownMove_Click = async () => {
+			await objPage.value?.onDownMove();
+		  };
+
+		  const btnGoBottum_Click = async () => {
+			await objPage.value?.onGoBottom();
+		  };
+
+		  const btnReOrder_Click = async () => {
+			await objPage.value?.onReOrder();
+		  };
+     {{~ end ~}}
+	 
       const SortColumn = async (data: any) => {
         const page = ensurePage();
         if (page == null) return;
@@ -583,6 +649,14 @@
         runCommand,
         EditTabRelaInfo,
         SortColumn,
+		
+		{{~ if HasAdjustOrderNum ~}}
+	        btnGoTop_Click,
+			btnUpMove_Click,
+			btnDownMove_Click,
+			btnGoBottum_Click,
+			btnReOrder_Click,
+		{{~ end ~}}
       };
     },
   });

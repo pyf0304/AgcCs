@@ -4815,6 +4815,133 @@ namespace AGC.BusinessLogicEx
             if (string.IsNullOrEmpty(input)) return input;
             return char.ToLower(input[0]) + input.Substring(1);
         }
+        /// <summary>
+        /// 获取缓存分类字段列表(TypeScript)
+        /// </summary>
+        /// <param name="objPrjTabENEx">工程表扩展对象</param>
+        /// <returns>缓存分类字段列表</returns>
+        public static List<CacheClassify4Tab> GetArrCacheClassify4Tab_TSByObjEx(clsPrjTabENEx objPrjTabENEx)
+        {
+            List<CacheClassify4Tab> arrCacheClassify4Tab = new List<CacheClassify4Tab>();
+
+            if (objPrjTabENEx == null || objPrjTabENEx.arrFldSet == null)
+            {
+                return arrCacheClassify4Tab;
+            }
+
+            foreach (clsPrjTabFldENEx objPrjTabFld in objPrjTabENEx.arrFldSet)
+            {
+                if (objPrjTabFld == null || objPrjTabFld.ObjFieldTabENEx == null) continue;
+
+                CacheClassify4Tab obj = new CacheClassify4Tab
+                {
+                    FldId = objPrjTabFld.FldId,
+                    FldName = objPrjTabFld.ObjFieldTabENEx.FldName,
+                    PriVarName = objPrjTabFld.ObjFieldTabENEx.PrivFuncName,
+                    TypeScriptType = objPrjTabFld.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabFld.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType
+                        : "",
+                    CsType = objPrjTabFld.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabFld.ObjFieldTabENEx.objDataTypeAbbrEN.CsType
+                        : "",
+                    DataTypeId = objPrjTabFld.ObjFieldTabENEx.DataTypeId,
+                    FldLength = objPrjTabFld.ObjFieldTabENEx.FldLength,
+                    IsHasCacheClassfyFld = objPrjTabFld.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsHasCacheClassfyFld_TS = objPrjTabFld.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsNumberType = objPrjTabFld.ObjFieldTab().ObjDataTypeAbbr() != null
+                        && objPrjTabFld.ObjFieldTab().ObjDataTypeAbbr().IsNumberType(),
+                    IsForExtendClass = objPrjTabFld.IsForExtendClass,
+                    VarDef4Fld = string.Format("{0} {1}",
+                        objPrjTabFld.ObjFieldTab().ObjDataTypeAbbr() != null
+                            ? objPrjTabFld.ObjFieldTab().ObjDataTypeAbbr() .TypeScriptType
+                            : "any",
+                        objPrjTabFld.ObjFieldTabENEx.PrivFuncName)
+                };
+
+                arrCacheClassify4Tab.Add(obj);
+            }
+
+            return arrCacheClassify4Tab;
+        }
+
+        public static List<CacheClassify4Tab> GetArrCacheClassify4Tab_TSByTabId(string strTabId, string strPrjId)
+        {
+            List<CacheClassify4Tab> arrCacheClassify4Tab = new List<CacheClassify4Tab>();
+
+            clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabIdCache(strTabId, strPrjId);
+            clsPrjTabENEx objPrjTabENEx = new clsPrjTabENEx(strTabId);
+            clsPrjTabBL.CopyTo(objPrjTabEN, objPrjTabENEx);
+            //this. objPrjTabENEx = new clsPrjTabENEx(strTabId);
+            objPrjTabENEx.GetObjAllInfoEx();
+            if (objPrjTabENEx == null || objPrjTabENEx.arrFldSet == null)
+            {
+                return arrCacheClassify4Tab;
+            }
+            if (objPrjTabENEx.IsHasCacheClassifyFldTS())
+            {
+                CacheClassify4Tab obj = new CacheClassify4Tab
+                {
+                    FldId = objPrjTabENEx.ObjCacheClassifyFld_TS.FldId,
+                    FldName = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.FldName,
+                    PriVarName = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.PrivFuncName,
+                    TypeScriptType = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType
+                        : "",
+                    CsType = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.objDataTypeAbbrEN.CsType
+                        : "",
+                    DataTypeId = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.DataTypeId,
+                    FldLength = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.FldLength,
+                    IsHasCacheClassfyFld = objPrjTabENEx.ObjCacheClassifyFld_TS.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsHasCacheClassfyFld_TS = objPrjTabENEx.ObjCacheClassifyFld_TS.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsNumberType = objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr() != null
+                        && objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr().IsNumberType(),
+                    IsForExtendClass = objPrjTabENEx.ObjCacheClassifyFld_TS.IsForExtendClass,
+                    VarDef4Fld = string.Format("{0} {1}",
+                        objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr() != null
+                            ? objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType
+                            : "any",
+                        objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.PrivFuncName),
+                    ParaVarId_TS = objPrjTabEN.ParaVar1TS
+                };
+
+                arrCacheClassify4Tab.Add(obj);
+            }
+
+
+            if (objPrjTabENEx.IsHasCacheClassifyFld2TS())
+            {
+                CacheClassify4Tab obj = new CacheClassify4Tab
+                {
+                    FldId = objPrjTabENEx.ObjCacheClassifyFld2_TS.FldId,
+                    FldName = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.FldName,
+                    PriVarName = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.PrivFuncName,
+                    TypeScriptType = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType
+                        : "",
+                    CsType = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.objDataTypeAbbrEN != null
+                        ? objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.objDataTypeAbbrEN.CsType
+                        : "",
+                    DataTypeId = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.DataTypeId,
+                    FldLength = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.FldLength,
+                    IsHasCacheClassfyFld = objPrjTabENEx.ObjCacheClassifyFld2_TS.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsHasCacheClassfyFld_TS = objPrjTabENEx.ObjCacheClassifyFld2_TS.FldId == objPrjTabENEx.CacheClassifyFieldTS,
+                    IsNumberType = objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTab().ObjDataTypeAbbr() != null
+                        && objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTab().ObjDataTypeAbbr().IsNumberType(),
+                    IsForExtendClass = objPrjTabENEx.ObjCacheClassifyFld2_TS.IsForExtendClass,
+                    VarDef4Fld = string.Format("{0} {1}",
+                        objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTab().ObjDataTypeAbbr() != null
+                            ? objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType
+                            : "any",
+                        objPrjTabENEx.ObjCacheClassifyFld2_TS.ObjFieldTabENEx.PrivFuncName),
+                    ParaVarId_TS = objPrjTabEN.ParaVar2TS
+                };
+
+                arrCacheClassify4Tab.Add(obj);
+            }
+            return arrCacheClassify4Tab;
+        }
+
     }
 }
 

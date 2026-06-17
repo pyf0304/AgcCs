@@ -762,6 +762,51 @@ namespace AGC.WebApi
 
             }
         }
+        /// <summary>
+        /// 根据表ID获取缓存分类字段列表(TypeScript)
+        /// 调用方法: GET /api/PrjTabExApiController/GetArrCacheClassify4Tab_TSByTabId?strTabId=value&strPrjId=value
+        /// (AGC.BusinessLogicEx.clsPrjTabBLEx:GeneCodeV2)
+        /// </summary>
+        /// <param name="strTabId">表ID</param>
+        /// <param name="strPrjId">工程ID</param>
+        /// <returns>返回缓存分类字段列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetArrCacheClassify4Tab_TSByTabId")]
+        public ActionResult GetArrCacheClassify4Tab_TSByTabId(string strTabId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(strTabId))
+                {
+                    string strMsg = string.Format("表ID不能为空！({0})", clsStackTrace.GetCurrClassFunction());
+                    return Ok(new { errorId = 1, errorMsg = strMsg });
+                }
+
+                if (string.IsNullOrEmpty(strPrjId))
+                {
+                    string strMsg = string.Format("工程ID不能为空！({0})", clsStackTrace.GetCurrClassFunction());
+                    return Ok(new { errorId = 1, errorMsg = strMsg });
+                }
+
+                // 调用业务逻辑层方法
+                var arrResult = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(strTabId, strPrjId);
+
+                return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
     }
     public class clsImportSqlTab
     {

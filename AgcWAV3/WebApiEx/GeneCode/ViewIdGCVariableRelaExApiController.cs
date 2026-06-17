@@ -17,25 +17,25 @@ PrjDataBaseId:0005
        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
 == == == == == == == == == == == == 
 **/
+using AGC.BusinessLogic;
+using AGC.BusinessLogicEx;
+using AGC.Entity;
+using AgcCommBase;
+using com.taishsoft.common;
+using com.taishsoft.datetime;
+using com.taishsoft.json;
+using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Data;
-using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using com.taishsoft.json;
-using AGC.Entity;
-using AGC.BusinessLogicEx;
-
-using com.taishsoft.common;
-using com.taishsoft.datetime;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using Newtonsoft.Json.Linq;
-using Comm.WebApi;
-using AGC.BusinessLogic;
-using Microsoft.AspNetCore.Authorization;
+using System.Data;
 using System.Data.Common;
+using System.Net;
+using System.Text;
 
 namespace AGC.WebApi
 {
@@ -97,7 +97,7 @@ namespace AGC.WebApi
                 {
                     try
                     {
-                        var srCondition = $"{conViewIdGCVariableRela.ViewId}='{strViewId}'"; 
+                        var srCondition = $"{conViewIdGCVariableRela.ViewId}='{strViewId}'";
                         var intRecNum = clsViewIdGCVariableRelaBL.GetRecCountByCond(srCondition);
                         if (intRecNum > 0) continue;
                         string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
@@ -117,6 +117,227 @@ namespace AGC.WebApi
                 string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
+        }
+
+        /// <summary>
+        /// 获取指定界面的所有变量名称列表（逗号分隔）
+        /// 调用方法: GET /ViewIdGCVariableRelaEx/GetAllViewVarNames?strViewId=value&strPrjId=value
+        /// </summary>
+        /// <param name="strViewId">界面Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>返回变量名称列表（逗号分隔的字符串）</returns>
+        [AllowAnonymous]
+        [HttpGet("GetAllViewVarNames")]
+        public ActionResult GetAllViewVarNames(string strViewId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(strViewId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 strViewId 不能为空", returnString = "" });
+                }
+
+                if (string.IsNullOrEmpty(strPrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 strPrjId 不能为空", returnString = "" });
+                }
+
+                // 调用业务逻辑层方法
+                string strResult = clsViewIdGCVariableRelaBLEx.GetAllViewVarNames(strViewId, strPrjId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnString = strResult ?? "",
+                    varNames = string.IsNullOrEmpty(strResult) ? new string[0] : strResult.Split(',')
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg, returnString = "" });
+            }
+        }
+
+        /// <summary>
+        /// 获取指定界面的所有变量名称列表（POST方式）
+        /// 调用方法: POST /ViewIdGCVariableRelaEx/GetAllViewVarNames
+        /// </summary>
+        /// <param name="request">包含界面Id和工程Id的请求对象</param>
+        /// <returns>返回变量名称列表（逗号分隔的字符串）</returns>
+        [AllowAnonymous]
+        [HttpPost("GetAllViewVarNames")]
+        public ActionResult GetAllViewVarNamesPost([FromBody] GetAllViewVarNamesRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+
+            try
+            {
+                // 参数验证
+                if (request == null)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "请求参数不能为空", returnString = "" });
+                }
+
+                dictParam.Add("strViewId", request.ViewId ?? "");
+                dictParam.Add("strPrjId", request.PrjId ?? "");
+                clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+                if (string.IsNullOrEmpty(request.ViewId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 ViewId 不能为空", returnString = "" });
+                }
+
+                if (string.IsNullOrEmpty(request.PrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 PrjId 不能为空", returnString = "" });
+                }
+
+                // 调用业务逻辑层方法
+                string strResult = clsViewIdGCVariableRelaBLEx.GetAllViewVarNames(request.ViewId, request.PrjId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnString = strResult ?? "",
+                    varNames = string.IsNullOrEmpty(strResult) ? new string[0] : strResult.Split(',')
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg, returnString = "" });
+            }
+        }
+        /// <summary>
+        /// 获取指定界面的所有界面变量对象列表
+        /// 调用方法: GET /ViewIdGCVariableRelaEx/GetAllViewVariableObjs?strViewId=value&strPrjId=value
+        /// </summary>
+        /// <param name="strViewId">界面Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>返回界面变量对象列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetAllViewVariableObjs")]
+        public ActionResult GetAllViewVariableObjs(string strViewId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(strViewId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 strViewId 不能为空", viewVariables = new List<clsViewVariable>() });
+                }
+
+                if (string.IsNullOrEmpty(strPrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 strPrjId 不能为空", viewVariables = new List<clsViewVariable>() });
+                }
+
+                // 调用业务逻辑层方法
+                List<clsViewVariable> arrViewVariables = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(strViewId, strPrjId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    viewVariables = arrViewVariables ?? new List<clsViewVariable>(),
+                    totalCount = arrViewVariables?.Count ?? 0
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg, viewVariables = new List<clsViewVariable>() });
+            }
+        }
+
+        /// <summary>
+        /// 获取指定界面的所有界面变量对象列表（POST方式）
+        /// 调用方法: POST /ViewIdGCVariableRelaEx/GetAllViewVariableObjs
+        /// </summary>
+        /// <param name="request">包含界面Id和工程Id的请求对象</param>
+        /// <returns>返回界面变量对象列表</returns>
+        [AllowAnonymous]
+        [HttpPost("GetAllViewVariableObjs")]
+        public ActionResult GetAllViewVariableObjsPost([FromBody] GetAllViewVarNamesRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+
+            try
+            {
+                // 参数验证
+                if (request == null)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "请求参数不能为空", viewVariables = new List<clsViewVariable>() });
+                }
+
+                dictParam.Add("strViewId", request.ViewId ?? "");
+                dictParam.Add("strPrjId", request.PrjId ?? "");
+                clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+                if (string.IsNullOrEmpty(request.ViewId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 ViewId 不能为空", viewVariables = new List<clsViewVariable>() });
+                }
+
+                if (string.IsNullOrEmpty(request.PrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "参数 PrjId 不能为空", viewVariables = new List<clsViewVariable>() });
+                }
+
+                // 调用业务逻辑层方法
+                List<clsViewVariable> arrViewVariables = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(request.ViewId, request.PrjId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    viewVariables = arrViewVariables ?? new List<clsViewVariable>(),
+                    totalCount = arrViewVariables?.Count ?? 0
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg, viewVariables = new List<clsViewVariable>() });
+            }
+        }
+
+        /// <summary>
+        /// 获取所有界面变量名称的请求参数类
+        /// </summary>
+        public class GetAllViewVarNamesRequest
+        {
+            /// <summary>
+            /// 界面Id
+            /// </summary>
+            public string ViewId { get; set; }
+
+            /// <summary>
+            /// 工程Id
+            /// </summary>
+            public string PrjId { get; set; }
         }
     }
 }

@@ -41,7 +41,7 @@ using System.Xml;
 
 namespace AGC.BusinessLogicEx
 {
-    public static class clsFileResourceBLEx_Static
+    public static class clsFileResourceBLEx_StaticBak
     {
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace AGC.BusinessLogicEx
     /// 数据源类型:SQL表
     /// (AutoGCLib.BusinessLogicEx4CSharp:GeneCode)
     /// </summary>
-    public partial class clsFileResourceBLEx : clsFileResourceBL
+    public partial class clsFileResourceBLExBak : clsFileResourceBL
     {
 
         /// <summary>
@@ -1631,14 +1631,61 @@ namespace AGC.BusinessLogicEx
                 out intAlreadyExists);
         }
 
-     
+        /// <summary>
+        /// 根据文件名匹配CodeTypeId
+        /// </summary>
+        /// <param name="strFileName">文件名</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>匹配的CodeTypeId，如果没有匹配返回"0000"</returns>
+        private static string GetCodeTypeIdByFileName(string strFileName, string strPrjId)
+        {
+            try
+            {
+                // 获取所有CodeType缓存
+                var arrCodeType = clsCodeTypeBL.GetObjLstCache();
+
+                // 遍历所有CodeType，尝试匹配
+                foreach (var objCodeType in arrCodeType)
+                {
+                    if (string.IsNullOrEmpty(objCodeType.ClassNamePattern))
+                        continue;
+
+                    try
+                    {
+                        // 使用正则表达式匹配文件名（不含扩展名）
+                        string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strFileName);
+                        var regex = new System.Text.RegularExpressions.Regex(objCodeType.ClassNamePattern,
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                        if (regex.IsMatch(strFileNameWithoutExt))
+                        {
+                            return objCodeType.CodeTypeId;
+                        }
+                    }
+                    catch
+                    {
+                        // 如果正则表达式无效，跳过该规则
+                        continue;
+                    }
+                }
+
+                // 如果没有匹配到，返回默认值"0000"（未知）
+                return "0000";
+            }
+            catch (Exception ex)
+            {
+                clsSysParaEN.objLog.WriteDebugLog($"匹配CodeTypeId时出错：{ex.Message}");
+                return "0000";
+            }
+        }
+
         /// <summary>
         /// 批量获取文件的CodeTypeId字典（优化性能）
         /// </summary>
         /// <param name="arrFileName">文件名列表</param>
         /// <param name="strPrjId">工程Id</param>
         /// <returns>文件名到CodeTypeId的字典</returns>
-        private static Dictionary<string, string> GetCodeTypeIdDictionaryBak20260612(List<string> arrFileName, string strPrjId)
+        private static Dictionary<string, string> GetCodeTypeIdDictionary(List<string> arrFileName, string strPrjId)
         {
             Dictionary<string, string> dictCodeTypeId = new Dictionary<string, string>();
 
@@ -1977,7 +2024,64 @@ namespace AGC.BusinessLogicEx
             }
         }
 
-     
+        /// <summary>
+        /// 从文件名中提取表名（基于CodeType的FileNameFormat）
+        /// </summary>
+        /// <param name="strFileName">文件名</param>
+        /// <param name="strCodeTypeId">代码类型Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>表名，如果无法提取返回空字符串</returns>
+        private static string ExtractTabNameFromFileName(string strFileName, string strCodeTypeId, string strPrjId)
+        {
+            try
+            {
+                var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
+                if (objCodeType == null || string.IsNullOrEmpty(objCodeType.FileNameFormat))
+                    return "";
+
+                // 获取文件名（不含扩展名）
+                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strFileName);
+
+                // 将 FileNameFormat 转换为正则表达式模式
+                // 例如: cls{0}EN.cs -> cls(.+)EN
+                string strPattern = objCodeType.FileNameFormat;
+
+                // 移除扩展名部分
+                if (strPattern.Contains("."))
+                {
+                    strPattern = strPattern.Substring(0, strPattern.LastIndexOf('.'));
+                }
+
+                // 将 {0} 替换为捕获组
+                strPattern = strPattern.Replace("{0}", "(.+?)");
+
+                // 转义其他正则表达式特殊字符
+                strPattern = System.Text.RegularExpressions.Regex.Escape(strPattern);
+
+                // 还原捕获组
+                strPattern = strPattern.Replace("\\(\\.\\+\\?\\)", "(.+?)");
+
+                // 创建正则表达式
+                var regex = new System.Text.RegularExpressions.Regex(
+                    "^" + strPattern + "$",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                // 尝试匹配
+                var match = regex.Match(strFileNameWithoutExt);
+                if (match.Success && match.Groups.Count > 1)
+                {
+                    return match.Groups[1].Value;
+                }
+
+                return "";
+            }
+            catch (Exception ex)
+            {
+                clsSysParaEN.objLog.WriteDebugLog($"从文件名提取表名时出错：{ex.Message}");
+                return "";
+            }
+        }
+
         /// <summary>
         /// 批量从文件名中提取表名并获取TabId
         /// </summary>
@@ -2814,629 +2918,68 @@ namespace AGC.BusinessLogicEx
                 return new List<clsFileResourceEN>();
             }
         }
-
-        private static bool TryExtractTabNameByFileNameFormat(string strFileName, string strFileNameFormat, out string strTabName)
-        {
-            strTabName = "";
-            if (string.IsNullOrEmpty(strFileName) || string.IsNullOrEmpty(strFileNameFormat)) return false;
-
-            string strPureFileName = Path.GetFileName(strFileName);
-
-            // 把 FileNameFormat 转成正则：如 cls{0}EN.ts => ^cls(?<tab>.+?)EN\.ts$
-            string strPattern = System.Text.RegularExpressions.Regex.Escape(strFileNameFormat);
-            strPattern = "^" + strPattern.Replace("\\{0\\}", "(?<tab>.+?)") + "$";
-
-            var regex = new System.Text.RegularExpressions.Regex(strPattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            var match = regex.Match(strPureFileName);
-            if (!match.Success) return false;
-
-            strTabName = match.Groups["tab"].Value;
-            return string.IsNullOrEmpty(strTabName) == false;
-        }
-
-        /// <summary>
-        /// 根据文件名匹配CodeTypeId（优先按FileNameFormat + 扩展名）
-        /// </summary>
-        private static string GetCodeTypeIdByFileNameBak20260612(string strFileName, string strPrjId)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(strFileName)) return "0000";
-                string strExt = Path.GetExtension(strFileName);
-
-                // 仅取当前工程的 CodeType
-                var arrCodeType = clsCodeTypeBL.GetObjLstCache()                   ;
-
-                // 第一优先级：FileNameFormat 扩展名一致 + 格式匹配
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) continue;
-
-                    string strFmtExt = Path.GetExtension(objCodeType.FileNameFormat);
-                    if (string.Equals(strFmtExt, strExt, StringComparison.OrdinalIgnoreCase) == false) continue;
-
-                    if (TryExtractTabNameByFileNameFormat(strFileName, objCodeType.FileNameFormat, out _))
-                    {
-                        return objCodeType.CodeTypeId;
-                    }
-                }
-
-                // 第二优先级：不看扩展名，只按 FileNameFormat 匹配
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) continue;
-
-                    if (TryExtractTabNameByFileNameFormat(strFileName, objCodeType.FileNameFormat, out _))
-                    {
-                        return objCodeType.CodeTypeId;
-                    }
-                }
-
-                // 第三优先级：旧逻辑（ClassNamePattern）
-                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strFileName);
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.ClassNamePattern)) continue;
-                    try
-                    {
-                        var regex = new System.Text.RegularExpressions.Regex(objCodeType.ClassNamePattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                        if (regex.IsMatch(strFileNameWithoutExt)) return objCodeType.CodeTypeId;
-                    }
-                    catch
-                    {
-                        // 忽略非法正则
-                    }
-                }
-
-                return "0000";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"匹配CodeTypeId时出错：{ex.Message}");
-                return "0000";
-            }
-        }
-
-        /// <summary>
-        /// 从文件名中提取表名（优先按FileNameFormat）
-        /// </summary>
-        private static string ExtractTabNameFromFileNameBak20260612(string strFileName, string strCodeTypeId, string strPrjId)
-        {
-            try
-            {
-                var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
-                if (objCodeType == null ) return "";
-
-                // 优先按 FileNameFormat 提取（可区分 .cs/.ts）
-                if (string.IsNullOrEmpty(objCodeType.FileNameFormat) == false)
-                {
-                    if (TryExtractTabNameByFileNameFormat(strFileName, objCodeType.FileNameFormat, out string strTabName))
-                    {
-                        return strTabName;
-                    }
-                }
-
-                // 兼容旧逻辑回退
-                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strFileName);
-                if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) return "";
-
-                string strPattern = objCodeType.FileNameFormat;
-                int intDotPos = strPattern.IndexOf('.');
-                if (intDotPos > 0) strPattern = strPattern.Substring(0, intDotPos);
-
-                strPattern = strPattern.Replace("{0}", "(.+?)");
-                strPattern = System.Text.RegularExpressions.Regex.Escape(strPattern);
-                strPattern = strPattern.Replace("\\(\\.\\+\\?\\)", "(.+?)");
-
-                var regex = new System.Text.RegularExpressions.Regex("^" + strPattern + "$", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                var match = regex.Match(strFileNameWithoutExt);
-                if (match.Success && match.Groups.Count > 1) return match.Groups[1].Value;
-
-                return "";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"从文件名提取表名时出错：{ex.Message}");
-                return "";
-            }
-        }
-
-        private static bool TryMatchByFileNameFormat(string strFileName, string strFileNameFormat, out string strTabName)
-        {
-            strTabName = "";
-            if (string.IsNullOrEmpty(strFileName) || string.IsNullOrEmpty(strFileNameFormat)) return false;
-
-            string strPureFileName = Path.GetFileName(strFileName);
-
-            // 例如: cls{0}EN.ts => ^cls(?<tab>.+?)EN\.ts$
-            string strPattern = System.Text.RegularExpressions.Regex.Escape(strFileNameFormat);
-            strPattern = "^" + strPattern.Replace("\\{0\\}", "(?<tab>.+?)") + "$";
-
-            var regex = new System.Text.RegularExpressions.Regex(
-                strPattern,
-                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-            var match = regex.Match(strPureFileName);
-            if (!match.Success) return false;
-
-            strTabName = match.Groups["tab"].Value;
-            return string.IsNullOrEmpty(strTabName) == false;
-        }
-
-        private static string GetCodeTypeIdByFileName(string strFileName, string strPrjId)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(strFileName)) return "0000";
-
-                string strExt = Path.GetExtension(strFileName); // .cs / .ts
-
-                // 仅取当前工程的 CodeType
-                var arrCodeType = clsCodeTypeBL.GetObjLstCache();
-
-                // 1) 第一优先级：FileNameFormat 且扩展名一致
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) continue;
-
-                    string strFmtExt = Path.GetExtension(objCodeType.FileNameFormat);
-                    if (string.Equals(strFmtExt, strExt, StringComparison.OrdinalIgnoreCase) == false) continue;
-
-                    if (TryMatchByFileNameFormat(strFileName, objCodeType.FileNameFormat, out _))
-                    {
-                        return objCodeType.CodeTypeId;
-                    }
-                }
-
-                // 2) 第二优先级：FileNameFormat（不强制扩展名）
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) continue;
-
-                    if (TryMatchByFileNameFormat(strFileName, objCodeType.FileNameFormat, out _))
-                    {
-                        return objCodeType.CodeTypeId;
-                    }
-                }
-
-                // 3) 最后回退：ClassNamePattern（尽量按扩展名约束）
-                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strFileName);
-                foreach (var objCodeType in arrCodeType)
-                {
-                    if (string.IsNullOrEmpty(objCodeType.ClassNamePattern)) continue;
-
-                    // 如果 FileNameFormat 有扩展名，优先要求一致，避免 ts 命中 cs
-                    if (string.IsNullOrEmpty(objCodeType.FileNameFormat) == false)
-                    {
-                        string strFmtExt = Path.GetExtension(objCodeType.FileNameFormat);
-                        if (string.IsNullOrEmpty(strFmtExt) == false
-                            && string.Equals(strFmtExt, strExt, StringComparison.OrdinalIgnoreCase) == false)
-                        {
-                            continue;
-                        }
-                    }
-
-                    try
-                    {
-                        var regex = new System.Text.RegularExpressions.Regex(
-                            objCodeType.ClassNamePattern,
-                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-                        if (regex.IsMatch(strFileNameWithoutExt))
-                        {
-                            return objCodeType.CodeTypeId;
-                        }
-                    }
-                    catch
-                    {
-                        // 忽略无效正则
-                    }
-                }
-
-                return "0000";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"匹配CodeTypeId时出错：{ex.Message}");
-                return "0000";
-            }
-        }
-
-        private static Dictionary<string, string> GetCodeTypeIdDictionary(List<string> arrFileName, string strPrjId)
-        {
-            Dictionary<string, string> dictCodeTypeId = new Dictionary<string, string>();
-
-            if (arrFileName == null || arrFileName.Count == 0) return dictCodeTypeId;
-
-            foreach (string strFileName in arrFileName)
-            {
-                dictCodeTypeId[strFileName] = GetCodeTypeIdByFileName(strFileName, strPrjId);
-            }
-
-            return dictCodeTypeId;
-        }
-
-        private static string ExtractTabNameFromFileNameBak202606122(string strFileName, string strCodeTypeId, string strPrjId)
-        {
-            try
-            {
-                var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
-                if (objCodeType == null) return "";
-                //if (objCodeType.PrjId != strPrjId) return "";
-                if (string.IsNullOrEmpty(objCodeType.FileNameFormat)) return "";
-
-                if (TryMatchByFileNameFormat(strFileName, objCodeType.FileNameFormat, out string strTabName))
-                {
-                    return strTabName;
-                }
-
-                return "";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"从文件名提取表名时出错：{ex.Message}");
-                return "";
-            }
-        }
-        /// <summary>
-        /// 从文件名中提取表名（基于CodeType的FileNameFormat，兼容扩展名差异）
-        /// </summary>
-        /// <param name="strFileName">文件名（含扩展名）</param>
-        /// <param name="strCodeTypeId">代码类型Id</param>
-        /// <param name="strPrjId">工程Id</param>
-        /// <returns>表名，如果无法提取返回空字符串</returns>
-        private static string ExtractTabNameFromFileNameBaked0260615(string strFileName, string strCodeTypeId, string strPrjId)
-        {
-            try
-            {
-                var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
-                if (objCodeType == null || string.IsNullOrEmpty(objCodeType.FileNameFormat))
-                    return "";
-
-                string strPureFileName = Path.GetFileName(strFileName);
-                string strFormat = objCodeType.FileNameFormat;
-
-                // 1) 完整格式匹配（含扩展名）
-                string strPatternFull = System.Text.RegularExpressions.Regex.Escape(strFormat);
-                strPatternFull = "^" + strPatternFull.Replace("\\{0}", "(?<tab>.+?)") + "$";
-                var regexFull = new System.Text.RegularExpressions.Regex(
-                    strPatternFull,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-                var matchFull = regexFull.Match(strPureFileName);
-                if (matchFull.Success && matchFull.Groups["tab"] != null)
-                {
-                    string strTabName = matchFull.Groups["tab"].Value;
-                    if (string.IsNullOrEmpty(strTabName) == false) return strTabName;
-                }
-
-                // 2) 忽略扩展名匹配（兜底）
-                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strPureFileName);
-
-                string strFormatWithoutExt = strFormat;
-                int intDotPos = strFormatWithoutExt.LastIndexOf('.');
-                if (intDotPos > 0)
-                {
-                    strFormatWithoutExt = strFormatWithoutExt.Substring(0, intDotPos);
-                }
-
-                string strPatternNoExt = System.Text.RegularExpressions.Regex.Escape(strFormatWithoutExt);
-                strPatternNoExt = "^" + strPatternNoExt.Replace("\\{0}", "(?<tab>.+?)") + "$";
-                var regexNoExt = new System.Text.RegularExpressions.Regex(
-                    strPatternNoExt,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-                var matchNoExt = regexNoExt.Match(strFileNameWithoutExt);
-                if (matchNoExt.Success && matchNoExt.Groups["tab"] != null)
-                {
-                    string strTabName = matchNoExt.Groups["tab"].Value;
-                    if (string.IsNullOrEmpty(strTabName) == false) return strTabName;
-                }
-
-                return "";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"从文件名提取表名时出错：{ex.Message}");
-                return "";
-            }
-        }
-        private static string ExtractTabNameFromFileName(string strFileName, string strCodeTypeId, string strPrjId)
-        {
-            try
-            {
-                var objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
-                if (objCodeType == null || string.IsNullOrEmpty(objCodeType.FileNameFormat))
-                    return "";
-
-                string strPureFileName = Path.GetFileName(strFileName);
-                string strFormat = objCodeType.FileNameFormat;
-
-                // 1) 完整格式匹配（含扩展名）
-                string strPatternFull = System.Text.RegularExpressions.Regex.Escape(strFormat);
-                strPatternFull = "^" + strPatternFull.Replace("\\{0}", "(?<tab>.+?)") + "$";
-                var regexFull = new System.Text.RegularExpressions.Regex(
-                    strPatternFull,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-                var matchFull = regexFull.Match(strPureFileName);
-                if (matchFull.Success && matchFull.Groups["tab"] != null)
-                {
-                    string strTabName = matchFull.Groups["tab"].Value;
-                    if (string.IsNullOrEmpty(strTabName) == false) return strTabName;
-                }
-
-                // 2) 忽略扩展名匹配（兜底）
-                string strFileNameWithoutExt = Path.GetFileNameWithoutExtension(strPureFileName);
-
-                string strFormatWithoutExt = strFormat;
-                int intDotPos = strFormatWithoutExt.LastIndexOf('.');
-                if (intDotPos > 0)
-                {
-                    strFormatWithoutExt = strFormatWithoutExt.Substring(0, intDotPos);
-                }
-
-                string strPatternNoExt = System.Text.RegularExpressions.Regex.Escape(strFormatWithoutExt);
-                strPatternNoExt = "^" + strPatternNoExt.Replace("\\{0}", "(?<tab>.+?)") + "$";
-                var regexNoExt = new System.Text.RegularExpressions.Regex(
-                    strPatternNoExt,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
-                var matchNoExt = regexNoExt.Match(strFileNameWithoutExt);
-                if (matchNoExt.Success && matchNoExt.Groups["tab"] != null)
-                {
-                    string strTabName = matchNoExt.Groups["tab"].Value;
-                    if (string.IsNullOrEmpty(strTabName) == false) return strTabName;
-                }
-
-                return "";
-            }
-            catch (Exception ex)
-            {
-                clsSysParaEN.objLog.WriteDebugLog($"从文件名提取表名时出错：{ex.Message}");
-                return "";
-            }
-        }
-
-        public static ImportFileListFromClientResult ImportFileListFromClient(
-            string strUserId,
-            string strPrjId,
-            string strCmPrjId,
-            int intApplicationTypeId,
-            string strServerIp,
-            List<ClientImportFileItem> arrFileList)
-        {
-            ImportFileListFromClientResult result = new ImportFileListFromClientResult
-            {
-                ErrorId = 0,
-                ErrorMsg = ""
-            };
-
-            try
-            {
-                // 参数验证
-                if (string.IsNullOrEmpty(strUserId) || string.IsNullOrEmpty(strPrjId)
-                    || string.IsNullOrEmpty(strCmPrjId) || intApplicationTypeId <= 0)
-                {
-                    result.ErrorId = 400;
-                    result.ErrorMsg = "参数无效：UserId/PrjId/CmPrjId/ApplicationTypeId 必填";
-                    return result;
-                }
-
-                if (arrFileList == null || arrFileList.Count == 0)
-                {
-                    result.ErrorId = 400;
-                    result.ErrorMsg = "FileList 不能为空";
-                    return result;
-                }
-
-                // 校验关联配置
-                long lngCMProjectAppRelaId = clsCMProjectAppRelaBLEx.getCMProjectAppRelaId(
-                    strCmPrjId, intApplicationTypeId, strPrjId);
-                if (lngCMProjectAppRelaId <= 0)
-                {
-                    result.ErrorId = 400;
-                    result.ErrorMsg = $"未找到关联配置：PrjId={strPrjId}, CmPrjId={strCmPrjId}, ApplicationTypeId={intApplicationTypeId}";
-                    return result;
-                }
-
-                string strNow = clsDateTime.getTodayDateTimeStr(1);
-                if (string.IsNullOrEmpty(strServerIp))
-                {
-                    strServerIp = System.Net.Dns.GetHostName();
-                }
-
-                result.TotalCount = arrFileList.Count;
-
-                foreach (var item in arrFileList)
-                {
-                    if (item == null || string.IsNullOrEmpty(item.FileName) || string.IsNullOrEmpty(item.FileDirName))
-                    {
-                        result.IgnoredCount++;
-                        continue;
-                    }
-
-                    try
-                    {
-                        string strCondition = new clsFileResourceEN()
-                            .SetPrjId(strPrjId, "=")
-                            .SetCmPrjId(strCmPrjId, "=")
-                            .SetFileDirName(item.FileDirName, "=")
-                            .SetFileName(item.FileName, "=")
-                            .GetCombineCondition();
-
-                        clsFileResourceEN objExist = clsFileResourceBL.GetFirstObj_S(strCondition);
-
-                        // 自动识别 CodeTypeId / TabId
-                        var objTypeInfo = GetFileTypeInfoByFileName(item.FileName, strPrjId);
-                        string strCodeTypeId = objTypeInfo?.CodeTypeId ?? "0000";
-                        string strTabId = objTypeInfo?.TabId ?? "";
-
-                        if (objExist == null)
-                        {
-                            clsFileResourceEN objNew = new clsFileResourceEN();
-                            objNew.PrjId = strPrjId;
-                            objNew.CmPrjId = strCmPrjId;
-                            objNew.FileDirName = item.FileDirName;
-                            objNew.FileName = item.FileName;
-                            objNew.Extension = item.Extension ?? "";
-                            objNew.FileLength = item.FileLength;
-                            objNew.CreationTime = string.IsNullOrEmpty(item.CreationTime) ? strNow : item.CreationTime;
-                            objNew.LastWriteTime = string.IsNullOrEmpty(item.LastWriteTime) ? strNow : item.LastWriteTime;
-                            objNew.UpdUser = strUserId;
-                            objNew.UpdDate = strNow;
-                            objNew.IsExistFile = true;
-                            objNew.IpAddress = strServerIp;
-                            objNew.CodeTypeId = strCodeTypeId;
-                            objNew.TabId = strTabId;
-
-                            clsFileResourceBL.AddNewRecordBySql2(objNew);
-                            result.AddedCount++;
-                        }
-                        else
-                        {
-                            bool bolChanged = false;
-
-                            string strExtension = item.Extension ?? "";
-                            if (objExist.Extension != strExtension) { objExist.Extension = strExtension; bolChanged = true; }
-                            if (objExist.FileLength != item.FileLength) { objExist.FileLength = item.FileLength; bolChanged = true; }
-
-                            string strCreationTime = string.IsNullOrEmpty(item.CreationTime) ? objExist.CreationTime : item.CreationTime;
-                            string strLastWriteTime = string.IsNullOrEmpty(item.LastWriteTime) ? objExist.LastWriteTime : item.LastWriteTime;
-
-                            if (objExist.CreationTime != strCreationTime) { objExist.CreationTime = strCreationTime; bolChanged = true; }
-                            if (objExist.LastWriteTime != strLastWriteTime) { objExist.LastWriteTime = strLastWriteTime; bolChanged = true; }
-
-                            if (objExist.IpAddress != strServerIp) { objExist.IpAddress = strServerIp; bolChanged = true; }
-                            if (objExist.CodeTypeId != strCodeTypeId) { objExist.CodeTypeId = strCodeTypeId; bolChanged = true; }
-                            if (objExist.TabId != strTabId) { objExist.TabId = strTabId; bolChanged = true; }
-
-                            if (objExist.IsExistFile != true) { objExist.IsExistFile = true; bolChanged = true; }
-
-                            if (bolChanged)
-                            {
-                                objExist.UpdUser = strUserId;
-                                objExist.UpdDate = strNow;
-                                objExist.Update();
-                                result.UpdatedCount++;
-                            }
-                            else
-                            {
-                                result.IgnoredCount++;
-                            }
-                        }
-                    }
-                    catch (Exception objExItem)
-                    {
-                        result.FailedCount++;
-                        result.FailedFiles.Add(item.FileName ?? "(null)");
-                        clsSysParaEN.objLog.WriteDebugLog(
-                            $"[ImportFileListFromClient][ItemError] prjId={strPrjId}, cmPrjId={strCmPrjId}, file={item?.FileName}, err={objExItem}");
-                    }
-                }
-
-                if (result.FailedCount > 0)
-                {
-                    result.ErrorId = 2; // 部分成功
-                    result.ErrorMsg = $"部分成功：失败 {result.FailedCount} 个，新增 {result.AddedCount}，更新 {result.UpdatedCount}，忽略 {result.IgnoredCount}";
-                }
-
-                return result;
-            }
-            catch (Exception objException)
-            {
-                result.ErrorId = 500;
-                result.ErrorMsg = $"服务端异常：{objException.Message}";
-                clsSysParaEN.objLog.WriteDebugLog(
-                    $"[ImportFileListFromClient][Fatal] prjId={strPrjId}, cmPrjId={strCmPrjId}, count={arrFileList?.Count ?? 0}, err={objException}");
-                return result;
-            }
-        }
     }
 
-    /// <summary>
-    /// 根据文件名获取CodeTypeId和TabId的结果类
-    /// </summary>
-    public class FileTypeInfo
-    {
-        /// <summary>
-        /// 代码类型Id
-        /// </summary>
-        public string CodeTypeId { get; set; }
+    ///// <summary>
+    ///// 根据文件名获取CodeTypeId和TabId的结果类
+    ///// </summary>
+    //public class FileTypeInfo
+    //{
+    //    /// <summary>
+    //    /// 代码类型Id
+    //    /// </summary>
+    //    public string CodeTypeId { get; set; }
 
-        /// <summary>
-        /// 代码类型名称
-        /// </summary>
-        public string CodeTypeName { get; set; }
+    //    /// <summary>
+    //    /// 代码类型名称
+    //    /// </summary>
+    //    public string CodeTypeName { get; set; }
 
-        /// <summary>
-        /// 表Id
-        /// </summary>
-        public string TabId { get; set; }
+    //    /// <summary>
+    //    /// 表Id
+    //    /// </summary>
+    //    public string TabId { get; set; }
 
-        /// <summary>
-        /// 表名
-        /// </summary>
-        public string TabName { get; set; }
+    //    /// <summary>
+    //    /// 表名
+    //    /// </summary>
+    //    public string TabName { get; set; }
 
-        /// <summary>
-        /// 是否匹配成功
-        /// </summary>
-        public bool IsMatched { get; set; }
+    //    /// <summary>
+    //    /// 是否匹配成功
+    //    /// </summary>
+    //    public bool IsMatched { get; set; }
 
-        /// <summary>
-        /// 错误消息
-        /// </summary>
-        public string ErrorMessage { get; set; }
-    }
+    //    /// <summary>
+    //    /// 错误消息
+    //    /// </summary>
+    //    public string ErrorMessage { get; set; }
+    //}
 
 
-    /// <summary>
-    /// CodeTypeId统计信息类
-    /// </summary>
-    public class CodeTypeStatInfo
-    {
-        /// <summary>
-        /// 代码类型Id
-        /// </summary>
-        public string CodeTypeId { get; set; }
+    ///// <summary>
+    ///// CodeTypeId统计信息类
+    ///// </summary>
+    //public class CodeTypeStatInfo
+    //{
+    //    /// <summary>
+    //    /// 代码类型Id
+    //    /// </summary>
+    //    public string CodeTypeId { get; set; }
 
-        /// <summary>
-        /// 代码类型名称
-        /// </summary>
-        public string CodeTypeName { get; set; }
+    //    /// <summary>
+    //    /// 代码类型名称
+    //    /// </summary>
+    //    public string CodeTypeName { get; set; }
 
-        /// <summary>
-        /// 文件数量
-        /// </summary>
-        public int FileCount { get; set; }
+    //    /// <summary>
+    //    /// 文件数量
+    //    /// </summary>
+    //    public int FileCount { get; set; }
 
-        /// <summary>
-        /// 文件名列表（可选）
-        /// </summary>
-        public List<string> FileNames { get; set; }
-    }
-}
-
-// 建议放在 clsFileResourceBLEx 类内部（public partial class clsFileResourceBLEx : clsFileResourceBL）
-public class ClientImportFileItem
-{
-    public string FileName { get; set; }
-    public string FileDirName { get; set; }
-    public string Extension { get; set; }
-    public long? FileLength { get; set; }
-    public string CreationTime { get; set; }
-    public string LastWriteTime { get; set; }
-}
-
-public class ImportFileListFromClientResult
-{
-    public int ErrorId { get; set; }
-    public string ErrorMsg { get; set; }
-    public int TotalCount { get; set; }
-    public int AddedCount { get; set; }
-    public int UpdatedCount { get; set; }
-    public int IgnoredCount { get; set; }
-    public int FailedCount { get; set; }
-    public List<string> FailedFiles { get; set; } = new List<string>();
+    //    /// <summary>
+    //    /// 文件名列表（可选）
+    //    /// </summary>
+    //    public List<string> FileNames { get; set; }
+    //}
 }

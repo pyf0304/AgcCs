@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFileResourceEN
  表名:FileResource(00050539)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:09:13
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/15 13:44:29
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -30,10 +30,10 @@ using System.Collections.Generic;
 namespace AGC.Entity
 {
  /// <summary>
- /// 表FileResource的关键字(FileResourceID)的类型定义. 以便检查类型以及操作方便.
+ /// 表FileResource的关键字(FileResourceId)的类型定义. 以便检查类型以及操作方便.
  /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
  /// </summary>
-public class K_FileResourceID_FileResource
+public class K_FileResourceId_FileResource
 {
 private long _value = 0;
 /// <summary>
@@ -43,29 +43,29 @@ public long Value { get { return _value; }set { _value = value;} }
 /// <summary>
 /// 关键字类型构造函数
 /// </summary>
-/// <param name="lngFileResourceID">表关键字</param>
-public K_FileResourceID_FileResource(long lngFileResourceID)
+/// <param name="lngFileResourceId">表关键字</param>
+public K_FileResourceId_FileResource(long lngFileResourceId)
 {
-if (IsValid(lngFileResourceID)) Value = lngFileResourceID;
+if (IsValid(lngFileResourceId)) Value = lngFileResourceId;
 else
 {
 Value = 0;
 }
 }
-private static bool IsValid(long lngFileResourceID)
+private static bool IsValid(long lngFileResourceId)
 {
-if (lngFileResourceID == 0) return false;
-if (lngFileResourceID == 0) return false;
+if (lngFileResourceId == 0) return false;
+if (lngFileResourceId == 0) return false;
 return true;
 }
 /// <summary>
 /// 实现隐式类型转换,把类型:[{0}]隐式转换成:[{1}]
 /// </summary>
 /// <param name="value">原类型表关键字</param>
- /// <returns>返回:[K_FileResourceID_FileResource]类型的对象</returns>
-public static implicit operator K_FileResourceID_FileResource(long value)
+ /// <returns>返回:[K_FileResourceId_FileResource]类型的对象</returns>
+public static implicit operator K_FileResourceId_FileResource(long value)
 {
-return new K_FileResourceID_FileResource(value);
+return new K_FileResourceId_FileResource(value);
 }
 }
  /// <summary>
@@ -79,18 +79,20 @@ public class clsFileResourceEN : clsEntityBase2
 public static List<string> _RefreshTimeLst = new List<string>();
 public static string _ConnectString = ""; //当前表名,所使用的连接,如果为空就使用系统默认的连接
 public new const string _CurrTabName = "FileResource"; //当前表名,与该类相关的表名
-public const string _CurrTabKeyFldName = "FileResourceID"; //当前表中的关键字名称,与该类相关的表中关键字名
+public const string _CurrTabKeyFldName = "FileResourceId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 22;
-public static string[] _AttributeName = new string[] {"FileResourceID", "FileDirName", "FileName", "Extension", "TabId", "IsBelongsCurrCMPrj", "IsGeneCode", "IsCanDel", "FileLength", "FileType", "CreationTime", "LastWriteTime", "CheckDateTime", "InUse", "IsExistFile", "PrjId", "CmPrjId", "IpAddress", "IdFtpResource", "UpdDate", "UpdUser", "Memo"};
+protected const int _AttributeCount = 24;
+public static string[] _AttributeName = new string[] {"FileResourceId", "FileDirName", "FileName", "Extension", "CodeTypeId", "TabId", "IsBelongsCurrCMPrj", "PrjFileTypeId", "IsGeneCode", "IsCanDel", "FileLength", "FileType", "CreationTime", "LastWriteTime", "CheckDateTime", "InUse", "IsExistFile", "PrjId", "CmPrjId", "IpAddress", "IdFtpResource", "UpdDate", "UpdUser", "Memo"};
 
-protected long mlngFileResourceID;    //FileResourceID
+protected long mlngFileResourceId;    //文件资源Id
 protected string mstrFileDirName;    //文件目录名
 protected string mstrFileName;    //文件名
 protected string mstrExtension;    //扩展名
+protected string mstrCodeTypeId;    //代码类型Id
 protected string mstrTabId;    //表ID
 protected bool mbolIsBelongsCurrCMPrj;    //是否属于当前项目
+protected string mstrPrjFileTypeId;    //项目文件类型Id
 protected bool mbolIsGeneCode;    //是否生成代码
 protected bool mbolIsCanDel;    //是否可删除
 protected long? mlngFileLength;    //文件长度
@@ -116,25 +118,25 @@ protected string mstrMemo;    //说明
  {
  SetInit();
  mbolIsCheckProperty = false;
- lstKeyFldNames.Add("FileResourceID");
+ lstKeyFldNames.Add("FileResourceId");
  }
 
 /// <summary>
 /// 构造函数
  /// (AutoGCLib.clsGeneCodeBase4Tab:GenClassConstructor2)
 /// </summary>
-/// <param name = "lngFileResourceID">关键字:FileResourceID</param>
-public clsFileResourceEN(long lngFileResourceID)
+/// <param name = "lngFileResourceId">关键字:文件资源Id</param>
+public clsFileResourceEN(long lngFileResourceId)
  {
- if (lngFileResourceID  ==  0)
+ if (lngFileResourceId  ==  0)
  {
  throw new Exception("关键字不能为0!");
  }
 
-this.mlngFileResourceID = lngFileResourceID;
+this.mlngFileResourceId = lngFileResourceId;
  SetInit();
  mbolIsCheckProperty = false;
- lstKeyFldNames.Add("FileResourceID");
+ lstKeyFldNames.Add("FileResourceId");
  }
 
 public static int AttributeCount
@@ -148,9 +150,9 @@ public override object this[string strAttributeName]
 {
 get
 {
-if (strAttributeName  ==  conFileResource.FileResourceID)
+if (strAttributeName  ==  conFileResource.FileResourceId)
 {
-return mlngFileResourceID;
+return mlngFileResourceId;
 }
 else if (strAttributeName  ==  conFileResource.FileDirName)
 {
@@ -164,6 +166,10 @@ else if (strAttributeName  ==  conFileResource.Extension)
 {
 return mstrExtension;
 }
+else if (strAttributeName  ==  conFileResource.CodeTypeId)
+{
+return mstrCodeTypeId;
+}
 else if (strAttributeName  ==  conFileResource.TabId)
 {
 return mstrTabId;
@@ -171,6 +177,10 @@ return mstrTabId;
 else if (strAttributeName  ==  conFileResource.IsBelongsCurrCMPrj)
 {
 return mbolIsBelongsCurrCMPrj;
+}
+else if (strAttributeName  ==  conFileResource.PrjFileTypeId)
+{
+return mstrPrjFileTypeId;
 }
 else if (strAttributeName  ==  conFileResource.IsGeneCode)
 {
@@ -240,10 +250,10 @@ return null;
 }
 set
 {
-if (strAttributeName  ==  conFileResource.FileResourceID)
+if (strAttributeName  ==  conFileResource.FileResourceId)
 {
-mlngFileResourceID = TransNullToInt(value.ToString());
- AddUpdatedFld(conFileResource.FileResourceID);
+mlngFileResourceId = TransNullToInt(value.ToString());
+ AddUpdatedFld(conFileResource.FileResourceId);
 }
 else if (strAttributeName  ==  conFileResource.FileDirName)
 {
@@ -260,6 +270,11 @@ else if (strAttributeName  ==  conFileResource.Extension)
 mstrExtension = value.ToString();
  AddUpdatedFld(conFileResource.Extension);
 }
+else if (strAttributeName  ==  conFileResource.CodeTypeId)
+{
+mstrCodeTypeId = value.ToString();
+ AddUpdatedFld(conFileResource.CodeTypeId);
+}
 else if (strAttributeName  ==  conFileResource.TabId)
 {
 mstrTabId = value.ToString();
@@ -269,6 +284,11 @@ else if (strAttributeName  ==  conFileResource.IsBelongsCurrCMPrj)
 {
 mbolIsBelongsCurrCMPrj = TransNullToBool(value.ToString());
  AddUpdatedFld(conFileResource.IsBelongsCurrCMPrj);
+}
+else if (strAttributeName  ==  conFileResource.PrjFileTypeId)
+{
+mstrPrjFileTypeId = value.ToString();
+ AddUpdatedFld(conFileResource.PrjFileTypeId);
 }
 else if (strAttributeName  ==  conFileResource.IsGeneCode)
 {
@@ -356,9 +376,9 @@ public object this[int intIndex]
 {
 get
 {
-if (conFileResource.FileResourceID  ==  _AttributeName[intIndex])
+if (conFileResource.FileResourceId  ==  _AttributeName[intIndex])
 {
-return mlngFileResourceID;
+return mlngFileResourceId;
 }
 else if (conFileResource.FileDirName  ==  _AttributeName[intIndex])
 {
@@ -372,6 +392,10 @@ else if (conFileResource.Extension  ==  _AttributeName[intIndex])
 {
 return mstrExtension;
 }
+else if (conFileResource.CodeTypeId  ==  _AttributeName[intIndex])
+{
+return mstrCodeTypeId;
+}
 else if (conFileResource.TabId  ==  _AttributeName[intIndex])
 {
 return mstrTabId;
@@ -379,6 +403,10 @@ return mstrTabId;
 else if (conFileResource.IsBelongsCurrCMPrj  ==  _AttributeName[intIndex])
 {
 return mbolIsBelongsCurrCMPrj;
+}
+else if (conFileResource.PrjFileTypeId  ==  _AttributeName[intIndex])
+{
+return mstrPrjFileTypeId;
 }
 else if (conFileResource.IsGeneCode  ==  _AttributeName[intIndex])
 {
@@ -448,10 +476,10 @@ return null;
 }
 set
 {
-if (conFileResource.FileResourceID  ==  _AttributeName[intIndex])
+if (conFileResource.FileResourceId  ==  _AttributeName[intIndex])
 {
-mlngFileResourceID = TransNullToInt(value.ToString());
- AddUpdatedFld(conFileResource.FileResourceID);
+mlngFileResourceId = TransNullToInt(value.ToString());
+ AddUpdatedFld(conFileResource.FileResourceId);
 }
 else if (conFileResource.FileDirName  ==  _AttributeName[intIndex])
 {
@@ -468,6 +496,11 @@ else if (conFileResource.Extension  ==  _AttributeName[intIndex])
 mstrExtension = value.ToString();
  AddUpdatedFld(conFileResource.Extension);
 }
+else if (conFileResource.CodeTypeId  ==  _AttributeName[intIndex])
+{
+mstrCodeTypeId = value.ToString();
+ AddUpdatedFld(conFileResource.CodeTypeId);
+}
 else if (conFileResource.TabId  ==  _AttributeName[intIndex])
 {
 mstrTabId = value.ToString();
@@ -477,6 +510,11 @@ else if (conFileResource.IsBelongsCurrCMPrj  ==  _AttributeName[intIndex])
 {
 mbolIsBelongsCurrCMPrj = TransNullToBool(value.ToString());
  AddUpdatedFld(conFileResource.IsBelongsCurrCMPrj);
+}
+else if (conFileResource.PrjFileTypeId  ==  _AttributeName[intIndex])
+{
+mstrPrjFileTypeId = value.ToString();
+ AddUpdatedFld(conFileResource.PrjFileTypeId);
 }
 else if (conFileResource.IsGeneCode  ==  _AttributeName[intIndex])
 {
@@ -562,21 +600,21 @@ mstrMemo = value.ToString();
 }
 
 /// <summary>
-/// FileResourceID(说明:;字段类型:bigint;字段长度:8;是否可空:False)
+/// 文件资源Id(说明:;字段类型:bigint;字段长度:8;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
- public long FileResourceID
+ public long FileResourceId
 {
 get
 {
-return mlngFileResourceID;
+return mlngFileResourceId;
 }
 set
 {
- mlngFileResourceID = value;
+ mlngFileResourceId = value;
 //记录修改过的字段
- AddUpdatedFld(conFileResource.FileResourceID);
+ AddUpdatedFld(conFileResource.FileResourceId);
 }
 }
 /// <summary>
@@ -658,6 +696,32 @@ else
 }
 }
 /// <summary>
+/// 代码类型Id(说明:;字段类型:char;字段长度:4;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string CodeTypeId
+{
+get
+{
+return mstrCodeTypeId;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrCodeTypeId = value;
+}
+else
+{
+ mstrCodeTypeId = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conFileResource.CodeTypeId);
+}
+}
+/// <summary>
 /// 表ID(说明:;字段类型:char;字段长度:8;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
@@ -699,6 +763,32 @@ set
  mbolIsBelongsCurrCMPrj = value;
 //记录修改过的字段
  AddUpdatedFld(conFileResource.IsBelongsCurrCMPrj);
+}
+}
+/// <summary>
+/// 项目文件类型Id(说明:;字段类型:char;字段长度:2;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string PrjFileTypeId
+{
+get
+{
+return mstrPrjFileTypeId;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrPrjFileTypeId = value;
+}
+else
+{
+ mstrPrjFileTypeId = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conFileResource.PrjFileTypeId);
 }
 }
 /// <summary>
@@ -782,7 +872,7 @@ else
 }
 }
 /// <summary>
-/// 建立时间(说明:;字段类型:varchar;字段长度:20;是否可空:True)
+/// 建立时间(说明:;字段类型:varchar;字段长度:30;是否可空:True)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
@@ -1086,7 +1176,7 @@ else
  {
  get
  {
-  return mlngFileResourceID.ToString();
+  return mlngFileResourceId.ToString();
  }
  }
 }
@@ -1097,16 +1187,16 @@ else
 public static class conFileResource
 {
 public const string _CurrTabName = "FileResource"; //当前表名,与该类相关的表名
-public const string _CurrTabKeyFldName_S = "FileResourceID"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"FileResourceID", "FileDirName", "FileName", "Extension", "TabId", "IsBelongsCurrCMPrj", "IsGeneCode", "IsCanDel", "FileLength", "FileType", "CreationTime", "LastWriteTime", "CheckDateTime", "InUse", "IsExistFile", "PrjId", "CmPrjId", "IpAddress", "IdFtpResource", "UpdDate", "UpdUser", "Memo"};
+public const string _CurrTabKeyFldName_S = "FileResourceId"; //当前表中的关键字名称,与该类相关的表中关键字名
+public static string[] _AttributeName = new string[] {"FileResourceId", "FileDirName", "FileName", "Extension", "CodeTypeId", "TabId", "IsBelongsCurrCMPrj", "PrjFileTypeId", "IsGeneCode", "IsCanDel", "FileLength", "FileType", "CreationTime", "LastWriteTime", "CheckDateTime", "InUse", "IsExistFile", "PrjId", "CmPrjId", "IpAddress", "IdFtpResource", "UpdDate", "UpdUser", "Memo"};
 //以下是属性变量
 
 
  /// <summary>
- /// 常量:"FileResourceID"
+ /// 常量:"FileResourceId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string FileResourceID = "FileResourceID";    //FileResourceID
+ public const string FileResourceId = "FileResourceId";    //文件资源Id
 
  /// <summary>
  /// 常量:"FileDirName"
@@ -1127,6 +1217,12 @@ public static string[] _AttributeName = new string[] {"FileResourceID", "FileDir
  public const string Extension = "Extension";    //扩展名
 
  /// <summary>
+ /// 常量:"CodeTypeId"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string CodeTypeId = "CodeTypeId";    //代码类型Id
+
+ /// <summary>
  /// 常量:"TabId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
@@ -1137,6 +1233,12 @@ public static string[] _AttributeName = new string[] {"FileResourceID", "FileDir
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string IsBelongsCurrCMPrj = "IsBelongsCurrCMPrj";    //是否属于当前项目
+
+ /// <summary>
+ /// 常量:"PrjFileTypeId"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string PrjFileTypeId = "PrjFileTypeId";    //项目文件类型Id
 
  /// <summary>
  /// 常量:"IsGeneCode"

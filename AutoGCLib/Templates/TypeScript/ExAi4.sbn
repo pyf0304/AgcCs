@@ -3,6 +3,10 @@ import { IShowList } from '@/ts/PubFun/IShowList';
 import {
   divVarSet,
   viewVarSet,
+  {{~ if HasAdjustOrderNum ~}}
+      CTRelationType_ClearAllCache,
+      dataListCTRelationType,
+  {{~ end ~}}
 } from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 
 import {
@@ -26,7 +30,18 @@ import { {{ TableName }}CRUDAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName
 import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
 import { {{ TableName }}CommandIdAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
 import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
-
+   
+{{~ if HasAdjustOrderNum ~}}
+    import {
+      {{ TableName }}_DownMoveAsync,
+      {{ TableName }}_GoBottomAsync,
+      {{ TableName }}_GoTopAsync,
+      {{ TableName }}_ReFreshCache,
+      {{ TableName }}_ReOrderAsync,
+      {{ TableName }}_UpMoveAsync,
+    } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+    import { clsOrderByData } from '@/ts/PubFun/clsOrderByData';
+{{~ end ~}}
 /**
  * {{ TableName }}CRUDAiEx 扩展类
  * 继承自 {{ TableName }}CRUDAi 基类
@@ -36,10 +51,46 @@ import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableNa
 export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi implements IShowList {
   public static vuebtn_Click: (strCommandName: string, key: {{TableName}}Key) => void;
   public static GetPropValue: (strPropName: string) => string;
+  private static readonly pageSizeStorageKey = '{{ ModuleName }}.{{ TableName }}CRUDAi.PageSize';
+
+  constructor() {
+    super();
+    this._pageSize = this.loadPageSizeFromStorage();
+    this.objPager.onPageSizeChange = (ps: number) => {
+      this._pageSize = ps;
+      this.savePageSizeToStorage(ps);
+    };
+  }
+
+  private loadPageSizeFromStorage(): number | null {
+    try {
+      const storedValue = localStorage.getItem({{ TableName }}CRUDAiEx.pageSizeStorageKey);
+      if (storedValue == null || storedValue.trim() === '') {
+        return null;
+      }
+      const parsed = Number(storedValue);
+      if (Number.isInteger(parsed) && parsed > 0) {
+        return parsed;
+      }
+      return null;
+    } catch (error) {
+      console.warn('读取分页大小缓存失败:', error);
+      return null;
+    }
+  }
+
+  private savePageSizeToStorage(pageSize: number): void {
+    try {
+      localStorage.setItem({{ TableName }}CRUDAiEx.pageSizeStorageKey, String(pageSize));
+    } catch (error) {
+      console.warn('保存分页大小缓存失败:', error);
+    }
+  }
 
   public get pageSize(): number {
     return this._pageSize ?? 10;
   }
+
 
   /**
    * 绑定数据视图（同步方法）
@@ -273,18 +324,36 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
         return;
       {{~ end ~}}
       {{~ if HasDeleteFeature ~}}
-      case 'delete':
-        await this.onDelete();
-        return;
+          case 'delete':
+            await this.onDelete();
+            return;
       {{~ end ~}}
+      {{~ if HasAdjustOrderNum ~}}
+          case 'goTop':
+            await this.onGoTop();
+            return;
+          case 'upMove':
+            await this.onUpMove();
+            return;
+          case 'downMove':
+            await this.onDownMove();
+            return;
+          case 'goBottom':
+            await this.onGoBottom();
+            return;
+          case 'reOrder':
+            await this.onReOrder();
+            return;
+      {{~ end ~}}
+
       {{~ # 🔥 动态生成设置字段值命令处理 ~}}
       {{~ for mapping in CommandMappings ~}}
-      {{~ if mapping.FeatureId == "0148" ~}}
-      // 🔥 {{ mapping.CommandName }} 命令
-      case '{{ mapping.CommandId }}':
-        await this.on{{ mapping.MethodName }}();
-        return;
-      {{~ end ~}}
+          {{~ if mapping.FeatureId == "0148" ~}}
+              // 🔥 {{ mapping.CommandName }} 命令
+              case '{{ mapping.CommandId }}':
+                await this.on{{ mapping.MethodName }}();
+                return;
+          {{~ end ~}}
       {{~ end ~}}
       default:
         return;
@@ -299,7 +368,149 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
     await this.btnCopyRecord_Click();
   }
   {{~ end ~}}
+
+   {{~ if HasAdjustOrderNum ~}}
   
+  /**
+   * 更新列表中指定关键字的勾选状态
+   */
+  private setCheckedRowsByKeyIds(arrKeyIds: Array<string>): void {
+    const setKeyId = new Set(arrKeyIds);
+    dataList{{ TableName }}.value.forEach((item: any) => {
+      item.checked = setKeyId.has(item.{{KeyFieldCamel}});
+    });
+  }
+      /**
+       * 移顶操作
+       */
+      public async onGoTop() {
+        const strThisFuncName = 'onGoTop';
+        const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+        if (arrKeyIds.length === 0) {
+          alert(`请选择需要置顶的${this.thisTabName}记录!`);
+          return;
+        }
+        try {
+          const objOrderByData: clsOrderByData = new clsOrderByData();
+          objOrderByData.KeyIdLst = arrKeyIds;
+          objOrderByData.ClassificationFieldValueLst = '{}';
+          await {{ TableName }}_GoTopAsync(objOrderByData);
+          {{ TableName }}_ReFreshCache();
+          {{ TableName }}_ClearAllCache();
+        } catch (e) {
+          const strMsg = `置顶出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
+          console.error('Error: ', strMsg);
+          alert(strMsg);
+          return;
+        }
+        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        this.setCheckedRowsByKeyIds(arrKeyIds);
+      }
+
+      /**
+       * 上移操作
+       */
+      public async onUpMove() {
+        const strThisFuncName = 'onUpMove';
+        const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+        if (arrKeyIds.length === 0) {
+          alert(`请选择需要上移的${this.thisTabName}记录!`);
+          return;
+        }
+        try {
+          const objOrderByData: clsOrderByData = new clsOrderByData();
+          objOrderByData.KeyIdLst = arrKeyIds;
+          objOrderByData.ClassificationFieldValueLst = '{}';
+          await {{ TableName }}_UpMoveAsync(objOrderByData);
+          {{ TableName }}_ReFreshCache();
+          {{ TableName }}_ClearAllCache();
+        } catch (e) {
+          const strMsg = `上移记录出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
+          console.error('Error: ', strMsg);
+          alert(strMsg);
+          return;
+        }
+        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        this.setCheckedRowsByKeyIds(arrKeyIds);
+      }
+
+      /**
+       * 下移操作
+       */
+      public async onDownMove() {
+        const strThisFuncName = 'onDownMove';
+        const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+        if (arrKeyIds.length === 0) {
+          alert(`请选择需要下移的${this.thisTabName}记录!`);
+          return;
+        }
+        try {
+          const objOrderByData: clsOrderByData = new clsOrderByData();
+          objOrderByData.KeyIdLst = arrKeyIds;
+          objOrderByData.ClassificationFieldValueLst = '{}';
+          await {{ TableName }}_DownMoveAsync(objOrderByData);
+          {{ TableName }}_ReFreshCache();
+          {{ TableName }}_ClearAllCache();
+        } catch (e) {
+          const strMsg = `下移记录出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
+          console.error('Error: ', strMsg);
+          alert(strMsg);
+          return;
+        }
+        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        this.setCheckedRowsByKeyIds(arrKeyIds);
+      }
+
+      /**
+       * 移底操作
+       */
+      public async onGoBottom() {
+        const strThisFuncName = 'onGoBottom';
+        const arrKeyIds = GetCheckedKeyIdsInDivObj(divVarSet.refDivList);
+        if (arrKeyIds.length === 0) {
+          alert(`请选择需要置底的${this.thisTabName}记录!`);
+          return;
+        }
+        try {
+          const objOrderByData: clsOrderByData = new clsOrderByData();
+          objOrderByData.KeyIdLst = arrKeyIds;
+          objOrderByData.ClassificationFieldValueLst = '{}';
+          await {{ TableName }}_GoBottomAsync(objOrderByData);
+          {{ TableName }}_ReFreshCache();
+          {{ TableName }}_ClearAllCache();
+        } catch (e) {
+          const strMsg = `置底出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
+          console.error('Error: ', strMsg);
+          alert(strMsg);
+          return;
+        }
+        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        this.setCheckedRowsByKeyIds(arrKeyIds);
+      }
+
+      /**
+       * 重序操作
+       */
+      public async onReOrder() {
+        const strThisFuncName = 'onReOrder';
+        try {
+          const objOrderByData: clsOrderByData = new clsOrderByData();
+          objOrderByData.ClassificationFieldValueLst = '{}';
+          await {{ TableName }}_ReOrderAsync(objOrderByData);
+          {{ TableName }}_ReFreshCache();
+          {{ TableName }}_ClearAllCache();
+        } catch (e) {
+          const strMsg = `重序出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
+          console.error('Error: ', strMsg);
+          alert(strMsg);
+          return;
+        }
+        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+      }
+ {{~ end ~}}
+
+
+
     /**
    * 静态按钮点击处理（兼容旧版本）
    */

@@ -2,7 +2,7 @@
 {{~ if OptionsInfo.size > 0 ~}}
 
 {{~ for option in OptionsInfo4DS ~}}
-import { {{ option.FunctionName }} } from '@/ts/{{ option.WApiPath }}/{{ option.ModuleName }}/{{ option.WApiFileName }}';
+import { {{ option.GetDdlDataFuncName }} } from '@/ts/{{ option.WApiPath }}/{{ option.ModuleName }}/{{ option.WApiFileName }}';
 {{~ end ~}}
 {{~ 
   # 🔥 收集需要导入的共享变量
@@ -89,7 +89,7 @@ export async function loadQueryOptionsAi() {
 {{~ if OptionsInfo4DS.size > 0 ~}}
   const [{{~ for option in OptionsInfo4DS ~}}arr{{ option.WApiClass }}{{ if !for.last }}, {{ end }}{{~ end ~}}] = await Promise.all([
 {{~ for option in OptionsInfo4DS ~}}
-    {{ option.FunctionName }}({{~ 
+    {{ option.GetDdlDataFuncName }}({{~ 
       if option.Parameters.size > 0 
         for param in option.Parameters 
           ~}}{{ param.SharedVarName }}.value{{~ if !for.last ~}}, {{~ end ~}}{{~ 
@@ -114,7 +114,7 @@ export async function loadFeatureOptionsAi() {
   end
 ~}}
 {{~ if feature_options.size > 0 ~}}
-  const arr{{ feature_options[0].WApiClass }} = await {{ feature_options[0].FunctionName }}({{~ 
+  const arr{{ feature_options[0].WApiClass }} = await {{ feature_options[0].GetDdlDataFuncName }}({{~ 
     if feature_options[0].Parameters.size > 0 
       for param in feature_options[0].Parameters 
         ~}}{{ param.SharedVarName }}.value{{~ if !for.last ~}}, {{~ end ~}}{{~ 

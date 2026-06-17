@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCMProjectBL
  表名:CMProject(00050512)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:02:24
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/11 01:36:25
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -336,6 +336,34 @@ objCMProjectEN.dicFldComparisonOp.Add(conCMProject.ApplicationTypeId, strCompari
 else
 {
 objCMProjectEN.dicFldComparisonOp[conCMProject.ApplicationTypeId] = strComparisonOp;
+}
+}
+return objCMProjectEN;
+	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objCMProjectEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsCMProjectEN SetUserCodeRoot(this clsCMProjectEN objCMProjectEN, string strUserCodeRoot, string strComparisonOp="")
+	{
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strUserCodeRoot, 50, conCMProject.UserCodeRoot);
+}
+objCMProjectEN.UserCodeRoot = strUserCodeRoot; //用户代码根
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objCMProjectEN.dicFldComparisonOp.ContainsKey(conCMProject.UserCodeRoot) == false)
+{
+objCMProjectEN.dicFldComparisonOp.Add(conCMProject.UserCodeRoot, strComparisonOp);
+}
+else
+{
+objCMProjectEN.dicFldComparisonOp[conCMProject.UserCodeRoot] = strComparisonOp;
 }
 }
 return objCMProjectEN;
@@ -877,6 +905,7 @@ objCMProjectENT.CmPrjId = objCMProjectENS.CmPrjId; //Cm工程Id
 objCMProjectENT.CmPrjName = objCMProjectENS.CmPrjName; //CM工程名
 objCMProjectENT.PrjId = objCMProjectENS.PrjId; //工程Id
 objCMProjectENT.ApplicationTypeId = objCMProjectENS.ApplicationTypeId; //应用程序类型ID
+objCMProjectENT.UserCodeRoot = objCMProjectENS.UserCodeRoot; //用户代码根
 objCMProjectENT.FunctionTemplateId = objCMProjectENS.FunctionTemplateId; //函数模板Id
 objCMProjectENT.VueDesignSysId = objCMProjectENS.VueDesignSysId; //Vue控件设计体系Id
 objCMProjectENT.IsFstLcase = objCMProjectENS.IsFstLcase; //是否首字母小写
@@ -913,6 +942,7 @@ CmPrjId = objCMProjectENS.CmPrjId, //Cm工程Id
 CmPrjName = objCMProjectENS.CmPrjName, //CM工程名
 PrjId = objCMProjectENS.PrjId, //工程Id
 ApplicationTypeId = objCMProjectENS.ApplicationTypeId, //应用程序类型ID
+UserCodeRoot = objCMProjectENS.UserCodeRoot, //用户代码根
 FunctionTemplateId = objCMProjectENS.FunctionTemplateId, //函数模板Id
 VueDesignSysId = objCMProjectENS.VueDesignSysId, //Vue控件设计体系Id
 IsFstLcase = objCMProjectENS.IsFstLcase, //是否首字母小写
@@ -983,6 +1013,11 @@ if (objCMProjectCond.IsUpdated(conCMProject.ApplicationTypeId) == true)
 {
 string strComparisonOpApplicationTypeId = objCMProjectCond.dicFldComparisonOp[conCMProject.ApplicationTypeId];
 strWhereCond += string.Format(" And {0} {2} {1}", conCMProject.ApplicationTypeId, objCMProjectCond.ApplicationTypeId, strComparisonOpApplicationTypeId);
+}
+if (objCMProjectCond.IsUpdated(conCMProject.UserCodeRoot) == true)
+{
+string strComparisonOpUserCodeRoot = objCMProjectCond.dicFldComparisonOp[conCMProject.UserCodeRoot];
+strWhereCond += string.Format(" And {0} {2} '{1}'", conCMProject.UserCodeRoot, objCMProjectCond.UserCodeRoot, strComparisonOpUserCodeRoot);
 }
 if (objCMProjectCond.IsUpdated(conCMProject.FunctionTemplateId) == true)
 {
@@ -1472,6 +1507,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1534,6 +1570,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1580,6 +1617,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1688,6 +1726,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1734,6 +1773,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1824,6 +1864,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1870,6 +1911,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1930,6 +1972,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -1979,6 +2022,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -2023,6 +2067,7 @@ objCMProjectEN.CmPrjId = objRow[conCMProject.CmPrjId].ToString().Trim(); //Cm工
 objCMProjectEN.CmPrjName = objRow[conCMProject.CmPrjName].ToString().Trim(); //CM工程名
 objCMProjectEN.PrjId = objRow[conCMProject.PrjId].ToString().Trim(); //工程Id
 objCMProjectEN.ApplicationTypeId = Int32.Parse(objRow[conCMProject.ApplicationTypeId].ToString().Trim()); //应用程序类型ID
+objCMProjectEN.UserCodeRoot = objRow[conCMProject.UserCodeRoot] == DBNull.Value ? null : objRow[conCMProject.UserCodeRoot].ToString().Trim(); //用户代码根
 objCMProjectEN.FunctionTemplateId = objRow[conCMProject.FunctionTemplateId] == DBNull.Value ? null : objRow[conCMProject.FunctionTemplateId].ToString().Trim(); //函数模板Id
 objCMProjectEN.VueDesignSysId = objRow[conCMProject.VueDesignSysId] == DBNull.Value ? null : objRow[conCMProject.VueDesignSysId].ToString().Trim(); //Vue控件设计体系Id
 objCMProjectEN.IsFstLcase = clsEntityBase2.TransNullToBool_S(objRow[conCMProject.IsFstLcase].ToString().Trim()); //是否首字母小写
@@ -2763,6 +2808,7 @@ objCMProjectENT.CmPrjId = objCMProjectENS.CmPrjId; //Cm工程Id
 objCMProjectENT.CmPrjName = objCMProjectENS.CmPrjName; //CM工程名
 objCMProjectENT.PrjId = objCMProjectENS.PrjId; //工程Id
 objCMProjectENT.ApplicationTypeId = objCMProjectENS.ApplicationTypeId; //应用程序类型ID
+objCMProjectENT.UserCodeRoot = objCMProjectENS.UserCodeRoot; //用户代码根
 objCMProjectENT.FunctionTemplateId = objCMProjectENS.FunctionTemplateId; //函数模板Id
 objCMProjectENT.VueDesignSysId = objCMProjectENS.VueDesignSysId; //Vue控件设计体系Id
 objCMProjectENT.IsFstLcase = objCMProjectENS.IsFstLcase; //是否首字母小写
@@ -2811,6 +2857,10 @@ objCMProjectEN.PrjId = objCMProjectEN.PrjId; //工程Id
 if (arrFldSet.Contains(conCMProject.ApplicationTypeId, new clsStrCompareIgnoreCase())  ==  true)
 {
 objCMProjectEN.ApplicationTypeId = objCMProjectEN.ApplicationTypeId; //应用程序类型ID
+}
+if (arrFldSet.Contains(conCMProject.UserCodeRoot, new clsStrCompareIgnoreCase())  ==  true)
+{
+objCMProjectEN.UserCodeRoot = objCMProjectEN.UserCodeRoot == "[null]" ? null :  objCMProjectEN.UserCodeRoot; //用户代码根
 }
 if (arrFldSet.Contains(conCMProject.FunctionTemplateId, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -2871,6 +2921,7 @@ throw new Exception(strMsg);
 {
 try
 {
+if (objCMProjectEN.UserCodeRoot == "[null]") objCMProjectEN.UserCodeRoot = null; //用户代码根
 if (objCMProjectEN.FunctionTemplateId == "[null]") objCMProjectEN.FunctionTemplateId = null; //函数模板Id
 if (objCMProjectEN.VueDesignSysId == "[null]") objCMProjectEN.VueDesignSysId = null; //Vue控件设计体系Id
 if (objCMProjectEN.ProjectFileName == "[null]") objCMProjectEN.ProjectFileName = null; //工程文件名
@@ -3170,7 +3221,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf
- /// 日期:2025-08-09
+ /// 日期:2026-06-11
  /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
@@ -3481,6 +3532,8 @@ public static string GetCode4CreateTable()
  strCreateTabCode.Append(" PrjId char(4) not Null, "); 
  // /**应用程序类型ID*/ 
  strCreateTabCode.Append(" ApplicationTypeId int not Null, "); 
+ // /**用户代码根*/ 
+ strCreateTabCode.Append(" UserCodeRoot varchar(50) Null, "); 
  // /**函数模板Id*/ 
  strCreateTabCode.Append(" FunctionTemplateId char(4) Null, "); 
  // /**Vue控件设计体系Id*/ 

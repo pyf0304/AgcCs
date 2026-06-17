@@ -4,6 +4,7 @@ using AGC.Entity;
 using AGC.PureClass;
 using AGC.PureClassEx;
 using AgcCommBase;
+using AutoGCLib.Templates;
 using CodeStruct;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.commexception;
@@ -36,6 +37,14 @@ namespace AutoGCLib
     /// </summary>
     partial class Vue_ViewScript_EditAi4Html : clsGeneCodeBase4View
     {
+        private EditAiHTemplateModel model = null;
+        // 🔥 TypeScript 注释模式静态配置
+        // Compact: 精简注释（默认，生产代码）
+        // Verbose: 详细注释（包含 AutoGCLib 标记、操作步骤等）
+        public static CommentVerbosity TypeScriptCommentMode { get; set; } = CommentVerbosity.Compact;
+
+        private List<DdlOptionsInfo> arrDdlOptionsInfo = null;
+        private List<clsViewVariable> arrViewVariable = null;
         private CodeElement objCodeElement_Methods = null;
         private List<string> arrFuncName_Setup = new List<string>();
         private string strJSPath = "";
@@ -130,6 +139,10 @@ namespace AutoGCLib
                 else
                 {
                     sbCondition.AppendFormat("IsNullOrEmpty(key.{0}) == true", keyFld.FldName_FstLcase0);
+                    ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
+                    CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+
                 }
             }
 
@@ -151,6 +164,27 @@ namespace AutoGCLib
             });
 
             return strCodeForCs.ToString();
+        }
+
+        private bool IsNeedImportIsNullOrEmpty()
+        {            
+            // 🔥 构建所有主键字段的空值检查条件
+            var arrKeyFields = this.arrKeyFieldList;
+            
+            for (int i = 0; i < arrKeyFields.Count; i++)
+            {
+                var keyFld = arrKeyFields[i];
+            
+                if (keyFld.IsNumberType())
+                {
+            
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -297,6 +331,132 @@ namespace AutoGCLib
             }
 
         }
+        private EditAiHTemplateModel BuildEditAiHTemplateModel()
+        {
+            // 🔥 获取数据类型信息
+            string dataTypePrefix = objKeyField.ObjFieldTabENEx?.objDataTypeAbbrEN?.DataTypeAbbr ?? "str";
+            string tsType = objKeyField.TypeScriptType;
+            bool isNumeric = objKeyField.IsNumberType();
+            string initValue = isNumeric ? "0" : "''";
+            string primaryTypeId = objKeyField.PrimaryTypeId;
+
+            // 🔥 判断是否需要 WithReturnKey/WithMaxId 方法（PrimaryTypeId 为 '02', '03', '06'）
+            bool needReturnKeyMethod = (primaryTypeId == "02" || primaryTypeId == "03" || primaryTypeId == "06");
+
+            // 🔥 判断是否为字符串自增（只有字符串才需要 GetMaxStrIdAsync 和 AddNewRecordWithMaxIdAsync）
+            bool isStringAutoIncrement = !isNumeric && needReturnKeyMethod;
+
+            // 🔥 判断是否需要刷新缓存（只有 localStorage(03) 和 sessionStorage(04) 需要）
+            bool needRefreshCache = NeedRefreshCache();
+
+            // 🔥 判断是否为多关键字段（联合主键）
+            bool isMultiKey = PrjTabEx_EditRegion?.arrKeyFldSet?.Count > 1;
+            bool needUseCurrUser = PrjTabEx_EditRegion?.arrFldSet.Count(x=>x.FieldTypeId == enumFieldType.Log_UpdUser_14) > 0;
+            // 🔥 判断是否需要检查关键字存在性
+            // 只有以下情况需要检查：
+            // 1. 单关键字段（非联合主键）
+            // 2. 非 Identity（02）
+            // 3. 非字符串自增（03, 06）
+            bool needCheckKeyExist = !isMultiKey &&
+                                      primaryTypeId != "02" &&
+                                      primaryTypeId != "03" &&
+                                      primaryTypeId != "06";
+
+            bool needUniCheck = false;
+            if (primaryTypeId == enumPrimaryType.StringAutoAddPrimaryKeyWithPrefix_06 ||
+                primaryTypeId == enumPrimaryType.StringAutoAddPrimaryKey_03
+                || primaryTypeId == enumPrimaryType.Identity_02
+                )
+            {
+                needUniCheck = true;
+            }
+
+            // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
+            var keyFields = new List<KeyFieldInfo>();
+            if (PrjTabEx_EditRegion?.arrKeyFldSet != null)
+            {
+                foreach (var keyFld in PrjTabEx_EditRegion.arrKeyFldSet)
+                {
+                    var objFieldTab = keyFld.ObjFieldTab0();
+                    var isFieldNumeric = objFieldTab.IsNumberType();
+                    var fieldInitValue = isFieldNumeric ? "0" : "''";
+
+                    keyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = objFieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(objFieldTab.FldName),
+                        PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
+                        IsNumeric = isFieldNumeric,
+                        TypeScriptType = objFieldTab.TypeScriptType(),
+                        InitValue = fieldInitValue
+                    });
+                }
+            }
+
+            // 🔥 获取缓存分类字段信息
+            bool hasCacheClassifyField = false;
+            string cacheClassifyFieldName = "";
+            string cacheClassifyFieldCamel = "";
+
+            if (needRefreshCache && thisCacheClassify_List_TS != null)
+            {
+                if (thisCacheClassify_List_TS.IsHasCacheClassfyFld)
+                {
+                    hasCacheClassifyField = true;
+                    cacheClassifyFieldName = thisCacheClassify_List_TS.FldName;
+                    cacheClassifyFieldCamel = ToCamelCase(thisCacheClassify_List_TS.FldName);
+                }
+            }
+
+            var model = new EditAiHTemplateModel
+            {
+                TableName = TabName_Out4ListRegion4GC,
+                TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
+                TableCnName = TabCnName_In4Edit4GC,
+                ModuleName = objFuncModuleEN.FuncModuleEnName,
+                KeyField = objKeyField.FldName(),
+                KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
+                KeyFieldWithPrefix = ToCamelCase(objKeyField.PrivFuncName),
+                KeyFieldTypeScript = tsType,
+                KeyFieldPrefixOnly = dataTypePrefix,
+                KeyFieldInitValue = initValue,
+                IsKeyFieldNumeric = isNumeric,
+                IsMultiKey = isMultiKey,
+                IsNeedImportIsNullOrEmpty = IsNeedImportIsNullOrEmpty(),
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
+                KeyFields = keyFields,
+                NeedCheckKeyExist = needCheckKeyExist,
+                NeedUniCheck = needUniCheck,
+                NeedReturnKeyMethod = needReturnKeyMethod,
+                NeedUseCurrUser = needUseCurrUser,
+                IsStringAutoIncrement = isStringAutoIncrement,
+                ReturnKeyMethodReturnType = tsType,
+                NeedRefreshCache = needRefreshCache,
+                HasCacheClassifyField = hasCacheClassifyField,
+                CacheClassifyFieldName = cacheClassifyFieldName,
+                CacheClassifyFieldCamel = cacheClassifyFieldCamel,
+                PrimaryTypeId = primaryTypeId,
+                ViewId = objViewInfoENEx.ViewId,
+                ViewName = objViewInfoENEx.ViewName,
+                CommentMode = TypeScriptCommentMode
+            };
+
+            // 🔥 仅在 Verbose 模式下填充详细字段
+            if (TypeScriptCommentMode == CommentVerbosity.Verbose)
+            {
+                clsPrjDataBaseEN objPrjDataBaseEN = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(objViewInfoENEx.PrjDataBaseId);
+                model.GenerateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                model.GenerateDateShort = DateTime.Now.ToString("yyyy.MM.dd");
+                model.ServerName = System.Environment.MachineName;
+                model.DatabaseName = objPrjDataBaseEN?.DataBaseName ?? "未指定";
+                model.PrjDataBaseId = objPrjDataBaseEN?.PrjDataBaseId ?? "";
+                model.PrjId = objViewInfoENEx.PrjId;
+                model.FrameworkLayer = "前端视图层(ViewScript/TypeScript)";
+                model.Generator = "AutoGCLib GeneCodeV8 TypeScript";
+            }
+
+            return model;
+        }
 
         /// <summary>
         /// 功能:单表的查询、修改、插入、删除
@@ -321,6 +481,8 @@ namespace AutoGCLib
                 sbMessage.Append("\r\n当前界面的功能:查询(Q)、修改(U)、删除(D)、添加(I)。");
                 throw new clsDbObjException(sbMessage.ToString());
             }
+
+        
             this.objCodeElement_Root = new CodeElement { Name = "Root", ElementType = CodeElementType.Root };
             this.objCodeElement_Imports = new CodeElement { Name = "imports", ElementType = CodeElementType.Import, Modifiers = "export abstract" };
             StringBuilder strCodeForCs = new StringBuilder();  ///用来存放WebForm的代码;
@@ -330,7 +492,8 @@ namespace AutoGCLib
 
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
 
-
+            arrDdlOptionsInfo = clsEditRegionFldsBLEx.GetDdlOptionInfoLstByViewId(objViewInfoENEx.ViewId, this.PrjId);
+            arrViewVariable = clsEditRegionFldsBLEx.GetViewVariableLstByViewId(objViewInfoENEx.ViewId, this.PrjId);
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
                     clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
                         objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
@@ -343,6 +506,10 @@ namespace AutoGCLib
             strRe_ClsName = objViewInfoENEx.WebFormName;
             this.objFuncModuleEN = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             strRe_FileNameWithModuleName = clsPubFun4GC.GetFileNameWithModuleName(this.objFuncModuleEN, objViewInfoENEx);
+
+            // 构建模板数据
+             model = BuildEditAiHTemplateModel();
+
 
             try
             {
@@ -1448,7 +1615,7 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + $"getArr{objTabFeature4Ddl.TabName4GC}();");
 
                 }
-
+              
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "");
 
@@ -1688,9 +1855,29 @@ namespace AutoGCLib
                         string strMsg = objException.Message;
                     }
                 }
-
+                foreach (var objDdlOptionsInfo in arrDdlOptionsInfo)
+                {
+                    var arrSharedVarNameValue = objDdlOptionsInfo.Parameters.Select(x => x.SharedVarName + ".value");
+                    string strFuncParaLst_Additional =string.Join( ",", arrSharedVarNameValue);
+                    if (objDdlOptionsInfo.IsExtendedClass)
+                    {
+                        strCodeForCs.Append( "\r\n" + $"arr{objDdlOptionsInfo.WApiClass}.value = await {objDdlOptionsInfo.WApiClass}Ex_{objDdlOptionsInfo.GetDdlDataFuncName}({strFuncParaLst_Additional});");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + $"arr{objDdlOptionsInfo.WApiClass}.value = await {objDdlOptionsInfo.GetDdlDataFuncName}({strFuncParaLst_Additional});");
+                    }
+                    if (objDdlOptionsInfo.IsNumberType == true)
+                    {
+                        strCodeForCs.Append("\r\n" + $"{objDdlOptionsInfo.Key}.value = 0;");
+                    }
+                    else
+                    {
+                        strCodeForCs.Append("\r\n" + $"{objDdlOptionsInfo.Key}.value = '0';");
+                    }
+                }
                 // 🔥 生成变量定义代码
-                strCodeForCs.Append("\r\n" + objFuncParaLstAll.GetVarLstDefStr(ThisClsName, this, this.strBaseUrl, true));
+                //strCodeForCs.Append("\r\n" + objFuncParaLstAll.GetVarLstDefStr(ThisClsName, this, this.strBaseUrl, true));
 
                 // 🔥 关键修改：将收集到的 import 转换为 CodeElement
                 if (this.arrImportClass != null && this.arrImportClass.Count > 0)
@@ -1713,19 +1900,19 @@ namespace AutoGCLib
                     }
                 }
 
-                foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
-                {
-                    strCodeForCs.Append("\r\n" + objInfor.CodeText);
+                //foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
+                //{
+                //    strCodeForCs.Append("\r\n" + objInfor.CodeText);
 
-                    if (objInfor.objEditRegionFldsEN.ObjFieldTab_PC().IsNumberType() == true)
-                    {
-                        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = 0;");
-                    }
-                    else
-                    {
-                        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = '0';");
-                    }
-                }
+                //    if (objInfor.objEditRegionFldsEN.ObjFieldTab_PC().IsNumberType() == true)
+                //    {
+                //        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = 0;");
+                //    }
+                //    else
+                //    {
+                //        strCodeForCs.Append("\r\n" + $"{objInfor.objEditRegionFldsEN.ObjFieldTab_PC().PropertyName_TS(this.IsFstLcase)}.value = '0';");
+                //    }
+                //}
 
                 strCodeForCs.Append("\r\n" + "}");
                 strCodeForCs.Append("\r\n" + "");
@@ -2584,7 +2771,7 @@ namespace AutoGCLib
 
         //    return strCodeForCs.ToString();
         //}
-        public string Gen_Edit_Setup_btnSubmit_Click(CodeElement objCodeElement_Parent)
+        public string Gen_Edit_Setup_btnSubmit_ClickBak(CodeElement objCodeElement_Parent)
         {
             string strFuncName = $"btnSubmit_Click";
             CodeElement objCodeElement_Method = new CodeElement { Name = strFuncName, ElementType = CodeElementType.Method, Modifiers = "export abstract" };
@@ -2973,15 +3160,15 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
 
                 //strCodeForCs.Append("\r\n" + "import router from '@/router';");
-                strCodeForCs.Append("\r\n" + "import { clsDateTime } from '@/ts/PubFun/clsDateTime';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                {
-                    Name = "clsDateTime",
-                    CodeContent = "import { clsDateTime } from '@/ts/PubFun/clsDateTime';",
-                    From = "@/ts/PubFun/clsDateTime",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import"
-                });
+                //strCodeForCs.Append("\r\n" + "import { clsDateTime } from '@/ts/PubFun/clsDateTime';");
+                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                //{
+                //    Name = "clsDateTime",
+                //    CodeContent = "import { clsDateTime } from '@/ts/PubFun/clsDateTime';",
+                //    From = "@/ts/PubFun/clsDateTime",
+                //    ElementType = CodeElementType.Import,
+                //    Modifiers = "import"
+                //});
 
                 //strCodeForCs.Append("\r\n" + "import { Format } from \"@/ts/PubFun/clsString\"");
 
@@ -3014,8 +3201,27 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                     ElementType = CodeElementType.Import,
                     Modifiers = "import"
                 });
+                              
+                if (arrDdlOptionsInfo.Count > 0)
+                {
+                    strCodeForCs.Append("\r\n" + "import { Is0EqEmpty, IsNullOrEmptyEq0 } from '@/ts/PubFun/clsString';");
+                    ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "Is0EqEmpty", enumImportObjType.CustomFunc, strBaseUrl);
 
+                    CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+                    ImportClass objImportClass1 = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmptyEq0", enumImportObjType.CustomFunc, strBaseUrl);
 
+                    CodeElement objCodeElement_Import1 = clsPubFun4GC.GetCodeElementByImportClass(objImportClass1);
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import1);
+
+                }
+                if (model.IsNeedImportIsNullOrEmpty == true)
+                {
+                    strCodeForCs.Append("\r\n" + "import { IsNullOrEmpty } from '@/ts/PubFun/clsString';");
+                    ImportClass objImportClass = AddImportClass("", "/PubFun/clsString.js", "IsNullOrEmpty", enumImportObjType.CustomFunc, strBaseUrl);
+                    CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
+                }
                 List<string> arrTemp = new List<string>();
                 string strIsHasAccessIs0 = "";
                 foreach (var objEditRegionFld in objViewInfoENEx.arrEditRegionFldSet4InUse)
@@ -3041,115 +3247,113 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 }
                 arrTemp.RemoveRange(0, arrTemp.Count);
                 //针对每一个表功能--下拉框
-                foreach (var objEditRegionFld in objViewInfoENEx.arrEditRegionFldSet4InUse)
+               
+                foreach(var objDdlOptionsInfo in arrDdlOptionsInfo)
                 {
-                    if (objEditRegionFld.CtlTypeId == enumCtlType.ViewVariable_38) continue;
-                    if (string.IsNullOrEmpty(objEditRegionFld.TabFeatureId4Ddl)) continue;
-                    if (objEditRegionFld.CtlTypeId != enumCtlType.DropDownList_06) continue;
-                    var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objEditRegionFld.TabFeatureId4Ddl, this.PrjId, this.IsFstLcase, objViewInfoENEx.ViewId);
-                    if (arrTemp.Contains(objTabFeature4Ddl.TabName4GC) == true) continue;
-                    arrTemp.Add(objTabFeature4Ddl.TabName4GC);
-                    string strByCondition = "";
-                    if (string.IsNullOrEmpty(objTabFeature4Ddl.ConditionFieldName) == false)
-                        strByCondition = $"By{objTabFeature4Ddl.ConditionFieldName}";
-
-                    var objPrjTabENEx_Ddl = clsPrjTabBLEx.GetObjAllInfoEx(objTabFeature4Ddl.TabId, objTabFeature4Ddl.PrjId);
-                    string strFuncName4Ex = $"GetArr{objTabFeature4Ddl.TabName4GC}{strByCondition}";
-                    if (string.IsNullOrEmpty(objTabFeature4Ddl.GetDdlDataFuncName4Ex) == false)
+                    if (objDdlOptionsInfo.IsExtendedClass == true)
                     {
-                        strFuncName4Ex = objTabFeature4Ddl.GetDdlDataFuncName4Ex;
-                    }
-                    if (objEditRegionFld.IsNumberType() == false)
-                    {
-                        strIsHasAccessIs0 = ",IsNullOrEmptyEq0,Is0EqEmpty";
-                    }
-                    if (objTabFeature4Ddl.IsExtendedClass == true)
-                    {
-                        strCodeForCs.Append("\r\n" + $"import {{ {objTabFeature4Ddl.TabName4GC}Ex_{strFuncName4Ex} }} from \"@/ts/L3ForWApiEx/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}ExWApi\";");
+                        strCodeForCs.Append("\r\n" + $"import {{ {objDdlOptionsInfo.GetDdlDataFuncName} }} from \"@/ts/L3ForWApiEx/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}ExWApi\";");
                         clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                         {
-                            Name = $"{objTabFeature4Ddl.TabName4GC}Ex_{strFuncName4Ex}",
-                            CodeContent = $"import {{ {objTabFeature4Ddl.TabName4GC}Ex_{strFuncName4Ex} }} from \"@/ts/L3ForWApiEx/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}ExWApi\";",
-                            From = $"@/ts/L3ForWApiEx/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}ExWApi",
+                            Name = $"{objDdlOptionsInfo.GetDdlDataFuncName}Ex",
+                            CodeContent = $"import {{ {objDdlOptionsInfo.GetDdlDataFuncName}Ex }} from \"@/ts/L3ForWApiEx/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}ExWApi\";",
+                            From = $"@/ts/L3ForWApiEx/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}ExWApi",
                             ElementType = CodeElementType.Import,
                             Modifiers = "import"
                         });
-
+                        //if (objDdlOptionsInfo.IsHasAccessIs0 == true)
+                        //{
+                        //    strIsHasAccessIs0 += ",IsHasAccessIs0Eq0,IsHasAccessIs0EqEmpty";
+                        //}
                     }
                     else
                     {
-                        strCodeForCs.Append("\r\n" + $"import {{ {objTabFeature4Ddl.TabName4GC}_{strFuncName4Ex} }} from \"@/ts/L3ForWApi/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}WApi\";");
+                        //if (arrTemp.Contains(objDdlOptionsInfo.DdlOptionId) == true) continue;
+                        //arrTemp.Add(objDdlOptionsInfo.DdlOptionId);
+                        strCodeForCs.Append("\r\n" + $"import {{ {objDdlOptionsInfo.GetDdlDataFuncName} }} from \"@/ts/L3ForWApi/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}WApi\";");
                         clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                         {
-                            Name = $"{objTabFeature4Ddl.TabName4GC}_{strFuncName4Ex}",
-                            CodeContent = $"import {{ {objTabFeature4Ddl.TabName4GC}_{strFuncName4Ex} }} from \"@/ts/L3ForWApi/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}WApi\";",
-                            From = $"@/ts/L3ForWApi/{objTabFeature4Ddl.FuncModuleEnName}/cls{objTabFeature4Ddl.TabName4GC}WApi",
+                            Name = $"{objDdlOptionsInfo.GetDdlDataFuncName}",
+                            CodeContent = $"import {{ {objDdlOptionsInfo.GetDdlDataFuncName} }} from \"@/ts/L3ForWApi/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}WApi\";",
+                            From = $"@/ts/L3ForWApi/{objDdlOptionsInfo.ModuleName}/cls{objDdlOptionsInfo.WApiClass}WApi",
                             ElementType = CodeElementType.Import,
                             Modifiers = "import"
                         });
-
                     }
+                 
                 }
+              
+                //string strEditRegionVarNames = clsViewIdGCVariableRelaBLEx.GetEditRegionViewVarNames(objViewInfoENEx.ViewId, this.PrjId);
+                //if (strEditRegionVarNames.Length > 0) strEditRegionVarNames = $",{strEditRegionVarNames}";
 
-                //List<clsViewIdGCVariableRelaEN> arrViewIdGCVariableRela = clsViewIdGCVariableRelaBLEx.GetEditRegionViewVarLst(objViewInfoENEx.ViewId );
-                string strEditRegionVarNames = clsViewIdGCVariableRelaBLEx.GetEditRegionViewVarNames(objViewInfoENEx.ViewId, this.PrjId);
-                if (strEditRegionVarNames.Length > 0) strEditRegionVarNames = $",{strEditRegionVarNames}";
+                //string strEditRegionCondFldNames = clsViewIdGCVariableRelaBLEx.GetEditRegionCondFlds(objViewInfoENEx.ViewId, this.PrjId);
+                //if (strEditRegionCondFldNames.Length > 0) strEditRegionVarNames += $",{strEditRegionCondFldNames}";
+                //var arrSharedVarName = arrDdlOptionsInfo.Select(x => x.Parameters.Select(y=>y.SharedVarName));
+                var arrSharedVarName0 = arrViewVariable.Select(y => y.SharedVarName).ToArray();
+                var arrSharedVarName1 = arrDdlOptionsInfo.SelectMany(x => x.Parameters.Select(y => y.SharedVarName)).ToArray();
+                // 🔥 合并两个数组并去重
+                var arrSharedVarName = arrSharedVarName0
+                    .Concat(arrSharedVarName1)
+                    .Distinct()
+                    .Where(x => !string.IsNullOrEmpty(x))
+                    .ToArray();
+                string strEditRegionCondFldNames =  string.Join( ",", arrSharedVarName);
 
-                string strEditRegionCondFldNames = clsViewIdGCVariableRelaBLEx.GetEditRegionCondFlds(objViewInfoENEx.ViewId, this.PrjId);
-                if (strEditRegionCondFldNames.Length > 0) strEditRegionVarNames += $",{strEditRegionCondFldNames}";
-
-                strCodeForCs.Append("\r\n" + $"import {{ refDivEdit {strEditRegionVarNames} }} from '@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}';");
+                if (strEditRegionCondFldNames.Length > 0) strEditRegionCondFldNames = $",{strEditRegionCondFldNames}";
+                strCodeForCs.Append("\r\n" + $"import {{ refDivEdit {strEditRegionCondFldNames} }} from '@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}';");
                 clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
                 {
-                    Name = $"refDivEdit {strEditRegionVarNames}",
-                    CodeContent = $"import {{ refDivEdit {strEditRegionVarNames} }} from '@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}';",
+                    Name = $"refDivEdit {strEditRegionCondFldNames}",
+                    CodeContent = $"import {{ refDivEdit {strEditRegionCondFldNames} }} from '@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}';",
                     From = $"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.GetVueShareClsName()}",
                     ElementType = CodeElementType.Import,
                     Modifiers = "import"
                 });
 
-
-                strCodeForCs.Append("\r\n" + "import { useUserStore } from '@/store/modulesShare/user';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                if (model.NeedUseCurrUser)
                 {
-                    Name = "useUserStore",
-                    CodeContent = "import { useUserStore } from '@/store/modulesShare/user';",
-                    From = "@/store/modulesShare/user",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import"
-                });
-
-
-                strCodeForCs.Append("\r\n" + $"import {{ Format {strIsHasAccessIs0} }}                from '@/ts/PubFun/clsString';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                    strCodeForCs.Append("\r\n" + "import { useUserStore } from '@/store/modulesShare/user';");
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                    {
+                        Name = "useUserStore",
+                        CodeContent = "import { useUserStore } from '@/store/modulesShare/user';",
+                        From = "@/store/modulesShare/user",
+                        ElementType = CodeElementType.Import,
+                        Modifiers = "import"
+                    });
+                }
+                if (strIsHasAccessIs0.Length>0)
                 {
-                    Name = "Format",
-                    CodeContent = "import { Format " + strIsHasAccessIs0 + "} from '@/ts/PubFun/clsString';",
-                    From = "@/ts/PubFun/clsString",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import"
-                });
+                    strCodeForCs.Append("\r\n" + $"import {{ Format {strIsHasAccessIs0} }}                from '@/ts/PubFun/clsString';");
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                    {
+                        Name = "Format",
+                        CodeContent = "import { Format " + strIsHasAccessIs0 + "} from '@/ts/PubFun/clsString';",
+                        From = "@/ts/PubFun/clsString",
+                        ElementType = CodeElementType.Import,
+                        Modifiers = "import"
+                    });
+                }
+                //strCodeForCs.Append("\r\n" + $"import {{ {this.ClsName} }}                from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';");
+                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                //{
+                //    Name = $"{this.ClsName}",
+                //    CodeContent = $"import {{ {this.ClsName} }} from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';",
+                //    From = $"@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}",
+                //    ElementType = CodeElementType.Import,
+                //    Modifiers = "import"
+                //});
 
-                strCodeForCs.Append("\r\n" + $"import {{ {this.ClsName} }}                from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                {
-                    Name = $"{this.ClsName}",
-                    CodeContent = $"import {{ {this.ClsName} }} from '@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}';",
-                    From = $"@/viewsBase/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ClsName}",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import"
-                });
 
-
-                strCodeForCs.Append("\r\n" + "import { enumPageDispMode }                from '@/ts/PubFun/enumPageDispMode';");
-                clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                {
-                    Name = "enumPageDispMode",
-                    CodeContent = "import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';",
-                    From = "@/ts/PubFun/enumPageDispMode",
-                    ElementType = CodeElementType.Import,
-                    Modifiers = "import"
-                });
+                //strCodeForCs.Append("\r\n" + "import { enumPageDispMode }                from '@/ts/PubFun/enumPageDispMode';");
+                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                //{
+                //    Name = "enumPageDispMode",
+                //    CodeContent = "import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';",
+                //    From = "@/ts/PubFun/enumPageDispMode",
+                //    ElementType = CodeElementType.Import,
+                //    Modifiers = "import"
+                //});
 
                 //strCodeForCs.Append("\r\n" + Gen_Vue_ts_PubVar());
                 //strCodeForCs.Append("\r\n" + Gen_Vue_ts_DivVarDef());
@@ -3230,7 +3434,6 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 strCodeForCs.Append("\r\n" + $" GetEditData{this.TabName_In4Edit4GC}Obj,");
                 strCodeForCs.Append("\r\n" + $" ShowDataFrom{this.TabName_In4Edit4GC}Obj,");
                 strCodeForCs.Append("\r\n" + $" Clear,");
-                strCodeForCs.Append("\r\n" + $" btnSubmit_Click,");
 
                 foreach (clsEditRegionFldsENEx objEditRegionFldsEx in objViewInfoENEx.arrEditRegionFldSet)
                 {
@@ -3292,14 +3495,17 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
 
             strCodeForCs.Append("\r\n" + "setup() {");
-            strCodeForCs.Append("\r\n" + "const userStore = useUserStore();");
-            objCodeElement_Setup.Children.Add(new CodeElement
+            if (model.NeedUseCurrUser)
             {
-                Name = "userStore",
-                CodeContent = "const userStore = useUserStore();",
-                ElementType = CodeElementType.Constant,
-                Modifiers = "const"
-            });
+                strCodeForCs.Append("\r\n" + "const userStore = useUserStore();");
+                objCodeElement_Setup.Children.Add(new CodeElement
+                {
+                    Name = "userStore",
+                    CodeContent = "const userStore = useUserStore();",
+                    ElementType = CodeElementType.Constant,
+                    Modifiers = "const"
+                });
+            }
             strCodeForCs.Append("\r\n" + $"const strTitle = ref ('{TabCnName_In4Edit}编辑');");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
@@ -3324,14 +3530,14 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
                 ElementType = CodeElementType.RefConstant,
                 Modifiers = "const"
             });
-            strCodeForCs.Append("\r\n" + "const keyId = ref ('');");
-            objCodeElement_Setup.Children.Add(new CodeElement
-            {
-                Name = "keyId",
-                CodeContent = "const keyId = ref ('');",
-                ElementType = CodeElementType.RefConstant,
-                Modifiers = "const"
-            });
+            //strCodeForCs.Append("\r\n" + "const keyId = ref ('');");
+            //objCodeElement_Setup.Children.Add(new CodeElement
+            //{
+            //    Name = "keyId",
+            //    CodeContent = "const keyId = ref ('');",
+            //    ElementType = CodeElementType.RefConstant,
+            //    Modifiers = "const"
+            //});
             strCodeForCs.AppendFormat("\r\n" + $" const objPage_Edit = ref<{this.ExtendedClsName}>();");
             objCodeElement_Setup.Children.Add(new CodeElement
             {
@@ -3363,7 +3569,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             strCodeForCs.Append("\r\n" + Gen_Edit_Setup_GetEditDataObj(objCodeElement_Setup));
             strCodeForCs.Append("\r\n" + Gen_Edit_Setup_ShowDataFromObj(objCodeElement_Setup));
             strCodeForCs.Append("\r\n" + Gen_Edit_Setup_Clear(objCodeElement_Setup));
-            strCodeForCs.Append("\r\n" + Gen_Edit_Setup_btnSubmit_Click(objCodeElement_Setup));
+            //strCodeForCs.Append("\r\n" + Gen_Edit_Setup_btnSubmit_Click(objCodeElement_Setup));
 
             strCodeForCs.Append("\r\n" + Gen_Edit_Setup_ShowDialog(objCodeElement_Setup));
             strCodeForCs.Append("\r\n" + Gen_Edit_Setup_HandleSave(objCodeElement_Setup));
@@ -3426,7 +3632,36 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             objCodeElement_Methods.CodeContent = strCodeForCs.ToString();
             return strCodeForCs.ToString();
         }
+        /// <summary>
+        /// 🔥 判断是否需要刷新缓存
+        /// 只有当缓存模式为 localStorage(03) 或 sessionStorage(04) 时才需要刷新缓存
+        /// </summary>
+        private bool NeedRefreshCache()
+        {
+            try
+            {
+                // 从编辑区域获取表信息
+                if (PrjTabEx_EditRegion == null)
+                {
+                    return false;
+                }
 
+                string cacheModeId = PrjTabEx_EditRegion.CacheModeId;
+
+                // 03=localStorage, 04=sessionStorage
+                return cacheModeId == "03" || cacheModeId == "04";
+            }
+            catch
+            {
+                // 如果获取失败，默认不生成刷新缓存代码
+                return false;
+            }
+        }
+        private string ToCamelCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToLower(input[0]) + input.Substring(1);
+        }
     }
 }
 

@@ -615,5 +615,8 @@ namespace AGC.Entity
         
         public clsPrjTabFldENEx ObjCacheClassifyFld { get => objCacheClassifyFld; set => objCacheClassifyFld = value; }
         public clsPrjTabFldENEx ObjCacheClassifyFld2 { get => objCacheClassifyFld2; set => objCacheClassifyFld2 = value; }
+        private List<CacheClassify4Tab> arrCacheClassify4Tab_TS = null;
+        public List<CacheClassify4Tab> ArrCacheClassify4Tab_TS { get => arrCacheClassify4Tab_TS; set => arrCacheClassify4Tab_TS = value; }
+
     }
 }

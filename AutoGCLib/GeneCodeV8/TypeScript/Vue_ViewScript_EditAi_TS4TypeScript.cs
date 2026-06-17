@@ -129,7 +129,16 @@ namespace AutoGCLib
                                       primaryTypeId != "02" && 
                                       primaryTypeId != "03" && 
                                       primaryTypeId != "06";
-            
+
+            bool needUniCheck = false;
+            if (primaryTypeId == enumPrimaryType.StringAutoAddPrimaryKeyWithPrefix_06 ||
+                primaryTypeId == enumPrimaryType.StringAutoAddPrimaryKey_03
+                || primaryTypeId == enumPrimaryType.Identity_02
+                )
+            {
+                needUniCheck = true;
+            }
+
             // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
             var keyFields = new List<KeyFieldInfo>();
             if (PrjTabEx_EditRegion?.arrKeyFldSet != null)
@@ -184,6 +193,7 @@ namespace AutoGCLib
                 strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
                 KeyFields = keyFields,
                 NeedCheckKeyExist = needCheckKeyExist,
+                NeedUniCheck = needUniCheck,
                 NeedReturnKeyMethod = needReturnKeyMethod,
                 IsStringAutoIncrement = isStringAutoIncrement,
                 ReturnKeyMethodReturnType = tsType,

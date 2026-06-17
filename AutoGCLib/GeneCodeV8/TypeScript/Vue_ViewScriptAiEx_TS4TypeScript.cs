@@ -120,7 +120,12 @@ namespace AutoGCLib
                 HasUpdateFeature = HasFeature(enumPrjFeature.UpdateRecord_0137) || HasFeature(enumPrjFeature.UpdateRecord_0199),
                 HasDeleteFeature = HasFeature(enumPrjFeature.DelRecord_0138) || HasFeature(enumPrjFeature.DelRecord_0184),
                 HasExportFeature = HasFeature(enumPrjFeature.ExportToFile_0143) || HasFeature(enumPrjFeature.ExportToFile_0196),
-                HasCopyFeature = HasFeature(enumPrjFeature.CopyRecord_0141) || HasFeature(enumPrjFeature.CopyRecord_0198)
+                HasCopyFeature = HasFeature(enumPrjFeature.CopyRecord_0141) || HasFeature(enumPrjFeature.CopyRecord_0198),
+                HasAdjustOrderNum = HasFeature(enumPrjFeature.AdjustOrderNum_0142) 
+                || HasFeature(enumPrjFeature.AdjustOrderNum_0224) 
+                || HasFeature(enumPrjFeature.AdjustOrderNum_0225)
+                || HasFeature(enumPrjFeature.AdjustOrderNum_1196),
+
             };
 
             // 🔥 提取所有关键字字段信息

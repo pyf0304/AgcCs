@@ -18,17 +18,23 @@ namespace AgcCommBase
     }
     public class DdlOptionsInfo
     {
-  
+        public string FldId { get; set; }             // 如 DataBaseTypeOptions
         public string Key { get; set; }              // 如 dataBaseType
+        public bool IsNumberType { get; set; }
         public string ControlType { get; set; }
         public string OptionsKey { get; set; }
         public string WApiClass { get; set; }        // 如 DataBaseType
         public string ArrayVariableName { get; set; }  // 如 arrFunctionTemplate
+        public string AuxControlId { get; set; }
+        public string AuxControlType { get; set; }
+        public string AuxControlOptionsKey { get; set; }
+        public string AuxControlLabel { get; set; }
+        public bool IsNeedAuxControlLabel { get; set; }=false;
         public string ValueFieldName { get; set; }
         public string TextFieldName { get; set; }
 
         public string ModuleName { get; set; }       // 如 SysPara
-        public string FunctionName { get; set; }     // 完整函数名
+        public string GetDdlDataFuncName { get; set; }     // 获取DdlData完整函数名
         public bool IsExtendedClass { get; set; }    // 是否在扩展类
         public string WApiPath { get; set; }         // WApi 路径
         public string WApiFileName { get; set; }     // WApi 文件名

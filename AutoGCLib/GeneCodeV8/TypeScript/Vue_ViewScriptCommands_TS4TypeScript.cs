@@ -1,6 +1,7 @@
 ﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
+using AgcCommBase;
 using AutoGCLib.Templates;
 using LaYumba.Functional;
 using System;
@@ -117,15 +118,32 @@ namespace AutoGCLib
                 });
             }
         }
+        /// <summary>
+        /// 检查是否存在指定的功能
+        /// </summary>
+        /// <param name="featureId">功能ID</param>
+        /// <returns>是否存在该功能</returns>
+        private bool HasFeature(string featureId)
+        {
+            if (objViewInfoENEx.arrFeatureRegionFlds == null) return false;
 
+            return objViewInfoENEx.arrFeatureRegionFlds
+                .Any(x => x.InUse == true && x.FeatureId == featureId);
+        }
         /// <summary>
         /// 添加功能区命令
         /// </summary>
         private void AddFeatureCommands(AiCommandTemplateModel model)
         {
+            List<DdlOptionsInfo> arrDdlOptionsInfo = clsViewFeatureFldsBLEx.GetDdlOptionInfoLstByViewId(this.ViewId, this.PrjId);
             var featureRegionFlds = objViewInfoENEx.arrFeatureRegionFlds
                 .Where(x => x.InUse == true)
                 .ToList();
+
+            model.HasAdjustOrderNum = HasFeature(enumPrjFeature.AdjustOrderNum_0142)
+         || HasFeature(enumPrjFeature.AdjustOrderNum_0224)
+         || HasFeature(enumPrjFeature.AdjustOrderNum_0225)
+         || HasFeature(enumPrjFeature.AdjustOrderNum_1196);
 
             // 添加新记录（支持多种添加功能ID）
             if (featureRegionFlds.Any(x => x.FeatureId == enumPrjFeature.AddNewRecord_0136 || 
@@ -218,21 +236,7 @@ namespace AutoGCLib
                     NeedAuxControl = false
                 });
             }
-
-            // 导出Excel（支持多种导出功能ID）
-            if (featureRegionFlds.Any(x => x.FeatureId == enumPrjFeature.ExportToFile_0143 ||
-                                            x.FeatureId == enumPrjFeature.ExportToFile_0196))
-            {
-                model.Commands.Add(new AiCommand
-                {
-                    Id = "export",
-                    Region = "feature",
-                    Text = "导出Excel",
-                    ElementId = "btnExportExcel_Ai",
-                    BtnClass = "btn btn-outline-info btn-sm text-nowrap",
-                    NeedAuxControl = false
-                });
-            }
+                     
 
             // 查询（支持多种查询功能ID）
             // ⚠️ 避免与查询区的 query 命令重复
@@ -256,10 +260,11 @@ namespace AutoGCLib
             var setFieldFeatures = featureRegionFlds.Where(x => x.FeatureId == enumPrjFeature.SetFieldValue_0148).ToList();
             foreach (var feature in setFieldFeatures)
             {
+                var objDdlOptionsInfo = arrDdlOptionsInfo.Find(x => x.FldId == feature.ReleFldId);
                 var commandId = GetCommandId(feature);
                 
                 // 获取字段中文名（用于按钮文本）
-                string buttonText = feature.ButtonName;
+                string buttonText = feature.Text;
                 if (string.IsNullOrEmpty(buttonText))
                 {
                     buttonText = "设置字段值";
@@ -276,9 +281,11 @@ namespace AutoGCLib
                     ElementId = $"btn{char.ToUpper(commandId[0]) + commandId.Substring(1)}_Ai",
                     BtnClass = "btn btn-outline-info btn-sm text-nowrap",
                     NeedAuxControl = true,
-                    AuxControlId = $"ddl{RemoveIdSuffix(GetFieldName(feature))}_SetFldValue",
+                    AuxControlId = objDdlOptionsInfo.AuxControlId,
                     AuxControlType = auxControlType,
-                    AuxControlOptionsKey = auxControlOptionsKey,
+                    AuxControlOptionsKey = objDdlOptionsInfo.AuxControlOptionsKey,
+                    AuxControlLabel = objDdlOptionsInfo.AuxControlLabel,
+                    IsNeedAuxControlLabel = objDdlOptionsInfo.IsNeedAuxControlLabel,
                     FieldName = GetFieldName(feature),
                     FieldNameCamel = ToCamelCase(GetFieldName(feature))
                 });
@@ -328,18 +335,18 @@ namespace AutoGCLib
                         Key = optionKey,
                         WApiClass = ddlInfo.WApiClass,
                         ModuleName = ddlInfo.ModuleName,
-                        FunctionName = ddlInfo.FunctionName,
+                        GetDdlDataFuncName = ddlInfo.GetDdlDataFuncName,
                         IsExtendedClass = ddlInfo.IsExtendedClass,
-                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        Parameters = ddlInfo.Parameters?.Select(p => new DdlOptionParam
                         {
                             ParamName = p.ParamName,
                             SharedVarName = p.SharedVarName
-                        }).ToList() ?? new List<AiOptionParam>()
+                        }).ToList() ?? new List<DdlOptionParam>()
                     };
 
                     model.FeatureOptions.Add(optionInfo);
 
-                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.GetDdlDataFuncName}, 参数数量: {optionInfo.Parameters.Count}");
                 }
             }
             catch (Exception ex)
@@ -388,15 +395,15 @@ namespace AutoGCLib
                         ControlType = ddlInfo.ControlType,
                         WApiClass = ddlInfo.WApiClass,
                         ModuleName = ddlInfo.ModuleName,
-                        FunctionName = ddlInfo.FunctionName,
+                        GetDdlDataFuncName = ddlInfo.GetDdlDataFuncName,
                         IsExtendedClass = ddlInfo.IsExtendedClass,
                         WApiFileName = ddlInfo.WApiFileName,
                         WApiPath = ddlInfo.WApiPath,                        
-                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        Parameters = ddlInfo.Parameters?.Select(p => new DdlOptionParam
                         {
                             ParamName = p.ParamName,
                             SharedVarName = p.SharedVarName
-                        }).ToList() ?? new List<AiOptionParam>()
+                        }).ToList() ?? new List<DdlOptionParam>()
                     };
                     if (optionInfo.ControlType != "select4Bool")
                     {
@@ -405,7 +412,7 @@ namespace AutoGCLib
                             model.FeatureOptions4DS.Add(optionInfo);
                         }
                     }
-                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.GetDdlDataFuncName}, 参数数量: {optionInfo.Parameters.Count}");
                 }
             }
             catch (Exception ex)

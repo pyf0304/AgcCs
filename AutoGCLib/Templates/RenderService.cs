@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using AGC.Entity;
+using AgcCommBase;
 using Scriban;
 using Scriban.Runtime;
 
@@ -287,11 +288,11 @@ namespace AutoGCLib.Templates
         public string OptionsKey { get; set; }       // 如 dataBaseType
         public string WApiClass { get; set; }        // 如 DataBaseType
         public string ModuleName { get; set; }       // 如 SysPara
-        public string FunctionName { get; set; }     // 完整函数名
+        public string GetDdlDataFuncName { get; set; }     // 完整函数名
         public bool IsExtendedClass { get; set; }    // 是否在扩展类
         public string WApiPath { get; set; }         // WApi 路径
         public string WApiFileName { get; set; }     // WApi 文件名
-        public List<AiOptionParam> Parameters { get; set; } = new List<AiOptionParam>();  // 🔥 新增：函数参数列表
+        public List<DdlOptionParam> Parameters { get; set; } = new List<DdlOptionParam>();  // 🔥 新增：函数参数列表
     }
 
     public class AiOptionsInfo4DSBak
@@ -303,18 +304,12 @@ namespace AutoGCLib.Templates
         public bool IsExtendedClass { get; set; }    // 是否在扩展类
         public string WApiPath { get; set; }         // WApi 路径
         public string WApiFileName { get; set; }     // WApi 文件名
-        public List<AiOptionParam> Parameters { get; set; } = new List<AiOptionParam>();  // 🔥 新增：函数参数列表
+        public List<DdlOptionParam> Parameters { get; set; } = new List<DdlOptionParam>();  // 🔥 新增：函数参数列表
     }
     /// <summary>
     /// 🔥 新增：选项函数参数信息
     /// </summary>
-    public class AiOptionParam
-    {
-        public string ParamName { get; set; }        // 参数名，如 strProgLangTypeId
-        public string SharedVarName { get; set; }    // 共享变量名，如 strProgLangTypeId_Static
-        public string FldId { get; set; }            // 条件字段ID
-        public string VarId { get; set; }            // 界面变量ID
-    }
+
 
     /// <summary>
     /// 查询字段定义
@@ -331,9 +326,9 @@ namespace AutoGCLib.Templates
         public string OptionsKey { get; set; }
         public string OptionsWApiClass { get; set; }
         public string OptionsModuleName { get; set; }
-        public string OptionsFunctionName { get; set; }
+        public string GetDdlDataFuncName { get; set; }
         public bool OptionsIsExtendedClass { get; set; }
-        public List<AiOptionParam> OptionsParameters { get; set; } = new List<AiOptionParam>();  // 🔥 新增
+        public List<DdlOptionParam> OptionsParameters { get; set; } = new List<DdlOptionParam>();  // 🔥 新增
         public string DefaultValue { get; set; }
     }
 
@@ -351,6 +346,7 @@ namespace AutoGCLib.Templates
         /// </summary>
         public List<AiOptionsInfo> FeatureOptions { get; set; } = new List<AiOptionsInfo>();
         public List<AiOptionsInfo> FeatureOptions4DS { get; set; } = new List<AiOptionsInfo>();
+        public bool HasAdjustOrderNum { get; set; }
     }
 
     /// <summary>
@@ -374,12 +370,14 @@ namespace AutoGCLib.Templates
         /// 🔥 新增：辅助控件类型（select4Bool、select、text）
         /// </summary>
         public string AuxControlType { get; set; }
-        
+
         /// <summary>
         /// 🔥 新增：辅助控件选项键（用于获取下拉框数据源）
         /// </summary>
         public string AuxControlOptionsKey { get; set; }
-        
+
+        public string AuxControlLabel { get; set; }
+        public bool IsNeedAuxControlLabel { get; set; } = false;
         /// <summary>
         /// 🔥 新增：字段名（用于关联 VueShare 中的响应式变量）
         /// </summary>
@@ -403,6 +401,7 @@ namespace AutoGCLib.Templates
         public string ModuleName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
+        public string NameFieldCamel { get; set; }
         public bool HasCacheMode { get; set; }              // 是否使用缓存模式（CacheModeId='03'或'04'）
                                                             // 🔥 新增：缓存分类字段信息
         public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
@@ -461,6 +460,8 @@ namespace AutoGCLib.Templates
         public string strIsShare { get; set; }
         public List<KeyFieldInfo> KeyFields { get; set; }
         public bool NeedCheckKeyExist { get; set; }
+        public bool NeedUniCheck { get; set; }
+
         public bool NeedReturnKeyMethod { get; set; }
         public bool IsStringAutoIncrement { get; set; }
         public string ReturnKeyMethodReturnType { get; set; }
@@ -485,6 +486,58 @@ namespace AutoGCLib.Templates
         public string FrameworkLayer { get; set; }
         public string Generator { get; set; }
         
+        public CommentVerbosity CommentMode { get; set; } = CommentVerbosity.Compact;
+    }
+
+    /// <summary>
+    /// Edit 编辑区模板数据模型
+    /// </summary>
+    public class EditAiHTemplateModel
+    {
+        // 基础字段
+        public string TableName { get; set; }
+        public string TableNameCamel { get; set; }
+        public string TableCnName { get; set; }
+        public string ModuleName { get; set; }
+        public string KeyField { get; set; }
+        public string KeyFieldCamel { get; set; }
+        public string KeyFieldWithPrefix { get; set; }
+        public string KeyFieldTypeScript { get; set; }
+        public string KeyFieldPrefixOnly { get; set; }
+        public string KeyFieldInitValue { get; set; }
+        public bool IsKeyFieldNumeric { get; set; }
+        public bool IsMultiKey { get; set; }
+        public bool IsNeedImportIsNullOrEmpty { get; set; }
+        public string strIsShare { get; set; }
+        public List<KeyFieldInfo> KeyFields { get; set; }
+        public bool NeedCheckKeyExist { get; set; }
+        public bool NeedUniCheck { get; set; }
+
+        public bool NeedReturnKeyMethod { get; set; }
+        public bool NeedUseCurrUser { get; set; }
+        public bool IsStringAutoIncrement { get; set; }
+        public string ReturnKeyMethodReturnType { get; set; }
+        public bool NeedRefreshCache { get; set; }
+
+        // 🔥 新增：缓存分类字段信息
+        public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
+        public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
+        public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+
+        public string PrimaryTypeId { get; set; }
+        public string ViewId { get; set; }
+        public string ViewName { get; set; }
+
+        // 详细注释字段
+        public string GenerateDate { get; set; }
+        public string GenerateDateShort { get; set; }
+        public string ServerName { get; set; }
+        public string DatabaseName { get; set; }
+        public string PrjDataBaseId { get; set; }
+        public string PrjId { get; set; }
+        public string FrameworkLayer { get; set; }
+        public string Generator { get; set; }
+
         public CommentVerbosity CommentMode { get; set; } = CommentVerbosity.Compact;
     }
 
@@ -797,6 +850,8 @@ namespace AutoGCLib.Templates
         public bool HasDeleteFeature { get; set; }
         public bool HasExportFeature { get; set; }
         public bool HasCopyFeature { get; set; }
+        public bool HasAdjustOrderNum { get; set; }
+
 
         public List<ExAiSortColumn> SortColumns { get; set; } = new List<ExAiSortColumn>();
         public List<ExAiCommandMapping> CommandMappings { get; set; } = new List<ExAiCommandMapping>();
@@ -950,6 +1005,7 @@ namespace AutoGCLib.Templates
         /// </summary>
         public bool HasDetailFeature { get; set; }
         public bool HasExportFeature { get; set; }
+        public bool HasAdjustOrderNum { get; set; }
 
         public List<string> SetFieldVariables { get; set; } = new List<string>();
         public List<string> ViewVariables { get; set; } = new List<string>();

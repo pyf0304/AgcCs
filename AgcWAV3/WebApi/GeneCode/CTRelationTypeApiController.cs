@@ -3,7 +3,7 @@
  类名:CTRelationTypeApiController
  表名:CTRelationType(00050645)
  * 版本:2026.05.30(服务器:PYF-AI)
- 日期:2026/06/05 03:13:25
+ 日期:2026/06/16 22:27:20
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -47,28 +47,28 @@ public class  CTRelationTypeApiController : ControllerBase
 
  /// <summary>
  /// 获取当前关键字的记录对象,用对象的形式表示.
- /// 调用方法: GET /api/CTRelationTypeApi/GetObjByCTRelationTypeId?CTRelationTypeId=value
+ /// 调用方法: GET /api/CTRelationTypeApi/GetObjByCtRelationTypeId?CtRelationTypeId=value
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjByKeyId)
  /// </summary>
- /// <param name = "strCTRelationTypeId">表关键字</param>
+ /// <param name = "strCtRelationTypeId">表关键字</param>
  /// <returns>表对象</returns>
-[HttpGet("GetObjByCTRelationTypeId")]
-public ActionResult GetObjByCTRelationTypeId(string strCTRelationTypeId)
+[HttpGet("GetObjByCtRelationTypeId")]
+public ActionResult GetObjByCtRelationTypeId(string strCtRelationTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["strCTRelationTypeId"] = strCTRelationTypeId,
+["strCtRelationTypeId"] = strCtRelationTypeId,
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (string.IsNullOrEmpty(strCTRelationTypeId) == true)
+ if (string.IsNullOrEmpty(strCtRelationTypeId) == true)
  {
 string strMsg = string.Format("根据关键字获取对象时,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-clsCTRelationTypeEN objCTRelationTypeEN = clsCTRelationTypeBL.GetObjByCtRelationTypeId(strCTRelationTypeId);
+clsCTRelationTypeEN objCTRelationTypeEN = clsCTRelationTypeBL.GetObjByCtRelationTypeId(strCtRelationTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnObj = objCTRelationTypeEN });
  }
  catch (Exception objException)
@@ -143,29 +143,29 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表
- /// 调用方法: POST /api/CTRelationTypeapi/GetObjLstByCTRelationTypeIdLst
+ /// 调用方法: POST /api/CTRelationTypeapi/GetObjLstByCtRelationTypeIdLst
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstByKeyLst)
  /// </summary>
- /// <param name = "arrCTRelationTypeIdLst">所给的关键字</param>
+ /// <param name = "arrCtRelationTypeIdLst">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-[HttpPost("GetObjLstByCTRelationTypeIdLst")]
-public ActionResult GetObjLstByCTRelationTypeIdLst([FromBody]string[] arrCTRelationTypeId)
+[HttpPost("GetObjLstByCtRelationTypeIdLst")]
+public ActionResult GetObjLstByCtRelationTypeIdLst([FromBody]string[] arrCtRelationTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrCTRelationTypeId);
-dictParam.Add("arrCTRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrCtRelationTypeId);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-if (arrCTRelationTypeId.Length == 0)
+if (arrCtRelationTypeId.Length == 0)
 {
 string strMsg = string.Format("根据关键字列表串获取对象列表时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
 return Ok(new { errorId = 1, errorMsg = strMsg });
 }
-List<string> lstCTRelationTypeId = new(arrCTRelationTypeId);
+List<string> lstCtRelationTypeId = new(arrCtRelationTypeId);
  try
  {
-List<clsCTRelationTypeEN> arrCTRelationTypeObjLst = clsCTRelationTypeBL.GetObjLstByCtRelationTypeIdLst(lstCTRelationTypeId);
+List<clsCTRelationTypeEN> arrCTRelationTypeObjLst = clsCTRelationTypeBL.GetObjLstByCtRelationTypeIdLst(lstCtRelationTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrCTRelationTypeObjLst });
  }
  catch (Exception objException)
@@ -178,29 +178,29 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表
- /// 调用方法: POST /api/CTRelationTypeapi/GetObjLstByCTRelationTypeIdLst
+ /// 调用方法: POST /api/CTRelationTypeapi/GetObjLstByCtRelationTypeIdLst
  /// (AutoGCLib.WA_Srv4CSharp:Gen_GetObjLstByKeyLstCache)
  /// </summary>
- /// <param name = "arrCTRelationTypeIdLst">所给的关键字</param>
+ /// <param name = "arrCtRelationTypeIdLst">所给的关键字</param>
  /// <returns>根据关键字获取的对象</returns>
-[HttpPost("GetObjLstByCTRelationTypeIdLstCache")]
-public ActionResult GetObjLstByCTRelationTypeIdLstCache([FromBody]string[] arrCTRelationTypeId)
+[HttpPost("GetObjLstByCtRelationTypeIdLstCache")]
+public ActionResult GetObjLstByCtRelationTypeIdLstCache([FromBody]string[] arrCtRelationTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrCTRelationTypeId);
-dictParam.Add("arrCTRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrCtRelationTypeId);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-if (arrCTRelationTypeId.Length == 0)
+if (arrCtRelationTypeId.Length == 0)
 {
 string strMsg = string.Format("根据关键字列表串获取对象列表时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
 return Ok(new { errorId = 1, errorMsg = strMsg });
 }
-List<string> lstCTRelationTypeId = new(arrCTRelationTypeId);
+List<string> lstCtRelationTypeId = new(arrCtRelationTypeId);
  try
  {
-IEnumerable<clsCTRelationTypeEN> arrCTRelationTypeObjLst = clsCTRelationTypeBL.GetObjLstByCtRelationTypeIdLstCache(lstCTRelationTypeId);
+IEnumerable<clsCTRelationTypeEN> arrCTRelationTypeObjLst = clsCTRelationTypeBL.GetObjLstByCtRelationTypeIdLstCache(lstCtRelationTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrCTRelationTypeObjLst });
  }
  catch (Exception objException)
@@ -270,11 +270,11 @@ clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
 string strMsg = string.Format("根据条件获取第一条记录的关键字值时,条件不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
- string strCTRelationTypeId;
+ string strCtRelationTypeId;
  try
  {
- strCTRelationTypeId = clsCTRelationTypeBL.GetFirstID_S(strWhereCond);
-return Ok(new { errorId = 0, errorMsg = "", returnStr = strCTRelationTypeId });
+ strCtRelationTypeId = clsCTRelationTypeBL.GetFirstID_S(strWhereCond);
+return Ok(new { errorId = 0, errorMsg = "", returnStr = strCtRelationTypeId });
  }
  catch (Exception objException)
  {
@@ -510,28 +510,28 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 
  /// <summary>
  /// 判断当前表中是否存在给定关键字值的记录
- /// 调用方法: GET /api/CTRelationTypeApi/IsExist?CTRelationTypeId=value
+ /// 调用方法: GET /api/CTRelationTypeApi/IsExist?CtRelationTypeId=value
  /// (AutoGCLib.WA_Srv4CSharp:Gen_IsExist)
  /// </summary>
- /// <param name = "strCTRelationTypeId">给定的关键字值</param>
+ /// <param name = "strCtRelationTypeId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
 [HttpGet("IsExist")]
-public ActionResult IsExist(string strCTRelationTypeId)
+public ActionResult IsExist(string strCtRelationTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["strCTRelationTypeId"] = strCTRelationTypeId
+["strCtRelationTypeId"] = strCtRelationTypeId
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (string.IsNullOrEmpty(strCTRelationTypeId) == true)
+ if (string.IsNullOrEmpty(strCtRelationTypeId) == true)
  {
 string strMsg = string.Format("判断表中是否存在给定关键字的记录时,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-bool bolIsExist = clsCTRelationTypeBL.IsExist(strCTRelationTypeId);
+bool bolIsExist = clsCTRelationTypeBL.IsExist(strCtRelationTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnBool = bolIsExist });
  }
  catch (Exception objException)
@@ -655,6 +655,190 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
 
  /// <summary>
+ /// 把所给的关键字列表相关的记录移顶
+ /// 调用方法: POST /api/CTRelationTypeApi/GoTop
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoTop)
+ /// </summary>
+ /// <param name = "objCTRelationTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoTop")]
+public ActionResult GoTop([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置顶时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCtRelationTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsCTRelationTypeBL.GoTop(lstCtRelationTypeId );
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录上移
+ /// 调用方法: POST /api/CTRelationTypeApi/UpMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_UpMove)
+ /// </summary>
+ /// <param name = "objCTRelationTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("UpMove")]
+public ActionResult UpMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表上移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCtRelationTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+foreach(var x in lstCtRelationTypeId)
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+clsCTRelationTypeBL.AdjustOrderNum("UP", x );
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录下移
+ /// 调用方法: POST /api/CTRelationTypeApi/DownMove
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_DownMove)
+ /// </summary>
+ /// <param name = "objCTRelationTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("DownMove")]
+public ActionResult DownMove([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表下移时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCtRelationTypeId = new(objOrderByData.KeyIdLst);
+lstCtRelationTypeId.Reverse();
+try
+{
+foreach(var x in lstCtRelationTypeId)
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+clsCTRelationTypeBL.AdjustOrderNum("DOWN", x );
+}
+return Ok(new { errorId = 0, errorMsg = "", returnBool = true });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/CTRelationTypeApi/GoBottom
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_GoBottom)
+ /// </summary>
+ /// <param name = "objCTRelationTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("GoBottom")]
+public ActionResult GoBottom([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = new(objOrderByData.KeyIdLst);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+if (objOrderByData.KeyIdLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表置底时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+List<string> lstCtRelationTypeId = new(objOrderByData.KeyIdLst);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsCTRelationTypeBL.GoBottom(lstCtRelationTypeId );
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 把所给的关键字列表相关的记录移底
+ /// 调用方法: POST /api/CTRelationTypeApi/ReOrder
+ /// 在Body区传输clsOrderByData的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_ReOrder)
+ /// </summary>
+ /// <param name = "objCTRelationTypeEN">对象</param>
+ /// <returns>是否成功</returns>
+[HttpPost("ReOrder")]
+public ActionResult ReOrder([FromBody]clsOrderByData objOrderByData)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+dictParam.Add("ClassificationFieldValueLst", objOrderByData.ClassificationFieldValueLst);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+try
+{
+JObject jobjOrderByData = JObject.Parse(objOrderByData.ClassificationFieldValueLst);
+bool bolResult = clsCTRelationTypeBL.ReOrder();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+}
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
  /// 根据条件来修改记录对象
  /// 调用方法: Post /api/CTRelationTypeApi/UpdateWithCondition
  /// 在Body区传输objCTRelationTypeEN的JSON对象和strWhereCond条件串
@@ -709,21 +893,21 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 [HttpDelete("DelRecord")]
 public ActionResult DelRecord(string Id)
 {
-string strCTRelationTypeId = Id;
+string strCtRelationTypeId = Id;
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new()
 {
-["Id"] = strCTRelationTypeId
+["Id"] = strCtRelationTypeId
  };
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
- if (string.IsNullOrEmpty(strCTRelationTypeId) == true)
+ if (string.IsNullOrEmpty(strCtRelationTypeId) == true)
  {
 string strMsg = string.Format("删除关键字所指定的记录,关键字不能为空!({0})", clsStackTrace.GetCurrClassFunction());
 return Ok(new { errorId = 1, errorMsg = strMsg });
  }
  try
  {
-int intRecNum = clsCTRelationTypeBL.DelRecord(strCTRelationTypeId);
+int intRecNum = clsCTRelationTypeBL.DelRecord(strCtRelationTypeId);
 return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
  }
  catch (Exception objException)
@@ -737,18 +921,18 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  /// <summary>
  /// 功能:同时删除多条记录,删除给定关键字列表的记录
  /// 调用方法: POST /api/CTRelationTypeApi/DelCTRelationTypes
- /// 在Body区传输arrCTRelationTypeId(关键字值列表)的JSON串
+ /// 在Body区传输arrCtRelationTypeId(关键字值列表)的JSON串
  /// (AutoGCLib.WA_Srv4CSharp:Gen_DelMultiRecord)
  /// </summary>
- /// <param name = "arrCTRelationTypeId">给定的关键字值列表</param>
+ /// <param name = "arrCtRelationTypeId">给定的关键字值列表</param>
  /// <returns>返回删除的记录数</returns>
 [HttpPost("DelCTRelationTypes")]
-public ActionResult DelCTRelationTypes([FromBody]string[] arrCTRelationTypeId)
+public ActionResult DelCTRelationTypes([FromBody]string[] arrCtRelationTypeId)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();
-List<string> arrLst = new(arrCTRelationTypeId);
-dictParam.Add("arrCTRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
+List<string> arrLst = new(arrCtRelationTypeId);
+dictParam.Add("arrCtRelationTypeId", clsArray.GetSqlInStrByArray(arrLst, true));
 clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  try
  {
@@ -773,6 +957,40 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  /// <returns>返回删除的记录数</returns>
 [HttpPost("DelRecords")]
 public ActionResult DelRecords([FromBody]string[] strKeyIdLst)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrKey = new(strKeyIdLst);
+dictParam.Add("strKeyIdLst", clsArray.GetSqlInStrByArray(arrKey,true));
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+  if (strKeyIdLst.Length == 0)
+ {
+string strMsg = string.Format("根据关键字列表串删除记录时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+ try
+ {
+int intRecNum = clsCTRelationTypeBL.DelCTRelationTypes(arrKey);
+return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 功能:同时删除多条记录,删除给定关键字列表的记录, 通过JSON串
+ /// 调用方法: POST /api/CTRelationTypeApi/DelRecords
+ /// 在Body区传输strKeyIdLst字符串列表的JSON串
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_DelKeys)
+ /// </summary>
+ /// <param name = "strKeyIdLst">给定的关键字值列表的JSON串</param>
+ /// <returns>返回删除的记录数</returns>
+[HttpPost("DelKeys")]
+public ActionResult DelKeys([FromBody]string[] strKeyIdLst)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();

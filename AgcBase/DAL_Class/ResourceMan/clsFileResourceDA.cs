@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsFileResourceDA
  表名:FileResource(00050539)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:09:13
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/15 13:44:30
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -377,8 +377,8 @@ string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTab
 strSQL = $"Select Top {intPageSize} FileResource.* " + 
 $"from FileResource " + 
 $"{strLeftLinkStr} " + 
-$"where {strCondition} and FileResource.FileResourceID not in " + 
-$"(Select top {intTop_In} FileResource.FileResourceID from FileResource " + 
+$"where {strCondition} and FileResource.FileResourceId not in " + 
+$"(Select top {intTop_In} FileResource.FileResourceId from FileResource " + 
 $"{strLeftLinkStr} " +
 $" where {strCondition} " + 
 $"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
@@ -388,11 +388,11 @@ else
 {
  if (string.IsNullOrEmpty(strOrderBy) == true)
  {
- strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceID not in (Select top {2} FileResourceID from FileResource where {1}) ", intPageSize, strCondition, intTop_In);
+ strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceId not in (Select top {2} FileResourceId from FileResource where {1}) ", intPageSize, strCondition, intTop_In);
  }
  else
  {
- strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceID not in (Select top {3} FileResourceID from FileResource where {1} order by {2}) order by {2} ", intPageSize, strCondition, strOrderBy, intTop_In);
+ strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceId not in (Select top {3} FileResourceId from FileResource where {1} order by {2}) order by {2} ", intPageSize, strCondition, strOrderBy, intTop_In);
  }
  }
 objDT = objSQL.GetDataTable(strSQL);
@@ -438,8 +438,8 @@ string strLeftLinkStr = clsSortLinkStrParse.BuildLeftJoinClause(sortInfo.JoinTab
 strSQL = $"Select Top {intPageSize} FileResource.* " + 
 $"from FileResource " + 
 $"{strLeftLinkStr} " + 
-$"where {strCondition} and FileResource.FileResourceID not in " + 
-$"(Select top {intTop_In} FileResource.FileResourceID from FileResource " + 
+$"where {strCondition} and FileResource.FileResourceId not in " + 
+$"(Select top {intTop_In} FileResource.FileResourceId from FileResource " + 
 $"{strLeftLinkStr} " +
 $" where {strCondition} " + 
 $"order by {sortInfo.SortField} {sortInfo.SortDirection}) " + 
@@ -449,11 +449,11 @@ else
 {
  if (string.IsNullOrEmpty(strOrderBy) == true)
  {
- strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceID not in (Select top {2} FileResourceID from FileResource where {1}) ", intPageSize, strCondition, intTop_In);
+ strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceId not in (Select top {2} FileResourceId from FileResource where {1}) ", intPageSize, strCondition, intTop_In);
  }
  else
  {
- strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceID not in (Select top {3} FileResourceID from FileResource where {1} order by {2}) order by {2} ", intPageSize, strCondition, strOrderBy, intTop_In);
+ strSQL = string.Format("Select Top {0} * from FileResource where {1} and FileResourceId not in (Select top {3} FileResourceId from FileResource where {1} order by {2}) order by {2} ", intPageSize, strCondition, strOrderBy, intTop_In);
  }
  }
 objDT = objSQL.GetDataTable(strSQL);
@@ -498,12 +498,14 @@ foreach(DataRow objRow in objDT.Rows)
 	clsFileResourceEN objFileResourceEN = new clsFileResourceEN();
 try
 {
-objFileResourceEN.FileResourceID = TransNullToInt(objRow[conFileResource.FileResourceID].ToString().Trim()); //FileResourceID
+objFileResourceEN.FileResourceId = TransNullToInt(objRow[conFileResource.FileResourceId].ToString().Trim()); //文件资源Id
 objFileResourceEN.FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名
 objFileResourceEN.FileName = objRow[conFileResource.FileName].ToString().Trim(); //文件名
 objFileResourceEN.Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(); //扩展名
+objFileResourceEN.CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id
 objFileResourceEN.TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(); //表ID
 objFileResourceEN.IsBelongsCurrCMPrj = TransNullToBool(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目
+objFileResourceEN.PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id
 objFileResourceEN.IsGeneCode = TransNullToBool(objRow[conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码
 objFileResourceEN.IsCanDel = TransNullToBool(objRow[conFileResource.IsCanDel].ToString().Trim()); //是否可删除
 objFileResourceEN.FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : TransNullToInt(objRow[conFileResource.FileLength].ToString().Trim()); //文件长度
@@ -566,12 +568,14 @@ foreach(DataRow objRow in objDT.Rows)
 	clsFileResourceEN objFileResourceEN = new clsFileResourceEN();
 try
 {
-objFileResourceEN.FileResourceID = TransNullToInt(objRow[conFileResource.FileResourceID].ToString().Trim()); //FileResourceID
+objFileResourceEN.FileResourceId = TransNullToInt(objRow[conFileResource.FileResourceId].ToString().Trim()); //文件资源Id
 objFileResourceEN.FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名
 objFileResourceEN.FileName = objRow[conFileResource.FileName].ToString().Trim(); //文件名
 objFileResourceEN.Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(); //扩展名
+objFileResourceEN.CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id
 objFileResourceEN.TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(); //表ID
 objFileResourceEN.IsBelongsCurrCMPrj = TransNullToBool(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目
+objFileResourceEN.PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id
 objFileResourceEN.IsGeneCode = TransNullToBool(objRow[conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码
 objFileResourceEN.IsCanDel = TransNullToBool(objRow[conFileResource.IsCanDel].ToString().Trim()); //是否可删除
 objFileResourceEN.FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : TransNullToInt(objRow[conFileResource.FileLength].ToString().Trim()); //文件长度
@@ -616,7 +620,7 @@ System.Data.DataTable objDT ;
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
-strSQL = "Select * from FileResource where FileResourceID = " + ""+ objFileResourceEN.FileResourceID+"";
+strSQL = "Select * from FileResource where FileResourceId = " + ""+ objFileResourceEN.FileResourceId+"";
 objDT = objSQL.GetDataTable(strSQL);
 if (objDT.Rows.Count  ==  0)
 {
@@ -624,17 +628,19 @@ return false;
 }
 try
 {
- objFileResourceEN.FileResourceID = TransNullToInt(objDT.Rows[0][conFileResource.FileResourceID].ToString().Trim()); //FileResourceID(字段类型:bigint,字段长度:8,是否可空:False)
+ objFileResourceEN.FileResourceId = TransNullToInt(objDT.Rows[0][conFileResource.FileResourceId].ToString().Trim()); //文件资源Id(字段类型:bigint,字段长度:8,是否可空:False)
  objFileResourceEN.FileDirName = objDT.Rows[0][conFileResource.FileDirName].ToString().Trim(); //文件目录名(字段类型:varchar,字段长度:200,是否可空:True)
  objFileResourceEN.FileName = objDT.Rows[0][conFileResource.FileName].ToString().Trim(); //文件名(字段类型:varchar,字段长度:150,是否可空:False)
  objFileResourceEN.Extension = objDT.Rows[0][conFileResource.Extension].ToString().Trim(); //扩展名(字段类型:varchar,字段长度:20,是否可空:True)
+ objFileResourceEN.CodeTypeId = objDT.Rows[0][conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id(字段类型:char,字段长度:4,是否可空:False)
  objFileResourceEN.TabId = objDT.Rows[0][conFileResource.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
  objFileResourceEN.IsBelongsCurrCMPrj = TransNullToBool(objDT.Rows[0][conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目(字段类型:bit,字段长度:1,是否可空:True)
+ objFileResourceEN.PrjFileTypeId = objDT.Rows[0][conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id(字段类型:char,字段长度:2,是否可空:False)
  objFileResourceEN.IsGeneCode = TransNullToBool(objDT.Rows[0][conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码(字段类型:bit,字段长度:1,是否可空:True)
  objFileResourceEN.IsCanDel = TransNullToBool(objDT.Rows[0][conFileResource.IsCanDel].ToString().Trim()); //是否可删除(字段类型:bit,字段长度:1,是否可空:True)
  objFileResourceEN.FileLength = TransNullToInt(objDT.Rows[0][conFileResource.FileLength].ToString().Trim()); //文件长度(字段类型:bigint,字段长度:8,是否可空:True)
  objFileResourceEN.FileType = objDT.Rows[0][conFileResource.FileType].ToString().Trim(); //文件类型(字段类型:varchar,字段长度:30,是否可空:True)
- objFileResourceEN.CreationTime = objDT.Rows[0][conFileResource.CreationTime].ToString().Trim(); //建立时间(字段类型:varchar,字段长度:20,是否可空:True)
+ objFileResourceEN.CreationTime = objDT.Rows[0][conFileResource.CreationTime].ToString().Trim(); //建立时间(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.LastWriteTime = objDT.Rows[0][conFileResource.LastWriteTime].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.CheckDateTime = objDT.Rows[0][conFileResource.CheckDateTime].ToString().Trim(); //CheckDateTime(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.InUse = TransNullToBool(objDT.Rows[0][conFileResource.InUse].ToString().Trim()); //是否在用(字段类型:bit,字段长度:1,是否可空:True)
@@ -658,16 +664,16 @@ return true;
  /// 根据关键字获取相关对象,用对象的形式表示.
  /// (AutoGCLib.DALCode4CSharp:Gen_GetObjByKeyId)
  /// </summary>
- /// <param name = "lngFileResourceID">表关键字</param>
+ /// <param name = "lngFileResourceId">表关键字</param>
  /// <returns>表对象</returns>
-public clsFileResourceEN GetObjByFileResourceID(long lngFileResourceID)
+public clsFileResourceEN GetObjByFileResourceId(long lngFileResourceId)
 {
 string strSQL ;
 System.Data.DataTable objDT ; 
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
-strSQL = "Select * from FileResource where FileResourceID = " + ""+ lngFileResourceID+"";
+strSQL = "Select * from FileResource where FileResourceId = " + ""+ lngFileResourceId+"";
 objDT = objSQL.GetDataTable(strSQL);
 if (objDT.Rows.Count  ==  0)
 {
@@ -677,17 +683,19 @@ return null;
 clsFileResourceEN objFileResourceEN = new clsFileResourceEN();
 try
 {
- objFileResourceEN.FileResourceID = Int32.Parse(objRow[conFileResource.FileResourceID].ToString().Trim()); //FileResourceID(字段类型:bigint,字段长度:8,是否可空:False)
+ objFileResourceEN.FileResourceId = Int32.Parse(objRow[conFileResource.FileResourceId].ToString().Trim()); //文件资源Id(字段类型:bigint,字段长度:8,是否可空:False)
  objFileResourceEN.FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名(字段类型:varchar,字段长度:200,是否可空:True)
  objFileResourceEN.FileName = objRow[conFileResource.FileName].ToString().Trim(); //文件名(字段类型:varchar,字段长度:150,是否可空:False)
  objFileResourceEN.Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(); //扩展名(字段类型:varchar,字段长度:20,是否可空:True)
+ objFileResourceEN.CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id(字段类型:char,字段长度:4,是否可空:False)
  objFileResourceEN.TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
  objFileResourceEN.IsBelongsCurrCMPrj = clsEntityBase2.TransNullToBool_S(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目(字段类型:bit,字段长度:1,是否可空:True)
+ objFileResourceEN.PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id(字段类型:char,字段长度:2,是否可空:False)
  objFileResourceEN.IsGeneCode = clsEntityBase2.TransNullToBool_S(objRow[conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码(字段类型:bit,字段长度:1,是否可空:True)
  objFileResourceEN.IsCanDel = clsEntityBase2.TransNullToBool_S(objRow[conFileResource.IsCanDel].ToString().Trim()); //是否可删除(字段类型:bit,字段长度:1,是否可空:True)
  objFileResourceEN.FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : clsEntityBase2.TransNullToInt_S(objRow[conFileResource.FileLength].ToString().Trim()); //文件长度(字段类型:bigint,字段长度:8,是否可空:True)
  objFileResourceEN.FileType = objRow[conFileResource.FileType] == DBNull.Value ? null : objRow[conFileResource.FileType].ToString().Trim(); //文件类型(字段类型:varchar,字段长度:30,是否可空:True)
- objFileResourceEN.CreationTime = objRow[conFileResource.CreationTime] == DBNull.Value ? null : objRow[conFileResource.CreationTime].ToString().Trim(); //建立时间(字段类型:varchar,字段长度:20,是否可空:True)
+ objFileResourceEN.CreationTime = objRow[conFileResource.CreationTime] == DBNull.Value ? null : objRow[conFileResource.CreationTime].ToString().Trim(); //建立时间(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.LastWriteTime = objRow[conFileResource.LastWriteTime] == DBNull.Value ? null : objRow[conFileResource.LastWriteTime].ToString().Trim(); //修改日期(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.CheckDateTime = objRow[conFileResource.CheckDateTime] == DBNull.Value ? null : objRow[conFileResource.CheckDateTime].ToString().Trim(); //CheckDateTime(字段类型:varchar,字段长度:30,是否可空:True)
  objFileResourceEN.InUse = clsEntityBase2.TransNullToBool_S(objRow[conFileResource.InUse].ToString().Trim()); //是否在用(字段类型:bit,字段长度:1,是否可空:True)
@@ -702,7 +710,7 @@ try
 }
  catch(Exception objException)
 {
-throw new Exception(string.Format("根据关键字获取相关对象时,发生:{0},请检查!(clsFileResourceDA: GetObjByFileResourceID)", objException.Message));
+throw new Exception(string.Format("根据关键字获取相关对象时,发生:{0},请检查!(clsFileResourceDA: GetObjByFileResourceId)", objException.Message));
 }
 return objFileResourceEN;
 }
@@ -740,12 +748,14 @@ try
 {
 	clsFileResourceEN objFileResourceEN = new clsFileResourceEN()
 {
-FileResourceID = TransNullToInt(objRow[conFileResource.FileResourceID].ToString().Trim()), //FileResourceID
+FileResourceId = TransNullToInt(objRow[conFileResource.FileResourceId].ToString().Trim()), //文件资源Id
 FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(), //文件目录名
 FileName = objRow[conFileResource.FileName].ToString().Trim(), //文件名
 Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(), //扩展名
+CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(), //代码类型Id
 TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(), //表ID
 IsBelongsCurrCMPrj = TransNullToBool(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()), //是否属于当前项目
+PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(), //项目文件类型Id
 IsGeneCode = TransNullToBool(objRow[conFileResource.IsGeneCode].ToString().Trim()), //是否生成代码
 IsCanDel = TransNullToBool(objRow[conFileResource.IsCanDel].ToString().Trim()), //是否可删除
 FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : TransNullToInt(objRow[conFileResource.FileLength].ToString().Trim()), //文件长度
@@ -787,12 +797,14 @@ return null;
 	clsFileResourceEN objFileResourceEN = new clsFileResourceEN();
 try
 {
-objFileResourceEN.FileResourceID = TransNullToInt(objRow[conFileResource.FileResourceID].ToString().Trim()); //FileResourceID
+objFileResourceEN.FileResourceId = TransNullToInt(objRow[conFileResource.FileResourceId].ToString().Trim()); //文件资源Id
 objFileResourceEN.FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名
 objFileResourceEN.FileName = objRow[conFileResource.FileName].ToString().Trim(); //文件名
 objFileResourceEN.Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(); //扩展名
+objFileResourceEN.CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id
 objFileResourceEN.TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(); //表ID
 objFileResourceEN.IsBelongsCurrCMPrj = TransNullToBool(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目
+objFileResourceEN.PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id
 objFileResourceEN.IsGeneCode = TransNullToBool(objRow[conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码
 objFileResourceEN.IsCanDel = TransNullToBool(objRow[conFileResource.IsCanDel].ToString().Trim()); //是否可删除
 objFileResourceEN.FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : TransNullToInt(objRow[conFileResource.FileLength].ToString().Trim()); //文件长度
@@ -832,12 +844,14 @@ return null;
 	clsFileResourceEN objFileResourceEN = new clsFileResourceEN();
 try
 {
-objFileResourceEN.FileResourceID = TransNullToInt(objRow[conFileResource.FileResourceID].ToString().Trim()); //FileResourceID
+objFileResourceEN.FileResourceId = TransNullToInt(objRow[conFileResource.FileResourceId].ToString().Trim()); //文件资源Id
 objFileResourceEN.FileDirName = objRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名
 objFileResourceEN.FileName = objRow[conFileResource.FileName].ToString().Trim(); //文件名
 objFileResourceEN.Extension = objRow[conFileResource.Extension] == DBNull.Value ? null : objRow[conFileResource.Extension].ToString().Trim(); //扩展名
+objFileResourceEN.CodeTypeId = objRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id
 objFileResourceEN.TabId = objRow[conFileResource.TabId] == DBNull.Value ? null : objRow[conFileResource.TabId].ToString().Trim(); //表ID
 objFileResourceEN.IsBelongsCurrCMPrj = TransNullToBool(objRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim()); //是否属于当前项目
+objFileResourceEN.PrjFileTypeId = objRow[conFileResource.PrjFileTypeId] == DBNull.Value ? null : objRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id
 objFileResourceEN.IsGeneCode = TransNullToBool(objRow[conFileResource.IsGeneCode].ToString().Trim()); //是否生成代码
 objFileResourceEN.IsCanDel = TransNullToBool(objRow[conFileResource.IsCanDel].ToString().Trim()); //是否可删除
 objFileResourceEN.FileLength = objRow[conFileResource.FileLength] == DBNull.Value ? (long?)null : TransNullToInt(objRow[conFileResource.FileLength].ToString().Trim()); //文件长度
@@ -877,7 +891,7 @@ public static string GetMaxStrId()
 clsSpecSQLforSql objSQL;
 //获取连接对象
 objSQL = clsFileResourceDA.GetSpecSQLObj();
-string strMaxValue = objSQL.GetMaxStrId(clsFileResourceEN._CurrTabName, conFileResource.FileResourceID, 8, "");
+string strMaxValue = objSQL.GetMaxStrId(clsFileResourceEN._CurrTabName, conFileResource.FileResourceId, 8, "");
 return strMaxValue;
 }
 
@@ -891,7 +905,7 @@ public string GetMaxStrIdByPrefix(string strPrefix)
 clsSpecSQLforSql objSQL;
 //获取连接对象
 objSQL = clsFileResourceDA.GetSpecSQLObj();
-string strMaxValue = objSQL.GetMaxStrId(clsFileResourceEN._CurrTabName, conFileResource.FileResourceID, 8, strPrefix);
+string strMaxValue = objSQL.GetMaxStrId(clsFileResourceEN._CurrTabName, conFileResource.FileResourceId, 8, strPrefix);
 return strMaxValue;
 }
 
@@ -909,7 +923,7 @@ string strSQL ;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
 string strKeyValue; 
-strSQL = "Select FileResourceID from FileResource where " + strCondition;
+strSQL = "Select FileResourceId from FileResource where " + strCondition;
 try
 {
 objDT = objSQL.GetDataTable(strSQL);
@@ -951,7 +965,7 @@ List<string> arrList = new List<string>();
  objSQL = clsFileResourceDA.GetSpecSQLObj();
 int iRow, iCol; 
 string strKeyValue; 
-strSQL = "Select FileResourceID from FileResource where " + strCondition;
+strSQL = "Select FileResourceId from FileResource where " + strCondition;
 try
 {
 objDT = objSQL.GetDataTable(strSQL);
@@ -996,14 +1010,14 @@ return arrList;
  /// 判断当前表中是否存在给定关键字值的记录
  /// (AutoGCLib.clsGeneCodeBase4Tab:GenIsExist_S)
  /// </summary>
- /// <param name = "lngFileResourceID">给定的关键字值</param>
+ /// <param name = "lngFileResourceId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
-public bool IsExist(long lngFileResourceID)
+public bool IsExist(long lngFileResourceId)
 {
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
-if (objSQL.IsExistRecord("FileResource", "FileResourceID = " + ""+ lngFileResourceID+""))
+if (objSQL.IsExistRecord("FileResource", "FileResourceId = " + ""+ lngFileResourceId+""))
 {
 return true;
 }
@@ -1092,11 +1106,16 @@ objRow[conFileResource.FileName] = objFileResourceEN.FileName; //文件名
  {
 objRow[conFileResource.Extension] = objFileResourceEN.Extension; //扩展名
  }
+objRow[conFileResource.CodeTypeId] = objFileResourceEN.CodeTypeId; //代码类型Id
  if (objFileResourceEN.TabId !=  "")
  {
 objRow[conFileResource.TabId] = objFileResourceEN.TabId; //表ID
  }
 objRow[conFileResource.IsBelongsCurrCMPrj] = objFileResourceEN.IsBelongsCurrCMPrj; //是否属于当前项目
+ if (objFileResourceEN.PrjFileTypeId !=  "")
+ {
+objRow[conFileResource.PrjFileTypeId] = objFileResourceEN.PrjFileTypeId; //项目文件类型Id
+ }
 objRow[conFileResource.IsGeneCode] = objFileResourceEN.IsGeneCode; //是否生成代码
 objRow[conFileResource.IsCanDel] = objFileResourceEN.IsCanDel; //是否可删除
 objRow[conFileResource.FileLength] = objFileResourceEN.FileLength; //文件长度
@@ -1200,6 +1219,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strExtension + "'");
  }
  
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.CodeTypeId);
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
+ }
+ 
  if (objFileResourceEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conFileResource.TabId);
@@ -1209,6 +1235,13 @@ StringBuilder strSQL = new StringBuilder();
  
  arrFieldListForInsert.Add(conFileResource.IsBelongsCurrCMPrj);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsBelongsCurrCMPrj  ==  false ? "0" : "1") + "'");
+ 
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.PrjFileTypeId);
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strPrjFileTypeId + "'");
+ }
  
  arrFieldListForInsert.Add(conFileResource.IsGeneCode);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsGeneCode  ==  false ? "0" : "1") + "'");
@@ -1362,6 +1395,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strExtension + "'");
  }
  
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.CodeTypeId);
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
+ }
+ 
  if (objFileResourceEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conFileResource.TabId);
@@ -1371,6 +1411,13 @@ StringBuilder strSQL = new StringBuilder();
  
  arrFieldListForInsert.Add(conFileResource.IsBelongsCurrCMPrj);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsBelongsCurrCMPrj  ==  false ? "0" : "1") + "'");
+ 
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.PrjFileTypeId);
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strPrjFileTypeId + "'");
+ }
  
  arrFieldListForInsert.Add(conFileResource.IsGeneCode);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsGeneCode  ==  false ? "0" : "1") + "'");
@@ -1527,6 +1574,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strExtension + "'");
  }
  
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.CodeTypeId);
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
+ }
+ 
  if (objFileResourceEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conFileResource.TabId);
@@ -1536,6 +1590,13 @@ StringBuilder strSQL = new StringBuilder();
  
  arrFieldListForInsert.Add(conFileResource.IsBelongsCurrCMPrj);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsBelongsCurrCMPrj  ==  false ? "0" : "1") + "'");
+ 
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.PrjFileTypeId);
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strPrjFileTypeId + "'");
+ }
  
  arrFieldListForInsert.Add(conFileResource.IsGeneCode);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsGeneCode  ==  false ? "0" : "1") + "'");
@@ -1692,6 +1753,13 @@ public bool AddNewRecordBySQL2(clsFileResourceEN objFileResourceEN, SqlConnectio
  arrValueListForInsert.Add("'" + strExtension + "'");
  }
  
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.CodeTypeId);
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
+ }
+ 
  if (objFileResourceEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conFileResource.TabId);
@@ -1701,6 +1769,13 @@ public bool AddNewRecordBySQL2(clsFileResourceEN objFileResourceEN, SqlConnectio
  
  arrFieldListForInsert.Add(conFileResource.IsBelongsCurrCMPrj);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsBelongsCurrCMPrj  ==  false ? "0" : "1") + "'");
+ 
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conFileResource.PrjFileTypeId);
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strPrjFileTypeId + "'");
+ }
  
  arrFieldListForInsert.Add(conFileResource.IsGeneCode);
  arrValueListForInsert.Add("'" + (objFileResourceEN.IsGeneCode  ==  false ? "0" : "1") + "'");
@@ -1827,17 +1902,17 @@ System.Data.DataRow objRow;
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
-strSQL = "Select * from FileResource where FileResourceID = '111'";
+strSQL = "Select * from FileResource where FileResourceId = '111'";
 objDA = new System.Data.SqlClient.SqlDataAdapter(strSQL, objSQL.SQLConnect);
 objCB = new System.Data.SqlClient.SqlCommandBuilder(objDA);
 objDA.Fill(objDS, "FileResource");
 //检查关键字的唯一性
 foreach(System.Data.DataRow oRow in oDT.Rows)
 {
-long lngFileResourceID = TransNullToInt(oRow[conFileResource.FileResourceID].ToString().Trim());
-if (IsExist(lngFileResourceID))
+long lngFileResourceId = TransNullToInt(oRow[conFileResource.FileResourceId].ToString().Trim());
+if (IsExist(lngFileResourceId))
 {
- string strResult = "关键字变量值为:" + string.Format("FileResourceID = {0}", lngFileResourceID) + "的记录已存在,不能重复插入!" ;
+ string strResult = "关键字变量值为:" + string.Format("FileResourceId = {0}", lngFileResourceId) + "的记录已存在,不能重复插入!" ;
  throw new Exception(strResult);
 }
 }
@@ -1848,8 +1923,10 @@ objRow = objDS.Tables[clsFileResourceEN._CurrTabName ].NewRow();
 objRow[conFileResource.FileDirName] = oRow[conFileResource.FileDirName].ToString().Trim(); //文件目录名
 objRow[conFileResource.FileName] = oRow[conFileResource.FileName].ToString().Trim(); //文件名
 objRow[conFileResource.Extension] = oRow[conFileResource.Extension].ToString().Trim(); //扩展名
+objRow[conFileResource.CodeTypeId] = oRow[conFileResource.CodeTypeId].ToString().Trim(); //代码类型Id
 objRow[conFileResource.TabId] = oRow[conFileResource.TabId].ToString().Trim(); //表ID
 objRow[conFileResource.IsBelongsCurrCMPrj] = oRow[conFileResource.IsBelongsCurrCMPrj].ToString().Trim(); //是否属于当前项目
+objRow[conFileResource.PrjFileTypeId] = oRow[conFileResource.PrjFileTypeId].ToString().Trim(); //项目文件类型Id
 objRow[conFileResource.IsGeneCode] = oRow[conFileResource.IsGeneCode].ToString().Trim(); //是否生成代码
 objRow[conFileResource.IsCanDel] = oRow[conFileResource.IsCanDel].ToString().Trim(); //是否可删除
 objRow[conFileResource.FileLength] = oRow[conFileResource.FileLength].ToString().Trim(); //文件长度
@@ -1909,13 +1986,13 @@ System.Data.DataRow objRow ;
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
-strSQL = "Select * from FileResource where FileResourceID = " + ""+ objFileResourceEN.FileResourceID+"";
+strSQL = "Select * from FileResource where FileResourceId = " + ""+ objFileResourceEN.FileResourceId+"";
 objDA = new System.Data.SqlClient.SqlDataAdapter(strSQL, objSQL.SQLConnect);
 objCB = new System.Data.SqlClient.SqlCommandBuilder(objDA);
 objDA.Fill(objDS, clsFileResourceEN._CurrTabName);
 if (objDS.Tables[clsFileResourceEN._CurrTabName].Rows.Count  ==  0)
 {
-//MsgBox("没有相应的ID号:FileResourceID = " + ""+ objFileResourceEN.FileResourceID+"");
+//MsgBox("没有相应的ID号:FileResourceId = " + ""+ objFileResourceEN.FileResourceId+"");
 return false;
 }
 objRow = objDS.Tables[clsFileResourceEN._CurrTabName].Rows[0];
@@ -1931,6 +2008,10 @@ objRow[conFileResource.FileName] = objFileResourceEN.FileName; //文件名
  {
 objRow[conFileResource.Extension] = objFileResourceEN.Extension; //扩展名
  }
+ if (objFileResourceEN.IsUpdated(conFileResource.CodeTypeId))
+ {
+objRow[conFileResource.CodeTypeId] = objFileResourceEN.CodeTypeId; //代码类型Id
+ }
  if (objFileResourceEN.IsUpdated(conFileResource.TabId))
  {
 objRow[conFileResource.TabId] = objFileResourceEN.TabId; //表ID
@@ -1938,6 +2019,10 @@ objRow[conFileResource.TabId] = objFileResourceEN.TabId; //表ID
  if (objFileResourceEN.IsUpdated(conFileResource.IsBelongsCurrCMPrj))
  {
 objRow[conFileResource.IsBelongsCurrCMPrj] = objFileResourceEN.IsBelongsCurrCMPrj; //是否属于当前项目
+ }
+ if (objFileResourceEN.IsUpdated(conFileResource.PrjFileTypeId))
+ {
+objRow[conFileResource.PrjFileTypeId] = objFileResourceEN.PrjFileTypeId; //项目文件类型Id
  }
  if (objFileResourceEN.IsUpdated(conFileResource.IsGeneCode))
  {
@@ -2080,6 +2165,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  
+ if (objFileResourceEN.IsUpdated(conFileResource.CodeTypeId))
+ {
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodeTypeId, conFileResource.CodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conFileResource.CodeTypeId); //代码类型Id
+ }
+ }
+ 
  if (objFileResourceEN.IsUpdated(conFileResource.TabId))
  {
  if (objFileResourceEN.TabId !=  null)
@@ -2096,6 +2194,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  if (objFileResourceEN.IsUpdated(conFileResource.IsBelongsCurrCMPrj))
  {
  sbSQL.AppendFormat(" {1} = '{0}',", objFileResourceEN.IsBelongsCurrCMPrj == true?"1":"0", conFileResource.IsBelongsCurrCMPrj); //是否属于当前项目
+ }
+ 
+ if (objFileResourceEN.IsUpdated(conFileResource.PrjFileTypeId))
+ {
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strPrjFileTypeId, conFileResource.PrjFileTypeId); //项目文件类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conFileResource.PrjFileTypeId); //项目文件类型Id
+ }
  }
  
  if (objFileResourceEN.IsUpdated(conFileResource.IsGeneCode))
@@ -2273,7 +2384,7 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
- sbSQL.AppendFormat(" Where FileResourceID = {0}", objFileResourceEN.FileResourceID); 
+ sbSQL.AppendFormat(" Where FileResourceId = {0}", objFileResourceEN.FileResourceId); 
  clsCheckSql.CheckSqlInjection4Update(sbSQL.ToString());
  return objSQL.ExecSql(sbSQL.ToString());
 }
@@ -2350,6 +2461,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  
+ if (objFileResourceEN.IsUpdated(conFileResource.CodeTypeId))
+ {
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodeTypeId = '{0}',", strCodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.Append(" CodeTypeId = null,"); //代码类型Id
+ }
+ }
+ 
  if (objFileResourceEN.IsUpdated(conFileResource.TabId))
  {
  if (objFileResourceEN.TabId !=  null)
@@ -2366,6 +2490,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  if (objFileResourceEN.IsUpdated(conFileResource.IsBelongsCurrCMPrj))
  {
  sbSQL.AppendFormat(" IsBelongsCurrCMPrj = '{0}',", objFileResourceEN.IsBelongsCurrCMPrj == true?"1":"0"); //是否属于当前项目
+ }
+ 
+ if (objFileResourceEN.IsUpdated(conFileResource.PrjFileTypeId))
+ {
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" PrjFileTypeId = '{0}',", strPrjFileTypeId); //项目文件类型Id
+ }
+ else
+ {
+ sbSQL.Append(" PrjFileTypeId = null,"); //项目文件类型Id
+ }
  }
  
  if (objFileResourceEN.IsUpdated(conFileResource.IsGeneCode))
@@ -2622,6 +2759,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  
+ if (objFileResourceEN.IsUpdated(conFileResource.CodeTypeId))
+ {
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodeTypeId = '{0}',", strCodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.Append(" CodeTypeId = null,"); //代码类型Id
+ }
+ }
+ 
  if (objFileResourceEN.IsUpdated(conFileResource.TabId))
  {
  if (objFileResourceEN.TabId !=  null)
@@ -2638,6 +2788,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  if (objFileResourceEN.IsUpdated(conFileResource.IsBelongsCurrCMPrj))
  {
  sbSQL.AppendFormat(" IsBelongsCurrCMPrj = '{0}',", objFileResourceEN.IsBelongsCurrCMPrj == true?"1":"0"); //是否属于当前项目
+ }
+ 
+ if (objFileResourceEN.IsUpdated(conFileResource.PrjFileTypeId))
+ {
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" PrjFileTypeId = '{0}',", strPrjFileTypeId); //项目文件类型Id
+ }
+ else
+ {
+ sbSQL.Append(" PrjFileTypeId = null,"); //项目文件类型Id
+ }
  }
  
  if (objFileResourceEN.IsUpdated(conFileResource.IsGeneCode))
@@ -2895,6 +3058,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  
+ if (objFileResourceEN.IsUpdated(conFileResource.CodeTypeId))
+ {
+ if (objFileResourceEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objFileResourceEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodeTypeId, conFileResource.CodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conFileResource.CodeTypeId); //代码类型Id
+ }
+ }
+ 
  if (objFileResourceEN.IsUpdated(conFileResource.TabId))
  {
  if (objFileResourceEN.TabId !=  null)
@@ -2911,6 +3087,19 @@ sbSQL.AppendFormat("Update FileResource Set ");
  if (objFileResourceEN.IsUpdated(conFileResource.IsBelongsCurrCMPrj))
  {
  sbSQL.AppendFormat(" {1} = '{0}',", objFileResourceEN.IsBelongsCurrCMPrj == true?"1":"0", conFileResource.IsBelongsCurrCMPrj); //是否属于当前项目
+ }
+ 
+ if (objFileResourceEN.IsUpdated(conFileResource.PrjFileTypeId))
+ {
+ if (objFileResourceEN.PrjFileTypeId !=  null)
+ {
+ var strPrjFileTypeId = objFileResourceEN.PrjFileTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strPrjFileTypeId, conFileResource.PrjFileTypeId); //项目文件类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conFileResource.PrjFileTypeId); //项目文件类型Id
+ }
  }
  
  if (objFileResourceEN.IsUpdated(conFileResource.IsGeneCode))
@@ -3088,7 +3277,7 @@ sbSQL.AppendFormat("Update FileResource Set ");
  }
  }
  sbSQL.Remove(sbSQL.Length - 1, 1);
- sbSQL.AppendFormat(" Where FileResourceID = {0}", objFileResourceEN.FileResourceID); 
+ sbSQL.AppendFormat(" Where FileResourceId = {0}", objFileResourceEN.FileResourceId); 
 try
 {
  clsCheckSql.CheckSqlInjection4Update(sbSQL.ToString());
@@ -3113,9 +3302,9 @@ finally
  /// 功能:删除关键字所指定的记录,通过存储过程(SP)来删除。
  /// (AutoGCLib.DALCode4CSharp:GenDelRecordBySP)
  /// </summary>
- /// <param name = "lngFileResourceID">给定的关键字值</param>
+ /// <param name = "lngFileResourceId">给定的关键字值</param>
  /// <returns>如果删除成功则返回TRUE,否则为FALSE</returns>
-public bool DelRecordBySP(long lngFileResourceID) 
+public bool DelRecordBySP(long lngFileResourceId) 
 {
 //通过存储过程来
 //直接使用
@@ -3126,7 +3315,7 @@ objSQL.SPConfigXMLFile = clsSysParaEN.strXmlSpParaFileName;
 //			 gobjSQL.SPConfigXMLFile = "..\\Parameter.xml"
 ArrayList values = new ArrayList()
 {
- lngFileResourceID,
+ lngFileResourceId,
 };
  objSQL.ExecSP("FileResource_Delete", values);
 return true;
@@ -3136,18 +3325,18 @@ return true;
  /// 功能:删除关键字所指的记录,使用事务
  /// (AutoGCLib.clsGeneCodeBase4Tab:GenDelRecordWithTransaction)
  /// </summary>
- /// <param name = "lngFileResourceID">给定的关键字值</param>
+ /// <param name = "lngFileResourceId">给定的关键字值</param>
  /// <param name = "objSqlConnection">Sql连接对象</param>
  /// <param name = "objSqlTransaction">Sql事务对象</param>
  /// <returns>返回删除是否成功?。</returns>
-public bool DelRecord(long lngFileResourceID, SqlConnection objSqlConnection, SqlTransaction objSqlTransaction) 
+public bool DelRecord(long lngFileResourceId, SqlConnection objSqlConnection, SqlTransaction objSqlTransaction) 
 {
 string strSQL = "";
  clsSpecSQLforSql objSQL;
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
 //删除FileResource本表中与当前对象有关的记录
-strSQL = strSQL + "Delete from FileResource where FileResourceID = " + ""+ lngFileResourceID+"";
+strSQL = strSQL + "Delete from FileResource where FileResourceId = " + ""+ lngFileResourceId+"";
 return objSQL.ExecSql(strSQL, objSqlConnection, objSqlTransaction);
 }
 
@@ -3174,7 +3363,7 @@ else strKeyList +=  "," + "" + lstKey[i].ToString() + "";
 }
 strSQL = "";
 //删除FileResource本表中与当前对象有关的记录
-strSQL = strSQL + "Delete from FileResource where FileResourceID in (" + strKeyList + ")";
+strSQL = strSQL + "Delete from FileResource where FileResourceId in (" + strKeyList + ")";
 return objSQL.ExecSql2(strSQL);
 }
 
@@ -3182,9 +3371,9 @@ return objSQL.ExecSql2(strSQL);
  /// 功能:删除关键字所指定的记录
  /// (AutoGCLib.DALCode4CSharp:GenDelRecord)
  /// </summary>
- /// <param name = "lngFileResourceID">给定的关键字值</param>
+ /// <param name = "lngFileResourceId">给定的关键字值</param>
  /// <returns>返回删除的记录数</returns>
-public int DelRecord(long lngFileResourceID) 
+public int DelRecord(long lngFileResourceId) 
 {
 //删除单条记录
 string strSQL = "";
@@ -3192,7 +3381,7 @@ string strSQL = "";
  //获取连接对象
  objSQL = clsFileResourceDA.GetSpecSQLObj();
 //删除FileResource本表中与当前对象有关的记录
-strSQL = strSQL + "Delete from FileResource where FileResourceID = " + ""+ lngFileResourceID+"";
+strSQL = strSQL + "Delete from FileResource where FileResourceId = " + ""+ lngFileResourceId+"";
  return objSQL.ExecSql2(strSQL);
 }
 
@@ -3280,12 +3469,14 @@ return bolResult;
  /// <param name = "objFileResourceENT">目标对象</param>
 public void CopyTo(clsFileResourceEN objFileResourceENS, clsFileResourceEN objFileResourceENT)
 {
-objFileResourceENT.FileResourceID = objFileResourceENS.FileResourceID; //FileResourceID
+objFileResourceENT.FileResourceId = objFileResourceENS.FileResourceId; //文件资源Id
 objFileResourceENT.FileDirName = objFileResourceENS.FileDirName; //文件目录名
 objFileResourceENT.FileName = objFileResourceENS.FileName; //文件名
 objFileResourceENT.Extension = objFileResourceENS.Extension; //扩展名
+objFileResourceENT.CodeTypeId = objFileResourceENS.CodeTypeId; //代码类型Id
 objFileResourceENT.TabId = objFileResourceENS.TabId; //表ID
 objFileResourceENT.IsBelongsCurrCMPrj = objFileResourceENS.IsBelongsCurrCMPrj; //是否属于当前项目
+objFileResourceENT.PrjFileTypeId = objFileResourceENS.PrjFileTypeId; //项目文件类型Id
 objFileResourceENT.IsGeneCode = objFileResourceENS.IsGeneCode; //是否生成代码
 objFileResourceENT.IsCanDel = objFileResourceENS.IsCanDel; //是否可删除
 objFileResourceENT.FileLength = objFileResourceENS.FileLength; //文件长度
@@ -3317,15 +3508,18 @@ public void CheckPropertyNew(clsFileResourceEN objFileResourceEN)
 //检查字段不能为空(NULL)
 clsCheckSql.CheckFieldNotNull(objFileResourceEN.FileDirName, conFileResource.FileDirName);
 clsCheckSql.CheckFieldNotNull(objFileResourceEN.FileName, conFileResource.FileName);
+clsCheckSql.CheckFieldNotNull(objFileResourceEN.CodeTypeId, conFileResource.CodeTypeId);
 clsCheckSql.CheckFieldNotNull(objFileResourceEN.PrjId, conFileResource.PrjId);
 clsCheckSql.CheckFieldNotNull(objFileResourceEN.CmPrjId, conFileResource.CmPrjId);
 //检查字段长度
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileDirName, 200, conFileResource.FileDirName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileName, 150, conFileResource.FileName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.Extension, 20, conFileResource.Extension);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CodeTypeId, 4, conFileResource.CodeTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.TabId, 8, conFileResource.TabId);
+clsCheckSql.CheckFieldLen(objFileResourceEN.PrjFileTypeId, 2, conFileResource.PrjFileTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileType, 30, conFileResource.FileType);
-clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 20, conFileResource.CreationTime);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 30, conFileResource.CreationTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.LastWriteTime, 30, conFileResource.LastWriteTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.CheckDateTime, 30, conFileResource.CheckDateTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.PrjId, 4, conFileResource.PrjId);
@@ -3348,9 +3542,11 @@ public void CheckProperty4Update(clsFileResourceEN objFileResourceEN)
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileDirName, 200, conFileResource.FileDirName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileName, 150, conFileResource.FileName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.Extension, 20, conFileResource.Extension);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CodeTypeId, 4, conFileResource.CodeTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.TabId, 8, conFileResource.TabId);
+clsCheckSql.CheckFieldLen(objFileResourceEN.PrjFileTypeId, 2, conFileResource.PrjFileTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileType, 30, conFileResource.FileType);
-clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 20, conFileResource.CreationTime);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 30, conFileResource.CreationTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.LastWriteTime, 30, conFileResource.LastWriteTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.CheckDateTime, 30, conFileResource.CheckDateTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.PrjId, 4, conFileResource.PrjId);
@@ -3374,9 +3570,11 @@ public void CheckProperty4Condition(clsFileResourceEN objFileResourceEN)
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileDirName, 200, conFileResource.FileDirName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileName, 150, conFileResource.FileName);
 clsCheckSql.CheckFieldLen(objFileResourceEN.Extension, 20, conFileResource.Extension);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CodeTypeId, 4, conFileResource.CodeTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.TabId, 8, conFileResource.TabId);
+clsCheckSql.CheckFieldLen(objFileResourceEN.PrjFileTypeId, 2, conFileResource.PrjFileTypeId);
 clsCheckSql.CheckFieldLen(objFileResourceEN.FileType, 30, conFileResource.FileType);
-clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 20, conFileResource.CreationTime);
+clsCheckSql.CheckFieldLen(objFileResourceEN.CreationTime, 30, conFileResource.CreationTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.LastWriteTime, 30, conFileResource.LastWriteTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.CheckDateTime, 30, conFileResource.CheckDateTime);
 clsCheckSql.CheckFieldLen(objFileResourceEN.PrjId, 4, conFileResource.PrjId);
@@ -3390,7 +3588,9 @@ clsCheckSql.CheckFieldLen(objFileResourceEN.Memo, 1000, conFileResource.Memo);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.FileDirName, conFileResource.FileDirName);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.FileName, conFileResource.FileName);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.Extension, conFileResource.Extension);
+clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.CodeTypeId, conFileResource.CodeTypeId);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.TabId, conFileResource.TabId);
+clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.PrjFileTypeId, conFileResource.PrjFileTypeId);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.FileType, conFileResource.FileType);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.CreationTime, conFileResource.CreationTime);
 clsCheckSql.CheckSqlInjection4Field(objFileResourceEN.LastWriteTime, conFileResource.LastWriteTime);

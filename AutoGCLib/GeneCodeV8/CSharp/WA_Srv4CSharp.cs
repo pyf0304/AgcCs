@@ -3157,31 +3157,86 @@ namespace AutoGCLib
             strBuilder.Append("\r\n" + "return Ok(new { errorId = 1, errorMsg = strMsg });");
             strBuilder.Append("\r\n" + " }");
 
-            //strBuilder.AppendFormat("\r\n" + "string[] sstrKeyLst = {0}.Trim().Split(',');",
-            //    strKeyLstName);
-            //if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-            //{
-            //    strBuilder.AppendFormat("\r\n" + "List <string> arrKey = new();");
-            //}
-            //else
-            //{
-            //    strBuilder.AppendFormat("\r\n" + "List <string> arr{0} = new();", objKeyField.FldName);
-            //}
-            //strBuilder.AppendFormat("\r\n" + "foreach (string sstrKey in sstrKeyLst)",
-            //    objKeyField.PrivFuncName);
-            //strBuilder.Append("\r\n" + "{");
-            //strBuilder.AppendFormat("\r\n" + "if (string.IsNullOrEmpty(sstrKey) == false)");
-            //strBuilder.Append("\r\n" + "{");
-            //if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-            //{
-            //    strBuilder.AppendFormat("\r\n" + "arrKey.Add(sstrKey);");
-            //}
-            //else
-            //{
-            //    strBuilder.AppendFormat("\r\n" + "arr{0}.Add(sstrKey);", objKeyField.FldName);
-            //}
-            //strBuilder.Append("\r\n" + "}");
-            //strBuilder.Append("\r\n" + "}");
+            strBuilder.Append("\r\n try");
+            strBuilder.Append("\r\n {");
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strBuilder.AppendFormat("\r\n" + "int intRecNum = cls{0}BL.DelRecKeyLsts(arrKey);",
+            objPrjTabENEx.TabName);
+            }
+            else
+            {
+                strBuilder.AppendFormat("\r\n" + "int intRecNum = cls{0}BL.Del{0}s(arrKey);",
+            objPrjTabENEx.TabName);
+            }
+            strBuilder.Append("\r\n" + "return Ok(new { errorId = 0, errorMsg = \"\", returnInt = intRecNum });");
+
+            strBuilder.Append("\r\n }");
+            strBuilder.Append("\r\n catch (Exception objException)");
+            strBuilder.Append("\r\n {");
+            strBuilder.Append("\r\n" + "string strMsg = string.Format(\"{0}.(from {1})\", objException.Message,  clsStackTrace.GetCurrClassFunction());");
+            //strBuilder.Append("\r\n" + "clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);");
+            //strBuilder.Append("\r\n" + "return 0;");
+            strBuilder.Append("\r\n" + "clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);");
+            strBuilder.Append("\r\n" + "return Ok(new { errorId = 1, errorMsg = strMsg });");
+            strBuilder.Append("\r\n }");
+            strBuilder.Append("\r\n" + "}");
+            return strBuilder.ToString();
+        }
+
+
+        public string Gen_DelKeys(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            //if (objPrjTabENEx.arrKeyFldSet.Count > 1) return "";
+            clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
+            string strKeyLstName = "strKeyIdLst";
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strKeyLstName = "arrKeyLsts";
+            }
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.Append("\r\n /// <summary>");
+            strBuilder.Append("\r\n /// 功能:同时删除多条记录,删除给定关键字列表的记录, 通过JSON串");
+            strBuilder.AppendFormat("\r\n /// 调用方法: POST /api/{0}Api/{1}",
+             objPrjTabENEx.TabName,
+             clsFunction4CodeBL.GetNameByFuncId4CodeCache(objFunction4GeneCodeEN.FuncId4Code));
+            strBuilder.AppendFormat("\r\n /// 在Body区传输strKeyIdLst字符串列表的JSON串", objPrjTabENEx.TabName);
+
+            strBuilder.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strBuilder.Append("\r\n /// </summary>");
+            strBuilder.AppendFormat("\r\n /// <param name = \"{0}\">给定的关键字值列表的JSON串</param>", strKeyLstName);
+            strBuilder.Append("\r\n /// <returns>返回删除的记录数</returns>");
+
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                strBuilder.Append("\r\n" + "[HttpPost(\"DelKeys\")]");
+                strBuilder.AppendFormat("\r\n" + "public ActionResult DelKeys([FromBody]string[] arrKeyLsts)",
+                     objPrjTabENEx.TabName, objKeyField.FldName);
+            }
+            else
+            {
+                strBuilder.Append("\r\n" + "[HttpPost(\"DelKeys\")]");
+                strBuilder.AppendFormat("\r\n" + "public ActionResult DelKeys([FromBody]string[] strKeyIdLst)",
+                     objPrjTabENEx.TabName, objKeyField.FldName);
+            }
+            strBuilder.Append("\r\n" + "{");
+
+            strBuilder.Append("\r\n" + "string strFunctionName = clsStackTrace.GetCurrFunction();");
+            strBuilder.Append("\r\n" + "Dictionary<string, string> dictParam = new();");
+
+            strBuilder.AppendFormat("\r\n" + "List<string> arrKey = new({0});", strKeyLstName);
+
+            strBuilder.AppendFormat("\r\n" + "dictParam.Add(\"{0}\", clsArray.GetSqlInStrByArray(arrKey,true));",
+             strKeyLstName);
+
+            strBuilder.Append("\r\n" + "clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);");
+            strBuilder.AppendFormat("\r\n" + "  if ({0}.Length == 0)", strKeyLstName);
+            strBuilder.Append("\r\n" + " {");
+            strBuilder.Append("\r\n" + "string strMsg = string.Format(\"根据关键字列表串删除记录时,给定的关键字值列表的JSON串不能为空!({0})\", clsStackTrace.GetCurrClassFunction());");
+            //strBuilder.Append("\r\n" + "clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);");
+            strBuilder.Append("\r\n" + "return Ok(new { errorId = 1, errorMsg = strMsg });");
+            strBuilder.Append("\r\n" + " }");
+
             strBuilder.Append("\r\n try");
             strBuilder.Append("\r\n {");
             if (objPrjTabENEx.arrKeyFldSet.Count > 1)

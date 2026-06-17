@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using AutoGCLib.Templates;
-using AGC.Entity;
+﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
-using AGC.BusinessLogic;
+using AGC.Entity;
 using AGC.PureClassEx;
+using AgcCommBase;
+using AutoGCLib.Templates;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace AutoGCLib
 {
@@ -32,20 +33,20 @@ namespace AutoGCLib
             strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildQueryTemplateModel();
-            
+
             // 🔥 详细调试日志
             var debugLog = new StringBuilder();
             debugLog.AppendLine($"========== 查询模型调试 ==========");
             debugLog.AppendLine($"TableName: {model.TableName}");
             debugLog.AppendLine($"ModuleName: {model.ModuleName}");
             debugLog.AppendLine($"OptionsInfo.Count: {model.OptionsInfo.Count}");
-            
+
             foreach (var option in model.OptionsInfo)
             {
                 debugLog.AppendLine($"\n选项: {option.Key}");
-                debugLog.AppendLine($"  FunctionName: {option.FunctionName}");
+                debugLog.AppendLine($"  FunctionName: {option.GetDdlDataFuncName}");
                 debugLog.AppendLine($"  Parameters.Count: {option.Parameters?.Count ?? 0}");
-                
+
                 if (option.Parameters != null && option.Parameters.Count > 0)
                 {
                     foreach (var param in option.Parameters)
@@ -54,16 +55,16 @@ namespace AutoGCLib
                     }
                 }
             }
-            
+
             debugLog.AppendLine($"\n====================================");
             Console.WriteLine(debugLog.ToString());
-            
+
             // 写入文件
             var debugFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QueryModelDebug.log");
             File.WriteAllText(debugFile, debugLog.ToString(), Encoding.UTF8);
-            
+
             string result = "";
-            
+
             try
             {
                 result = _renderService.Render("TypeScript/Ai3Query.sbn", model);
@@ -74,21 +75,21 @@ namespace AutoGCLib
                               $"错误类型: {ex.GetType().Name}\n" +
                               $"错误消息: {ex.Message}\n" +
                               $"堆栈跟踪: {ex.StackTrace}";
-                
+
                 if (ex.InnerException != null)
                 {
                     errorMsg += $"\n内部异常: {ex.InnerException.Message}\n" +
                                $"内部异常堆栈: {ex.InnerException.StackTrace}";
                 }
-                
+
                 var errorLogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderError_Debug.log");
                 File.WriteAllText(errorLogFile, errorMsg, Encoding.UTF8);
-                
+
                 Console.WriteLine(errorMsg);
-                
+
                 throw new InvalidOperationException($"渲染查询模板失败: {ex.Message}", ex);
             }
-            
+
             // 调试：写入渲染结果
             var resultFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RenderedQuery_Debug.txt");
             File.WriteAllText(resultFile, result, Encoding.UTF8);
@@ -99,16 +100,16 @@ namespace AutoGCLib
         /// <summary>
         /// 🔥 从数据源表和表功能获取选项信息（包含参数信息）
         /// </summary>
-        private (string Key, string WApiClass, string ModuleName, string FunctionName, bool IsExtendedClass, List<AiOptionParam> Parameters) GetOptionsInfoFromDataSource(clsQryRegionFldsEN fld)
+        private (string Key, string WApiClass, string ModuleName, string FunctionName, bool IsExtendedClass, List<DdlOptionParam> Parameters) GetOptionsInfoFromDataSource(clsQryRegionFldsEN fld)
         {
             try
             {
                 string fldName = "";
                 string optionKey = "";
-                List<AiOptionParam> parameters = new List<AiOptionParam>();
+                List<DdlOptionParam> parameters = new List<DdlOptionParam>();
                 if (fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
                 {
-                    
+
                     fldName = fld.ObjFieldTab_PC().FldName;
                     optionKey = ToCamelCase(fldName) + "_q";
                     return (optionKey, null, null, null, false, parameters);
@@ -136,11 +137,11 @@ namespace AutoGCLib
                 string wApiClass = objDsTab.TabName;
 
                 //获取字段名
-                 fldName = fld.ObjFieldTab_PC().FldName;
+                fldName = fld.ObjFieldTab_PC().FldName;
                 // 5. 默认 TypeScript 函数名
-                string functionName = $"{wApiClass}_GetArr{wApiClass}";
+                string getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}";
                 bool isExtendedClass = false;
-                
+
                 // 6. 🔥 如果有表功能ID
                 string tabFeatureId = fld.TabFeatureId4Ddl;
                 if (!string.IsNullOrEmpty(tabFeatureId))
@@ -151,22 +152,36 @@ namespace AutoGCLib
                         isExtendedClass = objTabFeature.IsExtendedClass;
 
                         // 获取函数名
-                        if (!string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
-                        {
-                            functionName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
-                        }
 
+
+                        if (string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
+                        {
+                            var strConditionFieldName = clsTabFeatureBLEx.GetConditionFieldNameByTabFeatureId(tabFeatureId, fld.PrjId);
+
+                            if (string.IsNullOrEmpty(strConditionFieldName))
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
+                            }
+                            else
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}By{strConditionFieldName}";
+                            }
+                        }
+                        else
+                        {
+                            getDdlDataFuncName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
+                        }
                         // 🔥 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
                         parameters = GetFunctionParameters(fld, objTabFeature, fld.PrjId);
                     }
                 }
 
                 // 7. 生成选项键
-                 optionKey = ToCamelCase(fldName) + "_q";
+                optionKey = ToCamelCase(fldName) + "_q";
 
-                Console.WriteLine($"✅ 表: {wApiClass}, 函数: {functionName}, 参数数量: {parameters.Count}");
+                Console.WriteLine($"✅ 表: {wApiClass}, 函数: {getDdlDataFuncName}, 参数数量: {parameters.Count}");
 
-                return (optionKey, wApiClass, moduleName, functionName, isExtendedClass, parameters);
+                return (optionKey, wApiClass, moduleName, getDdlDataFuncName, isExtendedClass, parameters);
             }
             catch (Exception ex)
             {
@@ -183,12 +198,15 @@ namespace AutoGCLib
         /// 3. 从 GCVariable 获取变量名
         /// 4. 转换为共享变量格式（去掉 str 前缀，加上 _Static 后缀）
         /// </summary>
-        private List<AiOptionParam> GetFunctionParameters(clsTabFeatureEN objTabFeature, string strPrjId)
+        private List<DdlOptionParam> GetFunctionParametersBak(clsTabFeatureEN objTabFeature, string strPrjId)
         {
-            var parameters = new List<AiOptionParam>();
+            var parameters = new List<DdlOptionParam>();
 
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, strPrjId);
+
+                Console.WriteLine($"  获取表功能 {objTabFeature.TabFeatureName} 的参数");
                 // 1. 获取表功能字段列表
                 var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, strPrjId);
                 if (arrTabFeatureFlds == null || arrTabFeatureFlds.Count == 0)
@@ -229,33 +247,30 @@ namespace AutoGCLib
                         // 🔥 通过 GCVariablePrjIdRela 查找变量（根据 FldId + PrjId）
                         string strWhere = $"{conGCVariablePrjIdRela.FldId}='{condField.FldId}' and {conGCVariablePrjIdRela.PrjId}='{strPrjId}'";
                         var arrVariablePrjRela = clsGCVariablePrjIdRelaBL.GetObjLst(strWhere);
-                        
+
                         if (arrVariablePrjRela != null && arrVariablePrjRela.Count > 0)
                         {
                             var objVariablePrjRela = arrVariablePrjRela[0];
-                            
+
                             // 🔥 从 GCVariable 获取变量对象
                             var objVariable = clsGCVariableBLEx.GetObjByVarIdCache(objVariablePrjRela.VarId);
                             if (objVariable != null)
                             {
                                 // 🔥 构建共享变量名：去掉 "str" 前缀，加上 "_Static" 后缀
                                 // 例如：strProgLangTypeId → ProgLangTypeId_Static
-                                string sharedVarName = objVariable.VarName;
-                                
+                                string sharedVarName = arrViewVariable.Find(x => x.VarId == objVariablePrjRela.VarId)?.VariableName;
+
+
                                 // 去掉 "str" 前缀（如果有）
                                 if (sharedVarName.StartsWith("str") && sharedVarName.Length > 3 && char.IsUpper(sharedVarName[3]))
                                 {
                                     sharedVarName = sharedVarName.Substring(3);
                                 }
-                                
-                                // 添加 "_Static" 后缀（如果还没有）
-                                if (!sharedVarName.EndsWith("_Static"))
-                                {
-                                    sharedVarName = sharedVarName + "_Static";
-                                }
+
+
 
                                 // 构建参数信息
-                                var param = new AiOptionParam
+                                var param = new DdlOptionParam
                                 {
                                     ParamName = ToCamelCase(objFieldTab.FldName),  // 如 progLangTypeId
                                     SharedVarName = sharedVarName,                  // 如 ProgLangTypeId_Static
@@ -298,25 +313,26 @@ namespace AutoGCLib
         /// 2. 通过 GCVariable 获取变量名
         /// 3. 转换为共享变量格式（去掉 str 前缀，加上 _Static 后缀）
         /// </summary>
-        private List<AiOptionParam> GetFunctionParameters(clsQryRegionFldsEN fld, clsTabFeatureEN objTabFeature, string strPrjId)
+        private List<DdlOptionParam> GetFunctionParameters(clsQryRegionFldsEN fld, clsTabFeatureEN objTabFeature, string strPrjId)
         {
-            var parameters = new List<AiOptionParam>();
+            var parameters = new List<DdlOptionParam>();
 
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, strPrjId);
                 Console.WriteLine($"  获取表功能 {objTabFeature.TabFeatureName} 的参数");
 
                 // 🔥 从查询字段的条件变量字段获取参数
                 // VarIdCond1, VarIdCond2 等
                 var conditionVarIds = new List<(string VarId, int Order)>();
-                
+
                 // 检查 VarIdCond1
                 if (!string.IsNullOrEmpty(fld.VarIdCond1))
                 {
                     conditionVarIds.Add((fld.VarIdCond1, 1));
                     Console.WriteLine($"    找到条件变量1: {fld.VarIdCond1}");
                 }
-                
+
                 // 检查 VarIdCond2
                 if (!string.IsNullOrEmpty(fld.VarIdCond2))
                 {
@@ -342,21 +358,17 @@ namespace AutoGCLib
                             // 🔥 构建共享变量名：去掉 "str" 前缀，加上 "_Static" 后缀
                             // 例如：strProgLangTypeId → ProgLangTypeId_Static
                             //       strCodeTypeId → CodeTypeId_Static
-                            string sharedVarName = objVariable.VarName;
-                            
+                            string sharedVarName = arrViewVariable.Find(x => x.VarId == varId)?.VariableName;
+
                             Console.WriteLine($"      原始变量名: {sharedVarName}");
-                            
+
                             // 去掉 "str" 前缀（如果有且后面是大写字母）
                             if (sharedVarName.StartsWith("str") && sharedVarName.Length > 3 && char.IsUpper(sharedVarName[3]))
                             {
                                 sharedVarName = sharedVarName.Substring(3);
                             }
-                            
-                            // 添加 "_Static" 后缀（如果还没有）
-                            if (!sharedVarName.EndsWith("_Static"))
-                            {
-                                sharedVarName = sharedVarName + "_Static";
-                            }
+
+
 
                             // 🔥 获取对应的字段ID（从 FldIdCond1, FldIdCond2）
                             string fldId = null;
@@ -381,7 +393,7 @@ namespace AutoGCLib
                             }
 
                             // 构建参数信息
-                            var param = new AiOptionParam
+                            var param = new DdlOptionParam
                             {
                                 ParamName = paramName ?? ToCamelCase(objVariable.VarName),
                                 SharedVarName = sharedVarName,
@@ -477,35 +489,46 @@ namespace AutoGCLib
                 .Where(x => x.InUse == true)
                 .OrderBy(x => x.SeqNum)
                 .ToList();
-
+            List<DdlOptionsInfo> arrDdlOptionsInfo = clsQryRegionFldsBLEx.GetDdlOptionInfoLstByViewId(objViewInfoENEx.ViewId, this.PrjId);
             int currentRow = 1;
             int currentOrder = 1;
 
-            foreach (var fld in arrQueryFields)
+            foreach (var objQueryField in arrQueryFields)
             {
                 try
                 {
-                    var objPrjTabFld = fld.ObjPrjTabFld();
+                    var objPrjTabFld = objQueryField.ObjPrjTabFld();
                     if (objPrjTabFld == null) continue;
 
                     var objFieldTab = objPrjTabFld.ObjFieldTab();
                     if (objFieldTab == null) continue;
 
                     // 🔥 修改：传入完整的 fld 对象而不是只传 ctlTypeId
-                    string controlType = GetControlType(fld);
+                    string controlType = GetControlType(objQueryField);
 
                     string optionsKey = null;
                     string optionsWApiClass = null;
                     string optionsModuleName = null;
                     string optionsFunctionName = null;
                     bool optionsIsExtendedClass = false;
-                    List<AiOptionParam> optionsParameters = null;
-            
+                    List<DdlOptionParam> optionsParameters = null;
+
                     // 🔥 修改：只有非布尔类型的下拉框才获取选项信息
-                    if (fld.CtlTypeId == enumCtlType.DropDownList_06 ||
-                        fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                    if (objQueryField.CtlTypeId == enumCtlType.DropDownList_06 )
                     {
-                        var optionInfo = GetOptionsInfoFromDataSource(fld);
+                        //var optionInfo = GetOptionsInfoFromDataSource(objQueryField);
+                        var objDdlOptionsInfo = arrDdlOptionsInfo.Find(x => x.FldId == objQueryField.FldId);
+                        optionsKey = objDdlOptionsInfo.Key;
+                        optionsWApiClass = objDdlOptionsInfo.WApiClass;
+                        optionsModuleName = objDdlOptionsInfo.ModuleName;
+                        optionsFunctionName = objDdlOptionsInfo.GetDdlDataFuncName;
+                        optionsIsExtendedClass = objDdlOptionsInfo.IsExtendedClass;
+                        optionsParameters = objDdlOptionsInfo.Parameters;
+                    }
+                    if (objQueryField.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                    {
+                        var optionInfo = GetOptionsInfoFromDataSource(objQueryField);
+                        //var objDdlOptionsInfo = arrDdlOptionsInfo.Find(x => x.FldId == objQueryField.FldId);
                         optionsKey = optionInfo.Key;
                         optionsWApiClass = optionInfo.WApiClass;
                         optionsModuleName = optionInfo.ModuleName;
@@ -517,8 +540,8 @@ namespace AutoGCLib
                     var queryField = new AiQueryField
                     {
                         Key = ToCamelCase(objPrjTabFld.FldName()) + "_q",
-                        Label = fld.LabelCaption ?? objFieldTab.FldCnName,
-                        Id = GetControlId(fld.CtlTypeId, objPrjTabFld.FldName()),
+                        Label = objQueryField.LabelCaption ?? objFieldTab.FldCnName,
+                        Id = GetControlId(objQueryField.CtlTypeId, objPrjTabFld.FldName()),
                         ControlType = controlType,
                         Width = 120,
                         Row = currentRow,
@@ -526,10 +549,10 @@ namespace AutoGCLib
                         OptionsKey = optionsKey,
                         OptionsWApiClass = optionsWApiClass,
                         OptionsModuleName = optionsModuleName,
-                        OptionsFunctionName = optionsFunctionName,
+                        GetDdlDataFuncName = optionsFunctionName,
                         OptionsIsExtendedClass = optionsIsExtendedClass,
                         OptionsParameters = optionsParameters,
-                        DefaultValue = GetDefaultValue(controlType, fld.CtlTypeId)
+                        DefaultValue = GetDefaultValue(controlType, objQueryField.CtlTypeId)
                     };
 
                     model.QueryFields.Add(queryField);
@@ -569,11 +592,11 @@ namespace AutoGCLib
                         Key = first.OptionsKey,
                         WApiClass = first.OptionsWApiClass,
                         ModuleName = first.OptionsModuleName,
-                        FunctionName = first.OptionsFunctionName,
+                        GetDdlDataFuncName = first.GetDdlDataFuncName,
                         IsExtendedClass = first.OptionsIsExtendedClass,
                         WApiPath = first.OptionsIsExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
-                        WApiFileName = first.OptionsIsExtendedClass 
-                            ? $"cls{first.OptionsWApiClass}ExWApi" 
+                        WApiFileName = first.OptionsIsExtendedClass
+                            ? $"cls{first.OptionsWApiClass}ExWApi"
                             : $"cls{first.OptionsWApiClass}WApi",
                         Parameters = first.OptionsParameters  // 🔥 新增
                     };
@@ -592,11 +615,11 @@ namespace AutoGCLib
                 {
                     var first = g.First();
                     return new AiOptionsInfo
-                    {               
+                    {
                         ControlType = first.ControlType,  // 🔥 新增：传递控件类型以区分 select 和 select4Bool
                         WApiClass = first.OptionsWApiClass,
                         ModuleName = first.OptionsModuleName,
-                        FunctionName = first.OptionsFunctionName,
+                        GetDdlDataFuncName = first.GetDdlDataFuncName,
                         IsExtendedClass = first.OptionsIsExtendedClass,
                         WApiPath = first.OptionsIsExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
                         WApiFileName = first.OptionsIsExtendedClass

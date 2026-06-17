@@ -10,21 +10,23 @@ import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
 
 import {
   {{~ if IsStringAutoIncrement ~}}
-  {{ TableName }}_GetMaxStrIdAsync,
-  {{ TableName }}_AddNewRecordWithMaxIdAsync,
+      {{ TableName }}_GetMaxStrIdAsync,
+      {{ TableName }}_AddNewRecordWithMaxIdAsync,
   {{~ else if NeedReturnKeyMethod ~}}
-  {{ TableName }}_AddNewRecordWithReturnKeyAsync,
-  {{ TableName }}_AddNewRecordAsync,
+      {{ TableName }}_AddNewRecordWithReturnKeyAsync,
+      {{ TableName }}_AddNewRecordAsync,
   {{~ else ~}}
-  {{ TableName }}_AddNewRecordAsync,
+      {{ TableName }}_AddNewRecordAsync,
   {{~ end ~}}
   {{ TableName }}_CheckPropertyNew,
-    {{~ if NeedRefreshCache ~}}
-  {{ TableName }}_ReFreshCache,
-    {{~ end ~}}
-  {{~ if NeedCheckKeyExist ~}}
-  {{ TableName }}_GetUniCondStr,
+ 
+  {{~ if NeedRefreshCache ~}}
+      {{ TableName }}_ReFreshCache,
+  {{~ end ~}}
+
+  {{~ if NeedUniCheck ~}}
   {{ TableName }}_IsExistRecordAsync,
+  {{ TableName }}_GetUniCondStr,
   {{ TableName }}_GetUniCondStr4Update,
   {{~ end ~}}
   {{ TableName }}_IsExistAsync,
@@ -454,33 +456,33 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
     try {
-      {{~ if NeedCheckKeyExist ~}}
-      //检查唯一性条件
-      const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
-      if (bolIsExistCond == false) {
-        return false;
-      }
+      {{~ if NeedUniCheck ~}}
+          //检查唯一性条件
+          const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
+          if (bolIsExistCond == false) {
+            return false;
+          }
       {{~ end ~}}
       let returnBool = false;
       {{~ if PrimaryTypeId == "02" ~}}
-      // Identity_02: 整数自增，直接调用 AddNewRecordAsync
-      returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
-      {{~ else if PrimaryTypeId == "03" ~}}
-      // StringAutoAddPrimaryKey_03: 字符串自增，需要获取返回的 KeyId
-      const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
-      if (IsNullOrEmpty(returnKeyId) == false) {
-        // 🔥 赋值为对象格式
-        this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
-        returnBool = true;
-      }
-      {{~ else if PrimaryTypeId == "06" ~}}
-      // StringAutoAddPrimaryKeyWithPrefix_06: 字符串自增带前缀
-      const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
-      if (IsNullOrEmpty(returnKeyId) == false) {
-        // 🔥 赋值为对象格式
-        this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
-        returnBool = true;
-      }
+          // Identity_02: 整数自增，直接调用 AddNewRecordAsync
+          returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
+          {{~ else if PrimaryTypeId == "03" ~}}
+          // StringAutoAddPrimaryKey_03: 字符串自增，需要获取返回的 KeyId
+          const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+          if (IsNullOrEmpty(returnKeyId) == false) {
+            // 🔥 赋值为对象格式
+            this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
+            returnBool = true;
+          }
+          {{~ else if PrimaryTypeId == "06" ~}}
+          // StringAutoAddPrimaryKeyWithPrefix_06: 字符串自增带前缀
+          const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+          if (IsNullOrEmpty(returnKeyId) == false) {
+            // 🔥 赋值为对象格式
+            this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
+            returnBool = true;
+          }
       {{~ else ~}}
       // 其他类型：先检查关键字是否存在
       {{~ if NeedCheckKeyExist ~}}
@@ -544,7 +546,7 @@ export abstract class {{ TableName }}_EditAi {
   }
     
 
-{{~ if NeedCheckKeyExist ~}}
+{{~ if NeedUniCheck ~}}
   /** 为添加记录检查唯一性条件 */
   public async CheckUniCond4Add(obj{{ TableName }}EN: cls{{ TableName }}EN): Promise<boolean> {
     const strUniquenessCondition = {{ TableName }}_GetUniCondStr(obj{{ TableName }}EN);
@@ -906,7 +908,7 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
     try {
-      {{~ if NeedCheckKeyExist ~}}
+      {{~ if NeedUniCheck ~}}
       const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
         return false;
@@ -981,7 +983,7 @@ export abstract class {{ TableName }}_EditAi {
       return false;
     }
     try {
-      {{~ if NeedCheckKeyExist ~}}
+      {{~ if NeedUniCheck ~}}
       const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
       if (bolIsExistCond == false) {
         return false;

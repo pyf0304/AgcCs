@@ -2282,11 +2282,15 @@ namespace AutoGCLib
                                 CheckQueryField(objInFor);
                                 if (objInFor.ObjFieldTab().ObjDataTypeAbbr().IsNumberType() == false)
                                 {
-                                    sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ='{{0}}'\", {strVarName}.value);");
+                                    sbTemp.AppendFormat("\r\n" + "strWhereCond += ` and ${{cls{0}EN._CurrTabName}}.{1} ='${{ {2}.value }}'`;",
+                              PrjTabEx_ListRegion.TabName, objInFor.ObjFieldTab().FldName, strVarName);
+                                    //sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ='{{0}}'\", {strVarName}.value);");
                                 }
                                 else
                                 {
-                                    sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ={{0}}\", {strVarName}.value);");
+                                    sbTemp.AppendFormat("\r\n" + "strWhereCond += ` and ${{cls{0}EN._CurrTabName}}.{1} =${{ {2}.value }}`;",
+                              PrjTabEx_ListRegion.TabName, objInFor.ObjFieldTab().FldName, strVarName);
+                                    //sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ={{0}}\", {strVarName}.value);");
                                 }
                             }
                         }
@@ -2297,13 +2301,18 @@ namespace AutoGCLib
 
                         else
                         {
+
+                            //strWhereCond += ` and ${ clsFileResourceEN._CurrTabName}.PrjId = '${PrjId_Session.value}'`;
+                            //strWhereCond += ` and ${ clsFileResourceEN._CurrTabName}.CmPrjId = '${CmPrjId_Local.value}'`;
                             if (objInFor.ObjFieldTab().ObjDataTypeAbbr().IsNumberType() == false)
                             {
-                                sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ='{{0}}'\", {strVarName}.value);");
+                                sbTemp.AppendFormat("\r\n" + "strWhereCond += ` and ${{cls{0}EN._CurrTabName}}.{1} ='${{ {2}.value }}'`;",
+                                    PrjTabEx_ListRegion.TabName, objInFor.ObjFieldTab().FldName, strVarName);
                             }
                             else
                             {
-                                sbTemp.Append("\r\n" + $"strWhereCond += Format(\" and {objInFor.ObjFieldTab().FldName} ={{0}}\", {strVarName}.value);");
+                                sbTemp.AppendFormat("\r\n" + "strWhereCond += ` and ${{cls{0}EN._CurrTabName}}.{1} =${{ {2}.value }}`;",
+                                    PrjTabEx_ListRegion.TabName, objInFor.ObjFieldTab().FldName, strVarName);
                             }
                         }
                     }
@@ -3220,6 +3229,17 @@ this.ClsName, strFuncName_Temp,
                 string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
+
+            strCodeForCs.Append("\r\n" + "/**");
+            strCodeForCs.Append("\r\n" + "* 清空 prjFileTypeCache 中的所有关键字");
+            strCodeForCs.Append("\r\n" + "* (AutoGCLib.Vue_Share_TS4TypeScript:Gen_Share_method_ClearAllCache)");
+            strCodeForCs.Append("\r\n" + "*/");
+            strCodeForCs.Append("\r\n" + $"export function {this.TabName_Out4ListRegion}_ClearAllCache(): void {{");
+            strCodeForCs.Append("\r\n" + $"Object.keys({clsString.FstLcaseS(TabName_Out4ListRegion)}Cache).forEach((key) => {{");
+            strCodeForCs.Append("\r\n" + $"delete {clsString.FstLcaseS(TabName_Out4ListRegion)}Cache[key];");
+            strCodeForCs.Append("\r\n" + "});");
+            strCodeForCs.Append("\r\n" + "}");
+
             return strCodeForCs.ToString();
         }
         public string getCacheKeyFromKeyObject()

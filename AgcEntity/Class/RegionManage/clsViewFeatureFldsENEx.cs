@@ -26,6 +26,7 @@ using com.taishsoft.commdb;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
+using AGC.BusinessLogic;
 
 namespace AGC.Entity
 {
@@ -93,17 +94,27 @@ namespace AGC.Entity
                 return ObjFieldTabENEx.objDataTypeAbbrEN.DataTypeAbbr + this.FldName;
             }
         }
-        private new string mstrCtrlId;
+        private new string mstrCtrlId2;
 
-        public new string CtrlId
+        public new string CtrlId2
         {
             get
             {
-
-                mstrCtrlId = this.ObjCtlType.CtlTypeAbbr + this.ObjFieldTabENEx.FldName;
-                return mstrCtrlId;
+                if (string.IsNullOrEmpty(this.CtrlId) == false)
+                {
+                    mstrCtrlId2 = this.CtrlId;
+                }
+                else
+                {
+                    if (this.ObjCtlType == null)
+                    {
+                        this.ObjCtlType = clsCtlTypeBL.GetObjByCtlTypeIdCache(this.CtlTypeId);
+                    }
+                    mstrCtrlId2 = this.ObjCtlType.CtlTypeAbbr + this.ObjFieldTabENEx.FldName;
+                }
+                return mstrCtrlId2;
             }
-            set { mstrCtrlId = value; }
+            set { mstrCtrlId2 = value; }
         }
 
         public string CsType

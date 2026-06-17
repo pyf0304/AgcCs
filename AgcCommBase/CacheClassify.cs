@@ -79,6 +79,35 @@ GoForwardAsync,
         CheckUniCond4Update,
     }
 
+    public class CacheClassify4Tab
+    {
+        public string FldId;
+        
+        public string FldName;
+        
+        public string PriVarName;
+        
+        public string TypeScriptType;
+        
+        public string CsType;
+        
+        public string DataTypeId;
+        
+        public int FldLength;
+        
+        public bool IsHasCacheClassfyFld;
+        
+        public bool IsHasCacheClassfyFld_TS;
+        
+        public bool IsNumberType;
+        
+        public bool IsForExtendClass;
+        
+        public string VarDef4Fld;
+        public string ParaVarId_TS;
+    }
+
+
     public class CacheClassify
     {
         public string FldId;

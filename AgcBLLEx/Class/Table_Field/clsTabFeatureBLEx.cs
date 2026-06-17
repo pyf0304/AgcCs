@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:clsTabFeatureBLEx
 表名:TabFeature(00050463)
 生成代码版本:2019.05.09.1
@@ -624,6 +623,25 @@ namespace AGC.BusinessLogicEx
             return objTabFeatureENEx;
         }
 
+        public static string GetConditionFieldNameByTabFeatureId(string strTabFeatureId, string strPrjId)
+        {
+            // 1. 获取表功能对象
+            clsTabFeatureEN objTabFeatureEN = clsTabFeatureBL.GetObjByTabFeatureIdCache(strTabFeatureId, strPrjId);
+            if (objTabFeatureEN == null) return null;
+
+            // 2. 查找条件字段
+            clsTabFeatureFldsEN objField_Condition = objTabFeatureEN.arrTabFeatureFldsSet()
+                .Find(x => x.FieldTypeId == enumFieldType.ConditionField_16);
+    
+            // 3. 返回条件字段名称
+            if (objField_Condition != null)
+            {
+                return objField_Condition.ObjFieldTab().FldName;
+            }
+    
+            return null;
+        }
+
 
         /// <summary>
         /// 根据TabId获取FeatureId列表
@@ -998,7 +1016,6 @@ namespace AGC.BusinessLogicEx
                         strBuilder.AppendFormat("\r\n * @param {0}:{1}", objInFor.ObjFieldTab().PrivFuncName1(),
                             objInFor.ObjFieldTab().Caption);
                     }
-                    strBuilder.Append("\r\n*/");
                     StringBuilder sbFuncPara = new StringBuilder();
                     //string strPrivFuncName_Additional = "";
                     List<string> arrPrivFuncName_Additional = new List<string>();

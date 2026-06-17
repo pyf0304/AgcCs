@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewFeatureFldsEN
  表名:ViewFeatureFlds(00050453)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:46
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/14 08:53:54
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -82,8 +82,8 @@ public new const string _CurrTabName = "ViewFeatureFlds"; //当前表名,与该�
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 29;
-public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "FieldTypeId", "ReleFldId", "FuncName", "LabelCaption", "CtlTypeId", "VarId", "CtrlId", "DefaultValue", "OrderNum", "CssClass", "DdlItemsOptionId", "DsTabId", "FldIdCond2", "FldIdCond1", "VarIdCond2", "VarIdCond1", "TabFeatureId4Ddl", "ViewImplId", "Text", "DsCondStr", "DsSqlStr", "ItemsString", "PrjId", "UpdUser", "UpdDate", "InUse", "Memo"};
+protected const int _AttributeCount = 30;
+public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "FieldTypeId", "ReleFldId", "FuncName", "LabelCaption", "IsNeedAuxControlLabel", "CtlTypeId", "VarId", "CtrlId", "DefaultValue", "OrderNum", "CssClass", "DdlItemsOptionId", "DsTabId", "FldIdCond2", "FldIdCond1", "VarIdCond2", "VarIdCond1", "TabFeatureId4Ddl", "ViewImplId", "Text", "DsCondStr", "DsSqlStr", "ItemsString", "PrjId", "UpdUser", "UpdDate", "InUse", "Memo"};
 
 protected long mlngmId;    //mId
 protected string mstrViewFeatureId;    //界面功能Id
@@ -91,6 +91,7 @@ protected string mstrFieldTypeId;    //字段类型Id
 protected string mstrReleFldId;    //相关字段Id
 protected string mstrFuncName;    //函数名
 protected string mstrLabelCaption;    //标签标题
+protected bool mbolIsNeedAuxControlLabel;    //是否需要附件标签
 protected string mstrCtlTypeId;    //控件类型号
 protected string mstrVarId;    //变量Id
 protected string mstrCtrlId;    //控件Id
@@ -178,6 +179,10 @@ return mstrFuncName;
 else if (strAttributeName  ==  conViewFeatureFlds.LabelCaption)
 {
 return mstrLabelCaption;
+}
+else if (strAttributeName  ==  conViewFeatureFlds.IsNeedAuxControlLabel)
+{
+return mbolIsNeedAuxControlLabel;
 }
 else if (strAttributeName  ==  conViewFeatureFlds.CtlTypeId)
 {
@@ -304,6 +309,11 @@ else if (strAttributeName  ==  conViewFeatureFlds.LabelCaption)
 {
 mstrLabelCaption = value.ToString();
  AddUpdatedFld(conViewFeatureFlds.LabelCaption);
+}
+else if (strAttributeName  ==  conViewFeatureFlds.IsNeedAuxControlLabel)
+{
+mbolIsNeedAuxControlLabel = TransNullToBool(value.ToString());
+ AddUpdatedFld(conViewFeatureFlds.IsNeedAuxControlLabel);
 }
 else if (strAttributeName  ==  conViewFeatureFlds.CtlTypeId)
 {
@@ -450,6 +460,10 @@ else if (conViewFeatureFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 return mstrLabelCaption;
 }
+else if (conViewFeatureFlds.IsNeedAuxControlLabel  ==  _AttributeName[intIndex])
+{
+return mbolIsNeedAuxControlLabel;
+}
 else if (conViewFeatureFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
 return mstrCtlTypeId;
@@ -575,6 +589,11 @@ else if (conViewFeatureFlds.LabelCaption  ==  _AttributeName[intIndex])
 {
 mstrLabelCaption = value.ToString();
  AddUpdatedFld(conViewFeatureFlds.LabelCaption);
+}
+else if (conViewFeatureFlds.IsNeedAuxControlLabel  ==  _AttributeName[intIndex])
+{
+mbolIsNeedAuxControlLabel = TransNullToBool(value.ToString());
+ AddUpdatedFld(conViewFeatureFlds.IsNeedAuxControlLabel);
 }
 else if (conViewFeatureFlds.CtlTypeId  ==  _AttributeName[intIndex])
 {
@@ -840,6 +859,24 @@ else
 }
 //记录修改过的字段
  AddUpdatedFld(conViewFeatureFlds.LabelCaption);
+}
+}
+/// <summary>
+/// 是否需要附件标签(说明:;字段类型:bit;字段长度:1;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public bool IsNeedAuxControlLabel
+{
+get
+{
+return mbolIsNeedAuxControlLabel;
+}
+set
+{
+ mbolIsNeedAuxControlLabel = value;
+//记录修改过的字段
+ AddUpdatedFld(conViewFeatureFlds.IsNeedAuxControlLabel);
 }
 }
 /// <summary>
@@ -1445,7 +1482,7 @@ public static class conViewFeatureFlds
 {
 public const string _CurrTabName = "ViewFeatureFlds"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "FieldTypeId", "ReleFldId", "FuncName", "LabelCaption", "CtlTypeId", "VarId", "CtrlId", "DefaultValue", "OrderNum", "CssClass", "DdlItemsOptionId", "DsTabId", "FldIdCond2", "FldIdCond1", "VarIdCond2", "VarIdCond1", "TabFeatureId4Ddl", "ViewImplId", "Text", "DsCondStr", "DsSqlStr", "ItemsString", "PrjId", "UpdUser", "UpdDate", "InUse", "Memo"};
+public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "FieldTypeId", "ReleFldId", "FuncName", "LabelCaption", "IsNeedAuxControlLabel", "CtlTypeId", "VarId", "CtrlId", "DefaultValue", "OrderNum", "CssClass", "DdlItemsOptionId", "DsTabId", "FldIdCond2", "FldIdCond1", "VarIdCond2", "VarIdCond1", "TabFeatureId4Ddl", "ViewImplId", "Text", "DsCondStr", "DsSqlStr", "ItemsString", "PrjId", "UpdUser", "UpdDate", "InUse", "Memo"};
 //以下是属性变量
 
 
@@ -1484,6 +1521,12 @@ public static string[] _AttributeName = new string[] {"mId", "ViewFeatureId", "F
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string LabelCaption = "LabelCaption";    //标签标题
+
+ /// <summary>
+ /// 常量:"IsNeedAuxControlLabel"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string IsNeedAuxControlLabel = "IsNeedAuxControlLabel";    //是否需要附件标签
 
  /// <summary>
  /// 常量:"CtlTypeId"

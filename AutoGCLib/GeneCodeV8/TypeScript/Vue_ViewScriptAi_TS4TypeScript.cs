@@ -121,6 +121,8 @@ namespace AutoGCLib
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
+                NameFieldCamel = ToCamelCase(objNameField.FldName()),
+                
                 HasCacheMode = needRefreshCache,
                 HasCacheClassifyField = hasCacheClassifyField,
                 CacheClassifyFieldName = cacheClassifyFieldName,

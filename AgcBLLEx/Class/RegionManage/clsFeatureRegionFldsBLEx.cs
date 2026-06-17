@@ -88,6 +88,11 @@ namespace AGC.BusinessLogicEx
             {
                 objInFor2.SetViewFeatureId(objFeatureRegionFldsEN.ViewFeatureId)
                     .SetUpdUser(strUpdUser);
+                if (string.IsNullOrEmpty(objInFor2.ReleFldId)) continue;
+                if (string.IsNullOrEmpty(objInFor2.PrjId))
+                {
+                    objInFor2.PrjId = objFeatureRegionFldsEN.PrjId;
+                }
                 if (objInFor2.CheckUniqueness() == true)
                 {
                     objInFor2.AddNewRecord();
@@ -982,6 +987,7 @@ namespace AGC.BusinessLogicEx
                 if (objInFor.FieldTypeId == enumFieldType.OrderNumField_09) continue;
 
                 clsvPrjTabFldEN objvPrjTabFldEN = clsvPrjTabFldBLEx.GetObjByFldIdCache(objFeatureRegionFldsEN.ReleTabId, strPrjId_p, objInFor.ReleFldId);
+                if (objvPrjTabFldEN == null) continue;
                 clsViewFeatureFldsEN objViewFeatureFldsEN = clsViewFeatureFldsBLEx.GetObjByvPrjTabFld(objvPrjTabFldEN);
                 objViewFeatureFldsEN.CtrlId = clsCtlTypeBLEx.GetCtrlId(objViewFeatureFldsEN.CtlTypeId, objvPrjTabFldEN.FldName) + "_OrderNum";
                 objViewFeatureFldsEN.SetViewFeatureId(objFeatureRegionFldsEN.ViewFeatureId)

@@ -1,6 +1,7 @@
 ﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
+using AgcCommBase;
 using AutoGCLib.Templates;
 using com.taishsoft.common;
 using LaYumba.Functional;
@@ -132,6 +133,8 @@ namespace AutoGCLib
         {
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+
                 var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBLEx.GetObjLstByViewId(
                     objViewInfoENEx.ViewId, 
                     objViewInfoENEx.PrjId
@@ -156,7 +159,8 @@ namespace AutoGCLib
 
                         if (objGCVariable != null)
                         {
-                            string varName4View = objGCVariable.GetVarName4View();
+                            string varName4View = arrViewVariable.Find(x => x.VarId == varRela.VarId)?.VariableName; 
+
 
                             Console.WriteLine($"变量: {objGCVariable.VarName} → {varName4View}");
 
@@ -697,13 +701,13 @@ namespace AutoGCLib
                         WApiClass = ddlInfo.WApiClass,
                         ArrayVariableName = ddlInfo.ArrayVariableName,
                         ModuleName = ddlInfo.ModuleName,
-                        FunctionName = ddlInfo.FunctionName,
+                        GetDdlDataFuncName = ddlInfo.GetDdlDataFuncName,
                         IsExtendedClass = ddlInfo.IsExtendedClass,
-                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        Parameters = ddlInfo.Parameters?.Select(p => new DdlOptionParam
                         {
                             ParamName = p.ParamName,
                             SharedVarName = p.SharedVarName
-                        }).ToList() ?? new List<AiOptionParam>()
+                        }).ToList() ?? new List<DdlOptionParam>()
                     };
 
                     model.FeatureOptions.Add(optionInfo);
@@ -714,7 +718,7 @@ namespace AutoGCLib
                             model.FeatureOptions4DS.Add(optionInfo);
                         }
                     }
-                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.GetDdlDataFuncName}, 参数数量: {optionInfo.Parameters.Count}");
                 }
 
 
@@ -780,15 +784,15 @@ namespace AutoGCLib
                         TextFieldName = ddlInfo.TextFieldName,
                         WApiClass = ddlInfo.WApiClass,
                         ModuleName = ddlInfo.ModuleName,
-                        FunctionName = ddlInfo.FunctionName,
+                        GetDdlDataFuncName = ddlInfo.GetDdlDataFuncName,
                         IsExtendedClass = ddlInfo.IsExtendedClass,
                         WApiFileName = ddlInfo.WApiFileName,
                         WApiPath = ddlInfo.WApiPath,
-                        Parameters = ddlInfo.Parameters?.Select(p => new AiOptionParam
+                        Parameters = ddlInfo.Parameters?.Select(p => new DdlOptionParam
                         {
                             ParamName = p.ParamName,
                             SharedVarName = p.SharedVarName
-                        }).ToList() ?? new List<AiOptionParam>()
+                        }).ToList() ?? new List<DdlOptionParam>()
                     };
                     if (optionInfo.ControlType != "select4Bool")
                     {
@@ -797,7 +801,7 @@ namespace AutoGCLib
                             model.FeatureOptions4DS.Add(optionInfo);
                         }
                     }
-                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.FunctionName}, 参数数量: {optionInfo.Parameters.Count}");
+                    Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.GetDdlDataFuncName}, 参数数量: {optionInfo.Parameters.Count}");
                 }
             }
             catch (Exception ex)
@@ -906,7 +910,13 @@ namespace AutoGCLib
                 || ctlTypeName == "combobox"
                 || ctlTypeName == "combo";
         }
+        private bool HasFeature(string featureId)
+        {
+            if (objViewInfoENEx.arrFeatureRegionFlds == null) return false;
 
+            return objViewInfoENEx.arrFeatureRegionFlds
+                .Any(x => x.InUse == true && x.FeatureId == featureId);
+        }
         /// <summary>
         /// 获取控件类型
         /// </summary>
@@ -953,6 +963,12 @@ namespace AutoGCLib
             model.HasExportFeature = 
                 arrFeatureRegionFlds.Find(x => x.FeatureId == enumPrjFeature.ExportToFile_0196 
                 || x.FeatureId == enumPrjFeature.ExportToFile_0143) == null ? false : true;
+
+            model.HasAdjustOrderNum = HasFeature(enumPrjFeature.AdjustOrderNum_0142)
+|| HasFeature(enumPrjFeature.AdjustOrderNum_0224)
+|| HasFeature(enumPrjFeature.AdjustOrderNum_0225)
+|| HasFeature(enumPrjFeature.AdjustOrderNum_1196);
+
             foreach (var feature in arrFeatureRegionFlds)
             {
                 var command = new AiHtmlCommand

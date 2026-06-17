@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewFeatureFldsDA
  表名:ViewFeatureFlds(00050453)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:46
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/14 08:53:54
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -504,6 +504,7 @@ objViewFeatureFldsEN.FieldTypeId = objRow[conViewFeatureFlds.FieldTypeId].ToStri
 objViewFeatureFldsEN.ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id
 objViewFeatureFldsEN.FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名
 objViewFeatureFldsEN.LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题
+objViewFeatureFldsEN.IsNeedAuxControlLabel = TransNullToBool(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签
 objViewFeatureFldsEN.CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号
 objViewFeatureFldsEN.VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id
 objViewFeatureFldsEN.CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id
@@ -579,6 +580,7 @@ objViewFeatureFldsEN.FieldTypeId = objRow[conViewFeatureFlds.FieldTypeId].ToStri
 objViewFeatureFldsEN.ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id
 objViewFeatureFldsEN.FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名
 objViewFeatureFldsEN.LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题
+objViewFeatureFldsEN.IsNeedAuxControlLabel = TransNullToBool(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签
 objViewFeatureFldsEN.CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号
 objViewFeatureFldsEN.VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id
 objViewFeatureFldsEN.CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id
@@ -644,6 +646,7 @@ try
  objViewFeatureFldsEN.ReleFldId = objDT.Rows[0][conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id(字段类型:char,字段长度:8,是否可空:True)
  objViewFeatureFldsEN.FuncName = objDT.Rows[0][conViewFeatureFlds.FuncName].ToString().Trim(); //函数名(字段类型:varchar,字段长度:100,是否可空:False)
  objViewFeatureFldsEN.LabelCaption = objDT.Rows[0][conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题(字段类型:varchar,字段长度:150,是否可空:True)
+ objViewFeatureFldsEN.IsNeedAuxControlLabel = TransNullToBool(objDT.Rows[0][conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签(字段类型:bit,字段长度:1,是否可空:False)
  objViewFeatureFldsEN.CtlTypeId = objDT.Rows[0][conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号(字段类型:char,字段长度:2,是否可空:True)
  objViewFeatureFldsEN.VarId = objDT.Rows[0][conViewFeatureFlds.VarId].ToString().Trim(); //变量Id(字段类型:char,字段长度:8,是否可空:True)
  objViewFeatureFldsEN.CtrlId = objDT.Rows[0][conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id(字段类型:varchar,字段长度:50,是否可空:False)
@@ -704,6 +707,7 @@ try
  objViewFeatureFldsEN.ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id(字段类型:char,字段长度:8,是否可空:True)
  objViewFeatureFldsEN.FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名(字段类型:varchar,字段长度:100,是否可空:False)
  objViewFeatureFldsEN.LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题(字段类型:varchar,字段长度:150,是否可空:True)
+ objViewFeatureFldsEN.IsNeedAuxControlLabel = clsEntityBase2.TransNullToBool_S(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签(字段类型:bit,字段长度:1,是否可空:False)
  objViewFeatureFldsEN.CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号(字段类型:char,字段长度:2,是否可空:True)
  objViewFeatureFldsEN.VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id(字段类型:char,字段长度:8,是否可空:True)
  objViewFeatureFldsEN.CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id(字段类型:varchar,字段长度:50,是否可空:False)
@@ -774,6 +778,7 @@ FieldTypeId = objRow[conViewFeatureFlds.FieldTypeId].ToString().Trim(), //字段
 ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(), //相关字段Id
 FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(), //函数名
 LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(), //标签标题
+IsNeedAuxControlLabel = TransNullToBool(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()), //是否需要附件标签
 CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(), //控件类型号
 VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(), //变量Id
 CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(), //控件Id
@@ -828,6 +833,7 @@ objViewFeatureFldsEN.FieldTypeId = objRow[conViewFeatureFlds.FieldTypeId].ToStri
 objViewFeatureFldsEN.ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id
 objViewFeatureFldsEN.FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名
 objViewFeatureFldsEN.LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题
+objViewFeatureFldsEN.IsNeedAuxControlLabel = TransNullToBool(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签
 objViewFeatureFldsEN.CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号
 objViewFeatureFldsEN.VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id
 objViewFeatureFldsEN.CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id
@@ -880,6 +886,7 @@ objViewFeatureFldsEN.FieldTypeId = objRow[conViewFeatureFlds.FieldTypeId].ToStri
 objViewFeatureFldsEN.ReleFldId = objRow[conViewFeatureFlds.ReleFldId] == DBNull.Value ? null : objRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id
 objViewFeatureFldsEN.FuncName = objRow[conViewFeatureFlds.FuncName] == DBNull.Value ? null : objRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名
 objViewFeatureFldsEN.LabelCaption = objRow[conViewFeatureFlds.LabelCaption] == DBNull.Value ? null : objRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题
+objViewFeatureFldsEN.IsNeedAuxControlLabel = TransNullToBool(objRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim()); //是否需要附件标签
 objViewFeatureFldsEN.CtlTypeId = objRow[conViewFeatureFlds.CtlTypeId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号
 objViewFeatureFldsEN.VarId = objRow[conViewFeatureFlds.VarId] == DBNull.Value ? null : objRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id
 objViewFeatureFldsEN.CtrlId = objRow[conViewFeatureFlds.CtrlId] == DBNull.Value ? null : objRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id
@@ -1149,6 +1156,7 @@ objRow[conViewFeatureFlds.FuncName] = objViewFeatureFldsEN.FuncName; //函数名
  {
 objRow[conViewFeatureFlds.LabelCaption] = objViewFeatureFldsEN.LabelCaption; //标签标题
  }
+objRow[conViewFeatureFlds.IsNeedAuxControlLabel] = objViewFeatureFldsEN.IsNeedAuxControlLabel; //是否需要附件标签
  if (objViewFeatureFldsEN.CtlTypeId !=  "")
  {
 objRow[conViewFeatureFlds.CtlTypeId] = objViewFeatureFldsEN.CtlTypeId; //控件类型号
@@ -1310,6 +1318,9 @@ StringBuilder strSQL = new StringBuilder();
  var strLabelCaption = objViewFeatureFldsEN.LabelCaption.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strLabelCaption + "'");
  }
+ 
+ arrFieldListForInsert.Add(conViewFeatureFlds.IsNeedAuxControlLabel);
+ arrValueListForInsert.Add("'" + (objViewFeatureFldsEN.IsNeedAuxControlLabel  ==  false ? "0" : "1") + "'");
  
  if (objViewFeatureFldsEN.CtlTypeId !=  null)
  {
@@ -1549,6 +1560,9 @@ StringBuilder strSQL = new StringBuilder();
  var strLabelCaption = objViewFeatureFldsEN.LabelCaption.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strLabelCaption + "'");
  }
+ 
+ arrFieldListForInsert.Add(conViewFeatureFlds.IsNeedAuxControlLabel);
+ arrValueListForInsert.Add("'" + (objViewFeatureFldsEN.IsNeedAuxControlLabel  ==  false ? "0" : "1") + "'");
  
  if (objViewFeatureFldsEN.CtlTypeId !=  null)
  {
@@ -1792,6 +1806,9 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strLabelCaption + "'");
  }
  
+ arrFieldListForInsert.Add(conViewFeatureFlds.IsNeedAuxControlLabel);
+ arrValueListForInsert.Add("'" + (objViewFeatureFldsEN.IsNeedAuxControlLabel  ==  false ? "0" : "1") + "'");
+ 
  if (objViewFeatureFldsEN.CtlTypeId !=  null)
  {
  arrFieldListForInsert.Add(conViewFeatureFlds.CtlTypeId);
@@ -2034,6 +2051,9 @@ public bool AddNewRecordBySQL2(clsViewFeatureFldsEN objViewFeatureFldsEN, SqlCon
  arrValueListForInsert.Add("'" + strLabelCaption + "'");
  }
  
+ arrFieldListForInsert.Add(conViewFeatureFlds.IsNeedAuxControlLabel);
+ arrValueListForInsert.Add("'" + (objViewFeatureFldsEN.IsNeedAuxControlLabel  ==  false ? "0" : "1") + "'");
+ 
  if (objViewFeatureFldsEN.CtlTypeId !=  null)
  {
  arrFieldListForInsert.Add(conViewFeatureFlds.CtlTypeId);
@@ -2247,6 +2267,7 @@ objRow[conViewFeatureFlds.FieldTypeId] = oRow[conViewFeatureFlds.FieldTypeId].To
 objRow[conViewFeatureFlds.ReleFldId] = oRow[conViewFeatureFlds.ReleFldId].ToString().Trim(); //相关字段Id
 objRow[conViewFeatureFlds.FuncName] = oRow[conViewFeatureFlds.FuncName].ToString().Trim(); //函数名
 objRow[conViewFeatureFlds.LabelCaption] = oRow[conViewFeatureFlds.LabelCaption].ToString().Trim(); //标签标题
+objRow[conViewFeatureFlds.IsNeedAuxControlLabel] = oRow[conViewFeatureFlds.IsNeedAuxControlLabel].ToString().Trim(); //是否需要附件标签
 objRow[conViewFeatureFlds.CtlTypeId] = oRow[conViewFeatureFlds.CtlTypeId].ToString().Trim(); //控件类型号
 objRow[conViewFeatureFlds.VarId] = oRow[conViewFeatureFlds.VarId].ToString().Trim(); //变量Id
 objRow[conViewFeatureFlds.CtrlId] = oRow[conViewFeatureFlds.CtrlId].ToString().Trim(); //控件Id
@@ -2342,6 +2363,10 @@ objRow[conViewFeatureFlds.FuncName] = objViewFeatureFldsEN.FuncName; //函数名
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.LabelCaption))
  {
 objRow[conViewFeatureFlds.LabelCaption] = objViewFeatureFldsEN.LabelCaption; //标签标题
+ }
+ if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.IsNeedAuxControlLabel))
+ {
+objRow[conViewFeatureFlds.IsNeedAuxControlLabel] = objViewFeatureFldsEN.IsNeedAuxControlLabel; //是否需要附件标签
  }
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.CtlTypeId))
  {
@@ -2544,6 +2569,11 @@ sbSQL.AppendFormat("Update ViewFeatureFlds Set ");
  {
  sbSQL.AppendFormat("{0} = null,",conViewFeatureFlds.LabelCaption); //标签标题
  }
+ }
+ 
+ if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.IsNeedAuxControlLabel))
+ {
+ sbSQL.AppendFormat(" {1} = '{0}',", objViewFeatureFldsEN.IsNeedAuxControlLabel == true?"1":"0", conViewFeatureFlds.IsNeedAuxControlLabel); //是否需要附件标签
  }
  
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.CtlTypeId))
@@ -2949,6 +2979,11 @@ sbSQL.AppendFormat("Update ViewFeatureFlds Set ");
  {
  sbSQL.Append(" LabelCaption = null,"); //标签标题
  }
+ }
+ 
+ if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.IsNeedAuxControlLabel))
+ {
+ sbSQL.AppendFormat(" IsNeedAuxControlLabel = '{0}',", objViewFeatureFldsEN.IsNeedAuxControlLabel == true?"1":"0"); //是否需要附件标签
  }
  
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.CtlTypeId))
@@ -3358,6 +3393,11 @@ sbSQL.AppendFormat("Update ViewFeatureFlds Set ");
  }
  }
  
+ if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.IsNeedAuxControlLabel))
+ {
+ sbSQL.AppendFormat(" IsNeedAuxControlLabel = '{0}',", objViewFeatureFldsEN.IsNeedAuxControlLabel == true?"1":"0"); //是否需要附件标签
+ }
+ 
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.CtlTypeId))
  {
  if (objViewFeatureFldsEN.CtlTypeId !=  null)
@@ -3764,6 +3804,11 @@ sbSQL.AppendFormat("Update ViewFeatureFlds Set ");
  {
  sbSQL.AppendFormat("{0} = null,",conViewFeatureFlds.LabelCaption); //标签标题
  }
+ }
+ 
+ if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.IsNeedAuxControlLabel))
+ {
+ sbSQL.AppendFormat(" {1} = '{0}',", objViewFeatureFldsEN.IsNeedAuxControlLabel == true?"1":"0", conViewFeatureFlds.IsNeedAuxControlLabel); //是否需要附件标签
  }
  
  if (objViewFeatureFldsEN.IsUpdated(conViewFeatureFlds.CtlTypeId))
@@ -4258,6 +4303,7 @@ objViewFeatureFldsENT.FieldTypeId = objViewFeatureFldsENS.FieldTypeId; //字段�
 objViewFeatureFldsENT.ReleFldId = objViewFeatureFldsENS.ReleFldId; //相关字段Id
 objViewFeatureFldsENT.FuncName = objViewFeatureFldsENS.FuncName; //函数名
 objViewFeatureFldsENT.LabelCaption = objViewFeatureFldsENS.LabelCaption; //标签标题
+objViewFeatureFldsENT.IsNeedAuxControlLabel = objViewFeatureFldsENS.IsNeedAuxControlLabel; //是否需要附件标签
 objViewFeatureFldsENT.CtlTypeId = objViewFeatureFldsENS.CtlTypeId; //控件类型号
 objViewFeatureFldsENT.VarId = objViewFeatureFldsENS.VarId; //变量Id
 objViewFeatureFldsENT.CtrlId = objViewFeatureFldsENS.CtrlId; //控件Id

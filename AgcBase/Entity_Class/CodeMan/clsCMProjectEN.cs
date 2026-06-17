@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsCMProjectEN
  表名:CMProject(00050512)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:02:23
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/06/11 01:36:23
  生成者:pyf
  生成服务器IP:
  工程名称:AGC(0005)
@@ -82,13 +82,14 @@ public new const string _CurrTabName = "CMProject"; //当前表名,与该类相�
 public const string _CurrTabKeyFldName = "CmPrjId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 14;
-public static string[] _AttributeName = new string[] {"CmPrjId", "CmPrjName", "PrjId", "ApplicationTypeId", "FunctionTemplateId", "VueDesignSysId", "IsFstLcase", "IsCamelCase", "ProjectFileName", "UseStateId", "IsRefresh4RelaView", "UpdDate", "UpdUserId", "Memo"};
+protected const int _AttributeCount = 15;
+public static string[] _AttributeName = new string[] {"CmPrjId", "CmPrjName", "PrjId", "ApplicationTypeId", "UserCodeRoot", "FunctionTemplateId", "VueDesignSysId", "IsFstLcase", "IsCamelCase", "ProjectFileName", "UseStateId", "IsRefresh4RelaView", "UpdDate", "UpdUserId", "Memo"};
 
 protected string mstrCmPrjId;    //Cm工程Id
 protected string mstrCmPrjName;    //CM工程名
 protected string mstrPrjId;    //工程Id
 protected int mintApplicationTypeId;    //应用程序类型ID
+protected string mstrUserCodeRoot;    //用户代码根
 protected string mstrFunctionTemplateId;    //函数模板Id
 protected string mstrVueDesignSysId;    //Vue控件设计体系Id
 protected bool mbolIsFstLcase;    //是否首字母小写
@@ -169,6 +170,10 @@ else if (strAttributeName  ==  conCMProject.ApplicationTypeId)
 {
 return mintApplicationTypeId;
 }
+else if (strAttributeName  ==  conCMProject.UserCodeRoot)
+{
+return mstrUserCodeRoot;
+}
 else if (strAttributeName  ==  conCMProject.FunctionTemplateId)
 {
 return mstrFunctionTemplateId;
@@ -232,6 +237,11 @@ else if (strAttributeName  ==  conCMProject.ApplicationTypeId)
 {
 mintApplicationTypeId = TransNullToInt(value.ToString());
  AddUpdatedFld(conCMProject.ApplicationTypeId);
+}
+else if (strAttributeName  ==  conCMProject.UserCodeRoot)
+{
+mstrUserCodeRoot = value.ToString();
+ AddUpdatedFld(conCMProject.UserCodeRoot);
 }
 else if (strAttributeName  ==  conCMProject.FunctionTemplateId)
 {
@@ -305,6 +315,10 @@ else if (conCMProject.ApplicationTypeId  ==  _AttributeName[intIndex])
 {
 return mintApplicationTypeId;
 }
+else if (conCMProject.UserCodeRoot  ==  _AttributeName[intIndex])
+{
+return mstrUserCodeRoot;
+}
 else if (conCMProject.FunctionTemplateId  ==  _AttributeName[intIndex])
 {
 return mstrFunctionTemplateId;
@@ -368,6 +382,11 @@ else if (conCMProject.ApplicationTypeId  ==  _AttributeName[intIndex])
 {
 mintApplicationTypeId = TransNullToInt(value.ToString());
  AddUpdatedFld(conCMProject.ApplicationTypeId);
+}
+else if (conCMProject.UserCodeRoot  ==  _AttributeName[intIndex])
+{
+mstrUserCodeRoot = value.ToString();
+ AddUpdatedFld(conCMProject.UserCodeRoot);
 }
 else if (conCMProject.FunctionTemplateId  ==  _AttributeName[intIndex])
 {
@@ -516,6 +535,32 @@ set
  mintApplicationTypeId = value;
 //记录修改过的字段
  AddUpdatedFld(conCMProject.ApplicationTypeId);
+}
+}
+/// <summary>
+/// 用户代码根(说明:;字段类型:varchar;字段长度:50;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string UserCodeRoot
+{
+get
+{
+return mstrUserCodeRoot;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrUserCodeRoot = value;
+}
+else
+{
+ mstrUserCodeRoot = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conCMProject.UserCodeRoot);
 }
 }
 /// <summary>
@@ -787,7 +832,7 @@ public static class conCMProject
 {
 public const string _CurrTabName = "CMProject"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "CmPrjId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"CmPrjId", "CmPrjName", "PrjId", "ApplicationTypeId", "FunctionTemplateId", "VueDesignSysId", "IsFstLcase", "IsCamelCase", "ProjectFileName", "UseStateId", "IsRefresh4RelaView", "UpdDate", "UpdUserId", "Memo"};
+public static string[] _AttributeName = new string[] {"CmPrjId", "CmPrjName", "PrjId", "ApplicationTypeId", "UserCodeRoot", "FunctionTemplateId", "VueDesignSysId", "IsFstLcase", "IsCamelCase", "ProjectFileName", "UseStateId", "IsRefresh4RelaView", "UpdDate", "UpdUserId", "Memo"};
 //以下是属性变量
 
 
@@ -814,6 +859,12 @@ public static string[] _AttributeName = new string[] {"CmPrjId", "CmPrjName", "P
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string ApplicationTypeId = "ApplicationTypeId";    //应用程序类型ID
+
+ /// <summary>
+ /// 常量:"UserCodeRoot"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string UserCodeRoot = "UserCodeRoot";    //用户代码根
 
  /// <summary>
  /// 常量:"FunctionTemplateId"

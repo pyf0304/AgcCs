@@ -1230,7 +1230,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
         public static List<DdlOptionsInfo> GetDdlOptionInfoLstByViewId(string strViewId, string strPrjId)
         {
             var arrQryRegionFldsENEx = GetObjExLstEx(strViewId, strPrjId);
-            List<DdlOptionsInfo> arrDdlOptionsInfo = GetDdlOptionInfoLst(arrQryRegionFldsENEx);
+            List<DdlOptionsInfo> arrDdlOptionsInfo = GetDdlOptionInfoLst(arrQryRegionFldsENEx, strViewId);
             return arrDdlOptionsInfo;
         }
 
@@ -1240,7 +1240,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
         /// </summary>
         /// <param name="arrQryRegionFldsENEx">查询区域字段扩展对象列表</param>
         /// <returns>下拉框选项信息列表</returns>
-        public static List<DdlOptionsInfo> GetDdlOptionInfoLst(List<clsQryRegionFldsENEx> arrQryRegionFldsENEx)
+        public static List<DdlOptionsInfo> GetDdlOptionInfoLst(List<clsQryRegionFldsENEx> arrQryRegionFldsENEx, string strViewId)
         {
             List<DdlOptionsInfo> arrDdlOptionsInfo = new List<DdlOptionsInfo>();
 
@@ -1258,7 +1258,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                 {
                     try
                     {
-                        var optionInfo = GetOptionsInfoFromDataSource(fld);
+                        var optionInfo = GetOptionsInfoFromDataSource(fld, strViewId);
                         if (optionInfo != null)
                         {
                             arrDdlOptionsInfo.Add(optionInfo);
@@ -1290,7 +1290,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
         /// <summary>
         /// 从数据源表和表功能获取选项信息（包含参数信息）
         /// </summary>
-        private static DdlOptionsInfo GetOptionsInfoFromDataSource(clsQryRegionFldsENEx fld)
+        private static DdlOptionsInfo GetOptionsInfoFromDataSource(clsQryRegionFldsENEx objQryRegionFldsENEx, string strViewId)
         {
             try
             {
@@ -1298,12 +1298,12 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                 List<DdlOptionParam> parameters = new List<DdlOptionParam>();
 
                 // 5. 获取字段名
-                string fldName = fld.ObjFieldTabENEx?.FldName;
+                string fldName = objQryRegionFldsENEx.ObjFieldTabENEx?.FldName;
                 if (string.IsNullOrEmpty(fldName))
                 {
                     return null;
                 }
-                if (fld.CtlTypeId == enumCtlType.DropDownList_Bool_18)
+                if (objQryRegionFldsENEx.CtlTypeId == enumCtlType.DropDownList_Bool_18)
                 {
                     optionKey = ToCamelCase(fldName) + "_f";
 
@@ -1318,14 +1318,14 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                     return optionInfo0;
                 }
                 // 1. 检查是否有数据源表ID
-                string dsTabId = fld.DsTabId;
+                string dsTabId = objQryRegionFldsENEx.DsTabId;
                 if (string.IsNullOrEmpty(dsTabId))
                 {
                     return null;
                 }
 
                 // 2. 获取数据源表对象
-                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(dsTabId, fld.PrjId);
+                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(dsTabId, objQryRegionFldsENEx.PrjId);
                 if (objDsTab == null)
                 {
                     Console.WriteLine($"找不到数据源表: {dsTabId}");
@@ -1344,30 +1344,44 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                     return null;
                 }
                 // 🔥 关键修复：调用 GetDsFieldNames 获取值字段和文本字段
-                var (valueFieldName, textFieldName) = GetDsFieldNames(fld);
+                var (valueFieldName, textFieldName) = GetDsFieldNames(objQryRegionFldsENEx);
 
                 // 6. 默认函数名
-                string functionName = $"{wApiClass}_GetArr{wApiClass}";
+                string getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}";
                 string strArrayVariableName = "arr" + wApiClass;
                 bool isExtendedClass = false;
                 
                 // 7. 如果有表功能ID
-                string tabFeatureId = fld.TabFeatureId4Ddl;
+                string tabFeatureId = objQryRegionFldsENEx.TabFeatureId4Ddl;
                 if (!string.IsNullOrEmpty(tabFeatureId))
                 {
-                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(tabFeatureId, fld.PrjId);
+                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(tabFeatureId, objQryRegionFldsENEx.PrjId);
                     if (objTabFeature != null && objTabFeature.IsForTypeScript)
                     {
                         isExtendedClass = objTabFeature.IsExtendedClass;
-
+                       
                         // 获取函数名
-                        if (!string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
+                        if (string.IsNullOrEmpty(objTabFeature.GetDdlDataFuncName4Ex))
                         {
-                            functionName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
-                        }
+                            var strConditionFieldName = clsTabFeatureBLEx.GetConditionFieldNameByTabFeatureId(tabFeatureId, objQryRegionFldsENEx.PrjId);
 
+                            if (string.IsNullOrEmpty(strConditionFieldName))
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_{objTabFeature.GetDdlDataFuncName4Ex}";
+                            }
+                            else
+                            {
+                                getDdlDataFuncName = $"{wApiClass}_GetArr{wApiClass}By{strConditionFieldName}";
+                            }
+                            objTabFeature.GetDdlDataFuncName4Ex = getDdlDataFuncName;
+                            objTabFeature.Update();
+                        }
+                        else
+                        {
+                            getDdlDataFuncName = objTabFeature.GetDdlDataFuncName4Ex;
+                        }
                         // 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
-                        parameters = GetFunctionParameters(fld, objTabFeature, fld.PrjId);
+                        parameters = GetFunctionParameters(objQryRegionFldsENEx, objTabFeature, strViewId, objQryRegionFldsENEx.PrjId);
                     }
                 }
 
@@ -1377,7 +1391,9 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                 // 9. 构建 DdlOptionsInfo 对象
                 var optionInfo = new DdlOptionsInfo
                 {
+                    FldId = objQryRegionFldsENEx.FldId,
                     Key = optionKey,
+                    IsNumberType = objQryRegionFldsENEx.IsNumberType(),
                     ControlType = "select",
                     OptionsKey = optionKey,
                     ValueFieldName = valueFieldName,
@@ -1385,7 +1401,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                     WApiClass = wApiClass,
                     ArrayVariableName = strArrayVariableName,
                     ModuleName = moduleName,
-                    FunctionName = functionName,
+                    GetDdlDataFuncName = getDdlDataFuncName,
                     IsExtendedClass = isExtendedClass,
                     WApiPath = isExtendedClass ? "L3ForWApiEx" : "L3ForWApi",
                     WApiFileName = isExtendedClass
@@ -1406,12 +1422,14 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
         /// <summary>
         /// 从查询字段的条件变量获取参数信息
         /// </summary>
-        private static List<DdlOptionParam> GetFunctionParameters(clsQryRegionFldsENEx fld, clsTabFeatureEN objTabFeature, string strPrjId)
+        private static List<DdlOptionParam> GetFunctionParameters(clsQryRegionFldsENEx fld, clsTabFeatureEN objTabFeature, string strViewId, string strPrjId)
         {
             var parameters = new List<DdlOptionParam>();
 
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(strViewId, strPrjId);
+
                 // 从查询字段的条件变量字段获取参数
                 var conditionVarIds = new List<(string VarId, int Order, string FldId)>();
 
@@ -1442,20 +1460,8 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                         if (objVariable != null)
                         {
                             // 构建共享变量名：去掉 "str" 前缀，加上 "_Static" 后缀
-                            string sharedVarName = objVariable.VarName;
-
-                            // 去掉 "str" 前缀（如果有且后面是大写字母）
-                            if (sharedVarName.StartsWith("str") && sharedVarName.Length > 3 && char.IsUpper(sharedVarName[3]))
-                            {
-                                sharedVarName = sharedVarName.Substring(3);
-                            }
-
-                            // 添加 "_Static" 后缀（如果还没有）
-                            if (!sharedVarName.EndsWith("_Static"))
-                            {
-                                sharedVarName = sharedVarName + "_Static";
-                            }
-
+                            string sharedVarName = arrViewVariable.Find(x=>x.VarId == varId)?.VariableName;
+                                                       
                             // 获取字段名（用于生成参数名）
                             string paramName = null;
                             if (!string.IsNullOrEmpty(fldId))
@@ -1477,6 +1483,28 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId)
                             };
 
                             parameters.Add(param);
+
+                            //判断当前下拉框数据源表是否为缓存的表，如果是的话，参数中需要再添加一个变量
+                            if (string.IsNullOrEmpty(fld.DsTabId)==false)
+                            {
+                                var objDsTab = clsPrjTabBL.GetObjByTabIdCache(fld.DsTabId, fld.PrjId);
+                                if (objDsTab != null && objDsTab.IsHasCacheClassifyFldTS())
+                                {
+                                    List<CacheClassify4Tab> arrCacheClassify4Tab = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(fld.DsTabId, fld.PrjId); 
+                                    foreach (var cacheClassify in arrCacheClassify4Tab)
+                                    {
+                                        string strSharedVarName = arrViewVariable.Find(x => x.VarId == cacheClassify.ParaVarId_TS)?.VariableName;
+                                        var cacheParam = new DdlOptionParam
+                                        {
+                                            ParamName = ToCamelCase(cacheClassify.FldName),
+                                            SharedVarName = strSharedVarName,
+                                            FldId = cacheClassify.FldId,
+                                            VarId = cacheClassify.ParaVarId_TS
+                                        };
+                                        parameters.Add(cacheParam);
+                                    }
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)

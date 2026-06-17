@@ -363,6 +363,7 @@
     <Compile Include="BLL_Class\RegionManage\clsvViewRegionRelaBL.cs" />
     <Compile Include="BLL_Class\ResourceMan\clsFileResExcludePathBL.cs" />
     <Compile Include="BLL_Class\ResourceMan\clsFileResourceBL.cs" />
+    <Compile Include="BLL_Class\ResourceMan\clsPrjFileTypeBL.cs" />
     <Compile Include="BLL_Class\ResourceMan\clsvFileResourceBL.cs" />
     <Compile Include="BLL_Class\SQLTabField\clsSqlFunctionBL.cs" />
     <Compile Include="BLL_Class\SQLTabField\clsSqlSP_ParaBL.cs" />
@@ -809,6 +810,7 @@
     <Compile Include="DAL_Class\RegionManage\clsvViewRegionRelaDA.cs" />
     <Compile Include="DAL_Class\ResourceMan\clsFileResExcludePathDA.cs" />
     <Compile Include="DAL_Class\ResourceMan\clsFileResourceDA.cs" />
+    <Compile Include="DAL_Class\ResourceMan\clsPrjFileTypeDA.cs" />
     <Compile Include="DAL_Class\ResourceMan\clsvFileResourceDA.cs" />
     <Compile Include="DAL_Class\SQLTabField\clsSqlFunctionDA.cs" />
     <Compile Include="DAL_Class\SQLTabField\clsSqlSP_ParaDA.cs" />
@@ -1256,6 +1258,7 @@
     <Compile Include="Entity_Class\RegionManage\clsvViewRegionRelaEN.cs" />
     <Compile Include="Entity_Class\ResourceMan\clsFileResExcludePathEN.cs" />
     <Compile Include="Entity_Class\ResourceMan\clsFileResourceEN.cs" />
+    <Compile Include="Entity_Class\ResourceMan\clsPrjFileTypeEN.cs" />
     <Compile Include="Entity_Class\ResourceMan\clsvFileResourceEN.cs" />
     <Compile Include="Entity_Class\SQLTabField\clsSqlFunctionEN.cs" />
     <Compile Include="Entity_Class\SQLTabField\clsSqlSP_ParaEN.cs" />

@@ -535,7 +535,7 @@ namespace AGC.BusinessLogicEx
             {
                 foreach (var objInFor in objAdjustOrderNum.arrvViewFeatureFlds_Classify)
                 {
-                    //var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariableRela.VarId} in (select {conGCVariable.VarId} from {conGCVariable._CurrTabName} where {conGCVariable.VarName} = '{strFldName}') ";
+                    //var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariable.VarId} in (select {conGCVariable.VarId} from {conGCVariable._CurrTabName} where {conGCVariable.VarName} = '{strFldName}') ";
                     //var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBL.GetObjLst(strWhere);
                     //if (arrViewIdGCVariableRela.Count > 0) return arrViewIdGCVariableRela[0];
                     //return null;
@@ -1040,6 +1040,8 @@ namespace AGC.BusinessLogicEx
 
             return true;
         }
+
+
         public static List<clsViewIdGCVariableRelaEN> GetObjLstByViewId(string strViewId, string strPrjId)
         {
             var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' ";
@@ -1321,12 +1323,78 @@ namespace AGC.BusinessLogicEx
             //string strVarId = clsGCVariableBLEx.GetVarIdByVarName(strFldName, strPrjId);
             List<string> arrVarId = clsGCVariableBLEx.GetVarIdLstByVarName(strFldName);
 
-            //var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariableRela.VarId} in (select {conGCVariable.VarId} from {conGCVariable._CurrTabName} where {conGCVariable.VarName} = '{strFldName}') ";
+            //var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}' and {conViewIdGCVariable.VarId} in (select {conGCVariable.VarId} from {conGCVariable._CurrTabName} where {conGCVariable.VarName} = '{strFldName}') ";
             var arrViewIdGCVariableRelaCache = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
 
             var objViewIdGCVariableRela = arrViewIdGCVariableRelaCache.Find(x => x.ViewId == strViewId && arrVarId.Contains(x.VarId));
             return objViewIdGCVariableRela;
         }
 
+        /// <summary>
+        /// 获取指定界面的所有界面变量对象列表
+        /// </summary>
+        /// <param name="strViewId">界面Id</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>返回clsViewVariable对象列表</returns>
+        public static List<clsViewVariable> GetAllViewVariableObjs(string strViewId, string strPrjId)
+        {
+            var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}'  ";
+            
+            // 从缓存中获取界面变量关系列表
+            var arrViewIdGCVariableRelaCache = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
+            var arrViewIdGCVariableRela = arrViewIdGCVariableRelaCache.Where(x => x.ViewId == strViewId).ToList();
+
+            // 获取界面信息
+            var objViewInfo = clsViewInfoBL.GetObjByViewIdCache(strViewId, strPrjId);
+            
+            List<clsViewVariable> arrViewVariables = new List<clsViewVariable>();
+            
+            foreach (var objInFor in arrViewIdGCVariableRela)
+            {
+                // 获取变量对象
+                var objGCVariable = clsGCVariableBL.GetObjByVarIdCache(objInFor.VarId);
+                if (objGCVariable == null) continue;
+                
+                // 获取变量在工程中的关系对象
+                var objGCVariablePrjIdRela = clsGCVariablePrjIdRelaBLEx.GetObjExByKeyLst(objInFor.VarId, strPrjId);
+                
+                // 创建界面变量对象
+                clsViewVariable objViewVariable = new clsViewVariable();
+                objViewVariable.VarId = objGCVariable.VarId;
+                objViewVariable.ViewName = objViewInfo != null ? objViewInfo.ViewName : "";
+                objViewVariable.VariableName = objGCVariable.GetVarName4View();
+                objViewVariable.VariableType = objGCVariable.VarTypeId;
+                objViewVariable.ClassName = objGCVariable.ClsName ?? "";
+                objViewVariable.FilePath = objGCVariable.FilePath ?? "";
+                
+                // 优先使用 ViewIdGCVariableRela 表中的 InitValue，如果为空则使用变量表中的 InitValue
+                if (!string.IsNullOrEmpty(objInFor.InitValue))
+                {
+                    objViewVariable.InitValue = objInFor.InitValue;
+                }
+                else
+                {
+                    objViewVariable.InitValue = objGCVariable.InitValue ?? "";
+                }
+                
+                // 根据字段ID获取字段名称
+                if (objGCVariablePrjIdRela != null && !string.IsNullOrEmpty(objGCVariablePrjIdRela.FldId))
+                {
+                    var objFieldTab = clsFieldTabBL.GetObjByFldIdCache(objGCVariablePrjIdRela.FldId, strPrjId);
+                    objViewVariable.FldName = objFieldTab != null ? objFieldTab.FldName : objGCVariable.VarName;
+                }
+                else
+                {
+                    objViewVariable.FldName = objGCVariable.VarName;
+                }
+                
+                // 获取初始化代码
+                objViewVariable.Variable4InitValue = objInFor.GetGC_InitVarValue(null, "");
+                
+                arrViewVariables.Add(objViewVariable);
+            }
+            
+            return arrViewVariables;
+        }
     }
 }

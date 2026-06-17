@@ -18,23 +18,24 @@ PrjDataBaseId:0005
        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
 == == == == == == == == == == == == 
 */
-using System;
-using System.Data;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using com.taishsoft.json;
-using AGC.Entity;
 using AGC.BusinessLogicEx;
+using AGC.Entity;
+using AgcCommBase;
 using com.taishsoft.commdb;
 using com.taishsoft.common;
 using com.taishsoft.datetime;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using Newtonsoft.Json.Linq;
+using com.taishsoft.json;
 using Comm.WebApi;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Net;
+using System.Text;
 
 namespace AGC.WebApi
 {
@@ -213,5 +214,53 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 根据界面ID获取下拉框选项信息列表
+        /// 调用方法: Get /EditRegionFldsExApi/GetDdlOptionInfoLstByViewId?strViewId=value&strPrjId=value
+        /// </summary>
+        /// <param name = "strViewId">界面ID</param>
+        /// <param name = "strPrjId">工程ID</param>
+        /// <returns>返回下拉框选项信息列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetDdlOptionInfoLstByViewId")]
+        public ActionResult GetDdlOptionInfoLstByViewId(string strViewId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var arrDdlOptionsInfo = clsEditRegionFldsBLEx.GetDdlOptionInfoLstByViewId(strViewId, strPrjId);
+                return Ok(new { errorId = 0, errorMsg = "", data = arrDdlOptionsInfo });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        [AllowAnonymous]
+        [HttpGet("GetViewVariableLstByViewId")]
+        public ActionResult GetViewVariableLstByViewId(string strViewId, string strPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strPrjId", strPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var arrViewVariable = clsEditRegionFldsBLEx.GetViewVariableLstByViewId(strViewId, strPrjId);
+                return Ok(new { errorId = 0, errorMsg = "", data = arrViewVariable });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
     }
 }

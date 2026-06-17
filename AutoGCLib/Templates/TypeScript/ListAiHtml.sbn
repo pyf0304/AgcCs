@@ -2,6 +2,19 @@
 	<div>
 		<span v-if="emptyRecNumInfo !== '' && items.length === 0">{ emptyRecNumInfo }</span>
 		<template v-else>
+			<div v-if="hiddenColumnsDisplay.length > 0" class="hidden-columns-bar">
+				<span>已隐藏列：</span>
+				<button
+				  v-for="column in hiddenColumnsDisplay"
+				  :key="column.key"
+				  type="button"
+				  class="hidden-column-chip"
+				  @click="showColumn(column.key)"
+        >					
+					{{ "{{" }} column.label {{ "}}" }}（显示）
+				</button>
+				<button type="button" class="restore-all-btn" @click="resetHiddenColumns">恢复全部</button>
+			</div>
 			<table>				
 				<tbody>
 					<tr class="text-primary">
@@ -13,6 +26,7 @@
 						<!-- 配置列：通过 dataColumn 循环 -->
 						<th
 						  v-for="col in dataColumn"
+						   v-show="isColumnVisible(getColumnKey(col))"
 						  :key="col.fldName"
 						  :class="col.tdClass"
 						  @click="sortColumn(col.sortBy || col.fldName)"
@@ -29,10 +43,28 @@
                   "
                 ></i>
 							</span>
+							<button
+			   type="button"
+			   class="column-toggle-btn"
+			   title="隐藏该列"
+			   @click.stop="toggleColumn(getColumnKey(col))"
+              >
+								×
+							</button>
 						</th>
 
 						<!-- 最后一列：选择按钮 -->
-						<th v-if="showSelectColumn"> 选择 </th>
+						<th v-if="showSelectColumn && isColumnVisible('selectColumn')">
+							选择
+							<button
+							  type="button"
+							  class="column-toggle-btn"
+							  title="隐藏该列"
+							  @click.stop="toggleColumn('selectColumn')"
+              >
+								×
+							</button>
+						</th>
 					</tr>
 
 					<!-- 数据行 -->
@@ -61,13 +93,14 @@
 						<!-- 配置列：通过 dataColumn 循环 -->
 						<td
 						  v-for="col in dataColumn"
+						      v-show="isColumnVisible(getColumnKey(col))"
 						  :key="col.fldName"
 						  :class="col.tdClass"
 						  v-html="getCellValue(item, col)"
-            ></td>
+			            ></td>
 
 						<!-- 最后一列：选择按钮 -->
-						<td v-if="showSelectColumn">
+						<td v-if="showSelectColumn && isColumnVisible('selectColumn')">
 							<button @click="btnSubmitSel(item)"> 选择 </button>
 						</td>
 					</tr>
@@ -78,10 +111,11 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent, ref, watchEffect } from 'vue';
+	import { computed, defineComponent, onMounted, ref, watch, watchEffect } from 'vue';
 	import 'jquery/dist/jquery.min.js';
 	import 'bootstrap/dist/js/bootstrap.min.js';
 	import 'bootstrap/dist/css/bootstrap.css';
+
 	//import router from '@/router';
 	import { clsDataColumn } from '@/ts/PubFun/clsDataColumn';
 	export default defineComponent({
@@ -89,7 +123,6 @@
 	components: {
 	// 组件注册
 	},
-
 	props: {
 	items: {
 	type: Array<any>
@@ -107,23 +140,114 @@
 		default: '',
 		},
 		dataColumn: {
-		type: Array<clsDataColumn>,
-        required: false,
-        default: () => [],
-      },
-    },
+		type: Array<clsDataColumn>
+			,
+			required: false,
+			default: () => [],
+			},
+			currentRootDir: {
+			type: String,
+			required: false,
+			default: '',
+			},
+			},
 
-    emits: ['on-edit-tab-relainfo', 'on-sort-column', 'on-submit-sel'],
+			emits: ['on-edit-tab-relainfo', 'on-sort-column', 'on-submit-sel'],
 
-    setup(props, { emit }) {
-      const selectAllChecked = ref(false); // 初始化复选框列头选中状态为 false);
-      const sortColumnKey = ref(''); // 初始化排序列
-      const sortDirection = ref('asc'); // 初始化排序方向
-      const showSelectColumn = ref(false);
+			setup(props, { emit }) {
+			const selectAllChecked = ref(false); // 初始化复选框列头选中状态为 false);
+			const sortColumnKey = ref(''); // 初始化排序列
+			const sortDirection = ref('asc'); // 初始化排序方向
+			const showSelectColumn = ref(false);
+			const COLUMN_STORAGE_KEY = 'FileResourceListAi.hiddenColumns';
+			const hiddenColumnKeys = ref<string[]>
+				([]);
 
-      watchEffect(() => {
-        showSelectColumn.value = props.dataColumn.some((column) => column.colHeader === '选择');
+							watchEffect(() => {
+							showSelectColumn.value = props.dataColumn.some((column) => column.colHeader === '选择');
+							});
+
+							const getColumnKey = (col: clsDataColumn): string => {
+							return col.fldName || col.sortBy || col.colHeader;
+							};
+
+							const getCurrentColumnKeySet = (): Set<string>
+								=> {
+								const arrKeys = props.dataColumn.map((col) => getColumnKey(col));
+								if (showSelectColumn.value == true) {
+								arrKeys.push('selectColumn');
+								}
+								return new Set(arrKeys);
+								};
+
+
+								onMounted(() => {
+								const raw = localStorage.getItem(COLUMN_STORAGE_KEY);
+								if (!raw) return;
+								try {
+								const parsed = JSON.parse(raw);
+								const setCurrentKeys = getCurrentColumnKeySet();
+								if (Array.isArray(parsed)) {
+								hiddenColumnKeys.value = parsed.filter((key) => setCurrentKeys.has(key));
+								}
+								} catch {
+								hiddenColumnKeys.value = [];
+								}
+								});
+
+								watch(
+								hiddenColumnKeys,
+								(keys) => {
+								localStorage.setItem(COLUMN_STORAGE_KEY, JSON.stringify(keys));
+								},
+								{ deep: true },
+								);
+
+								watch(
+								() => [props.dataColumn, showSelectColumn.value],
+								() => {
+								const setCurrentKeys = getCurrentColumnKeySet();
+								hiddenColumnKeys.value = hiddenColumnKeys.value.filter((key) => setCurrentKeys.has(key));
+								},
+								{ deep: true },
+								);
+
+								const isColumnVisible = (columnKey: string): boolean => {
+								return hiddenColumnKeys.value.includes(columnKey) == false;
+								};
+
+								const toggleColumn = (columnKey: string) => {
+								if (hiddenColumnKeys.value.includes(columnKey)) {
+								hiddenColumnKeys.value = hiddenColumnKeys.value.filter((key) => key !== columnKey);
+								return;
+								}
+								hiddenColumnKeys.value = [...hiddenColumnKeys.value, columnKey];
+								};
+
+								const showColumn = (columnKey: string) => {
+								hiddenColumnKeys.value = hiddenColumnKeys.value.filter((key) => key !== columnKey);
+								};
+
+								const resetHiddenColumns = () => {
+								hiddenColumnKeys.value = [];
+								};
+
+								const hiddenColumnsDisplay = computed(() => {
+								const mapKeyToLabel = new Map<string, string>();
+        props.dataColumn.forEach((col) => {
+          mapKeyToLabel.set(getColumnKey(col), col.colHeader || getColumnKey(col));
+        });
+        if (showSelectColumn.value == true) {
+          mapKeyToLabel.set('selectColumn', '选择');
+        }
+        return hiddenColumnKeys.value
+          .filter((key) => mapKeyToLabel.has(key))
+          .map((key) => ({
+            key,
+            label: mapKeyToLabel.get(key) || key,
+          }));
       });
+
 
       /**
        * 从 item 对象中获取字段值
@@ -199,6 +323,12 @@
         btnSubmitSel,
         showSelectColumn,
         getCellValue,
+        getColumnKey,
+        isColumnVisible,
+        toggleColumn,
+        showColumn,
+        resetHiddenColumns,
+        hiddenColumnsDisplay,
       };
     },
 
@@ -288,6 +418,46 @@
 	table {
 	border-collapse: separate; /* 使用 separate 模式，允许单元格之间的空隙 */
 	border-spacing: 2px; /* 定义单元格之间的间距 */
+	}
+
+	th {
+	position: relative;
+	}
+
+	.column-toggle-btn {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	width: 12px;
+	height: 12px;
+	padding: 0;
+	margin: 0;
+	border: 1px solid rgba(255, 255, 255, 0.65);
+	border-radius: 2px;
+	background: rgba(0, 0, 0, 0.15);
+	color: #fff;
+	font-size: 10px;
+	line-height: 10px;
+	text-align: center;
+	cursor: pointer;
+	}
+
+	.hidden-columns-bar {
+	margin-bottom: 8px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-wrap: wrap;
+	}
+
+	.hidden-column-chip,
+	.restore-all-btn {
+	border: 1px solid #c5c5c5;
+	background: #f7f7f7;
+	border-radius: 3px;
+	padding: 2px 8px;
+	cursor: pointer;
+	font-size: 12px;
 	}
 </style>
 
