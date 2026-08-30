@@ -304,7 +304,7 @@ namespace AutoGCLib
 
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
                         objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", ThisClsName);

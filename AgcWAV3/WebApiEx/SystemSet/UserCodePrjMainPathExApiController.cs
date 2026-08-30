@@ -146,30 +146,122 @@ namespace AGC.WebApi
         /// <returns>生成代码根目录</returns>
         [AllowAnonymous]
         [HttpGet("GetGeneCodeRootPath")]
-        public ActionResult GetGeneCodeRootPath(string strPrjId, string strCmPrjId, int intApplicationTypeId)
+        public ActionResult GetGeneCodeRootPath( string strCmPrjId, int intApplicationTypeId, string strUserId)
         {
             string strFunctionName = nameof(GetGeneCodeRootPath);
             Dictionary<string, string> dictParam = new Dictionary<string, string>();
-      
-            dictParam.Add("strPrjId", strPrjId);
             dictParam.Add("strCmPrjId", strCmPrjId);
             dictParam.Add("intApplicationTypeId", intApplicationTypeId.ToString());
+            dictParam.Add("strUserId", strUserId);
             try
             {
                 // 这里直接调用 DAL 层 BLEx
-                string strRootPath = clsUserCodePrjMainPathBLEx.GetGeneCodeRootPath(
-                    strPrjId,
+                List<clsUserCodePrjMainPath_MachineNameEN> arrUserCodePrjMainPath_MachineName 
+                    = clsUserCodePrjMainPathBLEx.GetGeneCodeRootPath(
                     strCmPrjId,
-                    intApplicationTypeId);
+                    intApplicationTypeId, strUserId);
 
                 return Ok(new
                 {
                     errorId = 0,
                     errorMsg = "",
-                    returnStr = strRootPath,
-                    strPrjId,
+                    returnObjLst = arrUserCodePrjMainPath_MachineName,                    
                     strCmPrjId,
                     intApplicationTypeId,
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, strFunctionName);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 设置用户生成代码主路径关联（仅创建UserCodePrjMainPath记录）
+        /// 调用方法: Get /api/UserCodePrjMainPathExApi/SetGeneCodeRootPath?strCmPrjId=value&intApplicationTypeId=value&strUserId=value&strOpUserId=value
+        /// </summary>
+        /// <param name="strCmPrjId">CM工程Id</param>
+        /// <param name="intApplicationTypeId">应用类型Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <param name="strOpUserId">操作用户Id</param>
+        /// <returns>返回UserCodePrjMainPathId</returns>
+        [AllowAnonymous]
+        [HttpGet("SetGeneCodeRootPathBak")]
+        public ActionResult SetGeneCodeRootPathBak(
+            string strCmPrjId,
+            int intApplicationTypeId,
+            string strUserId,
+            string strOpUserId)
+        {
+            string strFunctionName = nameof(SetGeneCodeRootPath);
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strCmPrjId", strCmPrjId);
+            dictParam.Add("intApplicationTypeId", intApplicationTypeId.ToString());
+            dictParam.Add("strUserId", strUserId);
+            dictParam.Add("strOpUserId", strOpUserId);
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                string strUserCodePrjMainPathId = clsUserCodePrjMainPathBLEx.SetGeneCodeRootPath(
+                    strCmPrjId,
+                    intApplicationTypeId,
+                    strUserId,
+                    strOpUserId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnStr = strUserCodePrjMainPathId,
+                    strCmPrjId,
+                    intApplicationTypeId,
+                    strUserId
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, strFunctionName);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        /// <summary>
+        /// 设置用户生成代码主路径关联（仅创建UserCodePrjMainPath记录）
+        /// </summary>
+        [AllowAnonymous]
+        [HttpGet("SetGeneCodeRootPath")]
+        public ActionResult SetGeneCodeRootPath(
+            string strCmPrjId,
+            int intApplicationTypeId,
+            string strUserId,
+            string strOpUserId)
+        {
+            string strFunctionName = nameof(SetGeneCodeRootPath);
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strCmPrjId", strCmPrjId);
+            dictParam.Add("intApplicationTypeId", intApplicationTypeId.ToString());
+            dictParam.Add("strUserId", strUserId);
+            dictParam.Add("strOpUserId", strOpUserId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                string strUserCodePrjMainPathId = clsUserCodePrjMainPathBLEx.SetGeneCodeRootPath(
+                    strCmPrjId,
+                    intApplicationTypeId,
+                    strUserId,
+                    strOpUserId);
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnStr = strUserCodePrjMainPathId,
+                    strCmPrjId,
+                    intApplicationTypeId,
+                    strUserId
                 });
             }
             catch (Exception objException)

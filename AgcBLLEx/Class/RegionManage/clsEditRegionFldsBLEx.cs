@@ -2161,7 +2161,8 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId && x.InUse == true)
             try
             {
                 List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(strViewId, strPrjId);
-
+                var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, strPrjId);
+                var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16);
                 // 从查询字段的条件变量字段获取参数
                 var conditionVarIds = new List<(string VarId, int Order, string FldId)>();
 
@@ -2214,8 +2215,7 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId && x.InUse == true)
                                 VarId = varId
                             };
 
-                            parameters.Add(param);
-
+                            if (arrTabFeatureFlds_Cond.Count() > 0) parameters.Add(param);
                             //判断当前下拉框数据源表是否为缓存的表，如果是的话，参数中需要再添加一个变量
                             if (string.IsNullOrEmpty(fld.DsTabId) == false)
                             {
@@ -2232,8 +2232,8 @@ arrObjLstCache.Where(x => x.RegionId == lngRegionId && x.InUse == true)
                                             SharedVarName = strSharedVarName,
                                             FldId = cacheClassify.FldId,
                                             VarId = cacheClassify.ParaVarId_TS
-                                        };
-                                        parameters.Add(cacheParam);
+                                        };                                        
+                                        if (parameters.Count(x => x.VarId == cacheParam.VarId) == 0) parameters.Add(cacheParam);
                                     }
                                 }
                             }

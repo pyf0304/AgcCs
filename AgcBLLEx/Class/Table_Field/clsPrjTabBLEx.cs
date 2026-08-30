@@ -515,7 +515,7 @@ namespace AGC.BusinessLogicEx
             this.objProjectsENEx = new clsProjectsENEx();
             clsProjectsBL.CopyTo(objProjectsEN, objProjectsENEx);
             this.objPrjDataBaseEN = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(strPrjDataBaseId);
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objPrjTabENEx.PrjId);
+            //string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objPrjTabENEx.PrjId);
             //objPrjTabENEx.FunctionTemplateId = strFunctionTemplateId;
         }
 
@@ -1646,6 +1646,14 @@ namespace AGC.BusinessLogicEx
             if (string.IsNullOrEmpty(objPrjTabEN.RelaTabId4View)) objPrjTabEN.RelaTabId4View = null;
             clsPrjTabBL.UpdateBySql2(objPrjTabEN);
             return true;
+        }
+
+        public static int SetGeneCodeDate(string strTabId, string strGeneCodeDate)
+        {
+            var strWhere = $"{conPrjTab.TabId} = '{strTabId}'";
+            int intResult = clsPrjTabBL.SetFldValue(conPrjTab._CurrTabName, conPrjTab.GeneCodeDate, strGeneCodeDate, strWhere);
+         
+            return intResult;
         }
 
         public static bool SetUpdDate(clsPrjTabEN objPrjTabEN, string strUserId)
@@ -2888,6 +2896,20 @@ namespace AGC.BusinessLogicEx
             }
 
             return clsPrjTabBL.UpdateBySql2(objPrjTabEN);
+
+        }
+
+        public static string GetRelaViewIdByTabId(string strTabId , string strPrjId, int intApplicationTypeId)
+        {
+            if (string.IsNullOrEmpty(strTabId) == true) return "";
+
+            var arrViewInfo = clsViewInfoBL.GetObjLst($"{conViewInfo.MainTabId}='{strTabId}' and {conViewInfo.PrjId}='{strPrjId}' and {conViewInfo.ApplicationTypeId}={intApplicationTypeId}");
+            foreach (var objInFor in arrViewInfo)
+            {
+                var objViewRegion = clsViewRegionBLEx.GetObjByRegionIdCacheEx2(objInFor.ViewId, enumRegionType.ListRegion_0002, strPrjId);
+                if (objViewRegion != null) return objInFor.ViewId;
+            }
+            return "";
 
         }
         /// <summary>
@@ -4684,6 +4706,230 @@ namespace AGC.BusinessLogicEx
             //6、在表字段中添加相关字段。
             ///
         }
+
+        /// <summary>
+        /// 导入工程表（PrjTab），并按需导入字段（FieldTab + PrjTabFld）
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strPrjDataBaseId">工程数据库Id</param>
+        /// <param name="strTabName">表英文名</param>
+        /// <param name="strTabCnName">表中文名</param>
+        /// <param name="strTabMemo">表备注</param>
+        /// <param name="strSqlDsTypeId">SQL数据源类型Id（默认01:Sql表）</param>
+        /// <param name="strFuncModuleAgcId">功能模块Id</param>
+        /// <param name="arrFieldInfo">字段导入列表</param>
+        /// <param name="strUpdUser">操作用户</param>
+        /// <returns>返回导入后的TabId</returns>
+        public static string ImportPrjTabWithFieldCheckBak(
+            string strPrjId,
+            string strPrjDataBaseId,
+            string strTabName,
+            string strTabCnName,
+            string strTabMemo,
+            string strSqlDsTypeId,
+            string strFuncModuleAgcId,
+            List<FieldImportInfo> arrFieldInfo,
+            string strUpdUser)
+        {
+            if (string.IsNullOrEmpty(strPrjId))
+            {
+                throw new Exception(string.Format("工程Id不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strPrjDataBaseId))
+            {
+                throw new Exception(string.Format("工程数据库Id不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strTabName))
+            {
+                throw new Exception(string.Format("表名不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strUpdUser))
+            {
+                throw new Exception(string.Format("操作用户不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+
+            clsPrjDataBaseEN objPrjDataBase = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(strPrjDataBaseId);
+            if (objPrjDataBase == null)
+            {
+                throw new Exception(string.Format("工程数据库不存在！PrjDataBaseId={0}({1})",
+                    strPrjDataBaseId, clsStackTrace.GetCurrClassFunction()));
+            }
+
+            if (string.IsNullOrEmpty(strSqlDsTypeId))
+            {
+                strSqlDsTypeId = enumSQLDSType.SqlTab_01;
+            }
+            if (string.IsNullOrEmpty(strTabCnName))
+            {
+                strTabCnName = strTabName;
+            }
+            if (string.IsNullOrEmpty(strTabMemo))
+            {
+                strTabMemo = strTabCnName;
+            }
+
+            string strTabId = AddRecord(
+                strPrjId,
+                objPrjDataBase.DataBaseName,
+                strTabName,
+                strTabCnName,
+                strTabMemo,
+                strSqlDsTypeId,
+                strFuncModuleAgcId,
+                strUpdUser);
+
+            if (string.IsNullOrEmpty(strTabId))
+            {
+                throw new Exception(string.Format("导入工程表失败，未生成TabId。({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+
+            if (arrFieldInfo != null && arrFieldInfo.Count > 0)
+            {
+                foreach (FieldImportInfo objFieldInfo in arrFieldInfo)
+                {
+                    if (string.IsNullOrEmpty(objFieldInfo.FldName))
+                    {
+                        throw new Exception(string.Format("字段名称不能为空！TabName={0}({1})",
+                            strTabName, clsStackTrace.GetCurrClassFunction()));
+                    }
+                    if (string.IsNullOrEmpty(objFieldInfo.DataTypeName))
+                    {
+                        throw new Exception(string.Format("字段数据类型不能为空！FldName={0}({1})",
+                            objFieldInfo.FldName, clsStackTrace.GetCurrClassFunction()));
+                    }
+
+                    bool bolFieldResult = clsPrjTabFldBLEx.AddPrjTabFldWithFieldCheck(
+                        strTabId,
+                        strPrjId,
+                        objFieldInfo,
+                        strUpdUser);
+
+                    if (bolFieldResult == false)
+                    {
+                        throw new Exception(string.Format("导入字段失败！TabName={0}, FldName={1}({2})",
+                            strTabName, objFieldInfo.FldName, clsStackTrace.GetCurrClassFunction()));
+                    }
+                }
+            }
+
+            SetFldNumByTabId(strTabId, strPrjId);
+            SetUpdDate(strTabId, strUpdUser);
+
+            return strTabId;
+        }
+
+        /// <summary>
+        /// 导入工程表（PrjTab），并按需导入字段（FieldTab + PrjTabFld）
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strPrjDataBaseId">工程数据库Id</param>
+        /// <param name="strTabName">表英文名</param>
+        /// <param name="strTabCnName">表中文名</param>
+        /// <param name="strTabMemo">表备注</param>
+        /// <param name="strSqlDsTypeId">SQL数据源类型Id（默认01:Sql表）</param>
+        /// <param name="strFuncModuleName">功能模块名称（不存在则自动新增）</param>
+        /// <param name="arrFieldInfo">字段导入列表</param>
+        /// <param name="strUpdUser">操作用户</param>
+        /// <returns>返回导入后的TabId</returns>
+        public static string ImportPrjTabWithFieldCheck(
+            string strPrjId,
+            string strPrjDataBaseId,
+            string strTabName,
+            string strTabCnName,
+            string strTabMemo,
+            string strSqlDsTypeId,
+            string strFuncModuleName,
+            List<FieldImportInfo> arrFieldInfo,
+            string strUpdUser)
+        {
+            if (string.IsNullOrEmpty(strPrjId))
+            {
+                throw new Exception(string.Format("工程Id不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strPrjDataBaseId))
+            {
+                throw new Exception(string.Format("工程数据库Id不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strTabName))
+            {
+                throw new Exception(string.Format("表名不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+            if (string.IsNullOrEmpty(strUpdUser))
+            {
+                throw new Exception(string.Format("操作用户不能为空！({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+
+            clsPrjDataBaseEN objPrjDataBase = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(strPrjDataBaseId);
+            if (objPrjDataBase == null)
+            {
+                throw new Exception(string.Format("工程数据库不存在！PrjDataBaseId={0}({1})",
+                    strPrjDataBaseId, clsStackTrace.GetCurrClassFunction()));
+            }
+
+            if (string.IsNullOrEmpty(strSqlDsTypeId))
+            {
+                strSqlDsTypeId = enumSQLDSType.SqlTab_01;
+            }
+            if (string.IsNullOrEmpty(strTabCnName))
+            {
+                strTabCnName = strTabName;
+            }
+            if (string.IsNullOrEmpty(strTabMemo))
+            {
+                strTabMemo = strTabCnName;
+            }
+
+            string strFuncModuleAgcId = GetOrCreateFuncModuleAgcIdByName(strPrjId, strFuncModuleName, strUpdUser);
+
+            string strTabId = AddRecord(
+                strPrjId,
+                objPrjDataBase.DataBaseName,
+                strTabName,
+                strTabCnName,
+                strTabMemo,
+                strSqlDsTypeId,
+                strFuncModuleAgcId,
+                strUpdUser);
+
+            if (string.IsNullOrEmpty(strTabId))
+            {
+                throw new Exception(string.Format("导入工程表失败，未生成TabId。({0})", clsStackTrace.GetCurrClassFunction()));
+            }
+
+            if (arrFieldInfo != null && arrFieldInfo.Count > 0)
+            {
+                foreach (FieldImportInfo objFieldInfo in arrFieldInfo)
+                {
+                    if (string.IsNullOrEmpty(objFieldInfo.FldName))
+                    {
+                        throw new Exception(string.Format("字段名称不能为空！TabName={0}({1})",
+                            strTabName, clsStackTrace.GetCurrClassFunction()));
+                    }
+                    if (string.IsNullOrEmpty(objFieldInfo.DataTypeName))
+                    {
+                        throw new Exception(string.Format("字段数据类型不能为空！FldName={0}({1})",
+                            objFieldInfo.FldName, clsStackTrace.GetCurrClassFunction()));
+                    }
+
+                    bool bolFieldResult = clsPrjTabFldBLEx.AddPrjTabFldWithFieldCheck(
+                        strTabId,
+                        strPrjId,
+                        objFieldInfo,
+                        strUpdUser);
+
+                    if (bolFieldResult == false)
+                    {
+                        throw new Exception(string.Format("导入字段失败！TabName={0}, FldName={1}({2})",
+                            strTabName, objFieldInfo.FldName, clsStackTrace.GetCurrClassFunction()));
+                    }
+                }
+            }
+
+            SetFldNumByTabId(strTabId, strPrjId);
+            SetUpdDate(strTabId, strUpdUser);
+
+            return strTabId;
+        }
         /// <summary>
         /// 获取某表的记录数
         /// </summary>
@@ -4902,9 +5148,9 @@ namespace AGC.BusinessLogicEx
                             ? objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType
                             : "any",
                         objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.PrivFuncName),
+                    VarDef4Fld_TS = $"{objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTabENEx.PrivFuncName}: {(objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr() != null? objPrjTabENEx.ObjCacheClassifyFld_TS.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType: "any")}",
                     ParaVarId_TS = objPrjTabEN.ParaVar1TS
                 };
-
                 arrCacheClassify4Tab.Add(obj);
             }
 
@@ -4941,7 +5187,80 @@ namespace AGC.BusinessLogicEx
             }
             return arrCacheClassify4Tab;
         }
+        public static List<clsKeyFieldType> GetKeyTypeInfoLst(string strTabId)
+        {
+            if (string.IsNullOrEmpty(strTabId) == true)
+            {
+                string strMsg = string.Format("参数:[strTabId]不能为空！({0})", clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
 
+            clsPrjTabEN objPrjTab = clsPrjTabBL.GetObjByTabId(strTabId);
+            if (objPrjTab == null)
+            {
+                return new List<clsKeyFieldType>();
+            }
+
+            List<clsPrjTabFldEN> arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(strTabId, objPrjTab.PrjId);
+            List<clsPrjTabFldEN> arrPrjTabFld_Key = arrPrjTabFld
+                .Where(x => x.FieldTypeId == enumFieldType.KeyField_02)
+                .ToList();
+
+            List<clsKeyFieldType> arrKeyFieldType = new List<clsKeyFieldType>();
+            foreach (clsPrjTabFldEN objPrjTabFld in arrPrjTabFld_Key)
+            {
+                clsKeyFieldType objKeyFieldType = new clsKeyFieldType();
+                objKeyFieldType.KeyField = clsFieldTabBL.GetNameByFldIdCache(objPrjTabFld.FldId, objPrjTabFld.PrjId);
+                objKeyFieldType.KeyType = clsPrimaryTypeBLEx.GetKeyTypeEnumByPrimaryType(objPrjTabFld.PrimaryTypeId);
+                objKeyFieldType.KeyFieldCamel = clsPrjTabBLEx.ToCamelCase(objKeyFieldType.KeyField);
+                arrKeyFieldType.Add(objKeyFieldType);
+            }
+
+            return arrKeyFieldType;
+        }
+        /// <summary>
+        /// 根据功能模块名称获取模块Id；不存在则自动新增
+        /// </summary>
+        private static string GetOrCreateFuncModuleAgcIdByName(string strPrjId, string strFuncModuleName, string strUpdUser)
+        {
+            if (string.IsNullOrWhiteSpace(strFuncModuleName))
+            {
+                return "";
+            }
+
+            string strModuleName = strFuncModuleName.Trim();
+
+            List<clsFuncModule_AgcEN> arrFuncModule = clsFuncModule_AgcBL.GetObjLstCache(strPrjId);
+            clsFuncModule_AgcEN objFuncModule = arrFuncModule
+                .FirstOrDefault(x => x.FuncModuleName.Equals(strModuleName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (objFuncModule != null)
+            {
+                return objFuncModule.FuncModuleAgcId;
+            }
+
+            clsFuncModule_AgcEN objNewFuncModule = new clsFuncModule_AgcEN();
+            objNewFuncModule.FuncModuleAgcId = clsFuncModule_AgcBLEx.GetMaxStrIdEx_S(strPrjId);
+            objNewFuncModule.FuncModuleName = strModuleName;
+            objNewFuncModule.FuncModuleEnName = strModuleName;
+            objNewFuncModule.FuncModuleNameSim = strModuleName;
+            objNewFuncModule.PrjId = strPrjId;
+            objNewFuncModule.OrderNum = arrFuncModule.Count + 1;
+            objNewFuncModule.UseStateId = "0001";
+            objNewFuncModule.UpdUser = strUpdUser;
+            objNewFuncModule.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+            objNewFuncModule.Memo = "导入工程表时自动创建模块";
+
+            bool bolResult = clsFuncModule_AgcBL.AddNewRecordBySql2(objNewFuncModule);
+            if (bolResult == false)
+            {
+                throw new Exception(string.Format("自动创建功能模块失败！模块名:{0}({1})",
+                    strModuleName, clsStackTrace.GetCurrClassFunction()));
+            }
+
+            clsFuncModule_AgcBL.ReFreshThisCache(strPrjId);
+            return objNewFuncModule.FuncModuleAgcId;
+        }
     }
 }
 

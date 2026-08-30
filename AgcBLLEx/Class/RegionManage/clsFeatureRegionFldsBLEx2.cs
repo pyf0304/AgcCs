@@ -59,7 +59,15 @@ namespace AGC.BusinessLogicEx
             {
                 if (string.IsNullOrEmpty(objFeatureRegionFldsEx.ReleFldId) == false)
                 {
-                    objFeatureRegionFldsEx.ObjFieldTabENEx = clsFieldTabBLEx.GetObjExByFldIDCache(objFeatureRegionFldsEx.ReleFldId, objViewInfoENEx.PrjId);
+                    try
+                    {
+                        objFeatureRegionFldsEx.ObjFieldTabENEx = clsFieldTabBLEx.GetObjExByFldIDCache(objFeatureRegionFldsEx.ReleFldId, objViewInfoENEx.PrjId);
+                    }
+                    catch(Exception objEx)
+                    {
+                        string strMsg = $"在设置功能区相关字段时，出错:{objEx.Message}. 按钮名: {objFeatureRegionFldsEx.ButtonName}";
+                        throw new Exception(strMsg);
+                    }
                 }
                 objFeatureRegionFldsEx.objCtlType = clsCtlTypeBL.GetObjByCtlTypeIdCache(objFeatureRegionFldsEx.CtlTypeId);
                 IEnumerable<clsvFunction4GeneCodeEN> arrObjLst = clsvFunction4GeneCodeBLEx.GetObjLstByFeatureIdCache(objFeatureRegionFldsEx.FeatureId);

@@ -105,7 +105,31 @@ namespace AutoGCLib
 
             }
         }
+        private string ToPascalCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToUpper(input[0]) + input.Substring(1);
+        }
 
+        public string TabName_Pascal
+        {
+            get
+            {
+                return ToPascalCase(objPrjTabENEx.TabName);
+            }
+        }
+        /// <summary>
+        /// 首字母是小写
+        /// </summary>
+        public string TabName_Camel
+        {
+            get
+            {
+
+                return clsString.FstLcaseS(objPrjTabENEx.TabName);
+
+            }
+        }
         public string TabCnName
         {
             get
@@ -141,6 +165,22 @@ namespace AutoGCLib
                 return objPrjTabENEx.IsAppliedInViewList4CmPrjId;
             }
         }
+        /// <summary>
+        /// 名称字段对象
+        /// </summary>
+        public clsPrjTabFldENEx objNameField
+        {
+            get
+            {
+                if (objPrjTabENEx != null)
+                {
+                    return objPrjTabENEx.arrFldSetAll.Find(x => x.FieldTypeId == enumFieldType.NameField_03);
+                }
+                return mobjNameField;
+            }
+            set => mobjNameField = value;
+        }
+
         public CacheClassify thisCacheClassify
         {
             get
@@ -352,7 +392,13 @@ namespace AutoGCLib
                 return string.Format("cls{0}WApi", objPrjTabENEx.TabName);
             }
         }
-
+        public string ThisClsName4WApiEx
+        {
+            get
+            {
+                return string.Format("cls{0}ExWApi", objPrjTabENEx.TabName);
+            }
+        }
         public string tabNameHead
         {
             get

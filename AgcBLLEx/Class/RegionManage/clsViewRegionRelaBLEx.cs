@@ -271,17 +271,16 @@ namespace AGC.BusinessLogicEx
         public static List<string> GetRegionIdLstByViewId(string strViewId)
         {
             string strCondition = string.Format("{0}='{1}'", conViewRegionRela.ViewId, strViewId);
-            List<clsViewRegionRelaEN> arrObjLst = clsViewRegionRelaBL.GetObjLst(strCondition);
-            if (arrObjLst.Count == 0) return new List<string>();
-            return arrObjLst.Select(x=>x.RegionId).ToList();
+            List<string> arrRegionId = clsViewRegionRelaBL.GetFldValue(conViewRegionRela.RegionId, strCondition);
+          
+            return arrRegionId;
         }
 
         public static List<string> GetRegionIdLstByViewIdAndRegionTypeId(string strViewId, string strRegionTypeId)
         {
             string strCondition = $"{conViewRegionRela.ViewId}='{strViewId}' and {conViewRegionRela.RegionId} in (select {conViewRegion.RegionId} from {conViewRegion._CurrTabName} where {conViewRegion.RegionTypeId} = '{strRegionTypeId}')";
-            List<clsViewRegionRelaEN> arrObjLst = clsViewRegionRelaBL.GetObjLst(strCondition);
-            if (arrObjLst.Count == 0) return new List<string>();
-            return arrObjLst.Select(x => x.RegionId).ToList();
+            List<string> arrRegionId = clsViewRegionRelaBL.GetFldValue(conViewRegionRela.RegionId, strCondition);
+            return arrRegionId;
         }
 
         /// <summary>

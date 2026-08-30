@@ -636,7 +636,7 @@ clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
  {
 clsTSysParaEN objTSysPara_Cond = new();
 string strCondition = objTSysPara_Cond
-.SetIdSchool(objTSysParaEN.IdSchool, "=")
+.SetId_School(objTSysParaEN.Id_School, "=")
 .SetSysParaName(objTSysParaEN.SysParaName, "=")
 .GetCombineCondition();
 bool bolIsExist = clsTSysParaBL.IsExistRecord(strCondition);

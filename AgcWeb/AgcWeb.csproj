@@ -103,6 +103,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>
     </PackageReference>
+    <PackageReference Include="Scriban">
+      <Version>7.2.6</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

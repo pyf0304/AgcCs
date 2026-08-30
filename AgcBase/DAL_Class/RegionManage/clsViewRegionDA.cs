@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRegionDA
  表名:ViewRegion(00050099)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:23
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/30 07:54:34
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:数据处理层(CS)(DALCode,0002)
+ 框架-层名:数据处理层CS(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -530,6 +530,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -594,6 +595,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -648,6 +650,7 @@ try
  objViewRegionEN.RegionName = objDT.Rows[0][conViewRegion.RegionName].ToString().Trim(); //区域名称(字段类型:varchar,字段长度:50,是否可空:False)
  objViewRegionEN.RegionTypeId = objDT.Rows[0][conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id(字段类型:char,字段长度:4,是否可空:False)
  objViewRegionEN.FileName = objDT.Rows[0][conViewRegion.FileName].ToString().Trim(); //文件名(字段类型:varchar,字段长度:150,是否可空:False)
+ objViewRegionEN.UseCacheModeId = objDT.Rows[0][conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id(字段类型:char,字段长度:2,是否可空:True)
  objViewRegionEN.Height = TransNullToInt(objDT.Rows[0][conViewRegion.Height].ToString().Trim()); //高度(字段类型:int,字段长度:4,是否可空:True)
  objViewRegionEN.Width = TransNullToInt(objDT.Rows[0][conViewRegion.Width].ToString().Trim()); //宽(字段类型:int,字段长度:4,是否可空:True)
  objViewRegionEN.ColNum = TransNullToInt(objDT.Rows[0][conViewRegion.ColNum].ToString().Trim()); //列数(字段类型:int,字段长度:4,是否可空:False)
@@ -698,6 +701,7 @@ try
  objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称(字段类型:varchar,字段长度:50,是否可空:False)
  objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id(字段类型:char,字段长度:4,是否可空:False)
  objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名(字段类型:varchar,字段长度:150,是否可空:False)
+ objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id(字段类型:char,字段长度:2,是否可空:True)
  objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度(字段类型:int,字段长度:4,是否可空:True)
  objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽(字段类型:int,字段长度:4,是否可空:True)
  objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数(字段类型:int,字段长度:4,是否可空:False)
@@ -757,6 +761,7 @@ RegionId = objRow[conViewRegion.RegionId].ToString().Trim(), //区域Id
 RegionName = objRow[conViewRegion.RegionName].ToString().Trim(), //区域名称
 RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(), //区域类型Id
 FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(), //文件名
+UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(), //使用缓存模式Id
 Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Height].ToString().Trim()), //高度
 Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Width].ToString().Trim()), //宽
 ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.ColNum].ToString().Trim()), //列数
@@ -800,6 +805,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -841,6 +847,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : TransNullToInt(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1095,6 +1102,10 @@ objRow[conViewRegion.RegionTypeId] = objViewRegionEN.RegionTypeId; //区域类�
  {
 objRow[conViewRegion.FileName] = objViewRegionEN.FileName; //文件名
  }
+ if (objViewRegionEN.UseCacheModeId !=  "")
+ {
+objRow[conViewRegion.UseCacheModeId] = objViewRegionEN.UseCacheModeId; //使用缓存模式Id
+ }
 objRow[conViewRegion.Height] = objViewRegionEN.Height; //高度
 objRow[conViewRegion.Width] = objViewRegionEN.Width; //宽
 objRow[conViewRegion.ColNum] = objViewRegionEN.ColNum; //列数
@@ -1198,6 +1209,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewRegion.FileName);
  var strFileName = objViewRegionEN.FileName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strFileName + "'");
+ }
+ 
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRegion.UseCacheModeId);
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strUseCacheModeId + "'");
  }
  
  if (objViewRegionEN.Height !=  null)
@@ -1360,6 +1378,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conViewRegion.FileName);
  var strFileName = objViewRegionEN.FileName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strFileName + "'");
+ }
+ 
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRegion.UseCacheModeId);
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strUseCacheModeId + "'");
  }
  
  if (objViewRegionEN.Height !=  null)
@@ -1527,6 +1552,13 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strFileName + "'");
  }
  
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRegion.UseCacheModeId);
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strUseCacheModeId + "'");
+ }
+ 
  if (objViewRegionEN.Height !=  null)
  {
  arrFieldListForInsert.Add(conViewRegion.Height);
@@ -1692,6 +1724,13 @@ public bool AddNewRecordBySQL2(clsViewRegionEN objViewRegionEN, SqlConnection ob
  arrValueListForInsert.Add("'" + strFileName + "'");
  }
  
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ arrFieldListForInsert.Add(conViewRegion.UseCacheModeId);
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strUseCacheModeId + "'");
+ }
+ 
  if (objViewRegionEN.Height !=  null)
  {
  arrFieldListForInsert.Add(conViewRegion.Height);
@@ -1830,6 +1869,7 @@ objRow[conViewRegion.RegionId] = oRow[conViewRegion.RegionId].ToString().Trim();
 objRow[conViewRegion.RegionName] = oRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objRow[conViewRegion.RegionTypeId] = oRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objRow[conViewRegion.FileName] = oRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objRow[conViewRegion.UseCacheModeId] = oRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objRow[conViewRegion.Height] = oRow[conViewRegion.Height].ToString().Trim(); //高度
 objRow[conViewRegion.Width] = oRow[conViewRegion.Width].ToString().Trim(); //宽
 objRow[conViewRegion.ColNum] = oRow[conViewRegion.ColNum].ToString().Trim(); //列数
@@ -1912,6 +1952,10 @@ objRow[conViewRegion.RegionTypeId] = objViewRegionEN.RegionTypeId; //区域类�
  if (objViewRegionEN.IsUpdated(conViewRegion.FileName))
  {
 objRow[conViewRegion.FileName] = objViewRegionEN.FileName; //文件名
+ }
+ if (objViewRegionEN.IsUpdated(conViewRegion.UseCacheModeId))
+ {
+objRow[conViewRegion.UseCacheModeId] = objViewRegionEN.UseCacheModeId; //使用缓存模式Id
  }
  if (objViewRegionEN.IsUpdated(conViewRegion.Height))
  {
@@ -2047,6 +2091,19 @@ sbSQL.AppendFormat("Update ViewRegion Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conViewRegion.FileName); //文件名
+ }
+ }
+ 
+ if (objViewRegionEN.IsUpdated(conViewRegion.UseCacheModeId))
+ {
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strUseCacheModeId, conViewRegion.UseCacheModeId); //使用缓存模式Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewRegion.UseCacheModeId); //使用缓存模式Id
  }
  }
  
@@ -2307,6 +2364,19 @@ sbSQL.AppendFormat("Update ViewRegion Set ");
  else
  {
  sbSQL.Append(" FileName = null,"); //文件名
+ }
+ }
+ 
+ if (objViewRegionEN.IsUpdated(conViewRegion.UseCacheModeId))
+ {
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" UseCacheModeId = '{0}',", strUseCacheModeId); //使用缓存模式Id
+ }
+ else
+ {
+ sbSQL.Append(" UseCacheModeId = null,"); //使用缓存模式Id
  }
  }
  
@@ -2572,6 +2642,19 @@ sbSQL.AppendFormat("Update ViewRegion Set ");
  }
  }
  
+ if (objViewRegionEN.IsUpdated(conViewRegion.UseCacheModeId))
+ {
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" UseCacheModeId = '{0}',", strUseCacheModeId); //使用缓存模式Id
+ }
+ else
+ {
+ sbSQL.Append(" UseCacheModeId = null,"); //使用缓存模式Id
+ }
+ }
+ 
  if (objViewRegionEN.IsUpdated(conViewRegion.Height))
  {
  if (objViewRegionEN.Height !=  null)
@@ -2832,6 +2915,19 @@ sbSQL.AppendFormat("Update ViewRegion Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conViewRegion.FileName); //文件名
+ }
+ }
+ 
+ if (objViewRegionEN.IsUpdated(conViewRegion.UseCacheModeId))
+ {
+ if (objViewRegionEN.UseCacheModeId !=  null)
+ {
+ var strUseCacheModeId = objViewRegionEN.UseCacheModeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strUseCacheModeId, conViewRegion.UseCacheModeId); //使用缓存模式Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conViewRegion.UseCacheModeId); //使用缓存模式Id
  }
  }
  
@@ -3213,6 +3309,7 @@ objViewRegionENT.RegionId = objViewRegionENS.RegionId; //区域Id
 objViewRegionENT.RegionName = objViewRegionENS.RegionName; //区域名称
 objViewRegionENT.RegionTypeId = objViewRegionENS.RegionTypeId; //区域类型Id
 objViewRegionENT.FileName = objViewRegionENS.FileName; //文件名
+objViewRegionENT.UseCacheModeId = objViewRegionENS.UseCacheModeId; //使用缓存模式Id
 objViewRegionENT.Height = objViewRegionENS.Height; //高度
 objViewRegionENT.Width = objViewRegionENS.Width; //宽
 objViewRegionENT.ColNum = objViewRegionENS.ColNum; //列数
@@ -3251,6 +3348,7 @@ clsCheckSql.CheckFieldLen(objViewRegionEN.RegionId, 10, conViewRegion.RegionId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionName, 50, conViewRegion.RegionName);
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionTypeId, 4, conViewRegion.RegionTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.FileName, 150, conViewRegion.FileName);
+clsCheckSql.CheckFieldLen(objViewRegionEN.UseCacheModeId, 2, conViewRegion.UseCacheModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.ContainerTypeId, 4, conViewRegion.ContainerTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.PageDispModeId, 2, conViewRegion.PageDispModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.InOutTypeId, 2, conViewRegion.InOutTypeId);
@@ -3276,6 +3374,7 @@ public void CheckProperty4Update(clsViewRegionEN objViewRegionEN)
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionName, 50, conViewRegion.RegionName);
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionTypeId, 4, conViewRegion.RegionTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.FileName, 150, conViewRegion.FileName);
+clsCheckSql.CheckFieldLen(objViewRegionEN.UseCacheModeId, 2, conViewRegion.UseCacheModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.ContainerTypeId, 4, conViewRegion.ContainerTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.PageDispModeId, 2, conViewRegion.PageDispModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.InOutTypeId, 2, conViewRegion.InOutTypeId);
@@ -3303,6 +3402,7 @@ clsCheckSql.CheckFieldLen(objViewRegionEN.RegionId, 10, conViewRegion.RegionId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionName, 50, conViewRegion.RegionName);
 clsCheckSql.CheckFieldLen(objViewRegionEN.RegionTypeId, 4, conViewRegion.RegionTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.FileName, 150, conViewRegion.FileName);
+clsCheckSql.CheckFieldLen(objViewRegionEN.UseCacheModeId, 2, conViewRegion.UseCacheModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.ContainerTypeId, 4, conViewRegion.ContainerTypeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.PageDispModeId, 2, conViewRegion.PageDispModeId);
 clsCheckSql.CheckFieldLen(objViewRegionEN.InOutTypeId, 2, conViewRegion.InOutTypeId);
@@ -3319,6 +3419,7 @@ clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.RegionId, conViewRegion.Regi
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.RegionName, conViewRegion.RegionName);
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.RegionTypeId, conViewRegion.RegionTypeId);
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.FileName, conViewRegion.FileName);
+clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.UseCacheModeId, conViewRegion.UseCacheModeId);
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.ContainerTypeId, conViewRegion.ContainerTypeId);
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.PageDispModeId, conViewRegion.PageDispModeId);
 clsCheckSql.CheckSqlInjection4Field(objViewRegionEN.InOutTypeId, conViewRegion.InOutTypeId);

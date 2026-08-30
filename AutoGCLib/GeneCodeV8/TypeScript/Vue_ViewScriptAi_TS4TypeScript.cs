@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using AutoGCLib.Templates;
-using AGC.Entity;
+﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
-using AGC.BusinessLogic;
+using AGC.Entity;
+using AgcCommBase;
+using AutoGCLib.Templates;
+using com.taishsoft.common;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace AutoGCLib
 {
@@ -62,6 +64,9 @@ namespace AutoGCLib
 
         private AiBaseTemplateModel BuildAiBaseTemplateModel()
         {
+            List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+            var arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(this.ViewId, this.PrjId);
+
             // 🔥 从导出区域字段中选择前两个字段用于排序示例（参考原生成器逻辑）
             var (sortField1, sortField1Info, sortField2, sortField2Info, availableFields) = GetSortFieldsFromExportRegion();
 
@@ -70,13 +75,52 @@ namespace AutoGCLib
             
             // 🔥 判断是否有字段映射函数（IsUseFunc）
             bool isUseFunc = this.IsUseFunc;
-            
+            string strUseCacheModeIdInList = arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).UseCacheModeId;
+            bool isUseCacheInList = strUseCacheModeIdInList == enumUseCacheMode.Inherit_01 ? needRefreshCache : 
+                (strUseCacheModeIdInList == enumUseCacheMode.Use_02 ? true : false);
+
             // 🔥 新增：判断是否为多关键字
             bool isMultiKey = objPrjTabEx_ListRegion?.arrKeyFldSet?.Count > 1;
             string strKeyTypeName="";
             if (isMultiKey == false)
             {
                 strKeyTypeName = PrjTabEx_ListRegion.arrKeyFieldType[0].KeyType.ToString();
+            }
+            // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
+            var keyFields = new List<KeyFieldInfo>();
+            if (PrjTabEx_EditRegion?.arrKeyFldSet != null)
+            {
+                foreach (var keyFld in PrjTabEx_EditRegion.arrKeyFldSet)
+                {
+                    var objFieldTab = keyFld.ObjFieldTab0();
+                    var isFieldNumeric = objFieldTab.IsNumberType();
+                    var fieldInitValue = isFieldNumeric ? "0" : "''";
+
+                    keyFields.Add(new KeyFieldInfo
+                    {
+                        FieldName = objFieldTab.FldName,
+                        FieldNameCamel = ToCamelCase(objFieldTab.FldName),
+                        PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
+                        IsNumber = isFieldNumeric,
+                        TypeScriptType = objFieldTab.TypeScriptType(),
+                        InitValue = fieldInitValue
+                    });
+                }
+            }
+
+            string strVarName4Cache1 = arrViewVariable.Find(x => x.VarId == PrjTabEx_ListRegion.ParaVar1TS)?.VariableName;
+            string strVarName4Cache2 = arrViewVariable.Find(x => x.VarId == PrjTabEx_ListRegion.ParaVar2TS)?.VariableName;
+            string strVarNameStr_DeleteKeyIdCache = "";
+            string strVarNameStr_RefreshCache = "";
+            if (string.IsNullOrEmpty(strVarName4Cache1) == false)
+            {
+                strVarNameStr_DeleteKeyIdCache = $"{strVarName4Cache1}.value,";
+                strVarNameStr_RefreshCache = $"{strVarName4Cache1}.value";
+            }
+            if (string.IsNullOrEmpty(strVarName4Cache2) == false)
+            {
+                strVarNameStr_DeleteKeyIdCache += $"{strVarName4Cache2},";
+                strVarNameStr_RefreshCache = $",{strVarName4Cache2}.value";
             }
 
             // 🔥 获取缓存分类字段信息
@@ -119,22 +163,32 @@ namespace AutoGCLib
                 TableNameUpper = ConvertToSnakeCase(TabName_Out4ListRegion4GC).ToUpper(),
                 TableCnName = objPrjTabEx_ListRegion.TabCnName,
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
+                refEditName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ClsName,
+                refListName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).ClsName,
+                refDetailName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006)?.ClsName ?? "",
+
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
-                NameFieldCamel = ToCamelCase(objNameField.FldName()),
-                
-                HasCacheMode = needRefreshCache,
+                NameFieldCamel = objNameField == null?"": ToCamelCase(objNameField.FldName()),
+                KeyFields = keyFields,
+                UseCacheMode = needRefreshCache,
+                UseCacheModeInList = isUseCacheInList,
+                UseCacheModeIdInList = strUseCacheModeIdInList,
                 HasCacheClassifyField = hasCacheClassifyField,
                 CacheClassifyFieldName = cacheClassifyFieldName,
                 CacheClassifyFieldCamel = cacheClassifyFieldCamel,
+                VarName4Cache1 = strVarName4Cache1,
+                VarName4Cache2 = strVarName4Cache2,
+                VarNameStr_DeleteKeyIdCache = strVarNameStr_DeleteKeyIdCache,
+                VarNameStr_RefreshCache = strVarNameStr_RefreshCache,
                 IsUseFunc = isUseFunc,
                 IsMultiKey = isMultiKey,  // 🔥 新增：是否为多关键字
                 strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
                 // 🔥 排序字段
-                SortField1 = sortField1,
+                SortField1 = clsString.Fst2LcaseS( sortField1),
                 SortField1Type = sortField1Info?.TypeScriptType ?? "any",
                 SortField1CompareExpr = sortField1Info?.CompareExpression ?? "String(a.field).localeCompare(String(b.field))",
-                SortField2 = sortField2,
+                SortField2 = clsString.Fst2LcaseS(sortField2),
                 SortField2Type = sortField2Info?.TypeScriptType ?? "any",
                 SortField2CompareExpr = sortField2Info?.CompareExpression ?? "String(a.field).localeCompare(String(b.field))",
                 AvailableFields = availableFields,
@@ -270,6 +324,12 @@ namespace AutoGCLib
             {
                 // 数字类型：使用减法
                 compareExpr = $"a.{fieldName} - b.{fieldName}";
+            }
+            else if (objField.IsDateType())
+            {
+                // 数字类型：使用减法
+                compareExpr = $"a.{fieldName}.getTime() - b.{fieldName}.getTime()";
+                //return a.createdAt.getTime() - b.createdAt.getTime();
             }
             else if (objField.IsBoolType())
             {

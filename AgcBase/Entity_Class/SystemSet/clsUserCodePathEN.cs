@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsUserCodePathEN
  表名:UserCodePath(00050204)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:47
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/29 19:03:34
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:系统设置(SystemSet)
- 框架-层名:实体层(CS)(EntityLayer,0001)
+ 框架-层名:实体层CS(EntityLayerCS,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -31,7 +31,7 @@ namespace AGC.Entity
 {
  /// <summary>
  /// 表UserCodePath的关键字(mId)的类型定义. 以便检查类型以及操作方便.
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 public class K_mId_UserCodePath
 {
@@ -70,7 +70,7 @@ return new K_mId_UserCodePath(value);
 }
  /// <summary>
  /// 用户生成路径(UserCodePath)
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 [Serializable]
 [DataContractAttribute]
@@ -82,8 +82,8 @@ public new const string _CurrTabName = "UserCodePath"; //当前表名,与该类�
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 19;
-public static string[] _AttributeName = new string[] {"mId", "CMProjectAppRelaId", "CodeTypeId", "TabMainTypeId", "IsGeneCode", "ProjectFileName", "ProjectPath", "PrjFileStateId", "CodePath", "GcPathId", "CodePathBackup", "SuffixPath", "IsTemplate", "IsExistCodePath", "IsExistCodePathBackup", "PrjId", "UpdDate", "UpdUserId", "Memo"};
+protected const int _AttributeCount = 21;
+public static string[] _AttributeName = new string[] {"mId", "CMProjectAppRelaId", "CodeTypeId", "TabMainTypeId", "IsGeneCode", "ProjectFileName", "ProjectPath", "PrjFileStateId", "CodePath", "CodePath4Share", "CodePathBackup", "CodePathBackup4Share", "GcPathId", "SuffixPath", "IsTemplate", "IsExistCodePath", "IsExistCodePathBackup", "PrjId", "UpdDate", "UpdUserId", "Memo"};
 
 protected long mlngmId;    //mId
 protected long mlngCMProjectAppRelaId;    //Cm工程应用关系Id
@@ -94,8 +94,10 @@ protected string mstrProjectFileName;    //工程文件名
 protected string mstrProjectPath;    //工程路径
 protected string mstrPrjFileStateId;    //工程文件状态Id
 protected string mstrCodePath;    //代码路径
-protected string mstrGcPathId;    //GC路径Id
+protected string mstrCodePath4Share;    //代码路径4共享
 protected string mstrCodePathBackup;    //备份代码路径
+protected string mstrCodePathBackup4Share;    //备份代码路径4共享
+protected string mstrGcPathId;    //GC路径Id
 protected string mstrSuffixPath;    //后缀路径
 protected bool mbolIsTemplate;    //是否模板
 protected bool mbolIsExistCodePath;    //是否存在代码路径
@@ -181,13 +183,21 @@ else if (strAttributeName  ==  conUserCodePath.CodePath)
 {
 return mstrCodePath;
 }
-else if (strAttributeName  ==  conUserCodePath.GcPathId)
+else if (strAttributeName  ==  conUserCodePath.CodePath4Share)
 {
-return mstrGcPathId;
+return mstrCodePath4Share;
 }
 else if (strAttributeName  ==  conUserCodePath.CodePathBackup)
 {
 return mstrCodePathBackup;
+}
+else if (strAttributeName  ==  conUserCodePath.CodePathBackup4Share)
+{
+return mstrCodePathBackup4Share;
+}
+else if (strAttributeName  ==  conUserCodePath.GcPathId)
+{
+return mstrGcPathId;
 }
 else if (strAttributeName  ==  conUserCodePath.SuffixPath)
 {
@@ -270,15 +280,25 @@ else if (strAttributeName  ==  conUserCodePath.CodePath)
 mstrCodePath = value.ToString();
  AddUpdatedFld(conUserCodePath.CodePath);
 }
-else if (strAttributeName  ==  conUserCodePath.GcPathId)
+else if (strAttributeName  ==  conUserCodePath.CodePath4Share)
 {
-mstrGcPathId = value.ToString();
- AddUpdatedFld(conUserCodePath.GcPathId);
+mstrCodePath4Share = value.ToString();
+ AddUpdatedFld(conUserCodePath.CodePath4Share);
 }
 else if (strAttributeName  ==  conUserCodePath.CodePathBackup)
 {
 mstrCodePathBackup = value.ToString();
  AddUpdatedFld(conUserCodePath.CodePathBackup);
+}
+else if (strAttributeName  ==  conUserCodePath.CodePathBackup4Share)
+{
+mstrCodePathBackup4Share = value.ToString();
+ AddUpdatedFld(conUserCodePath.CodePathBackup4Share);
+}
+else if (strAttributeName  ==  conUserCodePath.GcPathId)
+{
+mstrGcPathId = value.ToString();
+ AddUpdatedFld(conUserCodePath.GcPathId);
 }
 else if (strAttributeName  ==  conUserCodePath.SuffixPath)
 {
@@ -362,13 +382,21 @@ else if (conUserCodePath.CodePath  ==  _AttributeName[intIndex])
 {
 return mstrCodePath;
 }
-else if (conUserCodePath.GcPathId  ==  _AttributeName[intIndex])
+else if (conUserCodePath.CodePath4Share  ==  _AttributeName[intIndex])
 {
-return mstrGcPathId;
+return mstrCodePath4Share;
 }
 else if (conUserCodePath.CodePathBackup  ==  _AttributeName[intIndex])
 {
 return mstrCodePathBackup;
+}
+else if (conUserCodePath.CodePathBackup4Share  ==  _AttributeName[intIndex])
+{
+return mstrCodePathBackup4Share;
+}
+else if (conUserCodePath.GcPathId  ==  _AttributeName[intIndex])
+{
+return mstrGcPathId;
 }
 else if (conUserCodePath.SuffixPath  ==  _AttributeName[intIndex])
 {
@@ -451,15 +479,25 @@ else if (conUserCodePath.CodePath  ==  _AttributeName[intIndex])
 mstrCodePath = value.ToString();
  AddUpdatedFld(conUserCodePath.CodePath);
 }
-else if (conUserCodePath.GcPathId  ==  _AttributeName[intIndex])
+else if (conUserCodePath.CodePath4Share  ==  _AttributeName[intIndex])
 {
-mstrGcPathId = value.ToString();
- AddUpdatedFld(conUserCodePath.GcPathId);
+mstrCodePath4Share = value.ToString();
+ AddUpdatedFld(conUserCodePath.CodePath4Share);
 }
 else if (conUserCodePath.CodePathBackup  ==  _AttributeName[intIndex])
 {
 mstrCodePathBackup = value.ToString();
  AddUpdatedFld(conUserCodePath.CodePathBackup);
+}
+else if (conUserCodePath.CodePathBackup4Share  ==  _AttributeName[intIndex])
+{
+mstrCodePathBackup4Share = value.ToString();
+ AddUpdatedFld(conUserCodePath.CodePathBackup4Share);
+}
+else if (conUserCodePath.GcPathId  ==  _AttributeName[intIndex])
+{
+mstrGcPathId = value.ToString();
+ AddUpdatedFld(conUserCodePath.GcPathId);
 }
 else if (conUserCodePath.SuffixPath  ==  _AttributeName[intIndex])
 {
@@ -715,29 +753,29 @@ else
 }
 }
 /// <summary>
-/// GC路径Id(说明:;字段类型:char;字段长度:8;是否可空:True)
+/// 代码路径4共享(说明:;字段类型:varchar;字段长度:200;是否可空:False)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
   [DataMember]//非常重要
- public string GcPathId
+ public string CodePath4Share
 {
 get
 {
-return mstrGcPathId;
+return mstrCodePath4Share;
 }
 set
 {
 if (value  ==  "")
 {
 mintErrNo = 1;
- mstrGcPathId = value;
+ mstrCodePath4Share = value;
 }
 else
 {
- mstrGcPathId = value;
+ mstrCodePath4Share = value;
 }
 //记录修改过的字段
- AddUpdatedFld(conUserCodePath.GcPathId);
+ AddUpdatedFld(conUserCodePath.CodePath4Share);
 }
 }
 /// <summary>
@@ -764,6 +802,58 @@ else
 }
 //记录修改过的字段
  AddUpdatedFld(conUserCodePath.CodePathBackup);
+}
+}
+/// <summary>
+/// 备份代码路径4共享(说明:;字段类型:varchar;字段长度:200;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string CodePathBackup4Share
+{
+get
+{
+return mstrCodePathBackup4Share;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrCodePathBackup4Share = value;
+}
+else
+{
+ mstrCodePathBackup4Share = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conUserCodePath.CodePathBackup4Share);
+}
+}
+/// <summary>
+/// GC路径Id(说明:;字段类型:char;字段长度:8;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string GcPathId
+{
+get
+{
+return mstrGcPathId;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrGcPathId = value;
+}
+else
+{
+ mstrGcPathId = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conUserCodePath.GcPathId);
 }
 }
 /// <summary>
@@ -971,7 +1061,7 @@ public static class conUserCodePath
 {
 public const string _CurrTabName = "UserCodePath"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"mId", "CMProjectAppRelaId", "CodeTypeId", "TabMainTypeId", "IsGeneCode", "ProjectFileName", "ProjectPath", "PrjFileStateId", "CodePath", "GcPathId", "CodePathBackup", "SuffixPath", "IsTemplate", "IsExistCodePath", "IsExistCodePathBackup", "PrjId", "UpdDate", "UpdUserId", "Memo"};
+public static string[] _AttributeName = new string[] {"mId", "CMProjectAppRelaId", "CodeTypeId", "TabMainTypeId", "IsGeneCode", "ProjectFileName", "ProjectPath", "PrjFileStateId", "CodePath", "CodePath4Share", "CodePathBackup", "CodePathBackup4Share", "GcPathId", "SuffixPath", "IsTemplate", "IsExistCodePath", "IsExistCodePathBackup", "PrjId", "UpdDate", "UpdUserId", "Memo"};
 //以下是属性变量
 
 
@@ -1030,16 +1120,28 @@ public static string[] _AttributeName = new string[] {"mId", "CMProjectAppRelaId
  public const string CodePath = "CodePath";    //代码路径
 
  /// <summary>
- /// 常量:"GcPathId"
+ /// 常量:"CodePath4Share"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
- public const string GcPathId = "GcPathId";    //GC路径Id
+ public const string CodePath4Share = "CodePath4Share";    //代码路径4共享
 
  /// <summary>
  /// 常量:"CodePathBackup"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string CodePathBackup = "CodePathBackup";    //备份代码路径
+
+ /// <summary>
+ /// 常量:"CodePathBackup4Share"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string CodePathBackup4Share = "CodePathBackup4Share";    //备份代码路径4共享
+
+ /// <summary>
+ /// 常量:"GcPathId"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string GcPathId = "GcPathId";    //GC路径Id
 
  /// <summary>
  /// 常量:"SuffixPath"

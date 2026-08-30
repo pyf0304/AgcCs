@@ -1,0 +1,310 @@
+接口：POST /PrjTabExApi/ImportPrjTabWithFieldCheck
+说明：
+1）单字段成功后，多字段只需要在 arrFieldInfo 中继续追加对象；
+2）必须是一个完整 JSON，不能在末尾再拼第二个 JSON；
+3）字段名大小写按当前后端结构体：FldName / DataTypeName / IsNull ...（首字母大写）。
+
+
+========================
+一、最小测试（2个字段）
+========================
+{
+  "strPrjId": "0178",
+  "strPrjDataBaseId": "0219",
+  "strTabName": "GrowthPlan_T2",
+  "strTabCnName": "成长计划_测试1",
+  "strTabMemo": "测试：2字段",
+  "strSqlDsTypeId": "01",
+  "strFuncModuleName": "教师成长",
+  "arrFieldInfo": [
+    {
+      "FldName": "plan_id",
+      "FldCnName": "计划ID",
+      "Caption": "计划ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "成长计划唯一标识符",
+      "IsPrimaryKey": true
+    },
+    {
+      "FldName": "planName",
+      "FldCnName": "计划名",
+      "Caption": "计划名",
+      "DataTypeName": "varchar",
+      "FldLength": 50,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "成长计划名称唯一标识符",
+      "IsPrimaryKey": false,
+      "IsNameField": true
+    },
+    {
+      "FldName": "teacher_id",
+      "FldCnName": "教师ID",
+      "Caption": "教师ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "关联教师ID",
+      "IsPrimaryKey": false
+    }
+  ],
+  "strOpUser": "pyf"
+}
+
+
+========================
+二、完整测试（GrowthPlan 全字段）
+========================
+{
+  "strPrjId": "0178",
+  "strPrjDataBaseId": "0219",
+  "strTabName": "GrowthPlan",
+  "strTabCnName": "成长计划",
+  "strTabMemo": "成长计划表",
+  "strSqlDsTypeId": "01",
+  "strFuncModuleName": "教师成长",
+  "arrFieldInfo": [
+    {
+      "FldName": "plan_id",
+      "FldCnName": "计划ID",
+      "Caption": "计划ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "成长计划唯一标识符",
+      "IsPrimaryKey": true
+    },
+    {
+      "FldName": "teacher_id",
+      "FldCnName": "教师ID",
+      "Caption": "教师ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "关联教师唯一标识符",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "linked_goal_id",
+      "FldCnName": "关联目标ID",
+      "Caption": "关联目标ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "链接 GrowthGoal",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "linked_stage_node_id",
+      "FldCnName": "关联阶段节点ID",
+      "Caption": "关联阶段节点ID",
+      "DataTypeName": "varchar",
+      "FldLength": 32,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "链接 GrowthStageNode",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "plan_title",
+      "FldCnName": "计划标题",
+      "Caption": "计划标题",
+      "DataTypeName": "varchar",
+      "FldLength": 200,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "计划简短标题",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "plan_description",
+      "FldCnName": "计划描述",
+      "Caption": "计划描述",
+      "DataTypeName": "text",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "计划详细描述",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "plan_type",
+      "FldCnName": "计划类型",
+      "Caption": "计划类型",
+      "DataTypeName": "varchar",
+      "FldLength": 20,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "TEACHING/TRAINING/SELF_LEARNING/OBSERVATION/OTHER",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "priority",
+      "FldCnName": "优先级",
+      "Caption": "优先级",
+      "DataTypeName": "varchar",
+      "FldLength": 10,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "'MEDIUM'",
+      "Memo": "HIGH/MEDIUM/LOW",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "status",
+      "FldCnName": "计划状态",
+      "Caption": "计划状态",
+      "DataTypeName": "varchar",
+      "FldLength": 20,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "'NOT_STARTED'",
+      "Memo": "NOT_STARTED/IN_PROGRESS/COMPLETED/OVERDUE/CANCELLED",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "start_date",
+      "FldCnName": "开始日期",
+      "Caption": "开始日期",
+      "DataTypeName": "datetime",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "计划开始日期",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "due_date",
+      "FldCnName": "截止日期",
+      "Caption": "截止日期",
+      "DataTypeName": "datetime",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "应完成截止日期",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "completed_date",
+      "FldCnName": "完成日期",
+      "Caption": "完成日期",
+      "DataTypeName": "datetime",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "",
+      "Memo": "实际完成日期",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "progress_percent",
+      "FldCnName": "进度百分比",
+      "Caption": "进度百分比",
+      "DataTypeName": "int",
+      "FldLength": 4,
+      "FldPrecision": 0,
+      "IsNull": true,
+      "IsTabNullable": true,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "0",
+      "Memo": "0-100 整数",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "created_at",
+      "FldCnName": "创建时间",
+      "Caption": "创建时间",
+      "DataTypeName": "datetime",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "getdate()",
+      "Memo": "创建时间戳",
+      "IsPrimaryKey": false
+    },
+    {
+      "FldName": "updated_at",
+      "FldCnName": "更新时间",
+      "Caption": "更新时间",
+      "DataTypeName": "datetime",
+      "FldLength": 0,
+      "FldPrecision": 0,
+      "IsNull": false,
+      "IsTabNullable": false,
+      "IsForExtendClass": false,
+      "DnPathId": "",
+      "DefaultValue": "getdate()",
+      "Memo": "最后更新时间戳",
+      "IsPrimaryKey": false
+    }
+  ],
+  "strOpUser": "pyf"
+}

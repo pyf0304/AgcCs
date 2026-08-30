@@ -124,7 +124,7 @@ namespace AutoGCLib
                         FieldName = objFieldTab.FldName,
                         FieldNameCamel = ToCamelCase(objFieldTab.FldName),
                         PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
-                        IsNumeric = isFieldNumeric,
+                        IsNumber = isFieldNumeric,
                         TypeScriptType = objFieldTab.TypeScriptType(),
                         InitValue = fieldInitValue
                     });

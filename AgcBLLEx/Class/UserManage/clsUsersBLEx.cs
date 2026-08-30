@@ -325,7 +325,7 @@ namespace AGC.BusinessLogicEx
                 }
                 else
                 {
-                    clsUserIdentityEN objUserIdentityEN = clsUserIdentityBL.GetObjByIdentityIDCache(objUsersEN.IdentityID);
+                    clsUserIdentityEN objUserIdentityEN = clsUserIdentityBL.GetObjByIdentityIdCache(objUsersEN.IdentityID);
                     switch (objUserIdentityEN.IdentityDesc)
                     {
                         case "学生":

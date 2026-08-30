@@ -2570,7 +2570,7 @@ namespace AutoGCLib
         public static void AddCodeElement_Import(CodeElement objCodeElement_Parent, CodeElement objCodeElement_Import)
         {
             if (objCodeElement_Parent == null) return;
-            objCodeElement_Import.CodeContent = ReplaceImportStr(objCodeElement_Import.CodeContent);
+            objCodeElement_Import.CodeContent = ReplaceImportStr(objCodeElement_Import.CodeContent??"");
             objCodeElement_Import.From = ReplaceImportStr(objCodeElement_Import.From);
 
 

@@ -85,6 +85,8 @@ namespace AutoGCLib
 
         protected string strIsUseFunc = null;
         protected string strIsUseFunc4ExcelExport = null;
+        protected string strIsUseFunc4Detail = null;
+
         protected CacheClassify4View myCacheClassify4View = null;
         protected CacheClassify objCacheClassify_TS = null;
         protected CacheClassify objCacheClassify_List_TS = null;
@@ -119,7 +121,7 @@ namespace AutoGCLib
         protected clsPrjTabFldENEx mobjKeyField = null;
         protected List<clsPrjTabFldENEx> marrKeyFieldList = null;
         protected clsPrjTabFldENEx mobjPrefixField = null;
-      
+      public string FunctionTemplateId { get; set; }
 
         public string CmPrjId { get; set; }
 

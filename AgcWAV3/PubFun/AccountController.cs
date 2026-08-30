@@ -1,5 +1,6 @@
 ﻿using AGCWA.PubFun;
 using com.taishsoft.common;
+using com.taishsoft.json;
 using Comm.PubFun;
 using Comm.WebApi;
 using GeneralPlatform.BusinessLogic;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,13 +61,8 @@ namespace UserAdmin.Controllers
         [HttpGet("info")]
         public IActionResult info()
         {
-            string strFunctionName = clsStackTrace.GetCurrFunction();
-            Dictionary<string, string> dictParam = new Dictionary<string, string>();
-                
-            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-
-            var userName = HttpContext.User.Identity.Name;
-            if (userName == null)
+            var userId = HttpContext.User.Identity.Name;
+            if (userId == null)
             {
                 string strMsg = $"HttpContext.User.Identity.Name 为null, 请检查！";
                 _logger.LogInformation($"用户身份为空");
@@ -76,17 +73,46 @@ namespace UserAdmin.Controllers
                     message = strMsg
                 });
             }
-            _logger.LogInformation($"用户身份: {userName}");
+            _logger.LogInformation($"用户Id: {userId}");
             var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-            string strCondition = string.Format("{0}='{1}'", conQxUsersV2.UserName, userName);
-            var objQxUsersV2 = clsQxUsersV2BL.GetFirstObj_S(strCondition);
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+
+            dictParam.Add("userId", userId);
+            dictParam.Add("ipAddress", ipAddress);
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            string strCondition = string.Format("{0}='{1}'", conQxUsers.UserId, userId);
+            var objQxUsersV2 = clsQxUsersBL.GetFirstObj_S(strCondition);
             if (objQxUsersV2 == null)
             {
                 return Ok(new
                 {
                     data = "",
                     code = 201,
-                    message = "fail"
+                    message = $"用户{userId}在数据表中没有相应的信息！（in {strFunctionName}）"
+                });
+            }
+            string strQxPrjId = "0005";
+            var arrRoleId = clsQxUserRoleRelationBLEx.GetRoleIdLstByUserId(strQxPrjId, userId);
+            if (arrRoleId == null || arrRoleId.Count == 0)
+            {
+                return Ok(new
+                {
+                    data = string.Format("登录用户:{0}没有设置相关角色！", userId),
+                    code = 201,
+                    message = $"登录用户:{userId}没有设置相关角色！(in {strFunctionName})"
+                });
+            }
+            var arrRoleName = clsQxRolesBLEx.GetRoleNameLstByRoleIdLstCache(strQxPrjId, arrRoleId);
+            if (arrRoleName == null || arrRoleName.Count == 0)
+            {
+                return Ok(new
+                {
+                    data = string.Format("roleIds:{0}没有相关的角色名称！", arrRoleId),
+                    code = 201,
+                    message = $"roleIds:{arrRoleId}没有相关的角色名称！！(in {strFunctionName})"
                 });
             }
             // 封装数据结构
@@ -94,18 +120,20 @@ namespace UserAdmin.Controllers
             {
                 data = new
                 {
-                    email = objQxUsersV2.Email==null?"": objQxUsersV2.Email,// "qa894178522@qq.com",
-                    headImg = objQxUsersV2.headImg == null ? "" : objQxUsersV2.headImg,// "https://buqiyuan.gitee.io/img/logo.jpg",
+                    email = objQxUsersV2.Email == null ? "" : objQxUsersV2.Email,// "qa894178522@qq.com",
+                    headImg = objQxUsersV2.HeadPic == null ? "" : objQxUsersV2.HeadPic,// "https://buqiyuan.gitee.io/img/logo.jpg",
                     loginIp = ipAddress,//"180.158.97.113",
-                    name = objQxUsersV2.name,//"路飞",
-                    nickName = objQxUsersV2.nickName == null ? "" : objQxUsersV2.nickName,//"",
-                    phone = objQxUsersV2.phone,//"15622472425",
-                    remark = objQxUsersV2.remark == null ? "" : objQxUsersV2.remark//"null"
+                    name = objQxUsersV2.UserName,//"路飞",
+                    nickName = objQxUsersV2.NickName == null ? "" : objQxUsersV2.NickName,//"",
+                    phone = objQxUsersV2.PhoneNumber,//"15622472425",
+                    remark = objQxUsersV2.Memo == null ? "" : objQxUsersV2.Memo,//"null"
+                    roleIds = string.Join(",", arrRoleId),
+                    roleNames = string.Join(",", arrRoleName),
                 },
                 code = 200,
                 message = "success"
             };
-            _logger.LogInformation($"获取用户信息成功: {userName}");
+            _logger.LogInformation($"获取用户信息成功: {userId}");
             return Ok(result);
 
         }
@@ -117,30 +145,35 @@ namespace UserAdmin.Controllers
         /// <returns></returns>
         [HttpGet("permmenu")]
         public IActionResult permmenu()
-        {
-            string strFunctionName = clsStackTrace.GetCurrFunction();
-            Dictionary<string, string> dictParam = new Dictionary<string, string>();
-            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+        {           
 
             string strQxPrjId = "0005";
             //获取数据的流程
             //1、获取当前用户名userName
             //2、根据用户获取角色
             //3、根据角色获取相关的菜单列表
-            var userName = HttpContext.User.Identity.Name;
+            var userId = HttpContext.User.Identity.Name;
             var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-            string strCondition = string.Format("{0}='{1}'", conQxUsersV2.UserName, userName);
-            var arrRId = clsQxUserRoleRelationV2BLEx.GetRIdLstByUserName(userName);
-            if (arrRId == null || arrRId.Count == 0)
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+
+            dictParam.Add("userId", userId);
+            dictParam.Add("ipAddress", ipAddress);
+         
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            string strCondition = string.Format("{0}='{1}'", conQxUsers.UserId, userId);
+            var arrRoleId = clsQxUserRoleRelationBLEx.GetRoleIdLstByUserId(strQxPrjId, userId);
+            if (arrRoleId == null || arrRoleId.Count == 0)
             {
                 return Ok(new
                 {
-                    data = string.Format("登录用户:{0}没有设置相关角色！", userName),
+                    data = string.Format("登录用户:{0}没有设置相关角色！", userId),
                     code = 201,
-                    message = "fail"
+                    message = $"登录用户:{userId}没有设置相关角色！(in {strFunctionName})"
                 });
             }
-            var arrPrjMenusV2 = clsQxRoleMenusV2BLEx.GetObjLstByRIds(arrRId, strQxPrjId);
+            var arrPrjMenusV2 = clsQxRoleMenusV2BLEx.GetObjLstByRoleIds(arrRoleId, strQxPrjId);
             List<Object> arrObjs = new List<Object>();
             foreach (var objInFor in arrPrjMenusV2)
             {
@@ -171,7 +204,7 @@ namespace UserAdmin.Controllers
                 arrObjs.Add(obj);
             }
 
-            List<string> arrPermss = clsQxRolePotenceV2BLEx.GetPotenceNameLstByRIds(arrRId, strQxPrjId);
+            List<string> arrPermss = clsQxRolePotenceV2BLEx.GetPotenceNameLstByRoleIds(arrRoleId, strQxPrjId);
             // 封装数据结构
             var result = new
             {

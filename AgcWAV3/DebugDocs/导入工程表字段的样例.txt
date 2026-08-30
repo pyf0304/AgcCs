@@ -1,0 +1,20 @@
+{
+    "strTabId": "01780001",
+    "strPrjId": "0178",
+    "fieldInfo": {
+        "FldName": "UserName",
+        "fldCnName": "用户名",
+        "caption": "用户名",
+        "dataTypeName": "varchar",
+        "fldLength": 50,
+        "fldPrecision": 0,
+        "isNull": false,
+        "isTabNullable": false,
+        "isForExtendClass": false,
+        "dnPathId": "",
+        "defaultValue": "",
+        "memo": "用户名字段",
+        "isPrimaryKey": false
+    },
+    "strUpdUser": "admin"
+}

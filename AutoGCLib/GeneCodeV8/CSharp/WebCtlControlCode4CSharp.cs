@@ -126,7 +126,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
 
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
 
 
                 //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
@@ -645,25 +645,8 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
 
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
 
-                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                //clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
-                //objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
-
-                //int intCount1 = arrvFunction4GeneCodeObjLst.Count();
-                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLstByFeature = objViewInfoENEx.arrvFunction4GeneCodeSetByFeatureLst;
-                //int intCount2 = arrvFunction4GeneCodeObjLstByFeature.Count();
-                //arrvFunction4GeneCodeObjLstByFeature = arrvFunction4GeneCodeObjLstByFeature.Where(x => x.CodeTypeId == objViewInfoENEx.CodeTypeId);
-                //int intCount3 = arrvFunction4GeneCodeObjLstByFeature.Count();
-              
-                //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_All = arrvFunction4GeneCodeObjLst.Union(arrvFunction4GeneCodeObjLstByFeature, new VFunction4GeneCodeComparer());
-
-                //int intCount4 = arrvFunction4GeneCodeObjLst_All.Count();
-
-                //arrvFunction4GeneCodeObjLst_All = arrvFunction4GeneCodeObjLst_All.OrderBy(x => x.OrderNum);
-
-                //int intCount5 = arrvFunction4GeneCodeObjLst_All.Count();
 
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
                 {

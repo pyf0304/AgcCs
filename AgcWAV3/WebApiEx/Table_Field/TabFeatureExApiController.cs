@@ -1,5 +1,4 @@
-﻿
-using AGC.BusinessLogic;
+﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using com.taishsoft.common;
 using Comm.WebApi;
@@ -204,6 +203,68 @@ namespace AGC.WebApi
             {
                 var varResult = clsTabFeatureBLEx.CheckTabFeatureFld(strTabFeatureId, strPrjId, strOpUserId);
                 return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        /// <summary>
+        /// 根据TabId获取FeatureId列表
+        /// 调用方法: Get /TabFeatureExApi/GetFeatureIdLstByTabId?strTabId=value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <returns>FeatureId列表</returns>
+        [HttpGet("GetTabFeatureIdLstByTabId")]
+        public ActionResult GetTabFeatureIdLstByTabId(string strTabId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            if (string.IsNullOrEmpty(strTabId) == true)
+            {
+                string strMsg = string.Format("参数[strTabId]不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+
+            try
+            {
+                var varResult = clsTabFeatureBLEx.GetTabFeatureIdLstByTabId(strTabId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStrLst = string.Join(",", varResult) });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        /// <summary>
+        /// 根据CmPrjId获取该Cm工程下所有有下拉框功能(Tab_BindDdl_0173)的TabId列表
+        /// 调用方法: Get /TabFeatureExApi/GetTabIdLstWithBindDdlByCmPrjId?strCmPrjId=value
+        /// </summary>
+        /// <param name="strCmPrjId">CM工程Id</param>
+        /// <returns>TabId列表</returns>
+        [HttpGet("GetTabIdLstWithBindDdlByCmPrjId")]
+        public ActionResult GetTabIdLstWithBindDdlByCmPrjId(string strCmPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strCmPrjId", strCmPrjId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            if (string.IsNullOrEmpty(strCmPrjId) == true)
+            {
+                string strMsg = string.Format("参数[strCmPrjId]不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+
+            try
+            {
+                var varResult = clsTabFeatureBLEx.GetTabIdLstWithBindDdlByCmPrjId(strCmPrjId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStrLst = string.Join(",", varResult) });
             }
             catch (Exception objException)
             {

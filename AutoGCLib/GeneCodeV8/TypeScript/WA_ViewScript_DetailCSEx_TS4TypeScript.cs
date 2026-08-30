@@ -175,7 +175,7 @@ namespace AutoGCLib
                 //strCodeForCs.Append("\r\n" + "#endregion 页面启动函数");
                 //生成所有的函数
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-           clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+           clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
 
                 //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
                 //  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,

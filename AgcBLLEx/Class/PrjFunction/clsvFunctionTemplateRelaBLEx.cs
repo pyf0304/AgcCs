@@ -88,8 +88,8 @@ namespace AGC.BusinessLogicEx
 
             List<clsvFunctionTemplateRelaEN> arrObjLstCache = clsvFunctionTemplateRelaBL.GetObjLstCache();
 
-           
-          
+
+
             IEnumerable<clsvFunctionTemplateRelaEN> arrFunctionTemplateRelaObjLst_Sel1 =
                 from objFunctionTemplateRelaEN in arrObjLstCache
                 where objFunctionTemplateRelaEN.FunctionTemplateId == strFunctionTemplateId
@@ -128,7 +128,7 @@ namespace AGC.BusinessLogicEx
 
             return arrFunctionTemplateRelaObjLst_Sel1;
         }
-               
+
 
         /// <summary>
         /// 从缓存中获取满足条件所有【系统缺省值名称】对象列表.
@@ -145,9 +145,9 @@ namespace AGC.BusinessLogicEx
         {
             string strProgLangTypeId = clsProgLangTypeBLEx.GetProgLangTypeIdByLangTypeCache(ltLangType);
             List<string> arrSqlDsTypeIdLst = new List<string>() { "00", strSqlDsTypeId };
-                        
+
             List<clsvFunctionTemplateRelaEN> arrObjLstCache = clsvFunctionTemplateRelaBL.GetObjLstCache();
-           
+
             IEnumerable<clsvFunctionTemplateRelaEN> arrFunctionTemplateRelaObjLst_Sel1 =
                 from objFunctionTemplateRelaEN in arrObjLstCache
                 where objFunctionTemplateRelaEN.FunctionTemplateId == strFunctionTemplateId
@@ -184,7 +184,7 @@ namespace AGC.BusinessLogicEx
             {
                 arrFunctionTemplateRelaObjLst_Sel.Add(obj);
             }
-            if (arrFunctionTemplateRelaObjLst_Sel.Count > 0)                return arrFunctionTemplateRelaObjLst_Sel[0];
+            if (arrFunctionTemplateRelaObjLst_Sel.Count > 0) return arrFunctionTemplateRelaObjLst_Sel[0];
 
             return null;
         }
@@ -228,17 +228,17 @@ namespace AGC.BusinessLogicEx
             string strCodeTypeId, string strSqlDsTypeId)
         {
             string strProgLangTypeId = clsProgLangTypeBLEx.GetProgLangTypeIdByLangTypeCache(ltLangType);
-        
+
             List<clsvFunctionTemplateRelaEN> arrvFunctionTemplateRelaObjLst = clsvFunctionTemplateRelaBLEx.GetAllvFunctionTemplateRelaObjLstCacheEx(strFunctionTemplateId, ltLangType, strCodeTypeId, strSqlDsTypeId);
 
-            IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst = arrvFunctionTemplateRelaObjLst.Select(GetFunction4GeneCodeObj).OrderBy(x=>x.OrderNum);
+            IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst = arrvFunctionTemplateRelaObjLst.Select(GetFunction4GeneCodeObj).OrderBy(x => x.OrderNum);
             return arrvFunction4GeneCodeObjLst.ToList();
         }
 
         public static IEnumerable<clsvFunction4GeneCodeEN> getFunction4GeneCodeObjLstByTemplateId(string strFunctionTemplateId, string strCodeTypeId, string strRegionTypeId)
         {
 
-            IEnumerable<clsvFunctionTemplateRelaEN> arrvFunctionTemplateRelaObjLst = clsvFunctionTemplateRelaBLEx.GetObjObjLstCacheEx(strFunctionTemplateId, strCodeTypeId,  strRegionTypeId);
+            IEnumerable<clsvFunctionTemplateRelaEN> arrvFunctionTemplateRelaObjLst = clsvFunctionTemplateRelaBLEx.GetObjObjLstCacheEx(strFunctionTemplateId, strCodeTypeId, strRegionTypeId);
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst = arrvFunctionTemplateRelaObjLst.Select(GetFunction4GeneCodeObj).OrderBy(x => x.OrderNum);
             return arrvFunction4GeneCodeObjLst;
@@ -251,7 +251,7 @@ namespace AGC.BusinessLogicEx
         public static clsvFunction4GeneCodeEN GetFunction4GeneCodeObj(clsvFunctionTemplateRelaEN objvFunctionTemplateRelaENS)
         {
             clsvFunction4GeneCodeEN objvFunction4GeneCodeENT = clsvFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunctionTemplateRelaENS.FuncId4GC);
-            
+
             return objvFunction4GeneCodeENT;
         }
 
@@ -262,19 +262,19 @@ namespace AGC.BusinessLogicEx
         /// </summary>
         /// <param name="strFunctionTemplateId">模板Id</param>
         /// <returns></returns>
-        public static IEnumerable<clsvFunction4GeneCodeEN> getUSFFunction4GeneCodeObjLstByTemplateId(string strFunctionTemplateId            )
+        public static IEnumerable<clsvFunction4GeneCodeEN> getUSFFunction4GeneCodeObjLstByTemplateId(string strFunctionTemplateId)
         {
             List<clsvFunctionTemplateRelaEN> arrObjLstCache = clsvFunctionTemplateRelaBL.GetObjLstCache();
-                       
+
             IEnumerable<clsvFunctionTemplateRelaEN> arrFunctionTemplateRelaObjLst_Sel1 =
                 from objFunctionTemplateRelaEN in arrObjLstCache
-                where objFunctionTemplateRelaEN.FunctionTemplateId == strFunctionTemplateId              
+                where objFunctionTemplateRelaEN.FunctionTemplateId == strFunctionTemplateId
                 && objFunctionTemplateRelaEN.FuncTypeId == "10"
                 select objFunctionTemplateRelaEN;
-         
+
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst = arrFunctionTemplateRelaObjLst_Sel1.Select(GetFunction4GeneCodeObj);
             return arrvFunction4GeneCodeObjLst;
-            
+
         }
 
 
@@ -297,8 +297,8 @@ namespace AGC.BusinessLogicEx
               string strCodeTypeId)
         {
             string strCondition = string.Format("{0}='{1}' And {2}='{3}' order by {4}",
-                convFunctionTemplateRela.FunctionTemplateId, strFunctionTemplateId,                 
-                 convFunctionTemplateRela.CodeTypeId, strCodeTypeId,                
+                convFunctionTemplateRela.FunctionTemplateId, strFunctionTemplateId,
+                 convFunctionTemplateRela.CodeTypeId, strCodeTypeId,
                 convFunctionTemplateRela.OrderNum);
             List<clsvFunctionTemplateRelaEN> arrvFunctionTemplateRelaObjLst = clsvFunctionTemplateRelaBL.GetObjLst(strCondition);
             return arrvFunctionTemplateRelaObjLst;
@@ -320,7 +320,7 @@ namespace AGC.BusinessLogicEx
                 convFunctionTemplateRela.ProgLangTypeId, objCodeTypeEN.ProgLangTypeId,
                 convFunctionTemplateRela.CodeTypeId, objCodeTypeEN.CodeTypeId,
                 convFunctionTemplateRela.SqlDsTypeId, objPrjTab.SqlDsTypeId,
-                convFunctionTemplateRela.FunctionTemplateId, strFunctionTemplateId            );
+                convFunctionTemplateRela.FunctionTemplateId, strFunctionTemplateId);
             int intCount = clsvFunctionTemplateRelaBL.GetRecCountByCond(strCondition);
 
             return intCount;

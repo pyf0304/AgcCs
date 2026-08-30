@@ -43,12 +43,14 @@ namespace AutoGCLib
         private string strTabId_Out4ListRegion;
 
         //private string strTabId_In4Edit;
-        
+
         //private string strViewMainTabId4GC;
         protected List<CacheClassifyType> myCacheClassifyLst4View = null;
+        protected List<SortClassifyType> mySortClassifyLst4View = null;
+
         public List<CacheClassifyType> CacheClassifyLst4View;
-                
-        
+
+
         protected clsPrjTabFldENEx objPrefixField
         {
             get
@@ -84,7 +86,7 @@ namespace AutoGCLib
                         FldName = PrjTabEx_DetailRegion.KeyFldName(),
                         FldName_FstLCase = clsString.FstLcaseS(PrjTabEx_DetailRegion.KeyFldName()),
                         KeyFldNameLstStr = PrjTabEx_DetailRegion.KeyFldNameLstStr,
-                        
+
                         PropertyNameLstrStr = strTemp,
                         KeyVarDefineLstStr = PrjTabEx_DetailRegion.KeyVarDefineLstStr_TS,
                         KeyPrivVarNameLstStr = PrjTabEx_DetailRegion.KeyPrivFuncFldNameLstStr_TS,
@@ -114,7 +116,7 @@ namespace AutoGCLib
             {
                 if (objViewTabProp_TS == null)
                 {
-                  
+
                     TabProp obj = new TabProp
                     {
                         TabId = PrjTabEx_ListRegion.TabId,
@@ -242,7 +244,7 @@ namespace AutoGCLib
                         FldName = PrjTabEx_EditRegion.KeyFldName(),
                         FldName_FstLCase = clsString.FstLcaseS(PrjTabEx_EditRegion.KeyFldName()),
                         KeyFldNameLstStr = PrjTabEx_EditRegion.KeyFldNameLstStr,
-                        
+
                         PropertyNameLstrStr = strTemp,
                         KeyVarDefineLstStr = PrjTabEx_EditRegion.KeyVarDefineLstStr_TS,
                         KeyPrivVarNameLstStr = PrjTabEx_EditRegion.KeyPrivFuncFldNameLstStr_TS,
@@ -407,8 +409,68 @@ namespace AutoGCLib
                         obj2.ImportVarName = obj2.ViewVarName;
                         myCacheClassifyLst4View.Add(obj2);
                     }
-                  
+
                     return myCacheClassifyLst4View;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    throw ex;
+                    //return null;
+                }
+
+            }
+        }
+
+
+        public List<SortClassifyType> thisSortClassifyLst4View
+        {
+            get
+            {
+                if (mySortClassifyLst4View != null) return mySortClassifyLst4View;
+                mySortClassifyLst4View = new List<SortClassifyType>();
+                try
+                {
+                    clsAdjustOrderNum4View objAdjustOrderNum = clsAdjustOrderNum4View.GetOrderNumInfoByViewInfo(objViewInfoENEx);
+
+                    if (objAdjustOrderNum == null || objAdjustOrderNum.objFeatureRegionFlds_AdjustOrderNum == null) return mySortClassifyLst4View;
+                    List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+                    foreach (clsViewFeatureFldsENEx objInFor in objAdjustOrderNum.arrvViewFeatureFlds_Classify)
+                    {
+                        if (objInFor.FieldTypeId == enumFieldType.OrderNumField_09) continue;
+
+                        SortClassifyType obj = new SortClassifyType();
+                        //strCodeForCs.AppendFormat("\r\n" + "\"{0}\": {1},",
+                        // clsString.FstLcaseS(objInFor.FldName),
+                        //    objInFor.PrivFuncName);
+
+                        obj.FldId = objInFor != null ? objInFor.FldId : "";
+                        obj.FldName = objInFor != null ? objInFor.FldName : "";
+                        obj.FldNameCamel = objInFor != null ? clsString.FstLcaseS(objInFor.FldName) : "";
+
+                        obj.VarDef4Fld = objInFor != null ? string.Format("{0}.{1}Cache", ThisClsName, objInFor.FldName) : "";
+
+                        obj.PriVarName = objInFor != null ? objInFor.ObjFieldTabENEx.PrivFuncName : "";
+                        obj.TypeScriptType = objInFor != null ? objInFor.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType : "";
+                        obj.DataTypeId = objInFor != null ? objInFor.ObjFieldTabENEx.DataTypeId : "";
+                        obj.FldLength = objInFor != null ? objInFor.ObjFieldTabENEx.FldLength : 0;
+                        obj.IsHasCacheClassfyFld = objInFor == null ? false : true;
+                        obj.IsNumberType = objInFor != null ? objInFor.IsNumberType() : false;
+                      
+                            string strViewVarName = arrViewVariable.Find(x => x.VarId == objInFor.VarId)?.VariableName;
+
+                            obj.ViewVarName = strViewVarName;
+                        
+                        obj.CondVarName = obj.ViewVarName + ".value";
+                        obj.ImportVarName = obj.ViewVarName;
+                        if (string.IsNullOrEmpty(obj.FldId) == false)
+                        {
+                            mySortClassifyLst4View.Add(obj);
+                        }
+                    }
+
+
+                    return mySortClassifyLst4View;
                 }
                 catch (Exception ex)
                 {
@@ -502,7 +564,7 @@ namespace AutoGCLib
             {
                 var objViewRegion_List = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002);
                 if (objViewRegion_List == null) return null;
-                var objPrjTabEx_ListRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x=>x.TabId == objViewRegion_List.TabId);
+                var objPrjTabEx_ListRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_List.TabId);
                 return objPrjTabEx_ListRegion;
             }
         }
@@ -511,7 +573,7 @@ namespace AutoGCLib
         public clsPrjTabENEx PrjTabEx_DetailRegion
         {
             get
-            {                
+            {
                 var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
                 if (objViewRegion_Detail == null) return null;
                 var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
@@ -523,9 +585,9 @@ namespace AutoGCLib
         {
             get
             {
-                if ( string.IsNullOrEmpty(objViewInfoENEx.MainTabId) == true) return null;          
+                if (string.IsNullOrEmpty(objViewInfoENEx.MainTabId) == true) return null;
                 var objPrjTabEx_View = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewInfoENEx.MainTabId);
-                return objPrjTabEx_View ;
+                return objPrjTabEx_View;
             }
         }
 
@@ -630,7 +692,7 @@ namespace AutoGCLib
                 var objViewRegion_ExportExcel = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ExcelExportRegion_0007);
                 if (objViewRegion_ExportExcel == null) return null;
                 var objPrjTabEx_ExportExcel = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_ExportExcel.TabId);
-                return objPrjTabEx_ExportExcel.TabName;            
+                return objPrjTabEx_ExportExcel.TabName;
             }
         }
         public string TabId_Out4ExportExcel
@@ -679,7 +741,7 @@ namespace AutoGCLib
         public string TabName_In4Edit
         {
             get
-            {                
+            {
                 var objViewRegion_Edit = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003);
                 if (objViewRegion_Edit == null) return null;
                 var objPrjTabEx_EditRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Edit.TabId);
@@ -700,7 +762,7 @@ namespace AutoGCLib
         public string TabCnName_Out4Detail
         {
             get
-            {                
+            {
                 var objViewRegion_Detail = objViewInfoENEx.arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006);
                 if (objViewRegion_Detail == null) return null;
                 var objPrjTabEx_DetailRegion = objViewInfoENEx.arrPrjTabObjInView.Find(x => x.TabId == objViewRegion_Detail.TabId);
@@ -834,6 +896,37 @@ namespace AutoGCLib
                     bolIsUseFunc4ExcelExport = bool.Parse(strIsUseFunc4ExcelExport);
                 }
                 return bolIsUseFunc4ExcelExport;
+            }
+        }
+        public bool IsUseFunc4Detail
+        {
+            get
+            {
+                bool bolIsUseFunc4Detail = false;
+                if (strIsUseFunc4Detail == null)
+                {
+                    if (objViewInfoENEx.arrDetailRegionFldSet == null)
+                    {
+                        bolIsUseFunc4Detail = false;
+                        strIsUseFunc4Detail = "false";
+                        return bolIsUseFunc4Detail;
+                    }
+                    if (objViewInfoENEx.arrDetailRegionFldSet.Where(x => x.IsUseFunc() == true).Count() > 0)
+                    {
+                        bolIsUseFunc4Detail = true;
+                        strIsUseFunc4Detail = "true";
+                    }
+                    else
+                    {
+                        bolIsUseFunc4Detail = false;
+                        strIsUseFunc4Detail = "false";
+                    }
+                }
+                else
+                {
+                    bolIsUseFunc4Detail = bool.Parse(strIsUseFunc4Detail);
+                }
+                return bolIsUseFunc4Detail;
             }
         }
 
@@ -988,7 +1081,7 @@ namespace AutoGCLib
             }
             set => mobjDelSignField = value;
         }
-        
+
         /// <summary>
         /// Ãû³Æ×Ö¶Î¶ÔÏó
         /// </summary>
@@ -1104,7 +1197,7 @@ namespace AutoGCLib
 
         }
 
-        
+
 
 
         public bool GetPrjViewInfo(string strViewId, string strPrjDataBaseId, string strPrjId)
@@ -1331,7 +1424,7 @@ namespace AutoGCLib
         }
         public override void GetExtendedClsName()
         {
-            this.ExtendedClsName = objViewInfoENEx.ViewName +"Ex";            
+            this.ExtendedClsName = objViewInfoENEx.ViewName + "Ex";
         }
 
         public static clsGeneCodeBase4View GetClassByName(string strClassName)

@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRegionBL
  表名:ViewRegion(00050099)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:24
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/30 07:54:35
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:业务逻辑层(CS)(BusinessLogic,0003)
+ 框架-层名:业务逻辑层CS(BusinessLogicCS,0003)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -46,7 +46,7 @@ public static class  clsViewRegionBL_Static
 
  /// <summary>
  /// 获取当前关键字的记录对象,用对象的形式表示.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_GetObjByKey)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_GetObjByKey)
  /// </summary>
  /// <param name = "strRegionId">表关键字</param>
  /// <returns>表对象</returns>
@@ -59,7 +59,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:通过SQL命令来插入记录,该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够使字段值为NULL的字段无需插入
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_AddNewRecord)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_AddNewRecord)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果插入成功则返回TRUE,否则为FALSE</returns>
@@ -97,7 +97,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 插入记录存盘到数据表中
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_AddRecordEx)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_AddRecordEx)
  /// </summary>
  /// <returns>插入记录是否成功？</returns>
 public static bool AddRecordEx(this clsViewRegionEN objViewRegionEN, bool bolIsNeedCheckUniqueness = true)
@@ -145,7 +145,7 @@ return true;
  /// <summary>
  /// /// 功能:通过SQL命令来插入记录,其中关键字为表中获取的最大值。该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够使字段值为NULL的字段无需插入
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_AddNewRecordWithMaxId)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_AddNewRecordWithMaxId)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果插入成功则返回TRUE,否则为FALSE</returns>
@@ -185,7 +185,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来插入记录,该方式是优化方式,同时返回新插入记录的关键字的值(针对Identity关键字)
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够使字段值为NULL的字段无需插入；3、返回新插入记录的关键字的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_AddNewRecordWithReturnKey)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_AddNewRecordWithReturnKey)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果插入成功则返回新插入记录的关键字的值,否则就报错</returns>
@@ -224,7 +224,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -256,7 +256,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -285,7 +285,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -318,7 +318,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -346,7 +346,39 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// </summary>
+ /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
+ /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
+ /// <returns>返回对象,可以继续连写</returns>
+public static clsViewRegionEN SetUseCacheModeId(this clsViewRegionEN objViewRegionEN, string strUseCacheModeId, string strComparisonOp="")
+	{
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldLen(strUseCacheModeId, 2, conViewRegion.UseCacheModeId);
+}
+if (strComparisonOp != "in")
+{
+clsCheckSql.CheckFieldForeignKey(strUseCacheModeId, 2, conViewRegion.UseCacheModeId);
+}
+objViewRegionEN.UseCacheModeId = strUseCacheModeId; //使用缓存模式Id
+if (string.IsNullOrEmpty(strComparisonOp) == false)
+{
+if (objViewRegionEN.dicFldComparisonOp.ContainsKey(conViewRegion.UseCacheModeId) == false)
+{
+objViewRegionEN.dicFldComparisonOp.Add(conViewRegion.UseCacheModeId, strComparisonOp);
+}
+else
+{
+objViewRegionEN.dicFldComparisonOp[conViewRegion.UseCacheModeId] = strComparisonOp;
+}
+}
+return objViewRegionEN;
+	}
+ /// <summary>
+ /// /// 功能:为对象设置字段值
+ /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -370,7 +402,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -394,7 +426,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -418,7 +450,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -450,7 +482,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -482,7 +514,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -515,7 +547,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -548,7 +580,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -576,7 +608,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -604,7 +636,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -637,7 +669,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -665,7 +697,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -693,7 +725,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -721,7 +753,7 @@ return objViewRegionEN;
  /// <summary>
  /// /// 功能:为对象设置字段值
  /// /// 优点:1、可以实现函数节联,多个设置值联在一起写.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_SetFieldValue4OneField)
  /// </summary>
  /// <param name = "objViewRegionEN">需要设置字段值的实体对象</param>
  /// <param name = "strComparisonOp">比较运算符,如果有值,可用于组织条件串</param>
@@ -750,7 +782,7 @@ return objViewRegionEN;
 
  /// <summary>
  /// 修改记录存盘到数据表中
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_UpdateRecordEx)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_UpdateRecordEx)
  /// </summary>
  /// <param name = "objViewRegionEN">需要修改的实体对象</param>
  /// <returns>修改是否成功？</returns>
@@ -791,7 +823,7 @@ return true;
 
  /// <summary>
  /// 编辑记录存盘到数据表中。如果存在相关记录就修改,不存在就添加
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_EditRecordEx)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_EditRecordEx)
  /// </summary>
  /// <param name = "objViewRegion">需要修改的实体对象</param>
  /// <returns>修改是否成功？</returns>
@@ -824,7 +856,7 @@ return true;
  /// <summary>
  /// /// 功能:通过SQL命令来修改记录,该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够处理脏字段,即只有修改过的字段才需要修改同步到数据库.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_Update)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_Update)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果修改成功则返回TRUE,否则为FALSE</returns>
@@ -862,7 +894,7 @@ throw new Exception(strMsg);
  /// /// 优点:1、能够处理字段中的单撇问题；
  /// /// 2、能够处理脏字段,即只有修改过的字段才需要修改同步到数据库;
  /// /// 3、支持事务处理.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_UpdateWithTransaction)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_UpdateWithTransaction)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <param name = "objSqlConnection">Sql连接对象</param>
@@ -900,7 +932,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来修改记录,该方式是非优化方式,根据条件修改记录
  /// /// 缺点:1、不能处理字段中的单撇问题；2、不能处理脏字段,即只有修改过的字段才需要修改同步到数据库.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_UpdateWithCondition)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_UpdateWithCondition)
  /// </summary>
  /// <param name = "objViewRegionEN">需要修改的对象</param>
  /// <param name = "strWhereCond">修改记录时的条件</param>
@@ -931,7 +963,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来修改记录,该方式是非优化方式,根据条件修改记录.(带事务处理)
  /// /// 缺点:1、不能处理字段中的单撇问题；2、不能处理脏字段,即只有修改过的字段才需要修改同步到数据库.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_UpdateWithConditionTransaction)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_UpdateWithConditionTransaction)
  /// </summary>
  /// <param name = "objViewRegionEN">需要修改的对象</param>
  /// <param name = "strWhereCond">修改记录时的条件</param>
@@ -963,7 +995,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 功能:删除关键字所指定的记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_Delete)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_Delete)
  /// </summary>
  /// <param name = "strRegionId">给定的关键字值</param>
  /// <returns>返回删除的记录数</returns>
@@ -992,7 +1024,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CopyObj)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CopyObj)
  /// </summary>
  /// <param name = "objViewRegionENS">源对象</param>
  /// <param name = "objViewRegionENT">目标对象</param>
@@ -1004,6 +1036,7 @@ objViewRegionENT.RegionId = objViewRegionENS.RegionId; //区域Id
 objViewRegionENT.RegionName = objViewRegionENS.RegionName; //区域名称
 objViewRegionENT.RegionTypeId = objViewRegionENS.RegionTypeId; //区域类型Id
 objViewRegionENT.FileName = objViewRegionENS.FileName; //文件名
+objViewRegionENT.UseCacheModeId = objViewRegionENS.UseCacheModeId; //使用缓存模式Id
 objViewRegionENT.Height = objViewRegionENS.Height; //高度
 objViewRegionENT.Width = objViewRegionENS.Width; //宽
 objViewRegionENT.ColNum = objViewRegionENS.ColNum; //列数
@@ -1030,7 +1063,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CopyTo)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CopyTo)
  /// </summary>
  /// <param name = "objViewRegionENS">源对象</param>
  /// <returns>目标对象=>clsViewRegionEN:objViewRegionENT</returns>
@@ -1044,6 +1077,7 @@ RegionId = objViewRegionENS.RegionId, //区域Id
 RegionName = objViewRegionENS.RegionName, //区域名称
 RegionTypeId = objViewRegionENS.RegionTypeId, //区域类型Id
 FileName = objViewRegionENS.FileName, //文件名
+UseCacheModeId = objViewRegionENS.UseCacheModeId, //使用缓存模式Id
 Height = objViewRegionENS.Height, //高度
 Width = objViewRegionENS.Width, //宽
 ColNum = objViewRegionENS.ColNum, //列数
@@ -1072,7 +1106,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CheckPropertyNew)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CheckPropertyNew)
  /// </summary>
 public static void CheckPropertyNew(this clsViewRegionEN objViewRegionEN)
 {
@@ -1081,7 +1115,7 @@ public static void CheckPropertyNew(this clsViewRegionEN objViewRegionEN)
 
  /// <summary>
  /// 检查对象字段值在组织查询条件时是否合法,1)检查是否包含【 = 】【 and 】;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CheckProperty4Condition)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CheckProperty4Condition)
  /// </summary>
 public static void CheckProperty4Condition(this clsViewRegionEN objViewRegionEN)
 {
@@ -1090,7 +1124,7 @@ public static void CheckProperty4Condition(this clsViewRegionEN objViewRegionEN)
 
  /// <summary>
  /// 根据条件对象中的字段内容组合成一个条件串
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CombineConditionByCondObj)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CombineConditionByCondObj)
  /// </summary>
  /// <returns>条件串(strWhereCond)</returns>
 public static string GetCombineCondition(this clsViewRegionEN objViewRegionCond)
@@ -1118,6 +1152,11 @@ if (objViewRegionCond.IsUpdated(conViewRegion.FileName) == true)
 {
 string strComparisonOpFileName = objViewRegionCond.dicFldComparisonOp[conViewRegion.FileName];
 strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRegion.FileName, objViewRegionCond.FileName, strComparisonOpFileName);
+}
+if (objViewRegionCond.IsUpdated(conViewRegion.UseCacheModeId) == true)
+{
+string strComparisonOpUseCacheModeId = objViewRegionCond.dicFldComparisonOp[conViewRegion.UseCacheModeId];
+strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRegion.UseCacheModeId, objViewRegionCond.UseCacheModeId, strComparisonOpUseCacheModeId);
 }
 if (objViewRegionCond.IsUpdated(conViewRegion.Height) == true)
 {
@@ -1195,7 +1234,7 @@ strWhereCond += string.Format(" And {0} {2} '{1}'", conViewRegion.ClsName, objVi
  /// <summary>
  /// 检查唯一性(Uniqueness)--ViewRegion(界面区域), 如果不唯一,即存在相同的记录,就返回False
  /// 唯一性条件:PrjId_ClsName
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_CheckConstraint)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_CheckConstraint)
  /// </summary>
  /// <param name = "objViewRegionEN">要求唯一的对象</param>
  /// <returns></returns>
@@ -1238,7 +1277,7 @@ return bolIsUniqueness;
  /// <summary>
  /// 获取唯一性条件串--ViewRegion(界面区域), 即由对象中唯一性条件字段关键字与值组成的条件串
  /// 唯一性条件:PrjId_ClsName
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Static_GetConditionString4Constraint)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Static_GetConditionString4Constraint)
  /// </summary>
  /// <param name = "objViewRegionEN">要求唯一的对象</param>
  /// <returns></returns>
@@ -1264,7 +1303,7 @@ sbCondition.AppendFormat("RegionId !=  '{0}'", objViewRegionEN.RegionId);
 }
  /// <summary>
  /// /// 功能:当本表执行添加、修改、删除操作时,对相关表执行相应的操作,此处定义一个类,在外面可以扩展该类的相关函数,达到自定义操作
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Class_RelatedActions)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Class_RelatedActions)
  /// </summary>
  public abstract class RelatedActions_ViewRegion
 {
@@ -1276,7 +1315,7 @@ return true;
  /// <summary>
  /// 界面区域(ViewRegion)
  /// 数据源类型:表
- /// (AutoGCLib.BusinessLogic4CSharp:GeneCode)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:GeneCode)
  /// </summary>
 public class clsViewRegionBL
 {
@@ -1284,7 +1323,7 @@ public static RelatedActions_ViewRegion relatedActions = null;
 
  /// <summary>
 /// 单例模式:访问数据访问层的单例模式
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DefineUniqueInstance4DAL)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DefineUniqueInstance4DAL)
 /// </summary>
 private static clsViewRegionDA uniqueInstance = null;
 /// <summary>
@@ -1304,13 +1343,13 @@ return uniqueInstance;
 
  /// <summary>
 /// 专门在逻辑层用于处理缓存等公共函数的对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DefineObjCommFun4BL)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DefineObjCommFun4BL)
 /// </summary>
 public static clsCommFun4BLV2 objCommFun4BL = null;
 
  /// <summary>
  /// 类的构造函数
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ClassConstructor1)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_ClassConstructor1)
  /// </summary>
  public clsViewRegionBL()
  {
@@ -1318,7 +1357,7 @@ public static clsCommFun4BLV2 objCommFun4BL = null;
 
  /// <summary>
  /// 获取SQL服务器连接对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetSpecSQLObj)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetSpecSQLObj)
  /// </summary>
  /// <returns>SQL服务器连接对象</returns>
  public static clsSpecSQLforSql GetSpecSQLObj() 
@@ -1357,7 +1396,7 @@ return objSQL;
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTable)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回数据表,用DataTable表示</returns>
@@ -1380,7 +1419,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTable)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回数据表,用DataTable表示</returns>
@@ -1403,7 +1442,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时可以排除一些关键字不检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTable)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <param name = "lstExclude">排除的检查字符串列表</param>
@@ -1428,7 +1467,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTableByTabName)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTableByTabName)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回数据表,用DataTable表示</returns>
@@ -1451,7 +1490,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时可以排除一些关键字不检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTableByTabName)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTableByTabName)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <param name = "lstExclude">排除的检查字符串列表</param>
@@ -1476,7 +1515,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetTopDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetTopDataTable)
  /// </summary>
  /// <param name = "objTopPara">获取顶部对象列表的参数对象</param>
  /// <returns>返回数据表,用DataTable表示</returns>
@@ -1499,7 +1538,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时可以排除一些关键字不检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetTopDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetTopDataTable)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strWhereCond">条件串</param>
@@ -1525,7 +1564,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时检查是否含有SQL攻击-弱检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTableByPager)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTableByPager)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -1551,7 +1590,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 根据条件获取数据表,用DataTable表示,同时可以排除一些关键字不检查
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetDataTableByPager)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetDataTableByPager)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -1585,7 +1624,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByKeyLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByKeyLst)
  /// </summary>
  /// <param name = "arrRegionIdLst">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象列表</returns>
@@ -1609,6 +1648,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1637,7 +1677,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据关键字列表获取相关对象列表, 使用缓存.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByKeyLstCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByKeyLstCache)
  /// </summary>
  /// <param name = "arrRegionIdLst">所给的关键字列表</param>
  /// <returns>根据关键字列表获取的对象列表</returns>
@@ -1653,7 +1693,7 @@ return arrViewRegionObjLst_Sel;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <returns>返回对象列表</returns>
@@ -1675,6 +1715,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1702,7 +1743,7 @@ return arrObjLst;
 }
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <param name = "lstExclude">查询条件中排除的标志列表</param>
@@ -1725,6 +1766,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1753,7 +1795,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据条件对象获取对象列表子集
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetSubObjLstCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetSubObjLstCache)
  /// </summary>
  /// <param name = "objViewRegionCond">条件对象</param>
  /// <returns>对象列表子集</returns>
@@ -1821,7 +1863,7 @@ return arrObjLstSel;
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByTabName)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByTabName)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <returns>返回对象列表</returns>
@@ -1843,6 +1885,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1870,7 +1913,7 @@ return arrObjLst;
 }
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByTabName)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByTabName)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <param name = "lstExclude">查询条件中排除的标志列表</param>
@@ -1893,6 +1936,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -1921,7 +1965,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据条件获取JSON对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetJSONObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetJSONObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <returns>返回对象列表</returns>
@@ -1933,7 +1977,7 @@ List<clsViewRegionEN> arrObjLst = GetObjLst(strWhereCond);
 }
  /// <summary>
  /// 根据条件获取JSON对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetJSONObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetJSONObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <param name = "lstExclude">查询条件中排除的标志列表</param>
@@ -1947,7 +1991,7 @@ List<clsViewRegionEN> arrObjLst = GetObjLst(strWhereCond, lstExclude);
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetTopObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetTopObjLst)
  /// </summary>
  /// <param name = "objTopPara">获取顶部对象列表的参数对象</param>
  /// <returns>返回对象列表</returns>
@@ -1958,7 +2002,7 @@ public static List<clsViewRegionEN> GetTopObjLst(stuTopPara objTopPara)
 
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetTopObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetTopObjLst)
  /// </summary>
  /// <param name = "intTopSize">顶部记录数</param>
  /// <param name = "strWhereCond">给定条件</param>
@@ -1987,6 +2031,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -2014,7 +2059,7 @@ return arrObjLst;
 }
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetTopObjLst)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetTopObjLst)
  /// </summary>
  /// <param name = "strWhereCond">给定条件</param>
  /// <param name = "lstExclude">查询条件中排除的标志列表</param>
@@ -2037,6 +2082,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -2065,7 +2111,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据条件分页获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByPager)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByPager)
  /// </summary>
  /// <param name = "objPagerPara">分页获取记录的参数对象</param>
  /// <returns>返回分页对象列表</returns>
@@ -2076,7 +2122,7 @@ public static List<clsViewRegionEN> GetObjLstByPager(stuPagerPara objPagerPara)
 
  /// <summary>
  /// 根据条件分页获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByPager)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByPager)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -2101,6 +2147,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -2128,7 +2175,7 @@ return arrObjLst;
 }
  /// <summary>
  /// 根据条件获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstByPager)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstByPager)
  /// </summary>
  /// <param name = "intPageIndex">页序号</param>
  /// <param name = "intPageSize">页记录数</param>
@@ -2154,6 +2201,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -2182,7 +2230,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据提供的DataTable获取对象列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecObjLstFromDataTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecObjLstFromDataTable)
  /// </summary>
  /// <param name = "objDT">提供的DataTable</param>
  /// <returns>返回对象列表</returns>
@@ -2202,6 +2250,7 @@ objViewRegionEN.RegionId = objRow[conViewRegion.RegionId].ToString().Trim(); //�
 objViewRegionEN.RegionName = objRow[conViewRegion.RegionName].ToString().Trim(); //区域名称
 objViewRegionEN.RegionTypeId = objRow[conViewRegion.RegionTypeId].ToString().Trim(); //区域类型Id
 objViewRegionEN.FileName = objRow[conViewRegion.FileName] == DBNull.Value ? null : objRow[conViewRegion.FileName].ToString().Trim(); //文件名
+objViewRegionEN.UseCacheModeId = objRow[conViewRegion.UseCacheModeId] == DBNull.Value ? null : objRow[conViewRegion.UseCacheModeId].ToString().Trim(); //使用缓存模式Id
 objViewRegionEN.Height = objRow[conViewRegion.Height] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Height].ToString().Trim()); //高度
 objViewRegionEN.Width = objRow[conViewRegion.Width] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.Width].ToString().Trim()); //宽
 objViewRegionEN.ColNum = objRow[conViewRegion.ColNum] == DBNull.Value ? (int?)null : clsEntityBase2.TransNullToInt_S(objRow[conViewRegion.ColNum].ToString().Trim()); //列数
@@ -2236,7 +2285,7 @@ return arrObjLst;
 
  /// <summary>
  /// 根据对象的关键字值,获取对象的全部属性
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecProperty4Object)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecProperty4Object)
  /// </summary>
  /// <param name = "objViewRegionEN">相关对象</param>
 /// <returns>是否成功</returns>
@@ -2248,7 +2297,7 @@ return bolResult;
 
  /// <summary>
  /// 获取当前关键字的记录对象,用对象的形式表示.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjByKey)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjByKey)
  /// </summary>
  /// <param name = "strRegionId">表关键字</param>
  /// <returns>表对象</returns>
@@ -2272,7 +2321,7 @@ return objViewRegionEN;
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetFirstObject_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetFirstObject_S)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回的第一条记录的对象</returns>
@@ -2295,7 +2344,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 把DataRow转换成相关实体对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecValueObjByDataRow_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecValueObjByDataRow_S)
  /// </summary>
  /// <param name = "objRow">给定的DataRow</param>
  /// <returns>返回相关的实体对象</returns>
@@ -2316,7 +2365,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 把DataRowView转换成相关实体对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecValueObjByDataRow_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecValueObjByDataRow_S)
  /// </summary>
  /// <param name = "objRow">给定的DataRowView</param>
  /// <returns>返回相关的实体对象</returns>
@@ -2338,7 +2387,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据关键字获取相关对象, 从给定的对象列表中获取.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjByKeyFromList)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjByKeyFromList)
  /// </summary>
  /// <param name = "strRegionId">所给的关键字</param>
  /// <param name = "lstViewRegionObjLst">给定的对象列表</param>
@@ -2363,7 +2412,7 @@ return null;
 
  /// <summary>
  /// 获取当前表关键字值的最大值,再加1,避免重复
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetMaxStrId_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetMaxStrId_S)
  /// </summary>
  /// <returns>当前表关键字值的最大值,再加1</returns>
 public static string GetMaxStrId_S() 
@@ -2385,7 +2434,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 获取当前表满足条件的第一条记录的关键字值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetFirstID_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetFirstID_S)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回的第一条记录的关键字值</returns>
@@ -2414,7 +2463,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 获取当前表满足条件的关键字值列表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetPrimaryKeyID_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetPrimaryKeyID_S)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>返回满足条件的关键字列表值</returns>
@@ -2443,7 +2492,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 功能:判断是否存在某一条件的记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_IsExistRecord)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_IsExistRecord)
  /// </summary>
  /// <param name = "strWhereCond">条件串</param>
  /// <returns>如果存在就返回TRUE,否则返回FALSE</returns>
@@ -2456,7 +2505,7 @@ return bolIsExist;
 
  /// <summary>
  /// 判断当前表中是否存在给定关键字值的记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_IsExist)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_IsExist)
  /// </summary>
  /// <param name = "strRegionId">给定的关键字值</param>
  /// <returns>返回是否存在?</returns>
@@ -2489,7 +2538,7 @@ return clsViewRegionBL.UpdateBySql2(objViewRegionEN);
 
  /// <summary>
  /// 检查是否存在当前表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_IsExistTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_IsExistTable)
  /// </summary>
  /// <returns>存在就返回True,否则返回False</returns>
 public static bool IsExistTable() 
@@ -2510,7 +2559,7 @@ throw new Exception(strMsg);
 }
  /// <summary>
  /// 检查是否存在当前表
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_IsExistTable)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_IsExistTable)
  /// </summary>
  /// <param name = "strTabName">给定表</param>
  /// <returns>存在就返回True,否则返回False</returns>
@@ -2540,7 +2589,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来插入记录,该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够使字段值为NULL的字段无需插入
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_AddNewRecordBySql2)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_AddNewRecordBySql2)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果插入成功则返回TRUE,否则为FALSE</returns>
@@ -2579,7 +2628,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来插入记录,该方式是优化方式,同时返回新插入记录的关键字的值(针对Identity关键字)
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够使字段值为NULL的字段无需插入；3、返回新插入记录的关键字的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_AddNewRecordBySql2WithReturnKey)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_AddNewRecordBySql2WithReturnKey)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果插入成功则返回新插入记录的关键字的值,否则就报错</returns>
@@ -2624,7 +2673,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来修改记录,该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够处理脏字段,即只有修改过的字段才需要修改同步到数据库.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_Update)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_Update)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果修改成功则返回TRUE,否则为FALSE</returns>
@@ -2654,7 +2703,7 @@ throw new Exception(strMsg);
  /// <summary>
  /// /// 功能:通过SQL命令来修改记录,该方式是优化方式
  /// /// 优点:1、能够处理字段中的单撇问题；2、能够处理脏字段,即只有修改过的字段才需要修改同步到数据库.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_UpdateBySql2)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_UpdateBySql2)
  /// </summary>
  /// <param name = "objViewRegionEN">需要添加的实体对象</param>
  /// <returns>如果修改成功则返回TRUE,否则为FALSE</returns>
@@ -2695,7 +2744,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 功能:删除关键字所指定的记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecord)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelRecord)
  /// </summary>
  /// <param name = "strRegionId">给定的关键字值</param>
  /// <returns>返回删除的记录数</returns>
@@ -2732,7 +2781,7 @@ throw new Exception(strMsg);
 
  /// <summary>
 /// 扩展删除记录,即同时删除多个表的记录,需要基于原子性的事务处理
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecordEx)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelRecordEx)
 /// </summary>
 /// <param name="strRegionId">表关键字</param>
  /// <param name = "strPrjId">缓存的分类字段</param>
@@ -2783,7 +2832,7 @@ objConnection.Close();
 
  /// <summary>
  /// 功能:删除关键字所指的记录,使用事务
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecordWithTransaction_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelRecordWithTransaction_S)
  /// </summary>
  /// <param name = "strRegionId">给定的关键字值</param>
  /// <param name = "objSqlConnection">Sql连接对象</param>
@@ -2813,7 +2862,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 功能:同时删除多条记录,删除给定关键字列表的记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelMultiRecord)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelMultiRecord)
  /// </summary>
  /// <param name = "arrRegionIdLst">给定的关键字值列表</param>
  /// <returns>返回删除的记录数</returns>
@@ -2846,7 +2895,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 功能:删除满足条件的多条记录
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelMultiRecordByCond)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelMultiRecordByCond)
  /// </summary>
  /// <param name = "strWhereCond">需要删除的记录条件</param>
  /// <returns>返回删除的记录数。</returns>
@@ -2881,7 +2930,7 @@ throw new Exception(strMsg);
  /// <summary>
 /// 扩展删除记录,即同时删除多个表的记录,需要基于原子性的事务处理
 /// 这里仅仅是演示函数,使用时请复制到扩展类:[ViewRegion]中改名为:[DelRecord4MultiTabEx]使用
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DelRecord4MultiTab)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_DelRecord4MultiTab)
 /// </summary>
 /// <param name="strRegionId">表关键字</param>
  /// <param name = "strPrjId">缓存的分类字段</param>
@@ -2938,7 +2987,7 @@ objConnection.Close();
 
  /// <summary>
  /// 把同一个类的对象,复制到另一个对象
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_CopyObj_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_CopyObj_S)
  /// </summary>
  /// <param name = "objViewRegionENS">源对象</param>
  /// <param name = "objViewRegionENT">目标对象</param>
@@ -2950,6 +2999,7 @@ objViewRegionENT.RegionId = objViewRegionENS.RegionId; //区域Id
 objViewRegionENT.RegionName = objViewRegionENS.RegionName; //区域名称
 objViewRegionENT.RegionTypeId = objViewRegionENS.RegionTypeId; //区域类型Id
 objViewRegionENT.FileName = objViewRegionENS.FileName; //文件名
+objViewRegionENT.UseCacheModeId = objViewRegionENS.UseCacheModeId; //使用缓存模式Id
 objViewRegionENT.Height = objViewRegionENS.Height; //高度
 objViewRegionENT.Width = objViewRegionENS.Width; //宽
 objViewRegionENT.ColNum = objViewRegionENS.ColNum; //列数
@@ -2976,7 +3026,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 设置修改标志,即根据字段修改标志字符串获取哪一个字段已经被修改
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_SetUpdFlag_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_SetUpdFlag_S)
  /// </summary>
  /// <param name = "objViewRegionEN">源简化对象</param>
  public static void SetUpdFlag(clsViewRegionEN objViewRegionEN)
@@ -3002,6 +3052,10 @@ objViewRegionEN.RegionTypeId = objViewRegionEN.RegionTypeId; //区域类型Id
 if (arrFldSet.Contains(conViewRegion.FileName, new clsStrCompareIgnoreCase())  ==  true)
 {
 objViewRegionEN.FileName = objViewRegionEN.FileName == "[null]" ? null :  objViewRegionEN.FileName; //文件名
+}
+if (arrFldSet.Contains(conViewRegion.UseCacheModeId, new clsStrCompareIgnoreCase())  ==  true)
+{
+objViewRegionEN.UseCacheModeId = objViewRegionEN.UseCacheModeId == "[null]" ? null :  objViewRegionEN.UseCacheModeId; //使用缓存模式Id
 }
 if (arrFldSet.Contains(conViewRegion.Height, new clsStrCompareIgnoreCase())  ==  true)
 {
@@ -3071,7 +3125,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 处理从Web端传来的[null]的字段值,在WebApi端设置成null
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_AccessFldValueNull)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_AccessFldValueNull)
  /// </summary>
  /// <param name = "objViewRegionEN">源简化对象</param>
  public static void AccessFldValueNull(clsViewRegionEN objViewRegionEN)
@@ -3079,6 +3133,7 @@ throw new Exception(strMsg);
 try
 {
 if (objViewRegionEN.FileName == "[null]") objViewRegionEN.FileName = null; //文件名
+if (objViewRegionEN.UseCacheModeId == "[null]") objViewRegionEN.UseCacheModeId = null; //使用缓存模式Id
 if (objViewRegionEN.ContainerTypeId == "[null]") objViewRegionEN.ContainerTypeId = null; //容器类型Id
 if (objViewRegionEN.PageDispModeId == "[null]") objViewRegionEN.PageDispModeId = null; //页面显示模式Id
 if (objViewRegionEN.KeyId4Test == "[null]") objViewRegionEN.KeyId4Test = null; //测试关键字Id
@@ -3104,7 +3159,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_CheckPropertyNew)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_CheckPropertyNew)
  /// </summary>
 public static void CheckPropertyNew(clsViewRegionEN objViewRegionEN)
 {
@@ -3113,7 +3168,7 @@ public static void CheckPropertyNew(clsViewRegionEN objViewRegionEN)
 
  /// <summary>
  /// 检查对象字段值在组织查询条件时是否合法,1)检查是否包含【 = 】【 and 】;2)检查字段值长度是否超长,如果出错就抛出错误.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_CheckProperty4Condition)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_CheckProperty4Condition)
  /// </summary>
 public static void CheckProperty4Condition(clsViewRegionEN objViewRegionEN)
 {
@@ -3126,24 +3181,6 @@ public static void CheckProperty4Condition(clsViewRegionEN objViewRegionEN)
 
  #region 绑定下拉框
 
- /// <summary>
- /// 绑定基于Web的下拉框-使用Cache
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_DdlBindFunctionCache)
- /// </summary>
- /// <param name = "objDDL">需要绑定当前表的下拉框</param>
-public static void BindDdl_RegionIdCache(System.Web.UI.WebControls.DropDownList objDDL, string strPrjId)
-{
-//为数据源于表的下拉框设置内容
-System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem("选[界面区域]...","0");
-List<clsViewRegionEN> arrViewRegionObjLst = GetAllViewRegionObjLstCache(strPrjId); 
-objDDL.DataValueField = conViewRegion.RegionId;
-objDDL.DataTextField = conViewRegion.RegionName;
-objDDL.DataSource = arrViewRegionObjLst;
-objDDL.DataBind();
-objDDL.Items.Insert(0, li);
-objDDL.SelectedIndex = 0;
-}
-
 
  #endregion 绑定下拉框
 
@@ -3152,7 +3189,7 @@ objDDL.SelectedIndex = 0;
 
  /// <summary>
  /// 初始化列表缓存.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_InitListCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_InitListCache)
  /// </summary>
 public static void InitListCache()
 {
@@ -3173,7 +3210,7 @@ throw new Exception(strMsg);
 
  /// <summary>
  /// 根据关键字获取相关对象, 从缓存的对象列表中获取.没有就返回null.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjByKeyCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjByKeyCache)
  /// </summary>
  /// <param name = "strRegionId">所给的关键字</param>
  /// <param name = "strPrjId">缓存的分类字段</param>
@@ -3224,7 +3261,7 @@ return arrViewRegionObjLst_Sel.First();
 
  /// <summary>
  /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecNameByKeyCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecNameByKeyCache)
  /// </summary>
  /// <param name = "strRegionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
@@ -3238,7 +3275,7 @@ return objViewRegion.RegionName;
 }
  /// <summary>
  /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecNameByKeyCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecNameByKeyCache)
  /// </summary>
  /// <param name = "strRegionId">所给的关键字</param>
  /// <returns>根据关键字获取的名称</returns>
@@ -3253,7 +3290,7 @@ return objViewRegion.RegionName;
 
  /// <summary>
  /// 从缓存中获取所有对象列表.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetAllRecObjLstCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetAllRecObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
 public static List<clsViewRegionEN> GetAllViewRegionObjLstCache(string strPrjId)
@@ -3265,7 +3302,7 @@ return arrViewRegionObjLstCache;
 
  /// <summary>
  /// 从缓存中获取所有对象列表.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetObjLstCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetObjLstCache)
  /// </summary>
  /// <returns>从缓存中获取的所有对象列表</returns>
 public static List<clsViewRegionEN> GetObjLstCache(string strPrjId)
@@ -3293,7 +3330,7 @@ return arrViewRegionObjLstCache;
 
  /// <summary>
  /// 刷新本类中的缓存.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ReFreshThisCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_ReFreshThisCache)
  /// </summary>
 public static void ReFreshThisCache(string strPrjId = "")
 {
@@ -3325,7 +3362,7 @@ return clsViewRegionEN._RefreshTimeLst[clsViewRegionEN._RefreshTimeLst.Count - 1
 
  /// <summary>
  /// 刷新缓存.把当前表的缓存以及该表相关视图的缓存清空.
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_ReFreshCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_ReFreshCache)
  /// </summary>
 public static void ReFreshCache(string strPrjId)
 {
@@ -3360,7 +3397,7 @@ clsViewRegionBL.objCommFun4BL.ReFreshCache(strPrjId);
  /// <summary>
  /// 获取检查唯一性条件串(Uniqueness)--ViewRegion(界面区域)
  /// 唯一性条件:PrjId_ClsName
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetUniquenessConditionString)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetUniquenessConditionString)
  /// </summary>
  /// <param name = "objViewRegionEN">要求唯一的对象</param>
  /// <returns></returns>
@@ -3376,9 +3413,9 @@ return strResult;
 
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
- /// 作者:pyf
- /// 日期:2025-08-09
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_func)
+ /// 作者:pyf_agc
+ /// 日期:2026-08-30
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>
  /// <param name = "strOutFldName">输出字段名</param>
@@ -3414,7 +3451,7 @@ return objViewRegion[strOutFldName].ToString();
 
  /// <summary>
  /// 功能:获取当前表的记录数.该表与当前类不相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecCount_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecCount_S)
  /// </summary>
  /// <param name = "strTabName">所给定的表名</param>
  /// <returns>记录数,为整型</returns>
@@ -3427,7 +3464,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类不相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecCountByCond_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecCountByCond_S)
  /// </summary>
  /// <param name = "strTabName">所给定的表名</param>
  /// <param name = "strWhereCond">所给定的记录条件</param>
@@ -3441,7 +3478,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:获取当前表的记录数.该表与当前类相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecCount)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecCount)
  /// </summary>
  /// <returns>记录数,为整型</returns>
 public static int GetRecCount()
@@ -3453,7 +3490,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecCountByCond)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecCountByCond)
  /// </summary>
  /// <param name = "strWhereCond">所给定的记录条件</param>
  /// <returns>记录数,为整型</returns>
@@ -3466,7 +3503,7 @@ return intRecCount;
 
  /// <summary>
  /// 根据条件对象获取对象列表子集
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetRecCountByCondObjCache)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetRecCountByCondObjCache)
  /// </summary>
  /// <param name = "objViewRegionCond">条件对象</param>
  /// <returns>对象列表子集</returns>
@@ -3534,7 +3571,7 @@ return arrObjLstSel.Count();
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类不相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetFldValue_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetFldValue_S)
  /// </summary>
  /// <param name = "strTabName">所给定的表名</param>
  /// <param name = "strFldName">字段名</param>
@@ -3549,7 +3586,7 @@ return arrList;
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetFldValue)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetFldValue)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
  /// <param name = "strWhereCond">所给定的记录条件</param>
@@ -3563,7 +3600,7 @@ return arrList;
 
  /// <summary>
  /// 功能:获取给定表中满足条件的记录数, 该表与当前类相关。
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GetFldValueNoDistinct)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GetFldValueNoDistinct)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
  /// <param name = "strWhereCond">所给定的记录条件</param>
@@ -3578,7 +3615,7 @@ return arrList;
 
  /// <summary>
  /// 功能:设置当前表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4String)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4String)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
  /// <param name = "strValue">值</param>
@@ -3594,7 +3631,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:设置当前表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4Float)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4Float)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
  /// <param name = "fltValue">值</param>
@@ -3609,7 +3646,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:设置当前表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4Int)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4Int)
  /// </summary>
  /// <param name = "strFldName">字段名</param>
  /// <param name = "intValue">值</param>
@@ -3624,7 +3661,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:设置给定表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4String_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4String_S)
  /// </summary>
  /// <param name = "strTabName">表名</param>
  /// <param name = "strFldName">字段名</param>
@@ -3640,7 +3677,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:设置给定表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4Int_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4Int_S)
  /// </summary>
  /// <param name = "strTabName">表名</param>
  /// <param name = "strFldName">字段名</param>
@@ -3656,7 +3693,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:设置给定表中的符合条件的某字段的值
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_funSetFldValue4Float_S)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_funSetFldValue4Float_S)
  /// </summary>
  /// <param name = "strTabName">表名</param>
  /// <param name = "strFldName">字段名</param>
@@ -3679,7 +3716,7 @@ return intRecCount;
 
  /// <summary>
  /// 功能:获取建立表的代码
- /// (AutoGCLib.BusinessLogic4CSharp:Gen_4BL_GenSQLCode4CreateTab)
+ /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_GenSQLCode4CreateTab)
  /// </summary>
  /// <returns>建立表的代码</returns>
 public static string GetCode4CreateTable() 
@@ -3695,6 +3732,8 @@ public static string GetCode4CreateTable()
  strCreateTabCode.Append(" RegionTypeId char(4) not Null, "); 
  // /**文件名*/ 
  strCreateTabCode.Append(" FileName varchar(150) Null, "); 
+ // /**使用缓存模式Id*/ 
+ strCreateTabCode.Append(" UseCacheModeId char(2) Null, "); 
  // /**高度*/ 
  strCreateTabCode.Append(" Height int Null, "); 
  // /**宽*/ 
@@ -3746,7 +3785,9 @@ public static string GetCode4CreateTable()
  // /**Cm工程Id*/ 
  strCreateTabCode.Append(" CmPrjId char(6) not Null, "); 
  // /**PrjIdRefer*/ 
- strCreateTabCode.Append(" PrjIdRefer char(4) not Null ");
+ strCreateTabCode.Append(" PrjIdRefer char(4) not Null, "); 
+ // /**使用缓存模式名*/ 
+ strCreateTabCode.Append(" UseCacheModeName varchar(50) Null ");
  strCreateTabCode.Append(") "); 
   strCreateTabCode.Append("ON [PRIMARY] ");
   return strCreateTabCode.ToString();

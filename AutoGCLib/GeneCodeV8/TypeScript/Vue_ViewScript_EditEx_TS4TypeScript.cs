@@ -158,7 +158,7 @@ namespace AutoGCLib
 
                 //生成所有的函数
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-           clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+           clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
 
                 //为所有的函数定义相关输入控件
                 List<string> arrValueLst = new List<string>();

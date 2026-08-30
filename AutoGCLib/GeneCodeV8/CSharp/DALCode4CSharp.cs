@@ -543,10 +543,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -802,9 +807,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
 
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
@@ -871,9 +882,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -961,8 +978,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
 
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
@@ -1049,8 +1073,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
 
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
@@ -1175,8 +1206,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
 
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
@@ -1243,9 +1281,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.Append("\r\n clsSpecSQLforSql objSQL;");
             strBuilder.Append("\r\n //获取连接对象");
@@ -1307,9 +1351,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -1542,9 +1592,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -1651,9 +1707,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -1740,9 +1802,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -1834,9 +1902,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -1928,9 +2002,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -2028,9 +2108,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");
@@ -2120,9 +2206,15 @@ clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, this.CmPrjId);
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
                 if (objField.FieldTypeId != enumFieldType.Log_UpdDate_13) continue;
-                string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
-                strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
-
+                if (objField.ObjFieldTab().DataTypeId == enumDataTypeAbbr.datetime_05)
+                {
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = DateTime.Now;", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    string strCurrDateTimeExpress = clsPubFun4GC.GetCurrDateTimeExpress(objPrjTabENEx.PrjId);
+                    strBuilder.AppendFormat("\r\n obj{0}EN.{1} = {2};", objPrjTabENEx.TabName, objField.PropertyName(this.IsFstLcase), strCurrDateTimeExpress);
+                }
             }
             strBuilder.AppendFormat("\r\n if (obj{0}EN._IsCheckProperty  ==  false)", objPrjTabENEx.TabName);
             strBuilder.Append("\r\n {");

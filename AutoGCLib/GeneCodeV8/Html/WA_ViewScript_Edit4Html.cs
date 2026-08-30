@@ -402,7 +402,7 @@ namespace AutoGCLib
 
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
                         objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", objViewInfoENEx.ClsName);
@@ -475,7 +475,7 @@ namespace AutoGCLib
                 strJSPath = string.Format("../js/{0}", objFuncModule.FuncModuleEnName4GC());
 
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_JS =
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx,this.FunctionTemplateId);
 
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_JS)
                 {

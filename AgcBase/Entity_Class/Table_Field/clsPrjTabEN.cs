@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabEN
  表名:PrjTab(00050009)
- * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
- 日期:2026/03/26 01:29:09
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/29 19:00:57
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:字段、表维护(Table_Field)
- 框架-层名:实体层(CS)(EntityLayer,0001)
+ 框架-层名:实体层CS(EntityLayerCS,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -31,7 +31,7 @@ namespace AGC.Entity
 {
  /// <summary>
  /// 表PrjTab的关键字(TabId)的类型定义. 以便检查类型以及操作方便.
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 public class K_TabId_PrjTab
 {
@@ -70,7 +70,7 @@ return new K_TabId_PrjTab(value);
 }
  /// <summary>
  /// 工程表(PrjTab)
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 [Serializable]
 [DataContractAttribute]
@@ -82,8 +82,8 @@ public new const string _CurrTabName = "PrjTab"; //当前表名,与该类相关�
 public const string _CurrTabKeyFldName = "TabId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 46;
-public static string[] _AttributeName = new string[] {"TabId", "TabName", "TabCnName", "PrjId", "SqlDsTypeId", "TabStateId", "FuncModuleAgcId", "IsReleToSqlTab", "Keyword", "TabTypeId", "TabMainTypeId", "RelaTabId4View", "IsNeedGeneIndexer", "ParentClass", "IsShare", "IsUseDelSign", "IsUseCache", "IsMultiKeyClassify", "CacheClassifyField", "CacheClassifyField2", "CacheModeId", "CacheClassifyFieldTS", "CacheClassifyField2TS", "ParaVar2TS", "ParaVar1TS", "WhereFormat", "WhereFormatBack", "IsRefresh4RelaView", "TabRecNum", "KeyId4Test", "ErrMsg", "FldNum", "UpdUserId", "UpdDate", "Memo", "OrderNum4Refer", "IsChecked", "Owner", "TabEnName", "IsNeedTransCode", "TabNameB", "RelaViewId", "DataBaseName", "IsNationStandard", "IsParaTab", "IsArchive"};
+protected const int _AttributeCount = 47;
+public static string[] _AttributeName = new string[] {"TabId", "TabName", "TabCnName", "PrjId", "SqlDsTypeId", "TabStateId", "FuncModuleAgcId", "IsReleToSqlTab", "Keyword", "TabTypeId", "TabMainTypeId", "GeneCodeDate", "RelaTabId4View", "IsNeedGeneIndexer", "ParentClass", "IsShare", "IsUseDelSign", "IsUseCache", "IsMultiKeyClassify", "CacheClassifyField", "CacheClassifyField2", "CacheModeId", "CacheClassifyFieldTS", "CacheClassifyField2TS", "ParaVar2TS", "ParaVar1TS", "WhereFormat", "WhereFormatBack", "IsRefresh4RelaView", "TabRecNum", "KeyId4Test", "ErrMsg", "FldNum", "UpdUserId", "UpdDate", "Memo", "OrderNum4Refer", "IsChecked", "Owner", "TabEnName", "IsNeedTransCode", "TabNameB", "RelaViewId", "DataBaseName", "IsNationStandard", "IsParaTab", "IsArchive"};
 
 protected string mstrTabId;    //表ID
 protected string mstrTabName;    //表名
@@ -96,6 +96,7 @@ protected bool mbolIsReleToSqlTab;    //是否与SQL表相关
 protected string mstrKeyword;    //关键字
 protected string mstrTabTypeId;    //表类型Id
 protected string mstrTabMainTypeId;    //表主类型Id
+protected string mstrGeneCodeDate;    //生成代码日期
 protected string mstrRelaTabId4View;    //视图的相关表ID
 protected bool mbolIsNeedGeneIndexer;    //是否需要生成索引器
 protected string mstrParentClass;    //父类
@@ -228,6 +229,10 @@ return mstrTabTypeId;
 else if (strAttributeName  ==  conPrjTab.TabMainTypeId)
 {
 return mstrTabMainTypeId;
+}
+else if (strAttributeName  ==  conPrjTab.GeneCodeDate)
+{
+return mstrGeneCodeDate;
 }
 else if (strAttributeName  ==  conPrjTab.RelaTabId4View)
 {
@@ -427,6 +432,11 @@ else if (strAttributeName  ==  conPrjTab.TabMainTypeId)
 {
 mstrTabMainTypeId = value.ToString();
  AddUpdatedFld(conPrjTab.TabMainTypeId);
+}
+else if (strAttributeName  ==  conPrjTab.GeneCodeDate)
+{
+mstrGeneCodeDate = value.ToString();
+ AddUpdatedFld(conPrjTab.GeneCodeDate);
 }
 else if (strAttributeName  ==  conPrjTab.RelaTabId4View)
 {
@@ -653,6 +663,10 @@ else if (conPrjTab.TabMainTypeId  ==  _AttributeName[intIndex])
 {
 return mstrTabMainTypeId;
 }
+else if (conPrjTab.GeneCodeDate  ==  _AttributeName[intIndex])
+{
+return mstrGeneCodeDate;
+}
 else if (conPrjTab.RelaTabId4View  ==  _AttributeName[intIndex])
 {
 return mstrRelaTabId4View;
@@ -851,6 +865,11 @@ else if (conPrjTab.TabMainTypeId  ==  _AttributeName[intIndex])
 {
 mstrTabMainTypeId = value.ToString();
  AddUpdatedFld(conPrjTab.TabMainTypeId);
+}
+else if (conPrjTab.GeneCodeDate  ==  _AttributeName[intIndex])
+{
+mstrGeneCodeDate = value.ToString();
+ AddUpdatedFld(conPrjTab.GeneCodeDate);
 }
 else if (conPrjTab.RelaTabId4View  ==  _AttributeName[intIndex])
 {
@@ -1306,6 +1325,32 @@ else
 }
 //记录修改过的字段
  AddUpdatedFld(conPrjTab.TabMainTypeId);
+}
+}
+/// <summary>
+/// 生成代码日期(说明:;字段类型:varchar;字段长度:20;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string GeneCodeDate
+{
+get
+{
+return mstrGeneCodeDate;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrGeneCodeDate = value;
+}
+else
+{
+ mstrGeneCodeDate = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conPrjTab.GeneCodeDate);
 }
 }
 /// <summary>
@@ -2139,7 +2184,7 @@ public static class conPrjTab
 {
 public const string _CurrTabName = "PrjTab"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "TabId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"TabId", "TabName", "TabCnName", "PrjId", "SqlDsTypeId", "TabStateId", "FuncModuleAgcId", "IsReleToSqlTab", "Keyword", "TabTypeId", "TabMainTypeId", "RelaTabId4View", "IsNeedGeneIndexer", "ParentClass", "IsShare", "IsUseDelSign", "IsUseCache", "IsMultiKeyClassify", "CacheClassifyField", "CacheClassifyField2", "CacheModeId", "CacheClassifyFieldTS", "CacheClassifyField2TS", "ParaVar2TS", "ParaVar1TS", "WhereFormat", "WhereFormatBack", "IsRefresh4RelaView", "TabRecNum", "KeyId4Test", "ErrMsg", "FldNum", "UpdUserId", "UpdDate", "Memo", "OrderNum4Refer", "IsChecked", "Owner", "TabEnName", "IsNeedTransCode", "TabNameB", "RelaViewId", "DataBaseName", "IsNationStandard", "IsParaTab", "IsArchive"};
+public static string[] _AttributeName = new string[] {"TabId", "TabName", "TabCnName", "PrjId", "SqlDsTypeId", "TabStateId", "FuncModuleAgcId", "IsReleToSqlTab", "Keyword", "TabTypeId", "TabMainTypeId", "GeneCodeDate", "RelaTabId4View", "IsNeedGeneIndexer", "ParentClass", "IsShare", "IsUseDelSign", "IsUseCache", "IsMultiKeyClassify", "CacheClassifyField", "CacheClassifyField2", "CacheModeId", "CacheClassifyFieldTS", "CacheClassifyField2TS", "ParaVar2TS", "ParaVar1TS", "WhereFormat", "WhereFormatBack", "IsRefresh4RelaView", "TabRecNum", "KeyId4Test", "ErrMsg", "FldNum", "UpdUserId", "UpdDate", "Memo", "OrderNum4Refer", "IsChecked", "Owner", "TabEnName", "IsNeedTransCode", "TabNameB", "RelaViewId", "DataBaseName", "IsNationStandard", "IsParaTab", "IsArchive"};
 //以下是属性变量
 
 
@@ -2208,6 +2253,12 @@ public static string[] _AttributeName = new string[] {"TabId", "TabName", "TabCn
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string TabMainTypeId = "TabMainTypeId";    //表主类型Id
+
+ /// <summary>
+ /// 常量:"GeneCodeDate"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string GeneCodeDate = "GeneCodeDate";    //生成代码日期
 
  /// <summary>
  /// 常量:"RelaTabId4View"

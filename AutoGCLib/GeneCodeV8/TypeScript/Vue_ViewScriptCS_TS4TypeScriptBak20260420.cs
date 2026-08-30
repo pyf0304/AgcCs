@@ -215,7 +215,7 @@ namespace AutoGCLib
 
                 //生成所有的函数
                 List<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
                 List<clsvFunction4GeneCodeEN> arrFunc = arrvFunction4GeneCodeObjLst.Where(x => x.FuncName == "Gen_WApi_Ts_GetConditionInFldValueLst").ToList();
                 //为所有的函数定义相关输入控件
                 List<string> arrValueLst = new List<string>();
@@ -2438,13 +2438,6 @@ namespace AutoGCLib
         {
             return Gen_WApi_Ts_btnDetailRecordInTab_Click(objvFunction4GeneCodeEN);
         }
-
-
-        //public string Gen_Vue_Ts_btnUpdateRecordInTab_Click(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
-        //{
-        //    return Gen_WApi_Ts_btnUpdateRecordInTab_Click(objvFunction4GeneCodeEN);
-        //}
-
 
 
 

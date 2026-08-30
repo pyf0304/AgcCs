@@ -19,4 +19,11 @@ namespace Comm.PubFun
         public string verifyCode { get; set; }
 
     }
+    public class LoginParamsT
+    {
+        public string username { get; set; }
+
+        public string password { get; set; }
+
+    }
 }

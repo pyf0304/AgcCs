@@ -181,7 +181,7 @@ namespace AutoGCLib
                 this.GetViewPubVarLst(this.TabId_Out4DetailRegion);
 
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
                 //为所有的函数定义相关输入控件
                 List<string> arrValueLst = new List<string>();
 
@@ -1040,7 +1040,7 @@ objViewInfoENEx.TabName, objKeyField.FldName);
             strCodeForCs.Append("\r\n **/");
             strCodeForCs.Append("\r\n" + "public getDivName(): HTMLDivElement | null {");
             strCodeForCs.Append("\r\n" + "const strThisFuncName = this.getDivName.name;");
-
+            strFuncName = "getDivName";
             //strCodeForCs.Append("\r\n" + "console.log('strThisFuncName1', strThisFuncName);");
             strCodeForCs.Append("\r\n" + $"if ({ThisClsName}.strPageDispModeId != enumPageDispMode.PopupBox_01)");
             strCodeForCs.Append("\r\n" + "{");

@@ -100,7 +100,7 @@ namespace AutoGCLib
                         FieldName = fieldTab.FldName,
                         FieldNameCamel = ToCamelCase(fieldTab.FldName),
                         PropertyName = fieldTab.PrivPropName,
-                        IsNumeric = fieldTab.IsNumberType(),
+                        IsNumber = fieldTab.IsNumberType(),
                         TypeScriptType = fieldTab.TypeScriptType(),
                         InitValue = fieldTab.IsNumberType() ? "0" : "''"
                     });

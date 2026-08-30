@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjTabDA
  表名:PrjTab(00050009)
- * 版本:2026.03.13.1(服务器:WIN-SRV103-116)
- 日期:2026/03/26 01:29:11
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/29 19:00:59
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:字段、表维护(Table_Field)
- 框架-层名:数据处理层(CS)(DALCode,0002)
+ 框架-层名:数据处理层CS(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -537,6 +537,7 @@ objPrjTabEN.IsReleToSqlTab = TransNullToBool(objRow[conPrjTab.IsReleToSqlTab].To
 objPrjTabEN.Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(); //关键字
 objPrjTabEN.TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id
 objPrjTabEN.TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id
+objPrjTabEN.GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期
 objPrjTabEN.RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID
 objPrjTabEN.IsNeedGeneIndexer = TransNullToBool(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器
 objPrjTabEN.ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(); //父类
@@ -629,6 +630,7 @@ objPrjTabEN.IsReleToSqlTab = TransNullToBool(objRow[conPrjTab.IsReleToSqlTab].To
 objPrjTabEN.Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(); //关键字
 objPrjTabEN.TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id
 objPrjTabEN.TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id
+objPrjTabEN.GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期
 objPrjTabEN.RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID
 objPrjTabEN.IsNeedGeneIndexer = TransNullToBool(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器
 objPrjTabEN.ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(); //父类
@@ -711,6 +713,7 @@ try
  objPrjTabEN.Keyword = objDT.Rows[0][conPrjTab.Keyword].ToString().Trim(); //关键字(字段类型:varchar,字段长度:50,是否可空:True)
  objPrjTabEN.TabTypeId = objDT.Rows[0][conPrjTab.TabTypeId].ToString().Trim(); //表类型Id(字段类型:char,字段长度:4,是否可空:False)
  objPrjTabEN.TabMainTypeId = objDT.Rows[0][conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id(字段类型:char,字段长度:4,是否可空:True)
+ objPrjTabEN.GeneCodeDate = objDT.Rows[0][conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
  objPrjTabEN.RelaTabId4View = objDT.Rows[0][conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID(字段类型:char,字段长度:8,是否可空:False)
  objPrjTabEN.IsNeedGeneIndexer = TransNullToBool(objDT.Rows[0][conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器(字段类型:bit,字段长度:1,是否可空:True)
  objPrjTabEN.ParentClass = objDT.Rows[0][conPrjTab.ParentClass].ToString().Trim(); //父类(字段类型:varchar,字段长度:50,是否可空:True)
@@ -789,6 +792,7 @@ try
  objPrjTabEN.Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(); //关键字(字段类型:varchar,字段长度:50,是否可空:True)
  objPrjTabEN.TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id(字段类型:char,字段长度:4,是否可空:False)
  objPrjTabEN.TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id(字段类型:char,字段长度:4,是否可空:True)
+ objPrjTabEN.GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
  objPrjTabEN.RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID(字段类型:char,字段长度:8,是否可空:False)
  objPrjTabEN.IsNeedGeneIndexer = clsEntityBase2.TransNullToBool_S(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器(字段类型:bit,字段长度:1,是否可空:True)
  objPrjTabEN.ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(); //父类(字段类型:varchar,字段长度:50,是否可空:True)
@@ -876,6 +880,7 @@ IsReleToSqlTab = TransNullToBool(objRow[conPrjTab.IsReleToSqlTab].ToString().Tri
 Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(), //关键字
 TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(), //表类型Id
 TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(), //表主类型Id
+GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(), //生成代码日期
 RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(), //视图的相关表ID
 IsNeedGeneIndexer = TransNullToBool(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()), //是否需要生成索引器
 ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(), //父类
@@ -947,6 +952,7 @@ objPrjTabEN.IsReleToSqlTab = TransNullToBool(objRow[conPrjTab.IsReleToSqlTab].To
 objPrjTabEN.Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(); //关键字
 objPrjTabEN.TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id
 objPrjTabEN.TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id
+objPrjTabEN.GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期
 objPrjTabEN.RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID
 objPrjTabEN.IsNeedGeneIndexer = TransNullToBool(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器
 objPrjTabEN.ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(); //父类
@@ -1016,6 +1022,7 @@ objPrjTabEN.IsReleToSqlTab = TransNullToBool(objRow[conPrjTab.IsReleToSqlTab].To
 objPrjTabEN.Keyword = objRow[conPrjTab.Keyword] == DBNull.Value ? null : objRow[conPrjTab.Keyword].ToString().Trim(); //关键字
 objPrjTabEN.TabTypeId = objRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id
 objPrjTabEN.TabMainTypeId = objRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id
+objPrjTabEN.GeneCodeDate = objRow[conPrjTab.GeneCodeDate] == DBNull.Value ? null : objRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期
 objPrjTabEN.RelaTabId4View = objRow[conPrjTab.RelaTabId4View] == DBNull.Value ? null : objRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID
 objPrjTabEN.IsNeedGeneIndexer = TransNullToBool(objRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim()); //是否需要生成索引器
 objPrjTabEN.ParentClass = objRow[conPrjTab.ParentClass] == DBNull.Value ? null : objRow[conPrjTab.ParentClass].ToString().Trim(); //父类
@@ -1307,6 +1314,10 @@ objRow[conPrjTab.Keyword] = objPrjTabEN.Keyword; //关键字
  }
 objRow[conPrjTab.TabTypeId] = objPrjTabEN.TabTypeId; //表类型Id
 objRow[conPrjTab.TabMainTypeId] = objPrjTabEN.TabMainTypeId; //表主类型Id
+ if (objPrjTabEN.GeneCodeDate !=  "")
+ {
+objRow[conPrjTab.GeneCodeDate] = objPrjTabEN.GeneCodeDate; //生成代码日期
+ }
  if (objPrjTabEN.RelaTabId4View !=  "")
  {
 objRow[conPrjTab.RelaTabId4View] = objPrjTabEN.RelaTabId4View; //视图的相关表ID
@@ -1512,6 +1523,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conPrjTab.TabMainTypeId);
  var strTabMainTypeId = objPrjTabEN.TabMainTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabMainTypeId + "'");
+ }
+ 
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ arrFieldListForInsert.Add(conPrjTab.GeneCodeDate);
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strGeneCodeDate + "'");
  }
  
  if (objPrjTabEN.RelaTabId4View  ==  "")
@@ -1826,6 +1844,13 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conPrjTab.TabMainTypeId);
  var strTabMainTypeId = objPrjTabEN.TabMainTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabMainTypeId + "'");
+ }
+ 
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ arrFieldListForInsert.Add(conPrjTab.GeneCodeDate);
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strGeneCodeDate + "'");
  }
  
  if (objPrjTabEN.RelaTabId4View  ==  "")
@@ -2145,6 +2170,13 @@ public bool AddNewRecordBySQL2(clsPrjTabEN objPrjTabEN, SqlConnection objSqlConn
  arrValueListForInsert.Add("'" + strTabMainTypeId + "'");
  }
  
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ arrFieldListForInsert.Add(conPrjTab.GeneCodeDate);
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strGeneCodeDate + "'");
+ }
+ 
  if (objPrjTabEN.RelaTabId4View  ==  "")
  {
  objPrjTabEN.RelaTabId4View = null;
@@ -2406,6 +2438,7 @@ objRow[conPrjTab.IsReleToSqlTab] = oRow[conPrjTab.IsReleToSqlTab].ToString().Tri
 objRow[conPrjTab.Keyword] = oRow[conPrjTab.Keyword].ToString().Trim(); //关键字
 objRow[conPrjTab.TabTypeId] = oRow[conPrjTab.TabTypeId].ToString().Trim(); //表类型Id
 objRow[conPrjTab.TabMainTypeId] = oRow[conPrjTab.TabMainTypeId].ToString().Trim(); //表主类型Id
+objRow[conPrjTab.GeneCodeDate] = oRow[conPrjTab.GeneCodeDate].ToString().Trim(); //生成代码日期
 objRow[conPrjTab.RelaTabId4View] = oRow[conPrjTab.RelaTabId4View].ToString().Trim(); //视图的相关表ID
 objRow[conPrjTab.IsNeedGeneIndexer] = oRow[conPrjTab.IsNeedGeneIndexer].ToString().Trim(); //是否需要生成索引器
 objRow[conPrjTab.ParentClass] = oRow[conPrjTab.ParentClass].ToString().Trim(); //父类
@@ -2537,6 +2570,10 @@ objRow[conPrjTab.TabTypeId] = objPrjTabEN.TabTypeId; //表类型Id
  if (objPrjTabEN.IsUpdated(conPrjTab.TabMainTypeId))
  {
 objRow[conPrjTab.TabMainTypeId] = objPrjTabEN.TabMainTypeId; //表主类型Id
+ }
+ if (objPrjTabEN.IsUpdated(conPrjTab.GeneCodeDate))
+ {
+objRow[conPrjTab.GeneCodeDate] = objPrjTabEN.GeneCodeDate; //生成代码日期
  }
  if (objPrjTabEN.IsUpdated(conPrjTab.RelaTabId4View))
  {
@@ -2839,6 +2876,19 @@ sbSQL.AppendFormat("Update PrjTab Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conPrjTab.TabMainTypeId); //表主类型Id
+ }
+ }
+ 
+ if (objPrjTabEN.IsUpdated(conPrjTab.GeneCodeDate))
+ {
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strGeneCodeDate, conPrjTab.GeneCodeDate); //生成代码日期
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conPrjTab.GeneCodeDate); //生成代码日期
  }
  }
  
@@ -3371,6 +3421,19 @@ sbSQL.AppendFormat("Update PrjTab Set ");
  else
  {
  sbSQL.Append(" TabMainTypeId = null,"); //表主类型Id
+ }
+ }
+ 
+ if (objPrjTabEN.IsUpdated(conPrjTab.GeneCodeDate))
+ {
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" GeneCodeDate = '{0}',", strGeneCodeDate); //生成代码日期
+ }
+ else
+ {
+ sbSQL.Append(" GeneCodeDate = null,"); //生成代码日期
  }
  }
  
@@ -3908,6 +3971,19 @@ sbSQL.AppendFormat("Update PrjTab Set ");
  }
  }
  
+ if (objPrjTabEN.IsUpdated(conPrjTab.GeneCodeDate))
+ {
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" GeneCodeDate = '{0}',", strGeneCodeDate); //生成代码日期
+ }
+ else
+ {
+ sbSQL.Append(" GeneCodeDate = null,"); //生成代码日期
+ }
+ }
+ 
  if (objPrjTabEN.IsUpdated(conPrjTab.RelaTabId4View))
  {
  if (objPrjTabEN.RelaTabId4View  ==  "")
@@ -4440,6 +4516,19 @@ sbSQL.AppendFormat("Update PrjTab Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conPrjTab.TabMainTypeId); //表主类型Id
+ }
+ }
+ 
+ if (objPrjTabEN.IsUpdated(conPrjTab.GeneCodeDate))
+ {
+ if (objPrjTabEN.GeneCodeDate !=  null)
+ {
+ var strGeneCodeDate = objPrjTabEN.GeneCodeDate.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strGeneCodeDate, conPrjTab.GeneCodeDate); //生成代码日期
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conPrjTab.GeneCodeDate); //生成代码日期
  }
  }
  
@@ -5017,6 +5106,7 @@ objPrjTabENT.IsReleToSqlTab = objPrjTabENS.IsReleToSqlTab; //是否与SQL表相�
 objPrjTabENT.Keyword = objPrjTabENS.Keyword; //关键字
 objPrjTabENT.TabTypeId = objPrjTabENS.TabTypeId; //表类型Id
 objPrjTabENT.TabMainTypeId = objPrjTabENS.TabMainTypeId; //表主类型Id
+objPrjTabENT.GeneCodeDate = objPrjTabENS.GeneCodeDate; //生成代码日期
 objPrjTabENT.RelaTabId4View = objPrjTabENS.RelaTabId4View; //视图的相关表ID
 objPrjTabENT.IsNeedGeneIndexer = objPrjTabENS.IsNeedGeneIndexer; //是否需要生成索引器
 objPrjTabENT.ParentClass = objPrjTabENS.ParentClass; //父类
@@ -5085,6 +5175,7 @@ clsCheckSql.CheckFieldLen(objPrjTabEN.FuncModuleAgcId, 8, conPrjTab.FuncModuleAg
 clsCheckSql.CheckFieldLen(objPrjTabEN.Keyword, 50, conPrjTab.Keyword);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabTypeId, 4, conPrjTab.TabTypeId);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabMainTypeId, 4, conPrjTab.TabMainTypeId);
+clsCheckSql.CheckFieldLen(objPrjTabEN.GeneCodeDate, 20, conPrjTab.GeneCodeDate);
 clsCheckSql.CheckFieldLen(objPrjTabEN.RelaTabId4View, 8, conPrjTab.RelaTabId4View);
 clsCheckSql.CheckFieldLen(objPrjTabEN.ParentClass, 50, conPrjTab.ParentClass);
 clsCheckSql.CheckFieldLen(objPrjTabEN.CacheClassifyField, 8, conPrjTab.CacheClassifyField);
@@ -5127,6 +5218,7 @@ clsCheckSql.CheckFieldLen(objPrjTabEN.FuncModuleAgcId, 8, conPrjTab.FuncModuleAg
 clsCheckSql.CheckFieldLen(objPrjTabEN.Keyword, 50, conPrjTab.Keyword);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabTypeId, 4, conPrjTab.TabTypeId);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabMainTypeId, 4, conPrjTab.TabMainTypeId);
+clsCheckSql.CheckFieldLen(objPrjTabEN.GeneCodeDate, 20, conPrjTab.GeneCodeDate);
 clsCheckSql.CheckFieldLen(objPrjTabEN.RelaTabId4View, 8, conPrjTab.RelaTabId4View);
 clsCheckSql.CheckFieldLen(objPrjTabEN.ParentClass, 50, conPrjTab.ParentClass);
 clsCheckSql.CheckFieldLen(objPrjTabEN.CacheClassifyField, 8, conPrjTab.CacheClassifyField);
@@ -5171,6 +5263,7 @@ clsCheckSql.CheckFieldLen(objPrjTabEN.FuncModuleAgcId, 8, conPrjTab.FuncModuleAg
 clsCheckSql.CheckFieldLen(objPrjTabEN.Keyword, 50, conPrjTab.Keyword);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabTypeId, 4, conPrjTab.TabTypeId);
 clsCheckSql.CheckFieldLen(objPrjTabEN.TabMainTypeId, 4, conPrjTab.TabMainTypeId);
+clsCheckSql.CheckFieldLen(objPrjTabEN.GeneCodeDate, 20, conPrjTab.GeneCodeDate);
 clsCheckSql.CheckFieldLen(objPrjTabEN.RelaTabId4View, 8, conPrjTab.RelaTabId4View);
 clsCheckSql.CheckFieldLen(objPrjTabEN.ParentClass, 50, conPrjTab.ParentClass);
 clsCheckSql.CheckFieldLen(objPrjTabEN.CacheClassifyField, 8, conPrjTab.CacheClassifyField);
@@ -5203,6 +5296,7 @@ clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.FuncModuleAgcId, conPrjTab.FuncM
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.Keyword, conPrjTab.Keyword);
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.TabTypeId, conPrjTab.TabTypeId);
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.TabMainTypeId, conPrjTab.TabMainTypeId);
+clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.GeneCodeDate, conPrjTab.GeneCodeDate);
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.RelaTabId4View, conPrjTab.RelaTabId4View);
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.ParentClass, conPrjTab.ParentClass);
 clsCheckSql.CheckSqlInjection4Field(objPrjTabEN.CacheClassifyField, conPrjTab.CacheClassifyField);

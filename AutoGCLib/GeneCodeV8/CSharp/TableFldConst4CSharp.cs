@@ -200,7 +200,7 @@ namespace AutoGCLib
         {
             //string strCodeTypeId = "";
             var arrCodeTypeCache = clsCodeTypeBL.GetObjLstCache();
-            string strCodeTypeENName = "TableFldConst";
+            string strCodeTypeENName = "TableFldConstCS";
             string strProgLangTypeId = enumProgLangType.CSharp_01;
             clsCodeTypeEN objCodeType_TableFldConst = arrCodeTypeCache.Find(x => x.ProgLangTypeId == strProgLangTypeId 
             && x.CodeTypeENName == strCodeTypeENName);

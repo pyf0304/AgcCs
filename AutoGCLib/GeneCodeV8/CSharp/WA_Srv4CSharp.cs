@@ -1059,11 +1059,60 @@ namespace AutoGCLib
             strBuilder.Append("\r\n" + "}");
             return strBuilder.ToString();
         }
+        public string Gen_GetObjLstByKeyLstsBak(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            if (objPrjTabENEx.arrKeyFldSet == null || objPrjTabENEx.arrKeyFldSet.Count <= 1) return "";
+            try
+            {
+                string strKeyFormat = string.Join("|", objPrjTabENEx.arrKeyFldSet.Select(x => x.FldName));
+                var model = new
+                {
+                    TabName = objPrjTabENEx.TabName,
+                    KeyFormat = strKeyFormat
+                };
+                AutoGCLib.Templates.RenderService objRenderService = new AutoGCLib.Templates.RenderService();
+                string strCode = objRenderService.Render(
+                @"CSharp\WA_Srv4CSharp\Gen_GetObjLstByKeyLsts.sbn",
+                model);
+                return strCode;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("通过sbn模板生成函数[Gen_GetObjLstByKeyLsts]出错:{0}.({1})",
+                objException.Message, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
 
+        public string Gen_GetObjLstByKeyLsts(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
+        {
+            if (objPrjTabENEx.arrKeyFldSet == null || objPrjTabENEx.arrKeyFldSet.Count <= 1) return "";
+            try
+            {
+                string strKeyFormat = string.Join("|", objPrjTabENEx.arrKeyFldSet.Select(x => x.FldName));
+                var model = new
+                {
+                    TabName = objPrjTabENEx.TabName,
+                    KeyFormat = strKeyFormat
+                };
+                AutoGCLib.Templates.RenderService objRenderService = new AutoGCLib.Templates.RenderService();
+                string strCode = objRenderService.Render(
+                @"CSharp\WA_Srv4CSharp\Gen_GetObjLstByKeyLsts.sbn",
+                model);
+                return strCode;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("通过sbn模板生成函数[Gen_GetObjLstByKeyLsts]出错:{0}.({1})",
+                objException.Message, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
 
         public string Gen_GetObjLstByKeyLst(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)
         {
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1) return "";
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1) return Gen_GetObjLstByKeyLsts(objvFunction4GeneCodeEN);
+
             clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
 
             StringBuilder strBuilder = new StringBuilder();

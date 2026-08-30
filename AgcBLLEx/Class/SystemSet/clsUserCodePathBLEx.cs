@@ -474,7 +474,15 @@ namespace AGC.BusinessLogicEx
             List<clsUserCodePathEN> arrObjLstCache = clsUserCodePathBL.GetObjLstCache(strCurrPrjId);
 
             clsUserCodePrjMainPathEN objUserCodePrjMainPath = clsUserCodePrjMainPathBLEx.GetObjByCmPrjIdAppRelaIdPrjIdUserIdCache_Dic(intCMProjectAppRelaId, strUserId);
-            
+            if (objUserCodePrjMainPath == null)
+            {
+                string strMsg = string.Format(
+                    "根据Cm工程应用类型Id:{0}, 用户:{1} 未找到UserCodePrjMainPath记录，请先配置用户主路径！({2})",
+                    intCMProjectAppRelaId,
+                    strUserId,
+                    clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
             foreach (clsUserCodePathEN objUserCodePathEN in arrObjLstCache)
             {
                 if (objUserCodePathEN.CodeTypeId == strCodeTypeId
@@ -992,7 +1000,7 @@ namespace AGC.BusinessLogicEx
         /// <param name="intApplicationTypeId">应用类型ID</param>
         /// <param name="strCodeTypeId">代码类型ID</param>
         /// <returns>元组：(CodePath, CodePathBackup)</returns>
-        public static (string CodePath, string CodePathBackup) GetUserGCCodePathWithBackup(
+        public static (string RootPath, string CodePath, string CodePathBackup,string CodePath4Share, string CodePathBackup4Share) GetUserGCCodePathWithBackup(
             string strUserId,
             string strMachineName,
             string strPrjId,
@@ -1089,22 +1097,30 @@ namespace AGC.BusinessLogicEx
                         clsStackTrace.GetCurrClassFunction());
                     throw new Exception(strErrMsg);
                 }
-
+                string strRootPath = objUserCodePrjMainPath_MachineName.CodePath;
                 // 6. 拼接完整代码路径和备份路径
-                string strFullCodePath = string.Format("{0}/{1}",
-                    objUserCodePrjMainPath_MachineName.CodePath,
-                    objUserCodePath.CodePath);
+                string strCodePath =                    objUserCodePath.CodePath;
 
-                string strFullCodePathBackup = string.Format("{0}/{1}",
-                    objUserCodePrjMainPath_MachineName.CodePathBackup,
-                    objUserCodePath.CodePathBackup);
+                string strCodePathBackup =                    objUserCodePath.CodePathBackup;
+
+                string strCodePath4Share =              objUserCodePath.CodePath4Share??"";
+
+                string strCodePathBackup4Share =                     objUserCodePath.CodePathBackup4Share??"";
 
                 // 7. 标准化路径
-                strFullCodePath = strFullCodePath.Replace("//", "/")
+                strCodePath = strCodePath.Replace("//", "/")
                     .Replace("/\\", "\\")
                     .Replace("\\\\", "\\");
 
-                strFullCodePathBackup = strFullCodePathBackup.Replace("//", "/")
+                strCodePathBackup = strCodePathBackup.Replace("//", "/")
+                    .Replace("/\\", "\\")
+                    .Replace("\\\\", "\\");
+                                
+                strCodePath4Share = strCodePath4Share.Replace("//", "/")
+                  .Replace("/\\", "\\")
+                  .Replace("\\\\", "\\");
+
+                strCodePathBackup4Share = strCodePathBackup4Share.Replace("//", "/")
                     .Replace("/\\", "\\")
                     .Replace("\\\\", "\\");
 
@@ -1119,7 +1135,7 @@ namespace AGC.BusinessLogicEx
                 //    Directory.CreateDirectory(strFullCodePathBackup);
                 //}
 
-                return (strFullCodePath, strFullCodePathBackup);
+                return (strRootPath, strCodePath, strCodePath4Share, strCodePathBackup, strCodePathBackup4Share);
             }
             catch (Exception objException)
             {
@@ -1202,7 +1218,9 @@ namespace AGC.BusinessLogicEx
             int intApplicationTypeId,
             string strCodeTypeId,
             string strCodePath,
-            string strCodePathBackup)
+            string strCodePath4Share,
+            string strCodePathBackup,
+            string strCodePathBackup4Share)
         {
             try
             {
@@ -1358,7 +1376,9 @@ namespace AGC.BusinessLogicEx
                 // 5. 更新代码路径对象
                 string strCurrDate = clsDateTime_Db.GetDataBaseDateTime14();
                 objUserCodePath.CodePath = strCodePath;
+                objUserCodePath.CodePath4Share = strCodePath4Share;
                 objUserCodePath.CodePathBackup = strCodePathBackup;
+                objUserCodePath.CodePathBackup4Share = strCodePathBackup4Share;
                 objUserCodePath.UpdDate = strCurrDate;
                 objUserCodePath.UpdUserId = strUserId;
 
@@ -1415,7 +1435,7 @@ namespace AGC.BusinessLogicEx
 
                 // ========== 步骤1: 获取当前路径 ==========
                 sbResult.AppendLine("步骤1: 获取当前路径...");
-                var (currentCodePath, currentCodePathBackup) = GetUserGCCodePathWithBackup(
+                var (currRootPath, currentCodePath, currentCodePath4Share, currentCodePathBackup, currentCodePathBackup4Share) = GetUserGCCodePathWithBackup(
                     strUserId,
                     strMachineName,
                     strPrjId,
@@ -1436,10 +1456,15 @@ namespace AGC.BusinessLogicEx
                 //去除主目录后的当前目录
                 string strCurrentCodePathNew = currentCodePath.Replace(codePath, "");
                 string strCurrentCodePathBackupNew = currentCodePathBackup.Replace(codePathBackup, "");
+                string strCurrentCodePathNew4Share = currentCodePath.Replace(codePath, "");
+                string strCurrentCodePathBackupNew4Share = currentCodePathBackup.Replace(codePathBackup, "");
+
                 // ========== 步骤2: 设置新路径（测试用） ==========
                 sbResult.AppendLine("步骤2: 设置测试路径...");
                 string strNewCodePath = "/TestPath/Entity_Class";
                 string strNewCodePathBackup = "/TestPath/Entity_ClassBackup";
+                string strNewCodePath4Share = "/TestPath/Entity_Class";
+                string strNewCodePathBackup4Share = "/TestPath/Entity_ClassBackup";
 
                 sbResult.AppendLine($"  新代码路径: {strNewCodePath}");
                 sbResult.AppendLine($"  新备份路径: {strNewCodePathBackup}");
@@ -1455,7 +1480,9 @@ namespace AGC.BusinessLogicEx
                     intApplicationTypeId,
                     strCodeTypeId,
                     strNewCodePath,
-                    strNewCodePathBackup);
+                    strNewCodePath4Share,
+                    strNewCodePathBackup,
+                    strNewCodePathBackup4Share);
 
                 sbResult.AppendLine($"  设置结果: {(bolSetResult ? "✓ 成功" : "✗ 失败")}");
                 sbResult.AppendLine();
@@ -1464,7 +1491,7 @@ namespace AGC.BusinessLogicEx
                 {
                     // ========== 步骤4: 验证设置结果 ==========
                     sbResult.AppendLine("步骤4: 验证设置结果...");
-                    var (verifyCodePath, verifyCodePathBackup) = GetUserGCCodePathWithBackup(
+                    var (verifyRootPath, verifyCodePath, verifyCodePath4Share, verifyCodePathBackup, verifyCodePathBackup4Share) = GetUserGCCodePathWithBackup(
                         strUserId,
                         strMachineName,
                         strPrjId,
@@ -1473,7 +1500,10 @@ namespace AGC.BusinessLogicEx
                         strCodeTypeId);
 
                     sbResult.AppendLine($"  验证代码路径: {verifyCodePath}");
+                    sbResult.AppendLine($"  验证共享代码路径: {verifyCodePath4Share}");
+                    sbResult.AppendLine($"  验证代码路径: {verifyCodePath}");
                     sbResult.AppendLine($"  验证备份路径: {verifyCodePathBackup}");
+                    sbResult.AppendLine($"  验证共享备份路径: {verifyCodePathBackup4Share}");   
                     sbResult.AppendLine();
 
                     bool bolCodePathMatch = (verifyCodePath == strNewCodePath);
@@ -1494,7 +1524,9 @@ namespace AGC.BusinessLogicEx
                         intApplicationTypeId,
                         strCodeTypeId,
                         strCurrentCodePathNew,
-                        strCurrentCodePathBackupNew);
+                        strCurrentCodePathNew4Share,
+                        strCurrentCodePathBackupNew,
+                        strCurrentCodePathBackupNew4Share);
 
                     sbResult.AppendLine($"  恢复结果: {(bolRestoreResult ? "✓ 成功" : "✗ 失败")}");
                     sbResult.AppendLine();
@@ -1502,7 +1534,7 @@ namespace AGC.BusinessLogicEx
                     if (bolRestoreResult)
                     {
                         // 最终验证
-                        var (finalCodePath, finalCodePathBackup) = GetUserGCCodePathWithBackup(
+                        var (finalRootPath, finalCodePath, finalCodePath4Share, finalCodePathBackup, finalCodePathBackup4Share) = GetUserGCCodePathWithBackup(
                             strUserId,
                             strMachineName,
                             strPrjId,
@@ -1565,7 +1597,9 @@ namespace AGC.BusinessLogicEx
         /// <returns>是否测试成功</returns>
         public static bool TestSetUserGCCodePathWithBackup_Quick(
             string strTestCodePath = null,
-            string strTestCodePathBackup = null)
+            string strTestCodePath4Share = null,
+            string strTestCodePathBackup = null,            
+            string strTestCodePathBackup4Share = null)
         {
             try
             {
@@ -1598,7 +1632,9 @@ namespace AGC.BusinessLogicEx
                     intApplicationTypeId,
                     strCodeTypeId,
                     strTestCodePath,
-                    strTestCodePathBackup);
+                    strTestCodePath4Share,
+                    strTestCodePathBackup,
+                    strTestCodePathBackup4Share);
 
                 Console.WriteLine($"测试结果: {(result ? "成功" : "失败")}");
 

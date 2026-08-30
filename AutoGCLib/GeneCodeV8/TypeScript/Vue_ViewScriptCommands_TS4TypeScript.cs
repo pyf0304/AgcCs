@@ -30,7 +30,7 @@ namespace AutoGCLib
         {
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
-            strRe_ClsName = strRe_ClsName + "AiCommands";
+            strRe_ClsName = strRe_ClsName + "Commands";
             strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildCommandTemplateModel();
@@ -84,7 +84,25 @@ namespace AutoGCLib
             // 🔥 新增：提取功能区下拉框选项信息
             ExtractFeatureOptions(model);
             ExtractFeatureOptions4DS(model);
+            GetViewVariables4Import(model);
             return model;
+        }
+
+        private void GetViewVariables4Import(AiCommandTemplateModel model)
+        {
+            var vueShareVariables = new List<string>();
+            foreach(var objFeatureOptions in model.FeatureOptions4DS)
+            {
+                foreach ( var p in objFeatureOptions.Parameters)
+                {
+                    if (string.IsNullOrEmpty(p.SharedVarName) == false)
+                        vueShareVariables.Add(p.SharedVarName);
+                }
+            }
+            model.ModuleName = objFuncModuleEN.FuncModuleEnName;
+            model.strIsShare = objViewInfoENEx.IsShare ? "Share" : "";
+            model.ViewVariables = vueShareVariables;
+
         }
 
         /// <summary>
@@ -260,19 +278,42 @@ namespace AutoGCLib
             var setFieldFeatures = featureRegionFlds.Where(x => x.FeatureId == enumPrjFeature.SetFieldValue_0148).ToList();
             foreach (var feature in setFieldFeatures)
             {
-                var objDdlOptionsInfo = arrDdlOptionsInfo.Find(x => x.FldId == feature.ReleFldId);
                 var commandId = GetCommandId(feature);
-                
+
                 // 获取字段中文名（用于按钮文本）
                 string buttonText = feature.Text;
                 if (string.IsNullOrEmpty(buttonText))
                 {
                     buttonText = "设置字段值";
                 }
-
                 // 🔥 获取辅助控件类型和选项键
                 var (auxControlType, auxControlOptionsKey) = GetAuxControlInfo(feature);
 
+                var objDdlOptionsInfo = arrDdlOptionsInfo.Find(x => x.FldId == feature.ReleFldId);
+                if (objDdlOptionsInfo == null)
+                {
+                    model.Commands.Add(new AiCommand
+                    {
+                        Id = commandId,
+                        Region = "feature",
+                        Text = buttonText,
+                        ElementId = $"btn{char.ToUpper(commandId[0]) + commandId.Substring(1)}_Ai",
+                        BtnClass = "btn btn-outline-info btn-sm text-nowrap",
+                        NeedAuxControl = true,
+                        AuxControlType = auxControlType,                                                
+                        FieldName = GetFieldName(feature),
+                        FieldNameCamel = ToCamelCase(GetFieldName(feature))
+                    });
+                    continue;
+                }
+                    
+
+
+
+              
+               
+
+                
                 model.Commands.Add(new AiCommand
                 {
                     Id = commandId,
@@ -300,6 +341,8 @@ namespace AutoGCLib
         {
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+
                 // 获取所有设置字段值的功能
                 var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
                     .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
@@ -329,7 +372,11 @@ namespace AutoGCLib
                     {
                         continue;
                     }
-
+                    foreach(var p in ddlInfo.Parameters)
+                    {
+                        string strVarName = arrViewVariable.Find(x => x.VarId == p.VarId)?.VariableName;
+                        if (string.IsNullOrEmpty(strVarName) == false) p.SharedVarName = strVarName;
+                    }
                     var optionInfo = new AiOptionsInfo
                     {
                         Key = optionKey,
@@ -337,11 +384,12 @@ namespace AutoGCLib
                         ModuleName = ddlInfo.ModuleName,
                         GetDdlDataFuncName = ddlInfo.GetDdlDataFuncName,
                         IsExtendedClass = ddlInfo.IsExtendedClass,
-                        Parameters = ddlInfo.Parameters?.Select(p => new DdlOptionParam
-                        {
-                            ParamName = p.ParamName,
-                            SharedVarName = p.SharedVarName
-                        }).ToList() ?? new List<DdlOptionParam>()
+                        Parameters = ddlInfo.Parameters?.Select(p =>
+                            new DdlOptionParam
+                            {
+                                ParamName = p.ParamName,
+                                SharedVarName = p.SharedVarName
+                            }).ToList() ?? new List<DdlOptionParam>()
                     };
 
                     model.FeatureOptions.Add(optionInfo);
@@ -359,6 +407,8 @@ namespace AutoGCLib
         {
             try
             {
+                List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+
                 // 获取所有设置字段值的功能
                 var setFieldFeatures = objViewInfoENEx.arrFeatureRegionFlds
                     .Where(x => x.InUse == true && x.FeatureId == enumPrjFeature.SetFieldValue_0148)
@@ -388,7 +438,11 @@ namespace AutoGCLib
                     {
                         continue;
                     }
-
+                    foreach (var p in ddlInfo.Parameters)
+                    {
+                        string strVarName = arrViewVariable.Find(x => x.VarId == p.VarId)?.VariableName;
+                        if (string.IsNullOrEmpty(strVarName) == false) p.SharedVarName = strVarName;
+                    }
                     var optionInfo = new AiOptionsInfo
                     {
                         //Key = optionKey,

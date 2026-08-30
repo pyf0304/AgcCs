@@ -1,0 +1,34 @@
+﻿/// <summary>
+/// 根据关键字列表获取相关对象列表
+/// 调用方法: POST /{{ TabName }}Api/GetObjLstByKeyLsts
+/// </summary>
+/// <param name = "arrKeyLst">所给的关键字(复合键格式: {{ KeyFormat }})</param>
+/// <returns>根据关键字获取的对象列表</returns>
+[HttpPost("GetObjLstByKeyLsts")]
+public ActionResult GetObjLstByKeyLsts([FromBody] string[] arrKeyLst)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrLst = arrKeyLst == null ? new List<string>() : new List<string>(arrKeyLst);
+dictParam.Add("arrKeyLst", clsArray.GetSqlInStrByArray(arrLst, true));
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+if (arrKeyLst == null || arrKeyLst.Length == 0)
+{
+string strMsg = string.Format("根据关键字列表获取对象列表时,给定的关键字值列表不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+clsPubFun_WebApi.AccessException(strMsg, HttpStatusCode.NotFound);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+try
+{
+List<string> lstKeyLst = new(arrKeyLst);
+List<cls{{ TabName }}EN> arr{{ TabName }}ObjLst = cls{{ TabName }}BL.GetObjLstByKeyLsts(lstKeyLst);
+return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arr{{ TabName }}ObjLst });
+}
+catch (Exception objException)
+{
+string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+}
+}

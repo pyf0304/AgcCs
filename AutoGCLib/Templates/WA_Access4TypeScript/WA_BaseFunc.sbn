@@ -1,0 +1,34 @@
+﻿
+export type {{ table_name }}_WriteAction =
+  | 'add'
+  | 'add-return-key'
+  | 'add-with-max-id'
+  | 'delete'
+  | 'update'
+  | 'update-with-condition'
+  | 're-order'
+  | 'up-move'
+  | 'down-move'
+  | 'go-bottom'
+  | 'go-top';
+  
+export type {{ table_name_pascal }}_AfterWriteSuccessHandler = (
+  obj{{ table_name }}EN: cls{{ table_name }}EN,
+  strAction: {{ table_name }}_WriteAction,
+) => Promise<void>;
+
+let {{ table_name_camel }}_AfterWriteSuccessHandler: {{ table_name_pascal }}_AfterWriteSuccessHandler | null = null;
+
+export function {{ table_name }}_RegisterAfterWriteSuccessHandler(
+  handler: {{ table_name_pascal }}_AfterWriteSuccessHandler | null,
+): void {
+  {{ table_name_camel }}_AfterWriteSuccessHandler = handler;
+}
+
+async function {{ table_name }}_ExecuteAfterWriteSuccess(
+  obj{{ table_name }}EN: cls{{ table_name }}EN,
+  strAction: {{ table_name }}_WriteAction,
+): Promise<void> {
+  if ({{ table_name_camel }}_AfterWriteSuccessHandler == null) return;
+  await {{ table_name_camel }}_AfterWriteSuccessHandler(obj{{ table_name }}EN, strAction);
+}

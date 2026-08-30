@@ -627,6 +627,7 @@ clsStackTrace.GetCurrClassFunction());
                     if (string.IsNullOrEmpty(objInfor.TabFeatureId4Ddl) == false)
                     {
                         var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(objInfor.TabFeatureId4Ddl, objInfor.PrjId);
+                        if (objTabFeature == null) continue;
                         var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, objInfor.PrjId);
                         var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
                         if (arrTabFeatureFlds_Cond.Count == 0)

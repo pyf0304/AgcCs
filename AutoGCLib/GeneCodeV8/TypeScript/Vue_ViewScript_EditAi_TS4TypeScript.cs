@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using AutoGCLib.Templates;
-using AGC.Entity;
+﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
-using AGC.BusinessLogic;
+using AGC.Entity;
+using AgcCommBase;
+using AutoGCLib.Templates;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace AutoGCLib
 {
@@ -101,6 +102,9 @@ namespace AutoGCLib
 
         private EditAiTemplateModel BuildEditAiTemplateModel()
         {
+            List<clsViewVariable> arrViewVariable = clsViewIdGCVariableRelaBLEx.GetAllViewVariableObjs(objViewInfoENEx.ViewId, this.PrjId);
+            var arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(this.ViewId, this.PrjId);
+
             // 🔥 获取数据类型信息
             string dataTypePrefix = objKeyField.ObjFieldTabENEx?.objDataTypeAbbrEN?.DataTypeAbbr ?? "str";
             string tsType = objKeyField.TypeScriptType;
@@ -113,7 +117,11 @@ namespace AutoGCLib
             
             // 🔥 判断是否为字符串自增（只有字符串才需要 GetMaxStrIdAsync 和 AddNewRecordWithMaxIdAsync）
             bool isStringAutoIncrement = !isNumeric && needReturnKeyMethod;
-
+            string strPrefixFldName = "";
+            if (PrjTabEx_EditRegion.PrefixField != null && string.IsNullOrEmpty(PrjTabEx_EditRegion.PrefixField.FldName) == false)
+            {
+                strPrefixFldName = PrjTabEx_EditRegion.PrefixField.FldName;// clsFieldTabBL.GetNameByFldIdCache(PrjTabEx_EditRegion.PrefixField, this.PrjId);
+            }
             // 🔥 判断是否需要刷新缓存（只有 localStorage(03) 和 sessionStorage(04) 需要）
             bool needRefreshCache = NeedRefreshCache();
             
@@ -154,7 +162,7 @@ namespace AutoGCLib
                         FieldName = objFieldTab.FldName,
                         FieldNameCamel = ToCamelCase(objFieldTab.FldName),
                         PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
-                        IsNumeric = isFieldNumeric,
+                        IsNumber = isFieldNumeric,
                         TypeScriptType = objFieldTab.TypeScriptType(),
                         InitValue = fieldInitValue
                     });
@@ -175,13 +183,34 @@ namespace AutoGCLib
                     cacheClassifyFieldCamel = ToCamelCase(thisCacheClassify_List_TS.FldName);
                 }
             }
-            
+            string strVarName4Cache1 = arrViewVariable.Find(x => x.VarId == PrjTabEx_ListRegion.ParaVar1TS)?.VariableName;
+            string strVarName4Cache2 = arrViewVariable.Find(x => x.VarId == PrjTabEx_ListRegion.ParaVar2TS)?.VariableName;
+            string strVarNameStr_DeleteKeyIdCache = "";
+            string strVarNameStr_RefreshCache = "";
+            string strVarNameStr_Import = "";
+            if (string.IsNullOrEmpty(strVarName4Cache1) == false)
+            {
+                strVarNameStr_DeleteKeyIdCache = $"{strVarName4Cache1}.value,";
+                strVarNameStr_RefreshCache = $"{strVarName4Cache1}.value";
+                strVarNameStr_Import = strVarName4Cache1;
+            }
+            if (string.IsNullOrEmpty(strVarName4Cache2) == false)
+            {
+                strVarNameStr_DeleteKeyIdCache += $"{strVarName4Cache2},";
+                strVarNameStr_RefreshCache = $",{strVarName4Cache2}.value";
+                strVarNameStr_Import += $",{strVarName4Cache2}"; ;
+            }
+
             var model = new EditAiTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
                 TableCnName = TabCnName_In4Edit4GC,
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
+                refEditName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ClsName,
+                refListName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).ClsName,
+                refDetailName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006)?.ClsName ?? "",
+
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
                 KeyFieldWithPrefix = ToCamelCase(objKeyField.PrivFuncName),
@@ -196,11 +225,14 @@ namespace AutoGCLib
                 NeedUniCheck = needUniCheck,
                 NeedReturnKeyMethod = needReturnKeyMethod,
                 IsStringAutoIncrement = isStringAutoIncrement,
+                PrefixFldName = strPrefixFldName,
                 ReturnKeyMethodReturnType = tsType,
                 NeedRefreshCache = needRefreshCache,
                 HasCacheClassifyField = hasCacheClassifyField,
                 CacheClassifyFieldName = cacheClassifyFieldName,
                 CacheClassifyFieldCamel = cacheClassifyFieldCamel,
+                VarNameStr_RefreshCache = strVarNameStr_RefreshCache,
+                VarNameStr_Import = strVarNameStr_Import,
                 PrimaryTypeId = primaryTypeId,
                 ViewId = objViewInfoENEx.ViewId,
                 ViewName = objViewInfoENEx.ViewName,

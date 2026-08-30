@@ -84,12 +84,20 @@ namespace AutoGCLib
 
         private ListAiHtmlTemplateModel BuildAiHtmlTemplateModel()
         {
+            var arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(this.ViewId, this.PrjId);
             var model = new ListAiHtmlTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
                 TableNameCamel = ToCamelCase(TabName_Out4ListRegion4GC),
                 TableCnName = TabCnName_In4Edit4GC,
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
+                refEditName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ClsName,
+                refListName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).ClsName,
+                refDetailName = "ref" + arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006)?.ClsName ?? "",
+                EditRegionName =  arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.EditRegion_0003).ClsName,
+                ListRegionName =  arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).ClsName,
+                DetailRegionName =  arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.DetailRegion_0006)?.ClsName ?? "",
+
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
                 ViewTitle = $"{TabCnName_In4Edit4GC}维护(Ai版-命令Schema)",
@@ -571,6 +579,7 @@ namespace AutoGCLib
                     }
                 }
             }
+
         }
 
         /// <summary>
@@ -591,7 +600,7 @@ namespace AutoGCLib
                 var optionsKey = GetOptionsKey(field);
                 var optionsWApiClass = GetOptionsWApiClass(field);
                 var optionsModuleName = GetOptionsModuleName(field);
-                
+             var bolIsNumber = field.ObjFieldTab().IsNumberType();
                 // 🔥 关键修复：调用 GetDsFieldNames 获取值字段和文本字段
                 var (valueFieldName, textFieldName) = GetDsFieldNames(field);
                 
@@ -607,7 +616,8 @@ namespace AutoGCLib
                     OptionsModuleName = optionsModuleName,
                     ValueFieldName = valueFieldName,  // 🔥 修复：赋值
                     TextFieldName = textFieldName,    // 🔥 修复：赋值
-                    Row = rowNum
+                    Row = rowNum,
+                    IsNumber = bolIsNumber
                 };
 
                 model.QueryFields.Add(queryField);
@@ -684,7 +694,7 @@ namespace AutoGCLib
                 {
                     // 生成选项键（如 useState, dataBaseType）
                     string optionKey = ToCamelCase(ddlInfo.Key);
-
+                    
                     // 检查是否已存在
                     if (model.FeatureOptions.Any(x => x.Key == optionKey))
                     {
@@ -698,6 +708,7 @@ namespace AutoGCLib
                         ControlType = ddlInfo.ControlType,
                         ValueFieldName = ddlInfo.ValueFieldName,
                         TextFieldName = ddlInfo.TextFieldName,
+                        FldDataType = ddlInfo.FldDataType,
                         WApiClass = ddlInfo.WApiClass,
                         ArrayVariableName = ddlInfo.ArrayVariableName,
                         ModuleName = ddlInfo.ModuleName,
@@ -802,6 +813,17 @@ namespace AutoGCLib
                         }
                     }
                     Console.WriteLine($"✅ 功能区选项: {optionKey}, 函数: {ddlInfo.GetDdlDataFuncName}, 参数数量: {optionInfo.Parameters.Count}");
+                }
+
+                // 生成查询选项数组变量信息
+                foreach (var option in model.FeatureOptions4DS)
+                {
+                    model.FeatureOptionsArrays.Add(option);
+                    if (model.FeatureOptionsArrays4Import.Find(x => x.WApiClass == option.WApiClass) == null)
+                    {
+                        model.FeatureOptionsArrays4Import.Add(option);
+                    }
+
                 }
             }
             catch (Exception ex)

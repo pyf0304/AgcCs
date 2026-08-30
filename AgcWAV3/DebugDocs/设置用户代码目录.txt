@@ -1,0 +1,9 @@
+{
+  "strUserId": "pyf2",
+  "strMachineName": "PYF-AI",
+  "strPrjId": "0005",
+  "strCmPrjId": "000046",
+  "intApplicationTypeId": 30,
+  "strCodePath": "e:/Vue3Prj/vue3AgcSpa",
+  "strCodePathBackup": "d:/Vue3Prj/vue3AgcSpa"
+}

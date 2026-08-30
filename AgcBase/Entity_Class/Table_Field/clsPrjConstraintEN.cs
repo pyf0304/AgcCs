@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjConstraintEN
  表名:PrjConstraint(00050331)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:19
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/29 19:01:29
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:字段、表维护(Table_Field)
- 框架-层名:实体层(CS)(EntityLayer,0001)
+ 框架-层名:实体层CS(EntityLayerCS,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -31,7 +31,7 @@ namespace AGC.Entity
 {
  /// <summary>
  /// 表PrjConstraint的关键字(PrjConstraintId)的类型定义. 以便检查类型以及操作方便.
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 public class K_PrjConstraintId_PrjConstraint
 {
@@ -70,7 +70,7 @@ return new K_PrjConstraintId_PrjConstraint(value);
 }
  /// <summary>
  /// 约束(PrjConstraint)
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 [Serializable]
 [DataContractAttribute]

@@ -11,7 +11,7 @@ namespace AGC.BusinessLogicEx
     /// <summary>
     /// clsPrjFuncTemplateRelaBL的扩展类
     /// </summary>
-    public class clsPrjFuncTemplateRelaBLEx: clsPrjFuncTemplateRelaBL
+    public class clsPrjFuncTemplateRelaBLEx : clsPrjFuncTemplateRelaBL
     {
         /// <summary>
         /// 根据工程Id获取模板Id
@@ -20,7 +20,7 @@ namespace AGC.BusinessLogicEx
         /// <returns>获取的模板Id</returns>
         public static string getFunctionTemplateIdByPrjId(string strPrjId)
         {
-//            string strCondition = string.Format("{0}='{1}'", clsPrjFuncTemplateRelaEN.con_PrjId, strPrjId);
+            //            string strCondition = string.Format("{0}='{1}'", clsPrjFuncTemplateRelaEN.con_PrjId, strPrjId);
             List<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst_Sel = GetAllPrjFuncTemplateRelaObjLstCacheEx(strPrjId);
             if (arrPrjFuncTemplateRelaObjLst_Sel.Count == 0)
             {
@@ -28,11 +28,11 @@ namespace AGC.BusinessLogicEx
                 throw new Exception(strMsg);
             }
             clsPrjFuncTemplateRelaEN objPrjFuncTemplateRelaEN = arrPrjFuncTemplateRelaObjLst_Sel[0];// clsPrjFuncTemplateRelaBL.GetFirstPrjFuncTemplateRela_S(strCondition);
-           
+
             return objPrjFuncTemplateRelaEN.FunctionTemplateId;
         }
 
-       
+
 
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace AGC.BusinessLogicEx
         public static List<clsPrjFuncTemplateRelaEN> GetAllPrjFuncTemplateRelaObjLstCacheEx(string strPrjId)
         {
             List<clsPrjFuncTemplateRelaEN> arrObjLstCache = clsPrjFuncTemplateRelaBL.GetObjLstCache();
-            
+
             IEnumerable<clsPrjFuncTemplateRelaEN> arrPrjFuncTemplateRelaObjLst_Sel1 =
                 from objPrjFuncTemplateRelaEN in arrObjLstCache
                 where objPrjFuncTemplateRelaEN.PrjId == strPrjId

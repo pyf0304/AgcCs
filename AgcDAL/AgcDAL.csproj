@@ -268,7 +268,6 @@
     <Compile Include="Class\PrjFunction\clsvFunctionTypeDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFeatureDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFeatureSimDAEx.cs" />
-    <Compile Include="Class\PrjFunction\clsvPrjFuncTemplateRelaDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvPrjFunctionDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsvTabFunctionPropDAEx.cs" />
     <Compile Include="Class\PrjInterface\clsCopyTaskDAEx.cs" />

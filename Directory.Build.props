@@ -1,0 +1,5 @@
+﻿<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj' and ('$(TargetFrameworkIdentifier)' == '.NETFramework' or '$(TargetFrameworkIdentifier)' == '.NETStandard')">
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+</Project>

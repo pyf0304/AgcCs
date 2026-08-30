@@ -371,8 +371,12 @@ namespace AutoGCLib
                 needUniCheck = true;
             }
 
-            // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
-            var keyFields = new List<KeyFieldInfo>();
+            bool bolIsHasLog_UpdDate = objViewInfoENEx.arrEditRegionFldSet.Count(x => x.FieldTypeId(objViewInfoENEx.PrjId) == enumFieldType.Log_UpdDate_13) > 0;
+
+            
+
+                // 🔥 构建关键字段列表（用于循环生成多个 Set 方法调用）
+                var keyFields = new List<KeyFieldInfo>();
             if (PrjTabEx_EditRegion?.arrKeyFldSet != null)
             {
                 foreach (var keyFld in PrjTabEx_EditRegion.arrKeyFldSet)
@@ -386,7 +390,7 @@ namespace AutoGCLib
                         FieldName = objFieldTab.FldName,
                         FieldNameCamel = ToCamelCase(objFieldTab.FldName),
                         PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
-                        IsNumeric = isFieldNumeric,
+                        IsNumber = isFieldNumeric,
                         TypeScriptType = objFieldTab.TypeScriptType(),
                         InitValue = fieldInitValue
                     });
@@ -421,6 +425,7 @@ namespace AutoGCLib
                 KeyFieldPrefixOnly = dataTypePrefix,
                 KeyFieldInitValue = initValue,
                 IsKeyFieldNumeric = isNumeric,
+                IsHasLog_UpdDate = bolIsHasLog_UpdDate,
                 IsMultiKey = isMultiKey,
                 IsNeedImportIsNullOrEmpty = IsNeedImportIsNullOrEmpty(),
                 strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
@@ -491,11 +496,11 @@ namespace AutoGCLib
             clsPubFun4BLEx.CheckTitleStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.TitleStyleId);
 
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
-
+            
             arrDdlOptionsInfo = clsEditRegionFldsBLEx.GetDdlOptionInfoLstByViewId(objViewInfoENEx.ViewId, this.PrjId);
             arrViewVariable = clsEditRegionFldsBLEx.GetViewVariableLstByViewId(objViewInfoENEx.ViewId, this.PrjId);
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
                         objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", ThisClsName);
@@ -742,6 +747,11 @@ namespace AutoGCLib
                                     sbConstContent.AppendFormat("\r\n" + "const {0} = ref('0')", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 }
                                 break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+
+                                break;
                             default:
                                 sbConstContent.AppendFormat("\r\n" + "const {0} = ref('');", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 break;
@@ -776,6 +786,11 @@ namespace AutoGCLib
                                 {
                                     sbConstContent.AppendFormat("\r\n" + "const {0} = ref('0')", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 }
+                                break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+
                                 break;
                             default:
                                 sbConstContent.AppendFormat("\r\n" + "const {0} = ref('');", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
@@ -1309,7 +1324,7 @@ namespace AutoGCLib
             //       < a - button @click = "dialogVisible = false" > 关闭 </ a - button >
             //< a - button type = "primary" @click = "handleSave" > 保存 </ a - button >
             strCodeForCs.AppendFormat("\r\n" + " <el-button  id=\"btnCancel{0}\" @click = \"dialogVisible = false\">{{{{ strCancelButtonText }}}}</el-button>", objViewInfoENEx.TabName_In);
-            strCodeForCs.AppendFormat("\r\n" + " <el-button  id=\"btnSubmit{0}\" type = \"primary\" @click=\"btnSubmit_Click\">{{{{ strSubmitButtonText }}}}</el-button>", objViewInfoENEx.TabName_In);
+            strCodeForCs.Append("\r\n" + $" <el-button  id=\"btnSubmit{objViewInfoENEx.TabName_In}\" type = \"primary\" @click=\"btn{objViewInfoENEx.TabName_In}_Edit_Click('Submit', null)\">{{{{ strSubmitButtonText }}}}</el-button>");
             strCodeForCs.Append("\r\n" + " </template>");
             strCodeForCs.Append("\r\n" + " </el-dialog>");
 
@@ -1765,7 +1780,7 @@ namespace AutoGCLib
         {
             CodeElement objCodeElement_Method = new CodeElement { Name = "BindDdl4EditRegionInDiv", ElementType = CodeElementType.Method, Modifiers = "export abstract" };
             objCodeElement_Parent.Children.Add(objCodeElement_Method);
-
+            
             clsVarManage objVarManage = new clsVarManage("TypeScript");
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -1783,78 +1798,78 @@ namespace AutoGCLib
                 List<string> arrDataLst4Ddl = new List<string>();
 
                 // ... 原有的循环代码 ...
-                foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
-                {
-                    List<string> arrCondFldId;
-                    if (string.IsNullOrEmpty(objInfor.TabFeatureId4Ddl) == true)
-                    {
-                        if (objInfor.CsType == "bool")
-                        {
-                        }
-                        continue;
-                    }
-                    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(objInfor.TabFeatureId4Ddl, objInfor.PrjId);
-                    var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objTabFeature, this.IsFstLcase, PrjTabEx_EditRegion, objViewInfoENEx.ViewId);
-                    string strByCondition = "";
-                    if (string.IsNullOrEmpty(objTabFeature4Ddl.ConditionFieldName) == false)
-                        strByCondition = $"By{objTabFeature4Ddl.ConditionFieldName}";
+                //foreach (ASPDropDownListEx objInfor in arrASPDropDownListObj_Edit)
+                //{
+                //    List<string> arrCondFldId;
+                //    if (string.IsNullOrEmpty(objInfor.TabFeatureId4Ddl) == true)
+                //    {
+                //        if (objInfor.CsType == "bool")
+                //        {
+                //        }
+                //        continue;
+                //    }
+                //    var objTabFeature = clsTabFeatureBL.GetObjByTabFeatureIdCache(objInfor.TabFeatureId4Ddl, objInfor.PrjId);
+                //    var objTabFeature4Ddl = clsTabFeatureBLEx.GetObjEx4DdlByTabFeatureId4View(objTabFeature, this.IsFstLcase, PrjTabEx_EditRegion, objViewInfoENEx.ViewId);
+                //    string strByCondition = "";
+                //    if (string.IsNullOrEmpty(objTabFeature4Ddl.ConditionFieldName) == false)
+                //        strByCondition = $"By{objTabFeature4Ddl.ConditionFieldName}";
 
-                    var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, objInfor.PrjId);
-                    var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
-                    arrCondFldId = objTabFeature.GetCondFldIdLst();
-                    if (arrTabFeatureFlds_Cond.Count == 0)
-                    {
-                        objInfor.VarIdCond1 = "";
-                        objInfor.VarIdCond2 = "";
-                        objInfor.FldIdCond1 = "";
-                        objInfor.FldIdCond2 = "";
-                    }
-                    else if (arrTabFeatureFlds_Cond.Count == 1)
-                    {
-                        objInfor.VarIdCond2 = "";
-                        objInfor.FldIdCond2 = "";
-                    }
+                //    var arrTabFeatureFlds = clsTabFeatureFldsBLEx.GetObjLstByTabFeatureIdCache(objTabFeature.TabFeatureId, objInfor.PrjId);
+                //    var arrTabFeatureFlds_Cond = arrTabFeatureFlds.Where(x => x.FieldTypeId == enumFieldType.ConditionField_16).ToList();
+                //    arrCondFldId = objTabFeature.GetCondFldIdLst();
+                //    if (arrTabFeatureFlds_Cond.Count == 0)
+                //    {
+                //        objInfor.VarIdCond1 = "";
+                //        objInfor.VarIdCond2 = "";
+                //        objInfor.FldIdCond1 = "";
+                //        objInfor.FldIdCond2 = "";
+                //    }
+                //    else if (arrTabFeatureFlds_Cond.Count == 1)
+                //    {
+                //        objInfor.VarIdCond2 = "";
+                //        objInfor.FldIdCond2 = "";
+                //    }
 
-                    try
-                    {
-                        Tuple<string, string> tup = this.Gen_WApi_Ts_DefineVar4Ddl4TabFeature(objInfor, arrCondFldId, objFuncParaLstAll);
-                        string strFuncName4Ex = $"GetArr{objInfor.DsTabName}{strByCondition}";
-                        if (string.IsNullOrEmpty(objTabFeature4Ddl.GetDdlDataFuncName4Ex) == false)
-                        {
-                            strFuncName4Ex = objTabFeature4Ddl.GetDdlDataFuncName4Ex;
-                        }
+                //    try
+                //    {
+                //        Tuple<string, string> tup = this.Gen_WApi_Ts_DefineVar4Ddl4TabFeature(objInfor, arrCondFldId, objFuncParaLstAll);
+                //        string strFuncName4Ex = $"GetArr{objInfor.DsTabName}{strByCondition}";
+                //        if (string.IsNullOrEmpty(objTabFeature4Ddl.GetDdlDataFuncName4Ex) == false)
+                //        {
+                //            strFuncName4Ex = objTabFeature4Ddl.GetDdlDataFuncName4Ex;
+                //        }
 
-                        string strVar4Cond = tup.Item1;
-                        string strFuncParaLst_Additional = tup.Item2;
+                //        string strVar4Cond = tup.Item1;
+                //        string strFuncParaLst_Additional = tup.Item2;
 
-                        if (objInfor.CsType == "bool")
-                        {
-                        }
-                        else
-                        {
-                            if (arrDataLst4Ddl.Contains(objInfor.DsTabName))
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                arrDataLst4Ddl.Add(objInfor.DsTabName);
-                                if (objTabFeature4Ddl.IsExtendedClass)
-                                {
-                                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}Ex_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
-                                }
-                                else
-                                {
-                                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception objException)
-                    {
-                        string strMsg = objException.Message;
-                    }
-                }
+                //        if (objInfor.CsType == "bool")
+                //        {
+                //        }
+                //        else
+                //        {
+                //            if (arrDataLst4Ddl.Contains(objInfor.DsTabName))
+                //            {
+                //                continue;
+                //            }
+                //            else
+                //            {
+                //                arrDataLst4Ddl.Add(objInfor.DsTabName);
+                //                if (objTabFeature4Ddl.IsExtendedClass)
+                //                {
+                //                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}Ex_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
+                //                }
+                //                else
+                //                {
+                //                    objInfor.CodeText = "\r\n" + $"arr{objInfor.DsTabName}.value = await {objInfor.DsTabName}_{strFuncName4Ex}({strFuncParaLst_Additional});//{clsRegionTypeBL.GetNameByRegionTypeIdCache(objInfor.RegionTypeId)}";
+                //                }
+                //            }
+                //        }
+                //    }
+                //    catch (Exception objException)
+                //    {
+                //        string strMsg = objException.Message;
+                //    }
+                //}
                 foreach (var objDdlOptionsInfo in arrDdlOptionsInfo)
                 {
                     var arrSharedVarNameValue = objDdlOptionsInfo.Parameters.Select(x => x.SharedVarName + ".value");
@@ -2164,6 +2179,17 @@ namespace AutoGCLib
              this.TabName_In4Edit4GC,
              objEditRegionFldsEx.FldName, objEditRegionFldsEx.PropertyName(this.IsFstLcase),
              objEditRegionFldsEx.CtrlId);
+                        }
+                        else                            if (objEditRegionFldsEx.IsDate() == true)
+                        {
+                            sbCodeForCs.AppendFormat("\r\n" + "if ({0}.value !== null)", objEditRegionFldsEx.PropertyName(this.IsFstLcase));
+
+                            sbCodeForCs.Append("\r\n" + "{");
+                                sbCodeForCs.AppendFormat("\r\n" + "pobj{0}EN.Set{1}({2}.value);",
+             this.TabName_In4Edit4GC,
+             objEditRegionFldsEx.FldName, objEditRegionFldsEx.PropertyName(this.IsFstLcase),
+             objEditRegionFldsEx.CtrlId);
+                            sbCodeForCs.Append("\r\n" + "}");
                         }
                         else
                         {
@@ -3160,16 +3186,18 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
 
 
                 //strCodeForCs.Append("\r\n" + "import router from '@/router';");
-                //strCodeForCs.Append("\r\n" + "import { clsDateTime } from '@/ts/PubFun/clsDateTime';");
-                //clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
-                //{
-                //    Name = "clsDateTime",
-                //    CodeContent = "import { clsDateTime } from '@/ts/PubFun/clsDateTime';",
-                //    From = "@/ts/PubFun/clsDateTime",
-                //    ElementType = CodeElementType.Import,
-                //    Modifiers = "import"
-                //});
-
+                if (this.model.IsHasLog_UpdDate)
+                {
+                    strCodeForCs.Append("\r\n" + "import { clsDateTime } from '@/ts/PubFun/clsDateTime';");
+                    clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, new CodeElement
+                    {
+                        Name = "clsDateTime",
+                        CodeContent = "import { clsDateTime } from '@/ts/PubFun/clsDateTime';",
+                        From = "@/ts/PubFun/clsDateTime",
+                        ElementType = CodeElementType.Import,
+                        Modifiers = "import"
+                    });
+                }
                 //strCodeForCs.Append("\r\n" + "import { Format } from \"@/ts/PubFun/clsString\"");
 
                 strCodeForCs.AppendFormat("\r\n" + $"import {this.ExtendedClsName} from \"@/views{this.IsShareStr}/{this.objFuncModuleEN.FuncModuleEnName4GC()}/{this.ExtendedClsName}\";");
@@ -3611,7 +3639,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             strJSPath = string.Format("../js/{0}", this.objFuncModuleEN.FuncModuleEnName4GC());
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_JS =
-                clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx);
+                clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx,this.FunctionTemplateId);
 
             foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_JS)
             {

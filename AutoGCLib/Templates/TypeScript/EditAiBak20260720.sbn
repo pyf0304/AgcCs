@@ -1,0 +1,1057 @@
+﻿/**
+ * 类名:{{ TableName }}_EditAi(界面:{{ ViewName }},{{ ViewId }})
+ * 表名:{{ TableName }}
+ * 版本:{{ date.now | date.to_string '%Y.%m.%d' }}
+ * 生成者:
+ * 模块中文名:{{ ModuleName }}
+ * 编程语言:TypeScript
+ **/
+import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
+
+import {
+  {{~ if IsStringAutoIncrement ~}}
+        {{~ if PrefixFldName != "" ~}}
+           {{ TableName }}_GetMaxStrIdByPrefixAsync,
+        {{~ else ~}}
+          {{ TableName }}_GetMaxStrIdAsync,
+        {{~ end ~}}
+       {{ TableName }}_AddNewRecordWithMaxIdAsync,
+  {{~ else if NeedReturnKeyMethod ~}}
+      {{ TableName }}_AddNewRecordWithReturnKeyAsync,
+      {{ TableName }}_AddNewRecordAsync,
+  {{~ else ~}}
+      {{ TableName }}_AddNewRecordAsync,
+  {{~ end ~}}
+  {{ TableName }}_CheckPropertyNew,
+ 
+  {{~ if NeedRefreshCache ~}}
+      {{ TableName }}_ReFreshCache,
+  {{~ end ~}}
+
+  {{~ if NeedUniCheck ~}}
+  {{ TableName }}_IsExistRecordAsync,
+  {{ TableName }}_GetUniCondStr,
+  {{ TableName }}_GetUniCondStr4Update,
+  {{~ end ~}}
+  {{ TableName }}_IsExistAsync,
+  {{ TableName }}_GetObjByKeyAsync,
+  {{ TableName }}_CheckProperty4Update,
+  {{ TableName }}_UpdateRecordAsync,
+  {{ TableName }}_EditRecordExAsync,
+} from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
+
+import { cls{{ TableName }}EN,  {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
+import {  
+    {{~ if NeedRefreshCache ~}}
+  {{ TableName }}_DeleteKeyIdCache,
+  {{~ end ~}}
+  divVarSet,
+  {{ refEditName }},
+  {{VarNameStr_Import}}
+} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
+import { IShowList } from '@/ts/PubFun/IShowList';
+import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';
+
+/** {{ TableName }}_EditAi 的摘要说明。其中Q代表查询,U代表修改
+ * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:GeneCode)
+ **/
+export abstract class {{ TableName }}_EditAi {
+  protected _className = 'Unknown';
+
+  get className(): string {
+    return this._className;
+  }
+   public get thisTabName(): string {
+    return cls{{ TableName }}EN._CurrTabName;
+  }
+  public static times4TestShowDialog = 0;
+  public opType = '';
+  {{~ if IsMultiKey ~}}
+  // 🔥 多关键字段：包含所有关键字段
+  public keyId = { 
+    {{~ for keyField in KeyFields ~}}
+    {{ keyField.FieldNameCamel }}: {{ keyField.InitValue }}{{ if !for.last }},{{ end }}
+    {{~ end ~}}
+  };
+  {{~ else ~}}
+  // 🔥 单关键字段
+  {{~ if IsKeyFieldNumeric ~}}
+  public keyId = { {{ KeyFieldCamel }}: 0 };  // 🔥 数字型关键字
+  {{~ else ~}}
+  public keyId = { {{ KeyFieldCamel }}: '' };  // 🔥 字符串型关键字
+  {{~ end ~}}
+  {{~ end ~}}
+  public isShowMsg = true;
+  public tag = '';
+  public static strPageDispModeId = '01';
+  public iShowList: IShowList | null;
+  public bolIsLoadEditRegion = false;
+  public divName4Edit = 'divEditLayout';
+
+  public get thisDivEdit(): HTMLDivElement {
+    return divVarSet.refDivEdit;
+  }
+
+  public get thisDivLayout(): HTMLDivElement {
+    return divVarSet.refDivLayout;
+  }
+
+  constructor(strClassName: string, objShowList: IShowList | null) {
+    this._className = strClassName;
+    this.iShowList = objShowList;
+  }
+
+  /** 隐藏对话框 */
+  public HideDialog_{{ TableName }}() {
+    if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
+      {{ refEditName }}.value.hideDialog();
+    }
+  }
+
+  /** 显示对话框 */
+  public async ShowDialog_{{ TableName }}(strOp: string): Promise<boolean> {
+    const strThisFuncName = this.ShowDialog_{{ TableName }}.name;
+    if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
+      if ({{ refEditName }}.value == null) {
+        const strMsg = Format(
+          '当前编辑区的EditObj为空，请检查！(in {0}.{1})',
+          this.className,
+          strThisFuncName,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        return false;
+      }
+      await {{ refEditName }}.value.showDialog(this);
+    }
+    if (strOp === 'Add' || strOp === 'AddWithMaxId') {
+      this.btnSubmit{{ TableName }} = '确认添加';
+      this.btnCancel{{ TableName }} = '取消添加';
+    } else if (strOp === 'Update') {
+      this.btnSubmit{{ TableName }} = '确认修改';
+      this.btnCancel{{ TableName }} = '取消修改';
+    }
+    return true;
+  }
+
+  /** 添加新记录 */
+  public async btnAddNewRecord_Click() {
+    const strThisFuncName = this.btnAddNewRecord_Click.name;
+    try {
+      this.opType = 'Add';
+      const bolIsSuccess = await this.ShowDialog_{{ TableName }}(this.opType);
+      if (bolIsSuccess == false) return;
+      if (['02', '03', '06'].indexOf(cls{{ TableName }}EN._PrimaryTypeId) > -1) {
+        await this.AddNewRecordWithMaxId();
+      } else {
+        await this.AddNewRecord();
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '添加新记录初始化不成功,{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /** 在数据表里修改记录 */
+  public async btnUpdateRecordInTab_Click(key: {{ TableName }}Key) {
+    const strThisFuncName = this.btnUpdateRecordInTab_Click.name;
+    {{~ for keyField in KeyFields ~}}
+           {{~ if (keyField.IsNumber) ~}}
+               if ({{ keyField.FieldNameCamel }} === 0) {
+           {{~ else ~}}
+                if (IsNullOrEmpty(key.{{ keyField.FieldNameCamel }}) || key.{{ keyField.FieldNameCamel }}  === {{ keyField.InitValue }}) {                    
+                    alert(`请选择需要修改的${this.thisTabName}记录!(in ${this.className}.${strThisFuncName})`);
+                    return '';
+                }
+           {{~ end ~}}
+    {{~ end ~}}
+    try {
+      this.opType = 'Update';
+      const bolIsSuccess = await this.ShowDialog_{{ TableName }}(this.opType);
+      if (bolIsSuccess == false) return;
+      this.bolIsLoadEditRegion = true;
+      const update = await this.UpdateRecord(key);
+      if (update == false) {
+        const strMsg = Format('在修改记录时,显示记录数据不成功!');
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '(errid: WiTsCs0034)在修改记录时出错!请联系管理员!{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /** 修改记录 */
+  public async btnUpdateRecord_Click(key: {{ TableName }}Key) {
+    const strThisFuncName = this.btnUpdateRecord_Click.name;
+    {{~ if IsKeyFieldNumeric ~}}
+   if (key.{{ KeyFieldCamel }} == 0 || key.{{ KeyFieldCamel }} == undefined) {
+    {{~ else ~}}
+    if (IsNullOrEmpty(key.{{ KeyFieldCamel }}) == true) {
+    {{~ end ~}}
+      const strMsg = '修改记录的关键字为空,请检查!';
+      console.error(strMsg);
+      alert(strMsg);
+      return;
+    }
+    try {
+      this.opType = 'Update';
+      const bolIsSuccess = await this.ShowDialog_{{ TableName }}(this.opType);
+      if (bolIsSuccess == false) return;
+      this.bolIsLoadEditRegion = true;
+      const update = await this.UpdateRecord(key);
+      if (update == false) {
+        const strMsg = Format('在修改记录时,显示记录数据不成功!');
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '(errid: WiTsCs0034)在修改记录时出错!请联系管理员!{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+    /** 确认提交按钮点击事件 */
+  public async btnSubmit_Click() {
+    const strThisFuncName = this.btnSubmit_Click.name;
+    const strCommandText: string = this.btnSubmit{{ TableName }};
+    try {
+      let returnBool = false;
+      {{~ if !IsMultiKey && NeedReturnKeyMethod ~}}
+      {{~ if IsKeyFieldNumeric ~}}
+      let returnKeyId: {{ ReturnKeyMethodReturnType }} = 0;
+      {{~ else ~}}
+      let returnKeyId: {{ ReturnKeyMethodReturnType }} = '';
+      {{~ end ~}}
+      {{~ end ~}}
+      let strInfo = '';
+      let strMsg = '';
+      switch (strCommandText) {
+        case '添加':
+          this.btnSubmit{{ TableName }} = '确认添加';
+          this.btnCancel{{ TableName }} = '取消添加';
+          await this.AddNewRecord();
+          break;
+        case '确认添加':
+          {{~ if IsMultiKey ~}}
+          // 🔥 多关键字段：没有返回值概念，直接保存
+          returnBool = await this.AddNewRecordSave();
+          if (returnBool == true) {
+            if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
+              {{ refEditName }}.value.hideDialog();
+            }
+            if (this.iShowList != null)
+              {{~ if KeyFields.size > 0 ~}}
+              // 🔥 多关键字段：使用第一个关键字段的值
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFields[0].FieldNameCamel }});
+              {{~ else ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, '');
+              {{~ end ~}}
+          }
+          {{~ else if NeedReturnKeyMethod ~}}
+          // 🔥 单关键字段 + 需要返回值（Identity 或自增类型）
+          returnKeyId = await this.AddNewRecordWithReturnKeySave();
+          {{~ if IsKeyFieldNumeric ~}}
+          if (returnKeyId != 0) {
+          {{~ else ~}}
+          if (IsNullOrEmpty(returnKeyId) == false) {
+          {{~ end ~}}
+            if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01)
+              {{ refEditName }}.value.hideDialog();
+            if (this.iShowList != null)
+              {{~ if IsKeyFieldNumeric ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, returnKeyId.toString());
+              {{~ else ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, returnKeyId);
+              {{~ end ~}}
+          }
+          {{~ else ~}}
+          // 🔥 单关键字段 + 无需返回值（普通主键）
+          returnBool = await this.AddNewRecordSave();
+          if (returnBool == true) {
+            if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
+              {{ refEditName }}.value.hideDialog();
+            }
+            if (this.iShowList != null)
+              {{~ if IsKeyFieldNumeric ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFieldCamel }}.toString());
+              {{~ else ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFieldCamel }});
+              {{~ end ~}}
+          }
+          {{~ end ~}}
+          break;
+        case '确认修改':
+          returnBool = await this.UpdateRecordSave();
+          strInfo = returnBool ? '修改成功!' : '修改不成功!';
+          strInfo += '(In {{ TableName }}_EditAi.btnSubmit_Click)';
+          alert(strInfo);
+          if (returnBool == true) {
+            if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
+              {{ refEditName }}.value.hideDialog();
+            }
+            if (this.iShowList != null)
+              {{~ if IsMultiKey ~}}
+              {{~ if KeyFields.size > 0 ~}}
+              // 🔥 多关键字段：使用第一个关键字段的值
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFields[0].FieldNameCamel }});
+              {{~ else ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, '');
+              {{~ end ~}}
+              {{~ else ~}}
+              {{~ if IsKeyFieldNumeric ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFieldCamel }}.toString());
+              {{~ else ~}}
+              this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, this.keyId.{{ KeyFieldCamel }});
+              {{~ end ~}}
+              {{~ end ~}}
+          }
+          break;
+        default:
+          strMsg = Format(
+            'strCommandText:{0}在switch中没有处理!(In btnSubmit_Click())',
+            strCommandText,
+          );
+          console.error(strMsg);
+          alert(strMsg);
+          break;
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '(errid: WiTsCs0033)在保存记录时({3})时出错!请联系管理员!{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+        strCommandText,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+
+  /** 设置关键字只读 */
+  public SetKeyReadOnly(bolReadonly: boolean) {
+    const txt{{ KeyField }} = document.getElementById('txt{{ KeyField }}') as HTMLInputElement | null;
+    if (txt{{ KeyField }} != null) {
+      txt{{ KeyField }}.readOnly = bolReadonly;
+    }
+  }
+
+   {{~ if IsStringAutoIncrement ~}}
+  /** 为插入记录做准备工作 */
+  public async AddNewRecord() {
+    const strThisFuncName = this.AddNewRecord.name;
+    {{ refEditName }}.value.Clear();
+    try {      
+        {{~ if PrefixFldName != "" ~}}
+               const returnString = await {{ TableName }}_GetMaxStrIdByPrefixAsync({{VarNameStr_RefreshCache}});
+        {{~ else ~}}
+            const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ end ~}}
+
+      if (returnString == '') {
+        const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
+        alert(strInfo);
+      } else {
+        {{~ if IsMultiKey ~}}
+        // 🔥 多关键字段：需要构造对象（但字符串自增通常是单关键字）
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ else ~}}
+        // 🔥 单关键字段：构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ end ~}}
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '获取表关键字的最大值不成功,{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+  
+  /** 为插入记录做准备工作（使用最大值ID） */
+  public async AddNewRecordWithMaxId() {
+    const strThisFuncName = this.AddNewRecordWithMaxId.name;
+    {{ refEditName }}.value.Clear();
+    try {
+        {{~ if PrefixFldName != "" ~}}
+               const returnString = await {{ TableName }}_GetMaxStrIdByPrefixAsync({{VarNameStr_RefreshCache}});
+        {{~ else ~}}
+            const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ end ~}}
+      if (returnString == '') {
+        const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
+        alert(strInfo);
+      } else {
+        {{~ if IsMultiKey ~}}
+        // 🔥 多关键字段：需要构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ else ~}}
+        // 🔥 单关键字段：构造对象
+        this.keyId = { {{ KeyFieldCamel }}: returnString };
+        {{~ end ~}}
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '获取表关键字的最大值不成功,{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+  }
+{{~ else ~}}
+  /** 为插入记录做准备工作 */
+  public async AddNewRecord() {
+    {{ refEditName }}.value.Clear();
+  }
+
+  /** 为插入记录做准备工作（使用最大值ID） */
+  public async AddNewRecordWithMaxId() {
+    {{ refEditName }}.value.Clear();
+  }
+{{~ end ~}}
+
+
+
+  /** 添加新记录,保存函数
+   * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:Gen_Vue_Ts_AddNewRecordSave)
+   **/
+  public async AddNewRecordSave(): Promise<boolean> {
+    const strThisFuncName = this.AddNewRecordSave.name;
+    let obj{{ TableName }}EN;
+    try {
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
+    } catch (e) {
+      const strMsg = Format(
+        '从界面获取数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    try {
+      {{ TableName }}_CheckPropertyNew(obj{{ TableName }}EN);
+    } catch (e) {
+      const strMsg = Format(
+        '检查数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    try {
+      {{~ if NeedUniCheck ~}}
+          //检查唯一性条件
+          const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
+          if (bolIsExistCond == false) {
+            return false;
+          }
+      {{~ end ~}}
+      let returnBool = false;
+      {{~ if PrimaryTypeId == "02" ~}}
+          // Identity_02: 整数自增，直接调用 AddNewRecordAsync
+          returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
+          {{~ else if PrimaryTypeId == "03" ~}}
+          // StringAutoAddPrimaryKey_03: 字符串自增，需要获取返回的 KeyId
+          const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+          if (IsNullOrEmpty(returnKeyId) == false) {
+            // 🔥 赋值为对象格式
+            this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
+            returnBool = true;
+          }
+          {{~ else if PrimaryTypeId == "06" ~}}
+          // StringAutoAddPrimaryKeyWithPrefix_06: 字符串自增带前缀
+          const returnKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+          if (IsNullOrEmpty(returnKeyId) == false) {
+            // 🔥 赋值为对象格式
+            this.keyId = { {{ KeyFieldCamel }}: returnKeyId };
+            returnBool = true;
+          }
+      {{~ else ~}}
+      // 其他类型：先检查关键字是否存在
+      {{~ if NeedCheckKeyExist ~}}
+      {{~ if IsMultiKey ~}}
+      // 🔥 多关键字段：传递对象
+      const bolIsExist = await {{ TableName }}_IsExistAsync({
+        {{~ for keyField in KeyFields ~}}
+        {{ keyField.FieldNameCamel }}: obj{{ TableName }}EN.{{ keyField.FieldNameCamel }}{{ if !for.last }},{{ end }}
+        {{~ end ~}}
+      });
+      {{~ else ~}}
+      // 🔥 单关键字段：传递值
+      const bolIsExist = await {{ TableName }}_IsExistAsync(obj{{ TableName }}EN.{{ KeyFieldCamel }});
+      {{~ end ~}}
+      if (bolIsExist == true) {
+        {{~ if IsMultiKey ~}}
+        const strMsg = Format('添加记录时,关键字已经存在!');
+        {{~ else ~}}
+        const strMsg = Format('添加记录时,关键字：{0}已经存在!', obj{{ TableName }}EN.{{ KeyFieldCamel }});
+        {{~ end ~}}
+        console.error(strMsg);
+        alert(strMsg);
+        return false;
+      }
+      {{~ end ~}}
+      returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
+      {{~ end ~}}
+      if (returnBool == true) {
+          {{~ if NeedRefreshCache ~}}
+        {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
+        if (this.isShowMsg == true) alert(strInfo);
+      } else {
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录不成功!`;
+        alert(strInfo);
+      }
+      return returnBool;
+    } catch (e) {
+      const strMsg = Format(
+        '添加记录不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+  }
+    
+
+{{~ if NeedUniCheck ~}}
+  /** 为添加记录检查唯一性条件 */
+  public async CheckUniCond4Add(obj{{ TableName }}EN: cls{{ TableName }}EN): Promise<boolean> {
+    const strUniquenessCondition = {{ TableName }}_GetUniCondStr(obj{{ TableName }}EN);
+    const bolIsExistCondition = await {{ TableName }}_IsExistRecordAsync(strUniquenessCondition);
+    if (bolIsExistCondition == true) {
+      const strMsg = Format(
+        '不能满足唯一性条件。满足条件：{0}的记录已经存在!',
+        strUniquenessCondition,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    return true;
+  }
+
+  /** 为修改记录检查唯一性条件 */
+  public async CheckUniCond4Update(obj{{ TableName }}EN: cls{{ TableName }}EN): Promise<boolean> {
+    const strUniquenessCondition = {{ TableName }}_GetUniCondStr4Update(obj{{ TableName }}EN);
+    const bolIsExistCondition = await {{ TableName }}_IsExistRecordAsync(strUniquenessCondition);
+    if (bolIsExistCondition == true) {
+      const strMsg = Format(
+        '不能满足唯一性条件。满足条件：{0}的记录已经存在!',
+        strUniquenessCondition,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    return true;
+  }
+{{~ end ~}}
+
+
+  {{~ if NeedReturnKeyMethod ~}}
+  /** 添加新记录,由后台自动获取最大值的关键字。保存函数 
+   * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:Gen_Vue_Ts_AddNewRecordWithReturnKeySave)
+   **/
+  public async AddNewRecordWithReturnKeySave(): Promise<{{ ReturnKeyMethodReturnType }}> {
+    const strThisFuncName = this.AddNewRecordWithReturnKeySave.name;
+    let obj{{ TableName }}EN;
+    try {
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
+    } catch (e) {
+      const strMsg = Format(
+        '从界面获取数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      {{~ if IsKeyFieldNumeric ~}}
+      return 0;
+      {{~ else ~}}
+      return '';
+      {{~ end ~}}
+    }
+    try {
+      {{ TableName }}_CheckPropertyNew(obj{{ TableName }}EN);
+    } catch (e) {
+      const strMsg = Format(
+        '检查数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      {{~ if IsKeyFieldNumeric ~}}
+      return 0;
+      {{~ else ~}}
+      return '';
+      {{~ end ~}}
+    }
+    try {
+      {{~ if NeedCheckKeyExist ~}}
+      //检查唯一性条件
+      const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
+      if (bolIsExistCond == false) {
+        {{~ if IsKeyFieldNumeric ~}}
+        return 0;
+        {{~ else ~}}
+        return '';
+        {{~ end ~}}
+      }
+      {{~ end ~}}
+      {{~ if IsStringAutoIncrement ~}}
+      const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+      const returnKeyId: string = responseKeyId;
+      if (IsNullOrEmpty(returnKeyId) == false) {
+       {{~ if NeedRefreshCache ~}}
+        {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
+        //显示信息框
+        if (this.isShowMsg == true) alert(strInfo);
+      } else {
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录不成功!`;
+        //显示信息框
+        alert(strInfo);
+      }
+      return responseKeyId;
+      {{~ else ~}}
+      const responseKeyId = await {{ TableName }}_AddNewRecordWithReturnKeyAsync(obj{{ TableName }}EN);
+      const returnKeyId: string = responseKeyId;
+      if (IsNullOrEmpty(returnKeyId) == false) {
+        {{~ if IsKeyFieldNumeric ~}}
+        obj{{ TableName }}EN.{{ KeyFieldCamel }} = Number(returnKeyId);
+        {{~ end ~}}
+       {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
+        //显示信息框
+        if (this.isShowMsg == true) alert(strInfo);
+      } else {
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录不成功!`;
+        //显示信息框
+        alert(strInfo);
+      }
+      {{~ if IsKeyFieldNumeric ~}}
+      return Number(responseKeyId); //一定要有一个返回值,否则会出错!
+      {{~ else ~}}
+      return responseKeyId; //一定要有一个返回值,否则会出错!
+      {{~ end ~}}
+      {{~ end ~}}
+    } catch (e) {
+      const strMsg = Format(
+        '添加记录不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      {{~ if IsKeyFieldNumeric ~}}
+      return 0;
+      {{~ else ~}}
+      return '';
+      {{~ end ~}}
+    }
+  }
+{{~ end ~}}
+
+
+  {{~ if IsStringAutoIncrement ~}}
+  /** 添加新记录,由后台自动获取最大值的关键字。保存函数 
+   * (AutoGCLib.Vue_ViewScript_EditAi_TS4TypeScript:Gen_Vue_Ts_AddNewRecordWithMaxIdSave)
+   **/
+  public async AddNewRecordWithMaxIdSave(): Promise<string> {
+    const strThisFuncName = this.AddNewRecordWithMaxIdSave.name;
+    let obj{{ TableName }}EN;
+    try {
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
+    } catch (e) {
+      const strMsg = Format(
+        '从界面获取数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      throw strMsg;
+    }
+    try {
+      {{ TableName }}_CheckPropertyNew(obj{{ TableName }}EN);
+    } catch (e) {
+      const strMsg = Format(
+        '检查数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      throw strMsg;
+    }
+    try {
+      {{~ if NeedCheckKeyExist ~}}
+      //检查唯一性条件
+      const bolIsExistCond = await this.CheckUniCond4Add(obj{{ TableName }}EN);
+      if (bolIsExistCond == false) {
+        return '';
+      }
+      {{~ end ~}}
+      const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
+      const returnKeyId: string = responseKeyId;
+      if (IsNullOrEmpty(returnKeyId) == false) {
+       {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
+        if (this.isShowMsg == true) alert(strInfo);
+      } else {
+        const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录不成功!`;
+        alert(strInfo);
+      }
+      return responseKeyId;
+    } catch (e) {
+      const strMsg = Format(
+        '添加记录不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      throw strMsg;
+    }
+  }
+{{~ end ~}}
+
+
+  /** 显示指定记录的数据 */
+  public async ShowData(key: {{ TableName }}Key) {
+    const strThisFuncName = this.ShowData.name;
+    let obj{{ TableName }}EN = new cls{{ TableName }}EN();
+    try {
+      const returnBool = await {{ TableName }}_IsExistAsync(key);
+       if (returnBool == false) {
+        const strInfo = Format('关键字:[{0}] 的记录不存在!', key.{{ KeyFieldCamel }});
+        alert(strInfo);
+        return;
+      }
+    } catch (e) {
+      const strMsg = Format(
+        '检查相应关键字的记录存在不成功, {0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+    try {
+      const obj{{ TableName }}ENConst = await {{ TableName }}_GetObjByKeyAsync(key);
+      if (obj{{ TableName }}ENConst == null) {
+        const strMsg = Format(
+          '根据关键字获取相应的记录的对象为空.(in {0}.{1})',
+          this.constructor.name,
+          strThisFuncName,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        return;
+      }
+      obj{{ TableName }}EN = obj{{ TableName }}ENConst;
+    } catch (e) {
+      const strMsg = Format(
+        '根据关键字获取相应的记录的对象不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+    }
+    {{ refEditName }}.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
+  }
+
+  /** 修改记录（显示数据） */
+  public async UpdateRecord(key: {{ TableName }}Key): Promise<boolean> {
+    const strThisFuncName = this.UpdateRecord.name;
+    this.keyId = key;
+    try {
+      const obj{{ TableName }}EN = await {{ TableName }}_GetObjByKeyAsync(key);
+      if (obj{{ TableName }}EN == null) {
+        const strMsg = Format(
+          '根据关键字获取相应的记录的对象为空.(in {0}.{1})',
+          this.className,
+          strThisFuncName,
+        );
+        console.error(strMsg);
+        alert(strMsg);
+        return false;
+      }
+      await {{ refEditName }}.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
+      return true;
+    } catch (e) {
+      const strMsg = Format(
+        '修改记录时，显示信息出错,{0}.(in {1}.{2})',
+        e,
+        this.className,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+  }
+
+  
+  /** 修改记录保存 */
+  public async UpdateRecordSave(): Promise<boolean> {
+    const strThisFuncName = this.UpdateRecordSave.name;
+    const obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
+     {{~ if IsMultiKey ~}}
+    // 🔥 多关键字段：循环设置每个关键字段
+    {{~ for keyField in KeyFields ~}}
+    obj{{ TableName }}EN.Set{{ keyField.FieldName }}(this.keyId.{{ keyField.FieldNameCamel }});
+    {{~ end ~}}
+    {{~ else ~}}
+    // 🔥 单关键字段：直接使用
+    obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
+    {{~ end ~}}
+    obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
+    {{~ if IsKeyFieldNumeric ~}}
+    if (obj{{ TableName }}EN.{{ KeyFieldCamel }} == 0 || obj{{ TableName }}EN.{{ KeyFieldCamel }} == undefined) {
+    {{~ else ~}}
+    if (obj{{ TableName }}EN.{{ KeyFieldCamel }} == '' || obj{{ TableName }}EN.{{ KeyFieldCamel }} == undefined) {
+    {{~ end ~}}
+      console.error('关键字不能为空!');
+      throw '关键字不能为空!';
+    }
+    try {
+      {{ TableName }}_CheckProperty4Update(obj{{ TableName }}EN);
+    } catch (e) {
+      const strMsg = Format(
+        '检查数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    try {
+      {{~ if NeedUniCheck ~}}
+      const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
+      if (bolIsExistCond == false) {
+        return false;
+      }
+      {{~ end ~}}
+      const returnBool = await {{ TableName }}_UpdateRecordAsync(obj{{ TableName }}EN);
+      if (returnBool == true) {
+       {{~ if NeedRefreshCache ~}}
+               {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+
+
+      }
+      return returnBool;
+    } catch (e) {
+      const strMsg = Format(
+        '修改记录不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+  }
+  
+  /** 编辑记录，存在就修改，不存在就添加 */
+  public async EditRecordExSave(): Promise<boolean> {
+    const strThisFuncName = this.EditRecordExSave.name;
+    const obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
+
+      {{~ if IsMultiKey ~}}
+    // 🔥 多关键字段：循环设置每个关键字段
+    {{~ for keyField in KeyFields ~}}
+    obj{{ TableName }}EN.Set{{ keyField.FieldName }}(this.keyId.{{ keyField.FieldNameCamel }});
+    {{~ end ~}}
+    {{~ else ~}}
+    // 🔥 单关键字段：直接使用
+    obj{{ TableName }}EN.Set{{ KeyField }}(this.keyId.{{ KeyFieldCamel }});
+    {{~ end ~}}
+    obj{{ TableName }}EN.sfUpdFldSetStr = obj{{ TableName }}EN.updFldString;
+    {{~ if IsKeyFieldNumeric ~}}
+    if (obj{{ TableName }}EN.{{ KeyFieldCamel }} == 0 || obj{{ TableName }}EN.{{ KeyFieldCamel }} == undefined) {
+    {{~ else ~}}
+    if (obj{{ TableName }}EN.{{ KeyFieldCamel }} == '' || obj{{ TableName }}EN.{{ KeyFieldCamel }} == undefined) {
+    {{~ end ~}}
+      console.error('关键字不能为空!');
+      throw '关键字不能为空!';
+    }
+    try {
+      {{ TableName }}_CheckProperty4Update(obj{{ TableName }}EN);
+    } catch (e) {
+      const strMsg = Format(
+        '检查数据不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+    try {
+      {{~ if NeedUniCheck ~}}
+      const bolIsExistCond = await this.CheckUniCond4Update(obj{{ TableName }}EN);
+      if (bolIsExistCond == false) {
+        return false;
+      }
+      {{~ end ~}}
+      const returnBool = await {{ TableName }}_EditRecordExAsync(obj{{ TableName }}EN);
+      if (returnBool == true) {
+      {{~ if NeedRefreshCache ~}}
+              {{~ if HasCacheClassifyField ~}}
+        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
+            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
+      
+        {{~ else ~}}
+        {{ TableName }}_ReFreshCache();
+           {{ TableName }}_DeleteKeyIdCache(this.keyId);
+     
+        {{~ end ~}}
+        {{~ else ~}}
+        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
+        {{~ end ~}}
+      }
+      return returnBool;
+    } catch (e) {
+      const strMsg = Format(
+        '修改记录不成功,{0}.(in {1}.{2})',
+        e,
+        this.constructor.name,
+        strThisFuncName,
+      );
+      console.error(strMsg);
+      alert(strMsg);
+      return false;
+    }
+  }
+
+  /** 设置取消按钮标题 */
+  public set btnCancel{{ TableName }}(value: string) {
+    {{ refEditName }}.value.strCancelButtonText = value;
+  }
+
+  /** 获取提交按钮标题 */
+  public get btnSubmit{{ TableName }}(): string {
+    const strValue = {{ refEditName }}.value.strSubmitButtonText;
+    return strValue;
+  }
+
+  /** 设置提交按钮标题 */
+  public set btnSubmit{{ TableName }}(value: string) {
+    {{ refEditName }}.value.strSubmitButtonText = value;
+  }
+
+ 
+}

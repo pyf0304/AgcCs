@@ -461,7 +461,267 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 从表Id获取关键字段对象列表(不使用缓存)
+        /// 调用方法: Get /api/PrjTabFldExApi/GetPrimaryKeyObjLstByTabId?strTabId=value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <returns>关键字段对象列表</returns>
+        [HttpGet("GetPrimaryKeyObjLstByTabId")]
+        public ActionResult GetPrimaryKeyObjLstByTabId(string strTabId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsPrjTabFldBLEx.GetPrimaryKeyObjLstByTabId(strTabId);
+                return Ok(new { errorId = 0, errorMsg = "", returnObjLst = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        /// <summary>
+        /// 从表Id获取主键字段数量
+        /// 调用方法: Get /api/PrjTabFldExApi/GetPrimaryKeyNumByTabId?strTabId=value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <returns>主键字段数量</returns>
+        [HttpGet("GetPrimaryKeyNumByTabId")]
+        public ActionResult GetPrimaryKeyNumByTabId(string strTabId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsPrjTabFldBLEx.GetPrimaryKeyNumByTabId(strTabId);
+                return Ok(new { errorId = 0, errorMsg = "", returnInt = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        /// <summary>
+        /// 在工程表字段中添加记录，如果字段不存在则先在FieldTab中创建
+        /// 调用方法: Post /api/PrjTabFldExApi/AddPrjTabFldWithFieldCheck
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        /// <returns>返回添加结果</returns>
+        [AllowAnonymous]
+        [HttpPost("AddPrjTabFldWithFieldCheck")]
+        public ActionResult AddPrjTabFldWithFieldCheck([FromBody] AddPrjTabFldRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", request.strTabId);
+            dictParam.Add("strPrjId", request.strPrjId);
+            dictParam.Add("strUpdUser", request.strUpdUser);
+            dictParam.Add("fieldInfo.FldName", request.fieldInfo.FldName ?? "");
+            dictParam.Add("fieldInfo.DataTypeName", request.fieldInfo.DataTypeName ?? "");
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
 
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(request.strTabId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "表Id不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strPrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "工程Id不能为空" });
+                }
+                //if (request.fieldInfo == null)
+                //{
+                //    return Ok(new { errorId = 1, errorMsg = "字段信息不能为空" });
+                //}
+                if (string.IsNullOrEmpty(request.fieldInfo.FldName))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "字段名称不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.fieldInfo.DataTypeName))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "数据类型不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strUpdUser))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "操作用户不能为空" });
+                }
+
+                // 调用业务逻辑
+                bool varResult = clsPrjTabFldBLEx.AddPrjTabFldWithFieldCheck(
+                    request.strTabId,
+                    request.strPrjId,
+                    request.fieldInfo,
+                    request.strUpdUser
+                );
+
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 批量添加工程表字段记录
+        /// 调用方法: Post /api/PrjTabFldExApi/BatchAddPrjTabFldWithFieldCheck
+        /// </summary>
+        /// <param name="request">批量请求参数</param>
+        /// <returns>返回添加结果</returns>
+        [HttpPost("BatchAddPrjTabFldWithFieldCheck")]
+        public ActionResult BatchAddPrjTabFldWithFieldCheck([FromBody] BatchAddPrjTabFldRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", request.strTabId);
+            dictParam.Add("strPrjId", request.strPrjId);
+            dictParam.Add("strUpdUser", request.strUpdUser);
+            dictParam.Add("fieldCount", request.fieldInfoList?.Count.ToString() ?? "0");
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(request.strTabId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "表Id不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strPrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "工程Id不能为空" });
+                }
+                if (request.fieldInfoList == null || request.fieldInfoList.Count == 0)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "字段信息列表不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strUpdUser))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "操作用户不能为空" });
+                }
+
+                // 批量处理结果
+                List<BatchAddResult> results = new List<BatchAddResult>();
+                int successCount = 0;
+                int failCount = 0;
+
+                foreach (var fieldInfo in request.fieldInfoList)
+                {
+                    try
+                    {
+                        // 验证单个字段信息
+                        if (string.IsNullOrEmpty(fieldInfo.FldName))
+                        {
+                            results.Add(new BatchAddResult
+                            {
+                                FldName = "",
+                                Success = false,
+                                ErrorMsg = "字段名称不能为空"
+                            });
+                            failCount++;
+                            continue;
+                        }
+                        if (string.IsNullOrEmpty(fieldInfo.DataTypeName))
+                        {
+                            results.Add(new BatchAddResult
+                            {
+                                FldName = fieldInfo.FldName,
+                                Success = false,
+                                ErrorMsg = "数据类型不能为空"
+                            });
+                            failCount++;
+                            continue;
+                        }
+
+                        bool result = clsPrjTabFldBLEx.AddPrjTabFldWithFieldCheck(
+                            request.strTabId,
+                            request.strPrjId,
+                            fieldInfo,
+                            request.strUpdUser
+                        );
+
+                        results.Add(new BatchAddResult
+                        {
+                            FldName = fieldInfo.FldName,
+                            Success = result,
+                            ErrorMsg = result ? "" : "添加失败"
+                        });
+
+                        if (result)
+                            successCount++;
+                        else
+                            failCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        results.Add(new BatchAddResult
+                        {
+                            FldName = fieldInfo.FldName,
+                            Success = false,
+                            ErrorMsg = ex.Message
+                        });
+                        failCount++;
+                    }
+                }
+
+                return Ok(new
+                {
+                    errorId = 0,
+                    errorMsg = "",
+                    returnBool = failCount == 0,
+                    successCount = successCount,
+                    failCount = failCount,
+                    results = results
+                });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 添加工程表字段请求参数类
+        /// </summary>
+        public class AddPrjTabFldRequest
+        {
+            public string strTabId { get; set; }
+            public string strPrjId { get; set; }
+            public FieldImportInfo fieldInfo { get; set; }
+            public string strUpdUser { get; set; }
+        }
+
+        /// <summary>
+        /// 批量添加工程表字段请求参数类
+        /// </summary>
+        public class BatchAddPrjTabFldRequest
+        {
+            public string strTabId { get; set; }
+            public string strPrjId { get; set; }
+            public List<FieldImportInfo> fieldInfoList { get; set; }
+            public string strUpdUser { get; set; }
+        }
+
+        /// <summary>
+        /// 批量添加结果类
+        /// </summary>
+        public class BatchAddResult
+        {
+            public string FldName { get; set; }
+            public bool Success { get; set; }
+            public string ErrorMsg { get; set; }
+        }
     }
     public class clsCopyToPrjTab
     {
@@ -471,5 +731,36 @@ namespace AGC.WebApi
         public string strPrjId { set; get; }
         public string strPrjDataBaseId { set; get; }
         public string strOpUser { set; get; }
+    }
+    /// <summary>
+    /// 添加工程表字段请求参数类
+    /// </summary>
+    public class AddPrjTabFldRequest
+    {
+        public string strTabId { get; set; }
+        public string strPrjId { get; set; }
+        public FieldImportInfo fieldInfo { get; set; }
+        public string strUpdUser { get; set; }
+    }
+
+    /// <summary>
+    /// 批量添加工程表字段请求参数类
+    /// </summary>
+    public class BatchAddPrjTabFldRequest
+    {
+        public string strTabId { get; set; }
+        public string strPrjId { get; set; }
+        public List<FieldImportInfo> fieldInfoList { get; set; }
+        public string strUpdUser { get; set; }
+    }
+
+    /// <summary>
+    /// 批量添加结果类
+    /// </summary>
+    public class BatchAddResult
+    {
+        public string FldName { get; set; }
+        public bool Success { get; set; }
+        public string ErrorMsg { get; set; }
     }
 }

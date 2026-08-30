@@ -532,6 +532,7 @@ namespace AGC.BusinessLogicEx
             if (objUserCodePrjMainPath == null)
             {
                 objUserCodePrjMainPath = clsUserCodePrjMainPathBL.GetFirstObj_S(strCondition);
+                dicAppIdPrjIdUserId_UserCodePrjMainPath.Remove(strKey);
                 dicAppIdPrjIdUserId_UserCodePrjMainPath.Add(strKey, objUserCodePrjMainPath);
                 return objUserCodePrjMainPath;
             }
@@ -733,15 +734,15 @@ namespace AGC.BusinessLogicEx
         /// <param name="strUserId">用户ID</param>
         /// <returns>生成代码根目录路径</returns>
         /// <exception cref="Exception">当路径为空或未配置时抛出异常</exception>
-        public static string GetGeneCodeRootPath(
+        public static string GetGeneCodeRootPathBak(
             string strCmPrjId, 
-            int intApplicationTypeId, 
-            string strPrjId, 
+            int intApplicationTypeId,             
             string strMachineName, 
             string strUserId)
         {
             try
             {
+                string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
                 // 1. 获取 CMProjectAppRela 关联ID
                 long lngCMProjectAppRelaId = clsCMProjectAppRelaBLEx.getCMProjectAppRelaId(
                     strCmPrjId, 
@@ -824,23 +825,23 @@ namespace AGC.BusinessLogicEx
             }
         }
 
-        /// <summary>
-        /// 根据当前项目、CM工程、应用类型获取生成代码根目录（使用当前机器名）
-        /// </summary>
-        /// <param name="strCmPrjId">CM工程ID</param>
-        /// <param name="intApplicationTypeId">应用类型ID</param>
-        /// <param name="strPrjId">项目ID</param>
-        /// <param name="strUserId">用户ID</param>
-        /// <returns>生成代码根目录路径</returns>
-        public static string GetGeneCodeRootPath(
-            string strCmPrjId, 
-            int intApplicationTypeId, 
-            string strPrjId, 
-            string strUserId)
-        {
-            string strMachineName = Environment.MachineName;
-            return GetGeneCodeRootPath(strCmPrjId, intApplicationTypeId, strPrjId, strMachineName, strUserId);
-        }
+        ///// <summary>
+        ///// 根据当前项目、CM工程、应用类型获取生成代码根目录（使用当前机器名）
+        ///// </summary>
+        ///// <param name="strCmPrjId">CM工程ID</param>
+        ///// <param name="intApplicationTypeId">应用类型ID</param>
+        ///// <param name="strPrjId">项目ID</param>
+        ///// <param name="strUserId">用户ID</param>
+        ///// <returns>生成代码根目录路径</returns>
+        //public static string GetGeneCodeRootPath(
+        //    string strCmPrjId, 
+        //    int intApplicationTypeId, 
+        //    string strPrjId, 
+        //    string strUserId)
+        //{
+        //    string strMachineName = Environment.MachineName;
+        //    return GetGeneCodeRootPath(strCmPrjId, intApplicationTypeId, strPrjId, strMachineName, strUserId);
+        //}
 
         /// <summary>
         /// 获取生成代码根目录的完整信息对象
@@ -913,22 +914,13 @@ namespace AGC.BusinessLogicEx
     }
     public partial class clsUserCodePrjMainPathBLEx : clsUserCodePrjMainPathBL
     {
-        public static string GetGeneCodeRootPath(string strPrjId, string strCmPrjId, int intApplicationTypeId)
-        {
-            return GetGeneCodeRootPath(
-                strPrjId,
-                strCmPrjId,
-                intApplicationTypeId,
-                Environment.MachineName,
-                Environment.UserName);
-        }
+   
 
-        public static string GetGeneCodeRootPath(
+        public static string GetGeneCodeRootPathBak(
             string strPrjId,
             string strCmPrjId,
-            int intApplicationTypeId,
-            string strMachineName,
-            string strOpUserId)
+            int intApplicationTypeId,            
+            string strUserId)
         {
             string strFunctionName = nameof(GetGeneCodeRootPath);
             try
@@ -938,14 +930,93 @@ namespace AGC.BusinessLogicEx
                     strCmPrjId,
                     intApplicationTypeId);
                
-                var objUserCodePrjMainPathEx = clsUserCodePrjMainPathBLEx.GetObjExByCMProjectAppRelaIdCache(                    lngCMProjectAppRelaId,
-                    strPrjId,
-                    strMachineName,
-                    strOpUserId);
+                
+                List<clsUserCodePrjMainPathEN> arrUserCodePrjMainPath = clsUserCodePrjMainPathBLEx.GetObjLstByCMProjectAppRelaIdCache(lngCMProjectAppRelaId,
+                    strPrjId,                    
+                    strUserId);
 
-                string strRootPath = objUserCodePrjMainPathEx.CodePath;
+                string strRootPath = "";// arrUserCodePrjMainPath;
             
                 return NormalizePath(strRootPath);
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format(
+                    "{0}.(from {1})",
+                    objException.Message,
+                    strFunctionName);
+                throw new InvalidOperationException(strMsg, objException);
+            }
+        }
+
+        public static List<clsUserCodePrjMainPath_MachineNameEN> GetGeneCodeRootPath(    
+    string strCmPrjId,
+    int intApplicationTypeId,
+    string strUserId)
+        {
+            string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
+            string strFunctionName = nameof(GetGeneCodeRootPath);
+            try
+            {
+                long lngCMProjectAppRelaId = GetCMProjectAppRelaId(
+                    strPrjId,
+                    strCmPrjId,
+                    intApplicationTypeId);
+
+                if (lngCMProjectAppRelaId <= 0)
+                {
+                    string strCmPrjName = clsCMProjectBL.GetNameByCmPrjIdCache(strCmPrjId);
+                    string strAppName = clsApplicationTypeBL.GetNameByApplicationTypeIdCache(intApplicationTypeId);
+
+                    string strErrMsg = string.Format(
+                        "未找到CM工程:{0}(ID:{1})与应用:{2}(ID:{3})的关联配置，请检查CMProjectAppRela表！",
+                        strCmPrjName, strCmPrjId, strAppName, intApplicationTypeId);
+                    throw new Exception(strErrMsg);
+                }
+
+                List<clsUserCodePrjMainPathEN> arrUserCodePrjMainPath =
+                    clsUserCodePrjMainPathBLEx.GetObjLstByCMProjectAppRelaIdCache(
+                        lngCMProjectAppRelaId,
+                        strPrjId,
+                        strUserId);
+
+                if (arrUserCodePrjMainPath == null || arrUserCodePrjMainPath.Count == 0)
+                {
+                    string strErrMsg = string.Format(
+                        "用户:{0}在项目:{1}下没有配置任何主路径记录！",
+                        strUserId, strPrjId);
+                    throw new Exception(strErrMsg);
+                }
+
+                List<clsUserCodePrjMainPath_MachineNameEN> arrResult = new List<clsUserCodePrjMainPath_MachineNameEN>();
+
+                foreach (clsUserCodePrjMainPathEN objMainPath in arrUserCodePrjMainPath)
+                {
+                    string strCondition = string.Format("{0}='{1}'",
+                        conUserCodePrjMainPath_MachineName.UserCodePrjMainPathId,
+                        objMainPath.UserCodePrjMainPathId);
+
+                    List<clsUserCodePrjMainPath_MachineNameEN> arrMachinePath =
+                        clsUserCodePrjMainPath_MachineNameBL.GetObjLst(strCondition);
+
+                    if (arrMachinePath == null || arrMachinePath.Count == 0) continue;
+
+                    foreach (clsUserCodePrjMainPath_MachineNameEN objMachinePath in arrMachinePath)
+                    {
+                        objMachinePath.CodePath = NormalizePath(objMachinePath.CodePath);
+                        arrResult.Add(objMachinePath);
+                    }
+                }
+
+                if (arrResult.Count == 0)
+                {
+                    string strErrMsg = string.Format(
+                        "用户:{0}在所有机器上都未配置生成代码路径！",
+                        strUserId);
+                    throw new Exception(strErrMsg);
+                }
+
+                return arrResult.OrderBy(x => x.MachineName).ToList();
             }
             catch (Exception objException)
             {
@@ -1072,6 +1143,75 @@ namespace AGC.BusinessLogicEx
         /// <param name="strCmPrjId">CM工程Id</param>
         /// <param name="strUserId">用户Id</param>
         /// <returns>clsUserCodePrjMainPathEN</returns>
+        public static List<clsUserCodePrjMainPathEN> GetObjLstByCMProjectAppRelaIdCacheBak(long lngCMProjectAppRelaId, string strCurrPrjId, string strUserId)
+        {
+            if (string.IsNullOrEmpty(strUserId) == true)
+            {
+                string strMsg = string.Format("当前用户(strUserId)没有设置，请联系管理员！({0})", clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+
+            if (string.IsNullOrEmpty(strCurrPrjId) == true)
+            {
+                string strMsg = string.Format("当前项目没有设置，请联系管理员！({0})", clsStackTrace.GetCurrClassFunction());
+
+                throw new Exception(strMsg);
+            }
+
+            List<clsUserCodePrjMainPathEN> arrUserCodePrjMainPathObjLst_Cache = clsUserCodePrjMainPathBL.GetObjLstCache(strCurrPrjId);
+
+            clsCMProjectAppRelaEN objCMProjectAppRela = null;
+            try
+            {
+                objCMProjectAppRela =
+                    clsCMProjectAppRelaBL.GetObjByCMProjectAppRelaIdCache(lngCMProjectAppRelaId, strCurrPrjId);
+            }
+            catch (Exception objException)
+            {
+                StringBuilder sbMsg1 = new StringBuilder();
+                sbMsg1.AppendFormat("在获取Cm工程应用类型Id＝[{0}]的Cm工程应用类型对象时出错，错误信息：{1}。", lngCMProjectAppRelaId, objException.Message);
+                throw new Exception(sbMsg1.ToString());
+            }
+            var arrUserCodePrjMainPath_Sel = arrUserCodePrjMainPathObjLst_Cache.Where(x => x.CMProjectAppRelaId == lngCMProjectAppRelaId
+                                 && x.PrjId == strCurrPrjId
+                                 && x.UserId == strUserId);
+            
+            if (arrUserCodePrjMainPath_Sel.Count() == 0)
+            {
+                clsUserCodePrjMainPathBL.ReFreshCache(strCurrPrjId);
+
+                string strMsg = string.Format("根据Cm工程应用类型:{0},用户:{1}(工程Id:{2})的用户代码主路径没有设置，请联系管理员！({3})",
+               lngCMProjectAppRelaId, strUserId, strCurrPrjId,
+               clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+                //return null;
+            }
+
+            arrUserCodePrjMainPath_Sel = arrUserCodePrjMainPathObjLst_Cache.Where(x => x.CMProjectAppRelaId == lngCMProjectAppRelaId
+                       && x.PrjId == strCurrPrjId
+                       && x.UserId == strUserId
+                       );
+           
+            if (arrUserCodePrjMainPath_Sel.Count() == 0)
+            {
+                string strMsg = string.Format("根据应用类型:{0},用户:{1}, CmPrjId:{2}(工程Id:{3})的用户代码主路径没有设置，请联系管理员！({4})",
+                    objCMProjectAppRela.ApplicationTypeName(), strUserId, objCMProjectAppRela.CmPrjId, strCurrPrjId,
+                    clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+
+            return null;
+        }
+
+
+        /// <summary>
+        /// 根据代码类型Id和语言类型Id获取用户代码项目主目录
+        /// </summary>
+        /// <param name="intApplicationTypeId">应用类型Id</param>
+        /// <param name="strCurrPrjId">当前工程Id</param>
+        /// <param name="strCmPrjId">CM工程Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <returns>clsUserCodePrjMainPathEN</returns>
         public static clsUserCodePrjMainPathENEx GetObjExByCMProjectAppRelaIdCache(long lngCMProjectAppRelaId, string strCurrPrjId, string strMachineName, string strUserId)
         {
             if (string.IsNullOrEmpty(strUserId) == true)
@@ -1180,8 +1320,144 @@ namespace AGC.BusinessLogicEx
                 throw new Exception(strMsg);
             }
         }
+        public static List<clsUserCodePrjMainPathEN> GetObjLstByCMProjectAppRelaIdCache(
+    long lngCMProjectAppRelaId,
+    string strCurrPrjId,
+    string strUserId)
+        {
+            if (string.IsNullOrEmpty(strUserId) == true)
+            {
+                string strMsg = string.Format("当前用户(strUserId)没有设置，请联系管理员！({0})", clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
 
+            if (string.IsNullOrEmpty(strCurrPrjId) == true)
+            {
+                string strMsg = string.Format("当前项目没有设置，请联系管理员！({0})", clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
 
+            List<clsUserCodePrjMainPathEN> arrUserCodePrjMainPathObjLst_Cache = clsUserCodePrjMainPathBL.GetObjLstCache(strCurrPrjId);
+
+            clsCMProjectAppRelaEN objCMProjectAppRela = null;
+            try
+            {
+                objCMProjectAppRela = clsCMProjectAppRelaBL.GetObjByCMProjectAppRelaIdCache(lngCMProjectAppRelaId, strCurrPrjId);
+            }
+            catch (Exception objException)
+            {
+                StringBuilder sbMsg1 = new StringBuilder();
+                sbMsg1.AppendFormat("在获取Cm工程应用类型Id＝[{0}]的Cm工程应用类型对象时出错，错误信息：{1}。", lngCMProjectAppRelaId, objException.Message);
+                throw new Exception(sbMsg1.ToString());
+            }
+
+            List<clsUserCodePrjMainPathEN> arrUserCodePrjMainPath_Sel = arrUserCodePrjMainPathObjLst_Cache
+                .Where(x => x.CMProjectAppRelaId == lngCMProjectAppRelaId
+                         && x.PrjId == strCurrPrjId
+                         && x.UserId == strUserId)
+                .ToList();
+
+            if (arrUserCodePrjMainPath_Sel.Count == 0)
+            {
+                clsUserCodePrjMainPathBL.ReFreshCache(strCurrPrjId);
+
+                arrUserCodePrjMainPathObjLst_Cache = clsUserCodePrjMainPathBL.GetObjLstCache(strCurrPrjId);
+                arrUserCodePrjMainPath_Sel = arrUserCodePrjMainPathObjLst_Cache
+                    .Where(x => x.CMProjectAppRelaId == lngCMProjectAppRelaId
+                             && x.PrjId == strCurrPrjId
+                             && x.UserId == strUserId)
+                    .ToList();
+
+                if (arrUserCodePrjMainPath_Sel.Count == 0)
+                {
+                    string strMsg = string.Format("根据应用类型:{0},用户:{1}, CmPrjId:{2}(工程Id:{3})的用户代码主路径没有设置，请联系管理员！({4})",
+                        objCMProjectAppRela.ApplicationTypeName(), strUserId, objCMProjectAppRela.CmPrjId, strCurrPrjId,
+                        clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strMsg);
+                }
+            }
+
+            return arrUserCodePrjMainPath_Sel;
+        }
+        /// <summary>
+        /// 设置用户生成代码主路径关联（仅在UserCodePrjMainPath中创建一条记录，不处理机器路径表）
+        /// </summary>
+        /// <param name="strCmPrjId">CM工程Id</param>
+        /// <param name="intApplicationTypeId">应用类型Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <param name="strOpUserId">操作用户Id</param>
+        /// <returns>返回UserCodePrjMainPathId</returns>
+        public static string SetGeneCodeRootPath(
+            string strCmPrjId,
+            int intApplicationTypeId,
+            string strUserId,
+            string strOpUserId)
+        {
+            string strFunctionName = nameof(SetGeneCodeRootPath);
+            try
+            {
+                string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
+                if (string.IsNullOrEmpty(strPrjId) == true)
+                {
+                    throw new Exception(string.Format("根据CmPrjId:{0}获取PrjId失败！", strCmPrjId));
+                }
+
+                long lngCMProjectAppRelaId = GetCMProjectAppRelaId(strPrjId, strCmPrjId, intApplicationTypeId);
+                if (lngCMProjectAppRelaId <= 0)
+                {
+                    string strCmPrjName = clsCMProjectBL.GetNameByCmPrjIdCache(strCmPrjId);
+                    string strAppName = clsApplicationTypeBL.GetNameByApplicationTypeIdCache(intApplicationTypeId);
+                    throw new Exception(string.Format(
+                        "未找到CM工程:{0}(ID:{1})与应用:{2}(ID:{3})的关联配置，请检查CMProjectAppRela表！",
+                        strCmPrjName, strCmPrjId, strAppName, intApplicationTypeId));
+                }
+
+                string strCondition = string.Format("{0}={1} And {2}='{3}' And {4}='{5}'",
+                    conUserCodePrjMainPath.CMProjectAppRelaId, lngCMProjectAppRelaId,
+                    conUserCodePrjMainPath.PrjId, strPrjId,
+                    conUserCodePrjMainPath.UserId, strUserId);
+
+                clsUserCodePrjMainPathEN objExist = clsUserCodePrjMainPathBL.GetFirstObj_S(strCondition);
+                if (objExist != null)
+                {
+                    return objExist.UserCodePrjMainPathId;
+                }
+
+                string strCurrDate = clsDateTime_Db.GetDataBaseDateTime14();
+
+                clsCMProjectAppRelaEN objCMProjectAppRela = clsCMProjectAppRelaBL.GetObjByCMProjectAppRelaIdCache(lngCMProjectAppRelaId, strPrjId);
+                clsApplicationTypeEN objApplicationType = clsApplicationTypeBL.GetObjByApplicationTypeIdCache(objCMProjectAppRela.ApplicationTypeId);
+
+                clsUserCodePrjMainPathEN objNew = new clsUserCodePrjMainPathEN();
+                objNew.UserCodePrjMainPathId = clsUserCodePrjMainPathBL.GetMaxStrId_S();
+                objNew.CMProjectAppRelaId = lngCMProjectAppRelaId;
+                objNew.PrjId = strPrjId;
+                objNew.UserId = strUserId;
+                objNew.ProgLangTypeId = objApplicationType.ProgLangTypeId;
+                objNew.IsUsePrjMainPath = true;
+                objNew.IncludeXmlPath = "";
+                objNew.IsTemplate = false;
+                objNew.InUse = true;
+                objNew.UpdDate = strCurrDate;
+                objNew.UpdUserId = strOpUserId;
+                objNew.Memo = "Auto Create";
+
+                bool bolRet = clsUserCodePrjMainPathBL.AddNewRecordBySql2(objNew);
+                if (bolRet == false)
+                {
+                    throw new Exception("新增UserCodePrjMainPath记录失败！");
+                }
+
+                clsUserCodePrjMainPathBL.ReFreshCache(strPrjId);
+
+                return objNew.UserCodePrjMainPathId;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, strFunctionName);
+                throw new Exception(strMsg, objException);
+            }
+        }
         /// <summary>
         /// 替换字段,在整个工程中替换字段
         /// </summary>
@@ -1194,7 +1470,7 @@ namespace AGC.BusinessLogicEx
         //    clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
         //    string strSQL;
         //    strSQL = $"Update UserCodePrjMainPath Set {conUserCodePrjMainPath.FldId} = '{strTargetFldId}' where {conUserCodePrjMainPath.PrjId} = '{strPrjId}' And {conUserCodePrjMainPath.FldId} = '{strSourceFldId}'";
-                                                
+
         //    return objSQL.ExecSql(strSQL);
         //}
     }

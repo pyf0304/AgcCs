@@ -291,7 +291,7 @@ namespace AutoGCLib
                 strCodeForCs.Append("\r\n" + "{");
                 strCodeForCs.Append("\r\n" + "");
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst = 
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx(objViewInfoENEx, this.FunctionTemplateId);
 
                 //IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
                 //         clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,

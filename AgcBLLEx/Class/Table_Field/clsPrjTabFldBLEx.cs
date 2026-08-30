@@ -576,6 +576,12 @@ namespace AGC.BusinessLogicEx
             return arrPrjTabFldENObjLst;
         }
 
+        public static int GetPrimaryKeyNumByTabId(string strTabId)
+        {
+            string strCondition = string.Format("TabId = '{0}' And {1} = '{2}'", strTabId, convPrjTabFld.FieldTypeId, enumFieldType.KeyField_02);
+            int intRecNum = clsPrjTabFldBL.GetRecCountByCond(strCondition);
+            return intRecNum;
+        }
         /// <summary>
         /// 从表Id获取关键表字段对象,从缓存中获取
         /// </summary>
@@ -1306,69 +1312,7 @@ namespace AGC.BusinessLogicEx
             return true;
         }
 
-        ///// <summary>
-        ///// 功能:导入字段信息到FieldTab中
-        ///// </summary>
-        ///// <param name = "objColumns">字段对象</param>
-        ///// <param name = "strObjId">对象ID</param>
-        ///// <returns>是否成功？</returns>
-        //public static string ImportFldToFieldTabBak20170706(clsColumns objColumns, string strObjId)
-        //{
-        //    clsFieldTabENEx objFieldTabEN;
-        //    string strPrjId = clsPrjObjectsBL.GetPrjObjectsByObjId(strObjId).PrjId;
-        //    objFieldTabEN = new clsFieldTabENEx();
-        //    ///工程ID
-        //    objFieldTabEN.PrjId = strPrjId;
-        //    if (objColumns.Type_Name == "bigint identity")
-        //    {
-        //        objColumns.Type_Name = "bigint";
-        //    }
-        //    clsDataTypeAbbrEN objDataTypeAbbrEN = clsDataTypeAbbrBLEx.GetDataTypeAbbrObjByName(objColumns.Type_Name);
-
-        //    if (objDataTypeAbbrEN == null)
-        //    {
-        //        throw new Exception(string.Format("Sql Server中数据类型名:{0}不存在,请检查!", objColumns.Type_Name));
-        //    }
-        //    ///检查是否存在相同的字段名
-        //    if (clsFieldTabBLEx.IsExistSameFldName(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId) == true)
-        //    {
-        //        objFieldTabEN.FldId = clsFieldTabBLEx.GetFldId(strPrjId, objColumns.Column_Name, objDataTypeAbbrEN.DataTypeId);
-        //        clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-        //    }
-        //    else
-        //    {
-        //        objFieldTabEN.FldId = clsGeneralTab.GetMaxStrId("FieldTab", "FldId", 8, strPrjId);
-        //        objFieldTabEN.FldName = objColumns.Column_Name;
-        //        ///转换类型名称
-
-        //        //clsDataTypeAbbrEN objDataTypeAbbrEN = clsDataTypeAbbrBLEx.GetDataTypeAbbrObjByName(objColumns.Type_Name);
-        //        //List<string> arrID = new List<string>();
-        //        //arrID = clsDataTypeAbbrBL.GetPrimaryKeyID_S("DataTypeName = '" + objColumns.Type_Name + "'");
-        //        //if (arrID.Count  ==  0)
-        //        //{
-        //        //    throw new Exception(string.Format("Sql Server中数据类型名:{0}不存在,请检查!", objColumns.Type_Name));
-        //        //}
-
-        //        objFieldTabEN.DataTypeId = objDataTypeAbbrEN.DataTypeId;
-        //        objFieldTabEN.IsNull = (objColumns.Is_Nullable == "YES");
-        //        objFieldTabEN.IsPrimaryKey = false;
-        //        objFieldTabEN.FldLength = objColumns.length;
-        //        objFieldTabEN.FldPrecision = objColumns.PRECISION;
-        //        objFieldTabEN.Caption = objColumns.Column_Name;
-        //        objFieldTabEN.IsOnlyOne = false;
-        //        objFieldTabEN.FldStateId = "01";
-        //        if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN) == false)
-        //        {
-        //            StringBuilder sbMessage = new StringBuilder();
-        //            sbMessage.AppendFormat("添加字段 :{0}不成功,请检查!", objColumns.Column_Name);
-        //            throw new Exception(sbMessage.ToString());
-        //        }
-        //        clsFldObjTabBLEx.CreateFldObjRelation(strObjId, objFieldTabEN.FldId);
-        //    }
-        //    return objFieldTabEN.FldId;
-        //}
-
-
+       
         /// <summary>
         /// 功能:从[工程表]的相关对象中把对象相关字段列表复制到[工程表]的表字段中
         /// </summary>
@@ -4989,6 +4933,196 @@ namespace AGC.BusinessLogicEx
             return arrAddiFldId;
         }
 
+        /// <summary>
+        /// 从表Id获取关键字段对象列表(不使用缓存)
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <returns>关键字段对象列表</returns>
+        public static List<clsPrjTabFldEN> GetPrimaryKeyObjLstByTabIdNoCache(string strTabId)
+        {
+            return GetPrimaryKeyObjLstByTabId(strTabId);
+        }
+
+
+        /// <summary>
+        /// 在工程表字段中添加记录，如果字段不存在则先在FieldTab中创建
+        /// </summary>
+        /// <param name="strTabId">表ID</param>
+        /// <param name="strPrjId">工程ID</param>
+        /// <param name="fieldInfo">字段信息结构</param>
+        /// <param name="strUpdUser">更新用户</param>
+        /// <returns>返回添加结果，如果成功返回true，失败返回false</returns>
+        public static bool AddPrjTabFldWithFieldCheck(string strTabId, string strPrjId,
+            FieldImportInfo fieldInfo, string strUpdUser)
+        {
+            try
+            {
+                // 1. 检查字段是否已存在（根据FldName + DataTypeName）
+                string strFldId = clsFieldTabBLEx.GetFldIdByFldNameAndType(strPrjId,
+                    fieldInfo.FldName, fieldInfo.DataTypeName);
+
+                if (string.IsNullOrEmpty(strFldId))
+                {
+                    // 2. 字段不存在，创建新字段
+                    strFldId = CreateFieldRecord(strPrjId, fieldInfo, strUpdUser);
+                    if (string.IsNullOrEmpty(strFldId))
+                    {
+                        return false;
+                    }
+                }
+
+                // 3. 检查表字段是否已存在（根据TabId + FldId）
+                if (clsPrjTabFldBLEx.IsExistSameFldId(strTabId, strFldId))
+                {
+                    // 表字段已存在，返回成功（或可根据需要返回false）
+                    return true;
+                }
+
+                // 4. 添加工程表字段记录
+                return AddPrjTabFldRecord(strTabId, strPrjId, strFldId, fieldInfo, strUpdUser);
+            }
+            catch (Exception ex)
+            {
+                // 记录错误日志
+                // Logger.Error("AddPrjTabFldWithFieldCheck error: " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 创建字段记录
+        /// </summary>
+        private static string CreateFieldRecord(string strPrjId, FieldImportInfo fieldInfo, string strUpdUser)
+        {
+            try
+            {
+                clsFieldTabENEx objFieldTabEN = new clsFieldTabENEx();
+                objFieldTabEN.PrjId = strPrjId;
+                objFieldTabEN.FldId = clsGeneralTab.GetMaxStrId("FieldTab", "FldId", 8, strPrjId);
+                objFieldTabEN.FldName = fieldInfo.FldName;
+                objFieldTabEN.FldCnName = fieldInfo.FldCnName;
+                objFieldTabEN.Caption = fieldInfo.Caption;
+                objFieldTabEN.DataTypeId = clsDataTypeAbbrBL.GetFirstID_S("DataTypeName = '" + fieldInfo.DataTypeName + "'");
+                objFieldTabEN.FldLength = fieldInfo.FldLength;
+                objFieldTabEN.FldPrecision = fieldInfo.FldPrecision;
+                objFieldTabEN.IsNull = fieldInfo.IsNull;
+                objFieldTabEN.IsPrimaryKey = fieldInfo.IsPrimaryKey;
+                objFieldTabEN.IsIdentity = false;
+                objFieldTabEN.IsOnlyOne = false;
+                objFieldTabEN.IsChecked = false;
+                objFieldTabEN.IsArchive = false;
+                objFieldTabEN.DefaultValue = fieldInfo.DefaultValue;
+                objFieldTabEN.FldStateId = "01"; // 默认状态：启用
+                objFieldTabEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objFieldTabEN.UpdUser = strUpdUser;
+                objFieldTabEN.Memo = fieldInfo.Memo;
+                objFieldTabEN.InUse = true;
+
+                // 调用添加方法
+                if (clsFieldTabBLEx.AddNewRecordEx(objFieldTabEN))
+                {
+                    // 刷新缓存
+                    clsFieldTabBL.ReFreshThisCache(strPrjId);
+                    return objFieldTabEN.FldId;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                // 记录错误日志
+                // Logger.Error("CreateFieldRecord error: " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// 添加工程表字段记录
+        /// </summary>
+        private static bool AddPrjTabFldRecord(string strTabId, string strPrjId, string strFldId,
+            FieldImportInfo fieldInfo, string strUpdUser)
+        {
+            try
+            {
+                // 获取当前表的字段数量，用于设置序号
+                int intViewFldCount = clsGeneralTab2.funGetRecCountByCond("PrjTabFld", "TabId = '" + strTabId + "'");
+
+                clsPrjTabFldEN objPrjTabFldEN = new clsPrjTabFldEN();
+                objPrjTabFldEN.TabId = strTabId;
+                objPrjTabFldEN.PrjId = strPrjId;
+                objPrjTabFldEN.FldId = strFldId;
+
+                // 建议改为
+                if (fieldInfo.IsPrimaryKey)
+                {
+                    objPrjTabFldEN.FieldTypeId = enumFieldType.KeyField_02;      // "02"
+                    objPrjTabFldEN.PrimaryTypeId = enumPrimaryType.PrimaryKey_01; // "01"
+                    objPrjTabFldEN.IsTabNullable = false; // 主键默认不可空
+                }
+                else if (fieldInfo.IsNameField == true)
+                {
+                    objPrjTabFldEN.FieldTypeId = enumFieldType.NameField_03;
+                    objPrjTabFldEN.PrimaryTypeId = enumPrimaryType.NonPrimaryKey_00;
+                    objPrjTabFldEN.IsTabNullable = fieldInfo.IsTabNullable;
+                }
+                else
+                {
+                    objPrjTabFldEN.FieldTypeId = enumFieldType.NormalField_01;      // "01"
+                    objPrjTabFldEN.PrimaryTypeId = enumPrimaryType.NonPrimaryKey_00; // "00"
+                    objPrjTabFldEN.IsTabNullable = fieldInfo.IsTabNullable;
+                }
+                objPrjTabFldEN.FldOpTypeId = "0001"; // 默认操作类型
+                objPrjTabFldEN.IsTabNullable = fieldInfo.IsTabNullable;
+                objPrjTabFldEN.IsTabUnique = false;
+                objPrjTabFldEN.IsTabForeignKey = false;
+                objPrjTabFldEN.IsForExtendClass = fieldInfo.IsForExtendClass;
+                objPrjTabFldEN.DnPathId = string.IsNullOrEmpty(fieldInfo.DnPathId) ? null : fieldInfo.DnPathId;
+                objPrjTabFldEN.IsGeneProp = true;
+                objPrjTabFldEN.SequenceNumber = intViewFldCount + 1;
+                objPrjTabFldEN.UpdDate = clsDateTime.getTodayDateTimeStr(1);
+                objPrjTabFldEN.UpdUser = strUpdUser;
+                objPrjTabFldEN.Memo = fieldInfo.Memo;
+                objPrjTabFldEN.MemoInTab = fieldInfo.Memo;
+
+                // 调用添加方法
+                bool result = clsPrjTabFldBLEx.AddNewRecordBySql2(objPrjTabFldEN);
+
+                if (result)
+                {
+                    // 刷新缓存
+                    clsvSqlViewFldBL.ReFreshThisCache(strPrjId);
+                    clsvSqlViewRelaTabBL.ReFreshThisCache(strPrjId);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // 记录错误日志
+                // Logger.Error("AddPrjTabFldRecord error: " + ex.Message);
+                return false;
+            }
+        }
+    }
+    public struct FieldImportInfo
+    {
+        public string FldName;        // 字段英文名
+        public string FldCnName;      // 字段中文名
+        public string Caption;        // 标题
+        public string DataTypeName;   // 数据类型名称（如 varchar, int, datetime等）
+        public int FldLength;         // 字段长度
+        public int FldPrecision;      // 精度
+        public bool IsNull;           // 是否可空
+        public bool IsTabNullable;    // 在表中是否可空
+        public bool IsForExtendClass; // 是否用于扩展类
+        public string DnPathId;       // DN路径ID
+        public string DefaultValue;   // 默认值
+        public string Memo;           // 备注
+        public bool IsPrimaryKey;     // 是否主键
+        public bool IsNameField;     // 是否名称字段
 
     }
+
 }

@@ -10785,7 +10785,11 @@ objPrjTabENEx.objCacheClassifyFld.PrivFuncName);
         /// <returns></returns>
         public string Gen_4BL_GetObjLstByKeyLst()
         {
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1) return "";
+            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            {
+                return Gen_4BL_GetObjLstByKeyLsts();
+            }
+
             StringBuilder strBuilder = new StringBuilder();
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
 
@@ -15587,6 +15591,41 @@ objKeyField.FldName, objKeyField.PrivFuncName, objPrjTabENEx.objCacheClassifyFld
             }
             return strCodeForCs.ToString();
         }
+        public string Gen_4BL_GetObjLstByKeyLsts()
+        {
+            if (objPrjTabENEx.arrKeyFldSet == null || objPrjTabENEx.arrKeyFldSet.Count <= 1)
+            {
+                return "//当前表不是复合主键表，不生成 GetObjLstByKeyLsts 函数。";
+            }
+            try
+            {
+                var arrKeyFields = objPrjTabENEx.arrKeyFldSet
+                .Select(x => new
+                {
+                    FldName = x.FldName,
+                    FldLength = x.ObjFieldTabENEx.FldLength
+                })
+                .ToList();
 
+                var model = new
+                {
+                    TabName = objPrjTabENEx.TabName,
+                    KeyFields = arrKeyFields
+                };
+
+                AutoGCLib.Templates.RenderService objRenderService = new AutoGCLib.Templates.RenderService();
+                string strCode = objRenderService.Render(
+                @"CSharp\BusinessLogic4CSharp\Gen_4BL_GetObjLstByKeyLsts.sbn",
+                model);
+
+                return strCode;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("通过sbn模板生成函数[Gen_4BL_GetObjLstByKeyLsts]出错:{0}.({1})",
+                objException.Message, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace AutoGCLib
         {
             base.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName);
 
-            strRe_ClsName = strRe_ClsName + "AiQuery";
+            strRe_ClsName = strRe_ClsName + "Query";
             strRe_FileNameWithModuleName = $"{objFuncModuleEN.FuncModuleEnName}/{strRe_ClsName}.ts";
 
             var model = BuildQueryTemplateModel();
@@ -481,6 +481,7 @@ namespace AutoGCLib
             var model = new AiQueryTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
+                strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
                 ModuleName = objFuncModuleEN.FuncModuleEnName
             };
 
@@ -505,7 +506,7 @@ namespace AutoGCLib
 
                     // 🔥 修改：传入完整的 fld 对象而不是只传 ctlTypeId
                     string controlType = GetControlType(objQueryField);
-
+                    bool bolIsNumber = objQueryField.ObjFieldTab().IsNumberType();
                     string optionsKey = null;
                     string optionsWApiClass = null;
                     string optionsModuleName = null;
@@ -543,6 +544,7 @@ namespace AutoGCLib
                         Label = objQueryField.LabelCaption ?? objFieldTab.FldCnName,
                         Id = GetControlId(objQueryField.CtlTypeId, objPrjTabFld.FldName()),
                         ControlType = controlType,
+                        IsNumber = bolIsNumber,
                         Width = 120,
                         Row = currentRow,
                         Order = currentOrder,

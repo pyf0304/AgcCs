@@ -1,0 +1,68 @@
+﻿/**
+ * 根据关键字列表获取相关对象列表(复合键)
+ * (AutoGCLib.WA_Access4TypeScript:Gen_4WA_Ts_GetObjLstByKeyLstsAsync)
+ * @param arrKeyLst 关键字列表，格式: {{ KeyFormat }}
+ * @returns 对象列表
+ **/
+export async function {{ FunctionName }}(
+arrKeyLst: Array<string>,
+): Promise<Array<{{ ClsName4EN }}>> {
+const strThisFuncName = "GetObjLstByKeyLstsAsync";
+const strAction = "GetObjLstByKeyLsts";
+const strUrl = GetWebApiUrl({{ ControllerName }}, strAction);
+
+const token = Storage.get(ACCESS_TOKEN_KEY);
+const config = {
+headers: {
+Authorization: `${token}`,
+},
+};
+
+try {
+const response = await axios.post(strUrl, arrKeyLst, config);
+const data = response.data;
+if (data.errorId == 0) {
+const returnObjLst = data.returnObjLst;
+if (returnObjLst == null) {
+const strNullInfo = Format(
+"获取数据为null, 请注意!(in {0}.{1})",
+{{ ConstructorName }},
+strThisFuncName,
+);
+console.error(strNullInfo);
+throw strNullInfo;
+}
+const arrObjLst = {{ GetObjLstByJSONObjLstFunc }}(returnObjLst);
+return arrObjLst;
+} else {
+console.error(data.errorMsg);
+throw data.errorMsg;
+}
+} catch (error: any) {
+console.error(error);
+if (error.statusText == undefined) {
+throw error;
+}
+if (error.statusText == "error") {
+const strInfo = Format(
+"网络错误!访问地址:{0}不成功!(in {1}.{2})",
+strUrl,
+{{ ConstructorName }},
+strThisFuncName,
+);
+console.error(strInfo);
+throw strInfo;
+} else if (error.statusText == "Not Found") {
+const strInfo = Format(
+"网络错误!访问地址:{0}可能不存在!(in {1}.{2})",
+strUrl,
+{{ ConstructorName }},
+strThisFuncName,
+);
+console.error(strInfo);
+throw strInfo;
+} else {
+throw error.statusText;
+}
+}
+}

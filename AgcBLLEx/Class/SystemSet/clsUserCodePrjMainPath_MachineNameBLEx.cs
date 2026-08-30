@@ -403,7 +403,7 @@ namespace AGC.BusinessLogicEx
         /// <param name="strCodePath">代码路径</param>
         /// <param name="strCodePathBackup">备份代码路径</param>
         /// <returns>是否设置成功</returns>
-        public static bool SetUserGCRootPathWithBackup(
+        public static bool SetUserGCRootPathWithBackupBak(
             string strUserId,
             string strMachineName,
             string strPrjId,
@@ -476,6 +476,113 @@ namespace AGC.BusinessLogicEx
                 else
                 {
                     // 更新现有记录
+                    objUserCodePrjMainPath_MachineName.CodePath = strCodePath;
+                    objUserCodePrjMainPath_MachineName.CodePathBackup = strCodePathBackup;
+                    objUserCodePrjMainPath_MachineName.UpdDate = strCurrDate;
+                    objUserCodePrjMainPath_MachineName.UpdUserId = strUserId;
+
+                    return clsUserCodePrjMainPath_MachineNameBL.UpdateBySql2(objUserCodePrjMainPath_MachineName);
+                }
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format(
+                    "{0}.(from {1})",
+                    objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg, objException);
+            }
+        }
+        public static bool SetUserGCRootPathWithBackup(
+    string strUserId,
+    string strMachineName,
+    string strPrjId,
+    string strCmPrjId,
+    int intApplicationTypeId,
+    string strCodePath,
+    string strCodePathBackup)
+        {
+            try
+            {
+                // 1. 获取 CMProjectAppRela 关联ID
+                long lngCMProjectAppRelaId = clsCMProjectAppRelaBLEx.getCMProjectAppRelaId(
+                    strCmPrjId,
+                    intApplicationTypeId,
+                    strPrjId);
+
+                if (lngCMProjectAppRelaId <= 0)
+                {
+                    string strCmPrjName = clsCMProjectBL.GetNameByCmPrjIdCache(strCmPrjId);
+                    string strAppName = clsApplicationTypeBL.GetNameByApplicationTypeIdCache(intApplicationTypeId);
+
+                    string strErrMsg = string.Format(
+                        "未找到CM工程:{0}(ID:{1})与应用:{2}(ID:{3})的关联配置，请检查CMProjectAppRela表！(from {4})",
+                        strCmPrjName, strCmPrjId, strAppName, intApplicationTypeId,
+                        clsStackTrace.GetCurrClassFunction());
+                    throw new Exception(strErrMsg);
+                }
+
+                // 2. 获取用户代码项目主路径对象（若不存在则先创建）
+                clsUserCodePrjMainPathEN objUserCodePrjMainPath = null;
+                try
+                {
+                    objUserCodePrjMainPath = clsUserCodePrjMainPathBLEx.GetObjByCMProjectAppRelaIdCache(
+                        lngCMProjectAppRelaId,
+                        strPrjId,
+                        strUserId);
+                }
+                catch
+                {
+                    // 忽略，进入自动创建流程
+                }
+
+                if (objUserCodePrjMainPath == null)
+                {
+                    // 先在 UserCodePrjMainPath 建立一条记录
+                    string strUserCodePrjMainPathId = clsUserCodePrjMainPathBLEx.SetGeneCodeRootPath(
+                        strCmPrjId,
+                        intApplicationTypeId,
+                        strUserId,
+                        strUserId);
+
+                    if (string.IsNullOrEmpty(strUserCodePrjMainPathId))
+                    {
+                        throw new Exception("自动创建UserCodePrjMainPath记录失败！");
+                    }
+
+                    objUserCodePrjMainPath = clsUserCodePrjMainPathBL.GetObjByUserCodePrjMainPathIdCache(
+                        strUserCodePrjMainPathId,
+                        strPrjId);
+
+                    if (objUserCodePrjMainPath == null)
+                    {
+                        throw new Exception("自动创建后仍无法获取UserCodePrjMainPath记录！");
+                    }
+                }
+
+                // 3. 获取或创建特定机器的代码路径记录
+                clsUserCodePrjMainPath_MachineNameEN objUserCodePrjMainPath_MachineName =
+                    clsUserCodePrjMainPath_MachineNameBL.GetObjByKeyLst(
+                        objUserCodePrjMainPath.UserCodePrjMainPathId,
+                        strMachineName);
+
+                string strCurrDate = clsDateTime_Db.GetDataBaseDateTime14();
+
+                if (objUserCodePrjMainPath_MachineName == null)
+                {
+                    objUserCodePrjMainPath_MachineName = new clsUserCodePrjMainPath_MachineNameEN();
+                    objUserCodePrjMainPath_MachineName.UserCodePrjMainPathId = objUserCodePrjMainPath.UserCodePrjMainPathId;
+                    objUserCodePrjMainPath_MachineName.MachineName = strMachineName;
+                    objUserCodePrjMainPath_MachineName.CodePath = strCodePath;
+                    objUserCodePrjMainPath_MachineName.CodePathBackup = strCodePathBackup;
+                    objUserCodePrjMainPath_MachineName.PrjId = strPrjId;
+                    objUserCodePrjMainPath_MachineName.UpdDate = strCurrDate;
+                    objUserCodePrjMainPath_MachineName.UpdUserId = strUserId;
+
+                    return clsUserCodePrjMainPath_MachineNameBL.AddNewRecordBySql2(objUserCodePrjMainPath_MachineName);
+                }
+                else
+                {
                     objUserCodePrjMainPath_MachineName.CodePath = strCodePath;
                     objUserCodePrjMainPath_MachineName.CodePathBackup = strCodePathBackup;
                     objUserCodePrjMainPath_MachineName.UpdDate = strCurrDate;

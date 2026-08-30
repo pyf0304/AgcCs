@@ -157,7 +157,7 @@ namespace AutoGCLib
             strRe_FileNameWithModuleName = string.Format("{0}\\{1}", objFuncModule.FuncModuleEnName4GC(), objViewInfoENEx.WebUserCtlCsFName);
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-        clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+        clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
              objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             try

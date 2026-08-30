@@ -21,6 +21,7 @@ namespace AgcCommBase
         public string FldId { get; set; }             // 如 DataBaseTypeOptions
         public string Key { get; set; }              // 如 dataBaseType
         public bool IsNumberType { get; set; }
+        public string FldDataType { get; set; }
         public string ControlType { get; set; }
         public string OptionsKey { get; set; }
         public string WApiClass { get; set; }        // 如 DataBaseType

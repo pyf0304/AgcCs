@@ -57,6 +57,7 @@
     <Compile Include="gcVarType.cs" />
     <Compile Include="MyResult.cs" />
     <Compile Include="PubVarType.cs" />
+    <Compile Include="SortClassifyType.cs" />
     <Compile Include="TabProp.cs" />
     <Compile Include="CacheClassify.cs" />
     <Compile Include="Class1.cs" />

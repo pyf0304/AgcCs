@@ -976,7 +976,8 @@ namespace AGC.BusinessLogicEx
                         AuxControlId = objViewFeatureFldsENEx.CtrlId,
                         AuxControlOptionsKey = optionKey,                        
                         OptionsKey = optionKey,
-                        Parameters = parameters
+                        Parameters = parameters,
+                        FldDataType = objViewFeatureFldsENEx.ObjFieldTabENEx?.objDataTypeAbbrEN.TypeScriptType,
                     };
 
                     return optionInfo0;
@@ -1040,9 +1041,13 @@ namespace AGC.BusinessLogicEx
                             objTabFeature.GetDdlDataFuncName4Ex = getDdlDataFuncName;
                             objTabFeature.Update();
                         }
-                       
-                        // 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
-                        parameters = GetFunctionParameters(objViewFeatureFldsENEx, objTabFeature, objViewFeatureFldsENEx.PrjId);
+                        else
+                        {
+                            getDdlDataFuncName = objTabFeature.GetDdlDataFuncName4Ex;
+                        }
+
+                            // 获取参数（从查询字段的 VarIdCond1, VarIdCond2）
+                            parameters = GetFunctionParameters(objViewFeatureFldsENEx, objTabFeature, objViewFeatureFldsENEx.PrjId);
                     }
                 }
 

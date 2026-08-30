@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:FunctionTemplateApiController
  表名:FunctionTemplate(00050312)
- * 版本:2023.08.19.1(服务器:WIN-SRV103-116)
- 日期:2023/08/23 10:14:35
- 生成者:pyf
+ * 版本:2026.05.30(服务器:PYF-AI)
+ 日期:2026/08/30 08:03:19
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
- CM工程:AgcSpa后端(变量首字母不限定)-WebApi函数集
- 相关数据库:109.244.40.104,9433AGC_CS12
+ CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+ 相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:函数管理(PrjFunction)
- 框架-层名:WA_服务层(CS)(WA_Srv)
+ 框架-层名:WA_服务层CS(WA_Srv,0044)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -715,6 +715,37 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
 }
 
  /// <summary>
+ /// 通过JSON对象来编辑记录对象，存在就修改，不存在就添加
+ /// 调用方法: Post /api/FunctionTemplateApi/EditRecordEx
+ /// 在Body区传输objFunctionTemplateEN的JSON对象
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_EditRecordEx)
+ /// </summary>
+ /// <param name = "strFunctionTemplateJSONObj">JSON对象字符串</param>
+ /// <returns>是否成功</returns>
+[HttpPost("EditRecordEx")]
+public ActionResult EditRecordEx([FromBody]clsFunctionTemplateEN objFunctionTemplateEN)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+string strFunctionTemplateJSONObj = clsJSON.GetJsonFromObj(objFunctionTemplateEN);
+dictParam.Add("strFunctionTemplateJSONObj", strFunctionTemplateJSONObj);
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+ try
+ {
+    clsFunctionTemplateBL.SetUpdFlag(objFunctionTemplateEN);
+    clsFunctionTemplateBL.AccessFldValueNull(objFunctionTemplateEN);
+bool bolResult = objFunctionTemplateEN.EditRecordEx();
+return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
  /// 根据条件来修改记录对象
  /// 调用方法: Post /api/FunctionTemplateApi/UpdateWithCondition
  /// 在Body区传输objFunctionTemplateEN的JSON对象和strWhereCond条件串
@@ -833,6 +864,40 @@ return Ok(new { errorId = 1, errorMsg = strMsg });
  /// <returns>返回删除的记录数</returns>
 [HttpPost("DelRecords")]
 public ActionResult DelRecords([FromBody]string[] strKeyIdLst)
+{
+string strFunctionName = clsStackTrace.GetCurrFunction();
+Dictionary<string, string> dictParam = new();
+List<string> arrKey = new(strKeyIdLst);
+dictParam.Add("strKeyIdLst", clsArray.GetSqlInStrByArray(arrKey,true));
+clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+  if (strKeyIdLst.Length == 0)
+ {
+string strMsg = string.Format("根据关键字列表串删除记录时,给定的关键字值列表的JSON串不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+ try
+ {
+int intRecNum = clsFunctionTemplateBL.DelFunctionTemplates(arrKey);
+return Ok(new { errorId = 0, errorMsg = "", returnInt = intRecNum });
+ }
+ catch (Exception objException)
+ {
+string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
+clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+return Ok(new { errorId = 1, errorMsg = strMsg });
+ }
+}
+
+ /// <summary>
+ /// 功能:同时删除多条记录,删除给定关键字列表的记录, 通过JSON串
+ /// 调用方法: POST /api/FunctionTemplateApi/DelRecords
+ /// 在Body区传输strKeyIdLst字符串列表的JSON串
+ /// (AutoGCLib.WA_Srv4CSharp:Gen_DelKeys)
+ /// </summary>
+ /// <param name = "strKeyIdLst">给定的关键字值列表的JSON串</param>
+ /// <returns>返回删除的记录数</returns>
+[HttpPost("DelKeys")]
+public ActionResult DelKeys([FromBody]string[] strKeyIdLst)
 {
 string strFunctionName = clsStackTrace.GetCurrFunction();
 Dictionary<string, string> dictParam = new();

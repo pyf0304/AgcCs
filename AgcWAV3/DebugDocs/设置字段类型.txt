@@ -1,0 +1,3 @@
+curl -X 'GET' \
+  'http://localhost:7109/PrjTabFldExApi/SetFieldTypeIdByTabAndFldName?strTabName=School&strFldName=school_name&strPrjId=0179&strFieldTypeName=%E5%90%8D%E7%A7%B0&strUpdUserId=pyf_ai' \
+  -H 'accept: */*'

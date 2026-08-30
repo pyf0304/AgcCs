@@ -227,5 +227,18 @@ namespace AGC.BusinessLogicEx
             }
             return arrObjLst;
         }
+        /// <summary>
+        /// 根据表功能Id获取对象列表
+        /// </summary>
+        /// <param name = "strTabFeatureId">表功能Id</param>
+        /// <returns>返回对象列表</returns>
+        public static List<clsvTabFeatureFlds_SimEN> GetObjLstByTabFeatureId(string strTabFeatureId)
+        {
+            string strCondition = string.Format("{0}='{1}'",
+                convTabFeatureFlds_Sim.TabFeatureId, strTabFeatureId);
+
+            List<clsvTabFeatureFlds_SimEN> arrObjLst = clsvTabFeatureFlds_SimBL.GetObjLst(strCondition);
+            return arrObjLst;
+        }
     }
 }

@@ -1,0 +1,382 @@
+这是针对中学学习管理系统的自动生成代码的测试数据，主要用于验证代码生成工具是否能够正确处理输入数据并生成预期的代码。每个字段都有特定的含义，例如：
+生成业务逻辑层cs
+后台以及WebApi服务
+"codeTypeName": "实体CS",
+"codeTypeName": "实体ExCS",
+"codeTypeName": "数据处理CS",
+"codeTypeName": "数据处理ExCS",
+"codeTypeName": "业务逻辑CS",
+"codeTypeName": "业务逻辑ExCS",
+"codeTypeName": "WA服务",
+"codeTypeName": "WA服务Ex",
+
+前端Vue-TS 
+	"codeTypeName": "实体层TS"
+	"codeTypeName": "实体扩展层TS"
+"codeTypeName": "WA访问TS",
+"codeTypeName": "WA访问ExTS",
+
+
+{
+  "codeTypeName": "界面后台查询",
+  "viewName": "FunctionTemplateRelaCRUD",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "界面AiExTS",
+  "viewName": "FunctionTemplateRelaCRUD",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+
+{
+  "codeTypeName": "数据处理ExCS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "应用后台",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "BusinessLogicCS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "应用后台",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+
+{
+  "codeTypeName": "实体TS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "实体ExTS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+
+前端
+{
+  "codeTypeName": "WA访问TS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "WA访问ExTS",
+  "tabName": "ApplicationType",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+项目：0179（校本教研）
+{
+  "codeTypeName": "WA服务",
+  "tabName": "AuditEvent",
+  "prjId": "0179",
+  "cmPrjId": "000073",
+  "prjDataBaseId": "0220",
+  "applicationTypeName": "WebApi应用",
+  "gcUserId": "pyf_ai",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "WA服务Ex",
+  "tabName": "AuditEvent",
+  "prjId": "0179",
+  "cmPrjId": "000073",
+  "prjDataBaseId": "0220",
+  "applicationTypeName": "WebApi应用",
+  "gcUserId": "pyf_ai",
+  "typeParas": "",
+  "isRecordLog": true
+}
+
+{
+  "codeTypeName": "WA访问TS",
+  "tabName": "AuditEvent",
+  "prjId": "0179",
+  "cmPrjId": "000073",
+  "prjDataBaseId": "0220",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+{
+  "codeTypeName": "WA访问ExTS",
+  "tabName": "AuditEvent",
+  "prjId": "0179",
+  "cmPrjId": "000073",
+  "prjDataBaseId": "0220",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "sys-test",
+  "typeParas": "",
+  "isRecordLog": true
+}
+
+
+这是针对自动生成代码的测试数据，主要用于验证代码生成工具是否能够正确处理输入数据并生成预期的代码。每个字段都有特定的含义，例如：
+这是在Ai电脑中的修改
+{
+  "codeTypeId": "0045",//  "codeTypeName": "WA_访问层(CS)",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "00050631",
+  "viewId": "",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 0,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+这是在Ai电脑中的修改
+{
+  "codeTypeId": "0190",//  0190	WA访问扩展层(TS),
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "00050548",//DataNodeType(00050548) 
+  "viewId": "",
+  "prjId": "0005",
+  "cmPrjId": "000014",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 0,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+主要针对 自动生成系统中生成一个调用WebApi的代码文件，主要测试调用WA代码中缓存使用
+{
+  "codeTypeId": "0155",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "00050597",
+  "viewId": "",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//生成代码的界面生成
+{
+  "codeTypeId": "	0277",//Vue_详细信息HAi
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050354",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//生成代码的界面后台生成
+{
+  "codeTypeId": "0268",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050361",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//生成代码的界面后台Ex生成
+{
+  "codeTypeId": "0272",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050320",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//编辑区H
+{
+  "codeTypeId": "0274",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050354",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//详细区后台（
+{
+  "codeTypeId": "0276",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050360",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+//详细区后台Ex（
+{
+  "codeTypeId": "0275",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "",
+  "viewId": "00050360",
+  "prjId": "0005",
+  "cmPrjId": "000046",
+  "prjDataBaseId": "0005",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+问卷调查的学生共享系统
+{
+  "codeTypeId": "0155",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "01120093",
+  "viewId": "",
+  "prjId": "0112",
+  "cmPrjId": "000064",
+  "prjDataBaseId": "0170",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+调用WebApi的扩展代码文件
+{
+  "codeTypeId": "0190",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "01120689",
+  "viewId": "",
+  "prjId": "0112",
+  "cmPrjId": "000064",
+  "prjDataBaseId": "0170",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+
+问卷调查的学生共享系统中的界面后台
+{
+  "codeTypeId": "0268",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "01120093",
+  "viewId": "01120257",
+  "prjId": "0112",
+  "cmPrjId": "000064",
+  "prjDataBaseId": "0170",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}
+
+{
+  "codeTypeId": "0267",
+  "funcId4GC": "string",
+  "featureId": "string",
+  "dataBaseType": "01",
+  "tabId": "01120093",
+  "viewId": "01120180",
+  "prjId": "0112",
+  "cmPrjId": "000064",
+  "prjDataBaseId": "0170",
+  "applicationTypeId": 30,
+  "gcUserId": "pyf",
+  "typeParas": "",
+  "webSrvClassId": "",
+  "isRecordLog": true
+}

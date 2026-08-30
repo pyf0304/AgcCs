@@ -107,11 +107,111 @@ namespace AutoGCLib.Templates
                 }
             }
         }
+        private void ImportObjectPropertiesToScriptObject(ScriptObject scriptObject, object obj)
+        {
+            if (obj == null) return;
 
+            // 1) 属性
+            foreach (var itemProp in obj.GetType().GetProperties())
+            {
+                if (itemProp.GetIndexParameters().Length > 0)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    var itemPropValue = itemProp.GetValue(obj);
+
+                    if (itemPropValue is IList nestedList)
+                    {
+                        var nestedArray = new ScriptArray();
+
+                        foreach (var nestedItem in nestedList)
+                        {
+                            if (nestedItem == null)
+                            {
+                                nestedArray.Add(null);
+                                continue;
+                            }
+
+                            var nestedItemType = nestedItem.GetType();
+
+                            if (nestedItemType.IsPrimitive || nestedItemType == typeof(string) || nestedItemType == typeof(decimal))
+                            {
+                                nestedArray.Add(nestedItem);
+                            }
+                            else
+                            {
+                                var nestedObject = new ScriptObject();
+                                ImportObjectPropertiesToScriptObject(nestedObject, nestedItem);
+                                nestedArray.Add(nestedObject);
+                            }
+                        }
+
+                        scriptObject[itemProp.Name] = nestedArray;
+                    }
+                    else
+                    {
+                        scriptObject[itemProp.Name] = itemPropValue;
+                    }
+                }
+                catch
+                {
+                    // 静默跳过无法访问的属性
+                }
+            }
+
+            // 2) 字段（关键修复）
+            foreach (var itemField in obj.GetType().GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            {
+                try
+                {
+                    var itemFieldValue = itemField.GetValue(obj);
+
+                    if (itemFieldValue is IList nestedList)
+                    {
+                        var nestedArray = new ScriptArray();
+
+                        foreach (var nestedItem in nestedList)
+                        {
+                            if (nestedItem == null)
+                            {
+                                nestedArray.Add(null);
+                                continue;
+                            }
+
+                            var nestedItemType = nestedItem.GetType();
+
+                            if (nestedItemType.IsPrimitive || nestedItemType == typeof(string) || nestedItemType == typeof(decimal))
+                            {
+                                nestedArray.Add(nestedItem);
+                            }
+                            else
+                            {
+                                var nestedObject = new ScriptObject();
+                                ImportObjectPropertiesToScriptObject(nestedObject, nestedItem);
+                                nestedArray.Add(nestedObject);
+                            }
+                        }
+
+                        scriptObject[itemField.Name] = nestedArray;
+                    }
+                    else
+                    {
+                        scriptObject[itemField.Name] = itemFieldValue;
+                    }
+                }
+                catch
+                {
+                    // 静默跳过无法访问的字段
+                }
+            }
+        }
         /// <summary>
         /// 🔥 新增：将对象的属性导入到 ScriptObject 中（支持嵌套）
         /// </summary>
-        private void ImportObjectPropertiesToScriptObject(ScriptObject scriptObject, object obj)
+        private void ImportObjectPropertiesToScriptObjectBak20260802(ScriptObject scriptObject, object obj)
         {
             if (obj == null) return;
 
@@ -270,6 +370,7 @@ namespace AutoGCLib.Templates
     {
         public string TableName { get; set; }
         public string ModuleName { get; set; }
+        public string strIsShare { get; set; }
         public List<AiQueryField> QueryFields { get; set; } = new List<AiQueryField>();
         public List<AiOptionsInfo> OptionsInfo { get; set; } = new List<AiOptionsInfo>();  // 🔥 替换 OptionsKeys
         public List<AiOptionsInfo> OptionsInfo4DS { get; set; } = new List<AiOptionsInfo>();  // 🔥 替换 OptionsKeys
@@ -285,6 +386,7 @@ namespace AutoGCLib.Templates
         public string ArrayVariableName { get; set; }  // 如 arrFunctionTemplate
         public string ValueFieldName { get; set; }
         public string TextFieldName { get; set; }
+        public string FldDataType { get; set; }
         public string OptionsKey { get; set; }       // 如 dataBaseType
         public string WApiClass { get; set; }        // 如 DataBaseType
         public string ModuleName { get; set; }       // 如 SysPara
@@ -320,6 +422,7 @@ namespace AutoGCLib.Templates
         public string Label { get; set; }
         public string Id { get; set; }
         public string ControlType { get; set; }
+        public bool IsNumber { get; set; }
         public int Width { get; set; }
         public int Row { get; set; }
         public int Order { get; set; }
@@ -338,9 +441,11 @@ namespace AutoGCLib.Templates
     public class AiCommandTemplateModel
     {
         public string TableName { get; set; }
+        public string ModuleName { get; set; }
+        public string strIsShare { get; set; }
         public string TableNameUpper { get; set; }
         public List<AiCommand> Commands { get; set; } = new List<AiCommand>();
-
+        public List<string> ViewVariables { get; set; } = new List<string>();
         /// <summary>
         /// 🔥 新增：功能区下拉框选项信息
         /// </summary>
@@ -399,15 +504,28 @@ namespace AutoGCLib.Templates
         public string TableNameUpper { get; set; }
         public string TableCnName { get; set; }
         public string ModuleName { get; set; }
+        public string refListName { get; set; }
+        public string refEditName { get; set; }
+        public string refDetailName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
         public string NameFieldCamel { get; set; }
-        public bool HasCacheMode { get; set; }              // 是否使用缓存模式（CacheModeId='03'或'04'）
+        public bool HasCacheMode { get; set; }
+        public List<KeyFieldInfo> KeyFields { get; set; }
+        public bool UseCacheMode { get; set; }              // 是否使用缓存模式（CacheModeId='03'或'04'）
                                                             // 🔥 新增：缓存分类字段信息
+        public bool UseCacheModeInList { get; set; }              // 列表中是否使用缓存模式（CacheModeId='03'或'04'）                                                            
+
+        public string UseCacheModeIdInList { get; set; }          // 列表中使用的缓存模式ID
+
         public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
         public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
         public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
 
+        public string VarName4Cache1 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+        public string VarName4Cache2 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+        public string VarNameStr_DeleteKeyIdCache { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+        public string VarNameStr_RefreshCache { get; set; }      // 缓存分类变量名（如：PrjId_Local）
 
         public bool IsUseFunc { get; set; }                 // 🔥 新增：是否有字段映射转换（需要Ex函数）
         public bool IsMultiKey { get; set; }                // 🔥 新增：是否为多关键字
@@ -439,6 +557,71 @@ namespace AutoGCLib.Templates
         public string KeyTypeName { get; set; }
     }
 
+    public class PrjTabTemplateModel
+    {
+        /// <summary>
+        /// WApi类名（如：clsSysParaWApi）
+        /// </summary>
+        public string ClsName4WApi { get; set; }
+        /// <summary>
+        /// WApi扩展类名（如：clsSysParaExWApi）
+        /// </summary>
+        public string ClsName4WApiEx { get; set; }
+        /// <summary>
+        /// Entity类名（如：clsSysParaEN）
+        /// </summary>
+        public string ClsName4EN { get; set; }
+        /// <summary>
+        /// Entity扩展类名（如：clsSysParaENEx）
+        /// </summary>
+        public string ClsName4ENEx { get; set; }
+
+        public string TableName { get; set; }
+        public string TableNameCamel { get; set; }
+        public string TableNameUpper { get; set; }
+        public string TableCnName { get; set; }
+        public string ModuleName { get; set; }
+        public string KeyField { get; set; }
+        public List<clsKeyFieldType> ArrKeyFieldType { get; set; } 
+        public int KeyFieldNum { get; set; }
+        public string KeyFieldCamel { get; set; }
+        public string NameFieldCamel { get; set; }
+        public string VarNameStr_DeleteKeyIdCache { get; set; }
+        public string VarNameStr_RefreshCache { get; set; }
+        public string RelaViewId { get; set; }
+        public bool UseCacheMode { get; set; }              // 是否使用缓存模式（CacheModeId='03'或'04'）
+                                                            // 🔥 新增：缓存分类字段信息
+        public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
+        public int CacheClassifyFieldNum { get; set; }          // 缓存分类字段的个数
+        public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
+        public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+
+        public string PriVarName4Cache1 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+        public string PriVarName4Cache2 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+
+        public bool IsNumber4Cache1 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+        public bool IsNumber4Cache2 { get; set; }      // 缓存分类变量名（如：PrjId_Local）
+
+        public bool IsUseFunc { get; set; }                 // 🔥 新增：是否有字段映射转换（需要Ex函数）
+        public bool IsMultiKey { get; set; }                // 🔥 新增：是否为多关键字
+        public string strIsShare { get; set; }
+      
+
+        public List<AiSetFieldFeature> SetFieldFeatures { get; set; } = new List<AiSetFieldFeature>();
+
+      
+        public List<FieldInfo> AvailableFields { get; set; } = new List<FieldInfo>();
+        public List<string> CacheCondVarLst { get; set; }
+        public List<string> CacheImportVarLst { get; set; }
+        public string CacheImportVars { get; set; }
+        public string CacheCondVars { get; set; }
+        public string CacheCondVars4Fst { get; set; }
+
+        public bool HasCacheCondVar { get; set; }
+        public bool HasCacheImportVar { get; set; }
+        public string KeyTypeName { get; set; }
+    }
+
     /// <summary>
     /// Edit 编辑区模板数据模型
     /// </summary>
@@ -449,6 +632,9 @@ namespace AutoGCLib.Templates
         public string TableNameCamel { get; set; }
         public string TableCnName { get; set; }
         public string ModuleName { get; set; }
+        public string refListName { get; set; }
+        public string refEditName { get; set; }
+        public string refDetailName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
         public string KeyFieldWithPrefix { get; set; }
@@ -464,6 +650,7 @@ namespace AutoGCLib.Templates
 
         public bool NeedReturnKeyMethod { get; set; }
         public bool IsStringAutoIncrement { get; set; }
+public string PrefixFldName { get; set; }
         public string ReturnKeyMethodReturnType { get; set; }
         public bool NeedRefreshCache { get; set; }
         
@@ -471,7 +658,9 @@ namespace AutoGCLib.Templates
         public bool HasCacheClassifyField { get; set; }          // 是否有缓存分类字段
         public string CacheClassifyFieldName { get; set; }       // 缓存分类字段名（如：PrjId）
         public string CacheClassifyFieldCamel { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
-        
+        public string VarNameStr_RefreshCache { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+        public string VarNameStr_Import { get; set; }      // 缓存分类字段名（驼峰，如：prjId）
+
         public string PrimaryTypeId { get; set; }
         public string ViewId { get; set; }
         public string ViewName { get; set; }
@@ -506,6 +695,7 @@ namespace AutoGCLib.Templates
         public string KeyFieldPrefixOnly { get; set; }
         public string KeyFieldInitValue { get; set; }
         public bool IsKeyFieldNumeric { get; set; }
+        public bool IsHasLog_UpdDate { get; set; }
         public bool IsMultiKey { get; set; }
         public bool IsNeedImportIsNullOrEmpty { get; set; }
         public string strIsShare { get; set; }
@@ -599,8 +789,8 @@ namespace AutoGCLib.Templates
         /// <summary>
         /// 是否为数字类型
         /// </summary>
+        public bool IsNumber { get; set; }
         public bool IsNumeric { get; set; }
-        
         /// <summary>
         /// TypeScript 类型：string, number, boolean
         /// </summary>
@@ -792,7 +982,7 @@ namespace AutoGCLib.Templates
         public string OptionsKey { get; set; }
         public string OptionsWApiClass { get; set; }
         public string OptionsModuleName { get; set; }  // 模块名
-        
+        public bool IsNumber { get; set; }
         /// <summary>
         /// 🔥 新增：值字段名（如 functionTemplateId, codeTypeId）
         /// 从 TabFeatureFlds 中获取的实际值字段名
@@ -832,7 +1022,12 @@ namespace AutoGCLib.Templates
         public string ModuleName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
+        public bool UseCacheMode { get; set; }
+        public bool UseCacheModeInList { get; set; }              // 列表中是否使用缓存模式（CacheModeId='03'或'04'）                                                            
         public bool HasCacheMode { get; set; }
+        public string UseCacheModeIdInList { get; set; }          // 列表中使用的缓存模式ID
+        public List<SortClassifyType> SortClassifyLst4View { get; set; }
+
         public bool IsKeyFieldNumeric { get; set; }
         public string KeyFieldInitValue { get; set; }
 
@@ -987,6 +1182,12 @@ namespace AutoGCLib.Templates
         public string TableNameCamel { get; set; }
         public string TableCnName { get; set; }
         public string ModuleName { get; set; }
+        public string refListName { get; set; }
+        public string refEditName { get; set; }
+        public string refDetailName { get; set; }
+        public string EditRegionName { get; set; }
+        public string ListRegionName { get; set; }
+        public string DetailRegionName { get; set; }
         public string KeyField { get; set; }
         public string KeyFieldCamel { get; set; }
         public string ViewTitle { get; set; }
@@ -1022,8 +1223,8 @@ namespace AutoGCLib.Templates
         public List<AiHtmlQueryOption> QueryOptionsArrays { get; set; } = new List<AiHtmlQueryOption>();
         public List<AiHtmlQueryOption> QueryOptionsArrays4Import { get; set; } = new List<AiHtmlQueryOption>();
 
-        public List<AiHtmlQueryOption> FeatureOptionsArrays { get; set; } = new List<AiHtmlQueryOption>();
-        public List<AiHtmlQueryOption> FeatureOptionsArrays4Import { get; set; } = new List<AiHtmlQueryOption>();
+        public List<AiOptionsInfo> FeatureOptionsArrays { get; set; } = new List<AiOptionsInfo>();
+        public List<AiOptionsInfo> FeatureOptionsArrays4Import { get; set; } = new List<AiOptionsInfo>();
 
 
         public List<AiHtmlQueryField> QueryFields { get; set; } = new List<AiHtmlQueryField>();
@@ -1055,7 +1256,8 @@ namespace AutoGCLib.Templates
         public string ViewId { get; set; }
         public string ViewName { get; set; }
         public bool IsMultiKey { get; set; }  // 🔥 是否为多关键字表
-        
+        public bool IsUseFunc4Detail { get; set; }
+
         // 详细注释字段（Verbose 模式）
         public string GenerateDate { get; set; }
         public string GenerateDateShort { get; set; }

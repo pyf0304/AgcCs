@@ -98,7 +98,7 @@ namespace AutoGCLib
                 .ToList();
 
             bool isMultiKey = keyFields.Count > 1;
-
+            bool isUseFunc = this.IsUseFunc4Detail;
             var model = new DetailExTemplateModel
             {
                 TableName = TabName_Out4DetailRegion,
@@ -108,6 +108,7 @@ namespace AutoGCLib
                 ViewId = objViewInfoENEx.ViewId,
                 ViewName = objViewInfoENEx.ViewName,
                 IsMultiKey = isMultiKey,
+                IsUseFunc4Detail = isUseFunc,
                 CommentMode = TypeScriptCommentMode
             };
 

@@ -326,8 +326,8 @@ namespace AGC.BusinessLogicEx
             objViewInfoENEx.ObjFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             objViewInfoENEx.NameSpace = objViewInfoENEx.objProjectsEN.PrjDomain;
 
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objViewInfoENEx.PrjId);
-            objViewInfoENEx.FunctionTemplateId = strFunctionTemplateId;
+            //string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objViewInfoENEx.PrjId);
+            //objViewInfoENEx.FunctionTemplateId = strFunctionTemplateId;
             return objViewInfoENEx;
         }
 

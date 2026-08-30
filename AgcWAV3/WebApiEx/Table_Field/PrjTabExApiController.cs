@@ -612,7 +612,74 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 导入工程表（PrjTab），并按需导入字段（FieldTab + PrjTabFld）
+        /// 调用方法: Post /api/PrjTabExApi/ImportPrjTabWithFieldCheck
+        /// </summary>
+        /// <param name="request">导入请求</param>
+        /// <returns>返回导入结果及TabId</returns>
+        [AllowAnonymous]
+        [HttpPost("ImportPrjTabWithFieldCheck")]
+        public ActionResult ImportPrjTabWithFieldCheck([FromBody] ImportPrjTabWithFieldCheckRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
 
+            if (request != null)
+            {
+                dictParam.Add("strPrjId", request.strPrjId ?? "");
+                dictParam.Add("strPrjDataBaseId", request.strPrjDataBaseId ?? "");
+                dictParam.Add("strTabName", request.strTabName ?? "");
+                dictParam.Add("strSqlDsTypeId", request.strSqlDsTypeId ?? "");
+                dictParam.Add("fieldCount", request.arrFieldInfo == null ? "0" : request.arrFieldInfo.Count.ToString());
+                dictParam.Add("strOpUser", request.strOpUser ?? "");
+            }
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                if (request == null)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "请求参数不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strPrjId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "工程Id不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strPrjDataBaseId))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "工程数据库Id不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strTabName))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "表名不能为空" });
+                }
+                if (string.IsNullOrEmpty(request.strOpUser))
+                {
+                    return Ok(new { errorId = 1, errorMsg = "操作用户不能为空" });
+                }
+
+          
+
+                // 原: request.strFuncModuleAgcId
+                string strTabId = clsPrjTabBLEx.ImportPrjTabWithFieldCheck(
+                    request.strPrjId,
+                    request.strPrjDataBaseId,
+                    request.strTabName,
+                    request.strTabCnName,
+                    request.strTabMemo,
+                    request.strSqlDsTypeId,
+                    request.strFuncModuleName,
+                    request.arrFieldInfo,
+                    request.strOpUser);
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = true, returnStr = strTabId });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
 
         /// <summary>
         /// 获取某表的记录数
@@ -815,5 +882,18 @@ namespace AGC.WebApi
         public string strPrjId { set; get; }
         public string strPrjDataBaseId { set; get; }
         public string strOpUser { set; get; }
+    }
+   
+    public class ImportPrjTabWithFieldCheckRequest
+    {
+        public string strPrjId { get; set; }
+        public string strPrjDataBaseId { get; set; }
+        public string strTabName { get; set; }
+        public string strTabCnName { get; set; }
+        public string strTabMemo { get; set; }
+        public string strSqlDsTypeId { get; set; }
+        public string strFuncModuleName { get; set; }   // 改为名称
+        public List<FieldImportInfo> arrFieldInfo { get; set; }
+        public string strOpUser { get; set; }
     }
 }

@@ -104,6 +104,7 @@ GoForwardAsync,
         public bool IsForExtendClass;
         
         public string VarDef4Fld;
+        public string VarDef4Fld_TS;
         public string ParaVarId_TS;
     }
 

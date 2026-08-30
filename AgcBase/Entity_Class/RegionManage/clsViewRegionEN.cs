@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsViewRegionEN
  表名:ViewRegion(00050099)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:00:22
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/30 07:54:33
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:区域管理(RegionManage)
- 框架-层名:实体层(CS)(EntityLayer,0001)
+ 框架-层名:实体层CS(EntityLayerCS,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -31,7 +31,7 @@ namespace AGC.Entity
 {
  /// <summary>
  /// 表ViewRegion的关键字(RegionId)的类型定义. 以便检查类型以及操作方便.
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 public class K_RegionId_ViewRegion
 {
@@ -70,7 +70,7 @@ return new K_RegionId_ViewRegion(value);
 }
  /// <summary>
  /// 界面区域(ViewRegion)
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 [Serializable]
 [DataContractAttribute]
@@ -82,13 +82,14 @@ public new const string _CurrTabName = "ViewRegion"; //当前表名,与该类相
 public const string _CurrTabKeyFldName = "RegionId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 18;
-public static string[] _AttributeName = new string[] {"RegionId", "RegionName", "RegionTypeId", "FileName", "Height", "Width", "ColNum", "ContainerTypeId", "PageDispModeId", "InOutTypeId", "TabId", "KeyId4Test", "ErrMsg", "PrjId", "UpdUser", "UpdDate", "Memo", "ClsName"};
+protected const int _AttributeCount = 19;
+public static string[] _AttributeName = new string[] {"RegionId", "RegionName", "RegionTypeId", "FileName", "UseCacheModeId", "Height", "Width", "ColNum", "ContainerTypeId", "PageDispModeId", "InOutTypeId", "TabId", "KeyId4Test", "ErrMsg", "PrjId", "UpdUser", "UpdDate", "Memo", "ClsName"};
 
 protected string mstrRegionId;    //区域Id
 protected string mstrRegionName;    //区域名称
 protected string mstrRegionTypeId;    //区域类型Id
 protected string mstrFileName;    //文件名
+protected string mstrUseCacheModeId;    //使用缓存模式Id
 protected int? mintHeight;    //高度
 protected int? mintWidth;    //宽
 protected int? mintColNum;    //列数
@@ -173,6 +174,10 @@ else if (strAttributeName  ==  conViewRegion.FileName)
 {
 return mstrFileName;
 }
+else if (strAttributeName  ==  conViewRegion.UseCacheModeId)
+{
+return mstrUseCacheModeId;
+}
 else if (strAttributeName  ==  conViewRegion.Height)
 {
 return mintHeight;
@@ -252,6 +257,11 @@ else if (strAttributeName  ==  conViewRegion.FileName)
 {
 mstrFileName = value.ToString();
  AddUpdatedFld(conViewRegion.FileName);
+}
+else if (strAttributeName  ==  conViewRegion.UseCacheModeId)
+{
+mstrUseCacheModeId = value.ToString();
+ AddUpdatedFld(conViewRegion.UseCacheModeId);
 }
 else if (strAttributeName  ==  conViewRegion.Height)
 {
@@ -345,6 +355,10 @@ else if (conViewRegion.FileName  ==  _AttributeName[intIndex])
 {
 return mstrFileName;
 }
+else if (conViewRegion.UseCacheModeId  ==  _AttributeName[intIndex])
+{
+return mstrUseCacheModeId;
+}
 else if (conViewRegion.Height  ==  _AttributeName[intIndex])
 {
 return mintHeight;
@@ -424,6 +438,11 @@ else if (conViewRegion.FileName  ==  _AttributeName[intIndex])
 {
 mstrFileName = value.ToString();
  AddUpdatedFld(conViewRegion.FileName);
+}
+else if (conViewRegion.UseCacheModeId  ==  _AttributeName[intIndex])
+{
+mstrUseCacheModeId = value.ToString();
+ AddUpdatedFld(conViewRegion.UseCacheModeId);
 }
 else if (conViewRegion.Height  ==  _AttributeName[intIndex])
 {
@@ -600,6 +619,32 @@ else
 }
 //记录修改过的字段
  AddUpdatedFld(conViewRegion.FileName);
+}
+}
+/// <summary>
+/// 使用缓存模式Id(说明:;字段类型:char;字段长度:2;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string UseCacheModeId
+{
+get
+{
+return mstrUseCacheModeId;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrUseCacheModeId = value;
+}
+else
+{
+ mstrUseCacheModeId = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conViewRegion.UseCacheModeId);
 }
 }
 /// <summary>
@@ -975,7 +1020,7 @@ public static class conViewRegion
 {
 public const string _CurrTabName = "ViewRegion"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "RegionId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"RegionId", "RegionName", "RegionTypeId", "FileName", "Height", "Width", "ColNum", "ContainerTypeId", "PageDispModeId", "InOutTypeId", "TabId", "KeyId4Test", "ErrMsg", "PrjId", "UpdUser", "UpdDate", "Memo", "ClsName"};
+public static string[] _AttributeName = new string[] {"RegionId", "RegionName", "RegionTypeId", "FileName", "UseCacheModeId", "Height", "Width", "ColNum", "ContainerTypeId", "PageDispModeId", "InOutTypeId", "TabId", "KeyId4Test", "ErrMsg", "PrjId", "UpdUser", "UpdDate", "Memo", "ClsName"};
 //以下是属性变量
 
 
@@ -1002,6 +1047,12 @@ public static string[] _AttributeName = new string[] {"RegionId", "RegionName", 
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string FileName = "FileName";    //文件名
+
+ /// <summary>
+ /// 常量:"UseCacheModeId"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string UseCacheModeId = "UseCacheModeId";    //使用缓存模式Id
 
  /// <summary>
  /// 常量:"Height"

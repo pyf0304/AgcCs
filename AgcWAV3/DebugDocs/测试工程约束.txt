@@ -1,0 +1,28 @@
+{
+  "strPrjId": "0179",
+  "strTabName": "EvidenceVersion",
+  "strConstraintName": "uq_evidence_version_evidence_id_version_no",
+  "strConstraintTypeName": "Uniqueness",
+  "strConstraintDescription": "唯一性约束：unique(evidence_id, version_no)。补充规则：版本仅可追加不可更新；安全扫描未通过不可进入提交快照；进入提交快照后不可物理删除。",
+  "arrFieldInfo": [
+    {
+      "FldName": "evidence_id",
+      "SortTypeName": "升序",
+      "MaxValue": "",
+      "MinValue": "",
+      "OrderNum": 1,
+      "InUse": true,
+      "Memo": "唯一性字段1"
+    },
+    {
+      "FldName": "version_no",
+      "SortTypeName": "升序",
+      "MaxValue": "",
+      "MinValue": "",
+      "OrderNum": 2,
+      "InUse": true,
+      "Memo": "唯一性字段2"
+    }
+  ],
+  "strOpUser": "pyf_agc"
+}

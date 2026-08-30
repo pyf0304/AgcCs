@@ -32,10 +32,17 @@ builder.Logging.AddSerilog();
 // Add services to the container.
 
 //builder.Services.AddControllers();
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ApiAuthorizeAttributeV4));
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.IncludeFields = true;
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
+
 builder.Services.AddCors(options =>
 {
     //options.AddPolicy("AllowAll",
@@ -101,10 +108,7 @@ GeneralPlatform.BusinessLogicEx.clsPubVar4BLEx.objLog = new clsLog(@"D:\Log\AgcW
 
 //GeneralPlatform.Entity.clsSysParaEN_Local.objLog4GCError = new clsLog(@"D:\Log\AgcWA\", "Error4GeneCode");
 
-
 clsPubVar_WebApi.objLog = new clsLog(@"D:\Log\AgcWA\", @"Log4Dubug_WebApi");
-
-
 
 com.taishsoft.commdb.clsSpecSQLforSql.IsUseEncrypt = false;
 com.taishsoft.commdb.clsSpecSQLforSql.AppType = "NetCoreWebApi";
@@ -127,23 +131,40 @@ app.Use(async (context, next) =>
     var logger = app.Services.GetRequiredService<ILogger<Program>>();
     logger.LogInformation($"申请服务:Request {request.Method} {request.Path}");
     // Log request body
+    string strBody = string.Empty;
 
     try
     {
-        if (request.Method == HttpMethods.Post || request.Method == HttpMethods.Put)
+        if (HttpMethods.IsPost(request.Method)
+            || HttpMethods.IsPut(request.Method)
+            || HttpMethods.IsPatch(request.Method)
+            || HttpMethods.IsDelete(request.Method))
         {
             request.EnableBuffering();
             using var reader = new StreamReader(request.Body, Encoding.UTF8, true, 1024, true);
-            var body = await reader.ReadToEndAsync();
-            request.Body.Position = 0; // Reset the stream position
-            logger.LogInformation($"申请主体:Request Body: {body}");
+            strBody = await reader.ReadToEndAsync();
+            request.Body.Position = 0;
         }
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "阅读申请体出错:Error reading request body");
+        clsPubVar_WebApi.objLog?.WriteDebugLog($"Read request body error: {ex.Message}");
     }
+
+    clsPubVar_WebApi.objLog?.WriteDebugLog(string.Format(
+        "WebApi Request: {0} {1}{2}, Body: {3}",
+        request.Method,
+        request.Path,
+        request.QueryString,
+        strBody));
+
     await next.Invoke();
+
+    clsPubVar_WebApi.objLog?.WriteDebugLog(string.Format(
+        "WebApi Response: {0} {1}, StatusCode: {2}",
+        request.Method,
+        request.Path,
+        context.Response.StatusCode));
 });
 app.UseCors("AllowSpecificOrigin");
 //app.UseCors("AllowAll");

@@ -301,7 +301,7 @@ namespace AutoGCLib
 
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                    clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
                         objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", ThisClsName);
@@ -544,6 +544,11 @@ namespace AutoGCLib
                                     sbConstContent.AppendFormat("\r\n" + "const {0} = ref('0')", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 }
                                 break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objEditRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+                               
+                                break;
                             default:
                                 sbConstContent.AppendFormat("\r\n" + "const {0} = ref('');", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 break;
@@ -578,6 +583,11 @@ namespace AutoGCLib
                                 {
                                     sbConstContent.AppendFormat("\r\n" + "const {0} = ref('0')", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
                                 }
+                                break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objEditRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+                               
                                 break;
                             default:
                                 sbConstContent.AppendFormat("\r\n" + "const {0} = ref('');", objEditRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
@@ -3198,7 +3208,7 @@ this.TabName_In4Edit4GC, objKeyField.FldName);
             strJSPath = string.Format("../js/{0}", this.objFuncModuleEN.FuncModuleEnName4GC());
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_JS =
-                clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx);
+                clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx,this.FunctionTemplateId);
 
             foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_JS)
             {

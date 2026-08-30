@@ -1,0 +1,42 @@
+﻿/// <summary>
+/// 根据复合关键字列表获取相关对象列表.
+/// 关键字格式: {{~ for k in KeyFields ~}}{{ k.FldName }}{{ if !for.last }}|{{ end }}{{~ end ~}}
+/// </summary>
+/// <param name = "arrKeyLst">所给的复合关键字列表</param>
+/// <returns>根据关键字列表获取的对象列表</returns>
+public static List<cls{{ TabName }}EN> GetObjLstByKeyLsts(List<string> arrKeyLst)
+{
+List<cls{{ TabName }}EN> arrObjLst = new List<cls{{ TabName }}EN>();
+if (arrKeyLst == null || arrKeyLst.Count == 0)
+{
+return arrObjLst;
+}
+List<string> arrWhereCondLst = new List<string>();
+foreach (string strKey in arrKeyLst)
+{
+if (string.IsNullOrEmpty(strKey) == true) continue;
+string[] arrKeyPart = strKey.Split('|');
+if (arrKeyPart.Length != {{ KeyFields.size }})
+{
+string strMsg = string.Format("复合关键字格式不正确:[{0}]，应为 {{~ for k in KeyFields ~}}{{ k.FldName }}{{ if !for.last }}|{{ end }}{{~ end ~}}。({1})",
+strKey, clsStackTrace.GetCurrClassFunction());
+throw new Exception(strMsg);
+}
+{{~ for k in KeyFields ~}}
+string str{{ k.FldName }} = arrKeyPart[{{ for.index }}].Trim();
+clsCheckSql.CheckFieldLen(str{{ k.FldName }}, {{ k.FldLength }}, con{{ TabName }}.{{ k.FldName }});
+clsCheckSql.CheckFieldForeignKey(str{{ k.FldName }}, {{ k.FldLength }}, con{{ TabName }}.{{ k.FldName }});
+str{{ k.FldName }} = str{{ k.FldName }}.Replace("'", "''");
+{{~ end ~}}
+
+string strOneCond = string.Format("({{~ for k in KeyFields ~}}{{ if for.index > 0 }} And {{ end }}{{ "{" }}{{ for.index * 2 }}{{ "}" }}='{{ "{" }}{{ for.index * 2 + 1 }}{{ "}" }}'{{~ end ~}})",
+{{~ for k in KeyFields ~}}{{ if for.index > 0 }}, {{ end }}con{{ TabName }}.{{ k.FldName }}, str{{ k.FldName }}{{~ end ~}});
+arrWhereCondLst.Add(strOneCond);
+}
+if (arrWhereCondLst.Count == 0)
+{
+return arrObjLst;
+}
+string strWhereCond = string.Join(" Or ", arrWhereCondLst);
+return GetObjLst(strWhereCond);
+}

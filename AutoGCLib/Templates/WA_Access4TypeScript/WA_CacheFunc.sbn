@@ -1,0 +1,375 @@
+﻿type {{ table_name }}_WholeCacheItem = {
+  list: Array<cls{{ table_name }}EN>;
+  index: Map<string, cls{{ table_name }}EN>;
+};
+
+const _{{ table_name }}ObjectCache = new Map<string, Map<string, cls{{ table_name }}EN>>();
+const _{{ table_name }}WholeCache = new Map<string, {{ table_name }}_WholeCacheItem>();
+const _{{ table_name }}BatchInFlight = new Map<string, Promise<Array<cls{{ table_name }}EN>>>();
+const _{{ table_name }}CacheStats = {
+  objectHit: 0,
+  batchHit: 0,
+  wholeHit: 0,
+  webHit: 0,
+};
+const {{ table_name }}_DefaultCacheKey = `${ {{ constructor_name }} }_DEFAULT`;
+
+function {{ table_name }}_GetCacheBucketKey(strCacheKey = ''): string {
+  if (IsNullOrEmpty(strCacheKey) == true) return {{ table_name }}_DefaultCacheKey;
+  return strCacheKey;
+}
+
+function {{ table_name }}_GetPrjObjectMap(
+  strCacheKey = '',
+  bolCreate = true,
+): Map<string, cls{{ table_name }}EN> | null {
+  const strBucketKey = {{ table_name }}_GetCacheBucketKey(strCacheKey);
+  let objMap = _{{ table_name }}ObjectCache.get(strBucketKey);
+  if (objMap == null && bolCreate == true) {
+    objMap = new Map<string, cls{{ table_name }}EN>();
+    _{{ table_name }}ObjectCache.set(strBucketKey, objMap);
+  }
+  return objMap ?? null;
+
+}
+
+function {{ table_name }}_NormalizeAndBuildIndex(arrObjLst: Array<cls{{ table_name }}EN>) {
+  const arrNormalized = {{ table_name }}_GetObjLstByJSONObjLst(arrObjLst);
+  const objIndex = new Map<string, cls{{ table_name }}EN>();
+  for (const objItem of arrNormalized) {
+     {{~ if is_multi_key ~}}
+        const strKey = {{ table_name }}_JoinByKeyLst(objItem);
+        objIndex.set(strKey, objItem);
+     {{~ else ~}}
+        objIndex.set(objItem.{{ key_field_camel }}.toString(), objItem);
+     {{~ end ~}}
+  }
+  return {
+    list: arrNormalized,
+    index: objIndex,
+  };
+}
+
+function {{ table_name }}_AddObjCacheCore(strCacheKey = '',
+  obj{{ table_name }}: cls{{ table_name }}EN
+): void {
+  const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, true);
+     {{~ if is_multi_key ~}}
+        const strKey = {{ table_name }}_JoinByKeyLst(obj{{ table_name }});
+        objMap?.set(strKey, obj{{ table_name }});
+     {{~ else ~}}
+        objMap?.set(obj{{ table_name }}.{{ key_field_camel }}.toString(), obj{{ table_name }});
+     {{~ end ~}}
+  
+}
+
+function {{ table_name }}_RemoveObjCacheCore(  strCacheKey = '', key: {{table_name}}Key): void {
+  const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, false);
+    {{~ if is_multi_key ~}}
+        const strKey = {{table_name}}_JoinByKeys(key);
+        objMap?.delete(strKey);
+    {{~ else ~}}
+        objMap?.delete(key.{{ key_field_camel }}.toString());
+    {{~ end ~}}
+}
+
+function {{ table_name }}_UpdateWholeCacheListByObj(strCacheKey = '',
+  obj{{ table_name }}: cls{{ table_name }}EN,
+): void {
+  const objWholeCache = _{{ table_name }}WholeCache.get(strCacheKey);
+  if (objWholeCache == null) return;
+    {{~ if is_multi_key ~}}
+       const strKey = {{ table_name }}_JoinByKeyLst(obj{{ table_name }});
+       objWholeCache.index.set(strKey, obj{{ table_name }});
+       const intIndex = objWholeCache.list.findIndex(
+            (x) => {{ table_name }}_JoinByKeyLst(x) == strKey,
+       );
+    {{~ else ~}}
+       objWholeCache.index.set(obj{{ table_name }}.{{ key_field_camel }}.toString(), obj{{ table_name }});
+       const intIndex = objWholeCache.list.findIndex((x) => x.{{ key_field_camel }} == obj{{ table_name }}.{{ key_field_camel }});
+    {{~ end ~}}
+
+
+  if (intIndex >= 0) {
+    objWholeCache.list[intIndex] = obj{{ table_name }};
+  } else {
+    objWholeCache.list.push(obj{{ table_name }});
+  }
+}
+
+function {{ table_name }}_RemoveFromWholeCache(  strCacheKey = '', key: {{table_name}}Key): void {
+  const objWholeCache = _{{ table_name }}WholeCache.get(strCacheKey);
+  if (objWholeCache == null) return;
+   {{~ if is_multi_key ~}}
+        const strKey = {{table_name}}_JoinByKeys(key);
+        objWholeCache.index.delete(strKey);
+        const intIndex = objWholeCache.list.findIndex(
+            (x) => {{table_name}}_JoinByKeyLst(x) == strKey,
+        );
+   {{~ else ~}}
+        objWholeCache.index.delete(key.{{ key_field_camel }}.toString());
+        const intIndex = objWholeCache.list.findIndex((x) => x.{{ key_field_camel }} == key.{{ key_field_camel }});
+   {{~ end ~}}
+   if (intIndex >= 0) objWholeCache.list.splice(intIndex, 1);
+}
+
+//function {{ table_name }}_SetWholeCache( strCacheKey = '',
+  //arrObjLst: Array<cls{{ table_name }}EN>,
+//): Array<cls{{ table_name }}EN> {
+ // const objWholeCache = {{ table_name }}_NormalizeAndBuildIndex(arrObjLst);
+  //_{{ table_name }}WholeCache.set(strCacheKey, objWholeCache);
+  //const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, true);
+  //objWholeCache.index.forEach((objValue, strKey) => {
+    //objMap?.set(strKey, objValue);
+ // });
+  //return objWholeCache.list;
+//}
+
+/**
+ * 仅从一级缓存(Object Cache)读取对象，不触发网络请求。
+ */
+export async function {{ table_name }}_GetObjCacheOnly(  strCacheKey = '',
+  key: {{table_name}}Key,
+): Promise<cls{{ table_name }}EN | null> {
+  const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, false);
+  if (objMap == null) return null;
+    {{~ if is_multi_key ~}}
+          const strKey = {{ table_name }}_JoinByKeys(key);
+          const objHit = objMap.get(strKey) ?? null;
+    {{~ else ~}}
+          const objHit = objMap.get(key.{{ key_field_camel }}.toString());
+    {{~ end ~}}
+  
+  if (objHit == null) return null;
+  _{{ table_name }}CacheStats.objectHit++;
+  return objHit;
+}
+
+/**
+ * 写入一级缓存(Object Cache)。
+ */
+export function {{ table_name }}_AddObjCache(    strCacheKey = '',
+  obj{{ table_name }}: cls{{ table_name }}EN, 
+): void {
+  if (obj{{ table_name }} == null) return;
+  {{ table_name }}_AddObjCacheCore(strCacheKey, obj{{ table_name }});
+  {{ table_name }}_UpdateWholeCacheListByObj(strCacheKey, obj{{ table_name }});
+}
+
+/**
+ * 删除一级缓存(Object Cache)中的对象。
+ */
+export function {{ table_name }}_RemoveObjCache(  strCacheKey = '',key: {{table_name}}Key ): void {
+  {{ table_name }}_RemoveObjCacheCore(strCacheKey, key);
+  {{ table_name }}_RemoveFromWholeCache(strCacheKey, key);
+}
+
+/**
+ * 更新一级缓存(Object Cache)中的对象。
+ */
+export function {{ table_name }}_UpdateObjCache(    strCacheKey = '',
+  obj{{ table_name }}: cls{{ table_name }}EN, 
+): void {
+  if (obj{{ table_name }} == null) return;
+  {{ table_name }}_AddObjCacheCore(strCacheKey, obj{{ table_name }});
+  {{ table_name }}_UpdateWholeCacheListByObj(strCacheKey, obj{{ table_name }});
+}
+
+/**
+ * 批量预热缓存：先查一级缓存，缺失部分一次性走批量接口并回填一级缓存。
+ */
+export async function {{ table_name }}_PreloadByIdList(  strCacheKey = '',
+  arr{{key_field}}Lst: Array<string>,   
+): Promise<Array<cls{{ table_name }}EN>> {
+  if (arr{{key_field}}Lst == null || arr{{key_field}}Lst.length == 0) return [];
+  const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, true) as Map<string, cls{{ table_name }}EN>;
+  const arrMissLst = new Array<string>();
+  const arrResult = new Array<cls{{ table_name }}EN>();
+  const setSeen = new Set<string>();
+
+  for (const {{ priv_func_name }} of arr{{key_field}}Lst) {
+    if (IsNullOrEmpty({{ priv_func_name }}) == true) continue;
+    if (setSeen.has({{ priv_func_name }})) continue;
+    setSeen.add({{ priv_func_name }});
+    const objHit = objMap.get({{ priv_func_name }});
+    if (objHit != null) {
+      _{{ table_name }}CacheStats.objectHit++;
+      arrResult.push(objHit);
+      continue;
+    }
+    arrMissLst.push({{ priv_func_name }});
+  }
+
+  if (arrMissLst.length == 0) return arrResult;
+
+  const strBatchKey = Format('{0}|{1}', strCacheKey, arrMissLst.join(','));
+  let pTask = _{{ table_name }}BatchInFlight.get(strBatchKey);
+  if (pTask == null) {
+    {{~ if is_multi_key ~}}
+        pTask = {{ table_name }}_GetObjLstByKeyLstsAsync(arrMissLst);
+    {{~ else ~}}
+        pTask = {{ table_name }}_GetObjLstBy{{key_field}}LstAsync(arrMissLst);
+   {{~ end ~}}
+    _{{ table_name }}BatchInFlight.set(strBatchKey, pTask);
+  }
+  let arrBatchLst = new Array<cls{{ table_name }}EN>();
+  try {
+    arrBatchLst = await pTask;
+  } finally {
+    _{{ table_name }}BatchInFlight.delete(strBatchKey);
+  }
+
+  if (arrBatchLst.length > 0) {
+    _{{ table_name }}CacheStats.batchHit += arrBatchLst.length;
+    for (const objItem of arrBatchLst) {
+      {{ table_name }}_AddObjCacheCore(strCacheKey, objItem);
+      arrResult.push(objItem);
+    }
+  }
+  return arrResult;
+}
+
+/**
+ * Smart缓存：Object Cache -> Whole Cache(index) -> WebApi。
+ */
+export async function {{ table_name }}_GetObjByKeySmart(  strCacheKey = '',
+  key: {{table_name}}Key ,
+  bolTryAsyncOnce = true,
+  bolAllowWholeCache = true,
+): Promise<cls{{ table_name }}EN | null> {
+  const objMap = {{ table_name }}_GetPrjObjectMap(strCacheKey, false);
+{{~ if is_multi_key ~}}
+      const strKey = {{ table_name }}_JoinByKeys(key);
+      const objObjectHit = objMap?.get(strKey) ?? null;
+{{~ else ~}}
+      const objObjectHit = objMap?.get(key.{{ key_field_camel }}.toString()) ?? null;
+{{~ end ~}}
+  
+  if (objObjectHit != null) {
+    _{{ table_name }}CacheStats.objectHit++;
+    return objObjectHit;
+  }
+
+  if (bolAllowWholeCache == true) {
+    const objWholeCache = _{{ table_name }}WholeCache.get(strCacheKey);
+     {{~ if is_multi_key ~}}
+        const objWholeHit = objWholeCache?.index.get(strKey) ?? null;
+     {{~ else ~}}
+        const objWholeHit = objWholeCache?.index.get(key.{{ key_field_camel }}.toString()) ?? null;
+     {{~ end ~}}
+     
+
+    if (objWholeHit != null) {
+      _{{ table_name }}CacheStats.wholeHit++;
+      {{ table_name }}_AddObjCacheCore(strCacheKey, objWholeHit);
+      return objWholeHit;
+    }
+  }
+
+  if (bolTryAsyncOnce == true) {
+    const objFromApi = await {{ table_name }}_GetObjByKeyAsync(key);
+    if (objFromApi != null) {
+      _{{ table_name }}CacheStats.webHit++;
+      {{ table_name }}_AddObjCacheCore(strCacheKey, objFromApi);
+      {{ table_name }}_UpdateWholeCacheListByObj(strCacheKey, objFromApi);
+      return objFromApi;
+    }
+  }
+  return null;
+}
+
+/**
+ * Smart入口别名。
+ */
+export async function {{ table_name }}_GetObjSmart(
+    strCacheKey = '', key: {{table_name}}Key,   
+  bolTryAsyncOnce = true,
+  bolAllowWholeCache = true,
+): Promise<cls{{ table_name }}EN | null> {
+  return await {{ table_name }}_GetObjByKeySmart(
+       strCacheKey,
+       key, 
+    bolTryAsyncOnce,
+    bolAllowWholeCache,
+  );
+}
+
+/**
+ * 返回缓存命中统计信息。
+ */
+export function {{ table_name }}_Statistics() {
+  let intObjectSize = 0;
+  _{{ table_name }}ObjectCache.forEach((objMap) => {
+    intObjectSize += objMap.size;
+  });
+  return {
+    objectHit: _{{ table_name }}CacheStats.objectHit,
+    batchHit: _{{ table_name }}CacheStats.batchHit,
+    wholeHit: _{{ table_name }}CacheStats.wholeHit,
+    webHit: _{{ table_name }}CacheStats.webHit,
+    objectCacheSize: intObjectSize,
+    wholeCachePrjCount: _{{ table_name }}WholeCache.size,
+  };
+}
+
+/**
+ * 重建Whole Cache索引。
+ */
+export function {{ table_name }}_BuildIndex(  strCacheKey = '',  
+  arrObjLst?: Array<cls{{ table_name }}EN>, 
+): Map<string, cls{{ table_name }}EN> {
+  if (arrObjLst != null) {
+    return {{ table_name }}_NormalizeAndBuildIndex(arrObjLst).index;
+  }
+  const objWholeCache = _{{ table_name }}WholeCache.get(strCacheKey);
+  if (objWholeCache == null) {
+    return new Map<string, cls{{ table_name }}EN>();
+  }
+  const objNewCache = {{ table_name }}_NormalizeAndBuildIndex(objWholeCache.list);
+  _{{ table_name }}WholeCache.set(strCacheKey, objNewCache);
+  return objNewCache.index;
+}
+
+/**
+ * 清理缓存。可按分类清理，也可全量清理。
+ */
+export function {{ table_name }}_Clear(strCacheKey = ''): void {
+  if (IsNullOrEmpty(strCacheKey) == true) {
+    _{{ table_name }}ObjectCache.clear();
+    _{{ table_name }}WholeCache.clear();
+    _{{ table_name }}BatchInFlight.clear();
+    return;
+  }
+  _{{ table_name }}ObjectCache.delete(strCacheKey);
+  _{{ table_name }}WholeCache.delete(strCacheKey);
+  const arrBatchKeyToRemove = new Array<string>();
+  _{{ table_name }}BatchInFlight.forEach((_v, strKeyInMap) => {
+    if (strKeyInMap.startsWith(`${ strCacheKey }|`) == true) arrBatchKeyToRemove.push(strKeyInMap);
+  });
+  arrBatchKeyToRemove.forEach((x) => _{{ table_name }}BatchInFlight.delete(x));
+}
+
+/**
+ * 刷新单条对象缓存。
+ */
+export async function {{ table_name }}_RefreshObject(
+    strCacheKey = '',key: {{table_name}}Key,
+): Promise<cls{{ table_name }}EN | null> {
+  const objFromApi = await {{ table_name }}_GetObjByKeyAsync(key);
+  if (objFromApi == null) {
+    {{ table_name }}_RemoveObjCache(strCacheKey, key);
+    return null;
+  }
+  {{ table_name }}_UpdateObjCache(strCacheKey, objFromApi);
+  return objFromApi;
+}
+
+/**
+ * 刷新分类列表缓存。
+ */
+export async function {{ table_name }}_RefreshList(
+   strCacheKey = ''
+): Promise<Array<cls{{ table_name }}EN>> {
+  {{ table_name }}_ReFreshThisCache(strCacheKey);
+  return await {{ table_name }}_GetObjLstCache();
+}

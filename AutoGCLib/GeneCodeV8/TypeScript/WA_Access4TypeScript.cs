@@ -3,6 +3,7 @@ using AGC.BusinessLogicEx;
 using AGC.Entity;
 using AGC.PureClassEx;
 using AgcCommBase;
+using AutoGCLib.Templates;
 using CodeStruct;
 using com.taishsoft.comm_db_obj;
 using com.taishsoft.commexception;
@@ -38,6 +39,10 @@ namespace AutoGCLib
     /// </summary>
     partial class WA_Access4TypeScript : clsGeneCodeBase4Tab
     {
+        private readonly TemplateService _templateService;
+        private readonly RenderServiceOld _renderService;
+        private PrjTabTemplateModel _model;
+        private string strFuncName4Code = "";
         //private bool bolIsHasFuncMap4Path = false;
         private string strIsShare_GC = "";
         //public string strBaseUrl = "../../";
@@ -51,6 +56,9 @@ namespace AutoGCLib
             //
             this.strBaseUrl = "../../TS";
             this.arrImportClass = new List<ImportClass>();
+            _templateService = new TemplateService();
+            _renderService = new RenderServiceOld();
+            _model = BuildPrjTabTemplateModel();
         }
         #endregion
 
@@ -99,6 +107,8 @@ namespace AutoGCLib
             strClassFName = objPrjTabENEx.FolderName + objPrjTabENEx.ClsName + ".ts";
             objPrjTabENEx.FileName = strClassFName;
             clsProjectsEN objProject = clsProjectsBL.GetObjByPrjIdCache(objPrjTabENEx.PrjId); //
+            _model = BuildPrjTabTemplateModel();
+
 
             this.objCodeElement_Root = new CodeElement { Name = "Root", ElementType = CodeElementType.Root };
 
@@ -111,16 +121,17 @@ namespace AutoGCLib
             {
                 //类名开始
                 List<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                   clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, (int)enumApplicationType.SpaAppInCore_TS_18, this.CmPrjId);
+                   clsvFunction4GeneCodeBLEx.GetObjLstByPrjTabEx(objPrjTabENEx, (int)enumApplicationType.VueAppInCore_TS_30, this.CmPrjId);
                 if (arrvFunction4GeneCodeObjLst.Find(x => x.FuncName.Contains("FuncMap4Path")) != null)
                 {
                     //bolIsHasFuncMap4Path = true;
                 }
-
+                arrvFunction4GeneCodeObjLst = arrvFunction4GeneCodeObjLst.OrderBy(x => x.FuncName4Code).ToList();
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
                 {
                     clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
                     strFuncName = objvFunction4GeneCodeEN.FuncName;
+                    strFuncName4Code = clsFunction4CodeBL.GetNameByFuncId4CodeCache(objFunction4GeneCodeEN.FuncId4Code);
                     strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
                     objvFunction4GeneCodeEN.CodeText = strTemp;
                 }
@@ -128,36 +139,38 @@ namespace AutoGCLib
                 var arrCodeTypeCache = clsCodeTypeBL.GetObjLstCache();
                 string strCodeTypeENName_Business = "BusinessLogic";
                 clsCodeTypeEN objCodeType_Business = arrCodeTypeCache.Find(x => x.ProgLangTypeId == objCodeType.ProgLangTypeId && x.CodeTypeENName == strCodeTypeENName_Business);
-                if (objCodeType_Business != null)
-                {
-                    IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_Business =
-             clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objPrjTabENEx.FunctionTemplateId(this.CmPrjId),
-                         objPrjTabENEx.LangType, objCodeType_Business.CodeTypeId, objPrjTabENEx.SqlDsTypeId)
-               .OrderBy(x => x.OrderNum);
+                //   if (objCodeType_Business != null)
+                //   {
+                //       IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_Business =
+                //clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objPrjTabENEx.FunctionTemplateId(this.CmPrjId),
+                //            objPrjTabENEx.LangType, objCodeType_Business.CodeTypeId, objPrjTabENEx.SqlDsTypeId)
+                //  .OrderBy(x => x.OrderNum);
 
-                    foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_Business)
-                    {
-                        clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
-                        strFuncName = objvFunction4GeneCodeEN.FuncName;
+                //       foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_Business)
+                //       {
+                //           clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
+                //           strFuncName = objvFunction4GeneCodeEN.FuncName;
+                //           strFuncName4Code = clsFunction4CodeBL.GetNameByFuncId4CodeCache(objFunction4GeneCodeEN.FuncId4Code);
+                //           try
+                //           {
+                //               strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
+                //               objvFunction4GeneCodeEN.CodeText = strTemp;
+                //           }
+                //           catch (Exception objException)
+                //           {
+                //               string strMsg = string.Format("在生成函数:[{0}]时出错。错误信息:{1}.", strFuncName, objException.Message);
+                //               throw new Exception(strMsg);
+                //           }
+                //           //if (string.IsNullOrEmpty(strTemp) == false)
+                //           //{
+                //           //    strCodeForCs.Append("\r\n" + strTemp);
+                //           //}
 
-                        try
-                        {
-                            strTemp = A_GeneFuncCode(objvFunction4GeneCodeEN, ref Re_objFunction4Code);
-                            objvFunction4GeneCodeEN.CodeText = strTemp;
-                        }
-                        catch (Exception objException)
-                        {
-                            string strMsg = string.Format("在生成函数:[{0}]时出错。错误信息:{1}.", strFuncName, objException.Message);
-                            throw new Exception(strMsg);
-                        }
-                        //if (string.IsNullOrEmpty(strTemp) == false)
-                        //{
-                        //    strCodeForCs.Append("\r\n" + strTemp);
-                        //}
+                //       }
 
-                    }
+                //   }
 
-                }
+
                 strCodeForCs.Append(clsPubFun4GC.GenUserInfoAndDate4TypeScript(objPrjTabENEx.UserId, objPrjTabENEx, this.CmPrjId));
 
                 strCodeForCs.Append("\r\n" + ""); //
@@ -166,7 +179,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * {0}({1})", objPrjTabENEx.TabCnName, ThisTabName4GC);
 
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
+                strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                 strCodeForCs.AppendFormat("\r\n" + "* Created by {0} on {1}.", objPrjTabENEx.UserId, clsDateTime.getTodayStr(3));
                 strCodeForCs.AppendFormat("\r\n" + "* 注意:该类必须与调用界面处于同一个包,否则调用不成功!", objPrjTabENEx.UserId, clsDateTime.getTodayStr(3));
                 strCodeForCs.Append("\r\n" + " **/");
@@ -226,11 +239,16 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n" + " export const " + this.constructorName + " = \"{0}\";",
     clsString.FstLcaseS(ThisTabName4GC));
 
+                
+
+                strCodeForCs.Append("\r\n" + Gen_4WA_Ts_InitFuncBase());
+                strCodeForCs.Append("\r\n" + Gen_4WA_Ts_InitCacheBase());
+
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst)
                 {
                     clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
                     strFuncName = objvFunction4GeneCodeEN.FuncName;
-
+                    strFuncName4Code = clsFunction4CodeBL.GetNameByFuncId4CodeCache(objFunction4GeneCodeEN.FuncId4Code);
                     if (string.IsNullOrEmpty(objvFunction4GeneCodeEN.CodeText) == false)
                     {
                         strCodeForCs.Append("\r\n" + objvFunction4GeneCodeEN.CodeText);
@@ -244,32 +262,13 @@ namespace AutoGCLib
                          objPrjTabENEx.LangType, objCodeType_Business.CodeTypeId, objPrjTabENEx.SqlDsTypeId)
                .OrderBy(x => x.OrderNum);
 
-
-
-                    //strCodeForCs.AppendFormat("\r\n" + "export class  cls{0}BL", ThisTabName4GC);
-                    //strCodeForCs.Append("\r\n" + "{");
-
-                    //私有属性名-----和属性过程
-                    //strCodeForCs.Append("\r\n/**");
-                    //strCodeForCs.Append("\r\n * 静态的对象列表,用于缓存,针对记录较少,作为参数表可以使用");
-                    //strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    //strCodeForCs.Append("\r\n*/");
-                    //strCodeForCs.AppendFormat("\r\n" + "private arr{0}ObjLstCache = new Array<{0}>();",
-                    //       ThisTabName4GC);
-
-                    //strCodeForCs.AppendFormat("\r\n/**");
-                    //strCodeForCs.AppendFormat("\r\n * 从缓存中查找失败的次数");
-                    //strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-                    //strCodeForCs.AppendFormat("\r\n*/");
-                    //strCodeForCs.AppendFormat("\r\n" + "private intFindFailCount = 0;");
-
                     //生成所有的函数
 
                     foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_Business)
                     {
                         clsFunction4GeneCodeEN objFunction4GeneCodeEN = clsFunction4GeneCodeBL.GetObjByFuncId4GCCache(objvFunction4GeneCodeEN.FuncId4GC);
                         strFuncName = objvFunction4GeneCodeEN.FuncName;
-
+                        strFuncName4Code = clsFunction4CodeBL.GetNameByFuncId4CodeCache(objFunction4GeneCodeEN.FuncId4Code);
                         if (strFuncName.Substring(0, 6) == "Print:")
                         {
                             if (objPrjTabENEx.LangType == clsPubConst.LangType.CSharp)
@@ -365,7 +364,7 @@ namespace AutoGCLib
                     FilePath = string.Format("../../PubFun/clsCommFunc4Web.js")
                 });
             }
-            
+
             //           arrImportClass.Add(new ImportClass
             //           {
             //               ClsName = string.Format("Dictionary", ThisTabName4GC),
@@ -487,7 +486,7 @@ namespace AutoGCLib
                 strCodeForCs.AppendFormat("\r\n * {0}({1})", objWebSrvClassENEx.ClsName, objWebSrvClassENEx.ClsName);
 
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
+                strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                 strCodeForCs.AppendFormat("\r\n" + "* Created by {0} on {1}.", objWebSrvClassENEx.CurrUserName, clsDateTime.getTodayStr(3));
                 strCodeForCs.AppendFormat("\r\n" + "* 注意:该类必须与调用界面处于同一个包,否则调用不成功!", objWebSrvClassENEx.CurrUserName, clsDateTime.getTodayStr(3));
                 strCodeForCs.Append("\r\n" + " **/");
@@ -669,1031 +668,6 @@ namespace AutoGCLib
             }
         }
 
-        /// <summary>
-        /// 调用WebApi来添加记录,数据传递使用JSON串
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_AddNewRecord()
-        {
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 调用WebApi来添加记录,数据传递使用JSON串");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:需要添加的对象", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取相应的记录的对象");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "AddNewRecord (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"AddNewRecord\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            //strCodeForCs.Append("\r\n" + "v1ar strMsg = \"\";");
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"AddNewRecord\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            if (objKeyField.PrimaryTypeId != enumPrimaryType.StringAutoAddPrimaryKey_03
-     && objKeyField.PrimaryTypeId != enumPrimaryType.Identity_02
-     && objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType != "bool"
-     && objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType != "int"
-      && objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType != "long")
-            {
-
-                if (objKeyField.TypeScriptType == "number")
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} === null || obj{0}EN.{1} === 0)",
-                      ThisTabName4GC,
-                   objKeyField.FldName);
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} === null || obj{0}EN.{1} === \"\")",
-                         ThisTabName4GC,
-                      objKeyField.FldName);
-                }
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = \"需要的对象的关键字为空,不能添加!\";");
-                strCodeForCs.Append("\r\n" + "throw strMsg;");
-                strCodeForCs.Append("\r\n" + "}");
-            }
-            //strCodeForCs.AppendFormat("\r\n" + "const strJSON = {0}GetJSONStrByObj(obj{0}EN);",
-            //  ThisTabName4GC);
-
-            strCodeForCs.AppendFormat("\r\n" + " //var strJSON = JSON.stringify(obj{0}EN);",
-           ThisTabName4GC);
-            //var strJSON = JSON.stringify(objMyTest1EN);
-            //strCodeForCs.AppendFormat("\r\n" + "mapParam.add(\"str{0}JSONObj\", strJSON);",
-            //  ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const response = await axios.post(strUrl, obj{0}EN, config);", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 调用WebApi来修改记录,数据传递使用JSON串
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_UpdateRecord()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 调用WebApi来修改记录,数据传递使用JSON串");
-
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:需要添加的对象", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取修改是否成功？");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "UpdateRecord (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"UpdateRecord\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            //strCodeForCs.Append("\r\n" + "const 1strMsg = \"\";");
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"UpdateRecord\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
-                ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"对象(关键字: {{0}})的【修改字段集】为空,不能修改!\", obj{0}EN.{1});",
-                ThisTabName4GC, objKeyField.FldName, "{", "}");
-            strCodeForCs.Append("\r\n" + " throw strMsg;");
-            strCodeForCs.Append("\r\n" + " }");
-            //strCodeForCs.AppendFormat("\r\n" + "mapParam.add(\"str{0}JSONObj\", strJSON);",
-            //  ThisTabName4GC);
-
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const response = await axios.post(strUrl, obj{0}EN, config);", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 调用WebApi来修改记录,数据传递使用JSON串
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_EditRecordEx()
-        {
-            string strFuncName = "";
-            IEnumerable<clsConstraintFieldsEN> arrObjLst_Flds = null;
-            foreach (clsPrjConstraintEN objInFor in objPrjTabENEx.arrPrjConstraintSet())
-            {
-                if (objInFor.InUse == false) continue;
-                if (objInFor.ConstraintTypeId != enumConstraintType.Uniqueness_01) continue;
-                arrObjLst_Flds = clsConstraintFieldsBLEx.GetObjLstByPrjConstraintIdCache(objInFor.PrjConstraintId, objInFor.PrjId);
-
-            }
-            if (arrObjLst_Flds == null || arrObjLst_Flds.Count() == 0) return "";
-
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 调用WebApi来编辑记录（存在就修改，不存在就添加）,数据传递使用JSON串");
-
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:需要编辑的对象", ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取修改是否成功？");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "EditRecordEx (obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"EditRecordEx\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            //strCodeForCs.Append("\r\n" + "const 1strMsg = \"\";");
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"EditRecordEx\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
-                ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"对象(关键字: {{0}})的【修改字段集】为空,不能修改!\", obj{0}EN.{1});",
-                ThisTabName4GC, objKeyField.PropertyName(this.IsFstLcase), "{", "}");
-            strCodeForCs.Append("\r\n" + " throw strMsg;");
-            strCodeForCs.Append("\r\n" + " }");
-            //strCodeForCs.AppendFormat("\r\n" + "mapParam.add(\"str{0}JSONObj\", strJSON);",
-            //  ThisTabName4GC);
-
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const response = await axios.post(strUrl, obj{0}EN, config);", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-
-        /// <summary>
-        /// 调用WebApi来删除记录
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_DelRecord()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 调用WebApi来删除记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.AppendFormat("\r\n * @param {0}:关键字", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取删除的结果");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "DelRecord({0}: {1}, cb: (json: any) => void, errorCb: (json: any) => void) ",
-                            objKeyField.PrivFuncName, KeyDataType);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"DelRecord\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"DelRecord\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-
-            //strCodeForCs.Append("\r\n" + "const mapParam: Dictionary = new Dictionary();");
-            //strCodeForCs.AppendFormat("\r\n" + "mapParam.add(\"{0}\", {0});", objKeyField.PrivFuncName);
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"例如: strIdentityID =01\";");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.delete(strUrl,");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "params: {{ \"Id\": {0}, }}", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n" + "});");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_IsExistRecord()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取是否存在相应的记录？");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param strWhereCond:条件");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 是否存在记录？");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "IsExistRecord(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExistRecord\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"IsExistRecord\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "strWhereCond,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetRecCountByCond()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 获取某一条件的记录数");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param strWhereCond:条件");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取某一条件的记录数");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetRecCountByCond(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetRecCountByCond\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetRecCountByCond\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "strWhereCond,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjLst()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param strWhereCond:条件");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-
-            strCodeForCs.Append("\r\n * @returns 获取的相应对象列表");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLst(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLst\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetObjLst\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "strWhereCond,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetTopObjLst()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param strWhereCond:给定条件");
-            strCodeForCs.Append("\r\n * @param intTopSize:顶部记录数");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取的相应对象列表");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetTopObjLst(strWhereCond: string, intTopSize: number, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetTopObjLst\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetTopObjLst\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "\"intTopSize\": intTopSize,");
-            strCodeForCs.Append("\r\n" + "\"strWhereCond\": strWhereCond,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjLstByPager()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param intPageIndex:页序号");
-            strCodeForCs.Append("\r\n * @param intPageSize:每页记录数");
-            strCodeForCs.Append("\r\n * @param strWhereCond:给定条件");
-            strCodeForCs.Append("\r\n * @param strOrderBy:排序方式");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取的相应记录对象列表");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLstByPager(intPageIndex: number, intPageSize: number, strWhereCond: string, strOrderBy = \"\", cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-
-
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLstByPager\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetObjLstByPager\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "\"intPageIndex\": intPageIndex,");
-            strCodeForCs.Append("\r\n" + "\"intPageSize\": intPageSize,");
-            strCodeForCs.Append("\r\n" + "\"strWhereCond\": strWhereCond,");
-            strCodeForCs.Append("\r\n" + "\"strOrderBy\": strOrderBy,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetFirstObj()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
-            strCodeForCs.Append("\r\n * @param strWhereCond:条件");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取的相应对象");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetFirstObj(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetFirstObj\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetFirstObj\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "strWhereCond,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetMaxStrId()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 获取表的最大关键字");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取表的最大关键字");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetMaxStrId(cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetMaxStrId\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetMaxStrId\";",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"例如: strIdentityID =01\";");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            //strCodeForCs.Append("\r\n" + "params: {");
-            //strCodeForCs.Append("\r\n" + "strWhereCond,");
-            //strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
 
         /// <summary>
         /// 根据关键字获取相应的记录的对象
@@ -1707,6 +681,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n * 根据前缀获取当前表关键字值的最大值,再加1,避免重复");
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param mapParam:参数列表");
             strCodeForCs.Append("\r\n * @returns 获取当前表关键字值的最大值");
             strCodeForCs.Append("\r\n*/");
@@ -1809,6 +784,7 @@ namespace AutoGCLib
             strCodeForCs.AppendFormat("\r\n * mapParam样例:{0} = \"01\"", objKeyField.PrivFuncName);
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param MethodName:函数");
             strCodeForCs.Append("\r\n * @param mapParam:参数列表");
             strCodeForCs.Append("\r\n * @returns 获取相应的记录的对象");
@@ -1883,6 +859,7 @@ namespace AutoGCLib
             //            strCodeForCs.AppendFormat("\r\n * mapParam样例:{0} = \"01\"", objWebSrvClassENEx.ClsName);
 
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param MethodName:函数");
             strCodeForCs.Append("\r\n * @param mapParam:参数列表");
             strCodeForCs.Append("\r\n * @returns 获取相应的记录的对象");
@@ -1954,6 +931,7 @@ namespace AutoGCLib
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 继承Runnable类必须实现的【run】函数");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "this.main = function()");
@@ -2165,6 +1143,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 继承Runnable类必须实现的【run】函数");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "this.main = function()");
@@ -2228,6 +1207,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 继承Runnable类必须实现的【run】函数");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "this.start = function()");
@@ -2251,105 +1231,6 @@ ThisTabName4GC);
         }
 
 
-        /// <summary>
-        /// 根据关键字获取相应的记录的对象
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjByKeyId()
-        {
-            string strBy = objKeyField.FldName;
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据关键字获取相应的对象");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:关键字", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 对象");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjBy{0} ({1}: {2}, cb: (json: any) => void, errorCb: (json: any) => void) ",
-              strBy,
-              objKeyField.PrivFuncName, KeyDataType);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}\";", strBy,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"GetObjBy{0}\";", strBy);
-            string strFuncName = string.Format("GetObjBy{0}", strBy);
-
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(objInFor.PrivFuncName, objInFor.TypeScriptType,
-                    objInFor.ObjFieldTab0().DataTypeId,
-              this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength, true, this, this.strBaseUrl);
-                strCodeForCs.Append("\r\n" + strTemp);
-            }
-
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.AppendFormat("\r\n" + "\"{0}\": {1},", objKeyField.FldName, objKeyField.PrivFuncName);
-
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
 
         /// <summary>
         /// 获取返回值函数
@@ -2362,6 +1243,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 获取返回值函数");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @returns ");
             strCodeForCs.Append("\r\n*/");
 
@@ -2467,6 +1349,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * {0}", objWebSrvFunctionsENEx.FunctionName);
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             StringBuilder sbParaList = new StringBuilder();
             StringBuilder sbParaVarList = new StringBuilder();
 
@@ -2566,7 +1449,7 @@ ThisTabName4GC);
             });
             if (strFuncName == "")
             {
-                 strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
+                strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
                 throw new Exception(strMsg);
             }
             return strCodeForCs.ToString();
@@ -2605,6 +1488,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字获取相关对象, 从缓存中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -2693,306 +1577,6 @@ ThisTabName4GC);
         /// 根据关键字获取相关对象, 从缓存的对象列表中获取.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjByKeyIdCacheBak2()
-        {
-            Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyVarDefineLstStr_TS})";
-            Re_objFunction4Code.FuncCHName4Code = "根据关键字获取特定对象, 从缓存中获取.";
-
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetObjBy{thisTabProp_TS.ByInFuncName}Cache]函数;(in {clsStackTrace.GetCurrClassFunction()} )";
-
-            // 🔥 判断是否为多关键字段
-            bool isMultiKey = objPrjTabENEx.arrKeyFldSet?.Count > 1;
-            string keyParamType = isMultiKey ? $"{ThisTabName4GC}Key" : objPrjTabENEx.KeyVarDefineLstStr_TS;
-            string keyParamName = isMultiKey ? "key" : objKeyField.PrivFuncName;
-
-            var objVarManage = new clsVarManage("TypeScript");
-
-            // 🔥 如果是多关键字段，只添加 key 参数
-            if (!isMultiKey)
-            {
-                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-                {
-                    objVarManage.AddVariable(new clsVariable(objInFor.PrivFuncName, objInFor.TypeScriptType));
-                }
-            }
-            else
-            {
-                objVarManage.AddVariable(new clsVariable("key", $"{ThisTabName4GC}Key"));
-            }
-
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true)
-            {
-                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName, thisCacheClassify_TS.TypeScriptType));
-            }
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
-            {
-                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName2, thisCacheClassify_TS.TypeScriptType2));
-            }
-
-            StringBuilder strCodeForCs = new StringBuilder();
-
-            strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * 根据关键字获取特定对象, 从缓存中获取.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            if (isMultiKey)
-            {
-                strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
-            }
-            else
-            {
-                strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
-            }
-            strCodeForCs.AppendFormat("\r\n * @returns 对象");
-            strCodeForCs.AppendFormat("\r\n*/");
-
-            // 🔥 生成函数签名
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
-            {
-                if (isMultiKey)
-                {
-                    strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
-                }
-                else
-                {
-                    strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyVarDefineLstStr_TS}, bolTryAsyncOnce = true) {{");
-                }
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
-            }
-
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
-            string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
-
-            // 🔥 检查参数是否为空
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
-                string varName = isMultiKey ? $"key.{objInFor.PrivFuncName}" : objInFor.PrivFuncName;
-                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
-                    objInFor.ObjFieldTab().DataTypeId,
-                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength, strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
-                strCodeForCs.Append("\r\n" + strTemp);
-            }
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 生成过滤条件
-            string strFilterCondition;
-            if (isMultiKey)
-            {
-                var conditions = new List<string>();
-                foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-                {
-                    string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
-                    conditions.Add($"x.{fldName} == key.{objInFor.PrivFuncName}");
-                }
-                strFilterCondition = string.Join(" && ", conditions);
-            }
-            else
-            {
-                strFilterCondition = clsPubFun4GC.GenFilterCondition("x", objPrjTabENEx, this.IsFstLcase);
-            }
-
-            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
-                ThisTabName4GC, strFilterCondition);
-
-            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 调用 GetObjByKeyAsync，传递正确的参数
-            string getObjByKeyParam = isMultiKey ? "key" : thisTabProp_TS.KeyPrivVarNameLstStr;
-            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}({getObjByKeyParam});");
-
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "return null;");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "catch (e)");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 错误消息中使用正确的关键字引用
-            string keyErrorRef = isMultiKey ? $"key.{objKeyField.PrivFuncName}" : objKeyField.PrivFuncName;
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"错误:[{{0}}]. \\n根据关键字:[{{1}}]获取相应的对象不成功!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "return null;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 根据关键字获取相关对象, 从缓存的对象列表中获取.
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetObjByKeyIdCacheBak3()
-        {
-            // 🔥 统一使用 Key 类型参数，无论单关键字还是多关键字
-            Re_objFunction4Code.FuncName4Code = $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key)";
-            Re_objFunction4Code.FuncCHName4Code = "根据关键字获取特定对象, 从缓存中获取.";
-
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false)
-                return $"//该表没有使用Cache,不需要生成[GetObjByKeyCache]函数;(in {clsStackTrace.GetCurrClassFunction()} )";
-
-            // 🔥 判断是否为多关键字段
-            bool isMultiKey = objPrjTabENEx.arrKeyFldSet?.Count > 1;
-
-            var objVarManage = new clsVarManage("TypeScript");
-
-            // 🔥 统一使用 key 参数
-            objVarManage.AddVariable(new clsVariable("key", $"{ThisTabName4GC}Key"));
-
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true)
-            {
-                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName, thisCacheClassify_TS.TypeScriptType));
-            }
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
-            {
-                objVarManage.AddVariable(new clsVariable(thisCacheClassify_TS.PriVarName2, thisCacheClassify_TS.TypeScriptType2));
-            }
-
-            StringBuilder strCodeForCs = new StringBuilder();
-
-            strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * 根据关键字获取特定对象, 从缓存中获取.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
-            strCodeForCs.AppendFormat("\r\n * @returns 对象");
-            strCodeForCs.AppendFormat("\r\n*/");
-
-            // 🔥 统一生成函数签名：使用 key: {TableName}Key
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
-            {
-                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
-            }
-
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
-            string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
-
-            // 🔥 检查参数是否为空（使用 key.xxx 访问）
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string strDataTypeId = objInFor.ObjFieldTab().ObjDataTypeAbbr1().DataTypeId;
-                string varName = $"key.{objInFor.PrivFuncName}";  // 🔥 统一使用 key.fieldName
-                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(varName, objInFor.TypeScriptType,
-                    objInFor.ObjFieldTab().DataTypeId,
-                 this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength,
-                 strDataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl);
-                strCodeForCs.Append("\r\n" + strTemp);
-            }
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 生成过滤条件（统一使用 key.xxx）
-            var conditions = new List<string>();
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
-                conditions.Add($"x.{fldName} == key.{objInFor.PrivFuncName}");
-            }
-            string strFilterCondition = string.Join(" && ", conditions);
-
-            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
-                ThisTabName4GC, strFilterCondition);
-
-            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 统一传递 key 参数
-            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
-
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "return null;");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "catch (e)");
-            strCodeForCs.Append("\r\n" + "{");
-
-            // 🔥 错误消息中使用 key.xxx（使用第一个关键字段）
-            string keyErrorRef = $"key.{objKeyField.PrivFuncName}";
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"错误:[{{0}}]. \\n根据关键字:[{{1}}]获取相应的对象不成功!(in {{2}}.{{3}})\", e, {0}, " + this.constructorName + ", strThisFuncName);", keyErrorRef);
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "return null;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 根据关键字获取相关对象, 从缓存的对象列表中获取.
-        /// </summary>
-        /// <returns></returns>
         public string Gen_4WA_Ts_GetObjByKeyIdCache()
         {
             // 🔥 统一使用 Key 类型参数，无论单关键字还是多关键字
@@ -3024,19 +1608,20 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字获取特定对象, 从缓存中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
 
             // 🔥 统一生成函数签名：使用 key: {TableName}Key
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
-            {
-                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
-            }
+            //if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            //{
+                strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}(strCacheKey = '', key: {ThisTabName4GC}Key, bolTryAsyncOnce = true) {{");
+            //}
+            //else
+            //{
+            //    strCodeForCs.Append("\r\n" + $"export async function {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objVarManage.ParaVarDefLstStr()}, bolTryAsyncOnce = true) {{");
+            //}
 
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjBy{0}Cache\";", thisTabProp_TS.ByInFuncName);
             string strFuncName = string.Format("GetObjBy{0}Cache", thisTabProp_TS.ByInFuncName);
@@ -3056,47 +1641,56 @@ ThisTabName4GC);
                 strCodeForCs.Append("\r\n" + strTemp);
             }
 
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            //strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
+            //if (string.IsNullOrEmpty(clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")) == false)
+            //{
+            //    strCodeForCs.Append("\r\n" + "const strCacheKey = clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, \"TypeScript\");");
+            //}
+            //else
+            //{ 
+            //    strCodeForCs.Append("\r\n" + "const strCacheKey = '';");
+            //}
+            strCodeForCs.Append("\r\n" + $"return await {ThisTabName4GC}_GetObjByKeySmart(strCacheKey, key, bolTryAsyncOnce, true);");
 
-            // 🔥 生成过滤条件（统一使用 key.xxx，不带 str 前缀）
-            var conditions = new List<string>();
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
-                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key 对象中的字段名（首字母小写）
-                conditions.Add($"x.{fldName} == key.{keyFieldName}");
-            }
-            string strFilterCondition = string.Join(" && ", conditions);
+            //// 🔥 生成过滤条件（统一使用 key.xxx，不带 str 前缀）
+            //var conditions = new List<string>();
+            //foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            //{
+            //    string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+            //    string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key 对象中的字段名（首字母小写）
+            //    conditions.Add($"x.{fldName} == key.{keyFieldName}");
+            //}
+            //string strFilterCondition = string.Join(" && ", conditions);
 
-            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
-                ThisTabName4GC, strFilterCondition);
+            //strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+            //    ThisTabName4GC, strFilterCondition);
 
-            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
-            strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "return obj{0};", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.Append("\r\n" + "else");
+            //strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.Append("\r\n" + "if (bolTryAsyncOnce == true)");
+            //strCodeForCs.Append("\r\n" + "{");
 
-            // 🔥 统一传递 key 参数
-            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
+            //// 🔥 统一传递 key 参数
+            //strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Const = await {thisWA_F(WA_F.GetObjByKeyId)}(key);");
 
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.AppendFormat("\r\n" + "if (obj{0}Const != null)", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.Append("\r\n" + $"{thisWA_F(WA_F.ReFreshThisCache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            //strCodeForCs.AppendFormat("\r\n" + "return obj{0}Const;", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.Append("\r\n" + "}");
 
-            strCodeForCs.Append("\r\n" + "return null;");
-            strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.Append("\r\n" + "return null;");
+            //strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
@@ -3148,10 +1742,11 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 修改在缓存对象列表中的对象, 与后台数据库无关.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}:所给的对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
-           
+
             strCodeForCs.Append("\r\n" + "export  async function " + this.tabNameHead + $"UpdateObjInLstCache(obj{ThisTabName4GC}: cls{ThisTabName4GC}EN {strFuncParaCode}) {{");
             strFuncName = $"{this.tabNameHead}UpdateObjInLstCache";
 
@@ -3171,7 +1766,10 @@ ThisTabName4GC);
             }
             else
             {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {_model.PriVarName4Cache1} }}|${{ {_model.PriVarName4Cache2} }}`;");
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+
+                //strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
             }
             //  strCodeForCs.AppendFormat("\r\n" + "const obj = new cls{0}EN();", ThisTabName4GC);
             //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) 1return;", ThisTabName4GC);
@@ -3214,12 +1812,12 @@ ThisTabName4GC);
                 switch (objPrjTabENEx.objKeyField0.PrimaryTypeId)
                 {
                     case enumPrimaryType.Identity_02:
-                        strErrMsg = string.Format("发生错误：关键字类型为:[Identity]的表,一定要设置唯一性条件;",                       ThisTabName4GC,
+                        strErrMsg = string.Format("发生错误：关键字类型为:[Identity]的表,一定要设置唯一性条件;", ThisTabName4GC,
                             clsStackTrace.GetCurrClassFunction());
                         strCodeForCs.Append("\r\n" + strErrMsg);
                         clsPrjTabBLEx.CheckTabFlds(objPrjTabENEx.TabId, this.PrjDataBaseId, CmPrjId, objPrjTabENEx.UserId);
                         throw new Exception(strErrMsg);
-                        //break;
+                    //break;
                     case enumPrimaryType.StringAutoAddPrimaryKey_03:
 
                         strErrMsg = string.Format("发生错误：关键字类型为:[字符型自动增加主键]的表,一定要设置唯一性条件;", ThisTabName4GC,
@@ -3227,7 +1825,7 @@ ThisTabName4GC);
                         strCodeForCs.Append("\r\n" + strErrMsg);
                         clsPrjTabBLEx.CheckTabFlds(objPrjTabENEx.TabId, this.PrjDataBaseId, CmPrjId, objPrjTabENEx.UserId);
                         throw new Exception(strErrMsg);
-                        //break;
+                    //break;
                     case enumPrimaryType.PrimaryKey_01:
 
                         strCodeForCs.AppendFormat("\r\n" + "x.{1} == obj{0}.{1});",
@@ -3295,6 +1893,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字获取相关对象, 从localStorage缓存中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -3388,6 +1987,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字获取特定对象, 从 localStorage 中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -3469,122 +2069,6 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-        public string Gen_4WA_Ts_GetNameByKeyIdCacheBak2()
-        {
-            Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "GetNameBy{0}Cache",
-              objKeyField.FldName);
-            Re_objFunction4Code.FuncCHName4Code = string.Format("根据关键字获取相关对象的名称属性, 从缓存中获取.",
-                  ThisTabName4GC);
-
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetNameBy{objKeyField.FldName}Cache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
-            string strNameFieldName = "";
-            string strKeyFieldName = "";
-
-            clsPrjTabFldENEx objField_Key = objPrjTabENEx.arrFldSet.Find(x => x.FieldTypeId == enumFieldType.KeyField_02);
-            clsPrjTabFldENEx objField_Name = objPrjTabENEx.arrFldSet.Find(x => x.FieldTypeId == enumFieldType.NameField_03);
-
-            if (objField_Key != null)
-            {
-                strKeyFieldName = objField_Key.FldName;
-            }
-            if (objField_Name != null)
-            {
-                strNameFieldName = objField_Name.FldName;
-            }
-
-            if (strKeyFieldName == "" || strNameFieldName == "")
-            {
-                return "/*该表没有名称字段,不能生成此函数!*/";
-            }
-            string strFuncName_Temp = $"{this.tabNameHead}GetNameBy{objKeyField.FldName}Cache";
-            string strFuncParaCode = clsPubFun4GC.GetFuncParaDef4CacheClassfy(this, true, enumProgLangType.TypeScript_09);
-            if (strFuncParaCode.Length > 5) strFuncParaCode = $",{strFuncParaCode}";
-            string strCheckEmptyCode = clsPubFun4GC.Gc_CheckVarEmpty4CacheClassfy(this, true, enumProgLangType.TypeScript_09, ThisClsName, strFuncName_Temp, this, this.strBaseUrl);
-          
-
-            StringBuilder strCodeForCs = new StringBuilder();
-            ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
-
-            strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * 根据关键字获取相关对象的名称属性, 从缓存中获取.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns 对象");
-            strCodeForCs.AppendFormat("\r\n*/");
-
-            strCodeForCs.Append("\r\n" + "export  async function " + this.tabNameHead + $"GetNameBy{objKeyField.FldName}Cache({objKeyField.PrivFuncName}: {objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType} {strFuncParaCode}) {{");
-            Re_objFunction4Code.FuncName4Code = $"export  async function " + this.tabNameHead + "GetNameBy{objKeyField.FldName}Cache({objKeyField.PrivFuncName}: {objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType} {strFuncParaCode}) {{";
-
-            //strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetNameBy{0}Cache\";", objKeyField.FldName);
-            string strFuncName = string.Format("GetNameBy{0}Cache", KeyFldName);
-
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                var strTemp = clsPubFun4GC.Gc_CheckVarEmpty_Ts(objInFor.PrivFuncName, objInFor.TypeScriptType,
-                    objInFor.ObjFieldTab0().DataTypeId,
- this.ClsName, strFuncName, objInFor.ObjFieldTab().FldLength, true, this, this.strBaseUrl);
-                strCodeForCs.Append("\r\n" + strTemp);
-            }
-
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}();");
-            }
-            else if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == false)
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName});");
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
-            }
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return \"\";", ThisTabName4GC);
-
-            //strCodeForCs.AppendFormat("\r\n" + "const obj = new cls{0}EN();", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            string strFilterCondition = clsPubFun4GC.GenFilterCondition("x", objPrjTabENEx, this.IsFstLcase);
-            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
-                ThisTabName4GC, strFilterCondition);
-
-            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}.{1};", ThisTabName4GC, objField_Name.PropertyName(this.IsFstLcase));
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "return \"\";");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "catch (e)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"错误:[{{0}}]. \\n根据关键字:[{{1}}]获取相应的对象名称属性不成功!\", e, {0});", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-            strCodeForCs.Append("\r\n" + "alert(strMsg);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "return \"\";");
-
-            strCodeForCs.Append("\r\n" + "}");
-
-            //根据关键字获取相关对象, 从缓存的对象列表中获取. == = ;
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
         public string Gen_4WA_Ts_GetNameByKeyIdCache()
         {
             // 🔥 统一使用 Key 类型参数
@@ -3624,12 +2108,13 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字获取相关对象的名称属性, 从缓存中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
             strCodeForCs.AppendFormat("\r\n * @returns 名称属性值");
             strCodeForCs.AppendFormat("\r\n*/");
 
             // 🔥 统一生成函数签名
-            strCodeForCs.Append("\r\n" + "export async function " + this.tabNameHead + $"GetNameByKeyCache(key: {ThisTabName4GC}Key {strFuncParaCode}) {{");
+            strCodeForCs.Append("\r\n" + "export async function " + this.tabNameHead + $"GetNameByKeyCache(strCacheKey = '', key: {ThisTabName4GC}Key) {{");
             Re_objFunction4Code.FuncName4Code = $"export async function " + this.tabNameHead + "GetNameByKeyCache(key: {ThisTabName4GC}Key {strFuncParaCode})";
 
             string strFuncName = "GetNameByKeyCache";
@@ -3646,47 +2131,61 @@ ThisTabName4GC);
                 strCodeForCs.Append("\r\n" + strTemp);
             }
 
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}();");
-            }
-            else if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == false)
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName});");
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
-            }
+            //if (thisCacheClassify_TS.IsHasCacheClassfyFld == false)
+            //{
+            //    strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}();");
+            //}
+            //else if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == false)
+            //{
+            //    strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName});");
+            //}
+            //else
+            //{
+            //    strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
+            //}
 
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return \"\";", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return \"\";", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
-
+            //if (string.IsNullOrEmpty(clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")) == false)
+            //{
+            //    string strTemp  = clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript");
+            //    strCodeForCs.Append("\r\n" + $"const strCacheKey = {strTemp};");
+            //}
+            //else
+            //{
+            //    strCodeForCs.Append("\r\n" + "const strCacheKey = '';");
+            //}
+            strCodeForCs.Append("\r\n" + $" const obj{ThisTabName4GC} = await {ThisTabName4GC}_GetObjByKeySmart(strCacheKey, key, true, true);");
+            strCodeForCs.Append("\r\n" + $"if (obj{ThisTabName4GC} == null) return '';");
+            //const objvFieldTab_Sim = await vFieldTab_Sim_GetObjByFldIdSmart(strFldId, strPrjId, true, true);
+            //if (objvFieldTab_Sim == null) return '';
+            //return objvFieldTab_Sim.fldName;
+            strCodeForCs.Append("\r\n" + $"return obj{ThisTabName4GC}.{objField_Name.PropertyName(this.IsFstLcase)};");
             // 🔥 生成过滤条件（使用 key.xxx）
-            var conditions = new List<string>();
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
-                string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key 对象中的字段名
-                conditions.Add($"x.{fldName} == key.{keyFieldName}");
-            }
-            string strFilterCondition = string.Join(" && ", conditions);
+            //var conditions = new List<string>();
+            //foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            //{
+            //    string fldName = objInFor.ObjFieldTab().PropertyName(this.IsFstLcase);
+            //    string keyFieldName = objInFor.ObjFieldTab().PropertyName(true); // Key 对象中的字段名
+            //    conditions.Add($"x.{fldName} == key.{keyFieldName}");
+            //}
+            //string strFilterCondition = string.Join(" && ", conditions);
 
-            strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
-                ThisTabName4GC, strFilterCondition);
+            //strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => {1});",
+            //    ThisTabName4GC, strFilterCondition);
 
-            strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}.{1};", ThisTabName4GC, objField_Name.PropertyName(this.IsFstLcase));
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "return \"\";");
-            strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.AppendFormat("\r\n" + "let obj{0}: cls{0}EN;", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}Sel.length > 0)", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.AppendFormat("\r\n" + "obj{0} = arr{0}Sel[0];", ThisTabName4GC);
+            //strCodeForCs.AppendFormat("\r\n" + "return obj{0}.{1};", ThisTabName4GC, objField_Name.PropertyName(this.IsFstLcase));
+            //strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.Append("\r\n" + "else");
+            //strCodeForCs.Append("\r\n" + "{");
+            //strCodeForCs.Append("\r\n" + "return \"\";");
+            //strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
@@ -3737,6 +2236,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字判断是否存在记录, 从本地缓存中判断.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -3830,16 +2330,30 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字判断是否存在记录, 从本地缓存中判断.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param key:关键字对象");
             strCodeForCs.AppendFormat("\r\n * @returns 是否存在");
             strCodeForCs.AppendFormat("\r\n*/");
-
+            if (objPrjTabENEx.ArrCacheClassify4Tab_TS == null)
+            {
+                objPrjTabENEx.ArrCacheClassify4Tab_TS = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(this.TabId, this.PrjId);
+            }
+            var arrCacheClassifyPara = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.PriVarName}: {x.TypeScriptType}").ToList();
+            string strCacheClassifyPara = arrCacheClassifyPara.Count == 0 ? "" : string.Join(",", arrCacheClassifyPara);
+            if (strCacheClassifyPara.Length > 0) strCacheClassifyPara = "," + strCacheClassifyPara;
             // 🔥 统一生成函数签名
-            strCodeForCs.AppendFormat("\r\n" + "export async function " + this.tabNameHead + "IsExistCache(key: {0}Key): Promise<boolean> {{", ThisTabName4GC);
+            strCodeForCs.AppendFormat("\r\n" + "export async function " + this.tabNameHead + "IsExistCache(key: {0}Key{1}): Promise<boolean> {{", ThisTabName4GC, strCacheClassifyPara);
             strFuncName = $"{this.tabNameHead}IsExistCache";
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExistCache\";");
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            if (_model.CacheClassifyFieldNum == 2)
+            {
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {_model.PriVarName4Cache1} }}|${{ {_model.PriVarName4Cache2} }}`;");
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({clsPrjTabBLEx.Cache_ParaVarLstStr(objPrjTabENEx, "TypeScript")});");
+            }
             strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return false;", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "try");
@@ -3916,25 +2430,54 @@ ThisTabName4GC);
 
             //strCodeForCs.AppendFormat("\r\n" + "let strResult = \"\";");
             int intIndex = 0;
+            StringBuilder sbTemp = new StringBuilder();
             foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
             {
                 if (intIndex == 0)
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "const strResult = `${{obj{0}EN.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
+                    sbTemp.AppendFormat("\r\n" + "const strResult = `${{obj{0}EN.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("|${{obj{0}EN.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
+                    sbTemp  .AppendFormat("|${{obj{0}EN.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
                 }
                 intIndex++;
             }
-            strCodeForCs.Append("`");
+            sbTemp.Append("`;");
+            strCodeForCs.Append(sbTemp);
             strCodeForCs.Append("\r\n" + "return strResult;");
 
             strCodeForCs.Append("\r\n" + "}");
 
+            strCodeForCs.AppendFormat("\r\n /// 把一个key的多个关键字段的值连接起来,用|连接(Join)--{0}({1})",
+  ThisTabName4GC, objPrjTabENEx.TabCnName);
+            strCodeForCs.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n /// </summary>");
+            strCodeForCs.AppendFormat("\r\n /// <param name = \"key\">需要连接的对象key</param>",
+                   ThisTabName4GC, objPrjTabENEx.TabCnName);
+            strCodeForCs.Append("\r\n /// <returns></returns>");
+            strCodeForCs.Append("\r\n" + $"export function {ThisTabName4GC}_JoinByKeys(key: {ThisTabName4GC}Key): string {{");
+            intIndex = 0;
+            sbTemp = new StringBuilder();
+            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
+            {
+                if (intIndex == 0)
+                {
+                    sbTemp.AppendFormat("\r\n" + "const strResult = `${{key.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
+                }
+                else
+                {
+                    sbTemp.AppendFormat("|${{key.{1}}}", ThisTabName4GC, objInFor.PropertyName(this.IsFstLcase));
+                }
+                intIndex++;
+            }
+            sbTemp.Append("`;");
+            strCodeForCs.Append(sbTemp);
+            strCodeForCs.Append("\r\n" + "return strResult;");
+            strCodeForCs.Append("\r\n" + "}");
+
             ///检查类中某属性(非主键)是否唯一 == == == == == == == == = ;
-             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
+            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
                 CodeContent = strCodeForCs.ToString(),
@@ -3975,6 +2518,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据关键字列表获取相关对象列表, 从缓存中获取.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param arr{0}Lst:关键字列表", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -3987,39 +2531,55 @@ ThisTabName4GC);
             string strCheckEmptyCode = objFuncParaLst.Gc_CheckVarEmpty_Ts(this.ClsName, strFuncName, true, this, this.strBaseUrl);
 
             if (strFuncParaLst.Length > 0) strFuncParaLst = "," + strFuncParaLst;
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-            {
-                strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(arrKeysLst: Array<string> {strFuncParaLst}) {{");
-                Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(arrKeysLst: Array<string> {strFuncParaLst})";
+            //if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            //{
+                strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(strCacheKey = '', arrKeysLst: Array<string>): Promise<Array<cls{ThisTabName4GC}EN>> {{");
+                Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(arrKeysLst: Array<string> )";
                 strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLstByKeyLstsCache\";", ThisTabName4GC,
                 objKeyField.FldName);
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}> {strFuncParaLst}) {{");
-                Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}>{strFuncParaLst}) ";
+            //}
+            //else
+            //{
+            //    strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}> {strFuncParaLst}) {{");
+            //    Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}>{strFuncParaLst}) ";
 
-                strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLstBy{1}LstCache\";", ThisTabName4GC,
-                objKeyField.FldName);
-            }
-
-
-            strCodeForCs.Append("\r\n" + "try");
+            //    strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLstBy{1}LstCache\";", ThisTabName4GC,
+            //    objKeyField.FldName);
+            //}
+            //            export async function {ThisTabName4GC}_GetObjLstByUserIdLstCache(
+            //  strCacheKey = '',
+            //  arrUserIdLst: Array<string>,
+            //) {
+            //                const strThisFuncName = 'GetObjLstByUserIdLstCache';
+            strCodeForCs.Append("\r\n" + $"try");
             strCodeForCs.Append("\r\n" + "{");
+            strCodeForCs.Append("\r\n" + $" const arrCachedObjLst = await {ThisTabName4GC}_PreloadByIdList(strCacheKey, arrKeysLst);");
+            strCodeForCs.Append("\r\n" + $"const objMap = new Map<string, cls{ThisTabName4GC}EN>();");
+            strCodeForCs.Append("\r\n" + $"arrCachedObjLst.forEach((x) => objMap.set(x.{objKeyField.PropertyName(this.IsFstLcase)}.toString(), x));");
+            strCodeForCs.Append("\r\n" + $"const arrOrderedResult = new Array<cls{ThisTabName4GC}EN>();");
+            strCodeForCs.Append("\r\n" + $"for (const str{objKeyField.FldName} of arrKeysLst) {{");
+            strCodeForCs.Append("\r\n" + $"const objHit = objMap.get(str{objKeyField.FldName});");
+            strCodeForCs.Append("\r\n" + $"if (objHit != null) arrOrderedResult.push(objHit);");
+            strCodeForCs.Append("\r\n" + "}");
+            strCodeForCs.Append("\r\n" + $"return arrOrderedResult;");
 
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst});");
 
-            //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) 1return null;", ThisTabName4GC);
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-            {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}Sel = arr{ThisTabName4GC}ObjLstCache.filter(x => arrKeysLst.indexOf({thisWA_F(WA_F.JoinByKeyLst)}(x))>-1);");
-            }
-            else
-            {
-                strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => arr{1}Lst.indexOf(x.{2})>-1);",
-                ThisTabName4GC, objKeyField.FldName, objKeyField.PropertyName(this.IsFstLcase));
-            }
-            strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
+            //strCodeForCs.Append("\r\n" + "try");
+            //strCodeForCs.Append("\r\n" + "{");
+
+            //strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst});");
+
+            ////strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) 1return null;", ThisTabName4GC);
+            //if (objPrjTabENEx.arrKeyFldSet.Count > 1)
+            //{
+            //    strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}Sel = arr{ThisTabName4GC}ObjLstCache.filter(x => arrKeysLst.indexOf({thisWA_F(WA_F.JoinByKeyLst)}(x))>-1);");
+            //}
+            //else
+            //{
+            //    strCodeForCs.AppendFormat("\r\n" + "const arr{0}Sel = arr{0}ObjLstCache.filter(x => arr{1}Lst.indexOf(x.{2})>-1);",
+            //    ThisTabName4GC, objKeyField.FldName, objKeyField.PropertyName(this.IsFstLcase));
+            //}
+            //strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e)");
             strCodeForCs.Append("\r\n" + "{");
@@ -4029,7 +2589,7 @@ ThisTabName4GC);
             }
             else
             {
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"错误:[{{0}}]. \\n根据关键字:[{{1}}]获取对象列表不成功!(in {{2}}.{{3}})\", e, arr{0}Lst.join(\",\"), " + this.constructorName + ", strThisFuncName);", objKeyField.FldName);
+                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"错误:[{{0}}]. \\n根据关键字:[{{1}}]获取对象列表不成功!(in {{2}}.{{3}})\", e, arrKeysLst.join(\",\"), " + this.constructorName + ", strThisFuncName);", objKeyField.FldName);
             }
             strCodeForCs.Append("\r\n" + "console.error(strMsg);");
             strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
@@ -4078,6 +2638,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据分页条件从缓存中获取分页对象列表,只获取一页.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param objPagerPara:分页参数结构", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -4108,17 +2669,17 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC}Cond = objPagerPara.conditionCollection;");
             strCodeForCs.Append("\r\n" + $"if (obj{ThisTabName4GC}Cond == null)");
             strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.Append("\r\n" + "const strMsg = `根据分布条件从缓存中获取分页对象列表时，objPagerPara.conditionCollection为null,请检查！(in ${ strThisFuncName})`;");
-                strCodeForCs.Append("\r\n" + "alert(strMsg);");
-                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-                strCodeForCs.Append("\r\n" + $"return new Array<cls{ThisTabName4GC}EN>();");
+            strCodeForCs.Append("\r\n" + "const strMsg = `根据分布条件从缓存中获取分页对象列表时，objPagerPara.conditionCollection为null,请检查！(in ${ strThisFuncName})`;");
+            strCodeForCs.Append("\r\n" + "alert(strMsg);");
+            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
+            strCodeForCs.Append("\r\n" + $"return new Array<cls{ThisTabName4GC}EN>();");
             strCodeForCs.Append("\r\n" + "}");
 
             strCodeForCs.AppendFormat("\r\n" + "//console.log(\"cls{0}WApi->GetObjLstByPagerCache->dicFldComparisonOp:\");", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "//console.log(dicFldComparisonOp);", ThisTabName4GC);
 
             strCodeForCs.Append("\r\n" + "try {");
-            
+
             strCodeForCs.Append("\r\n" + $"for (const objCondition of obj{ThisTabName4GC}Cond.GetConditions()) {{");
             strCodeForCs.Append("\r\n" + "if (objCondition == null) continue; ");
             strCodeForCs.Append("\r\n" + "const strKey = objCondition.fldName;");
@@ -4255,7 +2816,7 @@ ThisTabName4GC);
         public string Gen_4WA_Ts_GetSubObjLstCache()
         {
             Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetSubObjLstCache)}({ThisObjName4Cond}: ConditionCollection) ";
-            
+
             Re_objFunction4Code.FuncCHName4Code = "根据条件对象, 从缓存的对象列表中获取子集.";
 
             if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetSubObjLstCache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
@@ -4283,6 +2844,8 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据条件对象, 从缓存的对象列表中获取子集.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
+
             strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:条件对象", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表子集");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -4292,8 +2855,15 @@ ThisTabName4GC);
 
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetSubObjLstCache\";", ThisTabName4GC,
               objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst_Cache});");
+            if (_model.CacheClassifyFieldNum == 2)
+            {
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {_model.PriVarName4Cache1} }}|${{ {_model.PriVarName4Cache2} }}`;");
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst_Cache});");
+            }
             //strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) 1return null;", ThisTabName4GC);
 
             strCodeForCs.AppendFormat("\r\n" + "let arr{0}Sel = arr{0}ObjLstCache;", ThisTabName4GC);
@@ -4407,7 +2977,7 @@ ThisTabName4GC);
         {
             string strFuncName = "";
             Re_objFunction4Code.FuncName4Code = string.Format("export  async function " + this.tabNameHead + "IsExistRecordCache({0}: ConditionCollection) {{",
-             ThisObjName4Cond,          objKeyField.FldName,
+             ThisObjName4Cond, objKeyField.FldName,
           objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType);
             Re_objFunction4Code.FuncCHName4Code = "根据条件对象, 从缓存的对象列表中获取子集.";
 
@@ -4426,6 +2996,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据条件对象, 从缓存的对象列表中获取子集.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:条件对象", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表子集");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -4447,7 +3018,10 @@ ThisTabName4GC);
             }
             else
             {
-                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {_model.PriVarName4Cache1} }}|${{ {_model.PriVarName4Cache2} }}`;");
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+
+                //strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({thisCacheClassify_TS.PriVarName}, {thisCacheClassify_TS.PriVarName2});");
             }
             strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return false;", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "let arr{0}Sel = arr{0}ObjLstCache;", ThisTabName4GC);
@@ -4578,7 +3152,7 @@ ThisTabName4GC);
 
             if (strFuncParaLst.Length > 0) strFuncParaLst = "," + strFuncParaLst;
 
-
+            
 
             StringBuilder strCodeForCs = new StringBuilder();
             ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
@@ -4586,6 +3160,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据条件对象, 从缓存的对象列表中获取记录数.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}Cond:条件对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表记录数");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -4601,9 +3176,15 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetRecCountByCondCache\";", ThisTabName4GC,
       objKeyField.FldName);
 
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst_Cache});");
-
+            if (_model.CacheClassifyFieldNum == 2)
+            {
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {_model.PriVarName4Cache1} }}|${{ {_model.PriVarName4Cache2} }}`;");
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC}ObjLstCache = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCondFldLst_Cache});");
+            }
             strCodeForCs.AppendFormat("\r\n" + "if (arr{0}ObjLstCache == null) return 0;", ThisTabName4GC);
 
             strCodeForCs.AppendFormat("\r\n" + "let arr{0}Sel = arr{0}ObjLstCache;", ThisTabName4GC);
@@ -4765,6 +3346,7 @@ ThisTabName4GC);
                     strCodeForCs.Append("\r\n/**");
                     strCodeForCs.Append("\r\n * 绑定基于Win的下拉框");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                    strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                     strCodeForCs.Append("\r\n * @param objComboBox:需要绑定当前表的下拉框");
                     strCodeForCs.Append("\r\n*/");
                     strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "void BindCbo_{0}(System.Windows.Forms.ComboBox objComboBox)",
@@ -4892,6 +3474,7 @@ ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n" + "* 为下拉框获取数据,从表:[{0}]中获取",
                   ThisTabName4GC);
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                 strCodeForCs.Append("\r\n" + "* @returns 获取主键字段、名称字段两列的所有记录记录的DataTable");
                 strCodeForCs.Append("\r\n" + " **/");
 
@@ -4962,91 +3545,6 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-        //  public string Gen_4WA_Ts_DdlBindFunction()
-        //  {
-        //      string strFuncName = "";
-        //      StringBuilder strCodeForCs = new StringBuilder();
-        //      string strTextFieldName = "";
-        //      string strValueFieldName = "";
-        //      try
-        //      {
-        //          ///生成仅有变量;
-        //          //绑定下拉框的函数 代码;
-        //          //第0步:把控件中下拉框ComboBox转换成ComboBox
-        //          foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
-        //          {
-        //              if (objField.FieldTypeId == "02")
-        //              {
-        //                  strValueFieldName = objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase);
-        //              }
-        //              if (objField.FieldTypeId == "03")
-        //              {
-        //                  strTextFieldName = objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase);
-        //              }
-        //          }
-        //          if (strValueFieldName != "" && strTextFieldName != "")
-        //          {
-        //              //					strCodeForCs.AppendFormat("\r\n" + "public System.Data.DataTable Get{0}()", 
-        //              //						strValueFieldName);
-        //              //					strCodeForCs.Append("\r\n" + "{");
-        //              //					strCodeForCs.Append("\r\n" + "//获取某学院所有专业信息");
-        //              //					strCodeForCs.AppendFormat("\r\n" + "string strSQL = \"select {0}, {1} from {2} \";", 
-        //              //						strValueFieldName, strTextFieldName, ThisTabName4GC);
-        //              //					//									if (objViewCtlField.DsCondStr.Trim() == "" )
-        //              //					//									{
-        //              //					//										strCodeForCs.AppendFormat("\r\n" + "string strSQL = \"select {0}, {1} from {2} \";", 
-        //              //					//											strValueFieldName, strTextFieldName, objViewCtlField.DsTabName);
-        //              //					//									}
-        //              //					//									else
-        //              //					//									{
-        //              //					//										strCodeForCs.AppendFormat("\r\n" + "string strSQL = \"select {0}, {1} from {2} where {3}\";", 
-        //              //					//											strValueFieldName, strTextFieldName, objViewCtlField.DsTabName, objViewCtlField.DsCondStr);
-        //              //					//									}
-        //              //					strCodeForCs.Append("\r\n" + "clsSpecSQLforSql mySql=new 1clsSpecSQLforSql();");
-        //              //					strCodeForCs.Append("\r\n" + "System.Data.DataTable objDT = mySql.GetDataTable(strSQL);");
-        //              //					strCodeForCs.Append("\r\n" + "return objDT;");
-        //              //					strCodeForCs.Append("\r\n" + "}");
-        //              strCodeForCs.Append("\r\n/**");
-        //              strCodeForCs.Append("\r\n * 绑定基于Web的下拉框");
-        //              strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-        //              strCodeForCs.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");
-        //              strCodeForCs.Append("\r\n*/");
-        //              strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "void BindDdl_{0}(System.Web.UI.WebControls.DropDownList objDDL)",
-        //              strValueFieldName);
-        //              strCodeForCs.Append("\r\n" + "{");
-        //              strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"BindDdl_{0}\";", strValueFieldName,
-        //objKeyField.FldName);
-
-        //              strCodeForCs.Append("\r\n" + "//为数据源于表的下拉框设置内容");
-
-        //              strCodeForCs.AppendFormat("\r\n" + "System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(\"选[{0}]...\",\"0\");",
-        //                    objPrjTabENEx.TabCnName);
-
-        //              strCodeForCs.AppendFormat("\r\n" + "Array<cls{0}EN> arrObjLst = GetObjLst(\"1=1\");",
-        //                  ThisTabName4GC);
-
-        //              strCodeForCs.AppendFormat("\r\n" + "objDDL.DataValueField=\"{1}\";",
-        //                  ThisTabName4GC, strValueFieldName);
-        //              strCodeForCs.AppendFormat("\r\n" + "objDDL.DataTextField=\"{1}\";",
-        //                  ThisTabName4GC, strTextFieldName);
-        //              strCodeForCs.Append("\r\n" + "objDDL.DataSource = arrObjLst;");
-        //              strCodeForCs.Append("\r\n" + "objDDL.DataBind();");
-        //              strCodeForCs.Append("\r\n" + "objDDL.Items.Insert(0, li);");
-        //              strCodeForCs.Append("\r\n" + "objDDL.SelectedIndex = 0;");
-        //              strCodeForCs.Append("\r\n" + "}");
-        //          }
-        //      }
-
-        //      catch (Exception ex)
-        //      {
-        //          string strMsg = string.Format("在生成函数:[{0}]时出错。{1}. (In {2})", strFuncName, ex.Message, clsStackTrace.GetCurrClassFunction());
-
-        //          clsEntityBase.LogErrorS(ex, strMsg);
-        //          throw new Exception(strMsg);
-        //      }
-        //      return strCodeForCs.ToString();
-        //  }
-
         public string Gen_4WA_Ts_CheckPropertyNew()
         {
             string strFuncName = "";
@@ -5056,59 +3554,76 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n * 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
             strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\npublic void CheckPropertyNew(cls{0}EN obj{0}EN)",
-            ThisTabName4GC);
+            strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckPropertyNew)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
             strCodeForCs.Append("\r\n{");
+            string strFunctionName = string.Format("CheckPropertyNew0", ThisTabName4GC, objKeyField.FldName);
+            string strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+            strCodeForCs.Append("\r\n//检查字段非空, 即数据表要求非常非空的字段,不能为空!");
             foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
             {
-                string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "obj" + ThisTabName4GC + "EN", this.IsFstLcase);
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//只读就不需要检查
 
-                if (objField.IsTabNullable = false && objField.FieldTypeId != "02")
+                if (objField.IsTabNullable == false
+                    && objField.FieldTypeId != enumFieldType.KeyField_02
+                    && objField.FieldTypeId != enumFieldType.Log_UpdDate_13)
                 {
-                    if (objField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType == "byte[]" || objField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType == "byte")
-                    {
-                        continue;
-                    }
-                    strCodeForCs.AppendFormat("\r\nif (Object.Equals(null, {0}) ",
-                        strPrivPropNameWithObjectName);
-                    strCodeForCs.AppendFormat("\r\n|| (!Object.Equals(null, {0}) && {0}.ToString() == \"\")",
-                         strPrivPropNameWithObjectName);
-
-                    if (string.IsNullOrEmpty(objField.ObjFieldTab4CodeConv().CodeTabId) != true)
-                    {
-                        strCodeForCs.AppendFormat("\r\n|| (!Object.Equals(null, {0}) && {0}.ToString() == \"0\")",
-                             strPrivPropNameWithObjectName);
-                    }
-                    strCodeForCs.Append(")");
-                    strCodeForCs.Append("\r\n{");
-                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"字段[{0}]不能为空(NULL)!\");",
-                    objField.ColCaption);
-                    strCodeForCs.Append("\r\n}");
-                }
-
-
-            }
-            ///检查属性长度代码;
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
-            {
-                string strPrivPropNameWithObjectName = clsFieldTabBLEx.PrivPropNameWithObjectName(objField.ObjFieldTabENEx, "obj" + ThisTabName4GC + "EN", this.IsFstLcase);
-
-                if (objField.ObjFieldTabENEx.objDataTypeAbbrEN.DataTypeName != "text" && objField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType == "string" && objField.ObjFieldTabENEx.FldLength > 0)
-                {
-                    strCodeForCs.AppendFormat("\r\nif (!Object.Equals(null, {0}) && GetStrLen({0}) > {1})",
-                         strPrivPropNameWithObjectName,
-                          objField.ObjFieldTabENEx.FldLength);
-                    strCodeForCs.Append("\r\n{");
-                    strCodeForCs.AppendFormat("\r\n throw new Exception(\"字段[{0}]的长度不能超过{1}!\");",
-                    objField.ColCaption, objField.ObjFieldTabENEx.FldLength.ToString().Trim());
-                    strCodeForCs.Append("\r\n}");
+                    strCodeForCs.Append(inGen_CheckNull4Field_Ts(objField, strErrId, strFunctionName));
                 }
             }
-            //strCodeForCs.AppendFormat("\r\n obj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
 
-            strCodeForCs.Append("\r\n }");
-            ///检查类中属性是否正确 == == ;
-            ///
+            //检查属性长度代码;
+            strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckPropertyNew"));
+
+            //检查字段的数据类型是否正确
+            strCodeForCs.Append(inGen_CheckDataType_Ts(strFunctionName));
+
+            //检查外键字段长度;
+
+            strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckPropertyNew"));
+
+
+            strCodeForCs.Append("\r\n//设置说明该对象已经检查过了,后面不需要再检查,即非法!");
+
+            //strCodeForCs.AppendFormat("\r\n pobj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n}");
+
+
+            ///检查类中属性是否正确-------------------------------------------;
+            strCodeForCs.Append("\r\n/**");
+            strCodeForCs.Append("\r\n * 专业针对修改记录,检查对象字段值是否合法,1)检查字段值长度是否超长,如果出错就抛出错误.");
+            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.Append("\r\n*/");
+            strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckProperty4Update)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
+            strFuncName = $"{thisWA_F(WA_F.CheckProperty4Update)}";
+            strCodeForCs.Append("\r\n{");
+            //检查属性长度代码;
+
+            strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckProperty4Update"));
+
+            //检查数据类型是否正确
+            strCodeForCs.Append(inGen_CheckDataType_Ts("CheckProperty4Update"));
+
+            //检查主键是否Null
+            strFunctionName = string.Format("CheckProperty4Update", ThisTabName4GC, objKeyField.FldName);
+            strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+
+            strCodeForCs.Append("\r\n//检查主键是否为Null或者空!");
+
+            strCodeForCs.Append(inGen_CheckNull4Field_Ts(objPrjTabENEx.objKeyField0, strErrId, "CheckProperty4Update"));
+            ///检查外键字段长度;
+
+            strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckProperty4Update"));
+
+            //strCodeForCs.AppendFormat("\r\n pobj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
+
+            strCodeForCs.Append("\r\n}");
+
+            ///检查类中属性是否正确 ==  ==  == = ;
             clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
             {
                 Name = strFuncName,
@@ -5125,6 +3640,85 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
+        public string Gen_4WA_Ts_CheckPropertyNewBak2()
+        {
+            StringBuilder strBuilder = new StringBuilder();
+            ///检查类中属性是否正确-------------------------------------------;
+            strBuilder.Append("\r\n /// <summary>");
+            strBuilder.Append("\r\n /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.");
+            strBuilder.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strBuilder.Append("\r\n /// </summary>");
+            strBuilder.AppendFormat("\r\n public CheckPropertyNew(pobj{0}EN: cls{0}EN)",
+            objPrjTabENEx.TabName);
+            strBuilder.Append("\r\n{");
+            string strFunctionName = string.Format("CheckPropertyNew1", objPrjTabENEx.TabName, objKeyField.FldName);
+            string strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+            strBuilder.Append("\r\n//检查字段非空, 即数据表要求非常非空的字段,不能为空!");
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
+            {
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//只读就不需要检查
+                if (objField.IsTabNullable == false && objField.FieldTypeId != "02")
+                {
+                    strBuilder.Append(inGen_CheckNull4Field_Ts(objField, strErrId, strFunctionName));
+                }
+            }
+
+            //检查属性长度代码;
+            strBuilder.Append(inGen_CheckFieldLength_Ts("CheckPropertyNew"));
+
+            //检查字段的数据类型是否正确
+            strBuilder.Append(inGen_CheckDataType_Ts(strFunctionName));
+
+            //检查外键字段长度;
+
+            strBuilder.Append(inGen_CheckFieldForeighKey_Ts("CheckPropertyNew"));
+
+
+            strBuilder.Append("\r\n//设置说明该对象已经检查过了,后面不需要再检查,即非法!");
+
+            strBuilder.AppendFormat("\r\n pobj{0}EN._IsCheckProperty = true;", objPrjTabENEx.TabName);
+
+            strBuilder.Append("\r\n}");
+
+
+            ///检查类中属性是否正确-------------------------------------------;
+            strBuilder.Append("\r\n /// <summary>");
+            strBuilder.Append("\r\n /// 专业针对修改记录,检查对象字段值是否合法,1)检查字段值长度是否超长,如果出错就抛出错误.");
+            strBuilder.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strBuilder.Append("\r\n /// </summary>");
+            strBuilder.AppendFormat("\r\n public CheckProperty4Update (pobj{0}EN: cls{0}EN)",
+            objPrjTabENEx.TabName);
+            strBuilder.Append("\r\n{");
+            //检查属性长度代码;
+
+            strBuilder.Append(inGen_CheckFieldLength_Ts("CheckProperty4Update"));
+
+            //检查数据类型是否正确
+            strBuilder.Append(inGen_CheckDataType_Ts("CheckProperty4Update"));
+
+            //检查主键是否Null
+            strFunctionName = string.Format("CheckProperty4Update1", objPrjTabENEx.TabName, objKeyField.FldName);
+            strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+
+            strBuilder.Append("\r\n//检查主键是否为Null或者空!");
+
+            strBuilder.Append(inGen_CheckNull4Field_Ts(objPrjTabENEx.objKeyField0, strErrId, "CheckProperty4Update"));
+            ///检查外键字段长度;
+
+            strBuilder.Append(inGen_CheckFieldForeighKey_Ts("CheckProperty4Update"));
+
+            strBuilder.AppendFormat("\r\n pobj{0}EN._IsCheckProperty = true;", objPrjTabENEx.TabName);
+
+            strBuilder.Append("\r\n}");
+
+            ///检查类中属性是否正确 ==  ==  == = ;
+            return strBuilder.ToString();
+        }
+
         /// <summary>
         /// 获取当前表满足条件的第一条记录的关键字值
         /// </summary>
@@ -5137,13 +3731,14 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param strWhereCond:条件");
             strCodeForCs.Append("\r\n * @returns 返回的第一条记录的关键字值");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetFirstID(strWhereCond: string) ",
               ThisTabName4GC,
               objKeyField.FldName);
-            strFuncName = $"{this.tabNameHead }GetFirstID";
+            strFuncName = $"{this.tabNameHead}GetFirstID";
             strCodeForCs.Append("\r\n" + "{");
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetFirstID\";", ThisTabName4GC,
       objKeyField.FldName);
@@ -5223,163 +3818,6 @@ ThisTabName4GC);
 
 
         /// <summary>
-        /// 根据关键字获取相关名称, 从缓存的对象列表中获取.
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_GetNameByKeyIdCacheBak()
-        {
-            string strFuncName = "";
-            string strTextFieldName = "";
-            string strValueFieldName = "";
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
-            {
-                if (objField.FieldTypeId == "02")
-                {
-                    strValueFieldName = objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase);
-                }
-                if (objField.FieldTypeId == "03")
-                {
-                    strTextFieldName = objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase);
-                }
-            }
-            if (strValueFieldName == "" || strTextFieldName == "")
-            {
-                return "";
-            }
-            if (objPrjTabENEx.IsUseCache == false) return $"//该表没有使用Cache,不需要生成[Get{strTextFieldName}By{objKeyField.FldName}Cache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
-
-            StringBuilder strCodeForCs = new StringBuilder();
-            ///根据关键字获取相关对象, 从缓存的对象列表中获取.-----------------------------;
-
-            strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * 根据关键字获取相关名称, 从缓存的对象列表中获取.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:所给的关键字", objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n * @returns 根据关键字获取的名称");
-            strCodeForCs.AppendFormat("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "string Get{4}By{1}Cache({2} {3})",
-            ThisTabName4GC,
-            objKeyField.FldName,
-            objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType,
-            objKeyField.PrivFuncName,
-            strTextFieldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"Get{0}By{1}Cache\";", strTextFieldName,
-      objKeyField.FldName);
-
-            if (objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType == "string")
-            {
-                strCodeForCs.AppendFormat("\r\n" + "if (string.IsNullOrEmpty({0}) == true) return \"\";",
-                  objKeyField.PrivFuncName);
-            }
-            strCodeForCs.Append("\r\n" + "//初始化列表缓存");
-            strCodeForCs.Append("\r\n" + "InitListCache(); ");
-
-
-            strCodeForCs.Append("\r\n" + "int intStart = 0;");
-            strCodeForCs.AppendFormat("\r\n" + "int intEnd = arr{0}ObjLstCache.Count - 1;", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "int intMid = 0;");
-            strCodeForCs.AppendFormat("\r\n" + "cls{0}EN obj{0}EN;",
-                 ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "while (intEnd >= intStart)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "intMid = (intStart + intEnd) / 2;");
-            strCodeForCs.AppendFormat("\r\n" + "obj{0}EN = arr{0}ObjLstCache[intMid];",
-              ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} == {2})",
-                ThisTabName4GC,
-                objKeyField.FldName,
-                objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "intFindFailCount = 0;");
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}EN.{1};",
-                  ThisTabName4GC,
-                  strTextFieldName);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.AppendFormat("\r\n" + "else if (obj{0}EN.{1}.CompareTo({2}) > 0)",
-                  ThisTabName4GC,
-                  objKeyField.FldName,
-                  objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "intEnd = intMid - 1;");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "intStart = intMid + 1;");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-
-            //strCodeForCs.AppendFormat("\r\n" + "foreach (cls{0}EN obj{0}EN in arr{0}ObjLstCache)",
-            //ThisTabName4GC);
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} == {2})",
-            //ThisTabName4GC,
-            //objKeyField.FldName,
-            //objKeyField.PrivFuncName);
-            //strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "return obj{0}EN.{1};",
-            //ThisTabName4GC,
-            //strTextFieldName);
-            //strCodeForCs.Append("\r\n" + "}");
-            //strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.AppendFormat("\r\n" + "intFindFailCount++;");
-            strCodeForCs.AppendFormat("\r\n" + "// 静态的对象列表,用于缓存,针对记录较少,作为参数表可以使用");
-            strCodeForCs.AppendFormat("\r\n" + "arr{0}ObjLstCache = null;", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (intFindFailCount == 1) return Get{0}By{1}Cache({2});",
-                strTextFieldName,
-                objKeyField.FldName,
-                objKeyField.PrivFuncName);
-            strCodeForCs.AppendFormat("\r\n" + "string strErrMsgForGetObjById = string.Format(\"在{2}对象缓存列表中,找不到记录[{3} = {{0}}][intFindFailCount = {{1}}](函数:{{2}})\", {4}, intFindFailCount, clsStackTrace.GetCurrFunction());",
-              "{", "}",
-              ThisTabName4GC,
-              objKeyField.FldName,
-              objKeyField.PrivFuncName,
-              strTextFieldName);
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN != null)",
-                  ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"最后一次查找的对象相关字段属性值:{{0}}.[intMid = {{1}}]\", obj{2}EN.{3}, intMid);",
-               "{", "}",
-               ThisTabName4GC,
-               objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "strErrMsgForGetObjById += string.Format(\"最后一次查找的对象为null, 请检查![intMid = {{0}}]\", intMid);",
-               "{", "}");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.AppendFormat("\r\n" + "clsLog.LogErrorS2(\"cls{0}BL\", clsStackTrace.GetCurrClassFunction(), strErrMsgForGetObjById, \"\", \"\");",
-               ThisTabName4GC,
-                objKeyField.FldName,
-                strTextFieldName);
-            //strCodeForCs.Append("\r\n" + "// 静态的对象列表,用于缓存,针对记录较少,作为参数表可以使用");
-            //strCodeForCs.AppendFormat("\r\n" + "arr{0}ObjLstCache = null;",
-            //       ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "console.error(strErrMsgForGetObjById);");
-
-            strCodeForCs.Append("\r\n" + "throw new Error(strErrMsgForGetObjById);");
-            //strCodeForCs.AppendFormat("\r\n" + "return \"\";");
-            strCodeForCs.Append("\r\n" + "}");
-
-            ///根据关键字获取相关对象, 从缓存的对象列表中获取. == = ;
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
         /// 初始化列表缓存.
         /// </summary>
         /// <returns></returns>
@@ -5393,6 +3831,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 初始化列表缓存.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n*/");
             strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + "InitListCache():void");
             strCodeForCs.Append("\r\n" + "{");
@@ -5419,547 +3858,6 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-        public string Gen_4WA_Ts_GetObjLstByRange()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            //获取某一条件值的记录集-----------------------------;
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件获取相应的记录对象列表");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @param intMinNum:最小记录号");
-            strCodeForCs.Append("\r\n * @param intMaxNum:最大记录号");
-            strCodeForCs.Append("\r\n * @param strWhereCond:给定条件");
-            strCodeForCs.Append("\r\n * @param strOrderBy:排序方式");
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 获取的相应记录对象列表");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "GetObjLstByRange(intMinNum: number, intMaxNum: number, strWhereCond: string, strOrderBy = \"\", cb: (json: any) => void, errorCb: (json: any) => void) ",
-              ThisTabName4GC,
-              objKeyField.FldName);
-            strCodeForCs.Append("\r\n{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"GetObjLstByRange\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + "const strAction = \"GetObjLstByRange\";");
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.Append("\r\n" + "\"intMinNum\": intMinNum,");
-            strCodeForCs.Append("\r\n" + "\"intMaxNum\": intMaxNum,");
-            strCodeForCs.Append("\r\n" + "\"strWhereCond\": strWhereCond,");
-            strCodeForCs.Append("\r\n" + "\"strOrderBy\": strOrderBy,");
-
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-        /// <summary>
-        /// 删除多条记录
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_DelRecords()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据关键字列表删除记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @returns 实际删除记录的个数");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "int DelRecords(string strKeyIdLst)",
-            ThisTabName4GC, objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"DelRecords\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "string strAction = \"DelRecords\";", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "string strErrMsg;");
-            strCodeForCs.Append("\r\n" + "string strResult;");
-            strCodeForCs.Append("\r\n" + "Dictionary<string, string> dictParam = new();");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            //strCodeForCs.AppendFormat("\r\n" + "string strJSON = clsJSON.GetJsonFromObjLst(strKeyIdLst);",
-            //    objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + "if (clsPubFun4WApi.Deletes(mstrApiControllerName, strAction, dictParam, strKeyIdLst, out string strResult, out string strErrMsg) == true)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "int intResult  = int.Parse(strResult);");
-            strCodeForCs.Append("\r\n" + "return intResult;");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else return 0;");
-
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "catch (Exception objException)");
-            strCodeForCs.Append("\r\n" + "{");
-
-            strCodeForCs.Append("\r\n string strMsg = string.Format(\"执行WebApi功能出错, {0}.(from {1}). WebApi地址:{2}).\",");
-            strCodeForCs.Append("\r\n      HttpUtility.UrlDecode(objException.Message), clsStackTrace.GetCurrClassFunction(),");
-            strCodeForCs.Append("\r\n" + "clsPubFun4WApi.GetWebApiUrl(mstrApiControllerName, strAction));");
-
-            strCodeForCs.AppendFormat("\r\n throw new Exception(strMsg);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 删除多条记录
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_DelMultiRecord()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据关键字列表删除记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param arr{0}:关键字列表", objKeyField.FldName);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 实际删除记录的个数");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.DelMultiRecord)}(arr{objKeyField.FldName}: Array<string>, cb: (json: any) => void, errorCb: (json: any) => void)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"Del{0}s\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"Del{0}s\";", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"例如: strIdentityID =01\";");
-            strCodeForCs.AppendFormat("\r\n" + "axios.post(strUrl, arr{0});", objKeyField.FldName);
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 删除多条记录
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_DelMultiRecordByCond()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件删除记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n * @returns 实际删除记录的个数");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.Append("\r\n" + $"export  async function {thisWA_F(WA_F.DelMultiRecordByCond)}(strWhereCond: string, cb: (json: any) => void, errorCb: (json: any) => void)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"Del{0}sByCond\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.AppendFormat("\r\n" + "const strAction = \"Del{0}sByCond\";", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-
-            //strCodeForCs.Append("\r\n" + "const mapParam: Dictionary = new Dictionary();");
-            //strCodeForCs.Append("\r\n" + "mapParam.add(\"strWhereCond\", strWhereCond);");
-            //strCodeForCs.Append("\r\n" + "const strData = mapParam.getParamText();// \"例如: strIdentityID =01\";");
-
-            strCodeForCs.Append("\r\n" + "axios.get(strUrl,");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "params: { strWhereCond}");
-            strCodeForCs.Append("\r\n" + "});");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        /// <summary>
-        /// 添加记录,并且返回关键字
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_AddNewRecordWithReturnKey()
-        {
-            string strFuncName = "";
-            //if (objKeyField.PrimaryTypeId != "02") return "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 把表对象添加到数据库中,并且返回该记录的关键字(针对Identity关键字)");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:需要添加的表对象",
-                    ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-            strCodeForCs.Append("\r\n * @returns 返回新添加记录的关键字");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "AddNewRecordWithReturnKey(obj{0}EN: cls{0}EN, cb: (json: any) => void, errorCb: (json: any) => void)",
-            ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"AddNewRecordWithReturnKey\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + "const strAction = \"AddNewRecordWithReturnKey\";");
-
-            if (objKeyField.TypeScriptType == "number")
-            {
-                strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} === null || obj{0}EN.{1} === 0)",
-                     ThisTabName4GC,
-                  objKeyField.PropertyName(this.IsFstLcase));
-            }
-            else
-            {
-                strCodeForCs.AppendFormat("\r\n" + "if (obj{0}EN.{1} === null || obj{0}EN.{1} === \"\")",
-                 ThisTabName4GC,
-              objKeyField.PropertyName(this.IsFstLcase));
-            }
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strMsg = \"需要的对象的关键字为空,不能添加!\";");
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-            strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const response = await axios.post(strUrl, obj{0}EN, config);", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-        /// <summary>
-        /// 添加记录,并且返回关键字
-        /// </summary>
-        /// <returns></returns>
-        public string Gen_4WA_Ts_UpdateWithCondition()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据条件来修改记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param obj{0}EN:需要修改的对象",
-                  ThisTabName4GC);
-            strCodeForCs.Append("\r\n * @param strWhereCond:条件串");
-            strCodeForCs.Append("\r\n * @returns 返回的第一条记录的关键字值");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "UpdateWithCondition(obj{0}EN: cls{0}EN, strWhereCond: string , cb: (json: any) => void, errorCb: (json: any) => void)",
-            ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"UpdateWithCondition\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + "const strAction = \"UpdateWithCondition\";");
-            strCodeForCs.AppendFormat("\r\n" + " if (obj{0}EN.sfUpdFldSetStr === undefined || obj{0}EN.sfUpdFldSetStr === null || obj{0}EN.sfUpdFldSetStr === \"\")",
-             ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"对象(关键字: {{0}})的【修改字段集】为空,不能修改!\", obj{0}EN.{1});",
-                ThisTabName4GC, objKeyField.FldName, "{", "}");
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-            strCodeForCs.Append("\r\n" + " throw new Error(strMsg);");
-            strCodeForCs.Append("\r\n" + " }");
-
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.AppendFormat("\r\n" + "axios.post(strUrl, obj{0});", ThisTabName4GC);
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "error: function(result:any) {");
-            strCodeForCs.Append("\r\n" + "console.error(result);");
-            strCodeForCs.Append("\r\n" + "console.error(JSON.stringify(result));");
-            //alert(JSON.stringify(result));
-            strCodeForCs.Append("\r\n" + "if (result.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "errorCb(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "errorCb(result.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "});");
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-        public string Gen_4WA_Ts_IsExist()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 根据关键字判断是否存在记录");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.AppendFormat("\r\n * @param {0}:关键字", objKeyField.PrivFuncName);
-            strCodeForCs.Append("\r\n * @param cb:CallBack函数,用于显示正确结果数据");
-            strCodeForCs.Append("\r\n * @param errorCb:CallBack函数,用于显示错误信息");
-
-            strCodeForCs.Append("\r\n * @returns 是否存在?存在返回True");
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "IsExist({0}: {1}, cb: (json: any) => void, errorCb: (json: any) => void)",
-                    objKeyField.PrivFuncName, KeyDataType);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = \"IsExist\";", ThisTabName4GC,
-      objKeyField.FldName);
-
-            strCodeForCs.Append("\r\n" + "//检测记录是否存在");
-            strCodeForCs.Append("\r\n" + "const strAction = \"IsExist\";");
-            strCodeForCs.Append("\r\n" + $"const strUrl = {objProjectsENEx.GetWebApiFunc}(" + this.controllerName + ", strAction);");
-            strCodeForCs.Append("\r\n" + clsPubFun4GC.GC_GetToken(objPrjTabENEx, this, strBaseUrl));
-            strCodeForCs.Append("\r\n" + "//console.error('token:', token);");
-            strCodeForCs.Append("\r\n" + "const config = {");
-            strCodeForCs.Append("\r\n" + "headers: {");
-            strCodeForCs.Append("\r\n" + "Authorization: `${ token}`,");
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "params: {");
-            strCodeForCs.AppendFormat("\r\n" + "\"{0}\": {1},", objKeyField.FldName, objKeyField.PrivFuncName);
-
-            strCodeForCs.Append("\r\n" + "},");
-            strCodeForCs.Append("\r\n" + "};");
-
-            strCodeForCs.Append("\r\n" + "try");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const response = await axios.get(strUrl,config);");
-            strCodeForCs.Append("\r\n" + "const data = response.data;");
-
-            strCodeForCs.Append("\r\n" + "cb(data);");
-            strCodeForCs.Append("\r\n" + "} catch (error: any) {");
-
-            strCodeForCs.Append("\r\n" + "console.error(error);");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == undefined)");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw error;");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "if (error.statusText == \"error\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}不成功!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else if (error.statusText == \"Not Found\")");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strInfo = Format(\"网络错误!访问地址:{0}可能不存在!(in {1}.{2})\", strUrl, " + this.constructorName + ", strThisFuncName);");
-            strCodeForCs.Append("\r\n" + "console.error(strInfo);");
-            strCodeForCs.Append("\r\n" + "throw(strInfo);");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "else");
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "throw(error.statusText);");
-            strCodeForCs.Append("\r\n" + "}");
-            strCodeForCs.Append("\r\n" + "}");
-
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
         public string Gen_4WA_Ts_GetWebApiUrl()
         {
             string strFuncName = "";
@@ -5972,6 +3870,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 获取WebApi的地址");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @returns 返回当前文件中Web服务的地址");
             strCodeForCs.Append("\r\n*/");
             strCodeForCs.Append("\r\n" + "export  function " + this.tabNameHead + "GetWebApiUrl(strController: string, strAction: string): string {");
@@ -6422,6 +4321,7 @@ ThisTabName4GC);
                         strCodeForCs.Append("\r\n/**");
                         strCodeForCs.Append("\r\n * 绑定基于Web的下拉框");
                         strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                        strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                         strCodeForCs.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");
                         strCodeForCs.Append("\r\n" + strFuncRemark);
                         strCodeForCs.Append("\r\n*/");
@@ -6581,6 +4481,7 @@ ThisTabName4GC);
                     strCodeForCs.Append("\r\n/**");
                     strCodeForCs.Append($"\r\n * 绑定基于Web的下拉框(TabFeatureId:{objTabFeature.TabFeatureId})");
                     strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                    strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                     strCodeForCs.Append("\r\n * @param objDDL:需要绑定当前表的下拉框");
                     strCodeForCs.Append("\r\n" + objTabFeature4Ddl.FuncRemark);
                     strCodeForCs.Append("\r\n*/");
@@ -7000,7 +4901,7 @@ ThisTabName4GC);
 
                     //生成过滤条件语句
                     string strFilterCondition = objFuncParaLst.GeneFilterCondition();
-                    
+
                     sbTempFun.Append("\r\n/**");
                     sbTempFun.Append($"\r\n * 绑定基于Web的下拉框,在某一层下的下拉框(TabFeatureId:{objTabFeature.TabFeatureId})");
                     sbTempFun.AppendFormat("\r\n * ({0})-pyf", clsStackTrace.GetCurrClassFunction());
@@ -7091,7 +4992,7 @@ ThisTabName4GC);
                         }
                     }
                     string strToolTipText = $"{objPrjTabENEx.TabCnName}...";
-                    if (string.IsNullOrEmpty(objTabFeature4Ddl.ToolTipText) == false) strToolTipText = $"{objTabFeature4Ddl.ToolTipText}...".Replace("......","...");
+                    if (string.IsNullOrEmpty(objTabFeature4Ddl.ToolTipText) == false) strToolTipText = $"{objTabFeature4Ddl.ToolTipText}...".Replace("......", "...");
 
                     if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlTab_01)
                     {
@@ -7418,102 +5319,8 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4BL_Ts_CheckPropertyNew()
-        {
-            string strFuncName = "";
-            StringBuilder strCodeForCs = new StringBuilder();
-            ///检查类中属性是否正确-------------------------------------------;
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckPropertyNew)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
-            strCodeForCs.Append("\r\n{");
-            string strFunctionName = string.Format("CheckPropertyNew0", ThisTabName4GC, objKeyField.FldName);
-            string strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
-            string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
-            strCodeForCs.Append("\r\n//检查字段非空, 即数据表要求非常非空的字段,不能为空!");
-            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
-            {
-                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//只读就不需要检查
 
-                if (objField.IsTabNullable == false
-                    && objField.FieldTypeId != enumFieldType.KeyField_02
-                    && objField.FieldTypeId != enumFieldType.Log_UpdDate_13)
-                {
-                    strCodeForCs.Append(inGen_CheckNull4Field_Ts(objField, strErrId, strFunctionName));
-                }
-            }
-
-            //检查属性长度代码;
-            strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckPropertyNew"));
-
-            //检查字段的数据类型是否正确
-            strCodeForCs.Append(inGen_CheckDataType_Ts(strFunctionName));
-
-            //检查外键字段长度;
-
-            strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckPropertyNew"));
-
-
-            strCodeForCs.Append("\r\n//设置说明该对象已经检查过了,后面不需要再检查,即非法!");
-
-            //strCodeForCs.AppendFormat("\r\n pobj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
-
-            strCodeForCs.Append("\r\n}");
-
-
-            ///检查类中属性是否正确-------------------------------------------;
-            strCodeForCs.Append("\r\n/**");
-            strCodeForCs.Append("\r\n * 专业针对修改记录,检查对象字段值是否合法,1)检查字段值长度是否超长,如果出错就抛出错误.");
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            strCodeForCs.Append("\r\n*/");
-            strCodeForCs.Append("\r\n" + $"export  function {thisWA_F(WA_F.CheckProperty4Update)}(pobj{ThisTabName4GC}EN: cls{ThisTabName4GC}EN)");
-            strFuncName = $"{thisWA_F(WA_F.CheckProperty4Update)}";
-            strCodeForCs.Append("\r\n{");
-            //检查属性长度代码;
-
-            strCodeForCs.Append(inGen_CheckFieldLength_Ts("CheckProperty4Update"));
-
-            //检查数据类型是否正确
-            strCodeForCs.Append(inGen_CheckDataType_Ts("CheckProperty4Update"));
-
-            //检查主键是否Null
-            strFunctionName = string.Format("CheckProperty4Update", ThisTabName4GC, objKeyField.FldName);
-            strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
-            strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
-               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
-
-            strCodeForCs.Append("\r\n//检查主键是否为Null或者空!");
-
-            strCodeForCs.Append(inGen_CheckNull4Field_Ts(objPrjTabENEx.objKeyField0, strErrId, "CheckProperty4Update"));
-            ///检查外键字段长度;
-
-            strCodeForCs.Append(inGen_CheckFieldForeighKey_Ts("CheckProperty4Update"));
-
-            //strCodeForCs.AppendFormat("\r\n pobj{0}EN.SetIsCheckProperty(true);", ThisTabName4GC);
-
-            strCodeForCs.Append("\r\n}");
-
-            ///检查类中属性是否正确 ==  ==  == = ;
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
-        public string Gen_4BL_Ts_CopyObjToSimObj()
+        public string Gen_4WA_Ts_CopyObjToSimObj()
         {
             string strFuncName = "";
             if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
@@ -7527,6 +5334,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,复制到另一个对象(简单)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -7580,7 +5388,7 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4BL_Ts_GetObjFromSimObj()
+        public string Gen_4WA_Ts_GetObjFromSimObj()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -7589,6 +5397,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,复制到另一个对象(简单)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -7619,7 +5428,7 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4BL_Ts_CopyObjTo()
+        public string Gen_4WA_Ts_CopyObjTo()
         {
             //if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
             //{
@@ -7632,6 +5441,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,复制到另一个对象");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -7687,7 +5497,7 @@ ThisTabName4GC);
         /// </summary>
         /// <param name="objPrjTabENEx"></param>
         /// <returns></returns>
-        public string Gen_4BL_Ts_CombineConditionByCondObj()
+        public string Gen_4WA_Ts_CombineConditionByCondObj()
         {
             StringBuilder strCodeForCs = new StringBuilder();
             string strFuncName = "";
@@ -7696,6 +5506,7 @@ ThisTabName4GC);
                 strCodeForCs.Append("\r\n/**");
                 strCodeForCs.Append("\r\n * 根据条件对象中的字段内容组合成一个条件串");
                 strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+                strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
                 strCodeForCs.Append("\r\n * @returns 条件串(strWhereCond)");
                 strCodeForCs.Append("\r\n*/");
                 strCodeForCs.AppendFormat("\r\n" + "export  function " + this.tabNameHead + "GetCombineCondition({1}: {0} ):string", ThisClsName4EN, ThisObjName4Cond);
@@ -7837,7 +5648,7 @@ ThisTabName4GC);
         /// 获取唯一性条件串
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_GetUniquenessConditionString()
+        public string Gen_4WA_Ts_GetUniquenessConditionString()
         {
             string strFuncName = "";
             if (objPrjTabENEx.arrPrjConstraintSet().Count == 0) return "";
@@ -7919,7 +5730,7 @@ ThisTabName4GC);
         /// 获取唯一性条件串
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_GetUniquenessConditionString4Update()
+        public string Gen_4WA_Ts_GetUniquenessConditionString4Update()
         {
             string strFuncName = "";
             if (objPrjTabENEx.arrPrjConstraintSet().Count == 0) return "";
@@ -8007,7 +5818,7 @@ ThisTabName4GC);
 
 
 
-        public string Gen_4BL_Ts_GetSimObjFromObj()
+        public string Gen_4WA_Ts_GetSimObjFromObj()
         {
             string strFuncName = "";
             //if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
@@ -8020,6 +5831,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,复制到另一个对象(简单)");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -8048,7 +5860,7 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-        public string Gen_4BL_Ts_GetObjFromJsonObj()
+        public string Gen_4WA_Ts_GetObjFromJsonObj()
         {
             string strFuncName = "";
             //if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
@@ -8061,6 +5873,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把一个JSON的对象,复制到另一个实体对象");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -8092,7 +5905,7 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4BL_Ts_CopyObjFromSimObj()
+        public string Gen_4WA_Ts_CopyObjFromSimObj()
         {
             string strFuncName = "";
             if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
@@ -8106,6 +5919,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,从简化对象复制到对象");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源简化对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -8151,7 +5965,7 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4BL_Ts_CopyObjFromSimObj4Upd()
+        public string Gen_4WA_Ts_CopyObjFromSimObj4Upd()
         {
             string strFuncName = "";
             if (objPrjTabENEx.SqlDsTypeId == enumSQLDSType.SqlView_02)
@@ -8165,6 +5979,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n/**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,从简化对象复制到对象. 专门针对修改记录,即脏字段才复制");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源简化对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENT:目标对象", ThisTabName4GC);
             strCodeForCs.Append("\r\n*/");
@@ -8299,7 +6114,7 @@ ThisTabName4GC);
                         strDataTypeName = "布尔型";
                         break;
                     case "Date":
-                        strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isBoolean(pobj{0}EN.{1}) === false)",
+                        strCodeForCs.AppendFormat("\r\n" + "if (null != {2} && undefined !== {2} && tzDataType.isDate(pobj{0}EN.{1}) === false)",
                          ThisTabName4GC,
                          objField.ObjFieldTabENEx.PropertyName(this.IsFstLcase),
                             strPrivPropNameWithObjectName);
@@ -8574,7 +6389,7 @@ ThisTabName4GC);
         /// 把一个JSON串转化为一个对象.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_getRecObjByJSONStr()
+        public string Gen_4WA_Ts_getRecObjByJSONStr()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -8583,6 +6398,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param strJSON:需要转化的JSON串",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个生成的对象",
@@ -8640,7 +6456,7 @@ ThisTabName4GC);
         /// 把一个JSON串转化为一个对象.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_getJSONStrByRecObj()
+        public string Gen_4WA_Ts_getJSONStrByRecObj()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -8649,6 +6465,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param strJSON:需要转化的JSON串",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个生成的对象",
@@ -8698,7 +6515,7 @@ ThisTabName4GC);
         /// 把一个JSON串转化为一个对象.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_getDictionaryObjByRecObj()
+        public string Gen_4WA_Ts_getDictionaryObjByRecObj()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -8707,6 +6524,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param strJSON:需要转化的JSON串",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个生成的对象",
@@ -8763,7 +6581,7 @@ ThisTabName4GC);
         /// 把一个JSON串转化为一个对象列表.
         /// </summary>
         /// <returns></returns>
-        public string Gen_4BL_Ts_getObjLstByJSONStr()
+        public string Gen_4WA_Ts_getObjLstByJSONStr()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -8772,6 +6590,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param strJSON:需要转化的JSON串",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个生成的对象列表",
@@ -8824,7 +6643,7 @@ ThisTabName4GC);
             return strCodeForCs.ToString();
         }
 
-        public string Gen_4BL_Ts_getObjLstByJSONObjLst()
+        public string Gen_4WA_Ts_getObjLstByJSONObjLst()
         {
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
@@ -8833,6 +6652,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param arr{0}ObjLstS:需要转化的JSON对象列表",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个生成的对象列表",
@@ -8879,170 +6699,6 @@ ThisTabName4GC);
         }
 
 
-        public string Gen_4WA_Ts_funcBak()
-        {
-            string strFuncName = "";
-            string strInFldNameLst = clsPubFun4GC.GenInFldNameLst(objPrjTabENEx);
-            string strInValueLst = clsPubFun4GC.GenInValueLst(objPrjTabENEx);
-            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1} , strOutFldName:string ,  strInValue: {2}) ",
-            this.tabNameHead, strInFldNameLst, "");
-
-            Re_objFunction4Code.FuncCHName4Code = "映射函数。根据表映射把输入字段值,映射成输出字段值.";
-
-            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成[func]函数;(in {clsStackTrace.GetCurrClassFunction()} )";
-
-            string strBy = objKeyField.FldName;
-            if (objPrjTabENEx.arrKeyFldSet.Count > 1) strBy = "KeyLst";
-            StringBuilder strCodeForCs = new StringBuilder();
-            StringBuilder sbCheckEmpty = new StringBuilder();
-            strCodeForCs.AppendFormat("\r\n/**");
-            strCodeForCs.AppendFormat("\r\n * 映射函数。根据表映射把输入字段值,映射成输出字段值");
-            strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
-            strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
-            strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-            string strInValueType = "string";
-            string strFuncName_Temp = string.Format("func");
-
-            if (objKeyField.IsNumberType())
-            {
-                strInValueType = "number";
-            }
-            List<string> arrPrjmaryKeyFldName = new List<string>();
-            arrPrjmaryKeyFldName = objPrjTabENEx.arrKeyFldSet.Select(x => x.FldName).ToList();
-
-            string strFuncAddiPara = clsPubFun4GC.Gen_WApi_Ts_GetFuncAddiPara(objPrjTabENEx);
-            string strFuncAddiParam = clsPubFun4GC.Gen_WApi_Ts_GetFuncAddiParam(objPrjTabENEx);
-
-
-            strCodeForCs.Append("\r\n * @param strInFldName:输入字段名");
-            strCodeForCs.Append("\r\n * @param strOutFldName:输出字段名");
-            strCodeForCs.Append("\r\n * @param strInValue:输入字段值");
-            strCodeForCs.Append(strFuncAddiParam);
-            strCodeForCs.AppendFormat("\r\n * @returns 返回一个输出字段值",
-            ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function {0}func({1} , strOutFldName:string , {2} {3})",
-                 this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
-            strFuncName = $"{this.tabNameHead}func";
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName) == false)
-            {
-                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName + "Classfy",
-                                   thisCacheClassify_TS.TypeScriptType,
-                    thisCacheClassify_TS.DataTypeId,
-                                   this.ClsName, strFuncName_Temp,
-                                   thisCacheClassify_TS.FldLength,
-                                   thisCacheClassify_TS.DataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
-            }
-
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName2) == false)
-            {
-                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName2 + "Classfy",
-                                   thisCacheClassify_TS.TypeScriptType2,
-                    thisCacheClassify_TS.DataTypeId2,
-                                   this.ClsName, strFuncName_Temp,
-                                   thisCacheClassify_TS.FldLength2,
-                                   thisCacheClassify_TS.DataTypeId2 == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
-            }
-            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1}, strOutFldName:string , {2} {3})",
-                     this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
-
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.AppendFormat("\r\n" + "//const strThisFuncName = \"func\";", ThisTabName4GC,
-      objKeyField.FldName);
-            strCodeForCs.AppendLine(sbCheckEmpty.ToString());
-            int intIndex = 0;
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string strIndex = "";
-                if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-                {
-                    strIndex = (intIndex + 1).ToString();
-                }
-                strCodeForCs.AppendFormat("\r\n" + "if (strInFldName{0} != cls{1}EN.con_{2})", strIndex, ThisTabName4GC, objInFor.ObjFieldTab().FldName);
-                strCodeForCs.Append("\r\n" + "{");
-                strCodeForCs.AppendFormat("\r\n" + "const strMsg = Format(\"输入字段名:[{{0}}]不正确!\", strInFldName{0});", strIndex);
-                strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-                strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
-                strCodeForCs.Append("\r\n" + "}");
-                intIndex++;
-            }
-            strCodeForCs.AppendFormat("\r\n" + "if (cls{0}EN._AttributeName.indexOf(strOutFldName) == -1)", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "{");
-            strCodeForCs.Append("\r\n" + "const strMsg = Format(\"输出字段名:[{0}]不正确,不在输出字段范围之内!({1})\",");
-            strCodeForCs.AppendFormat("\r\n" + "strOutFldName, cls{0}EN._AttributeName.join(','));", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "console.error(strMsg);");
-            strCodeForCs.Append("\r\n" + "throw new Error(strMsg);");
-            strCodeForCs.Append("\r\n" + "}");
-            string strCacheClassifyFld = "";
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName) == false)
-            {
-                strCacheClassifyFld += string.Format(", {0}Classfy", thisCacheClassify_TS.PriVarName);
-            }
-            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName2) == false)
-            {
-
-                strCacheClassifyFld += string.Format(", {0}Classfy", thisCacheClassify_TS.PriVarName2);
-            }
-            intIndex = 0;
-            foreach (var objInFor in objPrjTabENEx.arrKeyFldSet)
-            {
-                string strIndex = "";
-                if (objPrjTabENEx.arrKeyFldSet.Count > 1)
-                {
-                    strIndex = (intIndex + 1).ToString();
-                }
-                if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "string")
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-                    strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty({objInFor.ObjFieldTab().PrivFuncName1()}) == true)");
-                    strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "return \"\";");
-                    strCodeForCs.Append("\r\n" + "}");
-                }
-                else if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "number")
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = Number(strInValue{1});", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-
-                    strCodeForCs.AppendFormat("\r\n" + "if ({0} == 0)", objInFor.ObjFieldTab().PrivFuncName1());
-                    strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "return \"\";");
-                    strCodeForCs.Append("\r\n" + "}");
-                }
-                else
-                {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-                    strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(strInValue{0}) == true)", strIndex);
-                    strCodeForCs.Append("\r\n" + "{");
-                    strCodeForCs.Append("\r\n" + "return \"\";");
-                    strCodeForCs.Append("\r\n" + "}");
-                }
-                intIndex++;
-            }
-
-            strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({objPrjTabENEx.KeyPrivFuncFldNameLstStr_TS} {strCacheClassifyFld});");
-
-            //}
-
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0} == null) return \"\";", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "if (obj{0}.GetFldValue(strOutFldName) == null) return \"\";", ThisTabName4GC);
-            strCodeForCs.AppendFormat("\r\n" + "return obj{0}.GetFldValue(strOutFldName).toString();", ThisTabName4GC);
-            strCodeForCs.Append("\r\n" + "}");
-            clsPubFun4GC.AddCodeElement_Method(this.objCodeElement_Class, new CodeElement
-            {
-                Name = strFuncName,
-                CodeContent = strCodeForCs.ToString(),
-                ElementType = CodeElementType.Method,
-                Modifiers = "public async",
-                ReturnType = "void",
-            });
-            if (strFuncName == "")
-            {
-                string strMsg = string.Format("在生成函数:[{0}]时，函数名不能为空。(In {1})", strFuncName, clsStackTrace.GetCurrClassFunction());
-                throw new Exception(strMsg);
-            }
-            return strCodeForCs.ToString();
-        }
-
         public string Gen_4WA_Ts_func()
         {
             string strFuncName = "";
@@ -9064,6 +6720,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             string strInValueType = "string";
             string strFuncName_Temp = string.Format("func");
 
@@ -9084,23 +6741,37 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 返回一个输出字段值",
             ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n*/");
-            strCodeForCs.AppendFormat("\r\n" + "export  async function {0}func({1} , strOutFldName:string , {2} {3})",
-                 this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
+            strCodeForCs.AppendFormat("\r\n" + "export  async function {0}func(strCacheKey = '', {1} , strOutFldName:string , key:{2}Key)",
+                 this.tabNameHead, strInFldNameLst, ThisTabName4GC);
             strFuncName = $"{this.tabNameHead}func";
 
             if (thisCacheClassify_TS.IsHasCacheClassfyFld == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName) == false)
             {
-                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName + "Classfy",
-                                   thisCacheClassify_TS.TypeScriptType,
-                    thisCacheClassify_TS.DataTypeId,
-                                   this.ClsName, strFuncName_Temp,
-                                   thisCacheClassify_TS.FldLength,
-                                   thisCacheClassify_TS.DataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
+                if (_model.IsNumber4Cache1)
+                {
+                    strCodeForCs.Append("\r\n const intCacheKey = Number(strCacheKey);");
+                    sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts("intCacheKey",
+                                       thisCacheClassify_TS.TypeScriptType,
+                        thisCacheClassify_TS.DataTypeId,
+                                       this.ClsName, strFuncName_Temp,
+                                       thisCacheClassify_TS.FldLength,
+                                       thisCacheClassify_TS.DataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
+
+                }
+                else
+                {
+                    sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts("strCacheKey",
+                                       thisCacheClassify_TS.TypeScriptType,
+                        thisCacheClassify_TS.DataTypeId,
+                                       this.ClsName, strFuncName_Temp,
+                                       thisCacheClassify_TS.FldLength,
+                                       thisCacheClassify_TS.DataTypeId == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
+                }
             }
 
             if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true && arrPrjmaryKeyFldName.Contains(thisCacheClassify_TS.FldName2) == false)
             {
-                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts(thisCacheClassify_TS.PriVarName2 + "Classfy",
+                sbCheckEmpty.Append("\r\n" + clsPubFun4GC.Gc_CheckVarEmpty_Ts("strCacheKey",
                                    thisCacheClassify_TS.TypeScriptType2,
                     thisCacheClassify_TS.DataTypeId2,
                                    this.ClsName, strFuncName_Temp,
@@ -9108,7 +6779,7 @@ ThisTabName4GC);
                                    thisCacheClassify_TS.DataTypeId2 == enumDataTypeAbbr.char_04 ? true : false, this, this.strBaseUrl));
             }
 
-            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func({1}, strOutFldName:string , {2} {3})",
+            Re_objFunction4Code.FuncName4Code = string.Format("export  async function {0}_func(strCacheKey, {1}, strOutFldName:string , {2})",
                      this.tabNameHead, strInFldNameLst, strInValueLst, strFuncAddiPara);
 
             strCodeForCs.Append("\r\n" + "{");
@@ -9160,24 +6831,24 @@ ThisTabName4GC);
                 }
                 if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "string")
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-                    strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty({objInFor.ObjFieldTab().PrivFuncName1()}) == true)");
+                    //strCodeForCs.AppendFormat("\r\n" + "const {0} = key.{1};", objInFor.ObjFieldTab().PrivFuncName1(), objInFor.ObjFieldTab().PropertyName(this.isFstLcase));
+                    strCodeForCs.Append("\r\n" + $"if (IsNullOrEmpty(key.{objInFor.ObjFieldTab().PropertyName(this.isFstLcase)}) == true)");
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "return \"\";");
                     strCodeForCs.Append("\r\n" + "}");
                 }
                 else if (objInFor.ObjFieldTab().ObjDataTypeAbbr().TypeScriptType == "number")
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = Number(strInValue{1});", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-                    strCodeForCs.AppendFormat("\r\n" + "if ({0} == 0)", objInFor.ObjFieldTab().PrivFuncName1());
+                    //strCodeForCs.AppendFormat("\r\n" + "const {0} = key.{1};", objInFor.ObjFieldTab().PrivFuncName1(), objInFor.ObjFieldTab().PropertyName(this.isFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "if (key.{0} == 0)", objInFor.ObjFieldTab().PropertyName(this.isFstLcase));
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "return \"\";");
                     strCodeForCs.Append("\r\n" + "}");
                 }
                 else
                 {
-                    strCodeForCs.AppendFormat("\r\n" + "const {0} = strInValue{1};", objInFor.ObjFieldTab().PrivFuncName1(), strIndex);
-                    strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(strInValue{0}) == true)", strIndex);
+                    strCodeForCs.AppendFormat("\r\n" + "const {0} = key.{1};", objInFor.ObjFieldTab().PrivFuncName1(), objInFor.ObjFieldTab().PropertyName(this.isFstLcase));
+                    strCodeForCs.AppendFormat("\r\n" + "if (IsNullOrEmpty(key.{0}) == true)", objInFor.ObjFieldTab().PropertyName(this.isFstLcase));
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "return \"\";");
                     strCodeForCs.Append("\r\n" + "}");
@@ -9197,14 +6868,14 @@ ThisTabName4GC);
             string keyObjectStr = "{ " + string.Join(", ", keyFieldPairs) + " }";
 
             // 如果有 Cache 分类字段，需要在 Key 对象后面添加
-            if (!string.IsNullOrEmpty(strCacheClassifyFld))
-            {
-                strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({keyObjectStr}{strCacheClassifyFld});");
-            }
-            else
-            {
-                strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({keyObjectStr});");
-            }
+            //if (!string.IsNullOrEmpty(strCacheClassifyFld))
+            //{
+                strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}(strCacheKey, key);");
+            //}
+            //else
+            //{
+            //    strCodeForCs.Append("\r\n" + $"const obj{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjByKeyId_Cache)}({keyObjectStr});");
+            //}
 
             strCodeForCs.AppendFormat("\r\n" + "if (obj{0} == null) return \"\";", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n" + "if (obj{0}.GetFldValue(strOutFldName) == null) return \"\";", ThisTabName4GC);
@@ -9249,6 +6920,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             string strKeyValueType = "string";
             string strFuncName_Temp = string.Format("funcKey");
             if (objPrjTabENEx.arrKeyFldSet.Count == 1 && objKeyField.IsNumberType())
@@ -9363,6 +7035,8 @@ ThisTabName4GC);
             {
                 strCacheClassifyFld = string.Format("{0}Classfy, {1}Classfy", thisCacheClassify_TS.PriVarName,
                     thisCacheClassify_TS.PriVarName2);
+                strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {thisCacheClassify_TS.PriVarName}Classfy }}|${{ {thisCacheClassify_TS.PriVarName2}Classfy }}`;");
+
             }
 
             if (strKeyValueType == "string")
@@ -9382,8 +7056,15 @@ ThisTabName4GC);
                 strCodeForCs.Append("\r\n" + "return [];");
                 strCodeForCs.Append("\r\n" + "}");
             }
-
-            strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCacheClassifyFld});");
+            //strCodeForCs.Append("\r\n" + $"const strCacheKey = `${{ {thisCacheClassify.VarDef4Fld} }}|${{ {thisCacheClassify.VarDef4Fld2} }}`;");
+            if (thisCacheClassify_TS.IsHasCacheClassfyFld2 == true)
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjLst_Cache)}(strCacheKey);");
+            }
+            else
+            {
+                strCodeForCs.Append("\r\n" + $"const arr{ThisTabName4GC} = await {thisWA_F(WA_F.GetObjLst_Cache)}({strCacheClassifyFld});");
+            }
             strCodeForCs.AppendFormat("\r\n" + "if (arr{0} == null) return [];", ThisTabName4GC);
             //}
             strCodeForCs.AppendFormat("\r\n" + "let arr{0}Sel = arr{0};", ThisTabName4GC);
@@ -9499,6 +7180,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
 
             strCodeForCs.Append("\r\n * @param a:比较的第1个对象");
             strCodeForCs.Append("\r\n * @param  b:比较的第1个对象");
@@ -9553,6 +7235,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
 
             strCodeForCs.Append("\r\n * @param  a:比较的第1个对象");
             strCodeForCs.Append("\r\n * @param  b:比较的第1个对象");
@@ -9617,6 +7300,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
 
             strCodeForCs.Append("\r\n * @param a:比较的第1个对象");
             strCodeForCs.Append("\r\n * @param  b:比较的第1个对象");
@@ -9792,6 +7476,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
 
             strCodeForCs.Append("\r\n * @param strKey:比较的关键字段名称");
             strCodeForCs.Append("\r\n * @param value:给定值");
@@ -9915,6 +7600,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据分页条件从缓存中获取分页对象列表,只获取一页.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param objPagerPara:分页参数结构", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表");
             strCodeForCs.AppendFormat("\r\n*/");
@@ -9973,7 +7659,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "//如果排序字段名[OrderBy]为空,就调用排序函数");
             strCodeForCs.AppendFormat("\r\n" + "arr{0}Sel = arr{0}Sel.sort(objPagerPara.sortFun);", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
-                        
+
             strCodeForCs.AppendFormat("\r\n" + "return arr{0}Sel;", ThisTabName4GC);
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch (e) {");
@@ -10180,6 +7866,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n /** 添加新记录,保存函数");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n" + " **/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWAEx_F(WA_F.AddNewObjSave)}({ThisObjName4EN}: {ThisClsName4EN} {strCache_ParaVarDefLstStr}): Promise<AddRecordResult>{{");
             strFuncName = $"{thisWAEx_F(WA_F.AddNewObjSave)}";
@@ -10189,7 +7876,7 @@ ThisTabName4GC);
             clsPubFun4GC.AddCodeElement_Import(this.objCodeElement_Imports, objCodeElement_Import);
 
             strCodeForCs.AppendFormat("\r\n" + "const strThisFuncName = 'AddNewObjSave';");
-                        
+
             strCodeForCs.Append("\r\n" + "try");
             strCodeForCs.Append("\r\n" + "{");
 
@@ -10411,7 +8098,9 @@ ThisTabName4GC);
                 }
                 else
                 {
-                    sbCode.AppendFormat("\r\n" + "{0}_ReFreshCache({1}, {2});", this.TabName, thisCacheClassify.VarDef4Fld, thisCacheClassify.VarDef4Fld2);
+                    //sbCode.Append("\r\n" + $"  string strCacheKey = $\"{ thisCacheClassify.VarDef4Fld}|{thisCacheClassify.VarDef4Fld2}\";");
+                    sbCode.Append("\r\n" + $"const strCacheKey = `${{ {thisCacheClassify.VarDef4Fld} }}|${{ {thisCacheClassify.VarDef4Fld2} }}`;");
+                    sbCode.AppendFormat("\r\n" + "{0}_ReFreshCache(strCacheKey);", this.TabName, thisCacheClassify.VarDef4Fld, thisCacheClassify.VarDef4Fld2);
                 }
                 //AddImportClass(this.TabId, this.TabName, string.Format("ReFreshCache", this.TabName), enumImportObjType.WApiClassFunc, this.strBaseUrl);
 
@@ -10454,6 +8143,7 @@ ThisTabName4GC);
 
             strCodeForCs.Append("\r\n /** 修改记录");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n" + " **/");
             strCodeForCs.Append("\r\n" + $"export  async function {thisWAEx_F(WA_F.UpdateObjSave)}({ThisObjName4EN}: {ThisClsName4EN}{strCache_ParaVarDefLstStr}): Promise<boolean>{{");
             strFuncName = $"{thisWAEx_F(WA_F.UpdateObjSave)}";
@@ -10512,10 +8202,10 @@ ThisTabName4GC);
             }
             strCodeForCs.Append("\r\n" + $"const returnBool = await {thisWA_F(WA_F.UpdateRecordAsync)}({ThisObjName4EN});");
 
-            strCodeForCs.Append("\r\n" + "if (returnBool == true)");
-            strCodeForCs.Append("\r\n" + "{");
-            Gene_ReFreshCache(strCodeForCs, objPrjTabENEx.KeyPropNameLstStrWithObjName_TS);
-            strCodeForCs.Append("\r\n" + "}");
+            //strCodeForCs.Append("\r\n" + "if (returnBool == true)");
+            //strCodeForCs.Append("\r\n" + "{");
+            //Gene_ReFreshCache(strCodeForCs, objPrjTabENEx.KeyPropNameLstStrWithObjName_TS);
+            //strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "return returnBool;");
             strCodeForCs.Append("\r\n" + "}");
             strCodeForCs.Append("\r\n" + "catch(e)");
@@ -10575,7 +8265,7 @@ ThisTabName4GC);
                 }
 
                 sbTempFun.Append("\r\n" + $"const strUniquenessCondition = {thisWA_F(WA_F.GetUniCondStr)}({ThisObjName4EN});");
-                
+
                 sbTempFun.Append("\r\n" + $"const bolIsExistCondition = await {thisWA_F(WA_F.IsExistRecordAsync)}(strUniquenessCondition);");
 
                 sbTempFun.Append("\r\n" + "if (bolIsExistCondition == true)");
@@ -10656,7 +8346,7 @@ ThisTabName4GC);
                     }
                 }
                 sbTempFun.Append("\r\n" + $"const strUniquenessCondition = {thisWA_F(WA_F.GetUniCondStr4Update)}({ThisObjName4EN});");
-                
+
                 sbTempFun.Append("\r\n" + $"const bolIsExistCondition = await {thisWA_F(WA_F.IsExistRecordAsync)}(strUniquenessCondition);");
 
                 sbTempFun.Append("\r\n" + "if (bolIsExistCondition == true)");
@@ -10714,7 +8404,7 @@ ThisTabName4GC);
             Re_objFunction4Code.FuncCHName4Code = "根据分页条件从缓存中获取分页对象列表,只获取一页";
 
             if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成[GetObjExLstByPagerCache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
-            
+
             if (objPrjTabENEx.IsAppliedInViewList4CmPrjId == false) return $"//该表没有应用在界面视图的列表区,不需要生成[GetObjExLstByPagerCache]函数;(in {clsStackTrace.GetCurrClassFunction()})";
             string strIsShare = "";
             if (objPrjTabENEx.IsShare) strIsShare = "Share";
@@ -10724,12 +8414,13 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n/**");
             strCodeForCs.AppendFormat("\r\n * 根据分页条件从缓存中获取分页对象列表,只获取一页.");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param objPagerPara:分页参数结构", objKeyField.PrivFuncName);
             strCodeForCs.AppendFormat("\r\n * @returns 对象列表");
             strCodeForCs.AppendFormat("\r\n*/");
 
             var strCache_ParaVarDefLstStr = clsPrjTabBLEx.Cache_ParaVarDefLstStr(objPrjTabENEx, "TypeScript");
-           
+
             if (string.IsNullOrEmpty(strCache_ParaVarDefLstStr) == false)
             {
                 strCache_ParaVarDefLstStr = ", " + strCache_ParaVarDefLstStr;
@@ -10978,7 +8669,7 @@ ThisTabName4GC);
                 }
                 strCacheKey = strCacheKey.Substring(0, strCacheKey.Length - 1);
             }
-            
+
             strCacheKey += "`;";
             return strCacheKey;
         }
@@ -11065,6 +8756,7 @@ ThisTabName4GC);
                         throw new Exception(strMsg);
                     }
                     List<string> arrConstVar = new List<string>();
+                    int index = 0;
                     foreach (var objInFor in arrEdge)
                     {
                         if (objInFor == null) continue;
@@ -11075,11 +8767,34 @@ ThisTabName4GC);
                         var objFieldTab_End = clsFieldTabBL.GetObjByFldIdCache(objDataNode_End.FldId, objInFor.PrjId);
 
                         if (objFieldTab_Start.IsNumberType()) strIsToString = ".toString()";
-
+                        // 放在 case enumFuncMapMode.Table_01: 内，switch (objPrjTab_Edge.CacheModeId) 之前
+                        //if (index == 0)
+                        //{
+                        //    if (arrConstVar.Contains(objDataNode_Start.DataNodeName4GC()) == false)
+                        //    {
+                        //        if (objDataNode_Start.TabId == objPrjTabENEx.TabId)
+                        //        {
+                        //            sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2};",
+                        //                objDataNode_Start.DataNodeName4GC(),
+                        //                ThisTabName4GC,
+                        //                objFieldTab_Start.PropertyName(this.IsFstLcase));
+                        //        }
+                        //        else
+                        //        {
+                        //            string strMsg = string.Format("函数映射路径起始节点变量未准备: {0}。(In {1})",
+                        //                objDataNode_Start.DataNodeName4GC(),
+                        //                clsStackTrace.GetCurrClassFunction());
+                        //            throw new Exception(strMsg);
+                        //        }
+                        //        arrConstVar.Add(objDataNode_Start.DataNodeName4GC());
+                        //    }
+                        //    index++;
+                        //}
                         switch (objInFor.FuncMapModeId)
                         {
                             case enumFuncMapMode.Table_01:
                                 var objPrjTab_Edge = clsPrjTabBL.GetObjByTabIdCache(objInFor.TabId, objInFor.PrjId);
+                                List<clsKeyFieldType> arrKeyFieldType = clsPrjTabBLEx.GetKeyTypeInfoLst(objInFor.TabId);
                                 string strCacheClassifyField = "";
                                 if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyFieldTS) == false)
                                 {
@@ -11093,13 +8808,13 @@ ThisTabName4GC);
                                         sbTempFun.Append("\r\n" + $"if (IsNullOrEmpty(obj{ThisTabName4GC}.{objCacheClassifyField.PropertyName(this.IsFstLcase)}) == true)");
                                     }
                                     sbTempFun.Append("\r\n" + "{");
-                                        sbTempFun.Append("\r\n" + $"const strMsg = `函数映射[{objFieldTab.FldName}]数据出错,{objCacheClassifyField.PropertyName(this.IsFstLcase)}不能为空!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
+                                    sbTempFun.Append("\r\n" + $"const strMsg = `函数映射[{objFieldTab.FldName}]数据出错,{objCacheClassifyField.PropertyName(this.IsFstLcase)}不能为空!(in ${{ {this.constructorName} }}.${{strThisFuncName}})`");
                                     sbTempFun.Append("\r\n" + "console.error(strMsg);");
-                                        sbTempFun.Append("\r\n" + "alert(strMsg);");
-                                        sbTempFun.Append("\r\n" + "return;");
+                                    sbTempFun.Append("\r\n" + "alert(strMsg);");
+                                    sbTempFun.Append("\r\n" + "return;");
                                     sbTempFun.Append("\r\n" + "}");
-                                    
-                                    strCacheClassifyField = string.Format(", obj{0}.{1}", ThisTabName4GC, objCacheClassifyField.PropertyName(this.IsFstLcase));
+
+                                    strCacheClassifyField = string.Format("obj{0}.{1},", ThisTabName4GC, objCacheClassifyField.PropertyName(this.IsFstLcase));
                                 }
                                 if (string.IsNullOrEmpty(objPrjTab_Edge.CacheClassifyField2TS) == false)
                                 {
@@ -11119,7 +8834,7 @@ ThisTabName4GC);
                                     sbTempFun.Append("\r\n" + "return;");
                                     sbTempFun.Append("\r\n" + "}");
 
-                                    strCacheClassifyField += string.Format(", obj{0}.{1}", ThisTabName4GC, objCacheClassifyField2.PropertyName(this.IsFstLcase));
+                                    strCacheClassifyField += string.Format("obj{0}.{1},", ThisTabName4GC, objCacheClassifyField2.PropertyName(this.IsFstLcase));
                                 }
 
                                 if (arrEdge.Count == 1)
@@ -11139,22 +8854,24 @@ ThisTabName4GC);
 
                                 if (arrConstVar.Contains(objDataNode_Start.DataNodeName4GC()) == false)
                                 {
-                                    sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2}{3};", objDataNode_Start.DataNodeName4GC(),
+                                    sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2};", objDataNode_Start.DataNodeName4GC(),
                                              ThisTabName4GC,
                                              objFieldTab_Start.PropertyName(this.IsFstLcase), strIsToString);
                                     arrConstVar.Add(objDataNode_Start.DataNodeName4GC());
                                 }
-                                switch(objPrjTab_Edge.CacheModeId)
+                                switch (objPrjTab_Edge.CacheModeId)
                                 {
                                     case enumCacheMode.localStorage_03:
                                     case enumCacheMode.sessionStorage_04:
-                                        sbTempFun.AppendFormat("\r\n const {0} = await {1}_func(cls{1}EN.con_{2}, cls{1}EN.con_{3}, {4} {5});",
-                                   objDataNode_End.DataNodeName4GC(),
+                                        if (string.IsNullOrEmpty(strCacheClassifyField)) strCacheClassifyField = "'',";
+                                        sbTempFun.AppendFormat("\r\n const {0} = await {1}_func({6}cls{1}EN.con_{2}, cls{1}EN.con_{3}, {{ {4}:{5} }});",
+                                         objDataNode_End.DataNodeName4GC(),
                                    objPrjTab_Edge.TabName,
                                    objFieldTab_Start.FldName,
                                    objFieldTab_End.FldName,
-                                   objDataNode_Start.DataNodeName4GC(),
-                                   strCacheClassifyField);
+                                   arrKeyFieldType[0].KeyFieldCamel,
+                                   objDataNode_Start.DataNodeName4GC(), strCacheClassifyField
+                                   );
                                         ImportClass objImportClass = AddImportClass(objPrjTab_Edge.TabId, objPrjTab_Edge.TabName, string.Format("func", objKeyField.FldName), enumImportObjType.WApiClassFuncInExWApi, this.strBaseUrl);
 
                                         CodeElement objCodeElement_Import = clsPubFun4GC.GetCodeElementByImportClass(objImportClass);
@@ -11170,8 +8887,8 @@ ThisTabName4GC);
                                         //const qxPrjMenusStore = useQxPrjMenusStore();
                                         //const QxPrjMenusMenuName = await qxPrjMenusStore.getMenuName(
                                         //  QxPrjMenusMenuId,
-                                        sbTempFun.Append("\r\n" + $" const {clsString.Fst2LcaseS( objPrjTab_Edge.TabName)}Store = use{objPrjTab_Edge.TabName}Store();");
-                                        sbTempFun.Append("\r\n"+ $" const {objDataNode_End.DataNodeName4GC()} = await {clsString.Fst2LcaseS( objPrjTab_Edge.TabName)}Store.get{objFieldTab_End.FldName}({objDataNode_Start.DataNodeName4GC()});");
+                                        sbTempFun.Append("\r\n" + $" const {clsString.Fst2LcaseS(objPrjTab_Edge.TabName)}Store = use{objPrjTab_Edge.TabName}Store();");
+                                        sbTempFun.Append("\r\n" + $" const {objDataNode_End.DataNodeName4GC()} = await {clsString.Fst2LcaseS(objPrjTab_Edge.TabName)}Store.get{objFieldTab_End.FldName}({objDataNode_Start.DataNodeName4GC()});");
                                         string strIsShare = objPrjTab_Edge.IsShare ? "Share" : "";
                                         ImportClass objImportClass3 = AddImportClass(objPrjTab_Edge.TabId, clsString.FirstLcaseS(objPrjTab_Edge.TabName), $"use{objPrjTab_Edge.TabName}Store", enumImportObjType.StoreModule, $"@/store/modules{strIsShare}");
 
@@ -11180,7 +8897,7 @@ ThisTabName4GC);
 
                                         break;
                                 }
-                              
+
 
                                 arrConstVar.Add(objDataNode_End.DataNodeName4GC());
                                 if (arrTabId4MapFunc.Contains(objPrjTab_Edge.TabId) == false)
@@ -11209,7 +8926,7 @@ ThisTabName4GC);
                                                 //    strIsToString = ".toString()";
                                                 //}
 
-                                                sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2}{3};", objDataNode_End.DataNodeName4GC(),
+                                                sbTempFun.AppendFormat("\r\n const {0} = obj{1}.{2};", objDataNode_End.DataNodeName4GC(),
                                                 ThisTabName4GC,
                                                 objFieldTab_Start.PropertyName(this.IsFstLcase), strIsToString);
                                                 arrConstVar.Add(objDataNode_End.DataNodeName4GC());
@@ -11345,7 +9062,7 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n **/");
                     sbTempFun.AppendFormat("\r\n" + "export  async function " + this.tabNameHead + "FuncMap{0}(obj{1}:cls{1}ENEx )", objFieldTab.FldName, ThisTabName4GC);
                     strFuncName = $"{this.tabNameHead}FuncMap{objFieldTab.FldName}";
-                    sbTempFun.Append("\r\n{");                    
+                    sbTempFun.Append("\r\n{");
                     sbTempFun.AppendFormat("\r\n" + "const strThisFuncName = " + this.tabNameHead + "FuncMap{0}.name;", objFieldTab.FldName);
                     sbTempFun.Append("\r\n" + "try");
                     sbTempFun.Append("\r\n" + "{");
@@ -11439,7 +9156,7 @@ ThisTabName4GC);
                     sbTempFun.Append("\r\n" + "}");
 
                     sbTempFun.Append("\r\n}");
-          
+
 
 
                 }
@@ -11491,7 +9208,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param a:比较的第1个对象");
             strCodeForCs.Append("\r\n * @param  b:比较的第1个对象");
             strCodeForCs.AppendFormat("\r\n * @returns 返回两个对象比较的结果",
@@ -11701,7 +9418,7 @@ ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * 作者:{0}", objPrjTabENEx.UserId);
             strCodeForCs.AppendFormat("\r\n * 日期:{0}", clsDateTime.getDateStr(objPrjTabENEx.CurrDate, 1));
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
-
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.Append("\r\n * @param strFldName:扩展字段名");
             strCodeForCs.Append("\r\n * @param  obj{0}Ex:需要转换的对象");
             strCodeForCs.AppendFormat("\r\n * @returns 针对扩展字段名对转换对象进行函数映射",
@@ -11778,6 +9495,7 @@ ThisTabName4GC);
             strCodeForCs.Append("\r\n /**");
             strCodeForCs.Append("\r\n * 把同一个类的对象,复制到另一个对象");
             strCodeForCs.AppendFormat("\r\n * ({0})", clsStackTrace.GetCurrClassFunction());
+            strCodeForCs.AppendFormat("\r\n * 函数名:{0}", strFuncName4Code);
             strCodeForCs.AppendFormat("\r\n * @param obj{0}ENS:源对象", ThisTabName4GC);
             strCodeForCs.AppendFormat("\r\n * @returns 目标对象=>cls{0}EN:obj{0}ENT", ThisTabName4GC);
             strCodeForCs.Append("\r\n **/");
@@ -11826,6 +9544,378 @@ ThisTabName4GC);
             }
             return strCodeForCs.ToString();
         }
+        public string Gen_4WA_Ts_CheckPropertyNewBak()
+        {
+            StringBuilder strBuilder = new StringBuilder();
+            ///检查类中属性是否正确-------------------------------------------;
+            strBuilder.Append("\r\n /// <summary>");
+            strBuilder.Append("\r\n /// 检查对象字段值是否合法,1)检查是否可空;2)检查字段值长度是否超长,如果出错就抛出错误.");
+            strBuilder.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strBuilder.Append("\r\n /// </summary>");
+            strBuilder.AppendFormat("\r\n public CheckPropertyNew(pobj{0}EN: cls{0}EN)",
+            objPrjTabENEx.TabName);
+            strBuilder.Append("\r\n{");
+            string strFunctionName = string.Format("CheckPropertyNew1", objPrjTabENEx.TabName, objKeyField.FldName);
+            string strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            string strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+                objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+            strBuilder.Append("\r\n//检查字段非空, 即数据表要求非常非空的字段,不能为空!");
+            foreach (clsPrjTabFldENEx objField in objPrjTabENEx.arrFldSet)
+            {
+                if (objField.FldOpTypeId == "0002" || objField.FldOpTypeId == "0004") return "";//只读就不需要检查
+                if (objField.IsTabNullable == false && objField.FieldTypeId != "02")
+                {
+                    strBuilder.Append(inGen_CheckNull4Field_Ts(objField, strErrId, strFunctionName));
+                }
+            }
+
+            //检查属性长度代码;
+            strBuilder.Append(inGen_CheckFieldLength_Ts("CheckPropertyNew"));
+
+            //检查字段的数据类型是否正确
+            strBuilder.Append(inGen_CheckDataType_Ts(strFunctionName));
+
+            //检查外键字段长度;
+
+            strBuilder.Append(inGen_CheckFieldForeighKey_Ts("CheckPropertyNew"));
+
+
+            strBuilder.Append("\r\n//设置说明该对象已经检查过了,后面不需要再检查,即非法!");
+
+            strBuilder.AppendFormat("\r\n pobj{0}EN._IsCheckProperty = true;", objPrjTabENEx.TabName);
+
+            strBuilder.Append("\r\n}");
+
+
+            ///检查类中属性是否正确-------------------------------------------;
+            strBuilder.Append("\r\n /// <summary>");
+            strBuilder.Append("\r\n /// 专业针对修改记录,检查对象字段值是否合法,1)检查字段值长度是否超长,如果出错就抛出错误.");
+            strBuilder.AppendFormat("\r\n /// ({0})", clsStackTrace.GetCurrClassFunction());
+            strBuilder.Append("\r\n /// </summary>");
+            strBuilder.AppendFormat("\r\n public CheckProperty4Update (pobj{0}EN: cls{0}EN)",
+            objPrjTabENEx.TabName);
+            strBuilder.Append("\r\n{");
+            //检查属性长度代码;
+
+            strBuilder.Append(inGen_CheckFieldLength_Ts("CheckProperty4Update"));
+
+            //检查数据类型是否正确
+            strBuilder.Append(inGen_CheckDataType_Ts("CheckProperty4Update"));
+
+            //检查主键是否Null
+            strFunctionName = string.Format("CheckProperty4Update1", objPrjTabENEx.TabName, objKeyField.FldName);
+            strExplanation = "字段[{1}|{0}]不能为空(NULL)!";
+            strErrId = clsErrorIdManageBLEx.GetMaxErrIdWithAddRecAndCheckDuplicate(objPrjTabENEx.CodeTypeId,
+               objPrjTabENEx.PrjId, objPrjTabENEx.ClsName, strFunctionName, strExplanation, "生成代码");
+
+            strBuilder.Append("\r\n//检查主键是否为Null或者空!");
+
+            strBuilder.Append(inGen_CheckNull4Field_Ts(objPrjTabENEx.objKeyField0, strErrId, "CheckProperty4Update"));
+            ///检查外键字段长度;
+
+            strBuilder.Append(inGen_CheckFieldForeighKey_Ts("CheckProperty4Update"));
+
+            strBuilder.AppendFormat("\r\n pobj{0}EN._IsCheckProperty = true;", objPrjTabENEx.TabName);
+
+            strBuilder.Append("\r\n}");
+
+            ///检查类中属性是否正确 ==  ==  == = ;
+            return strBuilder.ToString();
+        }
+        public string Gen_4WA_Ts_InitCacheBase()
+        {
+            //Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}>) ";
+
+            //string strFuncName = $"{thisWA_F(WA_F.GetObjLstByKeyLstsCache)}";
+
+
+            Re_objFunction4Code.FuncCHName4Code = "根据关键字列表获取相关对象列表, 从缓存中获取.";
+
+            if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成与缓存相关的函数;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.ArrCacheClassify4Tab_TS == null)
+            {
+                objPrjTabENEx.ArrCacheClassify4Tab_TS = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(this.TabId, this.PrjId);
+            }
+            var arrCacheClassifyPara = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.PriVarName}: {x.TypeScriptType}").ToList();
+            string strCacheClassifyPara = arrCacheClassifyPara.Count == 0 ? "" : string.Join(",", arrCacheClassifyPara);
+            if (strCacheClassifyPara.Length > 0) strCacheClassifyPara = "," + strCacheClassifyPara;
+
+            var arrPriVarName = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.PriVarName}").ToList();
+            string strPriVarNames = arrPriVarName.Count == 0 ? "" : string.Join(",", arrPriVarName);
+            string strPriVarNames4Snd = "";
+            if (strPriVarNames.Length > 0) strPriVarNames4Snd = "," + strPriVarNames;
+
+            var arrVarDef4Fld_TS = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.VarDef4Fld_TS}").ToList();
+            string strVarDef4Fld_TSs = arrVarDef4Fld_TS.Count == 0 ? "" : string.Join(",", arrVarDef4Fld_TS);
+            string strVarDef4Fld_TSs4Snd = "";
+            if (strVarDef4Fld_TSs.Length > 0) strVarDef4Fld_TSs4Snd = "," + strVarDef4Fld_TSs;
+
+
+            // 🔥 统一生成函数签名
+            //strCodeForCs.AppendFormat("\r\n" + "export async function " + this.tabNameHead + "IsExistCache(key: {0}Key{1}): Promise<boolean> {{", ThisTabName4GC, strCacheClassifyPara);
+
+
+            string strFuncName = $"btnUpdate_Click";
+
+
+            //var templateText = File.ReadAllText("Templates/Vue_ViewScript_TS4Html/Gen_CRUD_setup_btnUpdate_Click.sbn");
+            //var template = Template.Parse(templateText);
+            
+            var template = _templateService.GetTemplate("WA_Access4TypeScript/WA_CacheFunc.sbn");
+
+            string strFuncPara = "";
+            string strPrivFuncName = objKeyField.PrivFuncName;
+            string strTypeScriptType = objKeyField.TypeScriptType;
+            // 🔥 新增：判断是否为多关键字
+            bool isMultiKey = objPrjTabENEx?.arrKeyFldSet?.Count > 1;
+            var model = new
+            {
+                func_full_name = clsStackTrace.GetCurrClassFunction(),
+                table_name = this.TabName,
+                table_name_camel = ToCamelCase(this.TabName),
+                table_name_pascal = ToPascalCase(this.TabName),
+                key_field_camel = ToCamelCase(objKeyField.FldName()),
+                key_field = objKeyField.FldName(),
+                priv_func_name = strPrivFuncName,
+                typescript_type = strTypeScriptType,
+                cache_classify_para = strCacheClassifyPara,
+                pri_var_names = strPriVarNames,
+                pri_var_names4snd = strPriVarNames4Snd,
+                is_multi_key = isMultiKey,
+                constructor_name = this.constructorName,
+            };
+
+            //return template.Render(model);
+            return _renderService.Render(template, model);
+            
+        }
+
+        public string Gen_4WA_Ts_InitFuncBase()
+        {
+            //Re_objFunction4Code.FuncName4Code = $"export  async function {thisWA_F(WA_F.GetObjLstByKeyLstsCache)}(arr{objKeyField.FldName}Lst: Array<{objKeyField.ObjFieldTabENEx.objDataTypeAbbrEN.TypeScriptType}>) ";
+
+            //string strFuncName = $"{thisWA_F(WA_F.GetObjLstByKeyLstsCache)}";
+
+
+            Re_objFunction4Code.FuncCHName4Code = "根据关键字列表获取相关对象列表, 从缓存中获取.";
+
+            //if (objPrjTabENEx.IsUseStorageCache_TS() == false) return $"//该表没有使用Cache,不需要生成与缓存相关的函数;(in {clsStackTrace.GetCurrClassFunction()})";
+            if (objPrjTabENEx.ArrCacheClassify4Tab_TS == null)
+            {
+                objPrjTabENEx.ArrCacheClassify4Tab_TS = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(this.TabId, this.PrjId);
+            }
+            var arrCacheClassifyPara = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.PriVarName}: {x.TypeScriptType}").ToList();
+            string strCacheClassifyPara = arrCacheClassifyPara.Count == 0 ? "" : string.Join(",", arrCacheClassifyPara);
+            if (strCacheClassifyPara.Length > 0) strCacheClassifyPara = "," + strCacheClassifyPara;
+
+            var arrPriVarName = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.PriVarName}").ToList();
+            string strPriVarNames = arrPriVarName.Count == 0 ? "" : string.Join(",", arrPriVarName);
+            string strPriVarNames4Snd = "";
+            if (strPriVarNames.Length > 0) strPriVarNames4Snd = "," + strPriVarNames;
+
+            var arrVarDef4Fld_TS = objPrjTabENEx.ArrCacheClassify4Tab_TS.Select(x => $"{x.VarDef4Fld_TS}").ToList();
+            string strVarDef4Fld_TSs = arrVarDef4Fld_TS.Count == 0 ? "" : string.Join(",", arrVarDef4Fld_TS);
+            string strVarDef4Fld_TSs4Snd = "";
+            if (strVarDef4Fld_TSs.Length > 0) strVarDef4Fld_TSs4Snd = "," + strVarDef4Fld_TSs;
+
+
+            // 🔥 统一生成函数签名
+            //strCodeForCs.AppendFormat("\r\n" + "export async function " + this.tabNameHead + "IsExistCache(key: {0}Key{1}): Promise<boolean> {{", ThisTabName4GC, strCacheClassifyPara);
+
+
+            string strFuncName = $"btnUpdate_Click";
+
+
+            //var templateText = File.ReadAllText("Templates/Vue_ViewScript_TS4Html/Gen_CRUD_setup_btnUpdate_Click.sbn");
+            //var template = Template.Parse(templateText);
+            var template = _templateService.GetTemplate("WA_Access4TypeScript/WA_BaseFunc.sbn");
+
+            string strFuncPara = "";
+            string strPrivFuncName = objKeyField.PrivFuncName;
+            string strTypeScriptType = objKeyField.TypeScriptType;
+            // 🔥 新增：判断是否为多关键字
+            bool isMultiKey = objPrjTabENEx?.arrKeyFldSet?.Count > 1;
+            var model = new
+            {
+                func_full_name = clsStackTrace.GetCurrClassFunction(),
+                table_name = this.TabName,
+                table_name_camel = ToCamelCase(this.TabName),
+                table_name_pascal = ToPascalCase(this.TabName),
+                key_field_camel = ToCamelCase(objKeyField.FldName()),
+                key_field = objKeyField.FldName(),
+                priv_func_name = strPrivFuncName,
+                typescript_type = strTypeScriptType,
+                cache_classify_para = strCacheClassifyPara,
+                pri_var_names = strPriVarNames,
+                pri_var_names4snd = strPriVarNames4Snd,
+                is_multi_key = isMultiKey,
+                constructor_name = this.constructorName,
+            };
+
+            //return template.Render(model);
+            return _renderService.Render(template, model);
+
+        }
+        private string ToPascalCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToUpper(input[0]) + input.Substring(1);
+        }
+
+        private string ToCamelCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return char.ToLower(input[0]) + input.Substring(1);
+        }
+        private PrjTabTemplateModel BuildPrjTabTemplateModel()
+        {
+            
+            // 🔥 判断是否需要刷新缓存（只有 localStorage(03) 和 sessionStorage(04) 需要）
+            bool needRefreshCache = NeedRefreshCache();
+
+            // 🔥 新增：判断是否为多关键字
+            bool isMultiKey = objPrjTabENEx?.arrKeyFldSet?.Count > 1;
+            string strKeyTypeName = "";
+            if (isMultiKey == false)
+            {
+                strKeyTypeName = objPrjTabENEx.arrKeyFieldType[0].KeyType.ToString();
+            }
+            if(objPrjTabENEx.ArrCacheClassify4Tab_TS == null)
+            {
+                objPrjTabENEx.ArrCacheClassify4Tab_TS = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(this.TabId, this.PrjId);
+            }   
+            
+            objPrjTabENEx.ArrCacheClassify4Tab_TS = clsPrjTabBLEx.GetArrCacheClassify4Tab_TSByTabId(this.TabId, this.PrjId);
+            string strPriVarName4Cache1 = "";
+            string strPriVarName4Cache2 = "";
+            bool bolIsNumber4Cache1 = false;
+            bool bolIsNumber4Cache2 = false;
+            if (objPrjTabENEx.ArrCacheClassify4Tab_TS.Count == 2)
+            {
+                strPriVarName4Cache1 = objPrjTabENEx.ArrCacheClassify4Tab_TS[0]?.PriVarName ?? "";
+                strPriVarName4Cache2 = objPrjTabENEx.ArrCacheClassify4Tab_TS[1]?.PriVarName ?? "";
+                bolIsNumber4Cache1 = objPrjTabENEx.ArrCacheClassify4Tab_TS[0]?.IsNumberType ?? false;
+                bolIsNumber4Cache2 = objPrjTabENEx.ArrCacheClassify4Tab_TS[1]?.IsNumberType ?? false;
+            }
+            else if (objPrjTabENEx.ArrCacheClassify4Tab_TS.Count == 1)
+            {
+                strPriVarName4Cache1 = objPrjTabENEx.ArrCacheClassify4Tab_TS[0]?.PriVarName ?? "";
+                bolIsNumber4Cache1 = objPrjTabENEx.ArrCacheClassify4Tab_TS[0]?.IsNumberType ?? false;
+            }
+
+            // 🔥 获取缓存分类字段信息
+            bool hasCacheClassifyField = false;
+            string cacheClassifyFieldName = "";
+            string cacheClassifyFieldCamel = "";
+
+            if (needRefreshCache && objPrjTabENEx.ArrCacheClassify4Tab_TS.Count>0 && objPrjTabENEx.ArrCacheClassify4Tab_TS[0] != null)
+            {
+                if (objPrjTabENEx.ArrCacheClassify4Tab_TS[0].IsHasCacheClassfyFld)
+                {
+                    hasCacheClassifyField = true;
+                    cacheClassifyFieldName = objPrjTabENEx.ArrCacheClassify4Tab_TS[0].FldName;
+                    cacheClassifyFieldCamel = ToCamelCase(objPrjTabENEx.ArrCacheClassify4Tab_TS[0].FldName);
+                }
+            }
+            List<string> condVarLst = new List<string>();
+            List<string> importVarLst = new List<string>();
+            string strCacheCondVars = string.Join(", ", condVarLst);
+            string strCacheImportVars = string.Join(", ", importVarLst);
+            bool hasCacheCondVar = condVarLst.Count > 0 ? true : false;
+            bool hasCacheImportVar = importVarLst.Count > 0 ? true : false;
+            string strCacheCondVars4Fst = strCacheCondVars;
+            if (condVarLst.Count > 0)
+            {
+                strCacheCondVars = ", " + strCacheCondVars;
+            }
+            if (importVarLst.Count > 0)
+            {
+                strCacheImportVars = ", " + strCacheImportVars;
+            }
+
+            var model = new PrjTabTemplateModel
+            {
+                ClsName4WApi = ThisClsName4WApi,
+                ClsName4WApiEx = ThisClsName4WApiEx,
+                ClsName4EN = $"cls{this.TabName}EN",
+                ClsName4ENEx = $"cls{this.TabName}ENEx",
+                TableName = this.TabName,
+                TableNameCamel = ToCamelCase(this.TabName),
+                TableNameUpper = ConvertToSnakeCase(this.TabName).ToUpper(),
+                TableCnName = objPrjTabENEx.TabCnName,
+                ModuleName = objFuncModuleEN.FuncModuleEnName,
+                KeyField = objKeyField.FldName(),
+                ArrKeyFieldType = objPrjTabENEx.arrKeyFieldType,
+                KeyFieldNum = objPrjTabENEx.arrKeyFldSet?.Count ?? 0,
+                KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
+                NameFieldCamel = ToCamelCase(objNameField?.FldName()),
+
+                UseCacheMode = needRefreshCache,
+                HasCacheClassifyField = hasCacheClassifyField,
+                CacheClassifyFieldNum = objPrjTabENEx.ArrCacheClassify4Tab_TS?.Count ?? 0,
+                CacheClassifyFieldName = cacheClassifyFieldName,
+                CacheClassifyFieldCamel = cacheClassifyFieldCamel,
+                PriVarName4Cache1 = strPriVarName4Cache1,
+                PriVarName4Cache2 = strPriVarName4Cache2,
+                IsNumber4Cache1= bolIsNumber4Cache1,
+                IsNumber4Cache2= bolIsNumber4Cache2,
+                IsMultiKey = isMultiKey,  // 🔥 新增：是否为多关键字
+                strIsShare = objPrjTabENEx.IsShare ? "Share" : "",
+
+                //AvailableFields = availableFields,
+                CacheCondVarLst = condVarLst,
+                CacheImportVarLst = importVarLst,
+                CacheImportVars = strCacheImportVars,
+                CacheCondVars = strCacheCondVars,
+                CacheCondVars4Fst = strCacheCondVars4Fst,
+                HasCacheCondVar = hasCacheCondVar,
+                HasCacheImportVar = hasCacheImportVar,
+                KeyTypeName = strKeyTypeName
+            };
+
+            
+            return model;
+        }
+        /// <summary>
+        /// 🔥 判断是否需要刷新缓存
+        /// 只有当缓存模式为 localStorage(03) 或 sessionStorage(04) 时才需要刷新缓存
+        /// </summary>
+        private bool NeedRefreshCache()
+        {
+            try
+            {
+                // 从列表区域获取表信息
+                
+                string cacheModeId = objPrjTabENEx.CacheModeId;
+
+                // 03=localStorage, 04=sessionStorage
+                return cacheModeId == "03" || cacheModeId == "04";
+            }
+            catch
+            {
+                // 如果获取失败，默认不使用缓存
+                return false;
+            }
+        }
+        private string ConvertToSnakeCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+
+            var result = new StringBuilder();
+            result.Append(char.ToUpper(input[0]));
+
+            for (int i = 1; i < input.Length; i++)
+            {
+                if (char.IsUpper(input[i]))
+                {
+                    result.Append('_');
+                }
+                result.Append(char.ToUpper(input[i]));
+            }
+
+            return result.ToString();
+        }
+
     }
 }
 

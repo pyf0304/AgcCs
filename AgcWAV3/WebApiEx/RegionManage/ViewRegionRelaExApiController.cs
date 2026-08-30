@@ -156,5 +156,36 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 根据界面Id获取相关区域Id列表
+        /// 调用方法: Get /ViewRegionRelaExApi/GetRegionIdLstByViewId?strViewId=value
+        /// </summary>
+        /// <param name="strViewId">界面Id</param>
+        /// <returns>区域Id列表</returns>
+        [HttpGet("GetRegionIdLstByViewId")]
+        public ActionResult GetRegionIdLstByViewId(string strViewId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            if (string.IsNullOrEmpty(strViewId) == true)
+            {
+                string strMsg = string.Format("参数[strViewId]不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+
+            try
+            {
+                var varResult = clsViewRegionRelaBLEx.GetRegionIdLstByViewId(strViewId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStrLst = string.Join(",", varResult) });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
     }
 }

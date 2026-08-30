@@ -550,7 +550,7 @@ namespace GeneralPlatform.WebApi
                     return jobjReturn;
                 }
                 string strRoleId = objQxUserRoles.RoleId;
-                var varResult = clsQxUsersBLEx.AddNewUsers(objQxUsers, objUserEx.PrjId, strRoleId, objUserEx.UpdUser);
+                var varResult = clsQxUsersBLEx.AddNewUsers0(objQxUsers, objUserEx.PrjId, strRoleId, objUserEx.UpdUser);
                 jobjReturn["ReturnBool"] = varResult;
                 return jobjReturn;
             }

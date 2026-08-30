@@ -100,6 +100,21 @@ namespace AGC.BusinessLogicEx
                     return false;
             }
         }
+        public static bool IsDateType(this clsFieldTabEN objFieldTab)
+        {
+            var objDataTypeAbbrEN = clsDataTypeAbbrBL.GetObjByDataTypeIdCache(objFieldTab.DataTypeId);
+            switch (objDataTypeAbbrEN.CsType)
+            {
+                case "DateTime":
+                case "datetime":
+                case "date":
+                case "Date":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         //public static bool IsBoolType(this clsFieldTabEN objFieldTab)
         //{
         //    var objDataTypeAbbrEN = clsDataTypeAbbrBL.GetObjByDataTypeIdCache(objFieldTab.DataTypeId);
@@ -2875,7 +2890,7 @@ enumDataTypeAbbr.bit_03}.Contains(objFieldTabEN.DataTypeId)
             catch (Exception objException)
             {
                 string strMsg = string.Format("替换字段时出错.错误:{0}.(in {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
-throw new Exception(strMsg);
+                throw new Exception(strMsg);
             }
             return false;
         }
@@ -2937,7 +2952,7 @@ throw new Exception(strMsg);
                     sbErrorMsg.AppendLine("ConstraintFields 表字段替换失败");
                     bolAllSuccess = false;
                 }
-                               
+
                 // 11. DetailRegionFlds - 详细区域字段
                 if (!clsDetailRegionFldsBLEx.ReplaceField(strPrjId, strSourceFieldId, strTargetFieldId))
                 {
@@ -3024,7 +3039,27 @@ throw new Exception(strMsg);
                 throw new Exception(strMsg);
             }
         }
+        /// <summary>
+        /// 根据字段名和数据类型获取字段ID
+        /// </summary>
+        /// <param name="strPrjId">工程ID</param>
+        /// <param name="strFldName">字段名</param>
+        /// <param name="strDataTypeName">数据类型名称</param>
+        /// <returns>字段ID，如果不存在则返回空字符串</returns>
+        public static string GetFldIdByFldNameAndType(string strPrjId, string strFldName, string strDataTypeName)
+        {
+            string strDataTypeId = clsDataTypeAbbrBL.GetFirstID_S("DataTypeName = '" + strDataTypeName + "'");
+            if (string.IsNullOrEmpty(strDataTypeId))
+            {
+                return string.Empty;
+            }
 
+            string strWhere = string.Format("PrjId = '{0}' AND FldName = '{1}' AND DataTypeId = '{2}'",
+                strPrjId, strFldName, strDataTypeId);
+            List<string> arrFldId = clsFieldTabBL.GetPrimaryKeyID_S(strWhere);
+            if (arrFldId == null || arrFldId.Count == 0) return string.Empty;
+            return arrFldId[0];
+        }
     }
 
     /// <summary>

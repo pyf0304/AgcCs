@@ -521,7 +521,7 @@ namespace AutoGCLib
 
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
   objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", ThisClsName);
@@ -1592,7 +1592,7 @@ namespace AutoGCLib
                 strJSPath = string.Format("../js/{0}", this.objFuncModuleEN.FuncModuleEnName4GC());
 
                 IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_JS =
-                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx);
+                    clsvFunction4GeneCodeBLEx.GetObjLstByViewInfoEx_JS(objViewInfoENEx,this.FunctionTemplateId);
 
                 foreach (clsvFunction4GeneCodeEN objvFunction4GeneCodeEN in arrvFunction4GeneCodeObjLst_JS)
                 {
@@ -1732,6 +1732,18 @@ namespace AutoGCLib
                                 });
 
                                 break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objDetailRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+                                objCodeElement_Setup.Children.Add(new CodeElement
+                                {
+                                    Name = objDetailRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase),
+                                    ElementType = CodeElementType.RefConstant,
+                                    Modifiers = "const",
+                                    CodeContent = $"const {objDetailRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase)} = ref<Date | null>(null);"
+                                });
+
+                                break;
                             case "boolean":
 
                                 if (objDetailRegionFldsEx.CtlTypeId == enumCtlType.CheckBox_02)
@@ -1796,6 +1808,18 @@ namespace AutoGCLib
                                     ElementType = CodeElementType.RefConstant,
                                     Modifiers = "const",
                                     CodeContent = $"const {objDetailRegionFldsEx.PropertyName(this.IsFstLcase)} = ref(0);"
+                                });
+
+                                break;
+                            case "date":
+                            case "Date":
+                                strCodeForCs.AppendFormat("\r\n" + "const {0} = ref<Date | null>(null);", objDetailRegionFldsEx.PropertyName(this.IsFstLcase));//  objDetailRegionFldsEx.ObjFieldTab().PropertyName_TS(this.IsFstLcase));
+                                objCodeElement_Setup.Children.Add(new CodeElement
+                                {
+                                    Name = objDetailRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase),
+                                    ElementType = CodeElementType.RefConstant,
+                                    Modifiers = "const",
+                                    CodeContent = $"const {objDetailRegionFldsEx.DataPropertyName_FstLcase(this.IsFstLcase)} = ref<Date | null>(null);"
                                 });
 
                                 break;

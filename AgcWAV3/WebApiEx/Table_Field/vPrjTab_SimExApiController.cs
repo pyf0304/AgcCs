@@ -79,6 +79,31 @@ public class vPrjTab_SimExApiController : ControllerBase
 
             }
         }
-
+        /// <summary>
+        /// 根据Cm工程Id与条件获取对象列表
+        /// 调用方法: Get /api/vPrjTab_SimExApi/GetObjLstByCmPrjId?strCmPrjId=value&strWhereCond=value
+        /// </summary>
+        /// <param name="strCmPrjId">Cm工程Id</param>
+        /// <param name="strWhereCond">条件串</param>
+        /// <returns>对象列表</returns>
+        [HttpGet("GetObjLstByCmPrjId")]
+        public ActionResult GetObjLstByCmPrjId(string strCmPrjId, string strWhereCond)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strCmPrjId", strCmPrjId);
+            dictParam.Add("strWhereCond", strWhereCond);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsvPrjTab_SimBLEx.GetObjLstByCmPrjId(strCmPrjId, strWhereCond);
+                return Ok(new { errorId = 0, errorMsg = "", returnObjLst = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
     }
 }

@@ -372,7 +372,7 @@ namespace AutoGCLib
             clsPubFun4BLEx.CheckTitleStyleId4ViewInfo(objViewInfoENEx.objViewStyleEN.TitleStyleId);
 
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+  clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(this.FunctionTemplateId,
   objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId);
 
             objViewInfoENEx.WebFormName = string.Format("{0}", ThisClsName);
@@ -1903,6 +1903,7 @@ namespace AutoGCLib
                     strCodeForCs.Append("\r\n" + " **/");
 
                     strCodeForCs.AppendFormat("\r\n" + " export async function GetCondition_{0}Lst_In(): Promise<Array<{1}>> ", objFieldTab.FldName, strReturnString);
+                    strFuncName = $" export async function GetCondition_{objFieldTab.FldName}Lst_In(): Promise<Array<{strReturnString}>> ";
                     strCodeForCs.Append("\r\n" + "{");
                     strCodeForCs.Append("\r\n" + "//使条件串的初值为\"1 = 1\",以便在该串的后面用\"and \"添加其他条件,");
                     strCodeForCs.Append("\r\n" + "//例如 1 = 1 && UserName = '张三'");

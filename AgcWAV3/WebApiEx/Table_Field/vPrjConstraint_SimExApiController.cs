@@ -1,26 +1,25 @@
-﻿
- /*-- -- -- -- -- -- -- -- -- -- --
- 类名:vPrjConstraint_SimExApiController
- 表名:vPrjConstraint_Sim(00050638)
- * 版本:2025.01.04.1(服务器:WIN-SRV103-116)
- 日期:2025/02/06 08:06:59
- 生成者:pyf
- 生成服务器IP:
- 工程名称:AGC(0005)
- CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
- 相关数据库:109.244.40.104,8433AGC_CS12
- PrjDataBaseId:0005
- 模块中文名:字段、表维护(Table_Field)
- 框架-层名:WA_服务扩展层(CS)(WA_SrvEx,0185)
- 编程语言:CSharp
- 注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
-        2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
- == == == == == == == == == == == == 
- **/
+﻿/*-- -- -- -- -- -- -- -- -- -- --
+类名:vPrjConstraint_SimExApiController
+表名:vPrjConstraint_Sim(00050638)
+* 版本:2025.01.04.1(服务器:WIN-SRV103-116)
+日期:2025/02/06 08:06:59
+生成者:pyf
+生成服务器IP:
+工程名称:AGC(0005)
+CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
+相关数据库:109.244.40.104,8433AGC_CS12
+PrjDataBaseId:0005
+模块中文名:字段、表维护(Table_Field)
+框架-层名:WA_服务扩展层(CS)(WA_SrvEx,0185)
+编程语言:CSharp
+注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
+       2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
+== == == == == == == == == == == == 
+**/
 using System;
-using System.Data; 
-using System.Text; 
-using System.Collections; 
+using System.Data;
+using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using com.taishsoft.json;
@@ -31,18 +30,44 @@ using com.taishsoft.common;
 using com.taishsoft.datetime;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Newtonsoft.Json.Linq; using Comm.WebApi;
+using Newtonsoft.Json.Linq;
+using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AGC.WebApi
 {
- /// <summary>
- /// vPrjConstraint_SimExApiController 的摘要说明
- /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
- /// </summary>
-[ApiController]
-[Route("[controller]")]
-public class  vPrjConstraint_SimExApiController : ControllerBase
-{ 
-
-}
+    /// <summary>
+    /// vPrjConstraint_SimExApiController 的摘要说明
+    /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
+    /// </summary>
+    [ApiController]
+    [Route("[controller]")]
+    public class vPrjConstraint_SimExApiController : ControllerBase
+    {
+        /// <summary>
+        /// 根据表Id获取约束对象列表(不使用缓存)
+        /// 调用方法: Get /api/vPrjConstraint_SimExApi/GetObjLstByTabId?strTabId=value
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <returns>约束对象列表</returns>
+        [AllowAnonymous]
+        [HttpGet("GetObjLstByTabId")]
+        public ActionResult GetObjLstByTabId(string strTabId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            try
+            {
+                var varResult = clsvPrjConstraint_SimBLEx.GetObjLstByTabId(strTabId);
+                return Ok(new { errorId = 0, errorMsg = "", returnObjLst = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+    }
 }

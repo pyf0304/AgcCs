@@ -84,8 +84,13 @@ namespace AutoGCLib
 
         private ExAiTemplateModel BuildExAiTemplateModel()
         {
+            var arrViewRegion = clsViewRegionBLEx.GetObjExLstByViewIdCache(this.ViewId, this.PrjId);
+
             // 🔥 判断列表区域是否需要刷新缓存
             bool needRefreshCache = NeedRefreshCache();
+            string strUseCacheModeIdInList = arrViewRegion.Find(x => x.RegionTypeId == enumRegionType.ListRegion_0002).UseCacheModeId;
+            bool isUseCacheInList = strUseCacheModeIdInList == enumUseCacheMode.Inherit_01 ? needRefreshCache :
+                (strUseCacheModeIdInList == enumUseCacheMode.Use_02 ? true : false);
 
             // 🔥 判断是否有字段映射函数（IsUseFunc）
             bool isUseFunc = this.IsUseFunc;
@@ -104,7 +109,10 @@ namespace AutoGCLib
                 ModuleName = objFuncModuleEN.FuncModuleEnName,
                 KeyField = objKeyField.FldName(),
                 KeyFieldCamel = ToCamelCase(objKeyField.FldName()),
-                HasCacheMode = needRefreshCache,
+                UseCacheMode = needRefreshCache,
+                UseCacheModeInList = isUseCacheInList,
+                UseCacheModeIdInList = strUseCacheModeIdInList,
+                SortClassifyLst4View = thisSortClassifyLst4View,
                 IsKeyFieldNumeric = isNumeric,
                 KeyFieldInitValue = initValue,
                 IsUseFunc = isUseFunc,
@@ -142,7 +150,7 @@ namespace AutoGCLib
                         FieldName = objFieldTab.FldName,
                         FieldNameCamel = ToCamelCase(objFieldTab.FldName),
                         PropertyName = objFieldTab.PropertyName(this.IsFstLcase),
-                        IsNumeric = isFieldNumeric,
+                        IsNumber = isFieldNumeric,
                         TypeScriptType = objFieldTab.TypeScriptType(),
                         InitValue = fieldInitValue
                     });

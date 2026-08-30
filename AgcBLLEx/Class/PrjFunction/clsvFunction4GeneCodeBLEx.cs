@@ -338,10 +338,10 @@ namespace AGC.BusinessLogicEx
         /// </summary>
         /// <param name="objViewInfoENEx">界面对象</param>
         /// <returns>生成代码函数对象列表</returns>
-        public static List<clsvFunction4GeneCodeEN> GetObjLstByViewInfoEx(clsViewInfoENEx objViewInfoENEx)
+        public static List<clsvFunction4GeneCodeEN> GetObjLstByViewInfoEx(clsViewInfoENEx objViewInfoENEx,string FunctionTemplateId)
         {
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst =
-                     clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                     clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(FunctionTemplateId,
                      objViewInfoENEx.LangType, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId)
                                    .OrderBy(x => x.OrderNum);
 
@@ -404,10 +404,10 @@ namespace AGC.BusinessLogicEx
         /// </summary>
         /// <param name="objViewInfoENEx">界面对象</param>
         /// <returns>生成代码函数对象列表</returns>
-        public static IEnumerable<clsvFunction4GeneCodeEN> GetObjLstByViewInfoEx_JS(clsViewInfoENEx objViewInfoENEx)
+        public static IEnumerable<clsvFunction4GeneCodeEN> GetObjLstByViewInfoEx_JS(clsViewInfoENEx objViewInfoENEx,string FunctionTemplateId)
         {
             IEnumerable<clsvFunction4GeneCodeEN> arrvFunction4GeneCodeObjLst_JS =
-                clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(objViewInfoENEx.FunctionTemplateId,
+                clsvFunctionTemplateRelaBLEx.getFunction4GeneCodeObjLstByTemplateId(FunctionTemplateId,
                     clsPubConst.LangType.JavaScript, objViewInfoENEx.CodeTypeId, objViewInfoENEx.SqlDsTypeId).OrderBy(x => x.FuncName4Code);
 
             //int intCount1 = arrvFunction4GeneCodeObjLst.Count();

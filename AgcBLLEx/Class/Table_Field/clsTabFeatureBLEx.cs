@@ -656,6 +656,15 @@ namespace AGC.BusinessLogicEx
             return arrFeatureId;
 
         }
+        public static List<string> GetTabFeatureIdLstByTabId(string strTabId)
+        {
+            string strCondition = string.Format("{0}='{1}'", conTabFeature.TabId, strTabId);
+
+            List<string> arrFeatureId = clsTabFeatureBL.GetFldValue(conTabFeature.TabFeatureId, strCondition);
+            return arrFeatureId;
+
+        }
+
         public static string GetFstFeatureIdByTabId(string strTabId, string strPrjId)
         {
             string strCondition = string.Format("{0}='{1}'", conTabFeature.TabId, strTabId);
@@ -1551,8 +1560,41 @@ strValueFieldName);
             }
             return true;
         }
+        /// <summary>
+        /// 根据CmPrjId获取该Cm工程下所有有“下拉框绑定”功能的TabId列表
+        /// </summary>
+        /// <param name="strCmPrjId">CM工程Id</param>
+        /// <returns>TabId列表(去重)</returns>
+        public static List<string> GetTabIdLstWithBindDdlByCmPrjId(string strCmPrjId)
+        {
+            if (string.IsNullOrEmpty(strCmPrjId) == true)
+            {
+                throw new Exception("参数[strCmPrjId]不能为空！");
+            }
 
-    
+            clsCMProjectEN objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(strCmPrjId);
+            if (objCMProject == null)
+            {
+                throw new Exception(string.Format("Cm工程Id:[{0}]不存在！", strCmPrjId));
+            }
+
+            List<string> arrTabId_CmPrj = clsCmProjectPrjTabBLEx.GetTabIdLstCache(strCmPrjId);
+            if (arrTabId_CmPrj == null || arrTabId_CmPrj.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            HashSet<string> setTabId_CmPrj = new HashSet<string>(arrTabId_CmPrj);
+
+            List<string> arrTabId = clsTabFeatureBL.GetObjLstCache(objCMProject.PrjId)
+                .Where(x => x.FeatureId == enumPrjFeature.Tab_BindDdl_0173 && setTabId_CmPrj.Contains(x.TabId))
+                .Select(x => x.TabId)
+                .Distinct()
+                .ToList();
+
+            return arrTabId;
+        }
+
 
         /// <summary>
         /// 替换字段,在整个工程中替换字段

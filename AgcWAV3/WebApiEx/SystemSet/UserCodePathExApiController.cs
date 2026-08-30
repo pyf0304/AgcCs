@@ -235,7 +235,7 @@ namespace AGC.WebApi
             try
             {
                 // 调用业务逻辑层获取代码路径和备份路径
-                var (codePath, codePathBackup) = clsUserCodePathBLEx.GetUserGCCodePathWithBackup(
+                var (rootPath, codePath, CodePath4Share, codePathBackup, CodePathBackup4Share) = clsUserCodePathBLEx.GetUserGCCodePathWithBackup(
                     strUserId,
                     strMachineName,
                     strPrjId,
@@ -247,8 +247,11 @@ namespace AGC.WebApi
                 {
                     errorId = 0,
                     errorMsg = "",
+                    rootPath = rootPath,
                     codePath = codePath,
+                    codePath4Share = CodePath4Share,
                     codePathBackup = codePathBackup,
+                    codePathBackup4Share = CodePathBackup4Share,
                     strUserId = strUserId,
                     strPrjId = strPrjId,
                     strCmPrjId = strCmPrjId,
@@ -289,7 +292,9 @@ namespace AGC.WebApi
                 ["intApplicationTypeId"] = request.IntApplicationTypeId.ToString(),
                 ["strCodeTypeId"] = request.StrCodeTypeId,
                 ["strCodePath"] = request.StrCodePath,
-                ["strCodePathBackup"] = request.StrCodePathBackup
+                ["strCodePath4Share"] = request.StrCodePath4Share,
+                ["strCodePathBackup"] = request.StrCodePathBackup,
+                ["strCodePathBackup4Share"] = request.StrCodePathBackup4Share
             };
             clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
             
@@ -304,7 +309,9 @@ namespace AGC.WebApi
                     request.IntApplicationTypeId,
                     request.StrCodeTypeId,
                     request.StrCodePath,
-                    request.StrCodePathBackup);
+                    request.StrCodePath4Share,
+                    request.StrCodePathBackup,
+                    request.StrCodePathBackup4Share);
 
                 return Ok(new
                 {
@@ -435,5 +442,8 @@ namespace AGC.WebApi
         public string StrCodeTypeId { get; set; }
         public string StrCodePath { get; set; }
         public string StrCodePathBackup { get; set; }
+        public string StrCodePath4Share { get; set; }
+        public string StrCodePathBackup4Share { get; set; }
+
     }
 }

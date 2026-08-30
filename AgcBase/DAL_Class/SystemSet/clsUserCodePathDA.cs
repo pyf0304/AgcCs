@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsUserCodePathDA
  表名:UserCodePath(00050204)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 19:59:48
- 生成者:pyf
+ * 版本:2026.08.28(服务器:WIN-SRV103-116)
+ 日期:2026/08/29 19:03:35
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:系统设置(SystemSet)
- 框架-层名:数据处理层(CS)(DALCode,0002)
+ 框架-层名:数据处理层CS(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -507,8 +507,10 @@ objUserCodePathEN.ProjectFileName = objRow[conUserCodePath.ProjectFileName] == D
 objUserCodePathEN.ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径
 objUserCodePathEN.PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id
 objUserCodePathEN.CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径
-objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
+objUserCodePathEN.CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享
 objUserCodePathEN.CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径
+objUserCodePathEN.CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享
+objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
 objUserCodePathEN.SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径
 objUserCodePathEN.IsTemplate = TransNullToBool(objRow[conUserCodePath.IsTemplate].ToString().Trim()); //是否模板
 objUserCodePathEN.IsExistCodePath = TransNullToBool(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径
@@ -572,8 +574,10 @@ objUserCodePathEN.ProjectFileName = objRow[conUserCodePath.ProjectFileName] == D
 objUserCodePathEN.ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径
 objUserCodePathEN.PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id
 objUserCodePathEN.CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径
-objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
+objUserCodePathEN.CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享
 objUserCodePathEN.CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径
+objUserCodePathEN.CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享
+objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
 objUserCodePathEN.SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径
 objUserCodePathEN.IsTemplate = TransNullToBool(objRow[conUserCodePath.IsTemplate].ToString().Trim()); //是否模板
 objUserCodePathEN.IsExistCodePath = TransNullToBool(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径
@@ -627,8 +631,10 @@ try
  objUserCodePathEN.ProjectPath = objDT.Rows[0][conUserCodePath.ProjectPath].ToString().Trim(); //工程路径(字段类型:varchar,字段长度:500,是否可空:False)
  objUserCodePathEN.PrjFileStateId = objDT.Rows[0][conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id(字段类型:char,字段长度:2,是否可空:False)
  objUserCodePathEN.CodePath = objDT.Rows[0][conUserCodePath.CodePath].ToString().Trim(); //代码路径(字段类型:varchar,字段长度:200,是否可空:False)
- objUserCodePathEN.GcPathId = objDT.Rows[0][conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
+ objUserCodePathEN.CodePath4Share = objDT.Rows[0][conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享(字段类型:varchar,字段长度:200,是否可空:False)
  objUserCodePathEN.CodePathBackup = objDT.Rows[0][conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径(字段类型:varchar,字段长度:200,是否可空:False)
+ objUserCodePathEN.CodePathBackup4Share = objDT.Rows[0][conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享(字段类型:varchar,字段长度:200,是否可空:False)
+ objUserCodePathEN.GcPathId = objDT.Rows[0][conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
  objUserCodePathEN.SuffixPath = objDT.Rows[0][conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径(字段类型:varchar,字段长度:50,是否可空:True)
  objUserCodePathEN.IsTemplate = TransNullToBool(objDT.Rows[0][conUserCodePath.IsTemplate].ToString().Trim()); //是否模板(字段类型:bit,字段长度:1,是否可空:False)
  objUserCodePathEN.IsExistCodePath = TransNullToBool(objDT.Rows[0][conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径(字段类型:bit,字段长度:1,是否可空:True)
@@ -677,8 +683,10 @@ try
  objUserCodePathEN.ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径(字段类型:varchar,字段长度:500,是否可空:False)
  objUserCodePathEN.PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id(字段类型:char,字段长度:2,是否可空:False)
  objUserCodePathEN.CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径(字段类型:varchar,字段长度:200,是否可空:False)
- objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
+ objUserCodePathEN.CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享(字段类型:varchar,字段长度:200,是否可空:False)
  objUserCodePathEN.CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径(字段类型:varchar,字段长度:200,是否可空:False)
+ objUserCodePathEN.CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享(字段类型:varchar,字段长度:200,是否可空:False)
+ objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
  objUserCodePathEN.SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径(字段类型:varchar,字段长度:50,是否可空:True)
  objUserCodePathEN.IsTemplate = clsEntityBase2.TransNullToBool_S(objRow[conUserCodePath.IsTemplate].ToString().Trim()); //是否模板(字段类型:bit,字段长度:1,是否可空:False)
  objUserCodePathEN.IsExistCodePath = clsEntityBase2.TransNullToBool_S(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径(字段类型:bit,字段长度:1,是否可空:True)
@@ -737,8 +745,10 @@ ProjectFileName = objRow[conUserCodePath.ProjectFileName] == DBNull.Value ? null
 ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(), //工程路径
 PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(), //工程文件状态Id
 CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(), //代码路径
-GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(), //GC路径Id
+CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(), //代码路径4共享
 CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(), //备份代码路径
+CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(), //备份代码路径4共享
+GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(), //GC路径Id
 SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(), //后缀路径
 IsTemplate = TransNullToBool(objRow[conUserCodePath.IsTemplate].ToString().Trim()), //是否模板
 IsExistCodePath = TransNullToBool(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()), //是否存在代码路径
@@ -781,8 +791,10 @@ objUserCodePathEN.ProjectFileName = objRow[conUserCodePath.ProjectFileName] == D
 objUserCodePathEN.ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径
 objUserCodePathEN.PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id
 objUserCodePathEN.CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径
-objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
+objUserCodePathEN.CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享
 objUserCodePathEN.CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径
+objUserCodePathEN.CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享
+objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
 objUserCodePathEN.SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径
 objUserCodePathEN.IsTemplate = TransNullToBool(objRow[conUserCodePath.IsTemplate].ToString().Trim()); //是否模板
 objUserCodePathEN.IsExistCodePath = TransNullToBool(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径
@@ -823,8 +835,10 @@ objUserCodePathEN.ProjectFileName = objRow[conUserCodePath.ProjectFileName] == D
 objUserCodePathEN.ProjectPath = objRow[conUserCodePath.ProjectPath] == DBNull.Value ? null : objRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径
 objUserCodePathEN.PrjFileStateId = objRow[conUserCodePath.PrjFileStateId] == DBNull.Value ? null : objRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id
 objUserCodePathEN.CodePath = objRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径
-objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
+objUserCodePathEN.CodePath4Share = objRow[conUserCodePath.CodePath4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享
 objUserCodePathEN.CodePathBackup = objRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径
+objUserCodePathEN.CodePathBackup4Share = objRow[conUserCodePath.CodePathBackup4Share] == DBNull.Value ? null : objRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享
+objUserCodePathEN.GcPathId = objRow[conUserCodePath.GcPathId] == DBNull.Value ? null : objRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
 objUserCodePathEN.SuffixPath = objRow[conUserCodePath.SuffixPath] == DBNull.Value ? null : objRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径
 objUserCodePathEN.IsTemplate = TransNullToBool(objRow[conUserCodePath.IsTemplate].ToString().Trim()); //是否模板
 objUserCodePathEN.IsExistCodePath = TransNullToBool(objRow[conUserCodePath.IsExistCodePath].ToString().Trim()); //是否存在代码路径
@@ -1085,11 +1099,19 @@ objRow[conUserCodePath.ProjectPath] = objUserCodePathEN.ProjectPath; //工程路
 objRow[conUserCodePath.PrjFileStateId] = objUserCodePathEN.PrjFileStateId; //工程文件状态Id
  }
 objRow[conUserCodePath.CodePath] = objUserCodePathEN.CodePath; //代码路径
+ if (objUserCodePathEN.CodePath4Share !=  "")
+ {
+objRow[conUserCodePath.CodePath4Share] = objUserCodePathEN.CodePath4Share; //代码路径4共享
+ }
+objRow[conUserCodePath.CodePathBackup] = objUserCodePathEN.CodePathBackup; //备份代码路径
+ if (objUserCodePathEN.CodePathBackup4Share !=  "")
+ {
+objRow[conUserCodePath.CodePathBackup4Share] = objUserCodePathEN.CodePathBackup4Share; //备份代码路径4共享
+ }
  if (objUserCodePathEN.GcPathId !=  "")
  {
 objRow[conUserCodePath.GcPathId] = objUserCodePathEN.GcPathId; //GC路径Id
  }
-objRow[conUserCodePath.CodePathBackup] = objUserCodePathEN.CodePathBackup; //备份代码路径
  if (objUserCodePathEN.SuffixPath !=  "")
  {
 objRow[conUserCodePath.SuffixPath] = objUserCodePathEN.SuffixPath; //后缀路径
@@ -1197,6 +1219,27 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strCodePath + "'");
  }
  
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePath4Share);
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePath4Share + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup4Share);
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup4Share + "'");
+ }
+ 
  if (objUserCodePathEN.GcPathId  ==  "")
  {
  objUserCodePathEN.GcPathId = null;
@@ -1206,13 +1249,6 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conUserCodePath.GcPathId);
  var strGcPathId = objUserCodePathEN.GcPathId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strGcPathId + "'");
- }
- 
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- arrValueListForInsert.Add("'" + strCodePathBackup + "'");
  }
  
  if (objUserCodePathEN.SuffixPath !=  null)
@@ -1343,6 +1379,27 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strCodePath + "'");
  }
  
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePath4Share);
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePath4Share + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup4Share);
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup4Share + "'");
+ }
+ 
  if (objUserCodePathEN.GcPathId  ==  "")
  {
  objUserCodePathEN.GcPathId = null;
@@ -1352,13 +1409,6 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conUserCodePath.GcPathId);
  var strGcPathId = objUserCodePathEN.GcPathId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strGcPathId + "'");
- }
- 
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- arrValueListForInsert.Add("'" + strCodePathBackup + "'");
  }
  
  if (objUserCodePathEN.SuffixPath !=  null)
@@ -1492,6 +1542,27 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strCodePath + "'");
  }
  
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePath4Share);
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePath4Share + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup4Share);
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup4Share + "'");
+ }
+ 
  if (objUserCodePathEN.GcPathId  ==  "")
  {
  objUserCodePathEN.GcPathId = null;
@@ -1501,13 +1572,6 @@ StringBuilder strSQL = new StringBuilder();
  arrFieldListForInsert.Add(conUserCodePath.GcPathId);
  var strGcPathId = objUserCodePathEN.GcPathId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strGcPathId + "'");
- }
- 
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- arrValueListForInsert.Add("'" + strCodePathBackup + "'");
  }
  
  if (objUserCodePathEN.SuffixPath !=  null)
@@ -1641,6 +1705,27 @@ public bool AddNewRecordBySQL2(clsUserCodePathEN objUserCodePathEN, SqlConnectio
  arrValueListForInsert.Add("'" + strCodePath + "'");
  }
  
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePath4Share);
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePath4Share + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup + "'");
+ }
+ 
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ arrFieldListForInsert.Add(conUserCodePath.CodePathBackup4Share);
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodePathBackup4Share + "'");
+ }
+ 
  if (objUserCodePathEN.GcPathId  ==  "")
  {
  objUserCodePathEN.GcPathId = null;
@@ -1650,13 +1735,6 @@ public bool AddNewRecordBySQL2(clsUserCodePathEN objUserCodePathEN, SqlConnectio
  arrFieldListForInsert.Add(conUserCodePath.GcPathId);
  var strGcPathId = objUserCodePathEN.GcPathId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strGcPathId + "'");
- }
- 
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- arrFieldListForInsert.Add(conUserCodePath.CodePathBackup);
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- arrValueListForInsert.Add("'" + strCodePathBackup + "'");
  }
  
  if (objUserCodePathEN.SuffixPath !=  null)
@@ -1759,8 +1837,10 @@ objRow[conUserCodePath.ProjectFileName] = oRow[conUserCodePath.ProjectFileName].
 objRow[conUserCodePath.ProjectPath] = oRow[conUserCodePath.ProjectPath].ToString().Trim(); //工程路径
 objRow[conUserCodePath.PrjFileStateId] = oRow[conUserCodePath.PrjFileStateId].ToString().Trim(); //工程文件状态Id
 objRow[conUserCodePath.CodePath] = oRow[conUserCodePath.CodePath].ToString().Trim(); //代码路径
-objRow[conUserCodePath.GcPathId] = oRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
+objRow[conUserCodePath.CodePath4Share] = oRow[conUserCodePath.CodePath4Share].ToString().Trim(); //代码路径4共享
 objRow[conUserCodePath.CodePathBackup] = oRow[conUserCodePath.CodePathBackup].ToString().Trim(); //备份代码路径
+objRow[conUserCodePath.CodePathBackup4Share] = oRow[conUserCodePath.CodePathBackup4Share].ToString().Trim(); //备份代码路径4共享
+objRow[conUserCodePath.GcPathId] = oRow[conUserCodePath.GcPathId].ToString().Trim(); //GC路径Id
 objRow[conUserCodePath.SuffixPath] = oRow[conUserCodePath.SuffixPath].ToString().Trim(); //后缀路径
 objRow[conUserCodePath.IsTemplate] = oRow[conUserCodePath.IsTemplate].ToString().Trim(); //是否模板
 objRow[conUserCodePath.IsExistCodePath] = oRow[conUserCodePath.IsExistCodePath].ToString().Trim(); //是否存在代码路径
@@ -1854,13 +1934,21 @@ objRow[conUserCodePath.PrjFileStateId] = objUserCodePathEN.PrjFileStateId; //工
  {
 objRow[conUserCodePath.CodePath] = objUserCodePathEN.CodePath; //代码路径
  }
- if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePath4Share))
  {
-objRow[conUserCodePath.GcPathId] = objUserCodePathEN.GcPathId; //GC路径Id
+objRow[conUserCodePath.CodePath4Share] = objUserCodePathEN.CodePath4Share; //代码路径4共享
  }
  if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
  {
 objRow[conUserCodePath.CodePathBackup] = objUserCodePathEN.CodePathBackup; //备份代码路径
+ }
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup4Share))
+ {
+objRow[conUserCodePath.CodePathBackup4Share] = objUserCodePathEN.CodePathBackup4Share; //备份代码路径4共享
+ }
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
+ {
+objRow[conUserCodePath.GcPathId] = objUserCodePathEN.GcPathId; //GC路径Id
  }
  if (objUserCodePathEN.IsUpdated(conUserCodePath.SuffixPath))
  {
@@ -2020,6 +2108,45 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  }
  }
  
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePath4Share))
+ {
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePath4Share, conUserCodePath.CodePath4Share); //代码路径4共享
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePath4Share); //代码路径4共享
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
+ {
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup, conUserCodePath.CodePathBackup); //备份代码路径
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup); //备份代码路径
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup4Share))
+ {
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup4Share, conUserCodePath.CodePathBackup4Share); //备份代码路径4共享
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup4Share); //备份代码路径4共享
+ }
+ }
+ 
  if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
  {
  if (objUserCodePathEN.GcPathId  ==  "")
@@ -2034,19 +2161,6 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conUserCodePath.GcPathId); //GC路径Id
- }
- }
- 
- if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
- {
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup, conUserCodePath.CodePathBackup); //备份代码路径
- }
- else
- {
- sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup); //备份代码路径
  }
  }
  
@@ -2256,6 +2370,45 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  }
  }
  
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePath4Share))
+ {
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePath4Share = '{0}',", strCodePath4Share); //代码路径4共享
+ }
+ else
+ {
+ sbSQL.Append(" CodePath4Share = null,"); //代码路径4共享
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
+ {
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePathBackup = '{0}',", strCodePathBackup); //备份代码路径
+ }
+ else
+ {
+ sbSQL.Append(" CodePathBackup = null,"); //备份代码路径
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup4Share))
+ {
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePathBackup4Share = '{0}',", strCodePathBackup4Share); //备份代码路径4共享
+ }
+ else
+ {
+ sbSQL.Append(" CodePathBackup4Share = null,"); //备份代码路径4共享
+ }
+ }
+ 
  if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
  {
  if (objUserCodePathEN.GcPathId  ==  "")
@@ -2270,19 +2423,6 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  else
  {
  sbSQL.Append(" GcPathId = null,"); //GC路径Id
- }
- }
- 
- if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
- {
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" CodePathBackup = '{0}',", strCodePathBackup); //备份代码路径
- }
- else
- {
- sbSQL.Append(" CodePathBackup = null,"); //备份代码路径
  }
  }
  
@@ -2494,6 +2634,45 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  }
  }
  
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePath4Share))
+ {
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePath4Share = '{0}',", strCodePath4Share); //代码路径4共享
+ }
+ else
+ {
+ sbSQL.Append(" CodePath4Share = null,"); //代码路径4共享
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
+ {
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePathBackup = '{0}',", strCodePathBackup); //备份代码路径
+ }
+ else
+ {
+ sbSQL.Append(" CodePathBackup = null,"); //备份代码路径
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup4Share))
+ {
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodePathBackup4Share = '{0}',", strCodePathBackup4Share); //备份代码路径4共享
+ }
+ else
+ {
+ sbSQL.Append(" CodePathBackup4Share = null,"); //备份代码路径4共享
+ }
+ }
+ 
  if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
  {
  if (objUserCodePathEN.GcPathId  ==  "")
@@ -2508,19 +2687,6 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  else
  {
  sbSQL.Append(" GcPathId = null,"); //GC路径Id
- }
- }
- 
- if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
- {
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat(" CodePathBackup = '{0}',", strCodePathBackup); //备份代码路径
- }
- else
- {
- sbSQL.Append(" CodePathBackup = null,"); //备份代码路径
  }
  }
  
@@ -2733,6 +2899,45 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  }
  }
  
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePath4Share))
+ {
+ if (objUserCodePathEN.CodePath4Share !=  null)
+ {
+ var strCodePath4Share = objUserCodePathEN.CodePath4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePath4Share, conUserCodePath.CodePath4Share); //代码路径4共享
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePath4Share); //代码路径4共享
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
+ {
+ if (objUserCodePathEN.CodePathBackup !=  null)
+ {
+ var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup, conUserCodePath.CodePathBackup); //备份代码路径
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup); //备份代码路径
+ }
+ }
+ 
+ if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup4Share))
+ {
+ if (objUserCodePathEN.CodePathBackup4Share !=  null)
+ {
+ var strCodePathBackup4Share = objUserCodePathEN.CodePathBackup4Share.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup4Share, conUserCodePath.CodePathBackup4Share); //备份代码路径4共享
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup4Share); //备份代码路径4共享
+ }
+ }
+ 
  if (objUserCodePathEN.IsUpdated(conUserCodePath.GcPathId))
  {
  if (objUserCodePathEN.GcPathId  ==  "")
@@ -2747,19 +2952,6 @@ sbSQL.AppendFormat("Update UserCodePath Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conUserCodePath.GcPathId); //GC路径Id
- }
- }
- 
- if (objUserCodePathEN.IsUpdated(conUserCodePath.CodePathBackup))
- {
- if (objUserCodePathEN.CodePathBackup !=  null)
- {
- var strCodePathBackup = objUserCodePathEN.CodePathBackup.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
- sbSQL.AppendFormat("{1} = '{0}',", strCodePathBackup, conUserCodePath.CodePathBackup); //备份代码路径
- }
- else
- {
- sbSQL.AppendFormat("{0} = null,",conUserCodePath.CodePathBackup); //备份代码路径
  }
  }
  
@@ -3044,8 +3236,10 @@ objUserCodePathENT.ProjectFileName = objUserCodePathENS.ProjectFileName; //工�
 objUserCodePathENT.ProjectPath = objUserCodePathENS.ProjectPath; //工程路径
 objUserCodePathENT.PrjFileStateId = objUserCodePathENS.PrjFileStateId; //工程文件状态Id
 objUserCodePathENT.CodePath = objUserCodePathENS.CodePath; //代码路径
-objUserCodePathENT.GcPathId = objUserCodePathENS.GcPathId; //GC路径Id
+objUserCodePathENT.CodePath4Share = objUserCodePathENS.CodePath4Share; //代码路径4共享
 objUserCodePathENT.CodePathBackup = objUserCodePathENS.CodePathBackup; //备份代码路径
+objUserCodePathENT.CodePathBackup4Share = objUserCodePathENS.CodePathBackup4Share; //备份代码路径4共享
+objUserCodePathENT.GcPathId = objUserCodePathENS.GcPathId; //GC路径Id
 objUserCodePathENT.SuffixPath = objUserCodePathENS.SuffixPath; //后缀路径
 objUserCodePathENT.IsTemplate = objUserCodePathENS.IsTemplate; //是否模板
 objUserCodePathENT.IsExistCodePath = objUserCodePathENS.IsExistCodePath; //是否存在代码路径
@@ -3080,8 +3274,10 @@ clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectFileName, 200, conUserCodePat
 clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectPath, 500, conUserCodePath.ProjectPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjFileStateId, 2, conUserCodePath.PrjFileStateId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath, 200, conUserCodePath.CodePath);
-clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath4Share, 200, conUserCodePath.CodePath4Share);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup, 200, conUserCodePath.CodePathBackup);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup4Share, 200, conUserCodePath.CodePathBackup4Share);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.SuffixPath, 50, conUserCodePath.SuffixPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjId, 4, conUserCodePath.PrjId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.UpdDate, 20, conUserCodePath.UpdDate);
@@ -3104,8 +3300,10 @@ clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectFileName, 200, conUserCodePat
 clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectPath, 500, conUserCodePath.ProjectPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjFileStateId, 2, conUserCodePath.PrjFileStateId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath, 200, conUserCodePath.CodePath);
-clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath4Share, 200, conUserCodePath.CodePath4Share);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup, 200, conUserCodePath.CodePathBackup);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup4Share, 200, conUserCodePath.CodePathBackup4Share);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.SuffixPath, 50, conUserCodePath.SuffixPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjId, 4, conUserCodePath.PrjId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.UpdDate, 20, conUserCodePath.UpdDate);
@@ -3129,8 +3327,10 @@ clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectFileName, 200, conUserCodePat
 clsCheckSql.CheckFieldLen(objUserCodePathEN.ProjectPath, 500, conUserCodePath.ProjectPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjFileStateId, 2, conUserCodePath.PrjFileStateId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath, 200, conUserCodePath.CodePath);
-clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePath4Share, 200, conUserCodePath.CodePath4Share);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup, 200, conUserCodePath.CodePathBackup);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.CodePathBackup4Share, 200, conUserCodePath.CodePathBackup4Share);
+clsCheckSql.CheckFieldLen(objUserCodePathEN.GcPathId, 8, conUserCodePath.GcPathId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.SuffixPath, 50, conUserCodePath.SuffixPath);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.PrjId, 4, conUserCodePath.PrjId);
 clsCheckSql.CheckFieldLen(objUserCodePathEN.UpdDate, 20, conUserCodePath.UpdDate);
@@ -3143,8 +3343,10 @@ clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.ProjectFileName, conUserCo
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.ProjectPath, conUserCodePath.ProjectPath);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.PrjFileStateId, conUserCodePath.PrjFileStateId);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.CodePath, conUserCodePath.CodePath);
-clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.GcPathId, conUserCodePath.GcPathId);
+clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.CodePath4Share, conUserCodePath.CodePath4Share);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.CodePathBackup, conUserCodePath.CodePathBackup);
+clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.CodePathBackup4Share, conUserCodePath.CodePathBackup4Share);
+clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.GcPathId, conUserCodePath.GcPathId);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.SuffixPath, conUserCodePath.SuffixPath);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.PrjId, conUserCodePath.PrjId);
 clsCheckSql.CheckSqlInjection4Field(objUserCodePathEN.UpdDate, conUserCodePath.UpdDate);

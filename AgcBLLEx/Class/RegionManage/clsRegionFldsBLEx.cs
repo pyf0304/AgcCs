@@ -34,6 +34,18 @@ namespace AGC.BusinessLogicEx
             }
         }
 
+        public static bool IsDate(this IRegionFlds objExcelExportRegionFlds)
+        {
+            switch (objExcelExportRegionFlds.ObjFieldTab().ObjDataTypeAbbr().CsType)
+            {
+                case "datetime":
+                case "DateTime":
+                case "Date":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public static string PrimaryTypeId(this IRegionFlds objDetailRegionFldsEx)
         {
             string strPrjId_p = objDetailRegionFldsEx.PrjId;

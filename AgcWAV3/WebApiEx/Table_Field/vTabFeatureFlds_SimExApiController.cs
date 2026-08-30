@@ -1,5 +1,4 @@
-﻿
- /*-- -- -- -- -- -- -- -- -- -- --
+﻿ /*-- -- -- -- -- -- -- -- -- -- --
  类名:vTabFeatureFlds_SimExApiController
  表名:vTabFeatureFlds_Sim(00050611)
  生成代码版本:2022.05.07.1
@@ -60,6 +59,32 @@ public class vTabFeatureFlds_SimExApiController : ControllerBase
             try
             {
                 List<clsvTabFeatureFlds_SimEN> arrvTabFeatureFlds_SimObjLst = clsvTabFeatureFlds_SimBLEx.GetObjLstByCmPrjId(strCmPrjId, strCondition);
+                return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrvTabFeatureFlds_SimObjLst });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+        [HttpGet("GetObjLstByTabFeatureId")]
+        public ActionResult GetObjLstByTabFeatureId(string strTabFeatureId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new()
+            {
+                ["strTabFeatureId"] = strTabFeatureId
+            };
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            if (string.IsNullOrEmpty(strTabFeatureId) == true)
+            {
+                string strMsg = string.Format("根据表功能Id获取对象列表时, strTabFeatureId不能为空!({0})", clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+            try
+            {
+                List<clsvTabFeatureFlds_SimEN> arrvTabFeatureFlds_SimObjLst = clsvTabFeatureFlds_SimBLEx.GetObjLstByTabFeatureId(strTabFeatureId);
                 return Ok(new { errorId = 0, errorMsg = "", returnObjLst = arrvTabFeatureFlds_SimObjLst });
             }
             catch (Exception objException)
