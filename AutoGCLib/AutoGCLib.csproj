@@ -78,7 +78,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scriban" Version="7.0.6" />
+    <PackageReference Include="Scriban" Version="7.2.6" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\TypeScript\Ai3Query.sbn">

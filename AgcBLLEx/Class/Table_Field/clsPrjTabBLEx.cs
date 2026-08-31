@@ -5261,7 +5261,40 @@ namespace AGC.BusinessLogicEx
             clsFuncModule_AgcBL.ReFreshThisCache(strPrjId);
             return objNewFuncModule.FuncModuleAgcId;
         }
+        public static bool SetTabFuncModule(string strPrjId, string strTabName, string strFuncModuleName, string strOpUser)
+        {
+            if (string.IsNullOrEmpty(strPrjId) == true) throw new Exception("参数strPrjId不能为空!");
+            if (string.IsNullOrEmpty(strTabName) == true) throw new Exception("参数strTabName不能为空!");
+            if (string.IsNullOrEmpty(strFuncModuleName) == true) throw new Exception("参数strFuncModuleName不能为空!");
+            if (string.IsNullOrEmpty(strOpUser) == true) throw new Exception("参数strOpUser不能为空!");
 
+            clsPrjTabEN objPrjTab = GetObjByTabNameAndPrjId(strTabName, strPrjId);
+            if (objPrjTab == null)
+            {
+                string strMsg = string.Format("工程[{0}]下表名[{1}]不存在!({2})",
+                    strPrjId, strTabName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+
+            List<clsFuncModule_AgcEN> arrFuncModuleObjLst = clsFuncModule_AgcBL.GetObjLstCache(strPrjId);
+            clsFuncModule_AgcEN objFuncModule = arrFuncModuleObjLst
+                .FirstOrDefault(x => x.FuncModuleName.Equals(strFuncModuleName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (objFuncModule == null)
+            {
+                string strMsg = string.Format("工程[{0}]下模块名[{1}]不存在!({2})",
+                    strPrjId, strFuncModuleName, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+
+            objPrjTab.SetFuncModuleAgcId(objFuncModule.FuncModuleAgcId)
+                .SetUpdDate(clsDateTime_Db.GetDataBaseDateTime14())
+                .SetUpdUserId(strOpUser);
+
+            if (string.IsNullOrEmpty(objPrjTab.RelaTabId4View) == true) objPrjTab.RelaTabId4View = null;
+
+            return clsPrjTabBL.UpdateBySql2(objPrjTab);
+        }
     }
 }
 

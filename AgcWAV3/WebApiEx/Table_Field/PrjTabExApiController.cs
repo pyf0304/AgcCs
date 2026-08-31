@@ -874,6 +874,56 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+
+        /// <summary>
+        /// 设置表的模块
+        /// 规则：PrjId + TabName -> TabId；PrjId + FuncModuleName -> FuncModuleAgcId
+        /// 调用方法: Get /PrjTabExApi/SetTabFuncModule?strPrjId=value&strTabName=value&strFuncModuleName=value&strOpUser=value
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strTabName">表名</param>
+        /// <param name="strFuncModuleName">模块名</param>
+        /// <param name="strOpUser">操作用户</param>
+        /// <returns>返回是否成功</returns>
+        [HttpGet("SetTabFuncModule")]
+        public ActionResult SetTabFuncModule(string strPrjId, string strTabName, string strFuncModuleName, string strOpUser)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strTabName", strTabName);
+            dictParam.Add("strFuncModuleName", strFuncModuleName);
+            dictParam.Add("strOpUser", strOpUser);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                if (string.IsNullOrEmpty(strPrjId) == true)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "工程Id不能为空" });
+                }
+                if (string.IsNullOrEmpty(strTabName) == true)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "表名不能为空" });
+                }
+                if (string.IsNullOrEmpty(strFuncModuleName) == true)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "模块名不能为空" });
+                }
+                if (string.IsNullOrEmpty(strOpUser) == true)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "操作用户不能为空" });
+                }
+
+                var varResult = clsPrjTabBLEx.SetTabFuncModule(strPrjId, strTabName, strFuncModuleName, strOpUser);
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
     }
     public class clsImportSqlTab
     {

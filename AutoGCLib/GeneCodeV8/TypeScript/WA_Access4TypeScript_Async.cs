@@ -34,7 +34,7 @@ namespace AutoGCLib
     ///					6)设置表记录的有关字段属性等。
     ///		3、数据层,即通用数据层,专门用于操作数据库的一些操作,以及操作表的一些通用操作
     /// </summary>
-    partial class WA_Access4TypeScript : clsGeneCodeBase4Tab
+    partial class WA_AccessTS4TypeScript : clsGeneCodeBase4Tab
     {
 
         public string A_GeneFuncCodeAsync_TypeScript(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN)

@@ -15,7 +15,17 @@
 	"codeTypeName": "实体扩展层TS"
 "codeTypeName": "WA访问TS",
 "codeTypeName": "WA访问ExTS",
-
+{
+  "codeTypeName": "WA访问TS",
+  "tabName": "TeacherProfile",
+  "prjId": "0179",
+  "cmPrjId": "000072",
+  "prjDataBaseId": "0220",
+  "applicationTypeName": "Vue应用-TS",
+  "gcUserId": "pyf_test",
+  "typeParas": "",
+  "isRecordLog": true
+}
 
 {
   "codeTypeName": "实体CS",
