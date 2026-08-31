@@ -243,7 +243,6 @@
     <Compile Include="Class\PrjFunction\clsFunctionTypeDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsMethodModifierDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureTypeDAEx.cs" />
-    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryDAEx.cs" />
     <Compile Include="Class\PrjFunction\clsTabFunctionPropDAEx.cs" />

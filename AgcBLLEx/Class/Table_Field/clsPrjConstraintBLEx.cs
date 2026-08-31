@@ -172,7 +172,7 @@ namespace AGC.BusinessLogicEx
         {
             string strCondition = $"{conPrjConstraint.TabId} = '{strTabId}'";
             List<clsPrjConstraintEN> arrObjLstCache = clsPrjConstraintBL.GetObjLstCache(strPrjId);
-            var arrObjLst = arrObjLstCache.Where(x=>x.TabId == strTabId).ToList();
+            var arrObjLst = arrObjLstCache.Where(x => x.TabId == strTabId).ToList();
             List<clsPrjConstraintENEx> arrObjExLst = new List<clsPrjConstraintENEx>();
             foreach (clsPrjConstraintEN objInFor in arrObjLst)
             {
@@ -190,7 +190,7 @@ namespace AGC.BusinessLogicEx
         /// </summary>
         /// <param name = "strPrjConstraintId">表关键字</param>
         /// <returns>表扩展对象</returns>
-        public static clsPrjConstraintENEx GetObjExByPrjConstraintIdCache(string strPrjConstraintId,string strPrjId)
+        public static clsPrjConstraintENEx GetObjExByPrjConstraintIdCache(string strPrjConstraintId, string strPrjId)
         {
             clsPrjConstraintEN objPrjConstraintEN = clsPrjConstraintBL.GetObjByPrjConstraintIdCache(strPrjConstraintId, strPrjId);
             clsPrjConstraintENEx objPrjConstraintENEx = new clsPrjConstraintENEx();
@@ -322,5 +322,150 @@ namespace AGC.BusinessLogicEx
         //    strSQL = $"Update PrjConstraint Set {conPrjConstraint.FldId} = '{strTargetFldId}' where PrjId = '{strPrjId}' And {conPrjConstraint.FldId} = '{strSourceFldId}'";
         //    return objSQL.ExecSql(strSQL);
         //}
+
+        public static string AddPrjConstraintWithFieldCheck(AddPrjConstraintWithFieldCheckRequest request)
+        {
+            if (request == null) throw new Exception("request不能为空!");
+            if (string.IsNullOrEmpty(request.strPrjId)) throw new Exception("strPrjId不能为空!");
+            if (string.IsNullOrEmpty(request.strTabName)) throw new Exception("strTabName不能为空!");
+            if (string.IsNullOrEmpty(request.strConstraintName)) throw new Exception("strConstraintName不能为空!");
+            if (string.IsNullOrEmpty(request.strConstraintTypeName)) throw new Exception("strConstraintTypeName不能为空!");
+            if (string.IsNullOrEmpty(request.strOpUser)) throw new Exception("strOpUser不能为空!");
+            if (request.arrFieldInfo == null || request.arrFieldInfo.Count == 0) throw new Exception("arrFieldInfo不能为空!");
+
+            string strPrjId = request.strPrjId.Trim();
+            string strTabName = request.strTabName.Trim();
+            string strConstraintName = request.strConstraintName.Trim();
+            string strConstraintTypeName = request.strConstraintTypeName.Trim();
+
+            List<clsPrjTabEN> arrPrjTabCache = clsPrjTabBL.GetObjLstCache(strPrjId);
+            clsPrjTabEN objPrjTab = arrPrjTabCache.FirstOrDefault(x => x.TabName == strTabName);
+            if (objPrjTab == null) throw new Exception($"表名[{strTabName}]在工程[{strPrjId}]中不存在!");
+
+            List<clsConstraintTypeEN> arrConstraintType = clsConstraintTypeBL.GetObjLstCache();
+            clsConstraintTypeEN objConstraintType = arrConstraintType.FirstOrDefault(x =>
+                x.ConstraintTypeName == strConstraintTypeName || x.ConstraintTypeNameEN == strConstraintTypeName);
+            if (objConstraintType == null) throw new Exception($"约束类型[{strConstraintTypeName}]不存在!");
+
+            string strCondition = $"{conPrjConstraint.ConstraintName}='{strConstraintName.Replace("'", "''")}'"
+                + $" and {conPrjConstraint.PrjId}='{strPrjId.Replace("'", "''")}'"
+                + $" and {conPrjConstraint.TabId}='{objPrjTab.TabId.Replace("'", "''")}'";
+            if (clsPrjConstraintBL.IsExistRecord(strCondition))
+            {
+                throw new Exception($"约束[{strConstraintName}]已存在!");
+            }
+
+            List<clsFieldTabEN> arrFieldTab = clsFieldTabBL.GetObjLstCache(strPrjId);
+            List<string> arrFldIdInTab = clsPrjTabFldBLEx.GetFldIdLstByTabIdCache(objPrjTab.TabId, strPrjId);
+            List<clsSortTypeEN> arrSortType = clsSortTypeBL.GetObjLstCache();
+
+            clsSpecSQLforSql objSQL = clsPrjConstraintDA.GetSpecSQLObj();
+            SqlConnection objConnection = null;
+            SqlTransaction objSqlTransaction = null;
+            string strPrjConstraintId = "";
+
+            try
+            {
+                objConnection = objSQL.getConnectObj(objSQL.ConnectionString);
+                objSqlTransaction = objConnection.BeginTransaction();
+
+                clsPrjConstraintEN objPrjConstraintEN = new clsPrjConstraintEN();
+                objPrjConstraintEN.PrjConstraintId = clsPrjConstraintBL.GetMaxStrId_S();
+                objPrjConstraintEN.ConstraintName = strConstraintName;
+                objPrjConstraintEN.PrjId = strPrjId;
+                objPrjConstraintEN.TabId = objPrjTab.TabId;
+                objPrjConstraintEN.ConstraintTypeId = objConstraintType.ConstraintTypeId;
+                objPrjConstraintEN.ConstraintDescription = request.strConstraintDescription ?? "";
+                objPrjConstraintEN.CreateUserId = request.strOpUser;
+                objPrjConstraintEN.IsNullable = false;
+                objPrjConstraintEN.InUse = true;
+                objPrjConstraintEN.UpdUser = request.strOpUser;
+                objPrjConstraintEN.Memo = "";
+                clsPrjConstraintBL.AccessFldValueNull(objPrjConstraintEN);
+
+                strPrjConstraintId = clsPrjConstraintBL.PrjConstraintDA.AddNewRecordBySQL2WithReturnKey(
+                    objPrjConstraintEN, objConnection, objSqlTransaction);
+
+                for (int i = 0; i < request.arrFieldInfo.Count; i++)
+                {
+                    ConstraintFieldImportInfo objFieldInfo = request.arrFieldInfo[i];
+                    if (objFieldInfo == null) throw new Exception($"第{i + 1}个字段信息为空!");
+                    if (string.IsNullOrEmpty(objFieldInfo.FldName)) throw new Exception($"第{i + 1}个字段名为空!");
+
+                    clsFieldTabEN objFieldTab = arrFieldTab.FirstOrDefault(x => x.FldName == objFieldInfo.FldName);
+                    if (objFieldTab == null) throw new Exception($"字段[{objFieldInfo.FldName}]不存在!");
+
+                    if (arrFldIdInTab.Contains(objFieldTab.FldId) == false)
+                    {
+                        throw new Exception($"字段[{objFieldInfo.FldName}]不在表[{strTabName}]中!");
+                    }
+
+                    string strSortTypeId = "01";
+                    string strSortTypeName = string.IsNullOrEmpty(objFieldInfo.SortTypeName) ? "升序" : objFieldInfo.SortTypeName.Trim();
+                    clsSortTypeEN objSortType = arrSortType.FirstOrDefault(x =>
+                        x.SortTypeName == strSortTypeName || x.SortTypeENName == strSortTypeName);
+                    if (objSortType != null)
+                    {
+                        strSortTypeId = objSortType.SortTypeId;
+                    }
+
+                    clsConstraintFieldsEN objConstraintFieldsEN = new clsConstraintFieldsEN();
+                    objConstraintFieldsEN.PrjConstraintId = strPrjConstraintId;
+                    objConstraintFieldsEN.TabId = objPrjTab.TabId;
+                    objConstraintFieldsEN.FldId = objFieldTab.FldId;
+                    objConstraintFieldsEN.MaxValue = objFieldInfo.MaxValue ?? "";
+                    objConstraintFieldsEN.MinValue = objFieldInfo.MinValue ?? "";
+                    objConstraintFieldsEN.SortTypeId = strSortTypeId;
+                    objConstraintFieldsEN.InUse = objFieldInfo.InUse ?? true;
+                    objConstraintFieldsEN.OrderNum = objFieldInfo.OrderNum ?? (i + 1);
+                    objConstraintFieldsEN.PrjId = strPrjId;
+                    objConstraintFieldsEN.UpdUser = request.strOpUser;
+                    objConstraintFieldsEN.Memo = objFieldInfo.Memo ?? "";
+                    clsConstraintFieldsBL.AccessFldValueNull(objConstraintFieldsEN);
+
+                    clsConstraintFieldsBL.ConstraintFieldsDA.AddNewRecordBySQL2(
+                        objConstraintFieldsEN, objConnection, objSqlTransaction);
+                }
+
+                objSqlTransaction.Commit();
+                clsPrjConstraintBL.ReFreshCache(strPrjId);
+                clsConstraintFieldsBL.ReFreshCache(strPrjId);
+
+                return strPrjConstraintId;
+            }
+            catch (Exception objException)
+            {
+                if (objSqlTransaction != null) objSqlTransaction.Rollback();
+                string strMsg = $"添加约束及约束字段失败:{objException.Message}({clsStackTrace.GetCurrClassFunction()})";
+                throw new Exception(strMsg);
+            }
+            finally
+            {
+                if (objConnection != null) objConnection.Close();
+            }
+        }
+    }
+
+    public class AddPrjConstraintWithFieldCheckRequest
+    {
+        public string strPrjId { get; set; }
+        public string strTabName { get; set; }
+        public string strConstraintName { get; set; }
+        public string strConstraintTypeName { get; set; } // 唯一性/Uniqueness/最大最小值/MaxMinValue
+        public string strConstraintDescription { get; set; }
+        public List<ConstraintFieldImportInfo> arrFieldInfo { get; set; }
+        public string strOpUser { get; set; }
+    }
+
+    public class ConstraintFieldImportInfo
+    {
+        public string FldName { get; set; }
+        public string SortTypeName { get; set; } // 升序/降序
+        public string MaxValue { get; set; }
+        public string MinValue { get; set; }
+        public int? OrderNum { get; set; }
+        public bool? InUse { get; set; }
+        public string Memo { get; set; }
     }
 }
+ 

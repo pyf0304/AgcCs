@@ -690,7 +690,46 @@ namespace AGC.WebApi
                 return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
+        /// <summary>
+        /// 根据表名+字段名设置字段类型
+        /// 调用方法: Get /PrjTabFldExApi/SetFieldTypeIdByTabAndFldName?strTabName=value&strFldName=value&strPrjId=value&strFieldTypeId=value&strUpdUserId=value
+        /// </summary>
+        /// <param name="strTabName">表名</param>
+        /// <param name="strFldName">字段名</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strFieldTypeName">字段类型Id</param>
+        /// <param name="strUpdUserId">修改用户Id</param>
+        /// <returns>返回字段Id</returns>
+        [AllowAnonymous]
+        [HttpGet("SetFieldTypeIdByTabAndFldName")]
+        public ActionResult SetFieldTypeIdByTabAndFldName(
+            string strTabName,
+            string strFldName,
+            string strPrjId,
+            string strFieldTypeName,
+            string strUpdUserId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabName", strTabName);
+            dictParam.Add("strFldName", strFldName);
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strFieldTypeName", strFieldTypeName);
+            dictParam.Add("strUpdUserId", strUpdUserId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
 
+            try
+            {
+                var varResult = clsPrjTabFldBLEx.SetFieldTypeIdByTabAndFldName(
+                    strTabName, strFldName, strPrjId, strFieldTypeName, strUpdUserId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
         /// <summary>
         /// 添加工程表字段请求参数类
         /// </summary>

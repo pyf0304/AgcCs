@@ -44,10 +44,10 @@ export default class {{ TableName }}_DetailAiEx extends {{ TableName }}_DetailAi
     let strMsg;
     switch (strCommandName) {
       case 'Detail': //详细信息
-        {{~ if IsMultiKey ~}}
-        this.btnDetailRecord_Click(key);
+        {{~ if IsUseFunc4Detail ~}}
+            this.DetailRecord4Func(key);
         {{~ else ~}}
-        this.btnDetailRecord_Click(key);
+            this.DetailRecord(key);
         {{~ end ~}}
         break;
       default:

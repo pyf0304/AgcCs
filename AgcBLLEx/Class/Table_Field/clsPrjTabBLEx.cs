@@ -742,7 +742,7 @@ namespace AGC.BusinessLogicEx
             //sbCondition.AppendFormat("PrjId = '{0}'", strPrjId);
             //sbCondition.AppendFormat(" and TabName = '{0}'", strRelaTabName);
             //            string strTabId = clsPrjTabBL.GetFirstID_S(sbCondition.ToString());
-            string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(strPrjId, strRelaTabName);
+            string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(strPrjId, strRelaTabName);
 
             return strTabId;
         }
@@ -1276,7 +1276,7 @@ namespace AGC.BusinessLogicEx
         /// <param name = "strPrjId">所给的关键字</param>
         /// <param name = "strTabName">所给的关键字</param>
         /// <returns>根据关键字获取的对象</returns>
-        public static string GetTabIdByTabNameExCache(string strPrjId, string strTabName)
+        public static string GetTabIdByTabNameCache(string strPrjId, string strTabName)
         {
 
             //string strKey = string.Format("{0}_{1}", clsPrjTabEN._CurrTabName, strPrjId);
@@ -5261,6 +5261,7 @@ namespace AGC.BusinessLogicEx
             clsFuncModule_AgcBL.ReFreshThisCache(strPrjId);
             return objNewFuncModule.FuncModuleAgcId;
         }
+
     }
 }
 

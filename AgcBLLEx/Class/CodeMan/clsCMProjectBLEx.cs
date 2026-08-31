@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:clsCMProjectBLEx
 表名:CMProject(00050512)
 生成代码版本:2019.10.24.1
@@ -394,6 +393,14 @@ namespace AGC.BusinessLogicEx
             objDDL.DataBind();
             objDDL.Items.Insert(0, li);
             objDDL.SelectedIndex = 0;
+        }
+
+        public static string GetFunctionTemplateIdByCmPrjIdCache(string strCmPrjId)
+        {
+            if (string.IsNullOrEmpty(strCmPrjId) == true) return "";
+            clsCMProjectEN objCMProjectEN = clsCMProjectBL.GetObjByCmPrjIdCache(strCmPrjId);
+            if (objCMProjectEN == null) return "";
+            return objCMProjectEN.FunctionTemplateId;
         }
     }
 }

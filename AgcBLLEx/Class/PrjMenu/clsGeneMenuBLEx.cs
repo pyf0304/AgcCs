@@ -1,7 +1,7 @@
 ﻿
 using AGC.Entity;
 using GeneralPlatform.Entity;
-using GeneralPlatform4WApi;
+
 using GP4WApi;
 using System;
 using System.Collections.Generic;

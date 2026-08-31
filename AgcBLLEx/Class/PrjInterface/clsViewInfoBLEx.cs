@@ -332,9 +332,9 @@ namespace AGC.BusinessLogicEx
         }
 
 
-        public static bool GetViewInfoEx(ref clsViewInfoENEx objViewInfoENEx, bool bolIsFstLcase, string strPrjId)
+        public static bool GetViewInfoEx(ref clsViewInfoENEx objViewInfoENEx, bool bolIsFstLcase, string strCmPrjId)
         {
-
+            string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
             clsViewInfoEN objViewInfoEN = clsViewInfoBL.GetObjByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
 
             clsViewInfoBL.CopyTo(objViewInfoEN, objViewInfoENEx);
@@ -378,8 +378,8 @@ namespace AGC.BusinessLogicEx
             objViewInfoENEx.objProjectsEN = clsProjectsBL.GetObjByPrjIdCache(objViewInfoENEx.PrjId);
             objViewInfoENEx.ObjFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             objViewInfoENEx.NameSpace = objViewInfoENEx.objProjectsEN.PrjDomain;
-
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objViewInfoENEx.PrjId);
+                        
+            string strFunctionTemplateId = clsCMProjectBLEx.GetFunctionTemplateIdByCmPrjIdCache(strCmPrjId);
             objViewInfoENEx.FunctionTemplateId = strFunctionTemplateId;
 
 
@@ -5245,6 +5245,34 @@ namespace AGC.BusinessLogicEx
                 clsPubVar4BLEx.objLog4Error.WriteDebugLog(strMsg);
                 throw new Exception(strMsg);
             }
+        }
+
+     
+        public static string GetViewIdByNameCache(string viewName, string prjId)
+        {
+            if (string.IsNullOrEmpty(viewName) == true) return "";
+            if (string.IsNullOrEmpty(prjId) == true) return "";
+
+            List<clsViewInfoEN> arrObjLstCache = clsViewInfoBL.GetObjLstCache(prjId);
+            foreach (clsViewInfoEN objViewInfoEN in arrObjLstCache)
+            {
+                if (objViewInfoEN.ViewName == viewName)
+                {
+                    return objViewInfoEN.ViewId;
+                }
+            }
+
+            string strCondition = string.Format("{0}='{1}' and {2}='{3}'",
+                conViewInfo.PrjId, prjId,
+                conViewInfo.ViewName, viewName);
+            return clsViewInfoBL.GetFirstID_S(strCondition);
+        }
+        public static int SetGeneCodeDate(string strViewId, string strGeneCodeDate)
+        {
+            var strWhere = $"{conViewInfo.ViewId} = '{strViewId}'";
+            int intResult = clsViewInfoBL.SetFldValue(conViewInfo._CurrTabName, conViewInfo.GeneCodeDate, strGeneCodeDate, strWhere);
+
+            return intResult;
         }
     }
 }

@@ -126,6 +126,130 @@ namespace AGC.WebApiEx
             }
             return objGCResult;
         }
+
+        [AllowAnonymous]
+        [HttpPost("GeneCode4Tab")]
+        public clsGCResult GeneCode4Tab([FromBody] clsGCPara4Tab objGCPara)
+        {
+            //string strCodeText = "";
+            //string strCodeText_En = "";
+            clsGCResult objGCResult = null;
+            try
+            {
+
+                string strFunctionName = clsStackTrace.GetCurrFunction();
+                Dictionary<string, string> dictParam = new Dictionary<string, string>();
+                dictParam.Add("CodeTypeName", objGCPara.codeTypeName);                
+                dictParam.Add("TabName", objGCPara.tabName);                
+                dictParam.Add("PrjId", objGCPara.prjId);
+                dictParam.Add("cmPrjId", objGCPara.cmPrjId);
+                dictParam.Add("PrjDataBaseId", objGCPara.prjDataBaseId);
+                dictParam.Add("GCUserId", objGCPara.gcUserId);
+                //dictParam.Add("ClassName", objGCPara.ClassName);
+                //dictParam.Add("LangType", objGCPara.LangType);
+                dictParam.Add("TypeParas", objGCPara.typeParas);
+
+                clsPubFun_WebApi.Log4Debug(this, strFunctionName, objGCPara.gcUserId, dictParam);
+
+                //clsPubConst.ClassName cnClassName = clsPubConst.GetClassNameByString(strClassName);// clsPubConst.ClassName.CtlViewCode;
+
+                //string strTabId = "01690265";
+                //string strViewId = "";
+                //string strPrjId = "0169";
+                //string strPrjDataBaseId = "0199";
+                //string strUserId = "pyf";
+
+                //clsPubVar_WS.objLog.WriteDebugLog("显示参数：(In AutoGeneCodeService.GeneCode())");
+                //clsPubFun_WS.Log4Debug(this, strFunctionName, dictParam);
+                clsProjectDatabaseRelBLEx.CheckPrjDataBaseId(objGCPara.prjId, objGCPara.prjDataBaseId);
+
+                objGCResult = AutoGC.GeneCode4Tab(objGCPara);
+                string strMsg = string.Format("在生成表:[{0}]时已经成功！(In {1})",
+                        objGCPara.tabName, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+
+            }
+            catch (Exception objException)
+            {
+                string strErrMsg = "";
+                if (objException.InnerException != null)
+                {
+                    strErrMsg += objException.InnerException.Message;
+                }
+                strErrMsg += objException.Message;
+                string strMsg = string.Format("(ErrId:0001)在生成表:[{0}]时出错！错误：{1}.({2})",
+                    objGCPara.tabName, strErrMsg, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                objGCResult = new clsGCResult();
+                objGCResult.errorMsg = strMsg;
+                objGCResult.errorId = -1;
+                return objGCResult;
+            }
+            return objGCResult;
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("GeneCode4View")]
+        public clsGCResult GeneCode4View([FromBody] clsGCPara4View objGCPara)
+        {
+            //string strCodeText = "";
+            //string strCodeText_En = "";
+            clsGCResult objGCResult = null;
+            try
+            {
+
+                string strFunctionName = clsStackTrace.GetCurrFunction();
+                Dictionary<string, string> dictParam = new Dictionary<string, string>();
+                dictParam.Add("CodeTypeName", objGCPara.codeTypeName);
+                dictParam.Add("ViewName", objGCPara.viewName);
+                dictParam.Add("PrjId", objGCPara.prjId);
+                dictParam.Add("cmPrjId", objGCPara.cmPrjId);
+                dictParam.Add("PrjDataBaseId", objGCPara.prjDataBaseId);
+                dictParam.Add("GCUserId", objGCPara.gcUserId);
+                //dictParam.Add("ClassName", objGCPara.ClassName);
+                //dictParam.Add("LangType", objGCPara.LangType);
+                dictParam.Add("TypeParas", objGCPara.typeParas);
+
+                clsPubFun_WebApi.Log4Debug(this, strFunctionName, objGCPara.gcUserId, dictParam);
+
+                //clsPubConst.ClassName cnClassName = clsPubConst.GetClassNameByString(strClassName);// clsPubConst.ClassName.CtlViewCode;
+
+                //string strTabId = "01690265";
+                //string strViewId = "";
+                //string strPrjId = "0169";
+                //string strPrjDataBaseId = "0199";
+                //string strUserId = "pyf";
+
+                //clsPubVar_WS.objLog.WriteDebugLog("显示参数：(In AutoGeneCodeService.GeneCode())");
+                //clsPubFun_WS.Log4Debug(this, strFunctionName, dictParam);
+                clsProjectDatabaseRelBLEx.CheckPrjDataBaseId(objGCPara.prjId, objGCPara.prjDataBaseId);
+
+                objGCResult = AutoGC.GeneCode4View(objGCPara);
+                string strMsg = string.Format("在生成视图:[{0}]时已经成功！(In {1})",
+                        objGCPara.viewName, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+
+            }
+            catch (Exception objException)
+            {
+                string strErrMsg = "";
+                if (objException.InnerException != null)
+                {
+                    strErrMsg += objException.InnerException.Message;
+                }
+                strErrMsg += objException.Message;
+                string strMsg = string.Format("(ErrId:0001)在生成视图:[{0}]时出错！错误：{1}.({2})",
+                    objGCPara.viewName, strErrMsg, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                objGCResult = new clsGCResult();
+                objGCResult.errorMsg = strMsg;
+                objGCResult.errorId = -1;
+                return objGCResult;
+            }
+            return objGCResult;
+        }
+
         [AllowAnonymous]
         [HttpPost("GeneCode4Func")]
         public clsGCResult GeneCode4Func([FromBody] clsGCPara objGCPara)
@@ -327,6 +451,31 @@ namespace AGC.WebApiEx
             {
                 var varResult = AutoGC.GenNewTabInSQL(strTabId, strPrjId, strPrjDataBaseId, strOpUserId);
                 return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 获取系统版本号
+        /// 调用方法: GET /AutoGeneCodeApi/GetVersion
+        /// </summary>
+        /// <returns>版本号</returns>
+        [AllowAnonymous]
+        [HttpGet("GetVersion")]
+        public ActionResult GetVersion()
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                string strVersion = clsSysParaEN_Local.strVersion;
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = strVersion });
             }
             catch (Exception objException)
             {

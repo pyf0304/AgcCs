@@ -66,5 +66,29 @@ namespace AGC.BusinessLogicEx
             objDDL.Items.Insert(0, li);
             objDDL.SelectedIndex = 0;
         }
+
+      
+        public static string GetFieldTypeIdByNameCache(string strFieldTypeName)
+        {
+            if (string.IsNullOrEmpty(strFieldTypeName) == true) return "";
+
+            List<clsFieldTypeEN> arrFieldTypeObjLstCache = clsFieldTypeBL.GetObjLstCache();
+            IEnumerable<clsFieldTypeEN> arrFieldTypeObjLst_Sel1 =
+                from objFieldTypeEN in arrFieldTypeObjLstCache
+                where objFieldTypeEN.FieldTypeName == strFieldTypeName
+                select objFieldTypeEN;
+
+            List<clsFieldTypeEN> arrFieldTypeObjLst_Sel = new List<clsFieldTypeEN>();
+            foreach (clsFieldTypeEN obj in arrFieldTypeObjLst_Sel1)
+            {
+                arrFieldTypeObjLst_Sel.Add(obj);
+            }
+
+            if (arrFieldTypeObjLst_Sel.Count == 0)
+            {
+                return "";
+            }
+            return arrFieldTypeObjLst_Sel[0].FieldTypeId;
+        }
     }
 }

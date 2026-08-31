@@ -22,7 +22,7 @@ import {
   {{~ for var in shared_vars ~}}
   {{ var }}{{ if !for.last }},{{ end }}
   {{~ end ~}}
-} from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
+} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 {{~ end ~}}
 {{~ end ~}}
 
@@ -73,14 +73,23 @@ export const {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE
 
 export function initQueryDefaultsAi(queryRefs: {
 {{~ for field in QueryFields ~}}
-    {{ field.Key }}: Ref<string>;
+    {{~ if field.IsNumber ~}}
+        {{ field.Key }}: Ref<number>;
+    {{~ else ~}}
+        {{ field.Key }}: Ref<string>;
+    {{~ end ~}}
 {{~ end ~}}
 }) {
 {{~ for field in QueryFields ~}}
    {{~ if field.ControlType == 'select4Bool' ~}}
         queryRefs.{{ field.Key }}.value = '0';
    {{~ else ~}}
-        queryRefs.{{ field.Key }}.value = '{{ field.DefaultValue }}';
+        {{~ if field.IsNumber ~}}            
+            queryRefs.{{ field.Key }}.value = 0;
+        {{~ else ~}}            
+            queryRefs.{{ field.Key }}.value = '{{ field.DefaultValue }}';
+        {{~ end ~}}
+
    {{~ end ~}}
 {{~ end ~}}
 }
@@ -134,5 +143,11 @@ export function getQueryRowsAi() {
   const row2 = {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI.filter(
     (x) => x.row === 2 && x.visibleInQuery !== false,
   ).sort((a, b) => a.order - b.order);
-  return { row1, row2 };
+    const row3 = {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI.filter(
+    (x) => x.row === 3 && x.visibleInQuery !== false,
+  ).sort((a, b) => a.order - b.order);
+  const row4 = {{ TableName | string.upcase | string.replace "DATABASE" "_DATABASE" }}_QUERY_SPECS_AI.filter(
+    (x) => x.row === 4 && x.visibleInQuery !== false,
+  ).sort((a, b) => a.order - b.order);
+  return { row1, row2, row3, row4 };
 }

@@ -1084,54 +1084,54 @@ namespace AGC.BusinessLogicEx
             }
             switch (strCodeTypeId)
             {
-                case enumCodeType.AppController_0013:
-                    strClassNameFormat = "cls{0}ApiController";
-                    break;
-                case enumCodeType.AppViewDdlAdapter_0039:
-                    strClassNameFormat = "ddlAdapter{0}";
-                    break;
-                case enumCodeType.AppViewDdlBind_0038:
-                    strClassNameFormat = "ddlBind{0}";
-                    break;
-                case enumCodeType.AppViewEdtScript_0032:
-                    strClassNameFormat = "uc_{0}_edit";
-                    break;
-                case enumCodeType.AppViewListViewAdapter_0037:
-                    strClassNameFormat = "lv{0}Adapter";
-                    break;
-                case enumCodeType.AppViewLvHeadScript_0040:
-                    strClassNameFormat = "uc_{0}_lvhead";
-                    break;
-                case enumCodeType.AppViewLvItemScript_0036:
-                    strClassNameFormat = "uc_{0}_lvitem";
-                    break;
-                case enumCodeType.AppViewQryScript_0031:
-                    strClassNameFormat = "uc_{0}_query";
-                    break;
-                case enumCodeType.AppViewScriptContent_0029:
-                    strClassNameFormat = "content_{0}_qudi";
-                    break;
-                case enumCodeType.AppViewScriptCS_0030:
-                    strClassNameFormat = "ac{0}_QUDI";
-                    break;
-                case enumCodeType.AppViewScriptMain_0035:
-                    strClassNameFormat = "ac_{0}_qudi";
-                    break;
-                case enumCodeType.AppViewUnitTest_0025:
-                    strClassNameFormat = "ac{0}_UnitTest";
-                    break;
+                //case enumCodeType._0013:
+                //    strClassNameFormat = "cls{0}ApiController";
+                //    break;
+                //case enumCodeType.AppViewDdlAdapter_0039:
+                //    strClassNameFormat = "ddlAdapter{0}";
+                //    break;
+                //case enumCodeType.AppViewDdlBind_0038:
+                //    strClassNameFormat = "ddlBind{0}";
+                //    break;
+                //case enumCodeType.AppViewEdtScript_0032:
+                //    strClassNameFormat = "uc_{0}_edit";
+                //    break;
+                //case enumCodeType.AppViewListViewAdapter_0037:
+                //    strClassNameFormat = "lv{0}Adapter";
+                //    break;
+                //case enumCodeType.AppViewLvHeadScript_0040:
+                //    strClassNameFormat = "uc_{0}_lvhead";
+                //    break;
+                //case enumCodeType.AppViewLvItemScript_0036:
+                //    strClassNameFormat = "uc_{0}_lvitem";
+                //    break;
+                //case enumCodeType.AppViewQryScript_0031:
+                //    strClassNameFormat = "uc_{0}_query";
+                //    break;
+                //case enumCodeType.AppViewScriptContent_0029:
+                //    strClassNameFormat = "content_{0}_qudi";
+                //    break;
+                //case enumCodeType.AppViewScriptCS_0030:
+                //    strClassNameFormat = "ac{0}_QUDI";
+                //    break;
+                //case enumCodeType.AppViewScriptMain_0035:
+                //    strClassNameFormat = "ac_{0}_qudi";
+                //    break;
+                //case enumCodeType.AppViewUnitTest_0025:
+                //    strClassNameFormat = "ac{0}_UnitTest";
+                //    break;
                 case enumCodeType.WA_ViewUTScript_0052:
                     strClassNameFormat = "WApi_{0}_UT";
                     break;
                 case enumCodeType.WA_ViewUTScriptCS_0053:
                     strClassNameFormat = "WApi_{0}_UT";
                     break;
-                case enumCodeType.AppViewUTScript_0026:
-                    strClassNameFormat = "ac_{0}_UT";
-                    break;
-                case enumCodeType.AppViewUTScriptCS_0027:
-                    strClassNameFormat = "ac{0}_UT";
-                    break;
+                //case enumCodeType.AppViewUTScript_0026:
+                //    strClassNameFormat = "ac_{0}_UT";
+                //    break;
+                //case enumCodeType.AppViewUTScriptCS_0027:
+                //    strClassNameFormat = "ac{0}_UT";
+                //    break;
                 case enumCodeType.BusinessLogicEx_0021:
                     strClassNameFormat = "cls{0}BLEx";
                     break;
@@ -1207,15 +1207,15 @@ namespace AGC.BusinessLogicEx
                 case enumCodeType.WinViewCode_UI_Design_0019:
                     strClassNameFormat = "frm{0}_UI.Designer.cs";
                     break;
-                case enumCodeType.WS_AccessHigh_0012:
-                    strClassNameFormat = "cls{0}WS4Controller";
-                    break;
+                //case enumCodeType.WS_AccessHigh_0012:
+                //    strClassNameFormat = "cls{0}WS4Controller";
+                //    break;
                 case enumCodeType.EntityLayerEx_0042:
                     strClassNameFormat = "cls{0}ENEx";
                     break;
-                case enumCodeType.AppBusiness_0043:
-                    strClassNameFormat = "cls{0}_ABL";
-                    break;
+                //case enumCodeType.AppBusiness_0043:
+                //    strClassNameFormat = "cls{0}_ABL";
+                //    break;
                 case enumCodeType.WA_Srv_0044:
                     strClassNameFormat = "{0}ApiController";
                     break;
@@ -1308,7 +1308,34 @@ namespace AGC.BusinessLogicEx
             objComboBox.SelectedIndex = 0;
         }
 
-    
+        public static string GetCodeTypeIdByNameCache(string codeTypeName)
+        {
+            if (string.IsNullOrWhiteSpace(codeTypeName) == true) return "";
+            string strCodeTypeName = codeTypeName.Trim();
+
+            List<clsCodeTypeEN> arrCodeTypeObjLstCache = clsCodeTypeBL.GetObjLstCache();
+            clsCodeTypeEN objCodeTypeEN = arrCodeTypeObjLstCache
+                .FirstOrDefault(x =>
+                    string.Equals(x.CodeTypeName, strCodeTypeName, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(x.CodeTypeSimName, strCodeTypeName, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(x.CodeTypeENName, strCodeTypeName, StringComparison.OrdinalIgnoreCase));
+
+            if (objCodeTypeEN != null)
+            {
+                intFindFailCount = 0;
+                return objCodeTypeEN.CodeTypeId;
+            }
+
+            intFindFailCount++;
+            CacheHelper.Remove(clsCodeTypeEN._CurrTabName);
+            if (intFindFailCount == 1) return GetCodeTypeIdByNameCache(codeTypeName);
+
+            string strErrMsgForGetObjById = string.Format(
+                "在CodeType对象缓存列表中,找不到记录[codeTypeName={0}](函数:{1})",
+                strCodeTypeName, clsStackTrace.GetCurrClassFunction());
+            clsLog.LogErrorS2("clsCodeTypeBLEx", clsStackTrace.GetCurrFunction(), strErrMsgForGetObjById, "", "");
+            throw new Exception(strErrMsgForGetObjById);
+        }
 
         /// <summary>
         /// 替换字段,在整个工程中替换字段

@@ -70,5 +70,83 @@ namespace AGC.BusinessLogicEx
             }
             return true;
         }
+        public static bool AddLog4GeneViewCodeByMachine(string strViewId, string strUserId, string strVersion, string strCodeTypeId, string strMachineName)
+        {
+            clsLog4GeneViewCodeEN objLog4GeneViewCodeEN = new clsLog4GeneViewCodeEN();
+            objLog4GeneViewCodeEN.GeneCodeDate = clsDateTime.getTodayDateTimeStr(1);
+            objLog4GeneViewCodeEN.VersionGeneCode = strVersion;
+            objLog4GeneViewCodeEN.UserId = strUserId;
+            objLog4GeneViewCodeEN.ViewId = strViewId;
+            objLog4GeneViewCodeEN.PrjId = strViewId.Substring(0, 4);
+            objLog4GeneViewCodeEN.CodeTypeId = strCodeTypeId;
+            objLog4GeneViewCodeEN.MachineName = strMachineName;
+
+            StringBuilder sbCondition = new StringBuilder();
+            sbCondition.AppendFormat("{0} = '{1}'", conLog4GeneViewCode.ViewId, strViewId);
+            sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.UserId, strUserId);
+
+            if (string.IsNullOrEmpty(strCodeTypeId) == true)
+            {
+                sbCondition.AppendFormat(" and {0} is null", conLog4GeneViewCode.CodeTypeId);
+            }
+            else
+            {
+                sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.CodeTypeId, strCodeTypeId);
+            }
+
+            if (string.IsNullOrEmpty(strMachineName) == true)
+            {
+                sbCondition.AppendFormat(" and {0} is null", conLog4GeneViewCode.MachineName);
+            }
+            else
+            {
+                sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.MachineName, strMachineName);
+            }
+
+            string strCondition = sbCondition.ToString();
+            if (clsLog4GeneViewCodeBL.IsExistRecord(strCondition) == false)
+            {
+                clsLog4GeneViewCodeBL.AddNewRecordBySql2(objLog4GeneViewCodeEN, false);
+            }
+            else
+            {
+                objLog4GeneViewCodeEN.UpdateWithCondition(strCondition);
+            }
+
+            // 同用户 + 同机器 + 同界面 + 同代码类型 最多保留5条，超出则删除最老记录
+            StringBuilder sbKeepCond = new StringBuilder();
+            sbKeepCond.AppendFormat("{0} = '{1}'", conLog4GeneViewCode.UserId, strUserId);
+            sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.ViewId, strViewId);
+
+            if (string.IsNullOrEmpty(strCodeTypeId) == true)
+            {
+                sbKeepCond.AppendFormat(" and {0} is null", conLog4GeneViewCode.CodeTypeId);
+            }
+            else
+            {
+                sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.CodeTypeId, strCodeTypeId);
+            }
+
+            if (string.IsNullOrEmpty(strMachineName) == true)
+            {
+                sbKeepCond.AppendFormat(" and {0} is null", conLog4GeneViewCode.MachineName);
+            }
+            else
+            {
+                sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneViewCode.MachineName, strMachineName);
+            }
+
+            List<clsLog4GeneViewCodeEN> arrLogLst = clsLog4GeneViewCodeBL.GetObjLst(sbKeepCond.ToString() + " order by mId asc");
+            if (arrLogLst.Count > 5)
+            {
+                int intDelCount = arrLogLst.Count - 5;
+                for (int i = 0; i < intDelCount; i++)
+                {
+                    clsLog4GeneViewCodeBL.DelRecord(arrLogLst[i].mId);
+                }
+            }
+            clsViewInfoBLEx.SetGeneCodeDate(strViewId, objLog4GeneViewCodeEN.GeneCodeDate);
+            return true;
+        }
     }
 }

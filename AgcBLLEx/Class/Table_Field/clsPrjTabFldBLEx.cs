@@ -1913,7 +1913,7 @@ namespace AGC.BusinessLogicEx
                             strClassName = string.Format("cls{0}EN", strFldName);
                             strTabName = strFldName;
                         }
-                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(objPrjTabFldENEx.PrjId, strTabName);
+                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(objPrjTabFldENEx.PrjId, strTabName);
                         objImportClass.AddImportClass(strTabId, strTabName, string.Format("cls{0}EN", strTabName, strEx),
                                string.IsNullOrEmpty(strEx) == true ? enumImportObjType.ENClass : enumImportObjType.ENExClass, strBaseUrl);
 
@@ -3394,6 +3394,35 @@ namespace AGC.BusinessLogicEx
             return strCodeForCs.ToString();
         }
 
+
+        public static string SetFieldTypeIdByTabAndFldName(
+    string strTabName,
+    string strFldName,
+    string strPrjId,
+    string strFieldTypeName,
+    string strUpdUserId)
+        {
+            if (string.IsNullOrEmpty(strTabName) == true) throw new Exception("表名不能为空!");
+            if (string.IsNullOrEmpty(strFldName) == true) throw new Exception("字段名不能为空!");
+            if (string.IsNullOrEmpty(strPrjId) == true) throw new Exception("工程Id不能为空!");
+            if (string.IsNullOrEmpty(strFieldTypeName) == true) throw new Exception("字段类型名不能为空!");
+            if (string.IsNullOrEmpty(strUpdUserId) == true) throw new Exception("修改用户不能为空!");
+
+            clsPrjTabEN objPrjTab = clsPrjTabBLEx.GetObjByTabNameAndPrjId(strTabName, strPrjId);
+            if (objPrjTab == null)
+            {
+                throw new Exception(string.Format("工程[{0}]下表名[{1}]不存在!", strPrjId, strTabName));
+            }
+
+            string strCondition = string.Format("TabId = '{0}' and FldName = '{1}'", objPrjTab.TabId, strFldName);
+            clsvPrjTabFldEN objvPrjTabFld = clsvPrjTabFldBL.GetFirstObj_S(strCondition);
+            if (objvPrjTabFld == null)
+            {
+                throw new Exception(string.Format("表[{0}]中字段[{1}]不存在!", strTabName, strFldName));
+            }
+            string strFieldTypeId = clsFieldTypeBLEx.GetFieldTypeIdByNameCache(strFieldTypeName);
+            return SetFieldTypeId(objvPrjTabFld.mId, strFieldTypeId, strUpdUserId);
+        }
         public static string SetFieldTypeId(long lngmId, string strFieldTypeId, string strUpdUserId)
         {
             clsPrjTabFldEN objPrjTabFld = clsPrjTabFldBL.GetObjBymId(lngmId);

@@ -523,7 +523,7 @@ namespace AutoGCLib
             this.objProjectsENEx = new clsProjectsENEx();
             clsProjectsBL.CopyTo(objProjectsEN, objProjectsENEx);
             this.objPrjDataBaseEN = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(strPrjDataBaseId);
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objPrjTabENEx.PrjId);
+            //string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objPrjTabENEx.PrjId);
             //objPrjTabENEx.FunctionTemplateId = strFunctionTemplateId;
             this.mobjKeyField = objPrjTabENEx.objKeyField0;
             this.mobjNameField = objPrjTabENEx.objNameField;

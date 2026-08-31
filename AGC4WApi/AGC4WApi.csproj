@@ -278,7 +278,6 @@
     <Compile Include="ClassEx\PrjFunction\clsMethodModifierExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsPrjFeatureExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsPrjFeatureTypeExWApi.cs" />
-    <Compile Include="ClassEx\PrjFunction\clsPrjFuncTemplateRelaExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsPrjFunctionExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsPrjFunctionHistoryExWApi.cs" />
     <Compile Include="ClassEx\PrjFunction\clsTabFunctionPropExWApi.cs" />
@@ -682,7 +681,6 @@
     <Compile Include="Class\PrjFunction\clsMethodModifierWApi.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureTypeWApi.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureWApi.cs" />
-    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaWApi.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryWApi.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionWApi.cs" />
     <Compile Include="Class\PrjFunction\clsTabFunctionPropWApi.cs" />

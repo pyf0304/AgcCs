@@ -4,7 +4,7 @@ using AGC.Entity;
 using com.taishsoft.commdb;
 
 using GeneralPlatform.Entity;
-using GeneralPlatform4WApi;
+
 using GP4WApi;
 using SpecData;
 using System;

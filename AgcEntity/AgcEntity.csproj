@@ -252,7 +252,6 @@
     <Compile Include="Class\PrjFunction\clsMethodModifierENEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureENEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureTypeENEx.cs" />
-    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaENEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionENEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryENEx.cs" />
     <Compile Include="Class\PrjFunction\clsTabFunctionPropENEx.cs" />

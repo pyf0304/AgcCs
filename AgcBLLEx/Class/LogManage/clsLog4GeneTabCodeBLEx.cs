@@ -81,6 +81,100 @@ namespace AGC.BusinessLogicEx
             }
             return true;
         }
+
+     
+        public static bool AddLog4GeneTabCodeByMachine(string strTabId, string strGcPathId, int intApplicationTypeId, string strUserId, string strVersion, string strCodeTypeId, string strMachineName)
+        {
+            clsLog4GeneTabCodeEN objLog4GeneTabCodeEN = new clsLog4GeneTabCodeEN();
+            objLog4GeneTabCodeEN.GeneCodeDate = clsDateTime.getTodayDateTimeStr(1);
+            objLog4GeneTabCodeEN.VersionGeneCode = strVersion;
+            objLog4GeneTabCodeEN.UserId = strUserId;
+            objLog4GeneTabCodeEN.TabId = strTabId;
+            objLog4GeneTabCodeEN.PrjId = strTabId.Substring(0, 4);
+
+            objLog4GeneTabCodeEN.GcPathId = strGcPathId;
+            objLog4GeneTabCodeEN.CodeTypeId = strCodeTypeId;
+            objLog4GeneTabCodeEN.MachineName = strMachineName;
+            objLog4GeneTabCodeEN.ApplicationTypeId = intApplicationTypeId;
+
+            StringBuilder sbCondition = new StringBuilder();
+            sbCondition.AppendFormat("{0} = '{1}'", conLog4GeneTabCode.TabId, strTabId);
+            sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.UserId, strUserId);
+            sbCondition.AppendFormat(" and {0} = {1}", conLog4GeneTabCode.ApplicationTypeId, intApplicationTypeId);
+
+            if (string.IsNullOrEmpty(strGcPathId) == true)
+            {
+                sbCondition.AppendFormat(" and {0} is null", conLog4GeneTabCode.GcPathId);
+            }
+            else
+            {
+                sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.GcPathId, strGcPathId);
+            }
+
+            if (string.IsNullOrEmpty(strCodeTypeId) == true)
+            {
+                sbCondition.AppendFormat(" and {0} is null", conLog4GeneTabCode.CodeTypeId);
+            }
+            else
+            {
+                sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.CodeTypeId, strCodeTypeId);
+            }
+
+            if (string.IsNullOrEmpty(strMachineName) == true)
+            {
+                sbCondition.AppendFormat(" and {0} is null", conLog4GeneTabCode.MachineName);
+            }
+            else
+            {
+                sbCondition.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.MachineName, strMachineName);
+            }
+
+            string strCondition = sbCondition.ToString();
+            if (clsLog4GeneTabCodeBL.IsExistRecord(strCondition) == false)
+            {
+                clsLog4GeneTabCodeBL.AddNewRecordBySql2(objLog4GeneTabCodeEN, false);
+            }
+            else
+            {
+                objLog4GeneTabCodeEN.UpdateWithCondition(strCondition);
+            }
+
+            // 同用户 + 同机器 + 同表 + 同代码类型 最多保留5条，超出则删除最老记录
+            StringBuilder sbKeepCond = new StringBuilder();
+            sbKeepCond.AppendFormat("{0} = '{1}'", conLog4GeneTabCode.UserId, strUserId);
+            sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.TabId, strTabId);
+
+            if (string.IsNullOrEmpty(strCodeTypeId) == true)
+            {
+                sbKeepCond.AppendFormat(" and {0} is null", conLog4GeneTabCode.CodeTypeId);
+            }
+            else
+            {
+                sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.CodeTypeId, strCodeTypeId);
+            }
+
+            if (string.IsNullOrEmpty(strMachineName) == true)
+            {
+                sbKeepCond.AppendFormat(" and {0} is null", conLog4GeneTabCode.MachineName);
+            }
+            else
+            {
+                sbKeepCond.AppendFormat(" and {0} = '{1}'", conLog4GeneTabCode.MachineName, strMachineName);
+            }
+
+            List<clsLog4GeneTabCodeEN> arrLogLst = clsLog4GeneTabCodeBL.GetObjLst(sbKeepCond.ToString() + " order by mId asc");
+            if (arrLogLst.Count > 5)
+            {
+                int intDelCount = arrLogLst.Count - 5;
+                for (int i = 0; i < intDelCount; i++)
+                {
+                    clsLog4GeneTabCodeBL.DelRecord(arrLogLst[i].mId);
+                }
+            }
+            clsPrjTabBLEx.SetGeneCodeDate(strTabId, objLog4GeneTabCodeEN.GeneCodeDate);
+            return true;
+        }
+
         public static void AddToList(clsLog4GeneTabCodeEN objLog4GeneTabCodeEN)
         {
             if (arrLog4GeneTabCode_Edit.Where(x=>x.TabId == objLog4GeneTabCodeEN.TabId 

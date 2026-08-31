@@ -2,8 +2,8 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsPrjConstraintBL
  表名:PrjConstraint(00050331)
- * 版本:2026.08.28(服务器:WIN-SRV103-116)
- 日期:2026/08/29 19:01:31
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/08/30 23:01:27
  生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
@@ -3218,7 +3218,7 @@ return strResult;
  /// <summary>
  /// 映射函数。根据表映射把输入字段值,映射成输出字段值
  /// 作者:pyf_agc
- /// 日期:2026-08-29
+ /// 日期:2026-08-30
  /// (AutoGCLib.BusinessLogicCS4CSharp:Gen_4BL_func)
  /// </summary>
  /// <param name = "strInFldName">输入字段名</param>

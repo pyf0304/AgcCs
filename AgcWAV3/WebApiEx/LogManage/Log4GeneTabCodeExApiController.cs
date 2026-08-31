@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:Log4GeneTabCodeExApiController
 表名:Log4GeneTabCode(00050279)
 生成代码版本:2019.07.15.2
@@ -86,6 +85,59 @@ namespace AGC.WebApi
                 string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
                 return Ok(new { errorId = 1, errorMsg = strMsg });
 
+            }
+        }
+
+        /// <summary>
+        /// AddLog4GeneTabCodeByMachine
+        /// 调用方法: Get /api/Log4GeneTabCodeExApi/AddLog4GeneTabCodeByMachine
+        /// </summary>
+        /// <param name="strTabId">表Id</param>
+        /// <param name="strGCPathId">GC路径Id</param>
+        /// <param name="intApplicationTypeId">应用类型Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <param name="strVersion">版本</param>
+        /// <param name="strCodeTypeId">代码类型Id</param>
+        /// <param name="strMachineName">机器名</param>
+        /// <returns>返回是否成功</returns>
+        [HttpGet("AddLog4GeneTabCodeByMachine")]
+        public ActionResult AddLog4GeneTabCodeByMachine(
+            string strTabId,
+            string strGCPathId,
+            int intApplicationTypeId,
+            string strUserId,
+            string strVersion,
+            string strCodeTypeId,
+            string strMachineName)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strTabId", strTabId);
+            dictParam.Add("strGCPathId", strGCPathId);
+            dictParam.Add("intApplicationTypeId", intApplicationTypeId.ToString());
+            dictParam.Add("strUserId", strUserId);
+            dictParam.Add("strVersion", strVersion);
+            dictParam.Add("strCodeTypeId", strCodeTypeId);
+            dictParam.Add("strMachineName", strMachineName);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, strUserId, dictParam);
+
+            try
+            {
+                var varResult = clsLog4GeneTabCodeBLEx.AddLog4GeneTabCodeByMachine(
+                    strTabId,
+                    strGCPathId,
+                    intApplicationTypeId,
+                    strUserId,
+                    strVersion,
+                    strCodeTypeId,
+                    strMachineName);
+
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
     }

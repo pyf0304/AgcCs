@@ -1,4 +1,3 @@
-
 using AGC.BusinessLogic;
 using AGC.DAL;
 using AGC.Entity;
@@ -214,6 +213,30 @@ namespace AGC.BusinessLogicEx
             clsApplicationTypeEN obj = clsApplicationTypeBL.GetObjByApplicationTypeId(intApplicationTypeId);
             obj.VisitedNum++;
             obj.Update();
+        }
+
+        public static int GetApplicationTypeIdByNameCache(string applicationTypeName)
+        {
+            if (string.IsNullOrEmpty(applicationTypeName) == true) return 0;
+
+            List<clsApplicationTypeEN> arrApplicationTypeObjLstCache = clsApplicationTypeBL.GetObjLstCache();
+            IEnumerable<clsApplicationTypeEN> arrApplicationTypeObjLst_Sel1 =
+                from objApplicationTypeEN in arrApplicationTypeObjLstCache
+                where objApplicationTypeEN.ApplicationTypeName == applicationTypeName
+                    || objApplicationTypeEN.ApplicationTypeSimName == applicationTypeName
+                select objApplicationTypeEN;
+
+            List<clsApplicationTypeEN> arrApplicationTypeObjLst_Sel = new List<clsApplicationTypeEN>();
+            foreach (clsApplicationTypeEN obj in arrApplicationTypeObjLst_Sel1)
+            {
+                arrApplicationTypeObjLst_Sel.Add(obj);
+            }
+
+            if (arrApplicationTypeObjLst_Sel.Count == 0)
+            {
+                return 0;
+            }
+            return arrApplicationTypeObjLst_Sel[0].ApplicationTypeId;
         }
     }
 }

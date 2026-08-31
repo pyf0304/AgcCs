@@ -180,5 +180,82 @@ namespace AGC.BusinessLogicEx
             clsGCPathEN objGCPathEN = arrGCPath.Find(x=>x.GcPathName.Equals(strGcPathName, StringComparison.InvariantCultureIgnoreCase) == true);
             return objGCPathEN;
         }
+             
+        private static string NormalizeGcPathName(string strGcPathName)
+        {
+            if (string.IsNullOrWhiteSpace(strGcPathName) == true) return string.Empty;
+
+            string strResult = strGcPathName.Trim().Replace("/", "\\");
+            while (strResult.Contains("\\\\") == true)
+            {
+                strResult = strResult.Replace("\\\\", "\\");
+            }
+
+            try
+            {
+                strResult = Path.GetFullPath(strResult);
+            }
+            catch
+            {
+                // 保持原始规范化结果，避免因非法路径格式直接中断
+            }
+
+            strResult = strResult.Replace("/", "\\");
+            while (strResult.Contains("\\\\") == true)
+            {
+                strResult = strResult.Replace("\\\\", "\\");
+            }
+
+            if (strResult.Length > 3 && strResult.EndsWith("\\") == true)
+            {
+                strResult = strResult.Substring(0, strResult.Length - 1);
+            }
+            return strResult;
+        }
+
+        public static string GetGcPathIdByGcPathName(string strGcPathName, string strPrjId, string strUserId)
+        {
+            string strGcPathName_Normal = NormalizeGcPathName(strGcPathName);
+            if (string.IsNullOrEmpty(strGcPathName_Normal) == true)
+            {
+                throw new Exception(string.Format("参数:[strGcPathName]不能为空!(In {0})", clsStackTrace.GetCurrClassFunction()));
+            }
+
+            var arrGCPath = clsGCPathBL.GetObjLstCache(strPrjId, strUserId);
+            clsGCPathEN objGCPathEN = arrGCPath.Find(x =>
+                string.IsNullOrEmpty(x.GcPathName) == false
+                && NormalizeGcPathName(x.GcPathName).Equals(strGcPathName_Normal, StringComparison.InvariantCultureIgnoreCase) == true);
+
+            if (objGCPathEN != null)
+            {
+                return objGCPathEN.GcPathId;
+            }
+
+            clsGCPathEN objNewGCPath = new clsGCPathEN();
+            objNewGCPath.GcPathName = strGcPathName_Normal;
+            objNewGCPath.IsForMainPath = false;
+            objNewGCPath.PrjId = strPrjId;
+            objNewGCPath.UserId = strUserId;
+            objNewGCPath.UpdUser = strUserId;
+
+            try
+            {
+                return clsGCPathBL.AddNewRecordBySql2WithReturnKey(objNewGCPath);
+            }
+            catch
+            {
+                // 并发下可能被其他线程先插入，重查一次
+                arrGCPath = clsGCPathBL.GetObjLstCache(strPrjId, strUserId);
+                objGCPathEN = arrGCPath.Find(x =>
+                    string.IsNullOrEmpty(x.GcPathName) == false
+                    && NormalizeGcPathName(x.GcPathName).Equals(strGcPathName_Normal, StringComparison.InvariantCultureIgnoreCase) == true);
+
+                if (objGCPathEN != null)
+                {
+                    return objGCPathEN.GcPathId;
+                }
+                throw;
+            }
+        }
     }
 }

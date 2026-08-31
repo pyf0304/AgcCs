@@ -4,8 +4,8 @@ import {
   divVarSet,
   viewVarSet,
   {{~ if HasAdjustOrderNum ~}}
-      CTRelationType_ClearAllCache,
-      dataListCTRelationType,
+      {{ TableName }}_ClearAllCache,
+      dataList{{ TableName }},
   {{~ end ~}}
 } from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 
@@ -28,7 +28,7 @@ import {{ TableName }}_DetailAiEx from '@/views{{strIsShare}}/{{ ModuleName }}/{
 {{~ end ~}}
 import { {{ TableName }}CRUDAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAi';
 import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
-import { {{ TableName }}CommandIdAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
+import { {{ TableName }}CommandIdAi } from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDCommands';
 import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
    
 {{~ if HasAdjustOrderNum ~}}
@@ -36,7 +36,9 @@ import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableNa
       {{ TableName }}_DownMoveAsync,
       {{ TableName }}_GoBottomAsync,
       {{ TableName }}_GoTopAsync,
-      {{ TableName }}_ReFreshCache,
+      {{~ if UseCacheMode ~}}
+        {{ TableName }}_ReFreshCache,
+      {{~ end ~}}
       {{ TableName }}_ReOrderAsync,
       {{ TableName }}_UpMoveAsync,
     } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
@@ -108,7 +110,7 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
       case '{{ TableName }}':
             {{~ if IsUseFunc ~}}
                   await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
-            {{~ else if HasCacheMode ~}}
+            {{~ else if UseCacheModeInList ~}}
                     await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
             {{~ else ~}}
                     await this.BindGv_{{ TableName }}(divVarSet.refDivList);
@@ -260,7 +262,7 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
        * 导出 Excel 操作
        */
       public async onExportAi(): Promise<ExportExcelData> {
-        {{~ if HasCacheMode ~}}
+        {{~ if UseCacheModeInList ~}}
         return await this.ExportExcel_{{ TableName }}CacheAi();
         {{~ else ~}}
         return await this.ExportExcel_{{ TableName }}Ai();
@@ -390,20 +392,52 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
           alert(`请选择需要置顶的${this.thisTabName}记录!`);
           return;
         }
+        
+        {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+            const {{ ObjSortClassifyType.PriVarName }} = GetSelectValueInDivObj(divVarSet.refDivFunction, '{{ ObjSortClassifyType.CtrlId }}');
+            if (IsNullOrEmpty({{ ObjSortClassifyType.PriVarName }})) {
+                alert(`请选择需要上移操作的分类字段，${this.thisTabName}记录!`);
+                return;
+            }
+        {{~ end ~}}
         try {
           const objOrderByData: clsOrderByData = new clsOrderByData();
           objOrderByData.KeyIdLst = arrKeyIds;
-          objOrderByData.ClassificationFieldValueLst = '{}';
+          
+          {{~ if SortClassifyLst4View.size==0 ~}}
+              objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ else ~}}
+             {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+                const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{ ObjSortClassifyType.PriVarName }},
+                    {{~ end ~}}
+                };
+             {{~ else ~}}
+                 const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{sortClassifyObj.ViewVarName}}.value,
+                    {{~ end ~}}
+                };
+            {{~ end ~}}
+            const jsonStr = JSON.stringify(jsonObject);
+            objOrderByData.ClassificationFieldValueLst = jsonStr;
+          {{~ end ~}}
           await {{ TableName }}_GoTopAsync(objOrderByData);
-          {{ TableName }}_ReFreshCache();
-          {{ TableName }}_ClearAllCache();
+
         } catch (e) {
           const strMsg = `置顶出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
           console.error('Error: ', strMsg);
           alert(strMsg);
           return;
-        }
-        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        }        
+         {{~ if IsUseFunc ~}}
+              await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+         {{~ else if UseCacheModeInList ~}}
+              await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+         {{~ else ~}}
+              await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+         {{~ end ~}}
         this.setCheckedRowsByKeyIds(arrKeyIds);
       }
 
@@ -417,20 +451,52 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
           alert(`请选择需要上移的${this.thisTabName}记录!`);
           return;
         }
+        {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+            const {{ ObjSortClassifyType.PriVarName }} = GetSelectValueInDivObj(divVarSet.refDivFunction, '{{ ObjSortClassifyType.CtrlId }}');
+            if (IsNullOrEmpty({{ ObjSortClassifyType.PriVarName }})) {
+                alert(`请选择需要上移操作的分类字段，${this.thisTabName}记录!`);
+                return;
+            }
+        {{~ end ~}}
+
         try {
           const objOrderByData: clsOrderByData = new clsOrderByData();
-          objOrderByData.KeyIdLst = arrKeyIds;
-          objOrderByData.ClassificationFieldValueLst = '{}';
+          objOrderByData.KeyIdLst = arrKeyIds;          
+          {{~ if SortClassifyLst4View.size==0 ~}}
+              objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ else ~}}
+                          {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+                const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{ ObjSortClassifyType.PriVarName }},
+                    {{~ end ~}}
+                };
+             {{~ else ~}}
+                 const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{sortClassifyObj.ViewVarName}}.value,
+                    {{~ end ~}}
+                };
+            {{~ end ~}}
+            const jsonStr = JSON.stringify(jsonObject);
+            objOrderByData.ClassificationFieldValueLst = jsonStr;
+          {{~ end ~}}
           await {{ TableName }}_UpMoveAsync(objOrderByData);
-          {{ TableName }}_ReFreshCache();
-          {{ TableName }}_ClearAllCache();
+
         } catch (e) {
           const strMsg = `上移记录出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
           console.error('Error: ', strMsg);
           alert(strMsg);
           return;
         }
-        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        
+        {{~ if IsUseFunc ~}}
+              await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+         {{~ else if UseCacheModeInList ~}}
+              await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+         {{~ else ~}}
+              await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+         {{~ end ~}}
         this.setCheckedRowsByKeyIds(arrKeyIds);
       }
 
@@ -444,20 +510,53 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
           alert(`请选择需要下移的${this.thisTabName}记录!`);
           return;
         }
+        {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+            const {{ ObjSortClassifyType.PriVarName }} = GetSelectValueInDivObj(divVarSet.refDivFunction, '{{ ObjSortClassifyType.CtrlId }}');
+            if (IsNullOrEmpty({{ ObjSortClassifyType.PriVarName }})) {
+                alert(`请选择需要上移操作的分类字段，${this.thisTabName}记录!`);
+                return;
+            }
+        {{~ end ~}}
+
         try {
           const objOrderByData: clsOrderByData = new clsOrderByData();
           objOrderByData.KeyIdLst = arrKeyIds;
-          objOrderByData.ClassificationFieldValueLst = '{}';
+          
+          {{~ if SortClassifyLst4View.size==0 ~}}
+              objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ else ~}}
+                         {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+                const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{ ObjSortClassifyType.PriVarName }},
+                    {{~ end ~}}
+                };
+             {{~ else ~}}
+                 const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{sortClassifyObj.ViewVarName}}.value,
+                    {{~ end ~}}
+                };
+            {{~ end ~}}
+            const jsonStr = JSON.stringify(jsonObject);
+            objOrderByData.ClassificationFieldValueLst = jsonStr;
+          {{~ end ~}}
           await {{ TableName }}_DownMoveAsync(objOrderByData);
-          {{ TableName }}_ReFreshCache();
-          {{ TableName }}_ClearAllCache();
+
         } catch (e) {
           const strMsg = `下移记录出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
           console.error('Error: ', strMsg);
           alert(strMsg);
           return;
         }
-        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        
+        {{~ if IsUseFunc ~}}
+              await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+         {{~ else if UseCacheModeInList ~}}
+              await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+         {{~ else ~}}
+              await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+         {{~ end ~}}
         this.setCheckedRowsByKeyIds(arrKeyIds);
       }
 
@@ -471,20 +570,52 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
           alert(`请选择需要置底的${this.thisTabName}记录!`);
           return;
         }
+        {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+            const {{ ObjSortClassifyType.PriVarName }} = GetSelectValueInDivObj(divVarSet.refDivFunction, '{{ ObjSortClassifyType.CtrlId }}');
+            if (IsNullOrEmpty({{ ObjSortClassifyType.PriVarName }})) {
+                alert(`请选择需要上移操作的分类字段，${this.thisTabName}记录!`);
+                return;
+            }
+        {{~ end ~}}
+
         try {
           const objOrderByData: clsOrderByData = new clsOrderByData();
-          objOrderByData.KeyIdLst = arrKeyIds;
-          objOrderByData.ClassificationFieldValueLst = '{}';
+          objOrderByData.KeyIdLst = arrKeyIds;          
+          {{~ if SortClassifyLst4View.size==0 ~}}
+              objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ else ~}}
+                 {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+                const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{ ObjSortClassifyType.PriVarName }},
+                    {{~ end ~}}
+                };
+             {{~ else ~}}
+                 const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{sortClassifyObj.ViewVarName}}.value,
+                    {{~ end ~}}
+                };
+            {{~ end ~}}
+            const jsonStr = JSON.stringify(jsonObject);
+            objOrderByData.ClassificationFieldValueLst = jsonStr;
+          {{~ end ~}}
           await {{ TableName }}_GoBottomAsync(objOrderByData);
-          {{ TableName }}_ReFreshCache();
-          {{ TableName }}_ClearAllCache();
+
         } catch (e) {
           const strMsg = `置底出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
           console.error('Error: ', strMsg);
           alert(strMsg);
           return;
         }
-        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        
+        {{~ if IsUseFunc ~}}
+              await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+         {{~ else if UseCacheModeInList ~}}
+              await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+         {{~ else ~}}
+              await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+         {{~ end ~}}
         this.setCheckedRowsByKeyIds(arrKeyIds);
       }
 
@@ -493,19 +624,51 @@ export default class {{ TableName }}CRUDAiEx extends {{ TableName }}CRUDAi imple
        */
       public async onReOrder() {
         const strThisFuncName = 'onReOrder';
+        {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+            const {{ ObjSortClassifyType.PriVarName }} = GetSelectValueInDivObj(divVarSet.refDivFunction, '{{ ObjSortClassifyType.CtrlId }}');
+            if (IsNullOrEmpty({{ ObjSortClassifyType.PriVarName }})) {
+                alert(`请选择需要上移操作的分类字段，${this.thisTabName}记录!`);
+                return;
+            }
+        {{~ end ~}}
+
         try {
           const objOrderByData: clsOrderByData = new clsOrderByData();
-          objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ if SortClassifyLst4View.size==0 ~}}
+              objOrderByData.ClassificationFieldValueLst = '{}';
+          {{~ else ~}}
+             {{~ if ObjSortClassifyType.CtrlTypeId_Sort == "06" ~}}
+                const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{ ObjSortClassifyType.PriVarName }},
+                    {{~ end ~}}
+                };
+             {{~ else ~}}
+                 const jsonObject = {
+                    {{~ for sortClassifyObj in SortClassifyLst4View ~}}
+                          {{ sortClassifyObj.FldNameCamel}}: {{sortClassifyObj.ViewVarName}}.value,
+                    {{~ end ~}}
+                };
+            {{~ end ~}}
+            const jsonStr = JSON.stringify(jsonObject);
+            objOrderByData.ClassificationFieldValueLst = jsonStr;
+          {{~ end ~}}
           await {{ TableName }}_ReOrderAsync(objOrderByData);
-          {{ TableName }}_ReFreshCache();
-          {{ TableName }}_ClearAllCache();
+
         } catch (e) {
           const strMsg = `重序出错。错误:${e}.(in {{ TableName }}CRUDAiEx.${strThisFuncName})`;
           console.error('Error: ', strMsg);
           alert(strMsg);
           return;
         }
-        await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+        
+        {{~ if IsUseFunc ~}}
+              await this.BindGv_{{ TableName }}4Func(divVarSet.refDivList);
+         {{~ else if UseCacheModeInList ~}}
+              await this.BindGv_{{ TableName }}Cache(divVarSet.refDivList);
+         {{~ else ~}}
+              await this.BindGv_{{ TableName }}(divVarSet.refDivList);
+         {{~ end ~}}
       }
  {{~ end ~}}
 

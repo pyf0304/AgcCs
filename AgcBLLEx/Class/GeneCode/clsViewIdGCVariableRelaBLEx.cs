@@ -127,12 +127,15 @@ namespace AGC.BusinessLogicEx
                         sbCodeText.Append("\r\n" + $"{objVar.GetVarName4View()}.value = {objVar.VarExpression};");
                         if (string.IsNullOrEmpty(objVar.ClsName) == false)
                         {
-                            objImportClass.AddImportClass("", objVar.FilePath, objVar.ClsName, enumImportObjType.CustomFunc, strBaseUrl);
+                            if (objImportClass != null)
+                            {
+                                objImportClass.AddImportClass("", objVar.FilePath, objVar.ClsName, enumImportObjType.CustomFunc, strBaseUrl);
+                            }
                         }
                         break;
                     case enumRetrievalMethod.StoreStorage_06:
                         sbCodeText.Append("\r\n" + $"{objVar.GetVarName4View()}.value = {objVar.VarExpression};");
-                        if (string.IsNullOrEmpty(objVar.ClsName) == false)
+                        if (string.IsNullOrEmpty(objVar.ClsName) == false && objImportClass != null)
                         {
                             objImportClass.AddImportClass("", objVar.FilePath, objVar.ClsName, enumImportObjType.CustomFunc, strBaseUrl);
                         }
@@ -1142,7 +1145,7 @@ namespace AGC.BusinessLogicEx
         {
             var strWhere = $"{conViewIdGCVariableRela.ViewId} = '{strViewId}'  ";
             var arrViewIdGCVariableRela = clsViewIdGCVariableRelaBL.GetObjLstCache(strPrjId);
-            var arrViewIdGCVariableRela_ViewId = arrViewIdGCVariableRela.Where(x => x.ViewId == strViewId);
+            var arrViewIdGCVariableRela_ViewId = arrViewIdGCVariableRela.Where(x => x.ViewId == strViewId).ToList();
             var intCount = arrViewIdGCVariableRela_ViewId.Count(x => x.RegionTypeNames.Contains("CacheField"));
 
             return intCount;

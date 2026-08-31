@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:Log4GeneViewCodeExApiController
 表名:Log4GeneViewCode(00050280)
 生成代码版本:2019.07.15.2
@@ -83,6 +82,40 @@ namespace AGC.WebApi
                 string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
                 return Ok(new { errorId = 1, errorMsg = strMsg });
 
+            }
+        }
+        /// <summary>
+        /// AddLog4GeneViewCodeByMachine
+        /// 调用方法: Get /Log4GeneViewCodeExApi/AddLog4GeneViewCodeByMachine?strViewId=value&strUserId=value&strVersion=value&strCodeTypeId=value&strMachineName=value
+        /// </summary>
+        /// <param name="strViewId">界面Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <param name="strVersion">版本</param>
+        /// <param name="strCodeTypeId">代码类型Id</param>
+        /// <param name="strMachineName">机器名</param>
+        /// <returns>是否成功</returns>
+        [HttpGet("AddLog4GeneViewCodeByMachine")]
+        public ActionResult AddLog4GeneViewCodeByMachine(string strViewId, string strUserId, string strVersion, string strCodeTypeId, string strMachineName)
+        {
+            if (strVersion == "null") strVersion = "";
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strViewId", strViewId);
+            dictParam.Add("strUserId", strUserId);
+            dictParam.Add("strVersion", strVersion);
+            dictParam.Add("strCodeTypeId", strCodeTypeId);
+            dictParam.Add("strMachineName", strMachineName);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, strUserId, dictParam);
+
+            try
+            {
+                var varResult = clsLog4GeneViewCodeBLEx.AddLog4GeneViewCodeByMachine(strViewId, strUserId, strVersion, strCodeTypeId, strMachineName);
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
             }
         }
     }

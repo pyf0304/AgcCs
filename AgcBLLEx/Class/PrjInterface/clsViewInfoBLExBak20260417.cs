@@ -276,8 +276,9 @@ namespace AGC.BusinessLogicEx
             return strKeyFldNameLst;
 
         }
-        public static clsViewInfoENEx GetObjExByViewId(string strViewId, bool bolIsFstLcase, string strPrjId)
+        public static clsViewInfoENEx GetObjExByViewId(string strViewId, bool bolIsFstLcase, string strCmPrjId)
         {
+            string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
             clsViewInfoEN objViewInfoEN = clsViewInfoBL.GetObjByViewId(strViewId);
             clsViewInfoENEx objViewInfoENEx = null;
 
@@ -317,15 +318,16 @@ namespace AGC.BusinessLogicEx
             objViewInfoENEx.ObjFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             objViewInfoENEx.NameSpace = objViewInfoENEx.objProjectsEN.PrjDomain;
 
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objViewInfoENEx.PrjId);
+            
+            string strFunctionTemplateId = clsCMProjectBLEx.GetFunctionTemplateIdByCmPrjIdCache(strCmPrjId);
             objViewInfoENEx.FunctionTemplateId = strFunctionTemplateId;
             return objViewInfoENEx;
         }
 
 
-        public static bool GetViewInfoEx(ref clsViewInfoENEx objViewInfoENEx, bool bolIsFstLcase, string strPrjId)
+        public static bool GetViewInfoEx(ref clsViewInfoENEx objViewInfoENEx, bool bolIsFstLcase, string strCmPrjId)
         {
-
+            string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
             clsViewInfoEN objViewInfoEN = clsViewInfoBL.GetObjByViewIdCache(objViewInfoENEx.ViewId, strPrjId);
 
             clsViewInfoBL.CopyTo(objViewInfoEN, objViewInfoENEx);
@@ -369,7 +371,8 @@ namespace AGC.BusinessLogicEx
             objViewInfoENEx.ObjFuncModule = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             objViewInfoENEx.NameSpace = objViewInfoENEx.objProjectsEN.PrjDomain;
 
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objViewInfoENEx.PrjId);
+            
+            string strFunctionTemplateId = clsCMProjectBLEx.GetFunctionTemplateIdByCmPrjIdCache(strCmPrjId);
             objViewInfoENEx.FunctionTemplateId = strFunctionTemplateId;
 
 

@@ -311,10 +311,12 @@ namespace AGC.BusinessLogicEx
         /// <param name="strPrjId">strPrjId</param>
         /// <param name="strCodeTypeId">代码类型Id</param>
         /// <returns>函数数</returns>
-        public static int GetFunctionCountByTabId(string strTabId, string strPrjId, string strCodeTypeId)
+        public static int GetFunctionCountByTabId0(string strTabId, string strCmPrjId, string strCodeTypeId)
         {
+            string strPrjId = clsCMProjectBLEx.GetPrjIdByCmPrjIdCache(strCmPrjId);
             clsPrjTabEN objPrjTab = clsPrjTabBL.GetObjByTabIdCache(strTabId, strPrjId);
-            string strFunctionTemplateId = clsPrjFuncTemplateRelaBLEx.getFunctionTemplateIdByPrjId(objPrjTab.PrjId);
+
+            string strFunctionTemplateId = clsCMProjectBLEx.GetFunctionTemplateIdByCmPrjIdCache(strCmPrjId);
             clsCodeTypeEN objCodeTypeEN = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
             string strCondition = string.Format("{6}='{7}' and {0}='{1}' and {2}='{3}' and {4} in ('00','{5}')",
                 convFunctionTemplateRela.ProgLangTypeId, objCodeTypeEN.ProgLangTypeId,

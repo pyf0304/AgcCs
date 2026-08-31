@@ -1,5 +1,4 @@
-﻿
- /*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
  类名:GCPathExApiController
  表名:GCPath(00050595)
  生成代码版本:2021.11.07.2
@@ -19,9 +18,9 @@
  == == == == == == == == == == == == 
  **/
 using System;
-using System.Data; 
-using System.Text; 
-using System.Collections; 
+using System.Data;
+using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using com.taishsoft.json;
@@ -32,54 +31,85 @@ using com.taishsoft.common;
 using com.taishsoft.datetime;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Newtonsoft.Json.Linq; using Comm.WebApi;
+using Newtonsoft.Json.Linq;
+using Comm.WebApi;
 
 namespace AGC.WebApi
 {
- /// <summary>
- /// GCPathExApiController 的摘要说明
- /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
- /// </summary>
-[ApiController]
-[Route("[controller]")]
-public class GCPathExApiController : ControllerBase
-{ 
+    /// <summary>
+    /// GCPathExApiController 的摘要说明
+    /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
+    /// </summary>
+    [ApiController]
+    [Route("[controller]")]
+    public class GCPathExApiController : ControllerBase
+    {
 
-/// <summary>
-/// 构造函数
- /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_ClassConstructor1)
-/// </summary>
- public GCPathExApiController()
- {
- }
+        /// <summary>
+        /// 构造函数
+        /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_ClassConstructor1)
+        /// </summary>
+        public GCPathExApiController()
+        {
+        }
 
- /// <summary>
- /// 编辑记录存盘到数据表中。如果存在相关记录就修改，不存在就添加
- /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_EditRecordEx)
- /// </summary>
- /// <param name = "objGCPath">需要修改的实体对象</param>
- /// <returns>修改是否成功？</returns>
-[HttpPost("EditRecordEx")]
-public ActionResult EditRecordEx([FromBody]clsGCPathEN objGCPath)
-{
-string strFunctionName = clsStackTrace.GetCurrFunction();
-Dictionary<string, string> dictParam = new Dictionary<string, string>();
-string strGCPathJSONObj = clsJSON.GetJsonFromObj(objGCPath);
-dictParam.Add("strGCPathJSONObj", strGCPathJSONObj);
-clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
-objGCPath._IsCheckProperty = true;
- try
- {
-bool bolResult =true;//如果要使用，解除注释---- objGCPath.EditRecordEx();
-return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
-}
- catch (Exception objException)
- {
-string strMsg = string.Format("{0}.(from {1})", objException.Message,  clsStackTrace.GetCurrClassFunction());
-clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
-return Ok(new { errorId = 1, errorMsg = strMsg });
- }
- }
+        /// <summary>
+        /// 编辑记录存盘到数据表中。如果存在相关记录就修改，不存在就添加
+        /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_EditRecordEx)
+        /// </summary>
+        /// <param name = "objGCPath">需要修改的实体对象</param>
+        /// <returns>修改是否成功？</returns>
+        [HttpPost("EditRecordEx")]
+        public ActionResult EditRecordEx([FromBody] clsGCPathEN objGCPath)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            string strGCPathJSONObj = clsJSON.GetJsonFromObj(objGCPath);
+            dictParam.Add("strGCPathJSONObj", strGCPathJSONObj);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+            objGCPath._IsCheckProperty = true;
+            try
+            {
+                bool bolResult = true;//如果要使用，解除注释---- objGCPath.EditRecordEx();
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = bolResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
 
-}
+        /// <summary>
+        /// 根据路径名获取GcPathId（不存在则新建并返回）
+        /// 调用方法: GET /GCPathExApi/GetGcPathIdByGcPathName?strGcPathName=v1&strPrjId=v2&strUserId=v3
+        /// </summary>
+        /// <param name="strGcPathName">GC路径名</param>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strUserId">用户Id</param>
+        /// <returns>GcPathId</returns>
+        [HttpGet("GetGcPathIdByGcPathName")]
+        public ActionResult GetGcPathIdByGcPathName(string strGcPathName, string strPrjId, string strUserId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strGcPathName", strGcPathName);
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strUserId", strUserId);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                string strGcPathId = clsGCPathBLEx.GetGcPathIdByGcPathName(strGcPathName, strPrjId, strUserId);
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = strGcPathId });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+    }
 }

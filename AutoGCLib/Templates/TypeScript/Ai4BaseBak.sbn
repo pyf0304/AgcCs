@@ -15,7 +15,7 @@ import {
   viewVarSet,
   dataColumn,
   BindTabByList,
-  ref{{ TableName }}_List,
+  {{ refListName }},
 } from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
 import {
   {{~ if HasCacheMode ~}}
@@ -57,7 +57,7 @@ import { AIOperateListBase } from '@/viewsBase/common/AIOperateListBase';
 import {
   getExportColumnSpecsAi,
   getListColumnsAi,
-} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiColumns';
+} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDColumns';
 
 /**
  * Ai版基类：

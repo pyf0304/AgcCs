@@ -13,7 +13,7 @@ import {
   viewVarSet,
   dataColumn,
   BindTabByList,
-  ref{{ TableName }}_List,
+  {{ refListName }},
   {{CacheImportVars}}
 
 } from '@/views/{{ ModuleName }}/{{ TableName }}VueShare';
@@ -81,7 +81,7 @@ import { AIOperateListBase } from '@/viewsBase/common/AIOperateListBase';
 import {
   getExportColumnSpecsAi,
   getListColumnsAi,
-} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiColumns';
+} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDColumns';
 
 /**
  * Ai版基类：
@@ -704,7 +704,7 @@ export abstract class {{ TableName }}CRUDAi extends AIOperateListBase implements
 
     const arrDataColumn: Array<clsDataColumn> = this.getListColumnsAi();
 
-    if (ref{{ TableName }}_List.value != null) {
+    if ({{ refListName }}.value != null) {
       dataColumn.value = arrDataColumn;
       {{~ if IsUseFunc ~}}
       try {
@@ -919,7 +919,7 @@ arr{{ TableName }}ExObjLst = await {{ TableName }}_GetObjExLstByPagerCache(objPa
   public async ExtendTdFldFuncMap(arr{{ TableName }}ExObjLst: Array<cls{{ TableName }}ENEx>) {
     const arrFldName = cls{{ TableName }}EN._AttributeName;
     const tdFieldNames = this.ResolveTdFieldNames(
-      ref{{ TableName }}_List.value?.tdFieldNames,
+      {{ refListName }}.value?.tdFieldNames,
       dataColumn.value,
       IsNullOrEmpty,
     );

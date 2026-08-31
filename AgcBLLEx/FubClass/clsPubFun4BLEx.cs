@@ -145,7 +145,7 @@ namespace AGC.BusinessLogicEx
             clsSysDefaValNameBL.objCommFun4BL = new clsCommFun4BL4SysDefaValName();
             clsUserDefaValue_LocalBL.objCommFun4BL = new clsCommFun4BL4UserDefaValue_Local();
             clsViewStyleBL.objCommFun4BL = new clsCommFun4BL4ViewStyle();
-            clsPrjFuncTemplateRelaBL.objCommFun4BL = new clsCommFun4BL4PrjFuncTemplateRela();
+            
             clsViewTabTypeBL.objCommFun4BL = new clsCommFun4BL4ViewTabType();
             clsDDLItemsOptionBL.objCommFun4BL = new clsCommFun4BL4DDLItemsOption();
             clsDgFuncTypeBL.objCommFun4BL = new clsCommFun4BL4DgFuncType();

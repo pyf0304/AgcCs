@@ -10,8 +10,12 @@ import { IsNullOrEmpty, Format } from '@/ts/PubFun/clsString';
 
 import {
   {{~ if IsStringAutoIncrement ~}}
-      {{ TableName }}_GetMaxStrIdAsync,
-      {{ TableName }}_AddNewRecordWithMaxIdAsync,
+        {{~ if PrefixFldName != "" ~}}
+           {{ TableName }}_GetMaxStrIdByPrefixAsync,
+        {{~ else ~}}
+          {{ TableName }}_GetMaxStrIdAsync,
+        {{~ end ~}}
+       {{ TableName }}_AddNewRecordWithMaxIdAsync,
   {{~ else if NeedReturnKeyMethod ~}}
       {{ TableName }}_AddNewRecordWithReturnKeyAsync,
       {{ TableName }}_AddNewRecordAsync,
@@ -19,10 +23,6 @@ import {
       {{ TableName }}_AddNewRecordAsync,
   {{~ end ~}}
   {{ TableName }}_CheckPropertyNew,
- 
-  {{~ if NeedRefreshCache ~}}
-      {{ TableName }}_ReFreshCache,
-  {{~ end ~}}
 
   {{~ if NeedUniCheck ~}}
   {{ TableName }}_IsExistRecordAsync,
@@ -37,12 +37,10 @@ import {
 } from '@/ts/L3ForWApi/{{ ModuleName }}/cls{{ TableName }}WApi';
 
 import { cls{{ TableName }}EN,  {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
-import {  
-    {{~ if NeedRefreshCache ~}}
-  {{ TableName }}_DeleteKeyIdCache,
-  {{~ end ~}}
+import {    
   divVarSet,
-  ref{{ TableName }}_Edit,
+  {{ refEditName }},
+  {{VarNameStr_Import}}
 } from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
 import { IShowList } from '@/ts/PubFun/IShowList';
 import { enumPageDispMode } from '@/ts/PubFun/enumPageDispMode';
@@ -56,7 +54,9 @@ export abstract class {{ TableName }}_EditAi {
   get className(): string {
     return this._className;
   }
-
+   public get thisTabName(): string {
+    return cls{{ TableName }}EN._CurrTabName;
+  }
   public static times4TestShowDialog = 0;
   public opType = '';
   {{~ if IsMultiKey ~}}
@@ -97,7 +97,7 @@ export abstract class {{ TableName }}_EditAi {
   /** 隐藏对话框 */
   public HideDialog_{{ TableName }}() {
     if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
-      ref{{ TableName }}_Edit.value.hideDialog();
+      {{ refEditName }}.value.hideDialog();
     }
   }
 
@@ -105,7 +105,7 @@ export abstract class {{ TableName }}_EditAi {
   public async ShowDialog_{{ TableName }}(strOp: string): Promise<boolean> {
     const strThisFuncName = this.ShowDialog_{{ TableName }}.name;
     if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
-      if (ref{{ TableName }}_Edit.value == null) {
+      if ({{ refEditName }}.value == null) {
         const strMsg = Format(
           '当前编辑区的EditObj为空，请检查！(in {0}.{1})',
           this.className,
@@ -115,7 +115,7 @@ export abstract class {{ TableName }}_EditAi {
         alert(strMsg);
         return false;
       }
-      await ref{{ TableName }}_Edit.value.showDialog(this);
+      await {{ refEditName }}.value.showDialog(this);
     }
     if (strOp === 'Add' || strOp === 'AddWithMaxId') {
       this.btnSubmit{{ TableName }} = '确认添加';
@@ -154,14 +154,17 @@ export abstract class {{ TableName }}_EditAi {
   /** 在数据表里修改记录 */
   public async btnUpdateRecordInTab_Click(key: {{ TableName }}Key) {
     const strThisFuncName = this.btnUpdateRecordInTab_Click.name;
-    {{~ if IsKeyFieldNumeric ~}}
-    if (key.{{ KeyFieldCamel }} == 0 || key.{{ KeyFieldCamel }} == undefined) {
-    {{~ else ~}}
-    if (IsNullOrEmpty(key.{{ KeyFieldCamel }}) == true) {
+    {{~ for keyField in KeyFields ~}}
+           {{~ if (keyField.IsNumber) ~}}
+               if (key.{{ keyField.FieldNameCamel }} === 0) {
+           {{~ else ~}}
+                if (IsNullOrEmpty(key.{{ keyField.FieldNameCamel }}) || key.{{ keyField.FieldNameCamel }}  === {{ keyField.InitValue }}) {                    
+           {{~ end ~}}
+                alert(`请选择需要修改的${this.thisTabName}记录!(in ${this.className}.${strThisFuncName})`);
+                return '';
+            }
+   
     {{~ end ~}}
-      alert('请选择需要修改的记录!');
-      return;
-    }
     try {
       this.opType = 'Update';
       const bolIsSuccess = await this.ShowDialog_{{ TableName }}(this.opType);
@@ -250,7 +253,7 @@ export abstract class {{ TableName }}_EditAi {
           returnBool = await this.AddNewRecordSave();
           if (returnBool == true) {
             if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
-              ref{{ TableName }}_Edit.value.hideDialog();
+              {{ refEditName }}.value.hideDialog();
             }
             if (this.iShowList != null)
               {{~ if KeyFields.size > 0 ~}}
@@ -269,7 +272,7 @@ export abstract class {{ TableName }}_EditAi {
           if (IsNullOrEmpty(returnKeyId) == false) {
           {{~ end ~}}
             if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01)
-              ref{{ TableName }}_Edit.value.hideDialog();
+              {{ refEditName }}.value.hideDialog();
             if (this.iShowList != null)
               {{~ if IsKeyFieldNumeric ~}}
               this.iShowList.BindGvCache(cls{{ TableName }}EN._CurrTabName, returnKeyId.toString());
@@ -282,7 +285,7 @@ export abstract class {{ TableName }}_EditAi {
           returnBool = await this.AddNewRecordSave();
           if (returnBool == true) {
             if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
-              ref{{ TableName }}_Edit.value.hideDialog();
+              {{ refEditName }}.value.hideDialog();
             }
             if (this.iShowList != null)
               {{~ if IsKeyFieldNumeric ~}}
@@ -300,7 +303,7 @@ export abstract class {{ TableName }}_EditAi {
           alert(strInfo);
           if (returnBool == true) {
             if ({{ TableName }}_EditAi.strPageDispModeId == enumPageDispMode.PopupBox_01) {
-              ref{{ TableName }}_Edit.value.hideDialog();
+              {{ refEditName }}.value.hideDialog();
             }
             if (this.iShowList != null)
               {{~ if IsMultiKey ~}}
@@ -353,9 +356,14 @@ export abstract class {{ TableName }}_EditAi {
   /** 为插入记录做准备工作 */
   public async AddNewRecord() {
     const strThisFuncName = this.AddNewRecord.name;
-    ref{{ TableName }}_Edit.value.Clear();
-    try {
-      const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+    {{ refEditName }}.value.Clear();
+    try {      
+        {{~ if PrefixFldName != "" ~}}
+               const returnString = await {{ TableName }}_GetMaxStrIdByPrefixAsync({{VarNameStr_RefreshCache}});
+        {{~ else ~}}
+            const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ end ~}}
+
       if (returnString == '') {
         const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
         alert(strInfo);
@@ -383,9 +391,13 @@ export abstract class {{ TableName }}_EditAi {
   /** 为插入记录做准备工作（使用最大值ID） */
   public async AddNewRecordWithMaxId() {
     const strThisFuncName = this.AddNewRecordWithMaxId.name;
-    ref{{ TableName }}_Edit.value.Clear();
+    {{ refEditName }}.value.Clear();
     try {
-      const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ if PrefixFldName != "" ~}}
+               const returnString = await {{ TableName }}_GetMaxStrIdByPrefixAsync({{VarNameStr_RefreshCache}});
+        {{~ else ~}}
+            const returnString = await {{ TableName }}_GetMaxStrIdAsync();
+        {{~ end ~}}
       if (returnString == '') {
         const strInfo = Format('获取表{{ TableName }}的最大关键字为空,不成功,请检查!');
         alert(strInfo);
@@ -412,12 +424,12 @@ export abstract class {{ TableName }}_EditAi {
 {{~ else ~}}
   /** 为插入记录做准备工作 */
   public async AddNewRecord() {
-    ref{{ TableName }}_Edit.value.Clear();
+    {{ refEditName }}.value.Clear();
   }
 
   /** 为插入记录做准备工作（使用最大值ID） */
   public async AddNewRecordWithMaxId() {
-    ref{{ TableName }}_Edit.value.Clear();
+    {{ refEditName }}.value.Clear();
   }
 {{~ end ~}}
 
@@ -430,7 +442,7 @@ export abstract class {{ TableName }}_EditAi {
     const strThisFuncName = this.AddNewRecordSave.name;
     let obj{{ TableName }}EN;
     try {
-      obj{{ TableName }}EN = await ref{{ TableName }}_Edit.value.GetEditData{{ TableName }}Obj();
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
     } catch (e) {
       const strMsg = Format(
         '从界面获取数据不成功,{0}.(in {1}.{2})',
@@ -511,20 +523,6 @@ export abstract class {{ TableName }}_EditAi {
       returnBool = await {{ TableName }}_AddNewRecordAsync(obj{{ TableName }}EN);
       {{~ end ~}}
       if (returnBool == true) {
-          {{~ if NeedRefreshCache ~}}
-        {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-          {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
-     
-        {{~ end ~}}
-        {{~ else ~}}
-        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-        {{~ end ~}}
-
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
         if (this.isShowMsg == true) alert(strInfo);
       } else {
@@ -589,7 +587,7 @@ export abstract class {{ TableName }}_EditAi {
     const strThisFuncName = this.AddNewRecordWithReturnKeySave.name;
     let obj{{ TableName }}EN;
     try {
-      obj{{ TableName }}EN = await ref{{ TableName }}_Edit.value.GetEditData{{ TableName }}Obj();
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
     } catch (e) {
       const strMsg = Format(
         '从界面获取数据不成功,{0}.(in {1}.{2})',
@@ -638,19 +636,6 @@ export abstract class {{ TableName }}_EditAi {
       const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       const returnKeyId: string = responseKeyId;
       if (IsNullOrEmpty(returnKeyId) == false) {
-       {{~ if NeedRefreshCache ~}}
-        {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
-     
-        {{~ end ~}}
-        {{~ else ~}}
-        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-        {{~ end ~}}
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
         //显示信息框
         if (this.isShowMsg == true) alert(strInfo);
@@ -721,7 +706,7 @@ export abstract class {{ TableName }}_EditAi {
     const strThisFuncName = this.AddNewRecordWithMaxIdSave.name;
     let obj{{ TableName }}EN;
     try {
-      obj{{ TableName }}EN = await ref{{ TableName }}_Edit.value.GetEditData{{ TableName }}Obj();
+      obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
     } catch (e) {
       const strMsg = Format(
         '从界面获取数据不成功,{0}.(in {1}.{2})',
@@ -757,20 +742,6 @@ export abstract class {{ TableName }}_EditAi {
       const responseKeyId = await {{ TableName }}_AddNewRecordWithMaxIdAsync(obj{{ TableName }}EN);
       const returnKeyId: string = responseKeyId;
       if (IsNullOrEmpty(returnKeyId) == false) {
-       {{~ if NeedRefreshCache ~}}
-               {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
-     
-        {{~ end ~}}
-        {{~ else ~}}
-        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-        {{~ end ~}}
-
         const strInfo = `添加[{{ TableCnName }}({{ TableName }})]记录成功!`;
         if (this.isShowMsg == true) alert(strInfo);
       } else {
@@ -837,7 +808,7 @@ export abstract class {{ TableName }}_EditAi {
       console.error(strMsg);
       alert(strMsg);
     }
-    ref{{ TableName }}_Edit.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
+    {{ refEditName }}.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
   }
 
   /** 修改记录（显示数据） */
@@ -856,7 +827,7 @@ export abstract class {{ TableName }}_EditAi {
         alert(strMsg);
         return false;
       }
-      await ref{{ TableName }}_Edit.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
+      await {{ refEditName }}.value.ShowDataFrom{{ TableName }}Obj(obj{{ TableName }}EN);
       return true;
     } catch (e) {
       const strMsg = Format(
@@ -875,7 +846,7 @@ export abstract class {{ TableName }}_EditAi {
   /** 修改记录保存 */
   public async UpdateRecordSave(): Promise<boolean> {
     const strThisFuncName = this.UpdateRecordSave.name;
-    const obj{{ TableName }}EN = await ref{{ TableName }}_Edit.value.GetEditData{{ TableName }}Obj();
+    const obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
      {{~ if IsMultiKey ~}}
     // 🔥 多关键字段：循环设置每个关键字段
     {{~ for keyField in KeyFields ~}}
@@ -915,23 +886,7 @@ export abstract class {{ TableName }}_EditAi {
       }
       {{~ end ~}}
       const returnBool = await {{ TableName }}_UpdateRecordAsync(obj{{ TableName }}EN);
-      if (returnBool == true) {
-       {{~ if NeedRefreshCache ~}}
-               {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
      
-        {{~ end ~}}
-        {{~ else ~}}
-        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-        {{~ end ~}}
-
-
-      }
       return returnBool;
     } catch (e) {
       const strMsg = Format(
@@ -949,7 +904,7 @@ export abstract class {{ TableName }}_EditAi {
   /** 编辑记录，存在就修改，不存在就添加 */
   public async EditRecordExSave(): Promise<boolean> {
     const strThisFuncName = this.EditRecordExSave.name;
-    const obj{{ TableName }}EN = await ref{{ TableName }}_Edit.value.GetEditData{{ TableName }}Obj();
+    const obj{{ TableName }}EN = await {{ refEditName }}.value.GetEditData{{ TableName }}Obj();
 
       {{~ if IsMultiKey ~}}
     // 🔥 多关键字段：循环设置每个关键字段
@@ -990,21 +945,7 @@ export abstract class {{ TableName }}_EditAi {
       }
       {{~ end ~}}
       const returnBool = await {{ TableName }}_EditRecordExAsync(obj{{ TableName }}EN);
-      if (returnBool == true) {
-      {{~ if NeedRefreshCache ~}}
-              {{~ if HasCacheClassifyField ~}}
-        {{ TableName }}_ReFreshCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }});
-            {{ TableName }}_DeleteKeyIdCache(obj{{ TableName }}EN.{{ CacheClassifyFieldCamel }}, this.keyId);
-      
-        {{~ else ~}}
-        {{ TableName }}_ReFreshCache();
-           {{ TableName }}_DeleteKeyIdCache(this.keyId);
      
-        {{~ end ~}}
-        {{~ else ~}}
-        // {{ TableName }}_ReFreshCache(); // 🔥 当前表未使用 localStorage/sessionStorage 缓存，无需刷新
-        {{~ end ~}}
-      }
       return returnBool;
     } catch (e) {
       const strMsg = Format(
@@ -1021,18 +962,18 @@ export abstract class {{ TableName }}_EditAi {
 
   /** 设置取消按钮标题 */
   public set btnCancel{{ TableName }}(value: string) {
-    ref{{ TableName }}_Edit.value.strCancelButtonText = value;
+    {{ refEditName }}.value.strCancelButtonText = value;
   }
 
   /** 获取提交按钮标题 */
   public get btnSubmit{{ TableName }}(): string {
-    const strValue = ref{{ TableName }}_Edit.value.strSubmitButtonText;
+    const strValue = {{ refEditName }}.value.strSubmitButtonText;
     return strValue;
   }
 
   /** 设置提交按钮标题 */
   public set btnSubmit{{ TableName }}(value: string) {
-    ref{{ TableName }}_Edit.value.strSubmitButtonText = value;
+    {{ refEditName }}.value.strSubmitButtonText = value;
   }
 
  

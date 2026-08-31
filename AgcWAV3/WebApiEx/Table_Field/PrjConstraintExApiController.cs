@@ -1,5 +1,4 @@
-﻿
-/*-- -- -- -- -- -- -- -- -- -- --
+﻿/*-- -- -- -- -- -- -- -- -- -- --
 类名:PrjConstraintExApiController
 表名:PrjConstraint(00050331)
 生成代码版本:2019.07.15.2
@@ -32,8 +31,10 @@ using com.taishsoft.common;
 using com.taishsoft.datetime;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Newtonsoft.Json.Linq; using Comm.WebApi;
+using Newtonsoft.Json.Linq; 
+using Comm.WebApi;
 using AGC.BusinessLogicEx;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AGC.WebApi
 {
@@ -41,9 +42,10 @@ namespace AGC.WebApi
     /// PrjConstraintExApiController 的摘要说明
     /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
     /// </summary>
-    public class PrjConstraintExApiController : PrjConstraintApiController
+    [ApiController]
+    [Route("[controller]")]    
+    public class PrjConstraintExApiController : ControllerBase
     {
-
         /// <summary>
         /// 构造函数
         /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_ClassConstructor1)
@@ -103,6 +105,47 @@ namespace AGC.WebApi
             {
                 var varResult = clsPrjConstraintBLEx.CheckConstraintFld(strPrjConstraintId, strPrjId, strOpUserId);
                 return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 添加约束并按需导入约束字段
+        /// 调用方法: Post /PrjConstraintExApi/AddPrjConstraintWithFieldCheck
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        /// <returns>返回PrjConstraintId</returns>
+        [AllowAnonymous]
+        [HttpPost("AddPrjConstraintWithFieldCheck")]
+        public ActionResult AddPrjConstraintWithFieldCheck([FromBody] AddPrjConstraintWithFieldCheckRequest request)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+
+            if (request != null)
+            {
+                dictParam.Add("strPrjId", request.strPrjId ?? "");
+                dictParam.Add("strTabName", request.strTabName ?? "");
+                dictParam.Add("strConstraintName", request.strConstraintName ?? "");
+                dictParam.Add("strConstraintTypeName", request.strConstraintTypeName ?? "");
+                dictParam.Add("fieldCount", request.arrFieldInfo == null ? "0" : request.arrFieldInfo.Count.ToString());
+                dictParam.Add("strOpUser", request.strOpUser ?? "");
+            }
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                if (request == null)
+                {
+                    return Ok(new { errorId = 1, errorMsg = "request不能为空!" });
+                }
+
+                string strPrjConstraintId = clsPrjConstraintBLEx.AddPrjConstraintWithFieldCheck(request);
+                return Ok(new { errorId = 0, errorMsg = "", returnStr = strPrjConstraintId });
             }
             catch (Exception objException)
             {

@@ -2003,7 +2003,7 @@ namespace AGC.BusinessLogicEx
                     if (!string.IsNullOrEmpty(strTabName))
                     {
                         // 根据表名获取TabId
-                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(strPrjId, strTabName);
+                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(strPrjId, strTabName);
 
                         if (!string.IsNullOrEmpty(strTabId))
                         {
@@ -2426,7 +2426,7 @@ namespace AGC.BusinessLogicEx
                         result.TabName = strTabName;
 
                         // 获取TabId
-                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(strPrjId, strTabName);
+                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(strPrjId, strTabName);
 
                         if (!string.IsNullOrEmpty(strTabId))
                         {
@@ -3351,6 +3351,46 @@ namespace AGC.BusinessLogicEx
                     $"[ImportFileListFromClient][Fatal] prjId={strPrjId}, cmPrjId={strCmPrjId}, count={arrFileList?.Count ?? 0}, err={objException}");
                 return result;
             }
+        }
+
+        public static int SyncTabOwnershipByCmPrjId(string prjId, string cmPrjId)
+        {
+            int UpdatedCount = 0;
+            if (string.IsNullOrWhiteSpace(prjId))
+                throw new ArgumentException("prjId 不能为空", nameof(prjId));
+            if (string.IsNullOrWhiteSpace(cmPrjId))
+                throw new ArgumentException("cmPrjId 不能为空", nameof(cmPrjId));
+
+            var setTabIdInCmPrj = clsCmProjectPrjTabBLEx.GetTabIdLstCache(cmPrjId);
+            string strCondition = new clsFileResourceEN()
+                .SetPrjId(prjId, "=")
+                .SetCmPrjId(cmPrjId, "=")
+                .GetCombineCondition();
+            var arrFileResource = clsFileResourceBLEx.GetObjLst(strCondition);
+
+
+            foreach (var item in arrFileResource)
+            {
+
+                var bolShouldBelong = setTabIdInCmPrj.Contains(item.TabId);
+                var bolCurrentBelong = item.IsBelongsCurrCMPrj;
+
+                if (bolShouldBelong == bolCurrentBelong)
+                {
+                    //result.UnchangedCount++;
+                    continue;
+                }
+
+                var bolUpdated = clsFileResourceBL.SetFldValue(conFileResource._CurrTabName, conFileResource.IsBelongsCurrCMPrj, bolShouldBelong ? "1" : "0", $"FileResourceId = {item.FileResourceId}");
+
+                if (bolUpdated > 0)
+                {
+                    UpdatedCount++;
+                }
+
+            }
+
+            return UpdatedCount;
         }
     }
 

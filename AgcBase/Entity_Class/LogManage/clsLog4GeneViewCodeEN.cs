@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsLog4GeneViewCodeEN
  表名:Log4GeneViewCode(00050280)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:06:43
- 生成者:pyf
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/08/31 10:54:30
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:日志管理(LogManage)
- 框架-层名:实体层(CS)(EntityLayer,0001)
+ 框架-层名:实体层CS(EntityLayerCS,0001)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -31,7 +31,7 @@ namespace AGC.Entity
 {
  /// <summary>
  /// 表Log4GeneViewCode的关键字(mId)的类型定义. 以便检查类型以及操作方便.
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 public class K_mId_Log4GeneViewCode
 {
@@ -70,7 +70,7 @@ return new K_mId_Log4GeneViewCode(value);
 }
  /// <summary>
  /// 生成界面代码日志(Log4GeneViewCode)
- /// (AutoGCLib.EntityLayer4CSharp:GeneCode)
+ /// (AutoGCLib.EntityLayerCS4CSharp:GeneCode)
  /// </summary>
 [Serializable]
 [DataContractAttribute]
@@ -82,12 +82,14 @@ public new const string _CurrTabName = "Log4GeneViewCode"; //当前表名,与该
 public const string _CurrTabKeyFldName = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
 public const string _WhereFormatBack = ""; //后台条件格式串
 public const string _WhereFormat = ""; //前台条件格式串
-protected const int _AttributeCount = 7;
-public static string[] _AttributeName = new string[] {"mId", "UserId", "ViewId", "PrjId", "GeneCodeDate", "VersionGeneCode", "Memo"};
+protected const int _AttributeCount = 9;
+public static string[] _AttributeName = new string[] {"mId", "UserId", "MachineName", "ViewId", "CodeTypeId", "PrjId", "GeneCodeDate", "VersionGeneCode", "Memo"};
 
 protected long mlngmId;    //mId
 protected string mstrUserId;    //用户Id
+protected string mstrMachineName;    //机器名
 protected string mstrViewId;    //界面Id
+protected string mstrCodeTypeId;    //代码类型Id
 protected string mstrPrjId;    //工程Id
 protected string mstrGeneCodeDate;    //生成代码日期
 protected string mstrVersionGeneCode;    //生成代码版本
@@ -141,9 +143,17 @@ else if (strAttributeName  ==  conLog4GeneViewCode.UserId)
 {
 return mstrUserId;
 }
+else if (strAttributeName  ==  conLog4GeneViewCode.MachineName)
+{
+return mstrMachineName;
+}
 else if (strAttributeName  ==  conLog4GeneViewCode.ViewId)
 {
 return mstrViewId;
+}
+else if (strAttributeName  ==  conLog4GeneViewCode.CodeTypeId)
+{
+return mstrCodeTypeId;
 }
 else if (strAttributeName  ==  conLog4GeneViewCode.PrjId)
 {
@@ -175,10 +185,20 @@ else if (strAttributeName  ==  conLog4GeneViewCode.UserId)
 mstrUserId = value.ToString();
  AddUpdatedFld(conLog4GeneViewCode.UserId);
 }
+else if (strAttributeName  ==  conLog4GeneViewCode.MachineName)
+{
+mstrMachineName = value.ToString();
+ AddUpdatedFld(conLog4GeneViewCode.MachineName);
+}
 else if (strAttributeName  ==  conLog4GeneViewCode.ViewId)
 {
 mstrViewId = value.ToString();
  AddUpdatedFld(conLog4GeneViewCode.ViewId);
+}
+else if (strAttributeName  ==  conLog4GeneViewCode.CodeTypeId)
+{
+mstrCodeTypeId = value.ToString();
+ AddUpdatedFld(conLog4GeneViewCode.CodeTypeId);
 }
 else if (strAttributeName  ==  conLog4GeneViewCode.PrjId)
 {
@@ -214,9 +234,17 @@ else if (conLog4GeneViewCode.UserId  ==  _AttributeName[intIndex])
 {
 return mstrUserId;
 }
+else if (conLog4GeneViewCode.MachineName  ==  _AttributeName[intIndex])
+{
+return mstrMachineName;
+}
 else if (conLog4GeneViewCode.ViewId  ==  _AttributeName[intIndex])
 {
 return mstrViewId;
+}
+else if (conLog4GeneViewCode.CodeTypeId  ==  _AttributeName[intIndex])
+{
+return mstrCodeTypeId;
 }
 else if (conLog4GeneViewCode.PrjId  ==  _AttributeName[intIndex])
 {
@@ -248,10 +276,20 @@ else if (conLog4GeneViewCode.UserId  ==  _AttributeName[intIndex])
 mstrUserId = value.ToString();
  AddUpdatedFld(conLog4GeneViewCode.UserId);
 }
+else if (conLog4GeneViewCode.MachineName  ==  _AttributeName[intIndex])
+{
+mstrMachineName = value.ToString();
+ AddUpdatedFld(conLog4GeneViewCode.MachineName);
+}
 else if (conLog4GeneViewCode.ViewId  ==  _AttributeName[intIndex])
 {
 mstrViewId = value.ToString();
  AddUpdatedFld(conLog4GeneViewCode.ViewId);
+}
+else if (conLog4GeneViewCode.CodeTypeId  ==  _AttributeName[intIndex])
+{
+mstrCodeTypeId = value.ToString();
+ AddUpdatedFld(conLog4GeneViewCode.CodeTypeId);
 }
 else if (conLog4GeneViewCode.PrjId  ==  _AttributeName[intIndex])
 {
@@ -321,6 +359,32 @@ else
 }
 }
 /// <summary>
+/// 机器名(说明:;字段类型:varchar;字段长度:50;是否可空:True)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string MachineName
+{
+get
+{
+return mstrMachineName;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrMachineName = value;
+}
+else
+{
+ mstrMachineName = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conLog4GeneViewCode.MachineName);
+}
+}
+/// <summary>
 /// 界面Id(说明:;字段类型:char;字段长度:8;是否可空:True)
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
 /// </summary>
@@ -344,6 +408,32 @@ else
 }
 //记录修改过的字段
  AddUpdatedFld(conLog4GeneViewCode.ViewId);
+}
+}
+/// <summary>
+/// 代码类型Id(说明:;字段类型:char;字段长度:4;是否可空:False)
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:ToStringV2)
+/// </summary>
+  [DataMember]//非常重要
+ public string CodeTypeId
+{
+get
+{
+return mstrCodeTypeId;
+}
+set
+{
+if (value  ==  "")
+{
+mintErrNo = 1;
+ mstrCodeTypeId = value;
+}
+else
+{
+ mstrCodeTypeId = value;
+}
+//记录修改过的字段
+ AddUpdatedFld(conLog4GeneViewCode.CodeTypeId);
 }
 }
 /// <summary>
@@ -471,7 +561,7 @@ public static class conLog4GeneViewCode
 {
 public const string _CurrTabName = "Log4GeneViewCode"; //当前表名,与该类相关的表名
 public const string _CurrTabKeyFldName_S = "mId"; //当前表中的关键字名称,与该类相关的表中关键字名
-public static string[] _AttributeName = new string[] {"mId", "UserId", "ViewId", "PrjId", "GeneCodeDate", "VersionGeneCode", "Memo"};
+public static string[] _AttributeName = new string[] {"mId", "UserId", "MachineName", "ViewId", "CodeTypeId", "PrjId", "GeneCodeDate", "VersionGeneCode", "Memo"};
 //以下是属性变量
 
 
@@ -488,10 +578,22 @@ public static string[] _AttributeName = new string[] {"mId", "UserId", "ViewId",
  public const string UserId = "UserId";    //用户Id
 
  /// <summary>
+ /// 常量:"MachineName"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string MachineName = "MachineName";    //机器名
+
+ /// <summary>
  /// 常量:"ViewId"
  /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
  /// </summary>
  public const string ViewId = "ViewId";    //界面Id
+
+ /// <summary>
+ /// 常量:"CodeTypeId"
+ /// (AGC.BusinessLogicEx.clsPrjTabFldBLEx:DefPropertyNameConst4ConstLevel)
+ /// </summary>
+ public const string CodeTypeId = "CodeTypeId";    //代码类型Id
 
  /// <summary>
  /// 常量:"PrjId"

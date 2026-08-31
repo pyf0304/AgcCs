@@ -2,7 +2,7 @@
 	<div id="divLayout" ref="refDivLayout" class="div_layout">
 		<div style="position: relative; width: 648px; height: 37px; left: 0px; top: 0px">
 			<label id="lblViewTitle" name="lblViewTitle" class="h5">{{ "{{" }} strTitle {{ "}}" }} </label>
-			<label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width: 250px"> </label>
+			<label id="lblMsg_List" name="lblMsg_List" class="text-warning" style="width: 250px">{{ "{{" }} strWarningMsg {{ "}}" }} </label>
 		</div>
 
 		<div id="divQuery" ref="refDivQuery" class="div_query">
@@ -86,6 +86,80 @@
 								{{ "{{" }} cmd.text {{ "}}" }}
 							</button>
 						</td>
+					</tr>
+					<tr v-if="queryRow3.length > 0">
+						<template v-for="field in queryRow3" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<input
+								  v-if="field.controlType === 'text'"
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @input="setQueryValue(field.key, ($event.target as HTMLInputElement).value)"
+                />
+								<select
+								  v-else
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+                >
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
+                  >										
+											{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
+					</tr>
+					<tr v-if="queryRow4.length > 0">
+						<template v-for="field in queryRow4" :key="field.key">
+							<td class="text-right">
+								<label class="col-form-label text-right" style="width: 90px">
+									{{ "{{" }}
+									field.label
+									{{ "}}" }}
+								</label>
+							</td>
+							<td class="text-left">
+								<input
+								  v-if="field.controlType === 'text'"
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @input="setQueryValue(field.key, ($event.target as HTMLInputElement).value)"
+                />
+								<select
+								  v-else
+								  :id="field.id"
+								  class="form-control form-control-sm"
+								  :style="{ width: field.width + 'px' }"
+								  :value="getQueryValue(field.key)"
+								  @change="setQueryValue(field.key, ($event.target as HTMLSelectElement).value)"
+                >
+									<option
+									  v-for="(item, index) in getSelectOptions(field.optionsKey)"
+									  :key="index"
+									  :value="getSelectValue(item, field.optionsKey)"
+                  >
+										{{ "{{" }} getSelectText(item, field.optionsKey) {{ "}}" }}
+									</option>
+								</select>
+							</td>
+						</template>
 					</tr>
 				</tbody>
 			</table>
@@ -188,7 +262,7 @@
 
 		<div id="divList" ref="refDivList" class="div_List">
 			<{{ TableName }}_ListCom
-        ref="ref{{ TableName }}_List"
+        ref="{{ refListName }}"
         :items="dataList{{ TableName }}"
         :show-error-message="showErrorMessage"
         :empty-rec-num-info="emptyRecNumInfo"
@@ -200,8 +274,10 @@
 			<input id="hidSort{{ TableName }}By" type="hidden" />
 		</div>
 
-		<{{ TableName }}_EditCom ref="ref{{ TableName }}_Edit" />
-		<{{ TableName }}_DetailCom ref="ref{{ TableName }}_DetailAi" />
+		<{{ TableName }}_EditCom ref="{{ refEditName }}" />
+		{{~ if HasDetailFeature ~}}
+			<{{ TableName }}_DetailCom ref="{{ refDetailName }}" />
+		{{~ end ~}}
 	</div>
 </template>
 
@@ -209,7 +285,7 @@
 	import 'jquery/dist/jquery.min.js';
 	import 'bootstrap/dist/js/bootstrap.min.js';
 	import 'bootstrap/dist/css/bootstrap.css';
-	import { defineComponent, onMounted, ref, reactive } from 'vue';
+	import { defineComponent, onMounted, ref, reactive, onBeforeUnmount } from 'vue';
 	import * as XLSX from 'xlsx';
 	import router from '@/router';
 	import {
@@ -217,12 +293,12 @@
 	refDivQuery,
 	refDivFunction,
 	refDivList,
-	ref{{ TableName }}_Edit,
+	{{refEditName}},
 	{{~ # 🔥 根据是否有详细信息功能决定是否导入 ~}}
-	{{~ if HasDetailFeature ~}}	
-	ref{{ TableName }}_DetailAi,
+	{{~ if HasDetailFeature ~}}
+	{{ refDetailName }},
 	{{~ end ~}}
-	ref{{ TableName }}_List,
+	{{ refListName }},
 	showErrorMessage,
 	dataList{{ TableName }},
 	emptyRecNumInfo,
@@ -256,16 +332,25 @@
 	import { useRoute } from 'vue-router';
 	{{~ end ~}}
 
-	import {{ TableName }}_EditCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_EditAi.vue';
+	import {{ TableName }}_EditCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ EditRegionName }}Ai.vue';
 
 	{{~ if HasDetailFeature ~}}
-	import {{ TableName }}_DetailCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_DetailAi.vue';
+	import {{ TableName }}_DetailCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ DetailRegionName }}Ai.vue';
 	{{~ end ~}}
-	import {{ TableName }}_ListCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}_ListAi.vue';
+	import {{ TableName }}_ListCom from '@/views{{strIsShare}}/{{ ModuleName }}/{{ ListRegionName }}Ai.vue';
+
+	import { {{ TableName }}Ex_RegisterAfterWriteUiRefreshHandler } from '@/ts/L3ForWApiEx{{strIsShare}}/{{ ModuleName }}/cls{{ TableName }}ExWApi';
+
 	{{~ # 🔥 动态导入查询选项的实体类 ~}}
 	{{~ for option in QueryOptionsArrays4Import ~}}
 	import { cls{{ option.OptionsWApiClass }}EN } from '@/ts/L0Entity/{{ option.ModuleName }}/cls{{ option.OptionsWApiClass }}EN';
 	{{~ end ~}}
+
+	{{~ # 🔥 动态导入功能区设置字段功能的选项的实体类 ~}}
+	{{~ for option in FeatureOptionsArrays4Import ~}}
+	import { cls{{ option.WApiClass }}EN } from '@/ts/L0Entity/{{ option.ModuleName }}/cls{{ option.WApiClass }}EN';
+	{{~ end ~}}
+
 	import { ExportExcelData } from '@/ts/PubFun/ExportExcelData';
 	import {{ TableName }}CRUDAiEx from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}CRUDAiEx';
 	import { {{ TableName }}Key } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
@@ -273,10 +358,10 @@
 	getQueryRowsAi,
 	initQueryDefaultsAi,
 	{{~ if QueryOptionsArrays4Import.size>0 ~}}
-		loadQueryOptionsAi,
+	loadQueryOptionsAi,
 	{{~ end ~}}
 	{{ TableName }}QueryFieldSpecAi,
-	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiQuery';
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDQuery';
 	import {
 	{{~ # 🔥 只有存在设置字段值功能时才导入 loadFeatureOptionsAi ~}}
 	{{~ if HasSetFieldFeature ~}}
@@ -286,7 +371,7 @@
 	getQueryCommandsAi,
 	{{ TableName }}CommandIdAi,
 	{{ TableName }}CommandSpecAi,
-	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDCommands';
 
 	export default defineComponent({
 	name: '{{ TableName }}CRUDAi',
@@ -304,17 +389,27 @@
 	/*__VIEW_VARIABLES_INIT_CODE__*/
 
 	const strTitle = ref('{{ ViewTitle }}');
+	const strWarningMsg = ref('');
+
 	const objPage = ref<{{ TableName }}CRUDAiEx>();
       {{~ # 🔥 动态声明查询选项数组变量 ~}}
       {{~ for option in QueryOptionsArrays4Import ~}}
-      const {{ option.ArrayVariableName }} = ref<cls{{ option.OptionsWApiClass }}EN[] | null>
-		([]);
-		{{~ end ~}}
+		   const {{ option.ArrayVariableName }} = ref<cls{{ option.OptionsWApiClass }}EN[] | null>
+			   ([]);
+			   {{~ end ~}}
 
-		const { row1, row2 } = getQueryRowsAi();
-		const queryRow1 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row1);
+		{{~ # 🔥 动态声明功能区设置字段功能选项数组变量 ~}}
+		{{~ for option in FeatureOptionsArrays4Import ~}}
+			const {{ option.ArrayVariableName }}_f = ref<cls{{ option.WApiClass }}EN[] | null>
+			  ([]);
+	    {{~ end ~}}
+
+const { row1, row2, row3, row4 } = getQueryRowsAi();
+      const queryRow1 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row1);
       const queryRow2 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row2);
-
+      const queryRow3 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row3);
+      const queryRow4 = ref<Array<{{ TableName }}QueryFieldSpecAi>>(row4);
+		
       const queryCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getQueryCommandsAi());
       const featureCommands = ref<Array<{{ TableName }}CommandSpecAi>>(getFeatureCommandsAi());
 
@@ -334,7 +429,11 @@
 		  switch (key) {
 		  {{~ for field in QueryFields ~}}
 		  case '{{ field.Key }}':
+		  {{~ if field.IsNumber ~}}
+		  return {{ field.Key }}.value.toString();
+		  {{~ else ~}}
 		  return {{ field.Key }}.value;
+		  {{~ end ~}}
 		  {{~ end ~}}
 		  default:
 		  return '';
@@ -345,7 +444,11 @@
 		  switch (key) {
 		  {{~ for field in QueryFields ~}}
 		  case '{{ field.Key }}':
+		  {{~ if field.IsNumber ~}}
+		  {{ field.Key }}.value = Number(value);
+		  {{~ else ~}}
 		  {{ field.Key }}.value = value;
+		  {{~ end ~}}
 		  break;
 		  {{~ end ~}}
 		  default:
@@ -417,7 +520,7 @@
 		  switch (optionsKey) {
 		  {{~ for option in FeatureOptions4DS ~}}
 		  case '{{ option.OptionsKey }}':
-		  return {{ option.ArrayVariableName }}.value ?? [];
+		  return {{ option.ArrayVariableName }}_f.value ?? [];
 		  {{~ end ~}}
 		  default:
 		  return [];
@@ -431,41 +534,50 @@
 		  {{~ end ~}}
 
 		  {{~ if OptionKeysInFeature4DS.size > 0 ~}}
-			  const getSelectValueInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
-			  switch (optionsKey) {
-			  {{~ for field in FeatureOptions ~}}
-			  {{~ if field.OptionsKey ~}}
-			  case '{{ field.OptionsKey }}':
-			  return item.{{ field.ValueFieldName }};
-			  {{~ end ~}}
-			  {{~ end ~}}
-			  default:
-			  return '';
-			  }
-			  };
-
-			  const getSelectTextInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
-			  switch (optionsKey) {
-			  {{~ for field in FeatureOptions ~}}
-			  {{~ if field.OptionsKey ~}}
-			  case '{{ field.OptionsKey }}':
-			  return item.{{ field.TextFieldName }};
-			  {{~ end ~}}
-			  {{~ end ~}}
-			  default:
-			  return '';
-			  }
-			  };
+		  const getSelectValueInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for field in FeatureOptions ~}}
+		  {{~ if field.OptionsKey ~}}
+		  case '{{ field.OptionsKey }}':
+		  {{~ if field.FldDataType == 'boolean' ~}}
+		  return item.value;
 		  {{~ else ~}}
-			  const getSelectValueInFeature = (item: any, optionsKey?: string) => {
-			  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
-			  return '';
-			  };
+		  return item.{{ field.ValueFieldName }};
+		  {{~ end ~}}
 
-			  const getSelectTextInFeature = (item: any, optionsKey?: string) => {
-			  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
-			  return '';
-			  };
+		  {{~ end ~}}
+		  {{~ end ~}}
+		  default:
+		  return '';
+		  }
+		  };
+
+		  const getSelectTextInFeature = (item: any, optionsKey?: {{~ for key in OptionKeysInFeature ~}}'{{ key }}'{{~ if !for.last ~}} | {{~ end ~}}{{~ end ~}} | string) => {
+		  switch (optionsKey) {
+		  {{~ for field in FeatureOptions ~}}
+		  {{~ if field.OptionsKey ~}}
+		  case '{{ field.OptionsKey }}':
+		  {{~ if field.FldDataType == 'boolean' ~}}
+		  return item.text;
+		  {{~ else ~}}
+		  return item.{{ field.TextFieldName }};
+		  {{~ end ~}}
+		  {{~ end ~}}
+		  {{~ end ~}}
+		  default:
+		  return '';
+		  }
+		  };
+		  {{~ else ~}}
+		  const getSelectValueInFeature = (item: any, optionsKey?: string) => {
+		  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
+		  return '';
+		  };
+
+		  const getSelectTextInFeature = (item: any, optionsKey?: string) => {
+		  console.log('getSelectValueInFeature optionsKey:', optionsKey, 'item:', item);
+		  return '';
+		  };
 		  {{~ end ~}}
 
 
@@ -542,6 +654,13 @@
         {{ TableName }}CRUDAiEx.btn_Click(strCommandName, key);
       }
 
+	   const handleAfterWriteRefresh = async (strAction: string, key: {{ TableName }}Key) => {
+        const page = ensurePage();
+        if (page == null) return;
+        console.log('AfterWriteRefresh:', strAction, JSON.stringify(key));
+        await page.BindGvCache('{{ TableName }}', JSON.stringify(key));
+      };
+	  
       onMounted(async () => {
         initQueryDefaultsAi({
           {{~ for field in QueryFields ~}}
@@ -562,7 +681,7 @@
         const featureOptions = await loadFeatureOptionsAi();	
 		console.log('featureOptions:', featureOptions);
 		  {{~ for option in FeatureOptions4DS ~}}
-        {{ option.ArrayVariableName }}.value = featureOptions.{{ option.ArrayVariableName }};
+        {{ option.ArrayVariableName }}_f.value = featureOptions.{{ option.ArrayVariableName }};
         {{~ end ~}}
         {{~ # TODO: 根据功能区下拉框类型动态赋值 ~}}
         {{~ for variable in SetFieldVariables ~}}
@@ -580,9 +699,12 @@
         {{ TableName }}CRUDAiEx.vuebtn_Click = btn_Click;
         {{ TableName }}CRUDAiEx.GetPropValue = GetPropValue;
         objPage.value = new {{ TableName }}CRUDAiEx();
+		{{ TableName }}Ex_RegisterAfterWriteUiRefreshHandler(handleAfterWriteRefresh);
         await objPage.value.PageLoadCache();
       });
-
+	  onBeforeUnmount(() => {
+         {{ TableName }}Ex_RegisterAfterWriteUiRefreshHandler(null);
+      });
 	{{~ if HasAdjustOrderNum ~}}
 		  const btnGoTop_Click = async () => {
 			await objPage.value?.onGoTop();
@@ -618,22 +740,25 @@
 
       return {
         strTitle,
+		strWarningMsg,
         refDivLayout,
         refDivQuery,
         refDivFunction,
         refDivList,
-        ref{{ TableName }}_Edit,
+        {{ refEditName }},
         
 		{{~ if HasDetailFeature ~}}
-			ref{{ TableName }}_DetailAi,
+			{{ refDetailName }},
 		{{~ end ~}}
-        ref{{ TableName }}_List,
+        {{ refListName }},
         showErrorMessage,
         dataList{{ TableName }},
         emptyRecNumInfo,
         dataColumn,
         queryRow1,
         queryRow2,
+		queryRow3,
+        queryRow4,
         queryCommands,
         featureCommands,
         auxControlValues,

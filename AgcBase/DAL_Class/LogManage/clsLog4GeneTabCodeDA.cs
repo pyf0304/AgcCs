@@ -2,16 +2,16 @@
  /*-- -- -- -- -- -- -- -- -- -- --
  类名:clsLog4GeneTabCodeDA
  表名:Log4GeneTabCode(00050279)
- * 版本:2025.08.02.1(服务器:PYF-THINKPAD)
- 日期:2025/08/09 20:06:41
- 生成者:pyf
+ * 版本:2026.05.30(服务器:WIN-SRV103-116)
+ 日期:2026/08/31 10:53:53
+ 生成者:pyf_agc
  生成服务器IP:
  工程名称:AGC(0005)
  CM工程:AgcSpa后端(000014, 变量首字母不限定)-WebApi函数集
  相关数据库:109.244.40.104,8433AGC_CS12
  PrjDataBaseId:0005
  模块中文名:日志管理(LogManage)
- 框架-层名:数据处理层(CS)(DALCode,0002)
+ 框架-层名:数据处理层CS(DALCode,0002)
  编程语言:CSharp
  注意:1、需要数据底层(PubDataBase.dll)的版本:2019.03.07.01
         2、需要公共函数层(TzPubFunction.dll)的版本:2017.12.21.01
@@ -500,7 +500,9 @@ try
 {
 objLog4GeneTabCodeEN.mId = TransNullToInt(objRow[conLog4GeneTabCode.mId].ToString().Trim()); //mId
 objLog4GeneTabCodeEN.UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id
+objLog4GeneTabCodeEN.MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名
 objLog4GeneTabCodeEN.TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID
+objLog4GeneTabCodeEN.CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id
 objLog4GeneTabCodeEN.PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id
 objLog4GeneTabCodeEN.GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id
 objLog4GeneTabCodeEN.GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -556,7 +558,9 @@ try
 {
 objLog4GeneTabCodeEN.mId = TransNullToInt(objRow[conLog4GeneTabCode.mId].ToString().Trim()); //mId
 objLog4GeneTabCodeEN.UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id
+objLog4GeneTabCodeEN.MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名
 objLog4GeneTabCodeEN.TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID
+objLog4GeneTabCodeEN.CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id
 objLog4GeneTabCodeEN.PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id
 objLog4GeneTabCodeEN.GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id
 objLog4GeneTabCodeEN.GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -602,7 +606,9 @@ try
 {
  objLog4GeneTabCodeEN.mId = TransNullToInt(objDT.Rows[0][conLog4GeneTabCode.mId].ToString().Trim()); //mId(字段类型:bigint,字段长度:8,是否可空:False)
  objLog4GeneTabCodeEN.UserId = objDT.Rows[0][conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id(字段类型:varchar,字段长度:18,是否可空:True)
+ objLog4GeneTabCodeEN.MachineName = objDT.Rows[0][conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名(字段类型:varchar,字段长度:50,是否可空:True)
  objLog4GeneTabCodeEN.TabId = objDT.Rows[0][conLog4GeneTabCode.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
+ objLog4GeneTabCodeEN.CodeTypeId = objDT.Rows[0][conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id(字段类型:char,字段长度:4,是否可空:False)
  objLog4GeneTabCodeEN.PrjId = objDT.Rows[0][conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
  objLog4GeneTabCodeEN.GcPathId = objDT.Rows[0][conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
  objLog4GeneTabCodeEN.GeneCodeDate = objDT.Rows[0][conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
@@ -643,7 +649,9 @@ try
 {
  objLog4GeneTabCodeEN.mId = Int32.Parse(objRow[conLog4GeneTabCode.mId].ToString().Trim()); //mId(字段类型:bigint,字段长度:8,是否可空:False)
  objLog4GeneTabCodeEN.UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id(字段类型:varchar,字段长度:18,是否可空:True)
+ objLog4GeneTabCodeEN.MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名(字段类型:varchar,字段长度:50,是否可空:True)
  objLog4GeneTabCodeEN.TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID(字段类型:char,字段长度:8,是否可空:False)
+ objLog4GeneTabCodeEN.CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id(字段类型:char,字段长度:4,是否可空:False)
  objLog4GeneTabCodeEN.PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id(字段类型:char,字段长度:4,是否可空:False)
  objLog4GeneTabCodeEN.GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id(字段类型:char,字段长度:8,是否可空:True)
  objLog4GeneTabCodeEN.GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期(字段类型:varchar,字段长度:20,是否可空:True)
@@ -694,7 +702,9 @@ try
 {
 mId = TransNullToInt(objRow[conLog4GeneTabCode.mId].ToString().Trim()), //mId
 UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(), //用户Id
+MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(), //机器名
 TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(), //表ID
+CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(), //代码类型Id
 PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(), //工程Id
 GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(), //GC路径Id
 GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(), //生成代码日期
@@ -729,7 +739,9 @@ try
 {
 objLog4GeneTabCodeEN.mId = TransNullToInt(objRow[conLog4GeneTabCode.mId].ToString().Trim()); //mId
 objLog4GeneTabCodeEN.UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id
+objLog4GeneTabCodeEN.MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名
 objLog4GeneTabCodeEN.TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID
+objLog4GeneTabCodeEN.CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id
 objLog4GeneTabCodeEN.PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id
 objLog4GeneTabCodeEN.GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id
 objLog4GeneTabCodeEN.GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -762,7 +774,9 @@ try
 {
 objLog4GeneTabCodeEN.mId = TransNullToInt(objRow[conLog4GeneTabCode.mId].ToString().Trim()); //mId
 objLog4GeneTabCodeEN.UserId = objRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id
+objLog4GeneTabCodeEN.MachineName = objRow[conLog4GeneTabCode.MachineName] == DBNull.Value ? null : objRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名
 objLog4GeneTabCodeEN.TabId = objRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID
+objLog4GeneTabCodeEN.CodeTypeId = objRow[conLog4GeneTabCode.CodeTypeId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id
 objLog4GeneTabCodeEN.PrjId = objRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id
 objLog4GeneTabCodeEN.GcPathId = objRow[conLog4GeneTabCode.GcPathId] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id
 objLog4GeneTabCodeEN.GeneCodeDate = objRow[conLog4GeneTabCode.GeneCodeDate] == DBNull.Value ? null : objRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1002,7 +1016,15 @@ objCB = new System.Data.SqlClient.SqlCommandBuilder(objDA);
 objDA.Fill(objDS, "Log4GeneTabCode");
 objRow = objDS.Tables["Log4GeneTabCode"].NewRow();
 objRow[conLog4GeneTabCode.UserId] = objLog4GeneTabCodeEN.UserId; //用户Id
+ if (objLog4GeneTabCodeEN.MachineName !=  "")
+ {
+objRow[conLog4GeneTabCode.MachineName] = objLog4GeneTabCodeEN.MachineName; //机器名
+ }
 objRow[conLog4GeneTabCode.TabId] = objLog4GeneTabCodeEN.TabId; //表ID
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  "")
+ {
+objRow[conLog4GeneTabCode.CodeTypeId] = objLog4GeneTabCodeEN.CodeTypeId; //代码类型Id
+ }
 objRow[conLog4GeneTabCode.PrjId] = objLog4GeneTabCodeEN.PrjId; //工程Id
  if (objLog4GeneTabCodeEN.GcPathId !=  "")
  {
@@ -1064,11 +1086,25 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strUserId + "'");
  }
  
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.MachineName);
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strMachineName + "'");
+ }
+ 
  if (objLog4GeneTabCodeEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conLog4GeneTabCode.TabId);
  var strTabId = objLog4GeneTabCodeEN.TabId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabId + "'");
+ }
+ 
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.CodeTypeId);
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
  }
  
  if (objLog4GeneTabCodeEN.PrjId !=  null)
@@ -1157,11 +1193,25 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strUserId + "'");
  }
  
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.MachineName);
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strMachineName + "'");
+ }
+ 
  if (objLog4GeneTabCodeEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conLog4GeneTabCode.TabId);
  var strTabId = objLog4GeneTabCodeEN.TabId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabId + "'");
+ }
+ 
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.CodeTypeId);
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
  }
  
  if (objLog4GeneTabCodeEN.PrjId !=  null)
@@ -1253,11 +1303,25 @@ StringBuilder strSQL = new StringBuilder();
  arrValueListForInsert.Add("'" + strUserId + "'");
  }
  
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.MachineName);
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strMachineName + "'");
+ }
+ 
  if (objLog4GeneTabCodeEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conLog4GeneTabCode.TabId);
  var strTabId = objLog4GeneTabCodeEN.TabId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabId + "'");
+ }
+ 
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.CodeTypeId);
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
  }
  
  if (objLog4GeneTabCodeEN.PrjId !=  null)
@@ -1349,11 +1413,25 @@ public bool AddNewRecordBySQL2(clsLog4GeneTabCodeEN objLog4GeneTabCodeEN, SqlCon
  arrValueListForInsert.Add("'" + strUserId + "'");
  }
  
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.MachineName);
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strMachineName + "'");
+ }
+ 
  if (objLog4GeneTabCodeEN.TabId !=  null)
  {
  arrFieldListForInsert.Add(conLog4GeneTabCode.TabId);
  var strTabId = objLog4GeneTabCodeEN.TabId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
  arrValueListForInsert.Add("'" + strTabId + "'");
+ }
+ 
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ arrFieldListForInsert.Add(conLog4GeneTabCode.CodeTypeId);
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ arrValueListForInsert.Add("'" + strCodeTypeId + "'");
  }
  
  if (objLog4GeneTabCodeEN.PrjId !=  null)
@@ -1449,7 +1527,9 @@ foreach(System.Data.DataRow oRow in oDT.Rows)
 {
 objRow = objDS.Tables[clsLog4GeneTabCodeEN._CurrTabName ].NewRow();
 objRow[conLog4GeneTabCode.UserId] = oRow[conLog4GeneTabCode.UserId].ToString().Trim(); //用户Id
+objRow[conLog4GeneTabCode.MachineName] = oRow[conLog4GeneTabCode.MachineName].ToString().Trim(); //机器名
 objRow[conLog4GeneTabCode.TabId] = oRow[conLog4GeneTabCode.TabId].ToString().Trim(); //表ID
+objRow[conLog4GeneTabCode.CodeTypeId] = oRow[conLog4GeneTabCode.CodeTypeId].ToString().Trim(); //代码类型Id
 objRow[conLog4GeneTabCode.PrjId] = oRow[conLog4GeneTabCode.PrjId].ToString().Trim(); //工程Id
 objRow[conLog4GeneTabCode.GcPathId] = oRow[conLog4GeneTabCode.GcPathId].ToString().Trim(); //GC路径Id
 objRow[conLog4GeneTabCode.GeneCodeDate] = oRow[conLog4GeneTabCode.GeneCodeDate].ToString().Trim(); //生成代码日期
@@ -1513,9 +1593,17 @@ objRow = objDS.Tables[clsLog4GeneTabCodeEN._CurrTabName].Rows[0];
  {
 objRow[conLog4GeneTabCode.UserId] = objLog4GeneTabCodeEN.UserId; //用户Id
  }
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.MachineName))
+ {
+objRow[conLog4GeneTabCode.MachineName] = objLog4GeneTabCodeEN.MachineName; //机器名
+ }
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.TabId))
  {
 objRow[conLog4GeneTabCode.TabId] = objLog4GeneTabCodeEN.TabId; //表ID
+ }
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.CodeTypeId))
+ {
+objRow[conLog4GeneTabCode.CodeTypeId] = objLog4GeneTabCodeEN.CodeTypeId; //代码类型Id
  }
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.PrjId))
  {
@@ -1595,6 +1683,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  }
  }
  
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.MachineName))
+ {
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strMachineName, conLog4GeneTabCode.MachineName); //机器名
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.MachineName); //机器名
+ }
+ }
+ 
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.TabId))
  {
  if (objLog4GeneTabCodeEN.TabId !=  null)
@@ -1605,6 +1706,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.TabId); //表ID
+ }
+ }
+ 
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.CodeTypeId))
+ {
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodeTypeId, conLog4GeneTabCode.CodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.CodeTypeId); //代码类型Id
  }
  }
  
@@ -1740,6 +1854,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  }
  }
  
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.MachineName))
+ {
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" MachineName = '{0}',", strMachineName); //机器名
+ }
+ else
+ {
+ sbSQL.Append(" MachineName = null,"); //机器名
+ }
+ }
+ 
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.TabId))
  {
  if (objLog4GeneTabCodeEN.TabId !=  null)
@@ -1750,6 +1877,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  else
  {
  sbSQL.Append(" TabId = null,"); //表ID
+ }
+ }
+ 
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.CodeTypeId))
+ {
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodeTypeId = '{0}',", strCodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.Append(" CodeTypeId = null,"); //代码类型Id
  }
  }
  
@@ -1887,6 +2027,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  }
  }
  
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.MachineName))
+ {
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" MachineName = '{0}',", strMachineName); //机器名
+ }
+ else
+ {
+ sbSQL.Append(" MachineName = null,"); //机器名
+ }
+ }
+ 
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.TabId))
  {
  if (objLog4GeneTabCodeEN.TabId !=  null)
@@ -1897,6 +2050,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  else
  {
  sbSQL.Append(" TabId = null,"); //表ID
+ }
+ }
+ 
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.CodeTypeId))
+ {
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat(" CodeTypeId = '{0}',", strCodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.Append(" CodeTypeId = null,"); //代码类型Id
  }
  }
  
@@ -2035,6 +2201,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  }
  }
  
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.MachineName))
+ {
+ if (objLog4GeneTabCodeEN.MachineName !=  null)
+ {
+ var strMachineName = objLog4GeneTabCodeEN.MachineName.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strMachineName, conLog4GeneTabCode.MachineName); //机器名
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.MachineName); //机器名
+ }
+ }
+ 
  if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.TabId))
  {
  if (objLog4GeneTabCodeEN.TabId !=  null)
@@ -2045,6 +2224,19 @@ sbSQL.AppendFormat("Update Log4GeneTabCode Set ");
  else
  {
  sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.TabId); //表ID
+ }
+ }
+ 
+ if (objLog4GeneTabCodeEN.IsUpdated(conLog4GeneTabCode.CodeTypeId))
+ {
+ if (objLog4GeneTabCodeEN.CodeTypeId !=  null)
+ {
+ var strCodeTypeId = objLog4GeneTabCodeEN.CodeTypeId.Replace("'", "''"); //转换值串中的单撇"'",使之成为双撇"''"
+ sbSQL.AppendFormat("{1} = '{0}',", strCodeTypeId, conLog4GeneTabCode.CodeTypeId); //代码类型Id
+ }
+ else
+ {
+ sbSQL.AppendFormat("{0} = null,",conLog4GeneTabCode.CodeTypeId); //代码类型Id
  }
  }
  
@@ -2324,7 +2516,9 @@ public void CopyTo(clsLog4GeneTabCodeEN objLog4GeneTabCodeENS, clsLog4GeneTabCod
 {
 objLog4GeneTabCodeENT.mId = objLog4GeneTabCodeENS.mId; //mId
 objLog4GeneTabCodeENT.UserId = objLog4GeneTabCodeENS.UserId; //用户Id
+objLog4GeneTabCodeENT.MachineName = objLog4GeneTabCodeENS.MachineName; //机器名
 objLog4GeneTabCodeENT.TabId = objLog4GeneTabCodeENS.TabId; //表ID
+objLog4GeneTabCodeENT.CodeTypeId = objLog4GeneTabCodeENS.CodeTypeId; //代码类型Id
 objLog4GeneTabCodeENT.PrjId = objLog4GeneTabCodeENS.PrjId; //工程Id
 objLog4GeneTabCodeENT.GcPathId = objLog4GeneTabCodeENS.GcPathId; //GC路径Id
 objLog4GeneTabCodeENT.GeneCodeDate = objLog4GeneTabCodeENS.GeneCodeDate; //生成代码日期
@@ -2351,7 +2545,9 @@ clsCheckSql.CheckFieldNotNull(objLog4GeneTabCodeEN.PrjId, conLog4GeneTabCode.Prj
 clsCheckSql.CheckFieldNotNull(objLog4GeneTabCodeEN.VersionGeneCode, conLog4GeneTabCode.VersionGeneCode);
 //检查字段长度
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.UserId, 18, conLog4GeneTabCode.UserId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.MachineName, 50, conLog4GeneTabCode.MachineName);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.TabId, 8, conLog4GeneTabCode.TabId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.CodeTypeId, 4, conLog4GeneTabCode.CodeTypeId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.PrjId, 4, conLog4GeneTabCode.PrjId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GcPathId, 8, conLog4GeneTabCode.GcPathId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GeneCodeDate, 20, conLog4GeneTabCode.GeneCodeDate);
@@ -2368,7 +2564,9 @@ public void CheckProperty4Update(clsLog4GeneTabCodeEN objLog4GeneTabCodeEN)
 {
 //检查字段长度
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.UserId, 18, conLog4GeneTabCode.UserId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.MachineName, 50, conLog4GeneTabCode.MachineName);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.TabId, 8, conLog4GeneTabCode.TabId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.CodeTypeId, 4, conLog4GeneTabCode.CodeTypeId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.PrjId, 4, conLog4GeneTabCode.PrjId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GcPathId, 8, conLog4GeneTabCode.GcPathId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GeneCodeDate, 20, conLog4GeneTabCode.GeneCodeDate);
@@ -2386,7 +2584,9 @@ public void CheckProperty4Condition(clsLog4GeneTabCodeEN objLog4GeneTabCodeEN)
 {
 //检查字段长度
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.UserId, 18, conLog4GeneTabCode.UserId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.MachineName, 50, conLog4GeneTabCode.MachineName);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.TabId, 8, conLog4GeneTabCode.TabId);
+clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.CodeTypeId, 4, conLog4GeneTabCode.CodeTypeId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.PrjId, 4, conLog4GeneTabCode.PrjId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GcPathId, 8, conLog4GeneTabCode.GcPathId);
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.GeneCodeDate, 20, conLog4GeneTabCode.GeneCodeDate);
@@ -2394,7 +2594,9 @@ clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.VersionGeneCode, 30, conLog4GeneT
 clsCheckSql.CheckFieldLen(objLog4GeneTabCodeEN.Memo, 1000, conLog4GeneTabCode.Memo);
 //检查Sql注入
 clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.UserId, conLog4GeneTabCode.UserId);
+clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.MachineName, conLog4GeneTabCode.MachineName);
 clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.TabId, conLog4GeneTabCode.TabId);
+clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.CodeTypeId, conLog4GeneTabCode.CodeTypeId);
 clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.PrjId, conLog4GeneTabCode.PrjId);
 clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.GcPathId, conLog4GeneTabCode.GcPathId);
 clsCheckSql.CheckSqlInjection4Field(objLog4GeneTabCodeEN.GeneCodeDate, conLog4GeneTabCode.GeneCodeDate);

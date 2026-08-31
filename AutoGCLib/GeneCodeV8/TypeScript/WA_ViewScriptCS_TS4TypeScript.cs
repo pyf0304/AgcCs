@@ -62,8 +62,8 @@ namespace AutoGCLib
 
             this.arrImportClass = new List<ImportClass>();
         }
-        public WA_ViewScriptCS_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
-        : base(strViewId, strPrjDataBaseId, strPrjId)
+        public WA_ViewScriptCS_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strCmPrjId)
+        : base(strViewId, strPrjDataBaseId, strCmPrjId)
         {
             // 
             // TODO: 在此处添加构造函数逻辑

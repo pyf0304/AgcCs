@@ -1610,5 +1610,175 @@ strValueFieldName);
         //    strSQL = $"Update TabFeature Set {conTabFeature. FldId }= '{strTargetFldId}' where PrjId = '{strPrjId}' And {conTabFeature.FldId} = '{strSourceFldId}'";
         //    return objSQL.ExecSql(strSQL);
         //}
-    }
+        public static bool AddBindDdl(
+    string strPrjId,
+    string strTabName,
+    string strOpUser,
+    string strFldName_Condition = "")
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(strPrjId) == true)
+                {
+                    throw new Exception("参数[strPrjId]不能为空！");
+                }
+                if (string.IsNullOrEmpty(strTabName) == true)
+                {
+                    throw new Exception("参数[strTabName]不能为空！");
+                }
+                if (string.IsNullOrEmpty(strOpUser) == true)
+                {
+                    throw new Exception("参数[strOpUser]不能为空！");
+                }
+
+                clsPrjTabEN objPrjTab = clsPrjTabBLEx.GetObjByTabNameAndPrjId(strTabName, strPrjId);
+                if (objPrjTab == null)
+                {
+                    throw new Exception(string.Format("工程[{0}]中不存在表[{1}]！", strPrjId, strTabName));
+                }
+
+                List<clsPrjTabFldEN> arrPrjTabFld = clsPrjTabFldBLEx.GetObjLstByTabIdCache(objPrjTab.TabId, strPrjId);
+                if (arrPrjTabFld == null || arrPrjTabFld.Count == 0)
+                {
+                    throw new Exception(string.Format("表[{0}]没有任何字段，不能添加绑定下拉框功能！", strTabName));
+                }
+
+                clsPrjTabFldEN objField_Key = arrPrjTabFld.Find(x => x.FieldTypeId == enumFieldType.KeyField_02);
+                if (objField_Key == null)
+                {
+                    throw new Exception("当前表没有关键字段(FieldTypeId=02)，不能添加绑定下拉框功能！");
+                }
+
+                clsPrjTabFldEN objField_Name = arrPrjTabFld.Find(x => x.FieldTypeId == enumFieldType.NameField_03);
+                if (objField_Name == null)
+                {
+                    throw new Exception("当前表没有名称字段(FieldTypeId=03)，不能添加绑定下拉框功能！");
+                }
+
+                clsFieldTabEN objFieldTab_Key = clsFieldTabBL.GetObjByFldIdCache(objField_Key.FldId, strPrjId);
+                clsFieldTabEN objFieldTab_Name = clsFieldTabBL.GetObjByFldIdCache(objField_Name.FldId, strPrjId);
+                if (objFieldTab_Key == null || objFieldTab_Name == null)
+                {
+                    throw new Exception("关键字段或名称字段在FieldTab中不存在！");
+                }
+
+                clsPrjTabFldEN objField_Condition = null;
+                clsFieldTabEN objFieldTab_Condition = null;
+                if (string.IsNullOrEmpty(strFldName_Condition) == false)
+                {
+                    objField_Condition = arrPrjTabFld.Find(x =>
+                    {
+                        clsFieldTabEN objFieldTab = clsFieldTabBL.GetObjByFldIdCache(x.FldId, strPrjId);
+                        if (objFieldTab == null) return false;
+                        return objFieldTab.FldName.Equals(strFldName_Condition, StringComparison.InvariantCultureIgnoreCase);
+                    });
+
+                    if (objField_Condition == null)
+                    {
+                        throw new Exception(string.Format("表[{0}]中不存在条件字段[{1}]！", strTabName, strFldName_Condition));
+                    }
+
+                    objFieldTab_Condition = clsFieldTabBL.GetObjByFldIdCache(objField_Condition.FldId, strPrjId);
+                    if (objFieldTab_Condition == null)
+                    {
+                        throw new Exception(string.Format("条件字段[{0}]在FieldTab中不存在！", strFldName_Condition));
+                    }
+                }
+
+                string strFeatureId = enumPrjFeature.Tab_BindDdl_0173;
+                string strKeyFldName = objFieldTab_Key.FldName;
+                string strCondSuffix = (objFieldTab_Condition == null) ? "" : string.Format("By{0}", objFieldTab_Condition.FldName);
+
+                string strTabFeatureName = string.Format("绑定-{0}{1}", strKeyFldName, strCondSuffix);
+                string strFuncNameCs = string.Format("BindDdl_{0}", strKeyFldName);
+                string strFuncNameJs = string.Format("BindDdl_{0}{1}InDiv", strKeyFldName, strCondSuffix);
+                string strGetDdlDataFuncName4Ex = (objFieldTab_Condition == null)
+                    ? string.Format("{0}_GetArr{0}", strTabName)
+                    : string.Format("{0}_GetArr{0}By{1}", strTabName, objFieldTab_Condition.FldName);
+
+                string strToolTipText = string.IsNullOrEmpty(objPrjTab.TabCnName)
+                    ? string.Format("选{0}", strTabName)
+                    : string.Format("选{0}", objPrjTab.TabCnName);
+
+                clsTabFeatureEN objTabFeature = new clsTabFeatureEN();
+                objTabFeature.TabFeatureId = clsTabFeatureBL.GetMaxStrIdByPrefix_S(strPrjId);
+
+                if (objTabFeature
+                    .SetTabId(objPrjTab.TabId)
+                    .SetTabFeatureName(strTabFeatureName)
+                    .SetFeatureId(strFeatureId)
+                    .SetIsExtendedClass(false)
+                    .SetIsNeedGC(true)
+                    .SetIsForCSharp(true)
+                    .SetFuncNameCs(strFuncNameCs)
+                    .SetIsForTypeScript(true)
+                    .SetIsForDiv(true)
+                    .SetFuncNameJs(strFuncNameJs)
+                    .SetOrderNum(1)
+                    .SetUseTimes(0)
+                    .SetInUse(true)
+                    .SetPrjId(strPrjId)
+                    .SetUpdUser(strOpUser)
+                    .SetUpdDate(clsDateTime.getTodayDateTimeStr(1))
+                    .SetIsNullable(false)
+                    .SetGetDdlDataFuncName4Ex(strGetDdlDataFuncName4Ex)
+                    .SetToolTipText(strToolTipText)
+                    .CheckUniqueness() == true)
+                {
+                    objTabFeature.AddNewRecordEx(strPrjId, strOpUser);
+                }
+                else
+                {
+                    string strCondition = string.Format("{0}='{1}' and {2}='{3}' and {4}='{5}'",
+                        conTabFeature.TabId, objPrjTab.TabId,
+                        conTabFeature.FeatureId, strFeatureId,
+                        conTabFeature.TabFeatureName, strTabFeatureName);
+
+                    objTabFeature = clsTabFeatureBL.GetFirstObj_S(strCondition);
+                    if (objTabFeature == null)
+                    {
+                        throw new Exception("绑定下拉框功能记录已存在性检查失败，无法定位原记录。");
+                    }
+                }
+
+                Action<string, string, int> addTabFeatureFld = (strFldId, strFieldTypeId, intOrderNum) =>
+                {
+                    clsTabFeatureFldsEN objTabFeatureFld = new clsTabFeatureFldsEN();
+                    if (objTabFeatureFld
+                        .SetTabFeatureId(objTabFeature.TabFeatureId)
+                        .SetFldId(strFldId)
+                        .SetFieldTypeId(strFieldTypeId)
+                        .SetPrjId(strPrjId)
+                        .SetOrderNum(intOrderNum)
+                        .SetInUse(true)
+                        .SetUpdUser(strOpUser)
+                        .SetUpdDate(clsDateTime.getTodayDateTimeStr(1))
+                        .CheckUniqueness() == true)
+                    {
+                        objTabFeatureFld.AddNewRecord();
+                    }
+                };
+
+                // FieldTypeId=02：关键字段
+                addTabFeatureFld(objField_Key.FldId, enumFieldType.KeyField_02, 1);
+                // FieldTypeId=03：名称字段
+                addTabFeatureFld(objField_Name.FldId, enumFieldType.NameField_03, 2);
+                // FieldTypeId=16：条件字段（仅当提供条件字段名时）
+                if (objField_Condition != null)
+                {
+                    addTabFeatureFld(objField_Condition.FldId, enumFieldType.ConditionField_16, 3);
+                }
+
+                clsPrjTabBLEx.SetUpdDate(objPrjTab.TabId, strOpUser);
+                return true;
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("添加绑定下拉框功能失败, 表名:[{0}]。错误:{1}. (In {2})",
+                    strTabName, objException.Message, clsStackTrace.GetCurrClassFunction());
+                throw new Exception(strMsg);
+            }
+        }
+
+        }
 }

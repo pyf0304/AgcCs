@@ -1,4 +1,17 @@
-﻿import { TableCommandSpec } from '@/viewsBase/common/TableSpecCommand';
+﻿	{{~ if ViewVariables && ViewVariables.size > 0 ~}}
+    import {
+	
+	{{~ # 🔥 导入界面变量 ~}}
+	{{~ if ViewVariables && ViewVariables.size > 0 ~}}
+	{{~ for var in ViewVariables ~}}
+	{{ var }},
+	{{~ end ~}}
+	{{~ end ~}}
+
+	} from '@/views{{strIsShare}}/{{ ModuleName }}/{{ TableName }}VueShare';
+    {{~ end ~}}
+
+import { TableCommandSpec } from '@/viewsBase/common/TableSpecCommand';
 {{~ for option in FeatureOptions4DS ~}}
 import { {{ option.GetDdlDataFuncName }} } from '@/ts/{{ option.WApiPath }}/{{ option.ModuleName }}/{{ option.WApiFileName }}';
 {{~ end ~}}

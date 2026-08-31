@@ -489,5 +489,13 @@ namespace AGC.BusinessLogicEx
             return true;
         }
 
+        public static bool UpdateKey(string strUserId_S, string strUserId_T)
+        {
+            string strSQL = "";
+            clsSpecSQLforSql objSQL = new clsSpecSQLforSql();
+            //删除Users本表中与当前对象有关的记录
+            strSQL = strSQL + "Update Users  set UserId=" + "'" + strUserId_T + "'" + " where UserId=" + "'" + strUserId_S + "'";
+            return objSQL.ExecSql(strSQL);
+        }
     }
 }

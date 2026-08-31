@@ -13,6 +13,7 @@ using System.Text;
 using AGC.BusinessLogicEx;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AutoGCLib
 {
@@ -502,7 +503,7 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
             }
             else if (objCodeType.DependsOn == "View")
             {
-                objGeneCodeBase4View = clsGeneCodeBase4View.GetClassByName(strClassName, objGCPara.viewId, objGCPara.prjDataBaseId, objGCPara.prjId);
+                objGeneCodeBase4View = clsGeneCodeBase4View.GetClassByName(strClassName, objGCPara.viewId, objGCPara.prjDataBaseId, objGCPara.cmPrjId);
                 if (objGeneCodeBase4View == null)
                 {
                     strMsg = string.Format("类型:{0}所对应的类不存在,请检查!", strClassName);
@@ -511,7 +512,7 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 objGeneCodeBase4View.CmPrjId = objGCPara.cmPrjId;
             }
             var objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(objGCPara.cmPrjId);
-
+            
             if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
             {
                 objGeneCodeBase4Tab.objPrjTabENEx.LangType = ltLangType;
@@ -523,6 +524,7 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabIdCache(objGCPara.tabId, objGCPara.prjId);
                 objGCResult.tabName = objPrjTabEN.TabName;
                 objGeneCodeBase4Tab.IsFstLcase = objCMProject.IsFstLcase;
+                objGeneCodeBase4Tab.FunctionTemplateId = objCMProject.FunctionTemplateId;
             }
             else if (objCodeType.DependsOn == "View")
             {
@@ -534,6 +536,7 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 clsViewInfoEN objViewInfoEN = clsViewInfoBLEx.GetObjByViewIdCache(objGCPara.viewId, objGCPara.prjId);
                 objGCResult.viewName = objViewInfoEN.ViewName;
                 objGeneCodeBase4View.IsFstLcase = objCMProject.IsFstLcase;
+                objGeneCodeBase4View.FunctionTemplateId = objCMProject.FunctionTemplateId;
             }
             
       
@@ -602,6 +605,456 @@ objException.Message, clsStackTrace.GetCurrClassFunction());
                 //else
                 //{
                 //    clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objGeneCodeBase4Tab.objPrjTabENEx.TabId, objGCPara.cmPrjId, objGCPara.applicationTypeId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+            }
+            //if (string.IsNullOrEmpty(strCodeText) == false) return strCodeText;
+            //return "";
+            return objGCResult;
+        }
+
+        public static clsGCResult GeneCode4View(clsGCPara4View objGCPara)
+        {
+            string strMsg = "";
+
+            if (string.IsNullOrEmpty(objGCPara.prjDataBaseId) == true)
+            {
+                strMsg = string.Format("strPrjDataBaseId 不能为空!");
+                throw new Exception(strMsg);
+            }
+            string strFunctionName = clsStackTrace.GetCurrClassFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("CodeTypeName", objGCPara.codeTypeName);
+            //dictParam.Add("strClassName", objGCPara.ClsName);
+            dictParam.Add("strTypeParas", objGCPara.typeParas);
+            //dictParam.Add("strLangType", objGCPara.LangType);
+            
+            dictParam.Add("strViewName", objGCPara.viewName);
+            dictParam.Add("strCmPrjId", objGCPara.cmPrjId);
+            dictParam.Add("strPrjId", objGCPara.prjId);
+
+            dictParam.Add("strPrjDataBaseId", objGCPara.prjDataBaseId);
+
+            dictParam.Add("intApplicationTypeName", objGCPara.applicationTypeName.ToString());
+            dictParam.Add("strUserId", objGCPara.gcUserId);
+            string strCodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByNameCache(objGCPara.codeTypeName);
+            string strViewId = clsViewInfoBLEx.GetViewIdByNameCache(objGCPara.viewName, objGCPara.prjId);
+            int intApplicationTypeId = clsApplicationTypeBLEx.GetApplicationTypeIdByNameCache(objGCPara.applicationTypeName);
+            var objPrjDataBase = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(objGCPara.prjDataBaseId);
+                string strDataBaseType = clsDataBaseTypeBL.GetObjByDataBaseTypeIdCache(objPrjDataBase.DataBaseTypeId).DataBaseTypeSimName;
+            
+            //clsPubVar4BLEx.Log4GCDebug("调用生成代码函数：", strFunctionName, objGCPara.gcUserId, dictParam);
+            clsCodeTypeEN objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
+
+            if (objCodeType == null)
+            {
+                strMsg = $"No.2 获取objCodeTypeEN：{strCodeTypeId}不成功!({clsStackTrace.GetCurrClassFunction()})";
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+            clsGCResult objGCResult = new clsGCResult();
+            objGCResult.codeTypeId = objCodeType.CodeTypeId;
+            objGCResult.codeTypeName = objCodeType.CodeTypeName;
+            objGCResult.codeTypeENName = objCodeType.CodeTypeENName;
+            objGCResult.gcUserId = objGCPara.gcUserId;
+            objGCResult.errorId = 0;
+            objGCResult.errorMsg = "";
+            clsProgLangTypeEN objProgLangTypeEN = clsProgLangTypeBL.GetObjByProgLangTypeIdCache(objCodeType.ProgLangTypeId);
+            clsPubConst.LangType ltLangType = clsPubConst.GetLangTypeByString(objProgLangTypeEN.ProgLangTypeENName);// clsPubConst.LangType.JAVA;
+
+            clsPubConst.DataBaseType dbtDataBaseType = clsPubConst.GetDataBaseTypeByString(strDataBaseType);
+            objGCResult.langType = objProgLangTypeEN.ProgLangTypeENName;
+            objGCResult.dataBaseType = strDataBaseType;
+
+            clsProjectsEN objCurrSelProject = null;
+            try
+            {
+                objCurrSelProject = clsProjectsBL.GetObjByPrjIdCache(objGCPara.prjId);
+                strMsg = string.Format("当前工程Id:{0}获取对象成功!(In {1})",
+                    objGCPara.prjId,
+                    clsStackTrace.GetCurrClassFunction());
+                //clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+            }
+            catch (Exception objException)
+            {
+                strMsg = string.Format("工程Id:{0}所对应的对象不存在,请检查!错误:{1}(In {2})",
+                    objGCPara.prjId, objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+            objGCResult.prjName = objCurrSelProject.PrjName;
+
+            //string strRe_ClsName = "";
+            //string strRe_FileNameWithModuleName = "";
+            string strCodeText = "";
+            clsGeneCodeBase4Tab objGeneCodeBase4Tab = null;// new AutoGCPubFunc(strTabId, strPrjDataBaseId);
+
+
+            clsGeneCodeBase4View objGeneCodeBase4View = null;// new AutoGCPubFunc(strTabId, strPrjDataBaseId);
+
+            //string[] sstrTypeParas = strTypeParas.Split('|');
+
+            //string strClassFName = "";
+            string strSqlDsTypeId = "";
+            clsPrjDataBaseEN objPrjDataBaseEN = null;
+           
+          
+                
+            //           strMsg = string.Format("No.3 检查表：{0}结束!({3})",
+            //strTabId, strViewId,
+            //cnClassName,
+            //clsStackTrace.GetCurrClassFunction());
+            //           clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+
+            string strClassName = string.Format("AutoGCLib.{0}4{1}", objCodeType.CodeTypeENName, ltLangType);
+
+            if (objCodeType.DependsOn == "View")
+            {
+                objGeneCodeBase4View = clsGeneCodeBase4View.GetClassByName(strClassName, strViewId, objGCPara.prjDataBaseId, objGCPara.cmPrjId);
+                if (objGeneCodeBase4View == null)
+                {
+                    strMsg = string.Format("类型:{0}所对应的类不存在,请检查!", strClassName);
+                    throw new Exception(strMsg);
+                }
+                objGeneCodeBase4View.CmPrjId = objGCPara.cmPrjId;
+            }
+            var objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(objGCPara.cmPrjId);
+
+            if (objCodeType.DependsOn == "View")
+            {
+                objGeneCodeBase4View.objViewInfoENEx.PrjDataBaseId = objGCPara.prjDataBaseId;
+                objGeneCodeBase4View.objViewInfoENEx.LangType = ltLangType;
+                objGeneCodeBase4View.objViewInfoENEx.CodeTypeId = strCodeTypeId;
+                objGeneCodeBase4View.objViewInfoENEx.UserId = objGCPara.gcUserId;
+
+                clsViewInfoEN objViewInfoEN = clsViewInfoBLEx.GetObjByViewIdCache(strViewId, objGCPara.prjId);
+                objGCResult.viewName = objViewInfoEN.ViewName;
+                objGeneCodeBase4View.IsFstLcase = objCMProject.IsFstLcase;
+                objGeneCodeBase4View.FunctionTemplateId = objCMProject.FunctionTemplateId;
+            }
+
+
+
+            try
+            {
+                string strJson = "";
+                string strRe_ClsName = "";
+                string strRe_FileNameWithModuleName = "";
+                if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+                {
+                    strCodeText = objGeneCodeBase4Tab.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                    strJson = JsonConvert.SerializeObject(objGeneCodeBase4Tab.objCodeElement_Root, Formatting.Indented);
+                }
+                else
+                {
+                    strCodeText = objGeneCodeBase4View.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                    strJson = JsonConvert.SerializeObject(objGeneCodeBase4View.objCodeElement_Root, Formatting.Indented);
+                }
+
+
+                objGCResult.codeElementJson = strJson;
+                objGCResult.codeText = strCodeText;
+                objGCResult.re_ClsName = strRe_ClsName;
+                objGCResult.re_FileNameWithModuleName = strRe_FileNameWithModuleName;
+                objGCResult.version = clsSysParaEN_Local.strVersion;
+            }
+            catch (Exception objException)
+            {
+                
+                clsViewInfoEN objViewInfo = null;
+                if (string.IsNullOrEmpty(strViewId) == false)
+                {
+                    objViewInfo = clsViewInfoBL.GetObjByViewIdCache(strViewId, objGCPara.prjId);
+                }                
+                string strViewName = objViewInfo == null ? "" : objViewInfo.ViewName;
+
+                strMsg = string.Format("(errorId:004)在生成界面：[{0}],类名：[{1}]时出错!错误：{2}.({3})",
+                        strViewName,
+                      objCodeType.CodeTypeENName,
+                       objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                objGCResult.errorMsg = strMsg;
+                objGCResult.errorId = 1;
+                objGCResult.re_ClsName = "";
+                objGCResult.re_FileNameWithModuleName = "";
+                objGCResult.version = clsSysParaEN_Local.strVersion;
+                return objGCResult;
+            }
+            if (objGCPara.isRecordLog == true)
+            {
+                //if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+                //{
+
+                //    clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objGeneCodeBase4Tab.objPrjTabENEx.TabId, objGCPara.cmPrjId, intApplicationTypeId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+                //else if (objCodeType.DependsOn == "View")
+                //{
+                //    clsLog4GeneViewCodeBLEx.AddLog4GeneViewCode(objGeneCodeBase4View.objViewInfoENEx.ViewId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+                //else
+                //{
+                //    clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objGeneCodeBase4Tab.objPrjTabENEx.TabId, objGCPara.cmPrjId, intApplicationTypeId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+            }
+            //if (string.IsNullOrEmpty(strCodeText) == false) return strCodeText;
+            //return "";
+            return objGCResult;
+        }
+
+
+        public static clsGCResult GeneCode4Tab(clsGCPara4Tab objGCPara)
+        {
+            string strMsg = "";
+
+            if (string.IsNullOrEmpty(objGCPara.prjDataBaseId) == true)
+            {
+                strMsg = string.Format("strPrjDataBaseId 不能为空!");
+                throw new Exception(strMsg);
+            }
+            string strFunctionName = clsStackTrace.GetCurrClassFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("CodeTypeName", objGCPara.codeTypeName);
+            //dictParam.Add("strClassName", objGCPara.ClsName);
+            dictParam.Add("strTypeParas", objGCPara.typeParas);
+            //dictParam.Add("strLangType", objGCPara.LangType);            
+            dictParam.Add("strTabName", objGCPara.tabName);            
+            dictParam.Add("strCmPrjId", objGCPara.cmPrjId);
+            dictParam.Add("strPrjId", objGCPara.prjId);
+
+            dictParam.Add("strPrjDataBaseId", objGCPara.prjDataBaseId);
+
+            dictParam.Add("intApplicationTypeName", objGCPara.applicationTypeName .ToString());
+            dictParam.Add("strUserId", objGCPara.gcUserId);
+
+            var objPrjDataBase = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(objGCPara.prjDataBaseId);
+            string strDataBaseType = clsDataBaseTypeBL.GetObjByDataBaseTypeIdCache(objPrjDataBase.DataBaseTypeId).DataBaseTypeSimName;
+
+            //clsPubVar4BLEx.Log4GCDebug("调用生成代码函数：", strFunctionName, objGCPara.gcUserId, dictParam);
+            string strCodeTypeId = clsCodeTypeBLEx.GetCodeTypeIdByNameCache(objGCPara.codeTypeName);
+            clsCodeTypeEN objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(strCodeTypeId);
+
+            if (objCodeType == null)
+            {
+                strMsg = $"No.2 获取objCodeTypeEN：{strCodeTypeId}不成功!({clsStackTrace.GetCurrClassFunction()})";
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+            clsGCResult objGCResult = new clsGCResult();
+            objGCResult.codeTypeId = objCodeType.CodeTypeId;
+            objGCResult.codeTypeName = objCodeType.CodeTypeName;
+            objGCResult.codeTypeENName = objCodeType.CodeTypeENName;
+            objGCResult.gcUserId = objGCPara.gcUserId;
+            objGCResult.errorId = 0;
+            objGCResult.errorMsg = "";
+            string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(objGCPara.prjId, objGCPara.tabName);
+            int intApplicationTypeId = clsApplicationTypeBLEx.GetApplicationTypeIdByNameCache(objGCPara.applicationTypeName);
+            clsProgLangTypeEN objProgLangTypeEN = clsProgLangTypeBL.GetObjByProgLangTypeIdCache(objCodeType.ProgLangTypeId);
+            clsPubConst.LangType ltLangType = clsPubConst.GetLangTypeByString(objProgLangTypeEN.ProgLangTypeENName);// clsPubConst.LangType.JAVA;
+
+            clsPubConst.DataBaseType dbtDataBaseType = clsPubConst.GetDataBaseTypeByString(strDataBaseType);
+            objGCResult.langType = objProgLangTypeEN.ProgLangTypeENName;
+            objGCResult.dataBaseType = strDataBaseType;
+
+            clsProjectsEN objCurrSelProject = null;
+            try
+            {
+                objCurrSelProject = clsProjectsBL.GetObjByPrjIdCache(objGCPara.prjId);
+                strMsg = string.Format("当前工程Id:{0}获取对象成功!(In {1})",
+                    objGCPara.prjId,
+                    clsStackTrace.GetCurrClassFunction());
+                //clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+            }
+            catch (Exception objException)
+            {
+                strMsg = string.Format("工程Id:{0}所对应的对象不存在,请检查!错误:{1}(In {2})",
+                    objGCPara.prjId, objException.Message,
+                    clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                throw new Exception(strMsg);
+            }
+            objGCResult.prjName = objCurrSelProject.PrjName;
+
+            //string strRe_ClsName = "";
+            //string strRe_FileNameWithModuleName = "";
+            string strCodeText = "";
+            clsGeneCodeBase4Tab objGeneCodeBase4Tab = null;// new AutoGCPubFunc(strTabId, strPrjDataBaseId);
+
+            clsGeneCodeBase4View objGeneCodeBase4View = null;// new AutoGCPubFunc(strTabId, strPrjDataBaseId);
+
+            //string[] sstrTypeParas = strTypeParas.Split('|');
+
+            //string strClassFName = "";
+            string strSqlDsTypeId = "";
+            clsPrjDataBaseEN objPrjDataBaseEN = null;
+            if (objCurrSelProject.IsRelaDataBase == true && string.IsNullOrEmpty(objGCPara.tabName) == false)
+            {
+
+                if (clsPubFun4BLEx.TestConnectString(objGCPara.prjDataBaseId) == false)
+                {
+                    if (string.IsNullOrEmpty(objGCPara.prjDataBaseId) == true)
+                    {
+                        strMsg = "PrjDataBaseId 为空,请设置一个合法的PrjDataBaseId(工程数据库号)!";
+                    }
+                    else
+                    {
+                        objPrjDataBaseEN = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(objGCPara.prjDataBaseId);
+                        strMsg = string.Format("错误:指向IP:{0}的数据库连接不可用,请检查!", objPrjDataBaseEN.IpAddress);
+                    }
+                    clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+
+                    objGCResult.errorMsg = strMsg;
+                    objGCResult.errorId = 1;
+                    objGCResult.re_ClsName = "";
+                    objGCResult.re_FileNameWithModuleName = "";
+                    objGCResult.version = clsSysParaEN_Local.strVersion;
+                    return objGCResult;
+                    //                    throw new Exception(strMsg);
+                }
+            }
+            try
+            {
+                if (objCurrSelProject.IsRelaDataBase == true && string.IsNullOrEmpty(objGCPara.tabName) == false)
+                {
+                    var arrTabCheckStatus = clsTabCheckStatusBL.GetObjLstCache(objGCPara.prjId);
+                    arrTabCheckStatus = arrTabCheckStatus.Where(x => x.PrjDataBaseId == objGCPara.prjDataBaseId).ToList();
+                    var objTabCheckStatus = arrTabCheckStatus.Find(x => x.TabId == strTabId);
+                    bool bolIsNeedCheck = false;
+                    if (objTabCheckStatus != null && objTabCheckStatus.ErrorLevelId == 4)
+                    {
+                        bolIsNeedCheck = true;
+                    }
+                    if (objTabCheckStatus == null)
+                    {
+                        bolIsNeedCheck = true;
+                    }
+                    if (bolIsNeedCheck == true)
+                    {
+                        if (clsTabCheckStatusBLEx.CheckPrjTabBySQLTab4OneTab(strTabId, objGCPara.prjId, objGCPara.prjDataBaseId) == false)
+                        {
+                            strMsg = string.Format("(errorId:0002)检查表字段不成功!.({0})",
+                                     clsStackTrace.GetCurrClassFunction());
+                            clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                            clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+
+                            objGCResult.errorMsg = strMsg;
+                            objGCResult.errorId = 2;
+                            objGCResult.re_ClsName = "";
+                            objGCResult.re_FileNameWithModuleName = "";
+                            objGCResult.version = clsSysParaEN_Local.strVersion;
+                            return objGCResult;
+                            //return false;
+                        }
+                    }
+                    objPrjDataBaseEN = clsPrjDataBaseBL.GetObjByPrjDataBaseIdCache(objGCPara.prjDataBaseId);
+                    objGCResult.prjDataBaseName = objPrjDataBaseEN.PrjDataBaseName;
+                }
+            }
+            catch (Exception objException)
+            {
+                strMsg = string.Format("(errorId:0003)检查表字段出错!错误：{0}.({1})",
+objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                objGCResult.errorMsg = strMsg;
+                objGCResult.errorId = 1;
+                objGCResult.re_ClsName = "";
+                objGCResult.re_FileNameWithModuleName = "";
+                objGCResult.version = clsSysParaEN_Local.strVersion;
+                return objGCResult;
+            }
+            //           strMsg = string.Format("No.3 检查表：{0}结束!({3})",
+            //strTabId, strViewId,
+            //cnClassName,
+            //clsStackTrace.GetCurrClassFunction());
+            //           clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+
+            string strClassName = string.Format("AutoGCLib.{0}4{1}", objCodeType.CodeTypeENName, ltLangType);
+            if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+            {
+                objGeneCodeBase4Tab = clsGeneCodeBase4Tab.GetClassByName(strClassName, strTabId, objGCPara.prjDataBaseId, objGCPara.prjId);
+                if (objGeneCodeBase4Tab == null)
+                {
+                    strMsg = string.Format("类型:{0}所对应的类不存在,请检查!", strClassName);
+                    throw new Exception(strMsg);
+                }
+                objGeneCodeBase4Tab.CmPrjId = objGCPara.cmPrjId;
+            }
+            
+            var objCMProject = clsCMProjectBL.GetObjByCmPrjIdCache(objGCPara.cmPrjId);
+
+            if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+            {
+                objGeneCodeBase4Tab.objPrjTabENEx.LangType = ltLangType;
+                objGeneCodeBase4Tab.objPrjTabENEx.CodeTypeId = strCodeTypeId;
+                objGeneCodeBase4Tab.objPrjTabENEx.ApplicationTypeId = intApplicationTypeId;
+                objGeneCodeBase4Tab.objPrjTabENEx.UserId = objGCPara.gcUserId;
+
+                strSqlDsTypeId = objGeneCodeBase4Tab.objPrjTabENEx.SqlDsTypeId;
+                clsPrjTabEN objPrjTabEN = clsPrjTabBL.GetObjByTabIdCache(strTabId, objGCPara.prjId);
+                objGCResult.tabName = objPrjTabEN.TabName;
+                objGeneCodeBase4Tab.IsFstLcase = objCMProject.IsFstLcase;
+                objGeneCodeBase4Tab.FunctionTemplateId = objCMProject.FunctionTemplateId;
+            }
+
+
+            try
+            {
+                string strJson = "";
+                string strRe_ClsName = "";
+                string strRe_FileNameWithModuleName = "";
+                if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+                {
+                    strCodeText = objGeneCodeBase4Tab.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                    strJson = JsonConvert.SerializeObject(objGeneCodeBase4Tab.objCodeElement_Root, Formatting.Indented);
+                }
+                else
+                {
+                    strCodeText = objGeneCodeBase4View.GeneCode(ref strRe_ClsName, ref strRe_FileNameWithModuleName); //已完成
+                    strJson = JsonConvert.SerializeObject(objGeneCodeBase4View.objCodeElement_Root, Formatting.Indented);
+                }
+
+
+                objGCResult.codeElementJson = strJson;
+                objGCResult.codeText = strCodeText;
+                objGCResult.re_ClsName = strRe_ClsName;
+                objGCResult.re_FileNameWithModuleName = strRe_FileNameWithModuleName;
+                objGCResult.version = clsSysParaEN_Local.strVersion;
+            }
+            catch (Exception objException)
+            {
+                clsPrjTabEN objPrjTab = null;
+                if (string.IsNullOrEmpty(strTabId) == false)
+                {
+                    objPrjTab = clsPrjTabBL.GetObjByTabIdCache(strTabId, objGCPara.prjId);
+                }
+               
+                string strTabName = objPrjTab == null ? "" : objPrjTab.TabName;
+               
+                strMsg = string.Format("(errorId:004)在生成表:[{0}],类名：[{2}]时出错!错误：{3}.({4})",
+                       strTabName, 
+                      objCodeType.CodeTypeENName,
+                       objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar4BLEx.objLog4GC.WriteDebugLog(strMsg);
+                objGCResult.errorMsg = strMsg;
+                objGCResult.errorId = 1;
+                objGCResult.re_ClsName = "";
+                objGCResult.re_FileNameWithModuleName = "";
+                objGCResult.version = clsSysParaEN_Local.strVersion;
+                return objGCResult;
+            }
+            if (objGCPara.isRecordLog == true)
+            {
+                //if (objCodeType.DependsOn == "Table" || objCodeType.DependsOn == "PureClass")
+                //{
+
+                //    clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objGeneCodeBase4Tab.objPrjTabENEx.TabId, objGCPara.cmPrjId, intApplicationTypeId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+                //else if (objCodeType.DependsOn == "View")
+                //{
+                //    clsLog4GeneViewCodeBLEx.AddLog4GeneViewCode(objGeneCodeBase4View.objViewInfoENEx.ViewId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
+                //}
+                //else
+                //{
+                //    clsLog4GeneTabCodeBLEx.AddLog4GeneTabCode(objGeneCodeBase4Tab.objPrjTabENEx.TabId, objGCPara.cmPrjId, intApplicationTypeId, objGCPara.gcUserId, clsSysParaEN_Local.strVersion);
                 //}
             }
             //if (string.IsNullOrEmpty(strCodeText) == false) return strCodeText;

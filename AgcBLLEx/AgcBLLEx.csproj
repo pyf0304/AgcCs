@@ -256,7 +256,6 @@
     <Compile Include="Class\PrjFunction\clsMethodModifierBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFeatureTypeBLEx.cs" />
-    <Compile Include="Class\PrjFunction\clsPrjFuncTemplateRelaBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsPrjFunctionHistoryBLEx.cs" />
     <Compile Include="Class\PrjFunction\clsTabFunctionPropBLEx.cs" />

@@ -212,6 +212,71 @@ namespace AGC.BusinessLogicEx
             return arrFuncModule_AgcObjLst_Sel;
         }
 
+        /// <summary>
+        /// 获取指定工程中功能模块名称相关字段的去重列表（用于复制到其他工程）
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <returns>仅包含 FuncModuleName、FuncModuleEnName、FuncModuleNameSim 的去重记录列表</returns>
+        public static List<clsFuncModule_AgcEN> GetDistinctFuncModuleNameLst4Copy(string strPrjId)
+        {
+            IEnumerable<clsFuncModule_AgcEN> arrObjLst = clsFuncModule_AgcBL.GetObjLstCache(strPrjId);
 
+            IEnumerable<clsFuncModule_AgcEN> arrObjLst_Sel =
+                from objFuncModule in arrObjLst
+                where objFuncModule.PrjId == strPrjId
+                group objFuncModule by new
+                {
+                    objFuncModule.FuncModuleName,
+                    objFuncModule.FuncModuleEnName,
+                    objFuncModule.FuncModuleNameSim
+                } into g
+                orderby g.Key.FuncModuleName
+                select new clsFuncModule_AgcEN
+                {
+                    FuncModuleName = g.Key.FuncModuleName,
+                    FuncModuleEnName = g.Key.FuncModuleEnName,
+                    FuncModuleNameSim = g.Key.FuncModuleNameSim
+                };
+
+            List<clsFuncModule_AgcEN> arrDistinctLst = new List<clsFuncModule_AgcEN>();
+            foreach (clsFuncModule_AgcEN obj in arrObjLst_Sel)
+            {
+                arrDistinctLst.Add(obj);
+            }
+            return arrDistinctLst;
+        }
+
+        /// <summary>
+        /// 获取所有工程中功能模块名称相关字段的去重列表（用于复制到其他工程）
+        /// </summary>
+        /// <returns>仅包含 FuncModuleName、FuncModuleEnName、FuncModuleNameSim 的去重记录列表</returns>
+        public static List<clsFuncModule_AgcEN> GetDistinctFuncModuleNameLst4Copy()
+        {
+            string strCondition = "1 = 1";
+            List<clsFuncModule_AgcEN> arrObjLst = clsFuncModule_AgcBL.GetObjLst(strCondition);
+
+            IEnumerable<clsFuncModule_AgcEN> arrObjLst_Sel =
+                from objFuncModule in arrObjLst
+                group objFuncModule by new
+                {
+                    objFuncModule.FuncModuleName,
+                    objFuncModule.FuncModuleEnName,
+                    objFuncModule.FuncModuleNameSim
+                } into g
+                orderby g.Key.FuncModuleName
+                select new clsFuncModule_AgcEN
+                {
+                    FuncModuleName = g.Key.FuncModuleName,
+                    FuncModuleEnName = g.Key.FuncModuleEnName,
+                    FuncModuleNameSim = g.Key.FuncModuleNameSim
+                };
+
+            List<clsFuncModule_AgcEN> arrDistinctLst = new List<clsFuncModule_AgcEN>();
+            foreach (clsFuncModule_AgcEN obj in arrObjLst_Sel)
+            {
+                arrDistinctLst.Add(obj);
+            }
+            return arrDistinctLst;
+        }
     }
 }

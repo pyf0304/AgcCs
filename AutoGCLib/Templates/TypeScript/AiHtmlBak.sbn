@@ -141,7 +141,7 @@
 
 		<div id="divList" ref="refDivList" class="div_List">
 			<{{ TableName }}_ListCom
-        ref="ref{{ TableName }}_List"
+        ref="{{ refListName }}"
         :items="dataList{{ TableName }}"
         :show-error-message="showErrorMessage"
         :empty-rec-num-info="emptyRecNumInfo"
@@ -153,8 +153,8 @@
 			<input id="hidSort{{ TableName }}By" type="hidden" />
 		</div>
 
-		<{{ TableName }}_EditCom ref="ref{{ TableName }}_Edit" />
-		<{{ TableName }}_DetailCom ref="ref{{ TableName }}_Detail" />
+		<{{ TableName }}_EditCom ref="{{ refEditName }}" />
+		<{{ TableName }}_DetailCom ref="{{ refDetailName }}" />
 	</div>
 </template>
 
@@ -171,9 +171,9 @@
 	refDivQuery,
 	refDivFunction,
 	refDivList,
-	ref{{ TableName }}_Edit,
-	ref{{ TableName }}_Detail,
-	ref{{ TableName }}_List,
+	{{ refEditName }},
+	{{ refDetailName }},
+	{{ refListName }},
 	showErrorMessage,
 	dataList{{ TableName }},
 	emptyRecNumInfo,
@@ -194,7 +194,7 @@
 	import {{ TableName }}_DetailCom from '@/views/{{ ModuleName }}/{{ TableName }}_DetailAi.vue';
 	import {{ TableName }}_ListCom from '@/views/{{ ModuleName }}/{{ TableName }}_ListAi.vue';
 	import { {{ TableName }}Key, } from '@/ts/L0Entity/{{ ModuleName }}/cls{{ TableName }}EN';
-	
+
 	{{~ # 🔥 动态导入查询区下拉框的实体类（使用正确的模块名，去重） ~}}
 	{{~
 	imported_entities = []
@@ -224,7 +224,7 @@
 	getQueryCommandsAi,
 	{{ TableName }}CommandIdAi,
 	{{ TableName }}CommandSpecAi,
-	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDAiCommands';
+	} from '@/viewsBase/{{ ModuleName }}/{{ TableName }}CRUDCommands';
 
 	export default defineComponent({
 	name: '{{ TableName }}CRUDAi',
@@ -443,9 +443,9 @@
         refDivQuery,
         refDivFunction,
         refDivList,
-        ref{{ TableName }}_Edit,
-        ref{{ TableName }}_Detail,
-        ref{{ TableName }}_List,
+        {{ refEditName }},
+        {{ refDetailName }},
+        {{ refListName }},
         {{~ # 🔥 动态返回设置字段值的变量 ~}}
         {{~ for variable in SetFieldVariables ~}}
         {{ variable }},

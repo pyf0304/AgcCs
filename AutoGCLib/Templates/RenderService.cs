@@ -1027,7 +1027,7 @@ public string PrefixFldName { get; set; }
         public bool HasCacheMode { get; set; }
         public string UseCacheModeIdInList { get; set; }          // 列表中使用的缓存模式ID
         public List<SortClassifyType> SortClassifyLst4View { get; set; }
-
+        public SortClassifyType ObjSortClassifyType { get; set; }
         public bool IsKeyFieldNumeric { get; set; }
         public string KeyFieldInitValue { get; set; }
 

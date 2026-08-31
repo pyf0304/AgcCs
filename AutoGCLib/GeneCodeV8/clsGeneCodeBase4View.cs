@@ -447,7 +447,8 @@ namespace AutoGCLib
                         obj.FldId = objInFor != null ? objInFor.FldId : "";
                         obj.FldName = objInFor != null ? objInFor.FldName : "";
                         obj.FldNameCamel = objInFor != null ? clsString.FstLcaseS(objInFor.FldName) : "";
-
+                        obj.CtrlTypeId_Sort = objInFor.CtlTypeId;
+                        obj.CtrlId = objInFor.CtrlId;
                         obj.VarDef4Fld = objInFor != null ? string.Format("{0}.{1}Cache", ThisClsName, objInFor.FldName) : "";
 
                         obj.PriVarName = objInFor != null ? objInFor.ObjFieldTabENEx.PrivFuncName : "";
@@ -1168,7 +1169,7 @@ namespace AutoGCLib
             this.Re_objFunction4Code = new clsFunction4CodeEN();
             pubVarTypes = new List<PubVarType>();
         }
-        public clsGeneCodeBase4View(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public clsGeneCodeBase4View(string strViewId, string strPrjDataBaseId, string strCmPrjId)
         {
             arrJsFunction = new List<JsFunction>();
             clsErrorIdManageBLEx.arrErrIdLstCache = null;
@@ -1177,7 +1178,7 @@ namespace AutoGCLib
             //
 
             arrDdlKeyIdLst = new List<string>();
-            GetPrjViewInfo(strViewId, strPrjDataBaseId, strPrjId);
+            GetPrjViewInfo(strViewId, strPrjDataBaseId, strCmPrjId);
             if (objViewInfoENEx.arrRelaMainTabFldSet.Where(x => x.FldId == objViewInfoENEx.objMainPrjTab.CacheClassifyFieldTS).Count() > 0)
             {
                 objViewInfoENEx.objCacheClassifyFld4View_TS = objViewInfoENEx.arrRelaMainTabFldSet.Where(x => x.FldId == objViewInfoENEx.objMainPrjTab.CacheClassifyFieldTS).First();
@@ -1200,12 +1201,12 @@ namespace AutoGCLib
 
 
 
-        public bool GetPrjViewInfo(string strViewId, string strPrjDataBaseId, string strPrjId)
+        public bool GetPrjViewInfo(string strViewId, string strPrjDataBaseId, string strCmPrjId)
         {
             clsViewInfoENEx objViewInfoENEx = new clsViewInfoENEx(strViewId);
             try
             {
-                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, this.IsFstLcase, strPrjId);
+                clsViewInfoBLEx.GetViewInfoEx(ref objViewInfoENEx, this.IsFstLcase, strCmPrjId);
             }
             catch (Exception objException)
             {
@@ -1441,7 +1442,7 @@ namespace AutoGCLib
         }
 
 
-        public static clsGeneCodeBase4View GetClassByName(string strClassName, string strViewId, string strPrjDataBaseId, string strPrjId)
+        public static clsGeneCodeBase4View GetClassByName(string strClassName, string strViewId, string strPrjDataBaseId, string strCmPrjId)
         {
             Type expType = Type.GetType(strClassName);
             if (expType == null)
@@ -1453,7 +1454,7 @@ namespace AutoGCLib
             clsGeneCodeBase4View objGeneCodeBase = null;
             try
             {
-                objGeneCodeBase = (clsGeneCodeBase4View)Activator.CreateInstance(expType, strViewId, strPrjDataBaseId, strPrjId);
+                objGeneCodeBase = (clsGeneCodeBase4View)Activator.CreateInstance(expType, strViewId, strPrjDataBaseId, strCmPrjId);
             }
             catch (Exception objException)
             {

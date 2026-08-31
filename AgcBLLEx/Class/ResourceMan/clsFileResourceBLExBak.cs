@@ -2107,7 +2107,7 @@ namespace AGC.BusinessLogicEx
                     if (!string.IsNullOrEmpty(strTabName))
                     {
                         // 根据表名获取TabId
-                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(strPrjId, strTabName);
+                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(strPrjId, strTabName);
 
                         if (!string.IsNullOrEmpty(strTabId))
                         {
@@ -2530,7 +2530,7 @@ namespace AGC.BusinessLogicEx
                         result.TabName = strTabName;
 
                         // 获取TabId
-                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameExCache(strPrjId, strTabName);
+                        string strTabId = clsPrjTabBLEx.GetTabIdByTabNameCache(strPrjId, strTabName);
 
                         if (!string.IsNullOrEmpty(strTabId))
                         {

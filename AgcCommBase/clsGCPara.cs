@@ -105,4 +105,123 @@ namespace AgcCommBase
         public bool isRecordLog { get; set; }
 
     }
+
+
+    [Serializable]
+    [DataContractAttribute]
+    public class clsGCPara4Tab
+    {
+        /// <summary>
+        /// 代码类型名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string codeTypeName { get; set; }
+
+        /// <summary>
+        /// 表名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string tabName { get; set; }
+
+        /// <summary>
+        /// 工程Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string prjId { get; set; }
+
+        /// <summary>
+        /// CM工程Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string cmPrjId { get; set; }
+
+        /// <summary>
+        /// 数据库Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string prjDataBaseId { get; set; }
+
+        /// <summary>
+        /// 应用类型名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string applicationTypeName { get; set; }
+
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string gcUserId { get; set; }
+
+        /// <summary>
+        /// 类型参数
+        /// </summary>
+        [DataMember]//非常重要
+        public string typeParas { get; set; }
+
+        /// <summary>
+        /// 是否记录日志
+        /// </summary>
+        [DataMember]//非常重要
+        public bool isRecordLog { get; set; }
+    }
+
+    [Serializable]
+    [DataContractAttribute]
+    public class clsGCPara4View
+    {
+        /// <summary>
+        /// 代码类型名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string codeTypeName { get; set; }
+
+        /// <summary>
+        /// 界面名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string viewName { get; set; }
+
+        /// <summary>
+        /// 工程Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string prjId { get; set; }
+
+        /// <summary>
+        /// CM工程Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string cmPrjId { get; set; }
+
+        /// <summary>
+        /// 数据库Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string prjDataBaseId { get; set; }
+
+        /// <summary>
+        /// 应用类型名称
+        /// </summary>
+        [DataMember]//非常重要
+        public string applicationTypeName { get; set; }
+
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        [DataMember]//非常重要
+        public string gcUserId { get; set; }
+
+        /// <summary>
+        /// 类型参数
+        /// </summary>
+        [DataMember]//非常重要
+        public string typeParas { get; set; }
+
+        /// <summary>
+        /// 是否记录日志
+        /// </summary>
+        [DataMember]//非常重要
+        public bool isRecordLog { get; set; }
+    }
 }

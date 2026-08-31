@@ -68,8 +68,8 @@ namespace AutoGCLib
 
             this.arrImportClass = new List<ImportClass>();
         }
-        public Vue_ViewScript_EditAi4Html(string strViewId, string strPrjDataBaseId, string strPrjId)
-        : base(strViewId, strPrjDataBaseId, strPrjId)
+        public Vue_ViewScript_EditAi4Html(string strViewId, string strPrjDataBaseId, string strCmPrjId)
+        : base(strViewId, strPrjDataBaseId, strCmPrjId)
         {
             // 
             // TODO: 在此处添加构造函数逻辑

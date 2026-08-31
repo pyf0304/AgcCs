@@ -1202,7 +1202,7 @@ namespace AGC.WebApi
 
 
         [AllowAnonymous]
-        [HttpPost("ImportFileListFromClient")]        
+        [HttpPost("ImportFileListFromClient")]
         public ActionResult ImportFileListFromClient([FromBody] ImportFileListFromClientRequest request)
         {
             const string strRoute = "/FileResourceExApi/ImportFileListFromClient";
@@ -1357,6 +1357,56 @@ namespace AGC.WebApi
                 });
             }
         }
+
+        /// <summary>
+        /// 同步表的所属ByCm工程Id
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strCmPrjId">Cm工程Id</param>        
+        /// <returns>返回CodeTypeId统计信息</returns>
+        [AllowAnonymous]
+        [HttpGet("SyncTabOwnershipByCmPrjId")]
+        public ActionResult SyncTabOwnershipByCmPrjId(string strPrjId, string strCmPrjId)
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strPrjId", strPrjId ?? "");
+            dictParam.Add("strCmPrjId", strCmPrjId ?? "");
+
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                // 参数验证
+                if (string.IsNullOrEmpty(strPrjId))
+                {
+                    return Ok(new
+                    {
+                        errorId = 1,
+                        errorMsg = "工程Id不能为空",
+                        returnInt = 0
+                    });
+                }
+
+                // 调用业务逻辑层方法
+                int UpdatedCount = clsFileResourceBLEx.SyncTabOwnershipByCmPrjId(strPrjId, strCmPrjId);
+
+                return Ok(new { errorId = 0, errorMsg = "", returnInt = UpdatedCount });
+
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                clsPubVar_WebApi.objLog.WriteDebugLog(strMsg);
+                return Ok(new
+                {
+                    errorId = 1,
+                    errorMsg = strMsg,
+                    returnInt = 0
+                });
+            }
+        }
+
     }
 }
 /// <summary>

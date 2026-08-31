@@ -2,6 +2,7 @@
 using AGC.BusinessLogicEx;
 using com.taishsoft.common;
 using Comm.WebApi;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,13 +10,10 @@ using System.Collections.Generic;
 
 namespace AGC.WebApi
 {
-    /// <summary>
-    /// TabFeatureExApiController 的摘要说明
-    /// (AutoGCLib.WA_SrvEx4CSharp:GeneCode)
-    /// </summary>
-    public class TabFeatureExApiController : TabFeatureApiController
+    [ApiController]
+    [Route("[controller]")]
+    public class TabFeatureExApiController : ControllerBase
     {
-
         /// <summary>
         /// 构造函数
         /// (AutoGCLib.WA_SrvEx4CSharp:Gen_WAEx_ClassConstructor1)
@@ -265,6 +263,44 @@ namespace AGC.WebApi
             {
                 var varResult = clsTabFeatureBLEx.GetTabIdLstWithBindDdlByCmPrjId(strCmPrjId);
                 return Ok(new { errorId = 0, errorMsg = "", returnStrLst = string.Join(",", varResult) });
+            }
+            catch (Exception objException)
+            {
+                string strMsg = string.Format("{0}.(from {1})", objException.Message, clsStackTrace.GetCurrClassFunction());
+                return Ok(new { errorId = 1, errorMsg = strMsg });
+            }
+        }
+
+        /// <summary>
+        /// 添加“绑定下拉框”表功能
+        /// 调用方法: Get /TabFeatureExApi/AddBindDdl?strPrjId=value&strTabName=value&strOpUserId=value&strFldName_Condition=value
+        /// </summary>
+        /// <param name="strPrjId">工程Id</param>
+        /// <param name="strTabName">表名</param>
+        /// <param name="strOpUserId">操作用户Id</param>
+        /// <param name="strFldName_Condition">条件字段名(可空)</param>
+        /// <returns>返回是否成功</returns>
+        [AllowAnonymous]
+        [HttpGet("AddBindDdl")]
+        public ActionResult AddBindDdl(string strPrjId, string strTabName, string strOpUserId, string strFldName_Condition = "")
+        {
+            string strFunctionName = clsStackTrace.GetCurrFunction();
+            Dictionary<string, string> dictParam = new Dictionary<string, string>();
+            dictParam.Add("strPrjId", strPrjId);
+            dictParam.Add("strTabName", strTabName);
+            dictParam.Add("strOpUserId", strOpUserId);
+            dictParam.Add("strFldName_Condition", strFldName_Condition);
+            clsPubFun_WebApi.Log4Debug(this, strFunctionName, dictParam);
+
+            try
+            {
+                var varResult = clsTabFeatureBLEx.AddBindDdl(strPrjId, strTabName, strOpUserId, strFldName_Condition);
+
+                // 刷新相关缓存，保持一致性
+                clsTabFeatureBL.ReFreshCache(strPrjId);
+                clsTabFeatureFldsBL.ReFreshCache(strPrjId);
+
+                return Ok(new { errorId = 0, errorMsg = "", returnBool = varResult });
             }
             catch (Exception objException)
             {

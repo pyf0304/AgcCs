@@ -171,8 +171,7 @@
 							return col.fldName || col.sortBy || col.colHeader;
 							};
 
-							const getCurrentColumnKeySet = (): Set<string>
-								=> {
+							const getCurrentColumnKeySet = (): Set<string>	=> {
 								const arrKeys = props.dataColumn.map((col) => getColumnKey(col));
 								if (showSelectColumn.value == true) {
 								arrKeys.push('selectColumn');

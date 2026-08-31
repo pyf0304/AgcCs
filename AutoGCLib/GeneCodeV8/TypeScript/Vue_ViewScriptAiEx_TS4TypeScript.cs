@@ -1,6 +1,7 @@
 ﻿using AGC.BusinessLogic;
 using AGC.BusinessLogicEx;
 using AGC.Entity;
+using AgcCommBase;
 using AutoGCLib.Templates;
 using CodeStruct;
 using com.taishsoft.common;
@@ -37,7 +38,7 @@ namespace AutoGCLib
             clsDataGridStyleEN objDGStyleEx = clsDataGridStyleBL.GetObjByDgStyleIdCache(objViewInfoENEx.objViewStyleEN.DgStyleId);
 
 
-            objViewInfoENEx.WebFormName = ThisClsName + "AiEx"; 
+            objViewInfoENEx.WebFormName = ThisClsName + "AiEx";
             objViewInfoENEx.WebFormFName = string.Format("{0}AiEx.ts", ThisClsName);
 
             objViewInfoENEx.FileName = objViewInfoENEx.WebFormFName;
@@ -46,13 +47,13 @@ namespace AutoGCLib
             objFuncModuleEN = clsFuncModule_AgcBL.GetObjByFuncModuleAgcIdCache(objViewInfoENEx.FuncModuleAgcId, objViewInfoENEx.PrjId);
             clsCodeTypeEN objCodeType = clsCodeTypeBL.GetObjByCodeTypeIdCache(objViewInfoENEx.CodeTypeId);
             strRe_FileNameWithModuleName = clsPubFun4GC.GetFileNameWithModuleName(objCodeType, objFuncModuleEN, objViewInfoENEx, objViewInfoENEx.TabName);
-                        
+
             clsProjectsEN objProject = clsProjectsBL.GetObjByPrjIdCache(objViewInfoENEx.PrjId); //
-            //this.objCodeElement_Class = new CodeElement { Name = ThisClsName, ElementType = CodeElementType.Class, Modifiers = "export abstract" };
-            //this.objCodeElement_Root.Children.Add(this.objCodeElement_Class);
+                                                                                                //this.objCodeElement_Class = new CodeElement { Name = ThisClsName, ElementType = CodeElementType.Class, Modifiers = "export abstract" };
+                                                                                                //this.objCodeElement_Root.Children.Add(this.objCodeElement_Class);
 
 
-            
+
             var model = BuildExAiTemplateModel();
 
             string result = "";
@@ -97,10 +98,18 @@ namespace AutoGCLib
             // 🔥 判断关键字类型
             bool isNumeric = objKeyField.IsNumberType();
             string initValue = isNumeric ? "0" : "''";
-            
+
             // 🔥 判断是否为多关键字
             bool isMultiKey = PrjTabEx_ListRegion?.arrKeyFldSet?.Count > 1;
-
+            SortClassifyType myObjSortClassifyType = null;
+            if (thisSortClassifyLst4View.Count > 0)
+            {
+                myObjSortClassifyType = thisSortClassifyLst4View[0];
+            }
+            else
+            {
+                myObjSortClassifyType = new SortClassifyType();
+            }
             var model = new ExAiTemplateModel
             {
                 TableName = TabName_Out4ListRegion4GC,
@@ -113,6 +122,7 @@ namespace AutoGCLib
                 UseCacheModeInList = isUseCacheInList,
                 UseCacheModeIdInList = strUseCacheModeIdInList,
                 SortClassifyLst4View = thisSortClassifyLst4View,
+                ObjSortClassifyType = myObjSortClassifyType,
                 IsKeyFieldNumeric = isNumeric,
                 KeyFieldInitValue = initValue,
                 IsUseFunc = isUseFunc,
@@ -120,7 +130,7 @@ namespace AutoGCLib
                 strIsShare = objViewInfoENEx.IsShare ? "Share" : "",
                 // 🔥 设置绑定函数名称
                 BindGvFuncName = GetBindGvFuncName(),
-                
+
                 // 🔥 检查是否有 CRUD 功能
                 HasQueryFeature = HasFeature(enumPrjFeature.Query_0139),
                 HasCreateFeature = HasFeature(enumPrjFeature.AddNewRecord_0136) || HasFeature(enumPrjFeature.AddNewRecordWithMaxId_0183),
@@ -129,8 +139,8 @@ namespace AutoGCLib
                 HasDeleteFeature = HasFeature(enumPrjFeature.DelRecord_0138) || HasFeature(enumPrjFeature.DelRecord_0184),
                 HasExportFeature = HasFeature(enumPrjFeature.ExportToFile_0143) || HasFeature(enumPrjFeature.ExportToFile_0196),
                 HasCopyFeature = HasFeature(enumPrjFeature.CopyRecord_0141) || HasFeature(enumPrjFeature.CopyRecord_0198),
-                HasAdjustOrderNum = HasFeature(enumPrjFeature.AdjustOrderNum_0142) 
-                || HasFeature(enumPrjFeature.AdjustOrderNum_0224) 
+                HasAdjustOrderNum = HasFeature(enumPrjFeature.AdjustOrderNum_0142)
+                || HasFeature(enumPrjFeature.AdjustOrderNum_0224)
                 || HasFeature(enumPrjFeature.AdjustOrderNum_0225)
                 || HasFeature(enumPrjFeature.AdjustOrderNum_1196),
 
@@ -144,7 +154,7 @@ namespace AutoGCLib
                     var objFieldTab = keyFld.ObjFieldTab0();
                     var isFieldNumeric = objFieldTab.IsNumberType();
                     var fieldInitValue = isFieldNumeric ? "0" : "''";
-                    
+
                     model.KeyFields.Add(new KeyFieldInfo
                     {
                         FieldName = objFieldTab.FldName,
@@ -181,7 +191,7 @@ namespace AutoGCLib
                 }
 
                 string cacheModeId = PrjTabEx_ListRegion.CacheModeId;
-                
+
                 // 03=localStorage, 04=sessionStorage
                 return cacheModeId == "03" || cacheModeId == "04";
             }
@@ -202,12 +212,12 @@ namespace AutoGCLib
             foreach (var field in objViewInfoENEx.arrListRegionFldSet.OrderBy(x => x.SeqNum))
             {
                 // 只处理扩展字段（关联表字段）
-                if (string.IsNullOrEmpty(field.OutFldId) || field.OutFldId == "0") 
+                if (string.IsNullOrEmpty(field.OutFldId) || field.OutFldId == "0")
                     continue;
 
                 string strOutFldName = clsString.FstLcaseS(field.OutFldName());
                 string columnKey = $"{clsString.FirstLcaseS(strOutFldName)}|Ex";
-                
+
                 var sortColumn = new ExAiSortColumn
                 {
                     ColumnKey = columnKey,
@@ -224,7 +234,7 @@ namespace AutoGCLib
         private string GetSortExpression(clsDGRegionFldsENEx field)
         {
             string strOutFldName = clsString.FstLcaseS(field.OutFldName());
-            
+
             // 获取关联表信息
             string strRelaTabId = clsDnPathBLEx.GetLeftJoinTabIdByDnPathId(
                 field.TabId(),
@@ -242,12 +252,12 @@ namespace AutoGCLib
             {
                 StringBuilder sortExpr = new StringBuilder();
                 sortExpr.Append($"`{strOutFldName} ${{sortDirection}}|");
-                
+
                 foreach (var condition in arrOnCondition)
                 {
                     sortExpr.Append($"({condition.Item1}){condition.Item2}|");
                 }
-                
+
                 sortExpr.Append("`");
                 return sortExpr.ToString();
             }
@@ -267,22 +277,22 @@ namespace AutoGCLib
         {
             string strSuffix = "";
             string strFuncName = "";
-            
+
             // 🔥 第一优先：判断缓存模式
             if (PrjTabEx_ListRegion.IsUseCache_TS())
             {
                 strSuffix = "Cache";
             }
-            
+
             // 🔥 第二优先：判断是否使用Func转换（会覆盖Cache）
             if (this.IsUseFunc)
             {
                 strSuffix = "4Func";
             }
-            
+
             // 组装函数名称
             strFuncName = $"this.BindGv_{TabName_Out4ListRegion4GC}{strSuffix}";
-            
+
             return strFuncName;
         }
 
@@ -333,7 +343,7 @@ namespace AutoGCLib
                     }
                 }
             }
-            
+
             return "setField";
         }
 
@@ -351,7 +361,7 @@ namespace AutoGCLib
                     return "Set" + objFieldTab.FldName;  // SetUseStateId
                 }
             }
-            
+
             return "SetField";
         }
 
@@ -369,14 +379,14 @@ namespace AutoGCLib
         /// </summary>
         private string RemoveIdSuffix(string fieldName)
         {
-            if (string.IsNullOrEmpty(fieldName)) 
+            if (string.IsNullOrEmpty(fieldName))
                 return fieldName;
-                
+
             if (fieldName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) && fieldName.Length > 2)
             {
                 return fieldName.Substring(0, fieldName.Length - 2);
             }
-            
+
             return fieldName;
         }
 
@@ -397,7 +407,7 @@ namespace AutoGCLib
         private bool HasFeature(string featureId)
         {
             if (objViewInfoENEx.arrFeatureRegionFlds == null) return false;
-            
+
             return objViewInfoENEx.arrFeatureRegionFlds
                 .Any(x => x.InUse == true && x.FeatureId == featureId);
         }
@@ -405,7 +415,7 @@ namespace AutoGCLib
         public override string A_GeneFuncCode(clsvFunction4GeneCodeEN objvFunction4GeneCodeEN, ref clsFunction4CodeEN Re_objFunction4Code)
         {
             return A_GeneFuncCodeBase(objvFunction4GeneCodeEN, typeof(Vue_ViewScriptCSEx_TS4TypeScript));
-            
+
         }
     }
 }

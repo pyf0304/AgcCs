@@ -19,8 +19,8 @@ namespace AutoGCLib
     {
         private readonly RenderService _renderService;
 
-        public Vue_ViewScriptQuery_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strPrjId)
-            : base(strViewId, strPrjDataBaseId, strPrjId)
+        public Vue_ViewScriptQuery_TS4TypeScript(string strViewId, string strPrjDataBaseId, string strCmPrjId)
+            : base(strViewId, strPrjDataBaseId, strCmPrjId)
         {
             _renderService = new RenderService();
         }

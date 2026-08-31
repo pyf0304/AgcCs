@@ -272,7 +272,6 @@
     <Compile Include="BLL_Class\PrjFunction\clsMethodModifierBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsPrjFeatureBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsPrjFeatureTypeBL.cs" />
-    <Compile Include="BLL_Class\PrjFunction\clsPrjFuncTemplateRelaBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsPrjFunctionBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsPrjFunctionHistoryBL.cs" />
     <Compile Include="BLL_Class\PrjFunction\clsTabFunctionPropBL.cs" />
@@ -742,7 +741,6 @@
     <Compile Include="DAL_Class\PrjFunction\clsMethodModifierDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsPrjFeatureDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsPrjFeatureTypeDA.cs" />
-    <Compile Include="DAL_Class\PrjFunction\clsPrjFuncTemplateRelaDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsPrjFunctionDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsPrjFunctionHistoryDA.cs" />
     <Compile Include="DAL_Class\PrjFunction\clsTabFunctionPropDA.cs" />
@@ -1212,7 +1210,6 @@
     <Compile Include="Entity_Class\PrjFunction\clsMethodModifierEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsPrjFeatureEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsPrjFeatureTypeEN.cs" />
-    <Compile Include="Entity_Class\PrjFunction\clsPrjFuncTemplateRelaEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsPrjFunctionEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsPrjFunctionHistoryEN.cs" />
     <Compile Include="Entity_Class\PrjFunction\clsTabFunctionPropEN.cs" />
