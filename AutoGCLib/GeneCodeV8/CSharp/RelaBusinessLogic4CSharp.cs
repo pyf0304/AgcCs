@@ -7535,6 +7535,7 @@ namespace AutoGCLib
 
         public string Gen_4BL_TabFeature_ComboBoxBindFunction()
         {
+            return "";
             string strFuncName = "";
             StringBuilder strCodeForCs = new StringBuilder();
             bool bolIsNeedQuote = true;

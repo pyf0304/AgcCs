@@ -44,7 +44,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
-    <Reference Include="TzPubFunction">
+    <Reference Include="TzPubFunction, Version=2026.8.31.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\PrjCode\PublicLib\TzPubFunction.dll</HintPath>
     </Reference>
   </ItemGroup>

@@ -9620,6 +9620,7 @@ objPrjTabENEx.TabName);
 
         public string Gen_4BL_TabFeature_ComboBoxBindFunction()
         {
+            return "";
             if (string.IsNullOrEmpty(objPrjTabENEx.WhereFormatBack) == false)
             {
                 return "//由于本表有格式条件,不需要生成：本函数所以不能生成表功能：绑定下拉框函数;";
@@ -15470,6 +15471,7 @@ objKeyField.FldName, objKeyField.PrivFuncName, objPrjTabENEx.objCacheClassifyFld
 
         public string Gen_4BL_TabFeature_DdlBindFunction()
         {
+            return "";
             if (string.IsNullOrEmpty(objPrjTabENEx.WhereFormatBack) == false)
             {
                 return "//由于本表有格式条件,不需要生成：本函数所以不能生成表功能：绑定下拉框函数;";
